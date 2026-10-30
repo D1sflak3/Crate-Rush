@@ -121,6 +121,16 @@ button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outli
 .pv-btn:disabled{opacity:.4;cursor:not-allowed}
 .pv{position:fixed;inset:0;z-index:95;display:grid;place-items:center;padding:16px;background:rgba(4,6,10,.78);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:fadeIn .2s}
 .pv-card{width:min(760px,100%);max-height:min(88vh,900px);overflow:auto;background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:16px;padding:16px 16px 20px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.lb .pv-card{width:min(560px,100%)}
+.lb-name p{margin:14px 0 8px;color:var(--muted);font-size:14px}
+.lb-nrow{display:flex;gap:8px}.lb-nrow input{flex:1;min-width:0;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:#0a0f15;color:var(--text);font:500 16px var(--body)}
+.lb-row{display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:#111720;margin-top:6px}
+.lb-row.me{border-color:var(--accent);background:#211a0f}.lb-row.gap{margin-top:14px}
+.lb-rk{font-family:var(--display);font-weight:700;font-size:24px;color:var(--muted);text-align:center}
+.lb-row:nth-child(1) .lb-rk{color:#ffcb2e}.lb-row:nth-child(2) .lb-rk{color:#d6dde6}.lb-row:nth-child(3) .lb-rk{color:#d48a4a}
+.lb-nm{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.lb-nm small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
+.lb-w{font-family:var(--mono);font-weight:600;font-size:14px;text-align:right}
+.lb-empty{margin:16px 0 4px;color:var(--muted);text-align:center;font-size:14px}
 .pv-head{display:flex;align-items:center;gap:14px}
 .pv-crate{flex:none;width:78px;display:grid;place-items:center}
 .pv-ttl{flex:1;min-width:0}
@@ -1423,6 +1433,7 @@ pre.notes{margin:0;white-space:pre-wrap;font:inherit;color:#e9fff2}
       <button class="icon-btn mask-btn" id="shopBtn" hidden aria-label="Open the Black Market shop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9 Q5 3 12 3 Q19 3 19 9 Q19 17 12 21 Q5 17 5 9 Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7.5 9.5 L10.8 10.6 L10.3 12 L7.8 11 Z M16.5 9.5 L13.2 10.6 L13.7 12 L16.2 11 Z" fill="currentColor"/></svg></button>
       <button class="icon-btn pres-btn" id="presBtn" hidden aria-label="Go to The Prestige"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7.5" width="18" height="12" rx="2"/><path d="M9 7.5V5.5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 12.5h18"/><rect x="10.5" y="11" width="3" height="3" rx=".6" fill="currentColor"/></svg></button>
       <button class="icon-btn" id="muteBtn" aria-label="Mute sound"></button>
+      <button class="icon-btn" id="lbBtn" aria-label="Leaderboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 20h8"/></svg></button>
       <button class="icon-btn acct-btn" id="acctBtn" hidden aria-label="Account"><span>?</span></button>
       <div class="acct-menu" id="acctMenu" hidden><div id="acctWho"></div><button class="ghost sm" id="acctOut" type="button">Sign out</button></div>
     </div>
@@ -1514,6 +1525,11 @@ pre.notes{margin:0;white-space:pre-wrap;font:inherit;color:#e9fff2}
   </div>
 </div>
 
+<div class="pv lb" id="lb" hidden><div class="pv-card" role="dialog" aria-modal="true" aria-labelledby="lbT">
+  <div class="pv-head"><div class="pv-ttl"><div class="eyebrow">Richest players · credits + the value of everything in their bag</div><h2 id="lbT">Leaderboard</h2></div><button class="icon-btn pv-x" id="lbX" aria-label="Close leaderboard">✕</button></div>
+  <form class="lb-name" id="lbName" hidden><p>Pick the name other players will see next to your score.</p><div class="lb-nrow"><input id="lbIn" maxlength="16" autocomplete="off" spellcheck="false" placeholder="3–16 letters, numbers or _"><button class="open-btn sm" type="submit">Save</button></div><p class="au-msg" id="lbMsg"></p></form>
+  <div id="lbBody"></div>
+</div></div>
 <div class="auth" id="auth" hidden>
   <div class="au-card">
     <div class="au-brand"><span class="au-logo">CRATE<b>RUSH</b></span><span class="au-tag">Your cases, your knives, your deals with the Prestige. Saved to your account.</span></div>
@@ -3596,6 +3612,7 @@ $('#seq').addEventListener('click', e => { if (e.target.closest('#skipBtn')) ret
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
   if (!$('#pv').hidden) { closePreview(); return; }
+  if (!$('#lb').hidden) { $('#lb').hidden = true; return; }
   if (cine) cine.skip();
   else if (!$('#ret').hidden) { retSkip = true; retWake(); }
   else if (mi) mi.skipAll();
@@ -6467,7 +6484,33 @@ async function signOut(){
   try { localStorage.removeItem(KEY); localStorage.removeItem(UID_KEY); } catch (e) {}
   location.reload();
 }
+/* ---------- Leaderboard ----------
+   Ranked in the database from everyone's saves (see the leaderboard() function in Supabase), so the
+   numbers are whatever the saves say; the client only chooses a display name. */
+async function openLb(){
+  $('#lb').hidden = false; $('#lbMsg').textContent = '';
+  if (!me || offline || !sb) { $('#lbName').hidden = true; $('#lbBody').innerHTML = '<p class="lb-empty">Sign in to see the leaderboard.</p>'; return; }
+  $('#lbName').hidden = !!state.name; if (!state.name) $('#lbIn').value = '';
+  $('#lbBody').innerHTML = '<p class="lb-empty">Loading…</p>';
+  await cloudPush();
+  const {data, error} = await sb.rpc('leaderboard', {lim: 50});
+  if (error) { $('#lbBody').innerHTML = '<p class="lb-empty">Couldn’t load the leaderboard. Try again in a moment.</p>'; return; }
+  let prev = 0;
+  $('#lbBody').innerHTML = data.length ? data.map(r => { const gap = r.rank > prev + 1; prev = r.rank;
+    return '<div class="lb-row' + (r.me ? ' me' : '') + (gap ? ' gap' : '') + '"><span class="lb-rk">' + r.rank + '</span><span class="lb-nm">' + escH(r.me && !state.name ? 'You (no name yet)' : r.name) + '<small>' + fmt(r.opened) + ' cases opened' + (r.me ? ' · you' : '') + '</small></span><span class="lb-w">' + fmt(r.worth) + ' cr</span></div>'; }).join('')
+    : '<p class="lb-empty">Nobody on the board yet.</p>';
+}
+const escH = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function acctInit(){
+  $('#lbBtn').onclick = openLb;
+  $('#lbX').onclick = () => { $('#lb').hidden = true; };
+  $('#lb').addEventListener('click', e => { if (e.target.id === 'lb') $('#lb').hidden = true; });
+  $('#lbName').addEventListener('submit', async e => {
+    e.preventDefault();
+    const n = $('#lbIn').value.trim();
+    if (!/^[A-Za-z0-9_]{3,16}$/.test(n)) { $('#lbMsg').textContent = 'Use 3–16 letters, numbers or underscores.'; $('#lbMsg').className = 'au-msg err'; return; }
+    state.name = n; save(); openLb();
+  });
   $g('#auForm').addEventListener('submit', gateSubmit);
   document.querySelectorAll('#auth .au-tab').forEach(t => t.onclick = () => { showGate(t.dataset.m); gateMsg(''); });
   $g('#auForgot').onclick = forgot;
