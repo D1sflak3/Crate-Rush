@@ -773,6 +773,55 @@ pre.notes{margin:0;white-space:pre-wrap;font:inherit;color:#e9fff2}
 
 /* The Prestige: intro cutscene */
 
+
+/* Socket's Contraption */
+.pr-scene > svg .sk-mach,.pr-scene > svg .sk-mach *{pointer-events:auto;cursor:pointer}
+.sk-mach .hl{opacity:0}
+.pr-scene:not(.zoomed) .sk-mach .hl{animation:hotPulse 2.8s ease-in-out infinite}
+.mc-gear{transform-box:fill-box;transform-origin:50% 50%;animation:mcSpin 4s linear infinite}
+@keyframes mcSpin{to{transform:rotate(360deg)}}
+.mc-smoke circle{transform-box:fill-box;transform-origin:50% 50%;animation:mcPuff 2.4s ease-out infinite}
+.mc-smoke circle:nth-child(2){animation-delay:-.8s}.mc-smoke circle:nth-child(3){animation-delay:-1.6s}
+@keyframes mcPuff{0%{opacity:.8;transform:translate(0,0) scale(.6)}100%{opacity:0;transform:translate(6px,-22px) scale(1.7)}}
+.mc-needle{transform-box:fill-box;transform-origin:50% 100%;animation:mcTwitch 1.3s ease-in-out infinite}
+.mc-needle.n2{transform-origin:0 100%;animation-duration:.7s}
+@keyframes mcTwitch{0%,100%{transform:rotate(-35deg)}50%{transform:rotate(30deg)}}
+.mc-l1,.mc-l2{animation:pcBlink 1s steps(1) infinite}.mc-l2{animation-delay:-.5s}
+.mc-bits,.mc-crack{opacity:0}
+.mc{transform-box:fill-box;transform-origin:50% 100%}
+.batch-btn{appearance:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:8px;border:1px solid #2f6b62;background:#0e1816;color:#bff3e8;font-weight:700;font-size:14.5px}
+.batch-btn:hover:not(:disabled){border-color:#5fd1c2}
+.batch-btn:disabled{opacity:.5;cursor:not-allowed}
+.batch-btn .cost{display:inline-flex;gap:4px;align-items:center;color:#ffd27a}
+.bb-ico{display:inline-block;animation:mcSpin 3s linear infinite}
+.batch{position:fixed;inset:0;z-index:83;background:radial-gradient(circle at 50% 22%,#1c2a28,#050606 70%);display:flex;flex-direction:column;align-items:center;gap:12px;padding:20px 16px 28px;overflow:auto;color:var(--text)}
+.batch.shake{animation:quake .55s}
+.bt-mach{width:min(220px,50vw);flex:none}
+.bt-mach svg{width:100%;height:auto;display:block;overflow:visible}
+.batch.run .mc{animation:mcShake .12s linear infinite}
+.batch.run .mc-gear{animation-duration:.45s}
+@keyframes mcShake{25%{transform:translate(1.5px,-1px) rotate(.8deg)}75%{transform:translate(-1.5px,1px) rotate(-.8deg)}}
+.batch.boom .mc{transform:rotate(-5deg) translateY(3px)}
+.batch.boom .mc-gear{animation:none;transform:translate(8px,26px) rotate(50deg)}
+.batch.boom .mc-crack{opacity:1}
+.batch.boom .mc-l1,.batch.boom .mc-l2{animation:none;fill:#2a2a2a}
+.batch.boom .mc-needle{animation:none;transform:rotate(100deg)}
+.batch.boom .mc-bits{opacity:0;animation:mcBits 1s ease-out both}
+@keyframes mcBits{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-34px) rotate(40deg)}}
+.batch.boom .mc-smoke circle{fill:#1a1a1a;animation-duration:.9s}
+.bt-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;width:min(860px,100%)}
+@media (max-width:640px){.bt-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.bt-card{display:flex;flex-direction:column;gap:2px;padding:8px;border-radius:8px;background:#141617;border:1px solid #2c2f34;border-bottom:3px solid var(--tc);animation:btPop .35s cubic-bezier(.3,1.6,.5,1) both;min-width:0}
+.bt-card img,.bt-card canvas{width:100%;height:auto}
+.bt-card.big{box-shadow:0 0 0 2px var(--tc),0 0 26px color-mix(in srgb,var(--tc) 50%,transparent)}
+.bt-card .nm{font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bt-card .sub{font-size:12px;color:var(--muted)}
+.bt-card .v{display:flex;gap:5px;align-items:center;font-weight:700;font-variant-numeric:tabular-nums}
+@keyframes btPop{from{transform:translateY(-30px) scale(.6);opacity:0}}
+.bt-msg{text-align:center;max-width:520px;color:#cfe3dc;min-height:1.4em}
+.bt-msg b{color:#ff8a3d}
+.bt-acts{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+@media (prefers-reduced-motion: reduce){.mc-gear,.mc-smoke circle,.mc-needle,.bb-ico,.batch.run .mc{animation:none}}
 /* The fire auction */
 .pr-auc{appearance:none;cursor:pointer;grid-column:1/-1;display:flex;align-items:center;gap:16px;text-align:left;color:#f3e2cc;padding:14px 18px;border-radius:4px;border:1px solid #6b3412;
   background:radial-gradient(140px 90px at 60px 70%,rgba(255,120,30,.45),transparent 70%),linear-gradient(135deg,#2a140a,#120905);box-shadow:0 12px 24px rgba(0,0,0,.5);transition:transform .15s,border-color .15s}
@@ -1729,6 +1778,7 @@ body{background:
     <div class="odds" id="odds"></div>
     <div class="open-row">
       <button class="open-btn" id="openBtn"></button>
+      <button class="batch-btn" id="batchBtn" hidden></button>
       <button class="ghost sm xbtn" id="xrayBtn" hidden></button>
       <button class="refill" id="refillBtn" hidden>Claim 1,000 free credits</button>
     </div>
@@ -1954,6 +2004,13 @@ body{background:
   <div class="rule"></div>
   <p>Four of them, living in the Scrapyard. They only buy rust: anything out of a Scrapyard case, or anything Scarred. The more worn a piece is, the more they pay.</p>
   <div style="display:grid;gap:10px;justify-items:center"><button class="gold-btn" id="ytEnter">Enter the Scrapyard</button><button class="link-btn" id="ytLater">Later</button></div>
+</div>
+
+<div class="batch" id="batch" hidden>
+  <div class="bt-mach" id="btMach"></div>
+  <div class="bt-grid" id="btGrid"></div>
+  <div class="bt-msg" id="btMsg"></div>
+  <div class="bt-acts" id="btActs" hidden><button class="gold-btn" id="btKeep">Keep everything</button><button class="ghost" id="btSell">Sell everything below Gold</button></div>
 </div>
 
 <div class="auc" id="auc" hidden>
@@ -3001,7 +3058,7 @@ function renderOpen(){
   const xb = $('#xrayBtn');
   xb.hidden = !(H().xray > 0) || !!state.xrayRolls[c.id]; xb.disabled = busy;
   xb.textContent = 'Scan with X-ray · ' + H().xray + ' left';
-  renderHacks();
+  renderHacks(); renderBatchBtn();
 }
 function scanCase(){
   const c = CASES[sel];
@@ -3990,6 +4047,7 @@ document.addEventListener('keydown', e => {
   else if (pc) pc.skipAll();
   else if (!$('#yti').hidden) closeYt(false);
   else if (auc) closeAuction();
+  else if (batch) closeBatch(false);
   else if (!$('#brief').hidden) closeBrief();
   else if (presOpen) {
     if (room && ovMode) closeOv();
@@ -5066,7 +5124,7 @@ function renderLobby(){
 function openRoom(id){
   const m = MBY[id], cl = coolLeft(m), held = id === 'tobias' && cellValid();
   if (cl && !held) { toast(m.say.cool); tone(140, .2, 'square', .05); return; }
-  room = m; neg = null; shopSel = null; ovMode = null; sablePress = []; vxSel = new Set(); vxCr = 0; vxBand = -1;
+  room = m; neg = null; shopSel = null; machSel = false; ovMode = null; sablePress = []; vxSel = new Set(); vxCr = 0; vxBand = -1;
   const R = $('#prRoom'); R.hidden = false; $('#prLobby').hidden = true;
   $('#pres').classList.add('in-room');
   R.style.setProperty('--mc', m.col); R.className = 'pr-room r-' + m.id;
@@ -5088,6 +5146,7 @@ function openRoom(id){
 function greet(m){ if (room === m) sayRoom(state.inv.length ? m.say.hi : m.say.none); }
 function playIntro(m){ unzoomShop(); $('#prSay').textContent = ''; sayTok++; memberIntro(m).then(() => greet(m)); }
 function leaveRoom(){
+  machSel = false;
   if (captive) { cellNo(); return; }
   closeOv(); room = null; neg = null; shopSel = null; actBusy = false; sayTok++;
   $('#pres').classList.remove('in-room');
@@ -5137,6 +5196,7 @@ function renderLeft(anim){
     const slot0 = Cx.querySelector('.rmc-art'); if (slot0 && art) slot0.append(art);
     return;
   }
+  if (machSel && m.id === 'socket') { Lp.innerHTML = machLeft(B, lock); Cx.innerHTML = machCtx(); return; }
   if (shopSel != null && shopStock(m)[shopSel] && shopStock(m)[shopSel].pk) {
     const n = shopStock(m).length, afford = state.bal >= PK1.cost;
     left = B('buy', afford ? 'Buy it and open it' : 'Can’t afford it', 'gold', lock, fmt(PK1.cost) + ' cr')
@@ -6438,6 +6498,7 @@ const YARD_SC = {
       s += shopSlots(MBY.socket, k)
         + '<text x="85" y="198" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="15" fill="#5fd1c2" opacity=".5" transform="rotate(-2 85 198)">IF IT JAMS, IT’S YOURS</text>';
       s += '<g class="sk-lamp"><path d="M300 0 V30" stroke="#555" stroke-width="1.4"/><path d="M288 30 H312 L306 40 H294 Z" fill="#3a4a4a"/><circle cx="300" cy="42" r="4" fill="#fff6d0"/><path d="M300 42 L216 222 H392 Z" fill="#fff6d0" opacity=".05"/></g>';
+      s += '<g class="sk-mach"><ellipse class="hl" cx="254" cy="74" rx="44" ry="40" style="fill:#5fd1c2" filter="url(#hb' + k + ')"/><g transform="translate(216 38) scale(.6)">' + machSVG() + '</g><rect class="hit" x="210" y="28" width="90" height="88" fill="#000" fill-opacity="0"/></g>';
       /* A car up on a jack, rust coming through the paint */
       s += '<path d="M236 196 Q240 168 270 162 L300 140 Q320 132 352 134 L392 140 Q404 150 404 170 V196 Z" fill="#7a2a1a" stroke="#2a0f08" stroke-width="1.5"/>'
         + '<path d="M304 146 Q322 140 348 141 L350 160 H296 Z" fill="#1a2430" opacity=".85"/><path d="M250 180 H404" stroke="#4a1a10" stroke-width="2"/>'
@@ -6754,6 +6815,150 @@ function aucAct(a){
   }
   if (a === 'keep' && ctl.done) { toast('You keep it. Four very angry people watch you leave.'); closeAuction(); }
 }
+
+/* ---------- Socket's Contraption ----------
+   A clanking machine in the back of her garage. Buy it and the home screen gets an "Open 10" button: ten cases
+   of the selected kind in one go, for ten times the price. It runs until a Gold or Black Market piece comes out of
+   it, then blows apart, and Socket will build you another for the same price. Not for Case 4 (every pull is Gold). */
+const MACH_COST = 6000, MACH_N = 10;
+let machSel = false, batch = null;
+function machSVG(){
+  const bolt = (x, y) => '<circle cx="' + x + '" cy="' + y + '" r="1.6" fill="#a9b3ad" stroke="#1d2a28" stroke-width=".5"/>';
+  return '<g class="mc">'
+    + '<g class="mc-smoke"><circle cx="88" cy="8" r="6" fill="#6b6b6b"/><circle cx="94" cy="2" r="4.5" fill="#7a7a7a"/><circle cx="84" cy="-2" r="4" fill="#5a5a5a"/></g>'
+    + '<rect x="82" y="12" width="12" height="40" fill="#2a2f33" stroke="#111" stroke-width="1"/><rect x="79" y="10" width="18" height="5" rx="1" fill="#3a4044"/>'
+    + '<path d="M46 30 Q46 8 70 8 Q84 8 84 24" stroke="#8a6a3a" stroke-width="4" fill="none"/><path d="M46 30 Q46 8 70 8 Q84 8 84 24" stroke="#b08a50" stroke-width="1.2" fill="none"/>'
+    + '<path d="M28 52 L18 22 H64 L56 52 Z" fill="#5f6e64" stroke="#1d2a28" stroke-width="1.2"/><path d="M22 26 H60" stroke="#3a4a42" stroke-width="2"/>'
+    + '<text x="41" y="44" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" fill="#ffd23f">×10</text>'
+    + '<rect x="8" y="50" width="104" height="56" rx="4" fill="#3f5a55" stroke="#1d2a28" stroke-width="1.4"/>'
+    + '<circle cx="24" cy="98" r="7" fill="#b5541c" opacity=".55"/><circle cx="100" cy="58" r="6" fill="#8a3a14" opacity=".5"/><path d="M60 52 l4 10 l-3 6" stroke="#1d2a28" stroke-width="1" fill="none" class="mc-crack"/>'
+    + bolt(13, 55) + bolt(107, 55) + bolt(13, 101) + bolt(107, 101)
+    + '<rect x="26" y="58" width="68" height="4" fill="#2a3a36"/>'
+    + '<circle cx="30" cy="76" r="10" fill="#efe8d4" stroke="#1d2a28" stroke-width="1.6"/><path class="mc-needle" d="M30 76 L30 68" stroke="#c0262d" stroke-width="1.6" stroke-linecap="round"/><circle cx="30" cy="76" r="1.5" fill="#1d2a28"/>'
+    + '<circle cx="54" cy="74" r="7" fill="#efe8d4" stroke="#1d2a28" stroke-width="1.4"/><path class="mc-needle n2" d="M54 74 L58 70" stroke="#1d2a28" stroke-width="1.3" stroke-linecap="round"/>'
+    + '<g class="mc-gear"><circle cx="88" cy="78" r="12" fill="none" stroke="#c9a24a" stroke-width="5" stroke-dasharray="3.2 3"/><circle cx="88" cy="78" r="9" fill="#8a6a2a"/><circle cx="88" cy="78" r="3" fill="#2a2010"/></g>'
+    + '<circle class="mc-l1" cx="44" cy="92" r="2.4" fill="#39ff88"/><circle class="mc-l2" cx="52" cy="92" r="2.4" fill="#ff4d4d"/>'
+    + '<rect x="62" y="88" width="34" height="12" rx="2" fill="#141414" stroke="#0a0a0a"/><path d="M64 94 H94" stroke="#2a2a2a" stroke-width="1"/>'
+    + '<path d="M112 80 L120 66" stroke="#555" stroke-width="3" stroke-linecap="round"/><circle cx="120" cy="66" r="3.4" fill="#c0262d"/>'
+    + '<rect x="14" y="106" width="8" height="10" fill="#2a2f33"/><rect x="98" y="106" width="8" height="10" fill="#2a2f33"/>'
+    + '<g class="mc-bits"><rect x="84" y="64" width="6" height="3" fill="#a9b3ad"/><circle cx="40" cy="60" r="2" fill="#a9b3ad"/><rect x="66" y="58" width="5" height="5" fill="#c9a24a"/><path d="M20 40 l6 -3" stroke="#5f6e64" stroke-width="3"/></g>'
+    + '</g>';
+}
+function machOpen(){
+  if (!room || room.id !== 'socket' || actBusy || mi || neg) return;
+  closeOv(); machSel = true; shopSel = null;
+  const sc = sceneEl(); if (sc) sc.classList.add('zoomed');
+  camScene([200, 24, 112, 100]); renderLeft();
+  whoosh();
+  (async () => {
+    if (Y().machine) { sayRoom("Still ticking? Good. Go feed it from the main floor. Ten at a time.", 'happy'); return; }
+    await sayRoom("Oh, that? The Contraption. It opens ten cases at once.");
+    await wait(1500); if (room && room.id === 'socket' && machSel && !Y().machine) {
+      sayRoom("It runs like a dream until something shiny comes out. Gold, contraband, whatever. Then it blows apart. Every time. " + fmt(MACH_COST) + " and it's yours.");
+    }
+  })();
+  clunkMach();
+}
+function clunkMach(){ [0, .12, .26].forEach((d, i) => { tone(110 + i*40, .14, 'square', .05, d); noise(.08, 2200, 600, .08, 'bandpass'); }); }
+function machClose(){ machSel = false; unzoomShop(); }
+function machBuy(){
+  if (!room || room.id !== 'socket' || Y().machine) return;
+  if (state.bal < MACH_COST) { sayRoom('Parts cost money, pal. ' + fmt(MACH_COST) + '.', 'mad'); tone(150, .22, 'sawtooth', .05); return; }
+  state.bal -= MACH_COST; Y().machine = true; Y().builds = (Y().builds || 0) + 1; save(); setBal(-MACH_COST); prBal();
+  kaching(); clunkMach();
+  sayRoom(Y().builds > 1 ? "Built you a new one. Same deal: the second it coughs up Gold, it's scrap again." : "It's yours. There's an 'Open 10' button on the main floor now. Try not to stand too close.", 'happy');
+  toast('Socket’s Contraption: “Open 10” is on the main floor');
+  renderLeft();
+}
+function machLeft(B, lock){
+  const own = !!Y().machine;
+  return B('mbuy', own ? 'It’s yours' : Y().builds ? 'Build me another' : 'Buy it', 'gold', lock || own, own ? 'working' : fmt(MACH_COST) + ' cr')
+    + B('munzoom', 'Back', 'ghost', lock);
+}
+function machCtx(){
+  const own = !!Y().machine;
+  return '<div class="rmc rmc-shop" style="--tc:#5fd1c2"><div class="lab">Back of the garage</div><div class="t">The Contraption</div>'
+    + '<div class="rmc-sub">Opens ' + MACH_N + ' cases of the one you’ve picked, all at once, for ' + MACH_N + '× the price. Same odds as opening them one by one.</div>'
+    + '<div class="rmc-sub">Works until a Gold or Black Market piece comes out of it, then it blows apart. Not for Case 4.</div>'
+    + (own ? '<div class="rmc-exact">Working. Use “Open 10” on the main floor.</div>' : Y().builds ? '<div class="rmc-sub">The last one blew up. She can build another.</div>' : '')
+    + '<div class="rmc-price"><span class="coin"></span>' + fmt(MACH_COST) + '</div></div>';
+}
+
+/* The batch: ten rolls, one overlay */
+function batchCost(c){ return c.cost * MACH_N; }
+function renderBatchBtn(){
+  const b = $('#batchBtn'); if (!b) return;
+  const c = CASES[sel], on = !!Y().machine && c.id !== 'c4';
+  b.hidden = !on; if (!on) return;
+  const cost = batchCost(c);
+  b.disabled = busy || state.bal < cost;
+  b.innerHTML = '<span class="bb-ico" aria-hidden="true">⚙</span>Open ' + MACH_N + ' with Socket’s machine <span class="cost"><span class="coin"></span>' + fmt(cost) + '</span>';
+}
+async function runBatch(){
+  const c = CASES[sel];
+  if (busy || !Y().machine || c.id === 'c4' || state.bal < batchCost(c)) return;
+  ac(); busy = true; lockRack(true);
+  const cost = batchCost(c);
+  state.bal -= cost; state.spent += cost; setBal(-cost);
+  const got = [];
+  for (let i = 0; i < MACH_N; i++) { const r = roll(c); consume(r.hk); got.push(r); }
+  state.opened += MACH_N; if (c.id === 'scrap') Y().scrapN = (Y().scrapN || 0) + MACH_N;
+  let broke = false;
+  got.forEach(r => {
+    const it = BY[r.id]; state.inv.unshift(r);
+    if (it.t === 5) state.gold++;
+    if (it.t === 6) gotBM(r.id);
+    if (it.t >= 5) broke = true;
+    if (!state.best || r.v > state.best.v) state.best = {id: r.id, v: r.v};
+  });
+  if (broke) Y().machine = false;
+  save(); renderOpen();
+  batch = {got, broke, done: false};
+  const el = $('#batch'); el.hidden = false; el.className = 'batch';
+  $('#btMach').innerHTML = '<svg viewBox="-6 -10 134 130" aria-hidden="true">' + machSVG() + '</svg>';
+  $('#btGrid').innerHTML = ''; $('#btMsg').textContent = ''; $('#btActs').hidden = true;
+  const W = ms => wait(REDUCED ? Math.min(ms, 60) : ms);
+  el.classList.add('run');
+  const rattle = setInterval(() => { tone(90 + Math.random()*80, .06, 'square', .03); if (Math.random() < .5) noise(.05, 2400, 900, .05, 'bandpass'); }, 110);
+  await W(1600);
+  const sorted = got.slice();
+  for (const r of sorted) {
+    const it = BY[r.id], wi = wearIdx(r.fl), d = document.createElement('div');
+    d.className = 'bt-card' + (it.t >= 5 ? ' big' : ''); d.style.setProperty('--tc', TIERS[it.t].color);
+    d.append(thumb(it, wi));
+    d.insertAdjacentHTML('beforeend', '<span class="nm">' + it.name + '</span><span class="sub">' + TIERS[it.t].name + ' · ' + WEARS[wi].n + '</span><span class="v"><span class="coin"></span>' + fmt(r.v) + '</span>');
+    $('#btGrid').append(d);
+    tone(400 + it.t * 120, .08, 'triangle', .05); noise(.04, 1800, 600, .04);
+    if (it.t >= 5) { clearInterval(rattle); if (it.t === 5) goldSound(); else tone(110, .8, 'sawtooth', .06); }
+    await W(it.t >= 5 ? 700 : 170);
+  }
+  clearInterval(rattle);
+  el.classList.remove('run');
+  const total = got.reduce((a, r) => a + r.v, 0), low = got.filter(r => BY[r.id].t < 5);
+  if (broke) {
+    el.classList.add('boom'); restart(el, 'shake'); boom();
+    [0, .15, .3, .5].forEach(d => { tone(70 + Math.random()*60, .3, 'square', .08, d); noise(.25, 1400, 200, .2, 'lowpass'); });
+    $('#btMsg').innerHTML = '<b>KA-CHUNK.</b> ' + (got.some(r => BY[r.id].t === 6) ? 'Contraband' : 'Gold') + ' came out and the machine blew apart. Socket can build you another for ' + fmt(MACH_COST) + '.';
+  } else $('#btMsg').innerHTML = 'Ten cases, ' + fmt(total) + ' cr worth. The machine is still clanking.';
+  $('#btSell').textContent = 'Sell everything below Gold · ' + fmt(low.reduce((a, r) => a + r.v, 0));
+  $('#btSell').hidden = !low.length;
+  $('#btActs').hidden = false; batch.done = true;
+  setTimeout(() => $('#btKeep').focus({preventScroll:true}), 50);
+}
+function closeBatch(sell){
+  if (!batch || !batch.done) return;
+  const b = batch; batch = null;
+  if (sell) {
+    let got = 0;
+    b.got.filter(r => BY[r.id].t < 5).forEach(r => { if (state.inv.some(e => e.uid === r.uid)) { got += payout(r); state.inv = state.inv.filter(e => e.uid !== r.uid); } });
+    state.bal += got; save(); setBal(got); toast('Sold for ' + fmt(got) + ' cr');
+  }
+  $('#batch').hidden = true; $('#btGrid').innerHTML = ''; $('#btMach').innerHTML = '';
+  busy = false; lockRack(false);
+  selectCase(); renderInv(); renderStats(); renderOpen();
+  if (state.pendingReturn) dealerReturns();
+  else if (state.gold > 0 && !state.pres.seen) setTimeout(prestigeIntro, 350);
+}
 function memberIntro(m){
   return new Promise(resolve => {
     ac();
@@ -6863,6 +7068,7 @@ function onHot(i){
   selectSlot(i);
 }
 function selectSlot(i){
+  machSel = false;
   const m = room, sc = sceneEl(); if (!m || !sc) return;
   const first = shopSel == null;
   if (neg && !neg.lock) neg = null;
@@ -6885,6 +7091,7 @@ function restView(){
   else svg.style.transform = '';
 }
 function unzoomShop(){
+  machSel = false;
   shopSel = null;
   const sc = sceneEl(); if (!sc) return;
   sc.classList.remove('zoomed');
@@ -7340,9 +7547,13 @@ $('#ytLater').onclick = () => closeYt(false);
 $('#prBack').onclick = () => { if (vaultBusy) return; if (room) leaveRoom(); else closePres(); };
 $('#prGrid').addEventListener('click', e => { if (e.target.closest('.pr-auc')) { openAuction(); return; } const b = e.target.closest('.pr-mem'); if (b) openRoom(b.dataset.m); });
 $('#aucClose').onclick = closeAuction;
+$('#batchBtn').onclick = runBatch;
+$('#btKeep').onclick = () => closeBatch(false);
+$('#btSell').onclick = () => closeBatch(true);
 $('#aucPick').addEventListener('click', e => { const b = e.target.closest('.au-it'); if (!b || !auc || auc.e) return; const en = state.inv.find(x => x.uid === b.dataset.uid); if (en) runAuction(en); });
 $('#aucActs').addEventListener('click', e => { const b = e.target.closest('[data-au]'); if (b) aucAct(b.dataset.au); });
 $('#prRoom').addEventListener('click', e => {
+  if (e.target.closest('.sk-mach')) { if (!vaultBusy && !actBusy && !mi) machOpen(); return; }
   const hot = e.target.closest('.hot');
   if (hot) { onHot(+hot.getAttribute('data-slot')); return; }
   const vb = e.target.closest('[data-vx]'); if (vb) { vxCredits(vb.dataset.vx); return; }
@@ -7357,6 +7568,8 @@ $('#prRoom').addEventListener('click', e => {
   if (a && a.dataset.a === 'pkprev') { if (!a.disabled) openPreview(PK1); return; }
   if (a && a.dataset.a === 'pk1') { if (!a.disabled && room && room.id === 'tobias' && !vaultBusy && !actBusy && !mi && !captive) selectSlot(0); return; }
   if (a && a.dataset.a === 'ovclose') { closeOv(); return; }
+  if (a && a.dataset.a === 'mbuy') { if (!a.disabled) machBuy(); return; }
+  if (a && a.dataset.a === 'munzoom') { machClose(); return; }
   if (a && a.dataset.a === 'peek') { if (!a.disabled) tinnyPeek(); return; }
   if (a && a.dataset.a === 'leave') { if (!a.disabled && !vaultBusy && !actBusy) leaveRoom(); return; }
   if (a) { if (!a.disabled) negAct(a.dataset.a); return; }
