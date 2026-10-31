@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Barlow+Semi+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Barlow+Semi+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Limelight&family=Permanent+Marker&display=swap" rel="stylesheet">
 <style>
 /* Layout: one arcade column — HUD, case rack, stage (crate -> reel), trade-up contract, inventory, stats */
 :root{
@@ -1482,6 +1482,124 @@ pre.notes{margin:0;white-space:pre-wrap;font:inherit;color:#e9fff2}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+
+/* ================= Redesign: three places, three looks =================
+   Home is a loading dock after hours: concrete, steel shelving, one work light on the crate.
+   The Prestige is a penthouse: black lacquer, brass, an elevator dial, portraits in arched frames.
+   The Scrapyard is a fence at night: chain link, a plywood sign, rust sheets with spray paint. */
+:root{--bg:#121315;--panel:#1a1b1e;--panel2:#212327;--line:#32353b;--text:#ece7dc;--muted:#9c978c}
+body{background:
+  radial-gradient(1100px 520px at 50% -180px,#2e2a22 0%,transparent 70%),
+  linear-gradient(90deg,rgba(0,0,0,.35) 0 1px,transparent 1px) 0 0/160px 160px,
+  linear-gradient(0deg,rgba(0,0,0,.35) 0 1px,transparent 1px) 0 0/160px 160px,
+  radial-gradient(circle at 30% 40%,rgba(255,255,255,.012),transparent 2px) 0 0/7px 7px,
+  var(--bg)}
+.bal,.icon-btn,.price-tag{background:#0e0f10}
+.logo{color:#ece7dc}
+/* The rack: steel shelving bays, each with its own work light */
+.rack{gap:12px}
+.tile{border-radius:6px;border-color:#2c2f34;background:linear-gradient(180deg,#1d1f22 0%,#17181a 70%);box-shadow:inset 0 -9px 0 #26282c,inset 0 -11px 0 #a8641c;padding-bottom:20px}
+.tile::after{content:"";position:absolute;top:0;left:22%;right:22%;height:3px;border-radius:0 0 3px 3px;background:#3a3c40;transition:background .2s,box-shadow .2s}
+.tile[aria-pressed="true"]{border-color:#5a4520;box-shadow:inset 0 -9px 0 #26282c,inset 0 -11px 0 #f0a43a,0 14px 30px rgba(240,164,58,.12);background:radial-gradient(120% 90% at 50% 0%,rgba(255,214,150,.13),transparent 60%),linear-gradient(180deg,#1f2023,#17181a 70%)}
+.tile[aria-pressed="true"]::after{background:#ffd27a;box-shadow:0 0 16px 5px rgba(255,190,90,.45)}
+.tile.is-gold{background:linear-gradient(180deg,#26200f,#16130a 70%);box-shadow:inset 0 -9px 0 #2a2412,inset 0 -11px 0 #ffcb2e}
+.tile.is-gold[aria-pressed="true"]{box-shadow:inset 0 -9px 0 #2a2412,inset 0 -11px 0 #ffcb2e,0 14px 30px rgba(255,203,46,.2)}
+.tile:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.pv-btn{border-radius:5px}
+/* The stage: a work light over a pallet, the case's name stencilled on the wall behind */
+.stage{border-radius:8px;border-color:#2c2f34;background:
+  linear-gradient(180deg,transparent 62%,rgba(0,0,0,.28) 62%),
+  linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px) 0 0/48px 100%,
+  linear-gradient(180deg,#1e1f22,#141517)}
+.stage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:7px;background:repeating-linear-gradient(-45deg,#e0962e 0 12px,#141414 12px 24px);opacity:.75;pointer-events:none}
+.stage.gold{background:linear-gradient(180deg,transparent 62%,rgba(0,0,0,.28) 62%),linear-gradient(180deg,#261f0f,#16120a)}
+.stage-view{height:250px}
+.st-stencil{position:absolute;inset:0 0 auto;top:6px;text-align:center;font-family:var(--display);font-weight:700;font-size:clamp(64px,15vw,150px);line-height:1;letter-spacing:.08em;white-space:nowrap;color:transparent;-webkit-text-stroke:1.5px rgba(236,231,220,.07);pointer-events:none;user-select:none;overflow:hidden}
+.stage-view::before{content:"";position:absolute;left:50%;top:-58px;width:min(380px,92%);height:300px;transform:translateX(-50%);pointer-events:none;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--glowc) 22%,rgba(255,236,200,.2)),transparent 88%);clip-path:polygon(43% 0,57% 0,100% 100%,0 100%)}
+.stage-view::after{content:"";position:absolute;left:50%;top:-12px;width:54px;height:12px;transform:translateX(-50%);border-radius:2px 2px 10px 10px;background:linear-gradient(#3a3c40,#232427);box-shadow:0 5px 0 -2px #fff1cf,0 8px 18px 2px rgba(255,236,200,.35);pointer-events:none}
+.crate-zone::after{bottom:16px;width:min(240px,62vw);height:24px;border-radius:2px;
+  background:linear-gradient(180deg,#9a7448 0 5px,#6b4d2c 5px 7px,transparent 7px 14px,#8a6640 14px 19px,#5a4024 19px),
+  linear-gradient(90deg,transparent 8%,#5a4024 8% 16%,transparent 16% 46%,#5a4024 46% 54%,transparent 54% 84%,#5a4024 84% 92%,transparent 92%);
+  box-shadow:0 10px 18px rgba(0,0,0,.6)}
+.crate-zone .crate{margin-top:14px}
+.chip{border-radius:4px;background:#101113;border-color:#2c2f34}
+.open-btn{border-radius:8px}
+
+/* ---------- The Prestige: lacquer and brass ---------- */
+.pres:not(.yard){background:
+  repeating-conic-gradient(from 180deg at 50% -6%,rgba(255,203,46,.045) 0 1.6deg,transparent 1.6deg 7deg),
+  radial-gradient(900px 520px at 50% -100px,#2f2310 0%,transparent 70%),
+  linear-gradient(#0d0a06,#060504)}
+.pres:not(.yard) .pr-top{background:linear-gradient(#0d0a06 70%,transparent)}
+.pres:not(.yard) .pr-brand{font-family:"Limelight",var(--display);font-weight:400;font-size:28px;letter-spacing:.12em;line-height:1;background:linear-gradient(180deg,#fff2c4,#e6b53c 55%,#9a6a14);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pres:not(.yard) .pr-brand small{-webkit-text-fill-color:#a8956a;font-family:var(--body);letter-spacing:.2em}
+.pres:not(.yard) .pr-hero{text-align:center;border:0;border-radius:0;background:none;padding:6px 18px 22px;margin-bottom:20px}
+.pres:not(.yard) .pr-hero::after{inset:auto 15% 0;height:1px;border:0;border-radius:0;background:linear-gradient(90deg,transparent,#c9a54a,transparent)}
+.pres:not(.yard) .pr-hero h2{font-family:"Limelight",var(--display);font-weight:400;font-size:clamp(28px,5vw,40px);letter-spacing:.04em;color:#f3e3b3;margin-top:6px}
+.pres:not(.yard) .pr-hero p{max-width:62ch;margin:6px auto 0;color:#bfae86}
+.pres:not(.yard) .pr-ledger{justify-content:center}
+/* The elevator dial over the hero: the needle swings to P when you arrive */
+.pr-dial{position:relative;width:170px;height:88px;margin:4px auto 0;border-radius:90px 90px 0 0;border:2px solid #c9a54a;border-bottom:0;
+  background:radial-gradient(circle at 50% 100%,#1a130a 0 40%,transparent 41%),repeating-conic-gradient(from -90deg at 50% 100%,#c9a54a 0 1deg,transparent 1deg 15deg),#0b0805;
+  box-shadow:0 0 0 4px #0b0805,0 0 0 5px rgba(201,165,74,.4)}
+.pr-dial i{position:absolute;left:50%;bottom:0;width:3px;height:70px;margin-left:-1.5px;border-radius:2px;background:linear-gradient(#ffd27a,#9a6a14);transform-origin:50% 100%;transform:rotate(78deg);animation:dialSwing 1.6s cubic-bezier(.3,1.4,.4,1) .15s both}
+.pr-dial i::after{content:"";position:absolute;left:50%;bottom:-6px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:#c9a54a}
+.pr-dial span{position:absolute;left:50%;bottom:0;width:20px;margin-left:-10px;height:84px;transform-origin:50% 100%;text-align:center;font-family:"Limelight",var(--display);font-size:13px;color:#a8956a}
+.pr-dial span:last-of-type{color:#ffd27a}
+@keyframes dialSwing{from{transform:rotate(-78deg)}}
+.pres.yard .pr-dial{display:none}
+.pres:not(.yard) .pr-grid{gap:16px 14px}
+.pres:not(.yard) .pr-mem:not(.pr-tob){align-items:center;text-align:center;padding:0 12px 14px;border-radius:999px 999px 10px 10px;border:1px solid #7a5d22;
+  background:linear-gradient(180deg,#17120a,#0b0805 60%);box-shadow:inset 0 0 0 5px #0b0805,inset 0 0 0 6px rgba(201,165,74,.42)}
+.pres:not(.yard) .pr-mem:not(.pr-tob)::before{display:none}
+.pres:not(.yard) .pr-mem:not(.pr-tob):hover{border-color:var(--mc);box-shadow:inset 0 0 0 5px #0b0805,inset 0 0 0 6px var(--mc),0 16px 40px color-mix(in srgb,var(--mc) 18%,transparent)}
+.pres:not(.yard) .pr-mem:not(.pr-tob) .pf{width:calc(100% + 24px);height:150px;border-radius:999px 999px 0 0;
+  background:repeating-conic-gradient(from 180deg at 50% 100%,color-mix(in srgb,var(--mc) 16%,transparent) 0 4deg,transparent 4deg 12deg),radial-gradient(circle at 50% 80%,color-mix(in srgb,var(--mc) 34%,transparent),transparent 62%)}
+.pres:not(.yard) .pr-mem:not(.pr-tob) .pf svg{height:128px}
+.pres:not(.yard) .pr-mem:not(.pr-tob) .nm{font-family:"Limelight",var(--display);font-weight:400;font-size:22px;letter-spacing:.06em;color:#f3e3b3;margin-top:2px;padding:4px 12px 2px;border-radius:3px;background:linear-gradient(180deg,#3a2c12,#1c1508);box-shadow:inset 0 0 0 1px #c9a54a}
+.pres:not(.yard) .pr-mem:not(.pr-tob) .rl{order:2;margin-top:4px}
+.pres:not(.yard) .pr-mem:not(.pr-tob) .nm{order:1}
+.pres:not(.yard) .pr-mem:not(.pr-tob) .pf{order:0}
+.pres:not(.yard) .pr-mem:not(.pr-tob) .by,.pres:not(.yard) .pr-mem:not(.pr-tob) .wn,.pres:not(.yard) .pr-mem:not(.pr-tob) .ct{order:3}
+.pres:not(.yard) .pr-mem:not(.pr-tob) .wn{text-align:left}
+
+/* ---------- The Scrapyard: a fence at night ---------- */
+.pres.yard{background:
+  radial-gradient(700px 260px at 50% 108%,rgba(255,120,30,.22),transparent 70%),
+  repeating-linear-gradient(45deg,rgba(150,160,170,.06) 0 1.5px,transparent 1.5px 24px),
+  repeating-linear-gradient(-45deg,rgba(150,160,170,.06) 0 1.5px,transparent 1.5px 24px),
+  linear-gradient(#090c16,#16100c 55%,#22160e)}
+.pres.yard .pr-top{background:linear-gradient(#090c16 70%,transparent)}
+.pres.yard .pr-brand{font-family:"Permanent Marker",var(--display);font-weight:400;font-size:30px;letter-spacing:.02em;color:#ff8a3d;transform:rotate(-2deg);text-shadow:0 0 14px rgba(255,138,61,.35)}
+.pres.yard .pr-brand small{font-family:var(--body);color:#8f8a80;letter-spacing:.2em;transform:none}
+/* The hero is a plywood sign, nailed up and hanging a little crooked */
+.pres.yard .pr-hero{position:relative;margin:18px 4px 26px;border:0;border-radius:3px;color:#2a1a0c;transform:rotate(-.6deg);overflow:visible;
+  background:repeating-linear-gradient(180deg,rgba(90,58,26,.18) 0 2px,transparent 2px 9px),repeating-linear-gradient(94deg,rgba(255,240,200,.07) 0 30px,rgba(0,0,0,.06) 30px 70px),linear-gradient(180deg,#b88d5a,#a07446);
+  box-shadow:0 18px 30px rgba(0,0,0,.55),inset 0 0 0 2px rgba(60,36,14,.5)}
+.pres.yard .pr-hero::after{inset:10px;border:0;border-radius:0;background:
+  radial-gradient(circle at 0 0,#4a4f55 0 2.6px,transparent 3.2px),radial-gradient(circle at 100% 0,#4a4f55 0 2.6px,transparent 3.2px),
+  radial-gradient(circle at 0 100%,#4a4f55 0 2.6px,transparent 3.2px),radial-gradient(circle at 100% 100%,#4a4f55 0 2.6px,transparent 3.2px)}
+.pres.yard .pr-hero h2{font-family:"Permanent Marker",var(--display);font-weight:400;font-size:clamp(28px,5vw,38px);letter-spacing:0;color:#1f1208;margin-bottom:6px}
+.pres.yard .pr-hero p{color:#3a2614;font-weight:500;max-width:70ch}
+.pres.yard .pr-ledger{color:#4a3018}
+.pres.yard .pr-ledger b{color:#8a1f0a}
+/* Members are spray-painted on sheets of corrugated metal, taped to the fence */
+.pres.yard .pr-grid{gap:20px 16px;padding-top:6px;grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:700px){.pres.yard .pr-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pres.yard .pr-mem{overflow:visible;border-radius:2px;border:0;padding:0 12px 14px;
+  background:radial-gradient(60px 40px at 85% 20%,rgba(160,80,30,.35),transparent),radial-gradient(80px 60px at 10% 90%,rgba(140,70,25,.4),transparent),
+    repeating-linear-gradient(90deg,#33383d 0 7px,#272b2f 7px 14px);box-shadow:0 12px 22px rgba(0,0,0,.5);transform:rotate(-1deg)}
+.pres.yard .pr-mem:nth-child(even){transform:rotate(1.2deg)}
+.pres.yard .pr-mem:hover{transform:rotate(0) translateY(-3px)}
+.pres.yard .pr-mem::before{left:50%;top:-9px;right:auto;width:74px;height:20px;margin-left:-37px;transform:rotate(-4deg);background:linear-gradient(180deg,rgba(214,210,196,.92),rgba(180,176,162,.92));box-shadow:0 1px 2px rgba(0,0,0,.4);z-index:1}
+.pres.yard .pr-mem .pf{background:radial-gradient(circle at 50% 70%,color-mix(in srgb,var(--mc) 40%,transparent),transparent 62%)}
+.pres.yard .pr-mem .nm{font-family:"Permanent Marker",var(--display);font-weight:400;font-size:25px;letter-spacing:0;color:var(--mc);text-shadow:0 2px 0 rgba(0,0,0,.6)}
+.pres.yard .pr-mem .rl{color:#d9d3c4;letter-spacing:.12em}
+.pres.yard .pr-mem .by{color:#cfc8b8}
+.pres.yard .pr-mem .wn{background:rgba(0,0,0,.5);border-color:#5a5048}
+.pres.yard .pr-mem .wn.have{border-color:#ff8a3d;background:rgba(255,138,61,.12)}
+@media (prefers-reduced-motion: reduce){.pr-dial i{animation:none}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -1519,6 +1637,7 @@ pre.notes{margin:0;white-space:pre-wrap;font:inherit;color:#e9fff2}
       <div class="price-tag"><span class="coin"></span><span id="stCost"></span></div>
     </div>
     <div class="stage-view">
+      <div class="st-stencil" id="stStencil" aria-hidden="true"></div>
       <div class="crate-zone" id="crateZone"></div>
       <div class="reel-zone" id="reelZone" hidden>
         <div class="viewport" id="viewport"><div class="reel" id="reel"></div><div class="pointer" id="pointer"></div></div>
@@ -1771,6 +1890,7 @@ pre.notes{margin:0;white-space:pre-wrap;font:inherit;color:#e9fff2}
     </div>
     <div id="prLobby">
       <div class="pr-hero">
+        <div class="pr-dial" aria-hidden="true"><span style="transform:rotate(-78deg)">L</span><span style="transform:rotate(-39deg)">10</span><span style="transform:rotate(0deg)">20</span><span style="transform:rotate(39deg)">30</span><span style="transform:rotate(78deg)">P</span><i></i></div>
         <h2 id="prHeroH">Who are you selling to?</h2>
         <p id="prHeroP">Each member has one favorite weapon type and pays well above market for it. They'll buy anything else too, usually at market price. You can talk any offer up, and bringing someone the exact item on their list can pay 10× in a briefcase. Every room is also a shop: tap what's on display.</p>
         <div class="pr-ledger" id="prLedger"></div>
@@ -2723,7 +2843,7 @@ function pctText(p){ return (p >= 1 ? Number(p.toFixed(1)) : Number(p.toFixed(2)
 function selectCase(){
   const c = CASES[sel];
   document.querySelectorAll('.tile').forEach((t, i) => t.setAttribute('aria-pressed', i === sel ? 'true' : 'false'));
-  const st = $('#stage'); st.classList.toggle('gold', c.id === 'c4'); st.style.setProperty('--glowc', c.glow);
+  const st = $('#stage'); st.classList.toggle('gold', c.id === 'c4'); st.style.setProperty('--glowc', c.glow); $('#stStencil').textContent = c.name;
   $('#stName').textContent = c.name; $('#stTag').textContent = c.tag; $('#stCost').textContent = fmt(c.cost);
   const cz = $('#crateZone'), pre = state.xrayRolls[c.id];
   cz.classList.toggle('xray', !!pre);
