@@ -1988,6 +1988,161 @@ body{background:
 .pres.yard .pr-mem .wn{background:rgba(0,0,0,.5);border-color:#5a5048}
 .pres.yard .pr-mem .wn.have{border-color:#ff8a3d;background:rgba(255,138,61,.12)}
 @media (prefers-reduced-motion: reduce){.pr-dial i{animation:none}}
+
+/* ================= UI kit v2 =================
+   Mirrors the Figma file "Crate Rush — UI Kit": same tokens, same five components
+   (Button, Item Card, Odds Chip, Reveal Card, Toast) and the motion spec. */
+:root{
+  --bg:#0b0d11;--bg-sunken:#07080b;--panel:#151920;--panel2:#1c212a;--line:#262c37;--line-strong:#343b48;
+  --text:#ede8dc;--muted:#8f97a5;--faint:#5d6573;
+  --accent:#f5a524;--accent-2:#ffe29a;--accent-lip:#a8650a;--ink:#2a1a04;--danger:#ff4d5e;--danger-lip:#a3162a;--good:#39e58c;
+  --t7:#2fe3ff;
+  --r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:24px;
+  --dur-fast:120ms;--dur-base:220ms;--dur-slow:420ms;
+  --ease-out:cubic-bezier(.2,.8,.2,1);--ease-spring:cubic-bezier(.34,1.56,.64,1);--ease-in:cubic-bezier(.5,0,.75,0);
+  --sh-card:0 10px 24px -6px rgba(0,0,0,.45);--sh-modal:0 30px 60px -10px rgba(0,0,0,.6);
+  --sheen:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,0) 58%);
+  --chroma:linear-gradient(90deg,#ff3ea5,#ffd23f,#39ff88,#2fe3ff,#7a6aff);
+}
+
+/* ---- Button: Primary ---- */
+.open-btn,.gold-btn{border-radius:var(--r-md);color:var(--ink);
+  background:var(--sheen),var(--accent);
+  box-shadow:inset 0 1.5px 0 rgba(255,255,255,.55),0 4px 0 var(--accent-lip),0 8px 22px -4px rgba(245,165,36,.38);
+  transition:transform var(--dur-fast) var(--ease-out),box-shadow var(--dur-fast) var(--ease-out),filter var(--dur-base),background-color var(--dur-base)}
+.open-btn:hover:not(:disabled),.gold-btn:hover:not(:disabled){transform:translateY(-1px);background-color:#ffb43a;
+  box-shadow:inset 0 1.5px 0 rgba(255,255,255,.6),0 0 0 1.5px var(--accent-2),0 5px 0 var(--accent-lip),0 12px 30px -4px rgba(245,165,36,.5)}
+.open-btn:active:not(:disabled),.gold-btn:active:not(:disabled){transform:translateY(3px);transition-duration:60ms;
+  box-shadow:inset 0 1.5px 0 rgba(255,255,255,.3),0 1px 0 var(--accent-lip),0 4px 12px -4px rgba(245,165,36,.3)}
+.open-btn:disabled,.gold-btn:disabled{filter:grayscale(.9) brightness(.55);box-shadow:0 4px 0 #23262c;transform:none}
+.gold-btn.armed:not(:disabled),.open-btn.armed:not(:disabled){background:var(--sheen),var(--danger);color:#fff;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.4),0 4px 0 var(--danger-lip)}
+
+/* ---- Button: Secondary (.ghost) and the small Ghost (.sell) ---- */
+.ghost{color:var(--text);border:1px solid var(--line);border-radius:var(--r-md);
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,0) 60%),var(--panel2);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 3px 0 var(--bg-sunken);
+  transition:transform var(--dur-fast) var(--ease-out),box-shadow var(--dur-fast),border-color var(--dur-fast),background-color var(--dur-fast)}
+.ghost:hover:not(:disabled){border-color:var(--line-strong);transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 4px 0 var(--bg-sunken)}
+.ghost:active:not(:disabled){transform:translateY(2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 1px 0 var(--bg-sunken);transition-duration:60ms}
+.ghost.armed{background:var(--danger);border-color:var(--danger);color:#fff;box-shadow:0 3px 0 var(--danger-lip)}
+.sell{font-family:var(--display);font-weight:600;font-size:16px;line-height:1;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);
+  padding:6px 11px 3px;border-radius:var(--r-sm);background:transparent;border:1px solid var(--line);transition:color var(--dur-fast),border-color var(--dur-fast),background-color var(--dur-fast),transform var(--dur-fast) var(--ease-out)}
+.sell:hover{color:var(--text);border-color:var(--line-strong);background:rgba(255,255,255,.06)}
+.sell:active{transform:scale(.94)}
+.sell.armed{background:var(--danger);border-color:var(--danger);color:#fff}
+
+/* ---- Icon buttons + balance ---- */
+.icon-btn{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,0) 60%),var(--panel2);border-color:var(--line);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 3px 0 var(--bg-sunken);transition:transform var(--dur-fast) var(--ease-out),color var(--dur-fast),border-color var(--dur-fast),box-shadow var(--dur-fast)}
+.icon-btn:hover{color:var(--text);border-color:var(--line-strong);transform:translateY(-1px)}
+.icon-btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--bg-sunken)}
+.mask-btn{color:#c084fc;border-color:#4c1d95;background:#12081c}
+.adm-btn{color:#39ff88;border-color:#1f5a3a;background:#06120c}
+.yard-btn{color:#ff8a3d;border-color:#6b3a12;background:#140a04}
+.pres-btn{color:#ffcb2e;border-color:#6b4f12;background:#140f05}
+.bal{background:var(--bg-sunken);border-color:var(--line);box-shadow:inset 0 2px 6px rgba(0,0,0,.5);font-family:var(--mono);font-size:16px}
+.bal .coin{width:16px;height:16px}
+
+/* ---- Odds Chip ---- */
+.odds{gap:8px}
+.odds .chip:not(.hacked){border-radius:999px;background:var(--panel2);border:1px solid color-mix(in srgb,var(--tc) 35%,transparent);padding:5px 12px 5px 10px;font-weight:700;font-size:13px;color:var(--text);
+  animation:chipIn var(--dur-slow) var(--ease-spring) both}
+.odds .chip i{width:8px;height:8px;border-radius:50%;box-shadow:0 0 8px var(--tc)}
+.odds .chip b{font-family:var(--mono);font-weight:500;font-size:11.5px;color:var(--muted)}
+.odds .chip:nth-child(2){animation-delay:30ms}.odds .chip:nth-child(3){animation-delay:60ms}.odds .chip:nth-child(4){animation-delay:90ms}
+.odds .chip:nth-child(5){animation-delay:120ms}.odds .chip:nth-child(6){animation-delay:150ms}.odds .chip:nth-child(7){animation-delay:180ms}
+@keyframes chipIn{from{opacity:0;transform:translateY(6px) scale(.9)}}
+
+/* ---- Item Card (inventory, case contents, trade-up picks) ---- */
+.mini,.icard,.pick{border-radius:var(--r-md);padding:14px 12px 12px;gap:2px;
+  border:1px solid color-mix(in srgb,var(--tc) 42%,var(--line));
+  background:linear-gradient(180deg,color-mix(in srgb,var(--tc) 20%,transparent),transparent 60%),var(--panel);
+  transition:transform var(--dur-base) var(--ease-out),box-shadow var(--dur-base) var(--ease-out),border-color var(--dur-base)}
+.mini::after,.icard::after,.pick::after{top:0;bottom:auto;height:3px;box-shadow:0 0 12px var(--tc)}
+.mini img,.icard img,.pick img{border-radius:var(--r-sm);padding:6px 4px;margin-bottom:8px;
+  background:radial-gradient(70% 80% at 50% 50%,color-mix(in srgb,var(--tc) 32%,transparent),transparent 72%),var(--bg-sunken)}
+.icard:hover,.pick:hover{transform:translateY(-4px);box-shadow:var(--sh-card),0 0 0 1px color-mix(in srgb,var(--tc) 60%,transparent)}
+.icard .wt,.mini .wt,.pick .wt{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tc)}
+.icard .nm,.mini .nm,.pick .nm{font-weight:700;font-size:16px;line-height:1.15;color:var(--text)}
+.icard .sub,.mini .sub,.pick .sub{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.ifoot{margin-top:10px}
+.iv{font-family:var(--mono);font-size:14px}
+.mini.gold,.icard.gold{background:linear-gradient(180deg,rgba(255,203,46,.24),transparent 60%),#17140c;border-color:rgba(255,203,46,.5)}
+.mini.bm,.icard.bm{background:linear-gradient(180deg,rgba(168,85,247,.26),transparent 60%),#0d0714;border-color:rgba(168,85,247,.6)}
+.icard.chroma,.mini.chroma{border-color:transparent;background:linear-gradient(180deg,rgba(47,227,255,.16),transparent 60%) padding-box,linear-gradient(#141018,#141018) padding-box,linear-gradient(120deg,#ff3ea5,#ffd23f,#39ff88,#2fe3ff,#7a6aff) border-box}
+.icard.chroma::after,.mini.chroma::after{background:var(--chroma);box-shadow:0 0 12px rgba(255,255,255,.4)}
+.icard.new{animation:dropIn var(--dur-slow) var(--ease-spring)}
+.icard.bm.new{animation:dropIn var(--dur-slow) var(--ease-spring),bmGlow 2.4s ease-in-out infinite}
+@keyframes dropIn{from{opacity:0;transform:translateY(-22px) scale(.92)}}
+
+/* ---- Reel cards: same family as the Item Card ---- */
+.rcard{border-radius:var(--r-md);border:1px solid color-mix(in srgb,var(--tc) 38%,var(--line));
+  background:radial-gradient(80% 60% at 50% 38%,color-mix(in srgb,var(--tc) 26%,transparent),transparent 70%),linear-gradient(180deg,var(--panel2),var(--panel) 60%,color-mix(in srgb,var(--tc) 22%,var(--panel)))}
+.rcard .rw{color:var(--tc);letter-spacing:.12em}
+.rcard.won{animation:won2 .75s var(--ease-spring) forwards;z-index:1}
+@keyframes won2{0%{transform:scale(1)}35%{transform:scale(1.14);filter:brightness(1.6)}100%{transform:scale(1.06);filter:none;box-shadow:0 0 0 2px var(--tc),0 0 40px var(--tc),0 0 90px color-mix(in srgb,var(--tc) 40%,transparent)}}
+
+/* ---- Reveal Card ---- */
+.rv-card{width:min(420px,100%);border-radius:var(--r-xl);padding:24px 26px 22px;border:1.5px solid color-mix(in srgb,var(--tc) 70%,transparent);
+  background:radial-gradient(90% 55% at 50% 0%,color-mix(in srgb,var(--tc) 34%,transparent),transparent 70%),linear-gradient(180deg,#171b23,var(--panel));
+  box-shadow:var(--sh-modal),0 0 70px color-mix(in srgb,var(--tc) 32%,transparent);animation:rvIn var(--dur-slow) var(--ease-spring)}
+@keyframes rvIn{0%{opacity:0;transform:scale(.82) translateY(24px);filter:blur(6px)}60%{opacity:1;filter:none}}
+.rv-tier{display:inline-block;padding:6px 13px 5px;border-radius:999px;background:var(--tc);color:#0b0d11;font-size:11px;letter-spacing:.16em;line-height:1;
+  box-shadow:0 0 22px color-mix(in srgb,var(--tc) 55%,transparent);animation:ribbonIn var(--dur-slow) 120ms var(--ease-spring) both}
+@keyframes ribbonIn{from{opacity:0;transform:translateY(-8px) scale(.8)}}
+.reveal.chroma .rv-tier{background:var(--chroma);color:#0b0d11}
+.rv-art{margin-top:10px}
+.rv-art::before{inset:-6% -4%;background:radial-gradient(closest-side,color-mix(in srgb,var(--tc) 50%,transparent),transparent);animation:halo 1.2s var(--ease-out) both}
+@keyframes halo{from{opacity:0;transform:scale(.4)}}
+.rv-art canvas{filter:drop-shadow(0 12px 14px rgba(0,0,0,.55))}
+.rv-name{font-size:36px;letter-spacing:.01em}
+.rv-meta{font-size:12px}
+.rv-value{display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--display);font-weight:600;font-size:42px;line-height:1;margin-top:14px;color:var(--accent-2);letter-spacing:.02em;text-shadow:0 0 22px rgba(255,210,122,.25)}
+.rv-value::before{content:"";width:24px;height:24px;border-radius:50%;flex:none;margin-top:-5px;background:radial-gradient(circle at 35% 30%,#fff3b0,#ffcb2e 45%,#b8780a);box-shadow:inset 0 0 0 1.5px rgba(120,70,0,.55),0 0 12px rgba(255,203,46,.45)}
+.rv-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.rv-actions > *{min-height:52px;width:100%}
+.rv-actions .ghost{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:.07em;text-transform:uppercase;padding:12px 10px 8px}
+.rv-actions .open-btn.sm{display:flex;align-items:center;justify-content:center;font-size:22px;padding:12px 10px 8px;text-transform:uppercase}
+.rv-actions > [hidden]{display:none!important}
+.rv-actions:has(> [hidden]){grid-template-columns:1fr}
+
+/* ---- Toast ---- */
+.toast{display:flex;align-items:center;gap:10px;padding:12px 20px 12px 16px;background:color-mix(in srgb,var(--panel2) 96%,transparent);border:1px solid var(--line-strong);
+  box-shadow:var(--sh-card),0 0 0 1px rgba(0,0,0,.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:toastIn2 var(--dur-slow) var(--ease-spring)}
+.toast::before{content:"";width:8px;height:8px;border-radius:50%;flex:none;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+@keyframes toastIn2{from{opacity:0;transform:translate(-50%,24px) scale(.94)}}
+
+/* ---- Stats ---- */
+.stat{border-radius:var(--r-md);background:linear-gradient(180deg,rgba(255,255,255,.03),transparent 70%),var(--panel);transition:border-color var(--dur-base),transform var(--dur-base) var(--ease-out)}
+.stat:hover{border-color:var(--line-strong);transform:translateY(-2px)}
+.sv{font-size:34px}
+
+/* ---- Reveal overlay + panels fade with the motion tokens ---- */
+.reveal{animation:fadeIn var(--dur-base) var(--ease-out)}
+
+/* ---- Phones: one tidy top bar, cases scroll sideways so Open is on screen ---- */
+@media (max-width:620px){
+  .top{position:relative;justify-content:space-between;row-gap:12px}
+  .top .logo{order:0;font-size:28px}
+  .top .hud{display:contents}
+  .top .bal{order:1}
+  .top::after{content:"";order:2;flex-basis:100%;height:0}
+  .top .icon-btn{order:3;width:40px;height:40px}
+  .acct-menu{top:auto;bottom:-8px;transform:translateY(100%)}
+  .rack{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(150px,44%);overflow-x:auto;scroll-snap-type:x mandatory;
+    margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:4px max(16px,env(safe-area-inset-left,0px)) 10px;scrollbar-width:none}
+  .rack::-webkit-scrollbar{display:none}
+  .rack .tile{scroll-snap-align:start}
+  .stage-view{height:210px}
+  .crate.big{--cw:min(200px,48vw)}
+  .rv-name{font-size:30px}
+  .rv-value{font-size:36px}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .odds .chip,.icard.new,.rv-card,.rv-tier,.rv-art::before,.toast,.rcard.won{animation-duration:1ms!important;animation-delay:0s!important}
+  .icard:hover,.pick:hover,.stat:hover{transform:none}
+}
 </style>
 
 <div class="wrap" id="wrap">
