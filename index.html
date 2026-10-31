@@ -2143,6 +2143,54 @@ body{background:
   .odds .chip,.icard.new,.rv-card,.rv-tier,.rv-art::before,.toast,.rcard.won{animation-duration:1ms!important;animation-delay:0s!important}
   .icard:hover,.pick:hover,.stat:hover{transform:none}
 }
+
+/* ---------- Vance's Ballon d'Or quiz ---------- */
+.pr-scene > svg .v-bdo,.pr-scene > svg .v-bdo *{pointer-events:auto;cursor:pointer}
+.v-bdo .hl{opacity:0}
+.pr-scene:not(.zoomed) .v-bdo .hl{animation:hotPulse 2.8s ease-in-out infinite}
+.v-bdo:hover > circle{filter:brightness(1.2)}
+.bdo{position:fixed;inset:0;z-index:88;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  padding:max(16px,env(safe-area-inset-top,0px)) 16px max(16px,env(safe-area-inset-bottom,0px));
+  background:radial-gradient(900px 500px at 50% 30%,rgba(255,203,46,.12),transparent 70%),rgba(5,4,3,.99);animation:fadeIn var(--dur-slow) var(--ease-out)}
+.bdo-scene{position:relative;width:min(820px,100%,calc((100vh - 270px) * 1.538));aspect-ratio:400/260;border-radius:var(--r-lg);overflow:hidden;
+  border:1px solid rgba(201,165,74,.45);box-shadow:0 0 0 4px #0b0805,0 0 0 5px rgba(201,165,74,.25),var(--sh-modal);animation:bdIn var(--dur-slow) var(--ease-spring)}
+.bdo-scene svg{display:block;width:100%;height:100%}
+@keyframes bdIn{from{opacity:0;transform:scale(.94) translateY(10px);filter:blur(4px)}}
+.bdo-panel{width:min(620px,100%);text-align:center;display:grid;gap:8px;justify-items:center;animation:bdIn var(--dur-slow) 80ms var(--ease-spring) both}
+.bdo-eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:#c9a54a}
+.bdo-eyebrow.ok{color:var(--good)}.bdo-eyebrow.no{color:var(--danger)}
+.bdo-q,.bdo-cap{margin:0;font-family:var(--display);font-weight:600;font-size:clamp(26px,4.4vw,36px);line-height:1.05;color:#f3e3b3}
+.bdo-sub{margin:0;color:var(--muted);font-family:var(--mono);font-size:12px}
+.bdo-line{margin:0;color:#e8dcc0;font-size:16px;font-weight:500;max-width:52ch}
+.bdo-type{min-height:1.4em;font-family:var(--display);font-size:26px;letter-spacing:.02em;color:#fff4d6}
+.bdo-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;margin-top:6px}
+.bdo-opt{padding:13px 12px;font-weight:700;font-size:16px;animation:chipIn var(--dur-slow) var(--ease-spring) both}
+.bdo-opt.right{background:color-mix(in srgb,var(--good) 22%,var(--panel2));border-color:var(--good);color:#d9ffe9;opacity:1}
+.bdo-opt.wrong{background:color-mix(in srgb,var(--danger) 22%,var(--panel2));border-color:var(--danger);color:#ffe0e4;opacity:1;animation:quake .4s}
+.bdo-opts.done .bdo-opt:not(.right):not(.wrong){opacity:.4}
+.bdo-row{display:flex;gap:10px}
+.bdo .open-btn.sm{margin-top:6px}
+.bdo-x{position:absolute;top:max(14px,env(safe-area-inset-top,0px));right:14px}
+.bd-float{animation:hover 3s ease-in-out infinite}
+.bd-pop{animation:bdPop .5s var(--ease-spring) both;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes bdPop{from{opacity:0;transform:translateY(20px) scale(.4)}}
+.bd-conf{animation:bdFall 2.8s linear infinite}
+@keyframes bdFall{from{transform:translateY(0) rotate(0)}to{transform:translateY(290px) rotate(540deg)}}
+.bd-conf{transform-box:fill-box;transform-origin:center}
+.bd-lift{animation:bdLift 1.6s var(--ease-spring) both}
+@keyframes bdLift{from{transform:translateY(30px)}}
+.k-stage .bd-spot{opacity:.04;transition:opacity .8s}
+.bdo.cer .k-stage .bd-spot{opacity:.16}
+.bdo.roll .bd-beams{animation:bdSweep .5s ease-in-out infinite alternate}
+@keyframes bdSweep{to{transform:translateX(30px)}}
+.bdo.roll .bdo-scene{animation:bdShake .07s steps(2) infinite}
+@keyframes bdShake{50%{transform:translate(1px,-1px)}}
+.bd-flap{transform-box:fill-box;transform-origin:50% 0;transition:transform .5s var(--ease-spring)}
+.bdo.open .bd-flap{transform:scaleY(-1)}
+.bdo.open .bdo-scene{animation:none;box-shadow:0 0 0 4px #0b0805,0 0 0 5px #c9a54a,0 0 120px rgba(255,214,120,.45)}
+.bdo.open .bd-spot{opacity:.3}
+@media (max-width:620px){.bdo-opts{grid-template-columns:1fr}.bdo-scene{width:100%}}
+@media (prefers-reduced-motion: reduce){.bdo.roll .bdo-scene,.bd-conf,.bd-float{animation:none}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -5713,6 +5761,7 @@ function renderLeft(anim){
       + (SHOPS[m.id] ? B('shop', 'Shop · ' + SHOPS[m.id].hint, '', lock) : '')
       + (VAULTS[m.id] && P()[VAULTS[m.id].key] === 'down' ? B('vault', m.id === 'vance' ? 'His private collection' : 'The hidden case', 'vx', lock, 'one offer') : '')
       + (m.id === 'tobias' ? B('pk1', 'Case #PK1 · on his shelf', 'pk', lock, fmt(PK1.cost) + ' cr') : '')
+      + (m.id === 'vance' ? B('bdo', 'Ask about the golden ball', '', lock || bdoBusy, 'Ballon d’Or 2026') : '')
       + (m.id === 'tinny' ? B('bags', 'Backpacks', '', lock, bagLvl() < BAGS.length - 1 ? 'next: ' + BAGS[bagLvl() + 1].cap + ' slots' : 'biggest one') : '')
       + (m.id === 'tinny' ? B('peek', 'Ask what’s in the next crate', '', lock || pk > 0, pk ? 'in ' + pk + ' open' + (pk === 1 ? '' : 's') : 'Scrapyard · free') : '')
       + (JOBS[m.id] ? B('job', 'Job · ' + jobOf(m).t, 'jobb', lock, jobDone(m) ? 'next in ' + jobLeft() + ' opens' : starTxt(jobOf(m).d)) : '')
@@ -6345,6 +6394,7 @@ const SC = {
       s += '<g class="v-coins">';
       for (let st = 0; st < 2; st++) for (let i = 0; i < 5 - st; i++) s += '<ellipse cx="' + (84 + st*22) + '" cy="' + (192 - i*3.2) + '" rx="9" ry="3" fill="#ffcb2e" stroke="#a86b00" stroke-width=".7"/>';
       s += '</g>';
+      s += bdoTrophySVG(k);
       [[-150, -70, 300], [-120, 10, -240], [-90, -110, 420], [-170, -20, 200], [-60, -140, -300], [-140, 40, 260], [-40, -60, 520], [-200, -90, -380]].forEach(([dx, dy, r], i) => {
         s += '<ellipse class="v-fly" style="--dx:' + dx + 'px;--dy:' + dy + 'px;--r:' + r + 'deg;animation-delay:' + (i*.03).toFixed(2) + 's" cx="95" cy="186" rx="5" ry="5" fill="#ffcb2e" stroke="#a86b00" stroke-width=".6"/>'; });
       s += '<g class="v-cash">';
@@ -8402,6 +8452,209 @@ function bagBuy(i){
   sayRoom(b.line, 'happy'); toast(b.n + ' · ' + b.cap + ' slots');
   renderOv(); renderInv(); renderOpen(); renderLeft();
 }
+/* ---------- Vance's golden ball ----------
+   A golden-ball trophy sits on Vance's desk. Ask about it and he talks about the 2026 Ballon d'Or in London,
+   then quizzes you before he'll give up his spare seat: three football questions, each followed by the answer
+   on screen. Get all three right and you're at the ceremony, a second before the winner is read out. */
+const BDO_Q = [
+  {q:'Who has won the most Ballon d’Ors?', opts:['Cristiano Ronaldo', 'Lionel Messi', 'Michel Platini', 'Johan Cruyff'], a:1, scene:'messi',
+    cap:'Lionel Messi · 8 Ballon d’Ors', sub:'2009 · 2010 · 2011 · 2012 · 2015 · 2019 · 2021 · 2023', vance:'Eight. Nobody else is close.'},
+  {q:'Who won the 2018 World Cup?', opts:['Croatia', 'Germany', 'France', 'Brazil'], a:2, scene:'france',
+    cap:'France · 2018 world champions', sub:'Beat Croatia 4–2 in the final in Moscow', vance:'Four goals in a final. That’s how you close a deal.'},
+  {q:'Who is the most expensive player in history?', opts:['Kylian Mbappé', 'Cristiano Ronaldo', 'Gareth Bale', 'Neymar'], a:3, scene:'neymar',
+    cap:'Neymar to PSG · €222 million', sub:'Barcelona → Paris Saint-Germain, 2017 · still the biggest transfer fee ever paid', vance:'Two hundred and twenty-two million. I respect a number like that.'}
+];
+let bdoBusy = false, bdoTimers = [];
+const bdoT = (ms, f) => bdoTimers.push(setTimeout(f, REDUCED ? Math.min(ms, 150) : ms));
+
+/* The trophy on his desk */
+function bdoTrophySVG(k){
+  return '<g transform="translate(7 -4)"><defs>' + bdoDefs(k) + '</defs><g class="v-bdo" data-a="bdo" role="button" aria-label="The golden ball on Vance’s desk">'
+    + '<ellipse class="hl" cx="285" cy="176" rx="24" ry="26" fill="#ffd23f" filter="url(#hb' + k + ')"/>'
+    + '<ellipse cx="285" cy="201" rx="15" ry="2.5" fill="#000" opacity=".5"/>'
+    + '<path d="M274 200 L276 186 H294 L296 200 Z" fill="#2a1d08"/><rect x="273" y="196" width="24" height="5" rx="1" fill="#b8860b"/>'
+    + '<rect x="279" y="190" width="12" height="4" rx=".6" fill="#d4a017"/><path d="M280 186 Q285 181 290 186" fill="#b8860b"/>'
+    + '<circle cx="285" cy="171" r="13" fill="url(#bdoG' + k + ')"/>'
+    + '<path d="M285 158 V184 M272.4 168 Q285 164 297.6 168 M273.5 176 Q285 180 296.5 176 M278 160 Q274 171 279 182 M292 160 Q296 171 291 182" stroke="#8a5a06" stroke-width=".7" fill="none" opacity=".7"/>'
+    + '<ellipse cx="280" cy="165" rx="4" ry="2.6" fill="#fff8d0" opacity=".75" transform="rotate(-30 280 165)"/>'
+    + '<rect x="262" y="150" width="46" height="56" fill="#000" fill-opacity="0"/></g></g>';
+}
+function bdoDefs(k){
+  return '<radialGradient id="bdoG' + k + '" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff6c8"/><stop offset=".45" stop-color="#f5c542"/><stop offset="1" stop-color="#9a6508"/></radialGradient>';
+}
+
+/* Cartoon people. o: skin, hair ('short','buzz','bald','fade'), hc, beard, shirt (fill or 'stripes'), num, suit, smile, arm ('up','trophy') */
+function bdoMan(x, y, s, o){
+  const sk = o.skin || '#e0a878', sh = o.shirt || '#1e3a8a';
+  let g = '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')">';
+  // body
+  if (o.suit) {
+    g += '<path d="M-34 96 Q-34 58 -12 52 H12 Q34 58 34 96 Z" fill="#111318"/><path d="M-7 52 L0 72 L7 52 Z" fill="#f4f1ea"/><path d="M-3 56 L0 60 L3 56 L0 54 Z" fill="#111"/><path d="M-12 52 L-2 78 L-9 60 Z M12 52 L2 78 L9 60 Z" fill="#1d2027"/>';
+  } else {
+    const id = 'st' + Math.random().toString(36).slice(2, 7);
+    g += (sh === 'stripes' ? '<defs><pattern id="' + id + '" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="10" fill="#f4f6fa"/><rect width="5" height="10" fill="#7cc4ef"/></pattern></defs>' : '')
+      + '<path d="M-32 96 Q-32 58 -12 52 H12 Q32 58 32 96 Z" fill="' + (sh === 'stripes' ? 'url(#' + id + ')' : sh) + '"/>'
+      + '<path d="M-8 52 Q0 60 8 52" fill="none" stroke="' + (o.trim || 'rgba(0,0,0,.25)') + '" stroke-width="3"/>'
+      + (o.num ? '<text x="0" y="86" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="24" fill="' + (o.numc || '#fff') + '">' + o.num + '</text>' : '');
+  }
+  // neck + head
+  g += '<rect x="-6" y="40" width="12" height="14" fill="' + sk + '"/>'
+    + '<ellipse cx="0" cy="22" rx="17" ry="21" fill="' + sk + '"/><ellipse cx="-17" cy="24" rx="3.5" ry="5" fill="' + sk + '"/><ellipse cx="17" cy="24" rx="3.5" ry="5" fill="' + sk + '"/>';
+  const hc = o.hc || '#2a1a10';
+  if (o.hair === 'short') g += '<path d="M-17 18 Q-18 -2 0 -2 Q18 -2 17 18 Q12 6 0 7 Q-12 6 -17 18 Z" fill="' + hc + '"/>';
+  if (o.hair === 'buzz') g += '<path d="M-16 14 Q-16 0 0 0 Q16 0 16 14 Q8 7 0 7 Q-8 7 -16 14 Z" fill="' + hc + '" opacity=".85"/>';
+  if (o.hair === 'fade') g += '<path d="M-16 16 Q-17 -1 0 -3 Q17 -1 16 16 Q11 4 0 5 Q-11 4 -16 16 Z" fill="' + hc + '"/><path d="M-8 -1 Q2 -6 12 1 Q4 2 -8 -1 Z" fill="' + (o.hl || '#d9b25a') + '"/>';
+  if (o.hair === 'bald') g += '<ellipse cx="-6" cy="6" rx="6" ry="3" fill="#fff" opacity=".25"/>';
+  if (o.beard) g += '<path d="M-15 26 Q-14 44 0 46 Q14 44 15 26 Q10 36 0 36 Q-10 36 -15 26 Z" fill="' + hc + '" opacity="' + (o.beard === 'light' ? .45 : .9) + '"/>';
+  // face
+  g += '<path d="M-10 16 H-4 M4 16 H10" stroke="' + hc + '" stroke-width="2" stroke-linecap="round"/>'
+    + '<circle cx="-7" cy="21" r="1.8" fill="#1a1010"/><circle cx="7" cy="21" r="1.8" fill="#1a1010"/>'
+    + '<path d="M0 22 L-2 29 H2" stroke="rgba(0,0,0,.25)" stroke-width="1.2" fill="none"/>'
+    + (o.grin ? '<path d="M-9 32 Q0 41 9 32 Z" fill="#fff" stroke="#5a2a1a" stroke-width="1"/><rect x="-1.2" y="32" width="2.4" height="3" fill="#5a2a1a" opacity=".5"/>'
+      : '<path d="M-6 33 Q0 37 6 33" stroke="#5a2a1a" stroke-width="1.6" fill="none" stroke-linecap="round"/>');
+  // arms
+  if (o.arm === 'up') g += '<path d="M24 62 Q36 40 34 16" stroke="' + (o.suit ? '#111318' : sh === 'stripes' ? '#7cc4ef' : sh) + '" stroke-width="10" stroke-linecap="round" fill="none"/><circle cx="34" cy="13" r="5.5" fill="' + sk + '"/>';
+  if (o.arm === 'card') g += '<path d="M-24 64 Q-36 58 -31 46" stroke="#111318" stroke-width="10" stroke-linecap="round" fill="none"/><g class="bd-env"><rect x="-46" y="26" width="26" height="17" rx="1.5" fill="#f2e6c4" stroke="#b8860b"/><path class="bd-flap" d="M-46 26 L-33 36 L-20 26" stroke="#b8860b" fill="#e9d9ad"/></g><circle cx="-31" cy="44" r="5" fill="' + sk + '"/>';
+  return g + '</g>';
+}
+function bdoCup(x, y, s){
+  return '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')"><path d="M-12 -30 H12 Q12 -8 0 -4 Q-12 -8 -12 -30 Z" fill="#f5c542" stroke="#9a6508" stroke-width="1.2"/>'
+    + '<path d="M-12 -26 Q-20 -24 -14 -14 M12 -26 Q20 -24 14 -14" stroke="#d4a017" stroke-width="2.4" fill="none"/>'
+    + '<rect x="-2.5" y="-4" width="5" height="8" fill="#d4a017"/><path d="M-9 4 H9 L11 10 H-11 Z" fill="#2f6b3a"/><rect x="-11" y="10" width="22" height="3" fill="#d4a017"/>'
+    + '<ellipse cx="-5" cy="-24" rx="2.4" ry="4" fill="#fff8d0" opacity=".7"/></g>';
+}
+function bdoBall(x, y, r, k){
+  return '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="url(#bdoG' + k + ')"/><ellipse cx="' + (x - r*.35) + '" cy="' + (y - r*.4) + '" rx="' + (r*.3) + '" ry="' + (r*.2) + '" fill="#fff8d0" opacity=".7" transform="rotate(-30 ' + (x - r*.35) + ' ' + (y - r*.4) + ')"/>';
+}
+function bdoScene(kind){
+  const k = 'bq';
+  let s = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>' + bdoDefs(k)
+    + '<radialGradient id="bdSp" cx=".5" cy=".2" r=".8"><stop offset="0" stop-color="#ffe7a0" stop-opacity=".35"/><stop offset="1" stop-color="#ffe7a0" stop-opacity="0"/></radialGradient></defs>';
+  if (kind === 'invite') {
+    s += '<rect width="400" height="260" fill="#0a0806"/><rect width="400" height="260" fill="url(#bdSp)"/>'
+      + '<g class="bd-float">' + bdoBall(200, 112, 46, k) + '</g><path d="M176 170 L180 152 H220 L224 170 Z" fill="#2a1d08"/><rect x="170" y="166" width="60" height="10" rx="2" fill="#b8860b"/>'
+      + '<text x="200" y="210" text-anchor="middle" font-family="Teko, sans-serif" font-weight="600" font-size="22" letter-spacing="6" fill="#f3e3b3">BALLON D’OR 2026</text>'
+      + '<text x="200" y="228" text-anchor="middle" font-family="Teko, sans-serif" font-size="12" letter-spacing="5" fill="#a8956a">LONDON</text>';
+  } else if (kind === 'messi') {
+    s += '<rect width="400" height="260" fill="#0b1420"/><rect width="400" height="260" fill="url(#bdSp)"/>'
+      + bdoMan(200, 66, 1.45, {skin:'#e3ad85', hair:'short', hc:'#3a2414', beard:true, shirt:'stripes', num:'10', numc:'#0b2a4a', trim:'#0b2a4a'});
+    for (let i = 0; i < 8; i++) { const x = 46 + i*44 + (i > 3 ? 0 : 0); s += '<g class="bd-pop" style="animation-delay:' + (i*120) + 'ms">' + bdoBall(x, 226, 14, k) + '<rect x="' + (x - 9) + '" y="238" width="18" height="6" rx="1" fill="#b8860b"/></g>'; }
+  } else if (kind === 'france') {
+    s += '<rect width="400" height="260" fill="#071027"/><rect width="400" height="260" fill="url(#bdSp)"/>';
+    for (let i = 0; i < 30; i++) s += '<rect class="bd-conf" style="animation-delay:-' + (i*.21).toFixed(2) + 's" x="' + (i*13.3).toFixed(1) + '" y="-10" width="3" height="6" fill="' + ['#ffffff', '#1e3a8a', '#e11d48', '#ffd23f'][i % 4] + '"/>';
+    const P = [[60, 120, '#e7b48a', 'buzz', 0, '#1a1a1a'], [118, 108, '#8a5a3c', 'buzz', 0, '#1a1a1a'], [282, 108, '#c48d62', 'short', 1, '#2a1a10'], [340, 120, '#5a3a24', 'buzz', 0, '#111']];
+    P.forEach(([x, y, sk, h, b, hc]) => s += bdoMan(x, y, 1.05, {skin:sk, hair:h, hc, beard:b, shirt:'#1e2f6e', trim:'#e11d48', grin:true, arm:'up'}));
+    s += bdoMan(200, 92, 1.25, {skin:'#d9a07a', hair:'short', hc:'#2a1a10', shirt:'#1e2f6e', trim:'#e11d48', grin:true});
+    s += '<g class="bd-lift">' + bdoCup(200, 64, 1.5) + '</g>'
+      + '<path d="M168 160 Q160 112 172 74 M232 160 Q240 112 228 74" stroke="#1e2f6e" stroke-width="12" stroke-linecap="round" fill="none"/><circle cx="172" cy="71" r="6" fill="#d9a07a"/><circle cx="228" cy="71" r="6" fill="#d9a07a"/>';
+  } else if (kind === 'neymar') {
+    s += '<rect width="400" height="260" fill="#0c0f1a"/><rect width="400" height="260" fill="url(#bdSp)"/>'
+      + '<text x="200" y="70" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="96" fill="#ffd23f" opacity=".12">€222M</text>'
+      + bdoMan(200, 72, 1.45, {skin:'#c99474', hair:'fade', hc:'#241510', hl:'#e2c27a', beard:'light', shirt:'#f6f7fb', num:'10', numc:'#0b1d4a', trim:'#0b1d4a', grin:true});
+  } else if (kind === 'stage') {
+    s += '<rect width="400" height="260" fill="#050407"/>'
+      + '<path d="M0 0 H70 Q60 120 78 260 H0 Z M400 0 H330 Q340 120 322 260 H400 Z" fill="#4a0d16"/><path d="M14 0 Q8 130 20 260 M40 0 Q32 130 46 260 M386 0 Q392 130 380 260 M360 0 Q368 130 354 260" stroke="#2a060c" stroke-width="5" fill="none"/>'
+      + '<g class="bd-beams"><path d="M120 0 L60 260 H140 Z" fill="#ffe7a0" opacity=".08"/><path d="M280 0 L260 260 H340 Z" fill="#ffe7a0" opacity=".08"/></g>'
+      + '<path class="bd-spot" d="M200 0 L150 236 H250 Z" fill="#fff4d6" opacity=".14"/>'
+      + '<rect x="0" y="214" width="400" height="46" fill="#120c06"/><rect x="0" y="212" width="400" height="3" fill="#b8860b"/>'
+      + '<text x="200" y="34" text-anchor="middle" font-family="Teko, sans-serif" font-weight="600" font-size="20" letter-spacing="7" fill="#f3e3b3">BALLON D’OR 2026</text>'
+      + '<rect x="96" y="150" width="44" height="64" fill="#1a1208" stroke="#b8860b"/><g class="bd-float">' + bdoBall(118, 128, 18, k) + '</g><path d="M106 150 L108 142 H128 L130 150 Z" fill="#2a1d08"/>'
+      + bdoMan(228, 112, 1.2, {skin:'#8a5a3c', hair:'bald', hc:'#1a0f08', suit:true, grin:true, arm:'card'})
+      + '<path d="M204 178 H252 L248 214 H208 Z" fill="#1c140a" stroke="#b8860b"/><rect x="212" y="166" width="3" height="14" fill="#333"/><ellipse cx="213.5" cy="164" rx="3.5" ry="4.5" fill="#222"/>';
+    for (let i = 0; i < 16; i++) s += '<circle cx="' + (12 + i*25) + '" cy="' + (244 + (i % 2)*8) + '" r="9" fill="#0a0806"/>';
+  }
+  return s + '</svg>';
+}
+
+function bdoEl(){
+  let el = $('#bdo');
+  if (!el) { el = document.createElement('div'); el.id = 'bdo'; el.className = 'bdo'; el.hidden = true; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', 'Vance’s Ballon d’Or quiz'); document.body.append(el); }
+  return el;
+}
+function bdoShow(kind, html){
+  const el = bdoEl();
+  el.innerHTML = '<div class="bdo-scene k-' + kind + '">' + bdoScene(kind) + '</div><div class="bdo-panel">' + html + '</div><button class="icon-btn bdo-x" data-bdo="close" aria-label="Close">✕</button>';
+}
+async function bdoAsk(){
+  const m = room; if (!m || m.id !== 'vance' || bdoBusy || actBusy || neg || vaultBusy) return;
+  bdoBusy = true; renderLeft();
+  tone(784, .12, 'triangle', .04); tone(1046.5, .2, 'triangle', .04, .1);
+  await sayRoom('That? The 2026 Ballon d’Or. London, black tie, the whole world watching. I’ve got a spare seat.');
+  await wait(REDUCED ? 100 : 1300);
+  if (room !== m) { bdoBusy = false; return; }
+  await sayRoom('Nobody sits next to me who doesn’t know the game. Three questions.');
+  await wait(REDUCED ? 100 : 900);
+  if (room !== m) { bdoBusy = false; return; }
+  const el = bdoEl(); el.hidden = false; el.className = 'bdo in';
+  sweep(220, 880, .6, 'sine', .05);
+  bdoQuiz.n = 0; bdoQuiz.score = 0;
+  bdoShow('invite', '<div class="bdo-eyebrow">Vance</div><p class="bdo-line">Three questions. Get them all and you’re sitting front row when the envelope opens.</p><button class="open-btn sm" data-bdo="start">Ask me</button>');
+  setTimeout(() => { const b = el.querySelector('[data-bdo="start"]'); if (b) b.focus({preventScroll:true}); }, 60);
+}
+const bdoQuiz = {n:0, score:0};
+function bdoQuestion(){
+  const Q = BDO_Q[bdoQuiz.n];
+  bdoShow('invite', '<div class="bdo-eyebrow">Question ' + (bdoQuiz.n + 1) + ' of 3</div><h3 class="bdo-q">' + Q.q + '</h3><div class="bdo-opts">'
+    + Q.opts.map((o, i) => '<button class="ghost bdo-opt" data-bdo="ans" data-v="' + i + '" style="animation-delay:' + (i*60) + 'ms">' + o + '</button>').join('') + '</div>');
+  tone(523.25, .1, 'triangle', .04);
+}
+function bdoAnswer(i){
+  const Q = BDO_Q[bdoQuiz.n], ok = i === Q.a, el = bdoEl();
+  if (el.querySelector('.bdo-opts.done')) return;
+  el.querySelector('.bdo-opts').classList.add('done');
+  el.querySelectorAll('.bdo-opt').forEach((b, k) => { b.disabled = true; if (k === Q.a) b.classList.add('right'); else if (k === i) b.classList.add('wrong'); });
+  if (ok) { bdoQuiz.score++; [659.25, 987.77].forEach((f, k) => tone(f, .25, 'triangle', .05, k*.1)); }
+  else { tone(160, .3, 'square', .05); tone(120, .35, 'square', .04, .12); }
+  bdoT(900, () => {
+    const last = bdoQuiz.n === BDO_Q.length - 1;
+    bdoShow(Q.scene, '<div class="bdo-eyebrow ' + (ok ? 'ok' : 'no') + '">' + (ok ? 'Correct' : 'Wrong · it’s ' + Q.opts[Q.a]) + '</div><h3 class="bdo-cap">' + Q.cap + '</h3><p class="bdo-sub">' + Q.sub + '</p>'
+      + '<p class="bdo-line">“' + Q.vance + '”</p><button class="open-btn sm" data-bdo="next">' + (last ? 'See if I’m in' : 'Next question') + '</button>');
+    if (Q.scene === 'france') { boom(); noise(1.2, 3000, 800, .05, 'bandpass'); }
+    else [523.25, 659.25, 783.99, 1046.5].forEach((f, k) => tone(f, .3, 'triangle', .035, k*.09));
+  });
+}
+function bdoNext(){
+  bdoQuiz.n++;
+  if (bdoQuiz.n < BDO_Q.length) { bdoQuestion(); return; }
+  if (bdoQuiz.score === BDO_Q.length) { bdoCeremony(); return; }
+  bdoShow('invite', '<div class="bdo-eyebrow no">' + bdoQuiz.score + ' out of 3</div><p class="bdo-line">“The seat goes to someone who knows the game. Come back when you do.”</p>'
+    + '<div class="bdo-row"><button class="ghost" data-bdo="close">Leave it</button><button class="open-btn sm" data-bdo="retry">Try again</button></div>');
+  tone(196, .4, 'sine', .05); tone(147, .5, 'sine', .05, .2);
+}
+function bdoCeremony(){
+  const el = bdoEl(); el.className = 'bdo in cer';
+  cine = {skip: bdoClose}; musSync();
+  P().bdo = (P().bdo || 0) + 1; save();
+  bdoShow('stage', '<div class="bdo-eyebrow">Ballon d’Or 2026 · London</div><p class="bdo-line bdo-type" id="bdoSay"></p>');
+  const say = $('#bdoSay'), line = 'Ronaldo Nazário: “And the 2026 Ballon d’Or goes to…”';
+  // the room goes quiet, the spotlight lands on the podium, he reads, the drumroll starts
+  bdoT(400, () => { sweep(900, 200, 1.2, 'sine', .04); });
+  [...line].forEach((ch, i) => bdoT(1400 + i*38, () => { if (say) say.textContent = line.slice(0, i + 1); if (i % 3 === 0) tone(300 + Math.random()*60, .03, 'square', .015); }));
+  const t0 = 1400 + line.length*38 + 300;
+  for (let i = 0; i < 26; i++) bdoT(t0 + i*70, () => noise(.06, 1800, 400, .03 + i*.003, 'bandpass'));
+  bdoT(t0, () => el.classList.add('roll'));
+  bdoT(t0 + 1900, () => { el.classList.add('open'); boom(); tone(1046.5, 1.2, 'triangle', .05); });
+  bdoT(t0 + 2600, () => {
+    const p = el.querySelector('.bdo-panel');
+    if (p) p.insertAdjacentHTML('beforeend', '<p class="bdo-line">Vance leans over: “Front row. Don’t blink.”</p><button class="open-btn sm" data-bdo="close">Back to the office</button>');
+  });
+}
+function bdoClose(){
+  bdoTimers.forEach(clearTimeout); bdoTimers = [];
+  const el = $('#bdo'); if (el) { el.hidden = true; el.innerHTML = ''; el.className = 'bdo'; }
+  if (cine && cine.skip === bdoClose) { cine = null; musSync(); }
+  bdoBusy = false;
+  if (room && room.id === 'vance') { renderLeft(); sayRoom(P().bdo ? 'Told you it was worth the suit.' : 'The offer stands. Study up.'); }
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-bdo]'); if (!b || b.disabled || !b.closest('#bdo')) return;
+  const a = b.dataset.bdo;
+  if (a === 'start' || a === 'retry') { bdoQuiz.n = 0; bdoQuiz.score = 0; bdoQuestion(); }
+  else if (a === 'ans') bdoAnswer(+b.dataset.v);
+  else if (a === 'next') bdoNext();
+  else if (a === 'close') bdoClose();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#bdo') && !$('#bdo').hidden) { e.stopImmediatePropagation(); e.preventDefault(); bdoClose(); } }, true);
 function memberIntro(m){
   return new Promise(resolve => {
     ac();
@@ -9034,6 +9287,7 @@ $('#prRoom').addEventListener('click', e => {
   if (a && (a.dataset.a === 'jpick' || a.dataset.a === 'jgo' || a.dataset.a === 'jback')) { if (!a.disabled) jobAct(a.dataset.a, a); return; }
   if (a && a.dataset.a === 'mbuy') { if (!a.disabled) machBuy(); return; }
   if (a && a.dataset.a === 'munzoom') { machClose(); return; }
+  if (a && a.dataset.a === 'bdo') { if (!a.disabled) bdoAsk(); return; }
   if (a && a.dataset.a === 'bags') { if (!a.disabled) { openOv('bags'); sayRoom('Backpacks! I got ’em from… places. Good places.'); } return; }
   if (a && a.dataset.a === 'bagbuy') { if (!a.disabled) bagBuy(+a.dataset.v); return; }
   if (a && a.dataset.a === 'peek') { if (!a.disabled) tinnyPeek(); return; }
