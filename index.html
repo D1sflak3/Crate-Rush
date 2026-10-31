@@ -6271,8 +6271,8 @@ const SC = {
       const notes = [523.25, 659.25, 783.99, 1046.5, 783.99, 659.25, 587.33, 698.46]; let n = 0;
       const tune = S.loop(() => tone(notes[n++ % 8], .09, 'square', .022), 130);
       const pew = S.loop(() => sweep(1600, 400, .1, 'square', .018), 560);
-      await S.W(3600);
-      while (mi && !mi.skip && Date.now() - junoHold < 1800) await S.W(250);
+      await S.W(6000);
+      while (mi && !mi.skip && Date.now() - junoHold < 3500) await S.W(250);
       S.off('j-game'); S.unloop(pew);
       const mash = S.loop(() => tone(2200 + Math.random()*400, .015, 'square', .02), 105);
       await S.W(1700);
@@ -7918,7 +7918,7 @@ SC.tjob = TJ_SC;
    right, and ROOT//CRATE unlocks for this account. It can hand out credits and any item, rig the next case,
    unlock every area, clear cooldowns and restart the game, and every command glitches the screen in its own way.
    A save that has used it is marked (state.admin) and kept off the public leaderboard. */
-const ADM_SEQ = [0, 0, 0, 1, 1, 1, 2, 2, 2];
+const ADM_SEQS = [[0, 0, 0, 1, 1, 1, 2, 2, 2], [0, 1, 2, 0, 1, 2, 0, 1, 2]];
 let admPress = [], junoHold = 0, admSel = null, admWear = 0, admBusy = false;
 function glitchDudes(){
   const px = ['0011100', '0111110', '1101011', '1111111', '0101010', '1000001'];
@@ -7933,8 +7933,9 @@ function glitchClick(i, el){
   junoHold = Date.now();
   admPress.push(i); const n = admPress.length;
   restart(el, 'hit'); for (let k = 0; k < 3; k++) tone(300 + Math.random()*1500, .04, 'square', .03, k*.03);
-  if (admPress[n - 1] !== ADM_SEQ[n - 1]) { admPress = admPress[n - 1] === 0 ? [0] : []; return; }
-  if (n === ADM_SEQ.length) { admPress = []; unlockAdmin(); }
+  const ok = q => admPress.every((v, k) => q[k] === v);
+  if (!ADM_SEQS.some(ok)) { admPress = admPress[n - 1] === 0 ? [0] : []; return; }
+  if (ADM_SEQS.some(q => q.length === n && ok(q))) { admPress = []; unlockAdmin(); }
 }
 function unlockAdmin(){
   state.adminUnlocked = true; save(); renderAdminBtn();
