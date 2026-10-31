@@ -1758,6 +1758,10 @@ const WEARS = [
   {n:'Scarred', lo:.45, hi:1,   m:.7,   w:16}
 ];
 const WEAR_W = WEARS.map(w => w.w);
+/* Black Market prices are fixed: the item and its wear set the price, no daily noise, and wear only nudges it */
+const BM_WEAR = [1.1, 1.05, 1, .95, .9];
+function bmAt(it, wi){ return Math.round(TIERS[6].base * it.m * BM_WEAR[wi]); }
+function bmVal(it, fl){ const i = WEARS.findIndex(w => fl < w.hi); return bmAt(it, i < 0 ? 4 : i); }
 const VIS_FLOAT = [.04, .26, .62];
 const visGroup = wi => wi <= 1 ? 0 : wi === 2 ? 1 : 2;
 const WNAME = {rifle:'Rifle', sniper:'Sniper', pistol:'Pistol', smg:'SMG', shotgun:'Shotgun',
@@ -1865,7 +1869,7 @@ const CASES = [
 CASES.forEach(c => { c.pools = [0,1,2,3,4,5].map(t => t === 5 ? GOLD : c.items.filter(id => BY[id].t === t)); });
 const MIN_COST = Math.min(...CASES.map(c => c.cost));
 /* Case #PK1: sold only in Tobias's back room. Every pull is Black Market. */
-const PK1 = {id:'pk1', name:'Case #PK1', tag:'Every pull is contraband', cost:60000, cls:'k-pk', mark:'PK1', glow:'#a855f7'};
+const PK1 = {id:'pk1', name:'Case #PK1', tag:'Every pull is contraband', cost:110000, cls:'k-pk', mark:'PK1', glow:'#a855f7'};
 const ITEM_CASE = {};
 CASES.forEach(c => c.items.forEach(id => { ITEM_CASE[id] = c; }));
 
@@ -2407,7 +2411,8 @@ try {
     state = Object.assign(fresh(), s, {inv: s.inv.filter(x => BY[x.id]), hacks: Object.assign(freshHacks(), s.hacks || {}), xrayRolls: s.xrayRolls || {}, pres: Object.assign(freshPres(), s.pres || {})});
     /* Black Market used to be worth a fraction of what it is now: rescale anything saved at the old prices */
     const BM_OLD = 85000 / 6000, bmFix = v => Math.max(50000, Math.round(v * BM_OLD));
-    state.inv.forEach(e => { if (BY[e.id].t === 6 && e.v < 50000) e.v = bmFix(e.v); });
+    /* every Black Market piece is repriced to its fixed price */
+    state.inv.forEach(e => { if (BY[e.id].t === 6) e.v = bmVal(BY[e.id], e.fl); });
     if (state.best && BY[state.best.id] && BY[state.best.id].t === 6 && state.best.v < 50000) state.best.v = bmFix(state.best.v);
     if (state.pres.vaultT && state.pres.vaultT < 50000) state.pres.vaultT = bmFix(state.pres.vaultT);
     /* he now comes back after a single piece of contraband: saves that already took one are owed a visit */
@@ -2480,7 +2485,7 @@ let sel = 0, busy = false, current = null, tradeTier = 0, picks = [];
 const wearIdx = fl => { const i = WEARS.findIndex(w => fl < w.hi); return i < 0 ? 4 : i; };
 /* Black Market never goes for less than BM_MIN, whatever the wear */
 const BM_MIN = 50000;
-const priceOf = (it, wi) => Math.max(it.t === 6 ? BM_MIN : 1, Math.round(TIERS[it.t].base * (it.t >= 5 ? 1 : ITEM_CASE[it.id].f) * it.m * WEARS[wi].m * (.95 + Math.random()*.1)));
+const priceOf = (it, wi) => it.t === 6 ? bmAt(it, wi) : Math.max(it.t === 6 ? BM_MIN : 1, Math.round(TIERS[it.t].base * (it.t >= 5 ? 1 : ITEM_CASE[it.id].f) * it.m * WEARS[wi].m * (.95 + Math.random()*.1)));
 
 function roll(c){
   const {w, applied} = effWeights(c);
@@ -4674,7 +4679,7 @@ function renderLeft(anim){
       + '<div class="t">Case #PK1</div>'
       + '<div class="ps-meta"><span class="ps-tier">Black Market only</span><span>Always in stock</span></div>'
       + '<div class="rmc-price"><span class="coin"></span>' + fmt(PK1.cost) + '</div>'
-      + '<div class="rmc-sub">Opens right here · every pull is contraband worth ' + fmt(BM_MIN) + '+ · he pays market for what comes out</div></div>';
+      + '<div class="rmc-sub">Opens right here · every pull is contraband · he pays market for what comes out</div></div>';
   } else if (shopSel != null) {
     const stock = shopStock(m), st = stock[shopSel], it = BY[st.id], wi = wearIdx(st.fl), T = TIERS[it.t];
     const togo = RESTOCK - (state.opened % RESTOCK), afford = state.bal >= st.price;
@@ -5171,7 +5176,7 @@ function refreshShelf(){
   const g = sceneEl() && sceneEl().querySelector('.t-shelf');
   if (g && room) g.innerHTML = shopSlots(room, room.id + 'r');
 }
-const marketValue = (it, fl) => Math.max(it.t === 6 ? BM_MIN : 1, Math.round(TIERS[it.t].base * (it.t >= 5 ? 1 : ITEM_CASE[it.id].f) * it.m * WEARS[wearIdx(fl)].m));
+const marketValue = (it, fl) => it.t === 6 ? bmVal(it, fl) : Math.max(it.t === 6 ? BM_MIN : 1, Math.round(TIERS[it.t].base * (it.t >= 5 ? 1 : ITEM_CASE[it.id].f) * it.m * WEARS[wearIdx(fl)].m));
 const epochNow = () => Math.floor(state.opened / RESTOCK);
 const fmtK = n => n >= 10000 ? Math.round(n / 1000) + 'k' : n >= 1000 ? (Math.round(n / 100) / 10) + 'k' : String(n);
 function shopPool(m){
@@ -5837,7 +5842,7 @@ function selectSlot(i){
   renderLeft();
   camScene(shopBox(m, i));
   const st = shopStock(m)[i];
-  if (st && st.pk) { if (first) whoosh(); else pickSound(); sayRoom(first ? 'My own case. Sixty grand, and every pull is hot.' : pickOne(PK_LINES)); }
+  if (st && st.pk) { if (first) whoosh(); else pickSound(); sayRoom(first ? 'My own case. A hundred and ten grand, and every pull is hot.' : pickOne(PK_LINES)); }
   else if (first) { whoosh(); sayRoom(SHOPS[m.id].open); }
   else { pickSound(); sayRoom(SHOPS[m.id].lines[i % SHOPS[m.id].lines.length]); }
 }
@@ -6231,10 +6236,10 @@ async function cellSell(e){
 
 /* ---------- Case #PK1 ----------
    Tobias's own case. It drops in front of you, pops, and runs the Black Market cinematic like any other pull. */
-const PK_LINES = ['Sixty grand. Everything in it is hot.', 'Straight off a truck that doesn’t exist.', 'No refunds. Obviously.', 'Open it here. I like to watch.'];
+const PK_LINES = ['A hundred and ten grand. Everything in it is hot.', 'Straight off a truck that doesn’t exist.', 'No refunds. Obviously.', 'Open it here. I like to watch.'];
 async function openPK1(){
   const m = room; if (!m || m.id !== 'tobias' || actBusy || vaultBusy || mi || busy || captive) return;
-  if (state.bal < PK1.cost) { sayRoom('Sixty grand. You’re short.', 'mad'); tone(150, .22, 'sawtooth', .05); return; }
+  if (state.bal < PK1.cost) { sayRoom('A hundred and ten grand. You’re short.', 'mad'); tone(150, .22, 'sawtooth', .05); return; }
   actBusy = true; closeOv(); if (shopSel != null) unzoomShop(); renderLeft();
   state.bal -= PK1.cost; state.spent += PK1.cost; state.opened++;
   const id = pickOne(BM_IDS), W = WEARS[pickW(WEAR_W)], fl = +(W.lo + Math.random()*(W.hi - W.lo)).toFixed(4);
