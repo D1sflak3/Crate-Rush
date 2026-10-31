@@ -1021,6 +1021,7 @@ html.glx-crt .glx{background:#000}
 .bg-now .bg-art{width:96px;flex:none}.bg-now b{display:block;font-family:var(--display);font-size:26px;line-height:1}.bg-now span{font-size:13px;color:var(--muted)}
 .bg-now .lab{font-size:12px;color:#ffd23f;font-weight:700}
 .bg-bar{height:6px;border-radius:3px;background:#2a2a30;margin-top:6px;width:min(240px,50vw);overflow:hidden}.bg-bar i{display:block;height:100%;background:linear-gradient(90deg,#ffd23f,#ff8a3d)}
+.pr-scene > svg .tn-bag,.pr-scene > svg .tn-bag *{pointer-events:auto;cursor:pointer}.tn-bag .hl{opacity:0;filter:blur(8px)}.pr-scene:not(.zoomed) .tn-bag .hl{animation:hotPulse 2.8s ease-in-out infinite}.tn-bag:hover > svg{filter:brightness(1.2)}
 .bg-list{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}@media(max-width:560px){.bg-list{grid-template-columns:repeat(2,1fr)}}
 .bg-it{display:grid;justify-items:center;gap:4px;padding:10px;border-radius:10px;border:1px solid #33363d;background:#141518;text-align:center}
 .bg-it.next{border-color:#ffd23f;box-shadow:0 0 0 1px #ffd23f inset,0 0 18px rgba(255,210,63,.15)}
@@ -6734,6 +6735,7 @@ const YARD_SC = {
       for (let i = 1; i < 16; i++) { const t = i/16, y = (1-t)*(1-t)*34 + 2*(1-t)*t*74 + t*t*30; s += '<circle class="tn-bulb" cx="' + f1(400*t) + '" cy="' + f1(y + 3) + '" r="2.6" fill="' + cols[i % 4] + '"/>'; }
       s += '</g>';
       for (let c = 0; c < 2; c++) for (let r = 0; r < 7; r++) s += yTire(12 + c*50 + (r % 2)*3, 210 - r*13, 46);
+      s += tinnyBagDisplay();
       /* An old fridge door on bricks is his shop */
       s += '<rect x="270" y="172" width="12" height="50" fill="#6b3a22"/><rect x="374" y="172" width="12" height="50" fill="#6b3a22"/>'
         + '<rect x="262" y="46" width="132" height="128" rx="6" fill="#c9c2ae" stroke="#5a5446" stroke-width="2"/><rect x="266" y="50" width="124" height="120" rx="4" fill="#ddd6c1"/>'
@@ -8223,6 +8225,18 @@ function bagsPanel(){
           : next ? '<button class="gold-btn" data-a="bagbuy" data-v="' + i + '"' + (state.bal < b.price ? ' disabled' : '') + '><span class="coin"></span>' + fmt(b.price) + '</button>'
           : '<div class="bg-tag">' + fmt(b.price) + ' · buy the one before first</div>') + '</div>';
     }).join('') + '</div><p class="jb-note">Tinny sells them one size at a time. Your old bag goes back in his pile.</p>';
+}
+/* Tinny keeps the next bag up for sale on top of his tire pile. The scene is drawn when you walk in,
+   so the one you just bought stays there until your next visit, then he swaps in the bigger one. */
+function tinnyBagDisplay(){
+  const i = bagLvl() + 1;
+  if (!BAGS[i]) return '<g transform="rotate(-4 128 206)"><rect x="104" y="196" width="50" height="20" rx="2" fill="#b08a5a" stroke="#6b4e2c"/><text x="129" y="210" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="9" fill="#c0262d">SOLD OUT!!</text></g>';
+  const art = bagSVG(i).replace('<svg ', '<svg x="100" y="180" width="56" height="45" ');
+  return '<g class="tn-bag" data-a="bags" role="button" aria-label="' + BAGS[i].n + ' for sale">'
+    + '<ellipse class="hl" cx="128" cy="200" rx="34" ry="28" fill="#ffd23f"/><ellipse cx="128" cy="221" rx="25" ry="3" fill="#000" opacity=".4"/>' + art
+    + '<g transform="rotate(-10 140 176)"><path d="M126 170 H150 L155 176 L150 182 H126 Z" fill="#f2ead2" stroke="#6b4e2c" stroke-width=".8"/><circle cx="129.5" cy="176" r="1.4" fill="#6b4e2c"/>'
+    + '<text x="141" y="178.6" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="7.5" fill="#c0262d">' + fmt(BAGS[i].price) + '</text></g>'
+    + '<rect x="98" y="166" width="62" height="58" fill="#000" fill-opacity="0"/></g>';
 }
 function bagBuy(i){
   const m = room; if (!m || m.id !== 'tinny' || i !== bagLvl() + 1 || !BAGS[i]) return;
