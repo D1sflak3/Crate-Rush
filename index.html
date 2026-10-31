@@ -817,6 +817,15 @@ pre.notes{margin:0;white-space:pre-wrap;font:inherit;color:#e9fff2}
 @keyframes aucDust{50%{transform:translate(3px,-2px)}}
 .au-fight .yc-fma,.au-fight .yc-fso{animation:aucBrawl .16s linear infinite}
 .au-fight .yc-fde,.au-fight .yc-fti{animation:aucBrawl .2s linear infinite reverse}
+.au-sign{transform-box:view-box;transition:transform .25s cubic-bezier(.3,1.5,.5,1),opacity .3s}
+.au-sign .au-strike{opacity:0;stroke-dasharray:80;stroke-dashoffset:80;transition:stroke-dashoffset .35s}
+.au-sign.out .au-strike{opacity:1;stroke-dashoffset:0}
+.au-sign.out{opacity:.75}
+.au-sign.up{animation:aucRaise .45s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes aucRaise{from{transform:translateY(10px)}to{transform:translateY(-6px)}}
+.au-sign.win{transform:translateY(-6px);filter:drop-shadow(0 0 5px #ffd27a)}
+.au-fight .au-sign{animation:aucBrawl .18s linear infinite}
+@media (min-aspect-ratio:6/5) and (min-width:700px){.auc-ui{left:auto;right:16px;top:16px;bottom:auto;transform:none;width:min(380px,40vw)}}
 @keyframes aucBrawl{25%{transform:translate(4px,-3px)}50%{transform:translate(-3px,2px)}75%{transform:translate(3px,3px)}}
 @media (prefers-reduced-motion: reduce){.au-fight .yc-f,.au-fight .au-dust,.pa-fire i{animation:none}}
 /* The Rejects */
@@ -6592,7 +6601,52 @@ function aucSVG(e){
   const dust = '<g class="au-dust">' + [[188, 168, 16], [214, 160, 20], [236, 172, 15], [202, 182, 13], [226, 186, 14]].map(([x, y, r]) => '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="#b9ad98" opacity=".85"/>').join('')
     + '<path d="M170 142 l10 6 M250 140 l-9 8 M208 134 v10" stroke="#fff3c4" stroke-width="2" stroke-linecap="round"/>'
     + '<text class="au-pow" x="212" y="152" text-anchor="middle" font-family="Permanent Marker, Teko, sans-serif" font-size="20" fill="#ffd23f" stroke="#2a1206" stroke-width="1" transform="rotate(-8 212 152)">POW!</text></g>';
-  return '<div class="ms ms-yardc yc-ma yc-de yc-so yc-ti' + (it ? ' yc-knife' : '') + '">' + s.replace('</svg>', dust + '<g id="aucB"></g></svg>') + '</div>';
+  const signs = it ? ['deacon', 'ma', 'socket', 'tinny'].map(aucSignSVG).join('') : '';
+  return '<div class="ms ms-yardc yc-ma yc-de yc-so yc-ti' + (it ? ' yc-knife' : '') + '">' + s.replace('</svg>', signs + dust + '<g id="aucB"></g></svg>') + '</div>';
+}
+
+/* Every Reject writes their bids on their own sign: Ma paints on a scrap of car door, Tinny crayons on cardboard,
+   Deacon chalks a slate, Socket scrawls on an old licence plate. [cx, top, w, h] in the auction scene. */
+const AUC_SIGN = {deacon:[98, 150, 54, 30], ma:[166, 164, 62, 31], socket:[288, 154, 60, 29], tinny:[262, 186, 54, 29]};
+function aucSignSVG(id){
+  const [cx, y, w, h] = AUC_SIGN[id], x = cx - w/2, F = FACE[id], hand = (hx, hy) => '<circle cx="' + hx + '" cy="' + hy + '" r="4.2" fill="' + F.skin + '" stroke="' + F.sk2 + '" stroke-width=".8"/>';
+  let art = '', ink = '#fff', font = 'Permanent Marker, Teko, sans-serif';
+  if (id === 'ma') {
+    art = '<path d="M' + x + ' ' + (y + 3) + ' L' + (x + w - 4) + ' ' + y + ' L' + (x + w) + ' ' + (y + h - 2) + ' L' + (x + 3) + ' ' + (y + h) + ' Z" fill="#9a4a1e" stroke="#4a1e0a" stroke-width="1"/>'
+      + '<circle cx="' + (x + 10) + '" cy="' + (y + 8) + '" r="5" fill="#b8642a" opacity=".7"/><circle cx="' + (x + w - 12) + '" cy="' + (y + h - 7) + '" r="6" fill="#6b2a0c" opacity=".6"/>'
+      + '<rect x="' + (x + w - 18) + '" y="' + (y + 5) + '" width="10" height="3" rx="1.5" fill="#3a3a3a"/>';
+    ink = '#f4efe2';
+  } else if (id === 'tinny') {
+    art = '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="1" fill="#c99d63" stroke="#8a6338" stroke-width="1" transform="rotate(-3 ' + cx + ' ' + (y + h/2) + ')"/>'
+      + '<path d="M' + (x + 4) + ' ' + (y + 4) + ' h8 M' + (x + w - 12) + ' ' + (y + h - 4) + ' h8" stroke="#8a6338" stroke-width=".8"/>'
+      + '<circle cx="' + (x + w - 7) + '" cy="' + (y + 7) + '" r="3.4" fill="none" stroke="#3a7bd5" stroke-width="1"/><path d="M' + (x + w - 9) + ' ' + (y + 8) + ' q2 2 4 0" stroke="#3a7bd5" stroke-width=".8" fill="none"/>';
+    ink = '#d42a2a';
+  } else if (id === 'deacon') {
+    art = '<rect x="' + (x - 2) + '" y="' + (y - 2) + '" width="' + (w + 4) + '" height="' + (h + 4) + '" rx="2" fill="#7a5233"/><rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" fill="#26302b"/>'
+      + '<path d="M' + (x + 4) + ' ' + (y + h - 5) + ' q10 -3 20 0" stroke="#fff" stroke-opacity=".12" stroke-width="3" fill="none"/>';
+    ink = '#eef2ea'; font = 'Teko, sans-serif';
+  } else {
+    art = '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="3" fill="#efe2a8" stroke="#2a3a6a" stroke-width="1.6"/>'
+      + '<text x="' + cx + '" y="' + (y + 6.5) + '" text-anchor="middle" font-family="Teko, sans-serif" font-size="5.5" fill="#2a3a6a" letter-spacing=".5">JUNKTOWN</text>'
+      + '<circle cx="' + (x + 5) + '" cy="' + (y + 4.5) + '" r="1.3" fill="#777"/><circle cx="' + (x + w - 5) + '" cy="' + (y + 4.5) + '" r="1.3" fill="#777"/>'
+      + '<path d="M' + (x + 6) + ' ' + (y + h - 5) + ' q12 4 26 -1" stroke="#3a2a1a" stroke-width="2.4" opacity=".35" fill="none"/>';
+    ink = '#1a2a5a'; font = 'Teko, sans-serif';
+  }
+  return '<g class="au-sign" id="aus-' + id + '">' + art
+    + '<text class="au-num" x="' + cx + '" y="' + (y + h/2 + (id === 'socket' ? 7 : 5)) + '" text-anchor="middle" font-family="' + font + '" font-weight="700" font-size="13" fill="' + ink + '"></text>'
+    + '<path class="au-strike" d="M' + (x + 4) + ' ' + (y + h/2 + 3) + ' L' + (x + w/2) + ' ' + (y + h/2 - 2) + ' L' + (x + w - 4) + ' ' + (y + h/2 + 2) + '" stroke="' + (id === 'tinny' ? '#1a1a1a' : '#d42a2a') + '" stroke-width="2.2" fill="none" stroke-linecap="round"/>'
+    + hand(x + 4, y + h - 1) + hand(x + w - 4, y + h - 1) + '</g>';
+}
+/* Write a bid on a sign one character at a time, scratching away, and cross out everyone else's */
+function aucSign(who, v, quick){
+  const [, , w] = AUC_SIGN[who], txt = fmt(v), g = document.getElementById('aus-' + who); if (!g) return;
+  document.querySelectorAll('#aucStage .au-sign').forEach(o => { if (o !== g && o.querySelector('.au-num').textContent) o.classList.add('out'); o.classList.remove('up'); });
+  g.classList.remove('out'); restart(g, 'up');
+  const t = g.querySelector('.au-num'), fs = Math.min(13, (w - 8) / (txt.length * .52));
+  t.setAttribute('font-size', fs.toFixed(1));
+  if (quick || REDUCED) { t.textContent = txt; return; }
+  let i = 0; t.textContent = '';
+  const tick = setInterval(() => { i++; t.textContent = txt.slice(0, i); noise(.04, 3800, 2400, .025, 'bandpass'); if (i >= txt.length) clearInterval(tick); }, 45);
 }
 function aucBubble(who, text){
   const g = document.getElementById('aucB'); if (!g) return;
@@ -6645,14 +6699,15 @@ async function runAuction(e){
     last = who;
     let line = pickOne(AUC_LINES[who]).split('{o}').join(fmt(v));
     if (i > fightAt || v / mkt >= 1.5) line = line.toUpperCase();
-    aucBubble(who, line); aucShowBid(v, mkt, who); gavel();
+    aucBubble(who, line); aucShowBid(v, mkt, who); aucSign(who, v); gavel();
     tone(MBY[who].pitch * (1.6 + i * .06), .12, 'square', .03);
     await W(i > fightAt ? 950 : 1250);
   }
   if (!auc || auc !== ctl) return;
   if (ctl.skip) { last = last && Math.random() < .5 ? last : pickOne(AUC_IDS); ctl.skip = false; }
   const amt = bids[steps - 1], win = MBY[last];
-  aucShowBid(amt, mkt, last);
+  aucShowBid(amt, mkt, last); aucSign(last, amt, true);
+  { const ws = document.getElementById('aus-' + last); if (ws) ws.classList.add('win'); }
   aucBubble(last, amt >= mkt * 1.95 ? 'DOUBLE! IT\'S MINE! ' + fmt(amt) + '!' : 'SOLD! To me! ' + fmt(amt) + '!');
   [0, .22, .44].forEach(d => { tone(196, .5, 'sine', .14, d); noise(.06, 1500, 300, .2, undefined); });
   $('#aucWho').innerHTML = '<span style="color:' + win.col + '">' + win.name + '</span> wins it' + (amt >= mkt * 1.95 ? ' · double market!' : '');
