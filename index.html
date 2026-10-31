@@ -2191,6 +2191,54 @@ body{background:
 .bdo.open .bd-spot{opacity:.3}
 @media (max-width:620px){.bdo-opts{grid-template-columns:1fr}.bdo-scene{width:100%}}
 @media (prefers-reduced-motion: reduce){.bdo.roll .bdo-scene,.bd-conf,.bd-float{animation:none}}
+
+/* ---------- The plot backstage ---------- */
+.bdo.cut .bdo-scene{animation:bdCut .5s steps(3) forwards}
+@keyframes bdCut{to{filter:brightness(0);transform:scale(1.04)}}
+.k-backstage .bp-l{animation:bpInL .6s var(--ease-spring) both}.k-backstage .bp-r{animation:bpInR .6s .3s var(--ease-spring) both}
+@keyframes bpInL{from{transform:translateX(-80px);opacity:0}}@keyframes bpInR{from{transform:translateX(80px);opacity:0}}
+.bp-bulb{animation:bpFlick 3s steps(1) infinite}@keyframes bpFlick{10%{opacity:.3}12%{opacity:1}60%{opacity:.6}62%{opacity:1}}
+.bdo-pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px;width:100%;max-height:210px;overflow:auto;padding:2px}
+.bdo-it{appearance:none;cursor:pointer;display:grid;justify-items:center;gap:2px;padding:8px 6px;border-radius:var(--r-md);border:1px solid color-mix(in srgb,var(--tc) 45%,var(--line));
+  background:radial-gradient(70% 60% at 50% 30%,color-mix(in srgb,var(--tc) 26%,transparent),transparent 70%),var(--panel);color:var(--text);transition:transform var(--dur-fast) var(--ease-out),border-color var(--dur-fast)}
+.bdo-it:hover{transform:translateY(-3px);border-color:var(--tc)}
+.bdo-it img{width:88px;height:auto}.bdo-it span{font-weight:700;font-size:13px;line-height:1.1}.bdo-it small{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--tc)}
+.bdo-it.chroma{border-color:transparent;background:linear-gradient(var(--panel),var(--panel)) padding-box,var(--chroma) border-box}
+.bp-vini{animation:bpInL .7s var(--ease-spring) both}
+.bp-beam,.bp-wash,.bp-puff,.bp-shards path{opacity:0}
+.o-mbappe .bp-beam{stroke:#c084fc}.o-messi .bp-beam{stroke:url(#bpRb);stroke-width:9}
+.fire:not(.o-kane) .bp-beam{animation:bpBeam .5s ease-out forwards}
+@keyframes bpBeam{0%{opacity:1;stroke-dasharray:0 200}40%{opacity:1;stroke-dasharray:200 0}100%{opacity:0}}
+.o-kane.fire .bp-puff{animation:bpPuff 1.4s ease-out forwards}
+@keyframes bpPuff{0%{opacity:.9;transform:scale(.3)}100%{opacity:0;transform:scale(1.6) translateY(-20px)}}
+.bp-puff{transform-box:fill-box;transform-origin:center}
+.o-kane.fire .bp-vini{animation:bpOut 1.4s 1.2s ease-in forwards}
+@keyframes bpOut{to{transform:translateX(-160px)}}
+.smash .bp-screen{fill:#000;stroke:#ff4d5e;animation:quake .4s}
+.smash .bp-shards path{animation:bpShard 1.2s ease-out forwards}
+@keyframes bpShard{0%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(200deg)}}
+.rainbow .bp-wash{animation:bpWash 1s ease-out forwards}
+@keyframes bpWash{0%{opacity:.75}100%{opacity:0}}
+.rainbow .bp-nom:not(.bp-calm){animation:bpRun 1.6s .9s cubic-bezier(.5,0,.75,0) forwards}
+@keyframes bpRun{20%{transform:translateY(-14px)}100%{transform:translate(var(--dx),-6px)}}
+.rainbow .bp-calm{animation:bpBob 1.2s ease-in-out infinite}
+@keyframes bpBob{50%{transform:translateY(-2px)}}
+.k-penalty .bp-cr7{animation:bpInR .6s var(--ease-spring) both}
+.bp-cr7in{transform-box:fill-box;transform-origin:50% 100%;transition:transform .6s var(--ease-spring)}
+.bdo.dive .bp-cr7in{transform:rotate(-82deg) translate(-20px,40px)}
+.bdo.shout .bp-cr7in{transform:rotate(-82deg) translate(-20px,40px)}
+.bdo.storm .bp-cr7in{transform:none}
+.bdo.storm .bp-cr7{animation:bpStorm 1.2s .3s ease-in forwards}
+@keyframes bpStorm{to{transform:translateX(320px)}}
+.bp-shout{opacity:0;transform-box:fill-box;transform-origin:20% 100%}
+.bdo.shout .bp-shout{animation:bpShout .4s var(--ease-spring) forwards}
+.bdo.storm .bp-shout{opacity:1;animation:bpOut2 .6s ease-in forwards}
+@keyframes bpShout{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+@keyframes bpOut2{from{opacity:1}to{opacity:0;transform:translateX(120px)}}
+.bd-tear{animation:bdTear .9s ease-in infinite}
+@keyframes bdTear{0%{transform:translateY(0);opacity:.9}100%{transform:translateY(10px);opacity:0}}
+.bdo.dive .bp-messi,.bdo.storm .bp-messi{animation:bpBob 1.2s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){.bd-tear,.bp-bulb{animation:none}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -8510,6 +8558,7 @@ function bdoFace(o){
   if (o.hair === 'afro') f += '<path d="M-17 4 Q-18 -14 0 -15 Q18 -14 17 4 Q10 -7 0 -7 Q-10 -7 -17 4 Z" fill="' + hc + '"/>';
   if (o.hair === 'blond') f += '<path d="M-16 6 L-15 -10 L-11 -14 L-8 -19 L-4 -15 L0 -21 L4 -15 L8 -19 L11 -14 L15 -10 L16 6 Q12 -5 0 -6 Q-12 -5 -16 6 Z" fill="' + (o.hl || '#e8c86a') + '"/>';
   if (o.hair === 'curly') f += '<path d="M-16 6 Q-16 -10 0 -12 Q16 -10 16 6 Q12 -4 0 -5 Q-12 -4 -16 6 Z" fill="' + hc + '"/>' + [-11,-6,-1,4,9,13].map((x, i) => '<circle cx="' + x + '" cy="' + (-13 - (i % 2)*3) + '" r="4.2" fill="' + hc + '"/>').join('');
+  if (o.hair === 'quiff') f += '<path d="M-16 6 Q-17 -12 -6 -16 Q2 -26 14 -20 Q18 -14 16 6 Q13 -5 4 -8 Q-8 -6 -16 6 Z" fill="' + hc + '"/><path d="M-16 6 Q-16 -2 -14 -6 M16 6 Q16 -2 14 -6" stroke="' + hc + '" stroke-width="2" opacity=".5"/>';
   if (o.hair === 'bald') f += '<ellipse cx="-6" cy="-9" rx="7" ry="3.6" fill="#fff" opacity=".22" transform="rotate(-18 -6 -9)"/>';
   // facial hair
   if (o.beard === 'full') f += '<path d="M-16 12 Q-17 33 -7 41 Q0 45 7 41 Q17 33 16 12 Q15 24 10 28 Q5 26 0 27 Q-5 26 -10 28 Q-15 24 -16 12 Z" fill="' + hc + '"/><path d="M-8 28.5 Q0 25.5 8 28.5 Q4 27.8 0 28.2 Q-4 27.8 -8 28.5 Z" fill="' + hc + '" stroke="' + hc + '" stroke-width="2"/>';
@@ -8536,12 +8585,23 @@ function bdoFace(o){
   else if (o.mouth === 'open') f += '<ellipse cx="0" cy="31.5" rx="4.5" ry="3.6" fill="#5a1a14"/><path d="M-3.5 29.5 H3.5" stroke="#fff" stroke-width="1.4"/>';
   else f += '<path d="M-6.5 30 Q0 34.4 6.5 30" stroke="#6a2a1e" stroke-width="1.7" fill="none" stroke-linecap="round"/>';
   if (o.lip !== false && o.mouth !== 'gap' && o.mouth !== 'grin') f += '<path d="M-3.5 33.6 Q0 34.8 3.5 33.6" stroke="' + sh + '" stroke-width="1" fill="none"/>';
+  if (o.tears) f += '<path class="bd-tear" d="M-8 15 Q-10 22 -8 26 Q-6 22 -8 15 Z M8 15 Q6 22 8 26 Q10 22 8 15 Z" fill="#7cc8ff" opacity=".9"/><path d="M-11 9 Q-7 6 -3 8 M3 8 Q7 6 11 9" stroke="#2a1810" stroke-width="1.4" fill="none"/>';
+  if (o.cap) f += '<path d="M-19 -6 Q-20 -24 0 -26 Q20 -24 19 -6 Z" fill="#3a4526"/><rect x="-19" y="-9" width="38" height="5" fill="#d4a017"/><path d="M-18 -4 Q0 2 20 -4 L22 -1 Q0 6 -20 -1 Z" fill="#111"/><circle cx="0" cy="-15" r="3.4" fill="#d4a017"/><circle cx="0" cy="-15" r="1.6" fill="#c0262d"/>';
   return '<g transform="translate(0 15) scale(.82)">' + f + '</g>';
 }
 function bdoMan(x, y, s, o){
   const sk = o.skin || '#e0a878', sh = o.shirt || '#1e3a8a';
   let g = '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')">';
-  if (o.suit) {
+  if (o.hoodie) g += '<path d="M-22 40 Q-26 -6 0 -8 Q26 -6 22 40 Z" fill="#141418"/>';
+  if (o.uniform === 'dictator') {
+    g += '<path d="M-36 96 Q-35 58 -12 51 H12 Q35 58 36 96 Z" fill="#3d4a2a"/><path d="M-8 51 L0 60 L8 51" fill="none" stroke="#2a3320" stroke-width="3"/>'
+      + '<path d="M-34 60 Q-30 52 -18 52 L-20 60 Z M34 60 Q30 52 18 52 L20 60 Z" fill="#d4a017"/><path d="M-33 60 v5 M-29 60 v6 M-25 60 v5 M33 60 v5 M29 60 v6 M25 60 v5" stroke="#d4a017" stroke-width="1.2"/>'
+      + '<path d="M-24 58 L22 96 H10 L-30 64 Z" fill="#c0262d"/>'
+      + [64, 72, 80, 88].map(y => '<circle cx="0" cy="' + y + '" r="1.6" fill="#d4a017"/>').join('')
+      + [[12, 66, '#d4a017'], [17, 67, '#c0c0c8'], [22, 68, '#c0262d'], [12, 74, '#2f6bff']].map(([x, y, c]) => '<rect x="' + (x - 1.5) + '" y="' + (y - 4) + '" width="3" height="4" fill="' + c + '"/><circle cx="' + x + '" cy="' + (y + 2) + '" r="2.2" fill="' + c + '"/>').join('');
+  } else if (o.hoodie) {
+    g += '<path d="M-34 96 Q-34 58 -12 51 H12 Q34 58 34 96 Z" fill="#17171c"/><path d="M-14 51 Q0 62 14 51" stroke="#26262e" stroke-width="5" fill="none"/><path d="M-3 58 V74 M3 58 V74" stroke="#b0b0b8" stroke-width="1"/><path d="M-14 80 H14 V92 H-14 Z" fill="#101014"/>';
+  } else if (o.suit) {
     g += '<path d="M-36 96 Q-35 58 -12 52 H12 Q35 58 36 96 Z" fill="#111318"/><path d="M-7 52 L0 74 L7 52 Z" fill="#f4f1ea"/><path d="M-5 56 L0 59 L5 56 L5 61 L0 59 L-5 61 Z" fill="#111"/>'
       + '<path d="M-12 52 L-2 80 L-10 62 L-6 58 Z M12 52 L2 80 L10 62 L6 58 Z" fill="#23262e"/>';
   } else {
@@ -8554,7 +8614,9 @@ function bdoMan(x, y, s, o){
   }
   g += '<path d="M-6.5 40 H6.5 V54 Q0 57 -6.5 54 Z" fill="' + sk + '"/><path d="M-6.5 42 Q0 47 6.5 42 V46 Q0 50 -6.5 46 Z" fill="rgba(90,40,20,.22)"/>';
   g += bdoFace(o);
-  if (o.arm === 'up') g += '<path d="M24 62 Q36 40 34 16" stroke="' + (o.suit ? '#111318' : sh === 'stripes' ? '#7cc4ef' : sh) + '" stroke-width="10" stroke-linecap="round" fill="none"/><circle cx="34" cy="13" r="5.5" fill="' + sk + '"/>';
+  if (o.arm === 'up') g += '<path d="M24 62 Q36 40 34 16" stroke="' + (o.uniform ? '#3d4a2a' : o.hoodie ? '#17171c' : o.suit ? '#111318' : sh === 'stripes' ? '#7cc4ef' : sh) + '" stroke-width="10" stroke-linecap="round" fill="none"/><circle cx="34" cy="13" r="5.5" fill="' + sk + '"/>';
+  if (o.arm === 'point') g += '<path d="M24 62 Q46 52 62 44" stroke="#3d4a2a" stroke-width="10" stroke-linecap="round" fill="none"/><circle cx="64" cy="43" r="5" fill="' + sk + '"/><path d="M66 42 L76 39" stroke="' + sk + '" stroke-width="3" stroke-linecap="round"/>';
+  if (o.arm === 'aim') g += '<path d="M20 60 Q34 66 48 64 M-18 62 Q12 76 44 68" stroke="#17171c" stroke-width="9" stroke-linecap="round" fill="none"/><circle cx="48" cy="65" r="4.6" fill="' + sk + '"/>';
   if (o.arm === 'card') g += '<path d="M-24 64 Q-36 58 -31 46" stroke="#111318" stroke-width="10" stroke-linecap="round" fill="none"/><g class="bd-env"><rect x="-46" y="26" width="26" height="17" rx="1.5" fill="#f2e6c4" stroke="#b8860b"/><path class="bd-flap" d="M-46 26 L-33 36 L-20 26" stroke="#b8860b" fill="#e9d9ad"/></g><circle cx="-31" cy="44" r="5" fill="' + sk + '"/>';
   return g + '</g>';
 }
@@ -8678,10 +8740,8 @@ function bdoCeremony(){
   for (let i = 0; i < 26; i++) bdoT(t0 + i*70, () => noise(.06, 1800, 400, .03 + i*.003, 'bandpass'));
   bdoT(t0, () => el.classList.add('roll'));
   bdoT(t0 + 1900, () => { el.classList.add('open'); boom(); tone(1046.5, 1.2, 'triangle', .05); });
-  bdoT(t0 + 2600, () => {
-    const p = el.querySelector('.bdo-panel');
-    if (p) p.insertAdjacentHTML('beforeend', '<p class="bdo-line">Vance leans over: “Front row. Don’t blink.”</p><button class="open-btn sm" data-bdo="close">Back to the office</button>');
-  });
+  bdoT(t0 + 2500, () => el.classList.add('cut'));
+  bdoT(t0 + 3000, bdoPlot);
 }
 function bdoClose(){
   bdoTimers.forEach(clearTimeout); bdoTimers = [];
@@ -8699,6 +8759,155 @@ document.addEventListener('click', e => {
   else if (a === 'close') bdoClose();
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#bdo') && !$('#bdo').hidden) { e.stopImmediatePropagation(); e.preventDefault(); bdoClose(); } }, true);
+/* ---------- The plot backstage ----------
+   Right as the envelope opens, cut backstage: Mbappé in a dictator's uniform orders Vini Jr. to wreck the stage
+   so Kane can't win. Vini borrows a weapon from your bag (you get it back) and its tier decides the night:
+   below Black Market it jams and Kane wins; Black Market takes out the vote screen and Mbappé wins;
+   Chroma blows the whole stage apart, every nominee runs for it except Messi, who wins his 9th, and Cristiano
+   dives and storms out yelling for a penalty. Nobody gets hurt. */
+const BDO_PPL = {
+  mbappe:{skin:'#5e3a26', shade:'rgba(25,10,5,.28)', head:'round', hair:'buzz', hc:'#0d0806', brow:'thick', nose:'wide', mouth:'grin', iris:'#2a1810'},
+  vini:{skin:'#563621', shade:'rgba(20,8,4,.3)', head:'long', hair:'curly', hc:'#0c0806', beard:'stubble', brow:'arch', nose:'wide', mouth:'smile'},
+  kane:{skin:'#f1c9a8', shade:'rgba(140,70,40,.16)', head:'long', hair:'part', hc:'#8a6038', bc:'#6a4626', iris:'#4a6a8a', brow:'flat', mouth:'smile'},
+  messi:{skin:'#ebb995', shade:'rgba(120,60,30,.16)', head:'oval', hair:'messi', hc:'#3b2615', beard:'full', brow:'flat', iris:'#5a3a1e', mouth:'smile'},
+  cr7:{skin:'#d9a37c', shade:'rgba(110,50,25,.18)', head:'long', hair:'quiff', hc:'#1a110b', brow:'arch', iris:'#3a2416', mouth:'open'}
+};
+const bdoP = (who, extra) => Object.assign({}, BDO_PPL[who], extra || {});
+let bdoLent = null;
+
+function bdoPlotScene(kind, it, wi){
+  const k = 'bp';
+  let s = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>' + bdoDefs(k)
+    + '<radialGradient id="bpSp" cx=".5" cy=".25" r=".75"><stop offset="0" stop-color="#ffe7a0" stop-opacity=".3"/><stop offset="1" stop-color="#ffe7a0" stop-opacity="0"/></radialGradient>'
+    + '<linearGradient id="bpRb" x1="0" x2="1"><stop offset="0" stop-color="#ff3ea5"/><stop offset=".25" stop-color="#ffd23f"/><stop offset=".5" stop-color="#39ff88"/><stop offset=".75" stop-color="#2fe3ff"/><stop offset="1" stop-color="#7a6aff"/></linearGradient></defs>';
+  const gunImg = (x, y, w, flip) => it ? '<image href="' + artHi(it, wi) + '" x="' + x + '" y="' + y + '" width="' + w + '" height="' + (w*.4) + '" preserveAspectRatio="xMidYMid meet"' + (flip ? ' transform="scale(-1 1) translate(' + (-2*x - w) + ' 0)"' : '') + '/>' : '';
+  const stageBg = () => '<rect width="400" height="260" fill="#050407"/>'
+    + '<path d="M0 0 H60 Q52 120 66 260 H0 Z M400 0 H340 Q348 120 334 260 H400 Z" fill="#4a0d16"/>'
+    + '<rect x="0" y="214" width="400" height="46" fill="#120c06"/><rect x="0" y="212" width="400" height="3" fill="#b8860b"/>';
+  if (kind === 'backstage') {
+    s += '<rect width="400" height="260" fill="#0e0c12"/><rect x="0" y="200" width="400" height="60" fill="#17131a"/>'
+      + '<rect x="40" y="30" width="96" height="170" fill="#1a1620" stroke="#2c2634" stroke-width="3"/><rect x="66" y="16" width="44" height="12" rx="2" fill="#c0262d"/><text x="88" y="25.5" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="9" letter-spacing="1.5" fill="#fff">STAGE →</text>'
+      + '<path d="M0 0 H400 V8 H0 Z" fill="#000"/><rect class="bp-bulb" x="190" y="8" width="24" height="5" rx="2" fill="#ffe7a0"/><path d="M150 13 L130 200 H274 L254 13 Z" fill="#ffe7a0" opacity=".06"/>'
+      + '<g class="bp-l">' + bdoMan(160, 76, 1.5, bdoP('mbappe', {uniform:'dictator', cap:true, arm:'point'})) + '</g>'
+      + '<g class="bp-r">' + bdoMan(300, 90, 1.4, bdoP('vini', {hoodie:true})) + '</g>';
+  } else if (kind === 'heist') {
+    s += stageBg() + '<rect class="bp-screen" x="120" y="30" width="160" height="90" rx="3" fill="#0b1a2e" stroke="#2a3a5a" stroke-width="3"/>'
+      + '<text x="200" y="62" text-anchor="middle" font-family="Teko, sans-serif" font-size="12" letter-spacing="3" fill="#7aa2ff">LIVE VOTE</text>'
+      + '<rect x="134" y="72" width="104" height="9" fill="#2f6bff"/><rect x="134" y="86" width="80" height="9" fill="#5a7ab0"/><rect x="134" y="100" width="56" height="9" fill="#5a7ab0"/>'
+      + '<text x="244" y="80" font-family="Teko, sans-serif" font-size="9" fill="#cfe0ff">KANE</text><text x="220" y="94" font-family="Teko, sans-serif" font-size="9" fill="#cfe0ff">MBAPPÉ</text><text x="196" y="108" font-family="Teko, sans-serif" font-size="9" fill="#cfe0ff">MESSI</text>'
+      + '<g class="bp-shards">' + Array.from({length: 14}, (_, i) => '<path d="M' + (130 + (i*11) % 140) + ' ' + (40 + (i*23) % 70) + ' l8 -5 l4 9 z" fill="#9fc0ff" style="--dx:' + ((i % 2 ? 1 : -1) * (20 + i*4)) + 'px;--dy:' + (40 + i*6) + 'px"/>').join('') + '</g>';
+    const chairs = [['kane', 120], ['cr7', 170], ['mbappe', 230], ['messi', 290]];
+    s += chairs.map(([w, x], i) => '<g class="bp-nom bp-n' + i + (w === 'messi' ? ' bp-calm' : '') + '" style="--dx:' + (i < 2 ? -260 : 260) + 'px"><rect x="' + (x - 18) + '" y="186" width="36" height="28" rx="3" fill="#2a1d10" stroke="#b8860b" stroke-width=".8"/>'
+      + bdoMan(x, 140, .8, bdoP(w, w === 'mbappe' ? {uniform:'dictator', cap:true} : {suit:true})) + '</g>').join('');
+    s += '<g class="bp-vini">' + bdoMan(42, 120, .95, bdoP('vini', {hoodie:true, arm:'aim'})) + gunImg(52, 160, 50) + '</g>'
+      + '<path class="bp-beam" d="M100 168 L220 76" stroke="#fff" stroke-width="5" stroke-linecap="round"/>'
+      + '<rect class="bp-wash" x="0" y="0" width="400" height="260" fill="url(#bpRb)"/>'
+      + '<g class="bp-puff"><circle cx="104" cy="168" r="9" fill="#9a9aa0"/><circle cx="112" cy="162" r="7" fill="#b0b0b6"/><circle cx="98" cy="160" r="6" fill="#8a8a90"/></g>';
+  } else if (kind === 'win-kane' || kind === 'win-mbappe' || kind === 'win-messi') {
+    const who = kind.slice(4);
+    s += stageBg() + '<path d="M200 0 L140 236 H260 Z" fill="#fff4d6" opacity=".16"/><rect width="400" height="260" fill="url(#bpSp)"/>';
+    for (let i = 0; i < 26; i++) s += '<rect class="bd-conf" style="animation-delay:-' + (i*.19).toFixed(2) + 's" x="' + (i*15.4).toFixed(1) + '" y="-10" width="3" height="6" fill="' + ['#ffd23f', '#fff', '#e11d48', '#2fe3ff'][i % 4] + '"/>';
+    s += bdoMan(200, 92, 1.3, bdoP(who, who === 'mbappe' ? {uniform:'dictator', cap:true, arm:'up', mouth:'grin'} : {suit:true, arm:'up', mouth:'grin'}))
+      + '<g class="bd-float">' + bdoBall(200 + 34*1.3, 92 + 6*1.3, 15, k) + '</g>';
+    if (who === 'messi') for (let i = 0; i < 9; i++) s += '<g class="bd-pop" style="animation-delay:' + (300 + i*110) + 'ms">' + bdoBall(38 + i*40.5, 232, 10, k) + '</g>';
+  } else if (kind === 'penalty') {
+    s += stageBg() + '<rect width="400" height="260" fill="url(#bpSp)"/>'
+      + '<g class="bp-cr7"><g class="bp-cr7in">' + bdoMan(270, 96, 1.25, bdoP('cr7', {suit:true, tears:true, arm:'up'})) + '</g></g>'
+      + '<g class="bp-shout"><path d="M230 40 H370 V86 H262 L248 100 L250 86 H230 Z" fill="#fff4d6" stroke="#2a1a04" stroke-width="2"/><text x="300" y="73" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="30" fill="#c0262d">PENALTY!!</text></g>'
+      + '<g class="bp-messi">' + bdoMan(90, 100, 1, bdoP('messi', {suit:true})) + '<g class="bd-float">' + bdoBall(124, 107, 11, k) + '</g></g>';
+  }
+  return s + '</svg>';
+}
+function bdoPlotShow(kind, html, it, wi){
+  const el = bdoEl();
+  el.innerHTML = '<div class="bdo-scene k-' + kind + '">' + bdoPlotScene(kind, it, wi) + '</div><div class="bdo-panel">' + html + '</div><button class="icon-btn bdo-x" data-bdo="close" aria-label="Close">✕</button>';
+}
+function bdoPlot(){
+  const el = bdoEl(); el.className = 'bdo in cer plot';
+  sweep(600, 80, .5, 'sawtooth', .05); noise(.3, 2000, 200, .05);
+  bdoPlotShow('backstage', '<div class="bdo-eyebrow">Meanwhile, backstage</div><p class="bdo-line bdo-type" id="bdoSay"></p>');
+  const lines = ['Mbappé: “Kane does not win tonight. Vini, the stage. Wreck it.”', 'Vini Jr.: “Not with my bare hands. I need a weapon.”'];
+  let t = 500;
+  lines.forEach((line, li) => {
+    [...line].forEach((ch, i) => bdoT(t + i*30, () => { const sy = $('#bdoSay'); if (sy) sy.textContent = line.slice(0, i + 1); if (i % 3 === 0) tone(li ? 260 : 180, .03, 'square', .015); }));
+    t += line.length*30 + 1100;
+  });
+  bdoT(t - 600, () => {
+    const p = el.querySelector('.bdo-panel');
+    if (p) p.insertAdjacentHTML('beforeend', '<p class="bdo-sub">He’s looking at your bag. He’ll give it back.</p><button class="open-btn sm" data-bdo="lend">Hand Vini a weapon</button>');
+  });
+}
+function bdoPicker(){
+  const items = state.inv.slice().sort((a, b) => BY[b.id].t - BY[a.id].t || b.v - a.v).slice(0, 24);
+  const el = bdoEl(), p = el.querySelector('.bdo-panel'); if (!p) return;
+  if (!items.length) { p.innerHTML = '<div class="bdo-eyebrow no">Your bag is empty</div><p class="bdo-line">Vini shrugs and walks out empty-handed.</p><button class="open-btn sm" data-bdo="go" data-v="">Watch the stage</button>'; return; }
+  p.innerHTML = '<div class="bdo-eyebrow">Pick one for Vini</div><div class="bdo-pick"></div><p class="bdo-sub">Below Black Market won’t cut it. Black Market might. Chroma… who knows.</p>';
+  const g = p.querySelector('.bdo-pick');
+  items.forEach(e => {
+    const it = BY[e.id], b = document.createElement('button');
+    b.className = 'bdo-it' + tierClass(it.t); b.dataset.bdo = 'go'; b.dataset.v = e.uid; b.style.setProperty('--tc', TIERS[it.t].color);
+    b.append(thumb(it, wearIdx(e.fl)));
+    b.insertAdjacentHTML('beforeend', '<span>' + it.name + '</span><small>' + TIERS[it.t].name + '</small>');
+    g.append(b);
+  });
+}
+function bdoHeist(uid){
+  const e = state.inv.find(x => x.uid === uid) || null, it = e && BY[e.id], wi = e ? wearIdx(e.fl) : 0;
+  const out = !it || it.t < 6 ? 'kane' : it.t === 6 ? 'mbappe' : 'messi';
+  bdoLent = e ? e.uid : null;
+  const el = bdoEl(); el.className = 'bdo in cer plot heist o-' + out;
+  bdoPlotShow('heist', '<div class="bdo-eyebrow">Ballon d’Or 2026 · live</div><p class="bdo-line" id="bdoSay">' + (it ? 'Vini slips in from the wings with your ' + it.name + '…' : 'Vini slips in from the wings, empty-handed…') + '</p>', it, wi);
+  const say = t => { const s = $('#bdoSay'); if (s) s.textContent = t; };
+  bdoT(1600, () => el.classList.add('fire'));
+  if (out === 'kane') {
+    bdoT(1600, () => { tone(120, .08, 'square', .05); tone(90, .1, 'square', .04, .12); noise(.4, 600, 200, .05); });
+    bdoT(1900, () => say(it ? 'Click. Click. It jams. Security walks Vini out by the hood.' : 'Vini waves his arms at the screen. Security walks him out by the hood.'));
+    bdoT(4200, () => bdoWinner('kane'));
+  } else if (out === 'mbappe') {
+    bdoT(1600, () => { boom(); noise(.8, 5000, 600, .12); });
+    bdoT(1900, () => { el.classList.add('smash'); say('The vote screen explodes into glass. In the chaos, someone swaps the envelope.'); });
+    bdoT(4600, () => bdoWinner('mbappe'));
+  } else {
+    bdoT(1600, () => { boom(); noise(1.4, 8000, 300, .16); [261.63, 329.63, 392, 523.25, 659.25].forEach((f, i) => tone(f, 1.6, 'triangle', .05, i*.05)); if (!REDUCED) restart($('#wrap'), 'quake'); });
+    bdoT(1900, () => { el.classList.add('smash', 'rainbow'); say('A rainbow blast rips the stage apart. Every nominee runs for the exit…'); });
+    bdoT(3600, () => say('…except Messi. He hasn’t moved. He’s still sipping his mate.'));
+    bdoT(6200, () => bdoWinner('messi'));
+  }
+}
+function bdoWinner(who){
+  const el = bdoEl(); el.className = 'bdo in cer plot bwin';
+  const cap = who === 'kane' ? ['Harry Kane wins the 2026 Ballon d’Or', '“Finally, a trophy.”']
+    : who === 'mbappe' ? ['Kylian Mbappé wins the 2026 Ballon d’Or', 'He accepts it in full uniform and salutes the crowd.']
+    : ['Lionel Messi wins his 9th Ballon d’Or', 'Nine. The last man sitting.'];
+  bdoPlotShow('win-' + who, '<div class="bdo-eyebrow ok">Ronaldo Nazário reads the card</div><h3 class="bdo-cap">' + cap[0] + '</h3><p class="bdo-line">' + cap[1] + '</p>'
+    + (who === 'messi' ? '' : '<button class="open-btn sm" data-bdo="end">Back to the office</button>'));
+  [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((f, i) => tone(f, .5, 'triangle', .045, i*.1)); kaching();
+  P().bdoWin = who; save();
+  if (who === 'messi') bdoT(3600, bdoPenalty);
+}
+function bdoPenalty(){
+  const el = bdoEl(); el.className = 'bdo in cer plot pen';
+  bdoPlotShow('penalty', '<div class="bdo-eyebrow no">Cristiano Ronaldo</div><p class="bdo-line" id="bdoSay">…comes running back on stage in tears.</p>');
+  const say = t => { const s = $('#bdoSay'); if (s) s.textContent = t; };
+  for (let i = 0; i < 6; i++) bdoT(200 + i*260, () => tone(520 - i*30, .2, 'sine', .03));
+  bdoT(1700, () => { el.classList.add('dive'); say('He dives. Full roll. Twice.'); noise(.3, 900, 200, .06); });
+  bdoT(3300, () => { el.classList.add('shout'); say('“PENALTY! THAT’S A PENALTY!”'); for (let i = 0; i < 3; i++) tone(700, .12, 'square', .05, i*.16); });
+  bdoT(5200, () => { el.classList.add('storm'); say('Nobody gives it. He storms out. Messi keeps smiling.'); sweep(500, 120, .7, 'sawtooth', .04); });
+  bdoT(6800, () => { const p = el.querySelector('.bdo-panel'); if (p) p.insertAdjacentHTML('beforeend', '<button class="open-btn sm" data-bdo="end">Back to the office</button>'); });
+}
+function bdoEnd(){
+  const lent = bdoLent && state.inv.find(x => x.uid === bdoLent);
+  bdoLent = null;
+  bdoClose();
+  if (lent) setTimeout(() => toast('Vini gave your ' + BY[lent.id].name + ' back. Mostly clean.'), 400);
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-bdo]'); if (!b || b.disabled || !b.closest('#bdo')) return;
+  const a = b.dataset.bdo;
+  if (a === 'lend') bdoPicker();
+  else if (a === 'go') bdoHeist(b.dataset.v);
+  else if (a === 'end') bdoEnd();
+});
 function memberIntro(m){
   return new Promise(resolve => {
     ac();
