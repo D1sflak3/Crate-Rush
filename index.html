@@ -1012,6 +1012,23 @@ html.glx-crt .glx{background:#000}
 .s6 .cc-sub{opacity:1;transition:opacity 1s}
 .cc-skip{position:absolute;top:16px;right:16px;z-index:5}
 @media (prefers-reduced-motion: reduce){.chc *{animation:none!important}}
+
+/* Bag space */
+.bagc{color:var(--muted)}.bagc b{color:var(--text);font-variant-numeric:tabular-nums}
+.bagc.full,.bagc.full b{color:#ff6a5a}
+.inv-meta.shake{animation:quake .4s}
+.bg-now{display:flex;gap:14px;align-items:center;padding:12px;border-radius:10px;background:rgba(255,210,63,.07);border:1px solid rgba(255,210,63,.35);margin-bottom:14px}
+.bg-now .bg-art{width:96px;flex:none}.bg-now b{display:block;font-family:var(--display);font-size:26px;line-height:1}.bg-now span{font-size:13px;color:var(--muted)}
+.bg-now .lab{font-size:12px;color:#ffd23f;font-weight:700}
+.bg-bar{height:6px;border-radius:3px;background:#2a2a30;margin-top:6px;width:min(240px,50vw);overflow:hidden}.bg-bar i{display:block;height:100%;background:linear-gradient(90deg,#ffd23f,#ff8a3d)}
+.bg-list{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}@media(max-width:560px){.bg-list{grid-template-columns:repeat(2,1fr)}}
+.bg-it{display:grid;justify-items:center;gap:4px;padding:10px;border-radius:10px;border:1px solid #33363d;background:#141518;text-align:center}
+.bg-it.next{border-color:#ffd23f;box-shadow:0 0 0 1px #ffd23f inset,0 0 18px rgba(255,210,63,.15)}
+.bg-it.later{opacity:.55}.bg-it.had{opacity:.75}
+.bg-art{width:100%;max-width:120px}.bg-art svg{width:100%;height:auto;display:block}
+.bg-nm{font-weight:700}.bg-cap{font-family:var(--display);font-size:22px;line-height:1;color:#ffd23f}
+.bg-tag{font-size:12px;color:var(--muted)}
+.bg-it .gold-btn{display:inline-flex;align-items:center;gap:6px;font-size:16px;padding:8px 14px}
 /* Socket's Contraption */
 .pr-scene > svg .sk-mach,.pr-scene > svg .sk-mach *{pointer-events:auto;cursor:pointer}
 .sk-mach .hl{opacity:0}
@@ -3075,7 +3092,7 @@ const KEY = 'crate-rush-v1';
 const freshHacks = () => ({speed:false, speedOn:true, magnet:0, xray:0, overwrite:0, hijack:0, forger:0, keydupe:0, spoof:0});
 const fresh = () => ({econ:2, bal:5000, inv:[], found:[], opened:0, gold:0, spent:0, best:null, muted:false, trades:0, bm:0, bmFound:[],
   hacks:freshHacks(), xrayRolls:{}, shopUnlocked:false, shopVisits:0,
-  breach:false, rig:false, inject:null, bmSinceBreach:0, pendingReturn:false, locked:false, hackBuys:0, hackSpent:0, pres:freshPres(), yard:freshYard()});
+  breach:false, rig:false, inject:null, bmSinceBreach:0, pendingReturn:false, locked:false, hackBuys:0, hackSpent:0, pres:freshPres(), yard:freshYard(), bag:0});
 const freshYard = () => ({seen:false, knife:false, home:false, scrapN:0, peek:null, tip:null, deals:0, earned:0, briefs:0});
 const freshPres = () => ({seen:false, wants:{}, cool:{}, deals:0, earned:0, briefs:0, met:{}, sold:{}, vault:null, vaultT:0, tshelf:[], cell:null});
 let state = fresh();
@@ -3092,6 +3109,7 @@ try {
       if (state.best && BY[state.best.id] && BY[state.best.id].t < 6) state.best.v = Math.round(state.best.v * RX[BY[state.best.id].t]);
     }
     state.econ = 2;
+    if (s.bag == null) { const n = state.inv.length, caps = [5, 10, 20, 40, 80, 200]; state.bag = s.opened ? Math.max(0, caps.findIndex(c => c >= n) < 0 ? 5 : caps.findIndex(c => c >= n)) : 0; }
     /* every Black Market piece is repriced to its fixed price */
     state.inv.forEach(e => { if (BY[e.id].t >= 6) e.v = bmVal(BY[e.id], e.fl); });
     if (state.best && BY[state.best.id] && BY[state.best.id].t === 6 && state.best.v < 50000) state.best.v = bmFix(state.best.v);
@@ -3317,8 +3335,10 @@ function renderContents(c, w, tot){
 const isFree = c => H().keydupe > 0 && c.id !== 'c4';
 function renderOpen(){
   const c = CASES[sel], b = $('#openBtn'), free = isFree(c);
-  b.disabled = busy || (!free && state.bal < c.cost);
+  const full = !busy && bagFree() < 1;
+  b.disabled = busy || full || (!free && state.bal < c.cost);
   b.innerHTML = busy ? 'Busy…'
+    : full ? 'Bag full · ' + state.inv.length + ' / ' + bagCap()
     : free ? 'Open <span class="cost free">FREE · Key Dupe</span>'
     : state.bal < c.cost ? 'Need ' + fmt(c.cost - state.bal) + ' more'
     : 'Open <span class="cost"><span class="coin"></span>' + fmt(c.cost) + '</span>';
@@ -3353,7 +3373,8 @@ function renderInv(newUid){
   inv.append(frag);
   const sum = state.inv.reduce((a, e) => a + e.v, 0);
   $('#invEmpty').hidden = state.inv.length > 0;
-  $('#invMeta').textContent = state.inv.length ? state.inv.length + ' items · worth ' + fmt(sum) + ' cr' : '';
+  const full = bagFree() < 1;
+  $('#invMeta').innerHTML = '<span class="bagc' + (full ? ' full' : '') + '"><b>' + state.inv.length + ' / ' + bagCap() + '</b> slots · ' + BAGS[bagLvl()].n + '</span>' + (state.inv.length ? ' · worth ' + fmt(sum) + ' cr' : '');
   const reg = state.inv.filter(e => BY[e.id].t < 5);
   const sa = $('#sellAll'); sa.hidden = reg.length === 0; sa.classList.remove('armed');
   sa.textContent = 'Sell regular items · ' + fmt(reg.reduce((a, e) => a + e.v, 0)) + (H().spoof > 0 ? ' (×2 on ' + Math.min(H().spoof, reg.length) + ')' : '');
@@ -4254,6 +4275,7 @@ function gotBM(id){
 async function openCase(){
   const c = CASES[sel], free = isFree(c);
   if (busy || (!free && state.bal < c.cost)) return;
+  if (bagBlock(1)) return;
   ac(); busy = true; lockRack(true);
   if (free) H().keydupe--; else { state.bal -= c.cost; state.spent += c.cost; }
   let r = state.xrayRolls[c.id] || (c.id === 'scrap' ? Y().tip : null);
@@ -5535,6 +5557,7 @@ function renderLeft(anim){
       + (SHOPS[m.id] ? B('shop', 'Shop · ' + SHOPS[m.id].hint, '', lock) : '')
       + (VAULTS[m.id] && P()[VAULTS[m.id].key] === 'down' ? B('vault', m.id === 'vance' ? 'His private collection' : 'The hidden case', 'vx', lock, 'one offer') : '')
       + (m.id === 'tobias' ? B('pk1', 'Case #PK1 · on his shelf', 'pk', lock, fmt(PK1.cost) + ' cr') : '')
+      + (m.id === 'tinny' ? B('bags', 'Backpacks', '', lock, bagLvl() < BAGS.length - 1 ? 'next: ' + BAGS[bagLvl() + 1].cap + ' slots' : 'biggest one') : '')
       + (m.id === 'tinny' ? B('peek', 'Ask what’s in the next crate', '', lock || pk > 0, pk ? 'in ' + pk + ' open' + (pk === 1 ? '' : 's') : 'Scrapyard · free') : '')
       + (JOBS[m.id] ? B('job', 'Job · ' + jobOf(m).t, 'jobb', lock, jobDone(m) ? 'next in ' + jobLeft() + ' opens' : starTxt(jobOf(m).d)) : '')
       + B('leave', 'Leave', 'ghost', lock);
@@ -5566,6 +5589,7 @@ function renderOv(){
   const ov = $('#prOv'), m = room; if (!ov || !m || !ovMode) return;
   const head = (small, big) => '<div class="ov-top"><div class="ov-h"><small>' + small + '</small><b>' + big + '</b></div><div class="bal"><span class="coin"></span><span class="ov-bal">' + fmt(state.bal) + '</span></div><button class="icon-btn ov-x" data-a="ovclose" aria-label="Close">✕</button></div>';
   if (ovMode === 'jobrun') return;
+  if (ovMode === 'bags') { ov.innerHTML = head('Tinny’s backpacks', 'More room for your stuff') + '<div class="ov-body">' + bagsPanel() + '</div>'; return; }
   if (ovMode === 'job') {
     const j = jobOf(m);
     ov.innerHTML = head(m.name + '’s job', j ? j.t : 'No job') + '<div class="ov-body">' + jobPanel(m) + '</div>';
@@ -7314,12 +7338,13 @@ function renderBatchBtn(){
   const c = CASES[sel], on = !!Y().machine && c.id !== 'c4';
   b.hidden = !on; if (!on) return;
   const cost = batchCost(c);
-  b.disabled = busy || state.bal < cost;
+  b.disabled = busy || state.bal < cost || bagFree() < MACH_N;
   b.innerHTML = '<span class="bb-ico" aria-hidden="true">⚙</span>Open ' + MACH_N + ' with Socket’s machine <span class="cost"><span class="coin"></span>' + fmt(cost) + '</span>';
 }
 async function runBatch(){
   const c = CASES[sel];
   if (busy || !Y().machine || c.id === 'c4' || state.bal < batchCost(c)) return;
+  if (bagBlock(MACH_N)) return;
   ac(); busy = true; lockRack(true);
   const cost = batchCost(c);
   state.bal -= cost; state.spent += cost; setBal(-cost);
@@ -8156,6 +8181,58 @@ function chromaCinematic(r){
     T(11800, finish);
   });
 }
+
+/* ---------- Bag space ----------
+   Your bag holds 5 things to start with. Tinny sells bigger ones in the Scrapyard, one size at a time.
+   A full bag stops anything that would add an item: case opens, the Contraption, shop buys, PK1, hidden cases.
+   Saves from before this existed start with whichever bag already fits what they're carrying. */
+const BAGS = [
+  {n:'Lunchbox', cap:5, price:0, line:''},
+  {n:'School backpack', cap:10, price:1500, line:'It has a pencil pocket! For, um, tiny guns.'},
+  {n:'Duffel bag', cap:20, price:6000, line:'Found it at the bus station. Nobody came back for it. For three years.'},
+  {n:'Hiking pack', cap:40, price:20000, line:'It’s got like a MILLION pockets. I counted. Forty.'},
+  {n:'Shopping cart', cap:80, price:60000, line:'One wheel squeaks. That’s how you know it’s real.'},
+  {n:'Shipping container', cap:200, price:200000, line:'Ma doesn’t know I sold this. Don’t tell Ma. PLEASE don’t tell Ma.'}
+];
+const bagLvl = () => Math.max(0, Math.min(state.bag || 0, BAGS.length - 1));
+const bagCap = () => BAGS[bagLvl()].cap;
+const bagFree = () => bagCap() - state.inv.length;
+function bagBlock(need){
+  if (bagFree() >= need) return false;
+  toast((need > 1 ? 'You need ' + need + ' free slots. ' : 'Your bag is full (' + state.inv.length + ' / ' + bagCap() + '). ') + 'Sell something' + (Y().seen ? ', or buy a bigger bag from Tinny in the Scrapyard.' : ' to make room.'));
+  tone(150, .2, 'square', .04); restart($('#invMeta'), 'shake');
+  return true;
+}
+function bagSVG(i){
+  const S = (b) => '<svg viewBox="0 0 100 80" aria-hidden="true">' + b + '</svg>';
+  if (i === 0) return S('<rect x="22" y="30" width="56" height="38" rx="5" fill="#c0262d"/><rect x="22" y="30" width="56" height="10" rx="5" fill="#e04a4a"/><path d="M40 30 V22 H60 V30" stroke="#8a8a8a" stroke-width="4" fill="none"/><rect x="45" y="44" width="10" height="7" rx="1.5" fill="#ffd23f"/><circle cx="34" cy="56" r="4" fill="#ffd23f" opacity=".8"/><circle cx="66" cy="58" r="3" fill="#2fe3ff" opacity=".8"/>');
+  if (i === 1) return S('<path d="M30 70 V30 Q30 14 50 14 Q70 14 70 30 V70 Z" fill="#3a6ad5"/><path d="M26 34 Q20 52 28 70 M74 34 Q80 52 72 70" stroke="#2a4a9a" stroke-width="4" fill="none"/><rect x="36" y="44" width="28" height="22" rx="5" fill="#2a50b0"/><path d="M38 50 H62" stroke="#ffd23f" stroke-width="1.6" stroke-dasharray="2 2"/><path d="M42 14 Q50 6 58 14" stroke="#2a4a9a" stroke-width="3" fill="none"/><circle cx="56" cy="60" r="3" fill="#ff3ea5"/>');
+  if (i === 2) return S('<rect x="12" y="34" width="76" height="32" rx="16" fill="#3a7a3a"/><path d="M12 50 H88" stroke="#2a5a2a" stroke-width="2"/><path d="M34 34 Q36 20 50 20 Q64 20 66 34" stroke="#1e3e1e" stroke-width="4" fill="none"/><path d="M18 40 L82 60" stroke="#1e3e1e" stroke-width="3"/><circle cx="20" cy="50" r="6" fill="#2a5a2a"/><circle cx="80" cy="50" r="6" fill="#2a5a2a"/><path d="M40 44 H60" stroke="#c9c2b4" stroke-width="1.6" stroke-dasharray="2 2"/>');
+  if (i === 3) return S('<rect x="28" y="8" width="44" height="12" rx="6" fill="#5a8a6a"/><path d="M30 72 V26 Q30 20 36 20 H64 Q70 20 70 26 V72 Z" fill="#e0782a"/><rect x="36" y="40" width="28" height="18" rx="3" fill="#c0601a"/><rect x="24" y="36" width="8" height="24" rx="3" fill="#c0601a"/><rect x="68" y="36" width="8" height="24" rx="3" fill="#c0601a"/><path d="M30 32 H70 M30 64 H70" stroke="#5a2a0a" stroke-width="2"/><path d="M44 8 V20 M56 8 V20" stroke="#2a3a2a" stroke-width="2"/>');
+  if (i === 4) return S('<path d="M12 18 H22 L30 56 H78 L84 30 H26" stroke="#9aa3ad" stroke-width="3" fill="none" stroke-linejoin="round"/>' + [36, 46, 56, 66, 76].map(x => '<path d="M' + x + ' 30 L' + (x - 2) + ' 56" stroke="#9aa3ad" stroke-width="1.2"/>').join('') + '<path d="M28 43 H80" stroke="#9aa3ad" stroke-width="1.2"/><rect x="36" y="20" width="16" height="12" fill="#c0262d" transform="rotate(-8 44 26)"/><rect x="54" y="18" width="12" height="14" fill="#3a6ad5"/><circle cx="36" cy="66" r="5" fill="#2a2a2a"/><circle cx="72" cy="66" r="5" fill="#2a2a2a"/>');
+  return S('<rect x="8" y="22" width="84" height="44" fill="#d6602a"/>' + Array.from({length: 13}, (_, k) => '<path d="M' + (12 + k*6) + ' 24 V64" stroke="#000" stroke-opacity=".2" stroke-width="1.4"/>').join('') + '<rect x="8" y="22" width="84" height="4" fill="#fff" opacity=".2"/><rect x="78" y="22" width="14" height="44" fill="#a8441a"/><path d="M82 26 V62 M88 26 V62" stroke="#ddd" stroke-width="1.4"/><text x="40" y="50" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="12" fill="#fff" opacity=".7">TINNY CO.</text>');
+}
+function bagsPanel(){
+  const lv = bagLvl(), n = state.inv.length;
+  return '<div class="bg-now"><div class="bg-art">' + bagSVG(lv) + '</div><div><div class="lab">Your bag</div><b>' + BAGS[lv].n + '</b><span>' + n + ' / ' + BAGS[lv].cap + ' slots used</span>'
+    + '<div class="bg-bar"><i style="width:' + Math.min(100, n / BAGS[lv].cap * 100).toFixed(1) + '%"></i></div></div></div>'
+    + '<div class="bg-list">' + BAGS.map((b, i) => {
+      const own = i <= lv, next = i === lv + 1;
+      return '<div class="bg-it' + (own ? ' had' : next ? ' next' : ' later') + '"><div class="bg-art">' + bagSVG(i) + '</div><div class="bg-nm">' + b.n + '</div><div class="bg-cap">' + b.cap + ' slots</div>'
+        + (own ? '<div class="bg-tag">' + (i === lv ? 'Using it' : 'Outgrown') + '</div>'
+          : next ? '<button class="gold-btn" data-a="bagbuy" data-v="' + i + '"' + (state.bal < b.price ? ' disabled' : '') + '><span class="coin"></span>' + fmt(b.price) + '</button>'
+          : '<div class="bg-tag">' + fmt(b.price) + ' · buy the one before first</div>') + '</div>';
+    }).join('') + '</div><p class="jb-note">Tinny sells them one size at a time. Your old bag goes back in his pile.</p>';
+}
+function bagBuy(i){
+  const m = room; if (!m || m.id !== 'tinny' || i !== bagLvl() + 1 || !BAGS[i]) return;
+  const b = BAGS[i];
+  if (state.bal < b.price) { sayRoom('That’s not enough money. I can count, you know. Kind of.', 'mad'); tone(150, .2, 'square', .04); return; }
+  state.bal -= b.price; state.bag = i; save(); setBal(-b.price); prBal(); kaching();
+  [523.25, 659.25, 783.99, 1046.5].forEach((f, k) => tone(f, .25, 'square', .03, k*.08));
+  sayRoom(b.line, 'happy'); toast(b.n + ' · ' + b.cap + ' slots');
+  renderOv(); renderInv(); renderOpen(); renderLeft();
+}
 function memberIntro(m){
   return new Promise(resolve => {
     ac();
@@ -8311,6 +8388,7 @@ function renderShopCard(){ renderLeft(); }
 function buySlot(){
   const m = room, st = shopStock(m)[shopSel]; if (!st || st.sold) return;
   if (st.pk) { openPK1(); return; }
+  if (bagBlock(1)) return;
   if (state.bal < st.price) { sayRoom(SHOPS[m.id].broke, 'mad'); tone(150, .22, 'sawtooth', .05); return; }
   state.bal -= st.price;
   state.inv.unshift({uid: uid(), id: st.id, fl: st.fl, v: st.v, at: Date.now(), hk: [], src: 'shop', from: m.id});
@@ -8458,6 +8536,7 @@ function resolveVault(){
   if (P()[VLT().key] !== 'down' || vaultBusy) return;
   const cr = Math.min(vxCr, state.bal), items = state.inv.filter(e => vxSel.has(e.uid));
   const val = cr + items.reduce((a, e) => a + vxItemVal(e), 0); if (val <= 0) return;
+  if (bagFree() + items.length < 1) { bagBlock(1); return; }
   const ratio = val / (P()[VLT().tk] || vaultValue()), p = Math.max(0, Math.min(1, (ratio - .8) / .4));
   vaultBusy = true; clearTimeout(vxTimer);
   closeOv(); renderLeft();
@@ -8690,6 +8769,7 @@ const PK_LINES = ['A hundred and ten grand. Everything in it is hot.', 'Straight
 async function openPK1(){
   const m = room; if (!m || m.id !== 'tobias' || actBusy || vaultBusy || mi || busy || captive) return;
   if (state.bal < PK1.cost) { sayRoom('A hundred and ten grand. You’re short.', 'mad'); tone(150, .22, 'sawtooth', .05); return; }
+  if (bagBlock(1)) return;
   actBusy = true; closeOv(); if (shopSel != null) unzoomShop(); renderLeft();
   state.bal -= PK1.cost; state.spent += PK1.cost; state.opened++;
   const id = pickOne(BM_IDS), W = WEARS[pickW(WEAR_W)], fl = +(W.lo + Math.random()*(W.hi - W.lo)).toFixed(4);
@@ -8785,6 +8865,8 @@ $('#prRoom').addEventListener('click', e => {
   if (a && (a.dataset.a === 'jpick' || a.dataset.a === 'jgo' || a.dataset.a === 'jback')) { if (!a.disabled) jobAct(a.dataset.a, a); return; }
   if (a && a.dataset.a === 'mbuy') { if (!a.disabled) machBuy(); return; }
   if (a && a.dataset.a === 'munzoom') { machClose(); return; }
+  if (a && a.dataset.a === 'bags') { if (!a.disabled) { openOv('bags'); sayRoom('Backpacks! I got ’em from… places. Good places.'); } return; }
+  if (a && a.dataset.a === 'bagbuy') { if (!a.disabled) bagBuy(+a.dataset.v); return; }
   if (a && a.dataset.a === 'peek') { if (!a.disabled) tinnyPeek(); return; }
   if (a && a.dataset.a === 'leave') { if (!a.disabled && !vaultBusy && !actBusy) leaveRoom(); return; }
   if (a) { if (!a.disabled) negAct(a.dataset.a); return; }
