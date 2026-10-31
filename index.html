@@ -854,6 +854,48 @@ pre.notes{margin:0;white-space:pre-wrap;font:inherit;color:#e9fff2}
 .js-sp{animation:pcBlink .2s steps(1) infinite}
 .js-blink{animation:pcBlink 1.6s steps(1) infinite}
 .jb-prev{border-color:#5a4520}
+
+/* Tobias's job: The Glitch */
+#shopBtn.dead{opacity:.35;filter:grayscale(1)}
+.ms-tjob .tj-g1,.ms-tjob .tj-g2{transform-box:view-box;transform:translateX(170px);transition:transform 1s cubic-bezier(.2,.8,.3,1)}
+.ms-tjob.tj-in .tj-g1,.ms-tjob.tj-in .tj-g2{transform:none}
+.ms-tjob.tj-down .tj-g2{transform:translateX(-96px)}
+.tj-gun{transform-box:fill-box;transform-origin:0 50%;transform:rotate(28deg);transition:transform .35s}
+.tj-aim .tj-gun{transform:none}
+.tj-cust{transform-box:view-box;transition:transform 2.4s linear,opacity 2.4s}
+.tj-cgo .tj-cust{transform:translateX(-150px);opacity:0}
+.tj-shot,.tj-beamg,.tj-pix rect,.tj-cuffs,.tj-maskdrop,.tj-spill{opacity:0}
+.tj-fire .tj-shot{animation:tjShot .45s ease-out forwards}
+.tj-beam .tj-beamg{animation:tjShot 1.4s ease-out forwards}
+@keyframes tjShot{0%,35%{opacity:1}100%{opacity:0}}
+.tj-flash{opacity:0;transition:opacity .4s;pointer-events:none}
+.tj-flashon .tj-flash{opacity:.45;transition:none}
+.tj-dealer{transform-box:view-box;transform-origin:194px 234px;transition:transform 1.2s cubic-bezier(.5,0,.8,.4),opacity .3s}
+.tj-dbody{animation:tjIdle 3s ease-in-out infinite alternate;transform-box:view-box;transform-origin:194px 234px}
+@keyframes tjIdle{to{transform:scaleY(1.012)}}
+.tj-glitch .tj-dbody{animation:tjGlitch .16s steps(2) infinite;filter:drop-shadow(3px 0 #2fe3ff) drop-shadow(-3px 0 #ff3ea5)}
+@keyframes tjGlitch{0%{transform:translate(3px,-1px)}50%{transform:translate(-4px,1px) skewX(6deg)}100%{transform:translate(1px,2px)}}
+.tj-warp .tj-dealer{animation:tjWarp .9s steps(6) forwards}
+@keyframes tjWarp{0%{opacity:1}30%{opacity:.2}45%{opacity:.9}70%{opacity:.1;transform:scaleX(.3)}100%{opacity:0;transform:scaleX(0)}}
+.tj-warp .tj-pix rect,.tj-shatter .tj-pix rect{animation:tjPix 1.2s ease-out forwards}
+@keyframes tjPix{0%{opacity:1;transform:translate(0,0)}100%{opacity:0;transform:translate(var(--dx),var(--dy))}}
+.tj-pix rect{transform-box:view-box}
+.ms-tjob.tj-run .tj-dealer{transform:translateX(-320px)}
+.tj-run .tj-goods{opacity:0;transition:opacity .2s}
+.tj-run .tj-spill{opacity:1;transition:opacity .3s}
+.tj-table{transform-box:view-box;transform-origin:194px 234px;transition:transform .4s}
+.tj-run .tj-table{transform:rotate(9deg) translateY(6px)}
+.ms-tjob.tj-down .tj-dealer{transform:translateY(22px) scaleY(.8);transition:transform .35s cubic-bezier(.6,0,1,.6)}
+.tj-cuffon .tj-cuffs{opacity:1;transition:opacity .3s}
+.ms-tjob.tj-shatter .tj-dealer{opacity:0;transition:opacity .25s}
+.tj-shatter .tj-maskdrop{opacity:1;transition:opacity .6s .5s}
+.tj-shatter .tj-goods{opacity:.2}
+.tj-rain{animation:tjRain .5s linear infinite}
+@keyframes tjRain{from{transform:translateY(-12px)}to{transform:translateY(12px)}}
+.tj-neon{animation:tjNeon 4s steps(1) infinite}
+@keyframes tjNeon{0%,100%{opacity:1}47%{opacity:.3}49%{opacity:1}51%{opacity:.4}53%{opacity:1}}
+.tj-steam{animation:yGlow 2s ease-in-out infinite alternate}
+@media (prefers-reduced-motion: reduce){.tj-rain,.tj-neon,.tj-dbody,.tj-glitch .tj-dbody{animation:none}}
 /* Socket's Contraption */
 .pr-scene > svg .sk-mach,.pr-scene > svg .sk-mach *{pointer-events:auto;cursor:pointer}
 .sk-mach .hl{opacity:0}
@@ -2638,6 +2680,14 @@ const INST = {
 };
 const bossa = c => c + ' - . ' + c + ' - . ' + c + ' - . . ' + c + ' - . ' + c + ' - .';
 const THEMES = {
+  /* Tobias's job: a held breath in a wet alley */
+  tjob:{bpm:96, steps:16, rev:.45, vol:1.2, buildSec:3, tracks:[
+    {i:'sub', v:.08, n:'D1' + HO(15) + ' D1' + HO(7) + ' F1' + HO(7)},
+    {i:'tick', v:.02, n:'x . x . x . x . x . x . x . x .'},
+    {i:'kick', v:.12, l:1, n:'x . . . . . . . x . . x . . . .'},
+    {i:'pad', v:.035, l:1, n:'D3,F3,A3' + HO(31)},
+    {i:'arp', v:.02, l:2, n:'D4 F4 A4 D5 A4 F4 D4 C#4 D4 F4 A4 D5 E5 D5 A4 F4'}
+  ]},
   /* The penthouse auction: a big band in a small room */
   gala:{bpm:132, steps:16, swing:.3, rev:.35, vol:1.05, tracks:[
     {i:'ubass', v:.16, n:'C2 - E2 - G2 - A2 - Bb2 - A2 - G2 - E2 - | F2 - A2 - C3 - D3 - Eb3 - D3 - C3 - A2 - | C2 - E2 - G2 - A2 - Bb2 - A2 - G2 - E2 - | G1 - B1 - D2 - F2 - G2 - F2 - D2 - B1 -'},
@@ -4071,7 +4121,7 @@ function closeReveal(sell){
 function gotBM(id){
   state.bm++;
   if (!state.bmFound.includes(id)) state.bmFound.push(id);
-  if (state.breach) { state.bmSinceBreach = (state.bmSinceBreach || 0) + 1; if (state.bmSinceBreach >= 1) state.pendingReturn = true; }
+  if (state.breach && !state.dealerDead) { state.bmSinceBreach = (state.bmSinceBreach || 0) + 1; if (state.bmSinceBreach >= 1) state.pendingReturn = true; }
 }
 
 /* ---------- Open flow ---------- */
@@ -4512,6 +4562,7 @@ function renderShopState(){
   $('#who').textContent = state.breach ? 'Empty counter' : 'The Dealer';
 }
 function openShop(){
+  if (state.dealerDead) { toast('The stall is empty and the neon is off. The masked dealer is gone for good.'); tone(120, .3, 'sine', .05); return; }
   if (busy || current || shopOpen || state.locked || !state.shopUnlocked) return;
   const shop = $('#shop');
   shopOpen = true; shop.hidden = false; shop.className = 'shop intro';
@@ -5217,7 +5268,7 @@ function renderLobby(){
     const m = MBY.tobias, cl = coolLeft(m), n = state.inv.filter(e => buys(m, e)).length, b = document.createElement('button');
     b.type = 'button'; b.className = 'pr-mem pr-tob' + (cl ? ' cool' : ''); b.dataset.m = 'tobias'; b.style.setProperty('--mc', m.col);
     b.innerHTML = '<div class="pf">' + portrait('tobias') + '</div><div class="tb-txt"><div class="rl">Across town · back of an alley</div><div class="nm">Tobias</div><div class="by">The Contraband King. Buys <b style="color:var(--mc)">Black Market only</b>, at ' + m.mult + '× market. Sells <b style="color:var(--mc)">Case #PK1</b>, and whatever you sell him goes on his shelf at ' + SHELF_X + '×.</div>'
-      + '<div class="ct' + (cl ? '' : n ? '' : ' zero') + '">' + (cl ? 'Won’t see you · ' + cl + ' more open' + (cl === 1 ? '' : 's') : n ? n + ' piece' + (n === 1 ? '' : 's') + ' of contraband in your bag' : 'No contraband in your bag') + '</div></div>';
+      + jobBadge(m) + '<div class="ct' + (cl ? '' : n ? '' : ' zero') + '">' + (cl ? 'Won’t see you · ' + cl + ' more open' + (cl === 1 ? '' : 's') : n ? n + ' piece' + (n === 1 ? '' : 's') + ' of contraband in your bag' : 'No contraband in your bag') + '</div></div>';
     grid.append(b);
   }
 }
@@ -7205,8 +7256,11 @@ function closeBatch(sell){
    and keep your gear; blow it and each piece you brought has a coin-flip chance of being lost. One job per member
    every JOB_EVERY case opens. */
 const JOB_EVERY = 10, JOB_PAY = 1200;
-const JOB_TYPES = {rifle:'Rifle', sniper:'Sniper', pistol:'Pistol', smg:'SMG', shotgun:'Shotgun', knife:'Knife'};
+const JOB_TYPES = {contraband:'Black Market or Chroma', rifle:'Rifle', sniper:'Sniper', pistol:'Pistol', smg:'SMG', shotgun:'Shotgun', knife:'Knife'};
 const JOBS = {
+  tobias:[
+    {t:'The Glitch', loc:'alley', place:'Back alley behind the Neon Circuit', need:['contraband'], d:5, payTxt:'up to 300,000',
+     story:'Somebody is selling glitched contraband out of an alley. Values that make no sense, and they’re wrecking my market. A masked man, they say. My boys will handle him. They just need something with real teeth. Lend me your best piece of contraband. Or better.'}],
   vance:[
     {t:'The Mayor’s Insurance', loc:'vault', place:'Golden Ace Casino, private vault', need:['knife', 'pistol'], d:4.5,
      story:'The mayor keeps a ledger in the casino vault, and my name is in it. Get in, bring me the book, and leave the knife in the table so he knows who sent you.'},
@@ -7266,7 +7320,7 @@ const JOB_BEATS = {
 };
 const jobEp = () => Math.floor(state.opened / JOB_EVERY);
 const jobOf = m => { const L = JOBS[m.id]; if (!L) return null; return L[hash(m.id + ':job:' + jobEp()) % L.length]; };
-const jobDone = m => (P().jobs || {})[m.id] === jobEp();
+const jobDone = m => (P().jobs || {})[m.id] === jobEp() || (m.id === 'tobias' && !!tjBlocked());
 const jobLeft = () => JOB_EVERY - (state.opened % JOB_EVERY);
 const jobPay = j => Math.round(JOB_PAY * Math.pow(j.d, 1.8) / 50) * 50;
 const starTxt = d => '★'.repeat(Math.floor(d)) + (d % 1 ? '½' : '');
@@ -7274,7 +7328,9 @@ const starsHTML = d => '<span class="jstars" style="--p:' + (d / 5 * 100) + '%" 
 let jobPick = [], jobRun = null;
 /* What can go in a slot: the right weapon type, nothing Chroma, and for the Rejects it has to be rusty */
 function jobFits(m, type, e){
-  const it = BY[e.id]; if (!it || it.t >= 7) return false;
+  const it = BY[e.id]; if (!it) return false;
+  if (type === 'contraband') return it.t >= 6;
+  if (it.t >= 7) return false;
   if (type === 'knife' ? !SHAPES[it.w].knife : it.w !== type) return false;
   return m.yard ? rustyE(e) : true;
 }
@@ -7517,6 +7573,20 @@ function jobScene(loc, k){
     s += '<g opacity=".7"><path d="M0 116 H120 M280 116 H400" stroke="#8a8f96" stroke-width="1"/>' + [8, 60, 112, 288, 340, 392].map(x => '<path d="M' + x + ' 114 V150" stroke="#6a6f76" stroke-width="2"/>').join('')
       + '<path d="M0 116 L34 150 M30 116 L64 150 M60 116 L94 150 M90 116 L120 146 M300 116 L334 150 M330 116 L364 150 M360 116 L394 150 M0 146 L30 116 M30 150 L64 116 M60 150 L94 116 M300 150 L334 116 M330 150 L364 116 M360 150 L394 116" stroke="#8a8f96" stroke-width=".5"/></g>'
       + '<rect x="40" y="122" width="34" height="14" fill="#b8241e"/><text x="57" y="132" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="9" fill="#fff">KEEP OUT</text>';
+  } else if (loc === 'alley') {
+    lin('wl', [[0, '#0c0a16'], [1, '#05040a']]);
+    d += '<pattern id="' + id('br') + '" width="12" height="6" patternUnits="userSpaceOnUse"><rect width="12" height="6" fill="#1c1420"/><path d="M0 .5 H12 M0 3.5 H12 M3 .5 V3.5 M9 3.5 V6.5" stroke="#0e0a12" stroke-width=".8"/></pattern>';
+    s += '<rect width="400" height="150" fill="' + u('wl') + '"/><rect x="160" y="10" width="80" height="110" fill="#0a0912"/><ellipse cx="200" cy="70" rx="40" ry="50" fill="#7a6aa8" opacity=".2" filter="' + u('b2') + '"/>'
+      + '<path d="M0 0 L160 10 V120 L0 150 Z M400 0 L240 10 V120 L400 150 Z" fill="url(#' + id('br') + ')"/><path d="M0 0 L160 10 V120 L0 150 Z M400 0 L240 10 V120 L400 150 Z" fill="#000" opacity=".35"/>'
+      + '<path d="M0 150 L160 120 H240 L400 150 Z" fill="#0e0c14"/><ellipse cx="200" cy="140" rx="70" ry="5" fill="#a855f7" opacity=".15"/>'
+      + '<rect x="56" y="30" width="16" height="50" rx="2" fill="#120814" stroke="#ff3ea5" stroke-width="1.2"/><rect x="48" y="22" width="32" height="66" fill="#ff3ea5" opacity=".22" filter="' + u('b2') + '"/>'
+      + 'OPEN'.split('').map((ch, i) => '<text x="64" y="' + (41 + i*10) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="9.5" fill="#ffb3dd">' + ch + '</text>').join('')
+      + '<path d="M180 136 Q178 96 192 86 Q194 70 200 68 Q206 70 208 86 Q222 96 220 136 Z" fill="#1b1026"/><path d="M190 84 Q188 64 200 60 Q212 64 210 84 Q205 90 200 90 Q195 90 190 84 Z" fill="#221430"/>'
+      + '<path d="M194 76 Q194 69 200 68 Q206 69 206 76 Q206 83 200 86 Q194 83 194 76 Z" fill="#ece6f4"/><path d="M196 75 L199 76 M204 75 L201 76" stroke="#c084fc" stroke-width="1.4"/>' + '<ellipse cx="200" cy="76" rx="10" ry="10" fill="#c084fc" opacity=".25" filter="' + u('b1') + '"/>'
+      + '<rect x="170" y="116" width="60" height="4" fill="#3a3440"/><rect x="176" y="108" width="12" height="5" fill="#a855f7"/><rect x="196" y="106" width="14" height="5" fill="#c084fc"/><rect x="214" y="109" width="10" height="4" fill="#7c3aed"/><rect x="172" y="102" width="56" height="16" fill="#a855f7" opacity=".3" filter="' + u('b1') + '"/>'
+      + '<g class="js-blink" style="animation-duration:.9s"><rect x="186" y="80" width="6" height="2" fill="#2fe3ff"/><rect x="208" y="96" width="8" height="2" fill="#ff3ea5"/><rect x="182" y="110" width="5" height="2" fill="#2fe3ff"/></g>'
+      + '<g transform="translate(330 150) scale(-.62 .62)">' + suitGuard() + '</g><g transform="translate(372 150) scale(-.56 .56)">' + suitGuard() + '</g>';
+    for (let i = 0; i < 40; i++) { const x = R()*420, y = R()*150; s += '<path d="M' + f(x) + ' ' + f(y) + ' l-2 7" stroke="#cfe0ff" stroke-opacity=".22" stroke-width=".6"/>'; }
   } else {
     /* Slick Eddie's Chop Shop: wet street, pink neon, the door half up */
     lin('in', [[0, '#ffcf8a'], [1, '#c8702a']]); lin('st', [[0, '#14121a'], [1, '#06060a']]);
@@ -7546,10 +7616,12 @@ function jobPanel(m){
   const picks = j.need.map((_, i) => state.inv.find(e => e.uid === jobPick[i]) || null);
   const ch = jobChance(m, j, picks), done = jobDone(m), left = jobLeft();
   let h = '<div class="jb-card' + (m.yard ? ' yard' : '') + '"><div class="jb-prev">' + jobScene(j.loc, m.id + 'p') + '<span class="jb-place">' + j.place + '</span></div>'
-    + '<div class="jb-meta"><div class="jb-t">' + j.t + '</div><div class="jb-row">' + starsHTML(j.d) + '<span class="jb-d">' + j.d + ' / 5</span><span class="jb-pay"><span class="coin"></span>' + fmt(jobPay(j)) + '</span></div>'
+    + '<div class="jb-meta"><div class="jb-t">' + j.t + '</div><div class="jb-row">' + starsHTML(j.d) + '<span class="jb-d">' + j.d + ' / 5</span><span class="jb-pay"><span class="coin"></span>' + (j.payTxt || fmt(jobPay(j))) + '</span></div>'
     + '<p class="jb-story">“' + j.story + '” <b style="color:' + m.col + '">— ' + m.name + '</b></p></div>';
+  if (done && m.id === 'tobias' && tjBlocked()) return h + '<div class="jb-done">' + tjBlocked() + '</div></div>';
   if (done) return h + '<div class="jb-done">Done for now. ' + m.name + ' will have another job in ' + left + ' case open' + (left === 1 ? '' : 's') + '.</div></div>';
-  h += '<div class="jb-need"><div class="lab">What to bring' + (m.yard ? ' <small>has to be rusty: from the Scrapyard, or Scarred. Rustier is better.</small>' : ' <small>higher tiers and better wear raise your odds</small>') + '</div>';
+  const tj = m.id === 'tobias';
+  h += '<div class="jb-need"><div class="lab">What to bring' + (tj ? ' <small>his guards borrow it and give it back. The better it is, the better it ends.</small>' : m.yard ? ' <small>has to be rusty: from the Scrapyard, or Scarred. Rustier is better.</small>' : ' <small>higher tiers and better wear raise your odds</small>') + '</div>';
   j.need.forEach((type, i) => {
     const sel = picks[i], used = new Set(jobPick.filter((u, k) => u && k !== i));
     const fits = state.inv.filter(e => jobFits(m, type, e) && !used.has(e.uid)).sort((a, b) => jobScore(m, b) - jobScore(m, a)).slice(0, 12);
@@ -7558,6 +7630,12 @@ function jobPanel(m){
         : '<span class="mute">No ' + (m.yard ? 'rusty ' : '') + JOB_TYPES[type].toLowerCase() + ' in your bag</span>') + '</div></div>';
   });
   const pct = Math.round(ch * 100);
+  if (tj) {
+    const out = picks[0] ? tjOutcome(picks[0]) : null, O = out && TJ_OUT[out];
+    return h + '</div><div class="jb-go"><div class="jb-odds"><span>What happens</span><b class="' + (O ? O.cls : '') + '">' + (O ? O.label : '—') + '</b></div>'
+      + '<button class="gold-btn" data-a="jgo"' + (O ? '' : ' disabled') + '>Send the guards</button></div>'
+      + '<p class="jb-note">Under 110,000: he warps away and Tobias pays nothing. 110,000+: his stock gets seized (60,000 cr and two of his glitches). 135,000+: he’s captured (150,000 cr). A Chroma ends him (300,000 cr), and his shop closes for good. Your piece comes back every time.</p></div>';
+  }
   h += '</div><div class="jb-go"><div class="jb-odds"><span>Your odds</span><b class="' + (pct >= 70 ? 'good' : pct >= 40 ? 'ok' : 'bad') + '">' + (ch ? pct + '%' : '—') + '</b></div>'
     + '<button class="gold-btn" data-a="jgo"' + (ch ? '' : ' disabled') + '>Take the job</button></div>'
     + '<p class="jb-note">Pull it off: ' + fmt(jobPay(j)) + ' cr, and you keep your gear. Blow it: each piece you brought has a 50% chance of being lost.</p></div>';
@@ -7572,7 +7650,7 @@ function jobAct(a, el){
     const i = +el.dataset.slot, u = el.dataset.uid;
     jobPick[i] = jobPick[i] === u ? null : u; pickSound(); renderOv(); return;
   }
-  if (a === 'jgo') runJob(m);
+  if (a === 'jgo') { if (m.id === 'tobias') { const e = state.inv.find(x => x.uid === jobPick[0]); if (e && !jobDone(m)) runTobiasJob(m, e); } else runJob(m); }
   if (a === 'jback') { jobRun = null; closeOv(); renderLeft(); greet(m); }
 }
 async function runJob(m){
@@ -7612,6 +7690,157 @@ function jobBadge(m){
   const j = jobOf(m); if (!j) return '';
   return '<div class="jbb' + (jobDone(m) ? ' done' : '') + '">' + (jobDone(m) ? 'Job done · next in ' + jobLeft() : 'Job · ' + j.t + ' · ' + starTxt(j.d)) + '</div>';
 }
+
+/* ---------- Tobias's job: The Glitch ----------
+   The masked dealer has been selling glitched contraband out of an alley, and the values are wrecking Tobias's
+   market. Lend Tobias's guards your best Black Market piece (or a Chroma) and watch them go after him. The piece
+   comes back whatever happens; how good it is decides how it ends:
+     under 110k: he glitches and warps away · 110k+: his stock is seized and he runs · 135k+: he's captured
+     (his stall sits empty, laptop open, until he glitches out of the cell) · Chroma: he's gone for good, and
+     so is his shop. */
+const TJ_OUT = {
+  warp:{label:'He warps away', cls:'bad', pay:0},
+  conf:{label:'His stock gets seized', cls:'ok', pay:60000},
+  cap:{label:'He gets captured', cls:'good', pay:150000},
+  kill:{label:'He doesn’t walk away', cls:'good', pay:300000}
+};
+const tjOutcome = e => BY[e.id].t === 7 ? 'kill' : e.v >= 135000 ? 'cap' : e.v >= 110000 ? 'conf' : 'warp';
+const tjBlocked = () => state.dealerDead ? 'The Glitch is gone for good. Tobias doesn’t have anything else this size.' : state.breach ? 'The masked dealer’s stall is empty right now. Tobias’s job waits until he’s back.' : '';
+let tjCtx = null;
+const TJ_D = {name:'The Masked Dealer', col:'#c084fc', pitch:150}, TJ_G = {name:'Tobias’s guard', col:'#9aa3ad', pitch:78};
+function tjApply(out){
+  const pay = TJ_OUT[out].pay;
+  if (pay) { state.bal += pay; P().earned += pay; }
+  if (out === 'conf') {
+    const pool = HACKS.filter(h => !h.perm), got = [];
+    for (let i = 0; i < 2; i++) { const h = pickOne(pool); H()[h.id] = (H()[h.id] || 0) + h.charges; got.push(h.name); }
+    tjCtx.loot = got;
+  }
+  if (out === 'cap') { state.breach = true; state.bmSinceBreach = 0; state.pendingReturn = false; }
+  if (out === 'kill') { state.dealerDead = true; state.breach = false; state.pendingReturn = false; }
+  save();
+}
+function runTobiasJob(m, e){
+  const out = tjOutcome(e);
+  P().jobs = P().jobs || {}; P().jobs[m.id] = jobEp();
+  tjCtx = {e, out, chroma: BY[e.id].t === 7};
+  tjApply(out);
+  jobPick = []; closeOv(); renderLeft();
+  memberIntro({id:'tjob', name:'The Glitch', role:'', favName:'', col:'#a855f7', pitch:96}).then(() => {
+    const c = tjCtx; tjCtx = null; if (!room || room.id !== 'tobias') return;
+    const pay = TJ_OUT[c.out].pay;
+    if (pay) { setBal(pay); prBal(); kaching(); }
+    renderShopBtnState(); renderLeft();
+    ovMode = 'jobrun';
+    const ov = $('#prOv'); ov.hidden = false; restart(ov, 'pr-ov');
+    const T = {warp:'HE WARPED AWAY', conf:'STOCK SEIZED · +' + fmt(pay) + ' cr', cap:'CAPTURED · +' + fmt(pay) + ' cr', kill:'THE GLITCH IS GONE · +' + fmt(pay) + ' cr'}[c.out];
+    const P2 = {warp:'Your piece wasn’t strong enough to pin him down. Tobias isn’t paying for a magic trick.',
+      conf:'He ran, but his bag didn’t. Tobias kept the contraband and gave you a cut, plus two of his glitches: ' + (c.loot || []).join(' and ') + '.',
+      cap:'He’s in Tobias’s back room. His stall is empty and his laptop is still logged in, at least until he glitches his way out.',
+      kill:'His shop is closed for good. Whatever you already bought from him still works.'}[c.out];
+    ov.innerHTML = '<div class="ov-body"><div class="jb-run"><div class="' + (c.out === 'warp' ? 'jb-lose' : 'jb-win') + '">' + T + '</div><p>' + P2 + '</p><p class="jb-note">' + WNAME[BY[c.e.id].w] + ' | ' + BY[c.e.id].name + ' is back in your bag.</p>'
+      + '<button class="gold-btn" data-a="jback">Back to Tobias</button></div></div>';
+  });
+}
+function renderShopBtnState(){ const b = $('#shopBtn'); if (b) b.classList.toggle('dead', !!state.dealerDead); }
+
+/* The cutscene: an alley, rain, the masked dealer at a folding table, Tobias's guards and your piece */
+const TJ_SC = {end:'', cap:'',
+  svg:k => {
+    const c = tjCtx || {e: {id: 'b1', fl: .2}, out: 'warp'}, it = BY[c.e.id], R = seeded(6060);
+    let s = SVG0 + '<defs>' + vigDef(k) + glowDef('tg' + k, 4) + glowDef('tG' + k, 9)
+      + '<linearGradient id="tw' + k + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c0a16"/><stop offset="1" stop-color="#05040a"/></linearGradient>'
+      + '<linearGradient id="tf' + k + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14121c"/><stop offset="1" stop-color="#06050a"/></linearGradient>'
+      + '<linearGradient id="tb' + k + '" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff3ea5"/><stop offset=".25" stop-color="#ffd23f"/><stop offset=".5" stop-color="#39ff88"/><stop offset=".75" stop-color="#2fe3ff"/><stop offset="1" stop-color="#a855f7"/></linearGradient>'
+      + '<pattern id="tk' + k + '" width="14" height="7" patternUnits="userSpaceOnUse"><rect width="14" height="7" fill="#1e1620"/><path d="M0 .5 H14 M0 4 H14 M4 .5 V4 M11 4 V7.5" stroke="#110c14" stroke-width=".8"/></pattern></defs>'
+      + '<rect width="400" height="260" fill="url(#tw' + k + ')"/>';
+    /* The far end of the alley: a slice of street light */
+    s += '<rect x="150" y="40" width="100" height="150" fill="#0a0912"/><rect x="170" y="70" width="60" height="120" fill="#1a1626"/><ellipse cx="200" cy="120" rx="50" ry="70" fill="#7a6aa8" opacity=".18" filter="url(#tG' + k + ')"/>'
+      + '<path d="M0 0 L150 40 V190 L0 260 Z" fill="url(#tk' + k + ')"/><path d="M400 0 L250 40 V190 L400 260 Z" fill="url(#tk' + k + ')"/>'
+      + '<path d="M0 0 L150 40 V190 L0 260 Z M400 0 L250 40 V190 L400 260 Z" fill="#000" opacity=".35"/>'
+      + '<path d="M0 260 L150 190 H250 L400 260 Z" fill="url(#tf' + k + ')"/>';
+    /* Fire escape on the right, a neon sign on the left, a dumpster, steam */
+    s += '<g stroke="#2a2a34" stroke-width="2" fill="none"><path d="M262 70 L330 52 M262 110 L330 98 M262 150 L330 142"/><path d="M270 68 L300 104 M300 60 L322 96 M270 108 L300 142"/></g>'
+      + '<g class="tj-neon"><rect x="52" y="54" width="22" height="70" rx="3" fill="#120814" stroke="#ff3ea5" stroke-width="1.6"/>'
+      + 'OPEN'.split('').map((ch, i) => '<text x="63" y="' + (70 + i*14) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" fill="#ffb3dd">' + ch + '</text>').join('')
+      + '<rect x="40" y="40" width="46" height="96" fill="#ff3ea5" opacity=".2" filter="url(#tG' + k + ')"/></g>'
+      + '<path d="M30 226 L36 186 H112 L118 226 Z" fill="#1d3a2e"/><path d="M32 186 L40 176 H110 L116 186 Z" fill="#284a3a"/><path d="M50 196 V220 M74 196 V220 M98 196 V220" stroke="#122a20" stroke-width="2"/>'
+      + '<g class="tj-steam">' + [0, 1, 2].map(i => '<ellipse cx="' + (236 + i*6) + '" cy="' + (186 - i*14) + '" rx="' + (10 + i*5) + '" ry="' + (6 + i*3) + '" fill="#8a84a0" opacity=".2" filter="url(#tg' + k + ')"/>').join('') + '</g>'
+      + '<ellipse cx="200" cy="236" rx="60" ry="6" fill="#ff3ea5" opacity=".1"/><ellipse cx="120" cy="244" rx="40" ry="4" fill="#8a7ac8" opacity=".12"/>';
+    /* A customer walking off with something glowing */
+    s += '<g class="tj-cust"><path d="M120 232 L122 176 Q124 162 134 160 Q144 162 146 176 L148 232 Z" fill="#0c0c12"/><circle cx="134" cy="150" r="10" fill="#0c0c12"/><rect x="146" y="190" width="10" height="5" fill="#c084fc" filter="url(#tg' + k + ')"/></g>';
+    /* The masked dealer */
+    s += '<g class="tj-dealer"><g class="tj-dbody">'
+      + '<path d="M154 234 Q150 172 172 152 Q176 126 194 120 Q212 126 216 152 Q238 172 234 234 Z" fill="#1b1026"/>'
+      + '<path d="M184 150 L180 222 H208 L204 150 Z" fill="#2a0e3a"/>' + [0, 1, 2].map(i => '<rect x="' + (184 + i*6) + '" y="' + (164 + i*16) + '" width="10" height="5" fill="#c084fc" opacity=".85"/>').join('')
+      + '<rect x="180" y="150" width="28" height="74" fill="#a855f7" opacity=".25" filter="url(#tg' + k + ')"/>'
+      + '<path d="M172 130 Q168 94 194 88 Q220 94 216 130 Q206 140 194 140 Q182 140 172 130 Z" fill="#221430"/><path d="M177 126 Q174 100 194 96 Q214 100 211 126 Q204 133 194 133 Q184 133 177 126 Z" fill="#06030a"/>'
+      + '<g class="tj-mask"><path d="M183 110 Q183 99 194 98 Q205 99 205 110 Q205 122 194 128 Q183 122 183 110 Z" fill="#ece6f4"/><path d="M186 108 L192 110 L191 112 L187 111 Z M202 108 L196 110 L197 112 L201 111 Z" fill="#e9d5ff"/>'
+      + '<path d="M186 108 L192 110 L191 112 L187 111 Z M202 108 L196 110 L197 112 L201 111 Z" fill="#c084fc" filter="url(#tg' + k + ')"/><path d="M199 100 L197 105 L200 108" stroke="#6b6175" stroke-width=".8" fill="none"/></g>'
+      + '</g><g class="tj-cuffs"><path d="M166 170 Q194 190 222 170 M164 190 Q194 210 224 190" stroke="#c9c2b4" stroke-width="2" fill="none"/><path d="M170 160 L218 214 M218 160 L170 214" stroke="#c9c2b4" stroke-width="1.2" opacity=".6"/></g></g>';
+    /* His folding table of glitched goods */
+    s += '<g class="tj-table"><rect x="148" y="200" width="92" height="5" fill="#3a3440"/><path d="M154 205 L162 234 M234 205 L226 234 M162 205 L154 234 M226 205 L234 234" stroke="#2a2630" stroke-width="2"/>'
+      + '<g class="tj-goods">' + gun('pistol', 152, 186, .2, '#7c3aed', '#2a0e3a') + gun('smg', 190, 184, .2, '#a855f7', '#2a0e3a') + gun('rifle', 156, 172, .22, '#c084fc', '#2a0e3a')
+      + '<rect x="150" y="170" width="88" height="30" fill="#a855f7" opacity=".3" filter="url(#tg' + k + ')"/></g></g>'
+      + '<g class="tj-spill">' + [[150, 238, -20], [196, 244, 30], [236, 236, 10], [120, 246, -40], [260, 248, 50]].map(([x, y, r], i) => '<g transform="translate(' + x + ' ' + y + ') rotate(' + r + ')"><rect x="-8" y="-3" width="16" height="6" fill="' + ['#7c3aed', '#a855f7', '#c084fc'][i % 3] + '"/><rect x="-10" y="-5" width="20" height="10" fill="#a855f7" opacity=".35" filter="url(#tg' + k + ')"/></g>').join('') + '</g>'
+      + '<g class="tj-maskdrop"><g transform="translate(194 192) rotate(-78) scale(.9)"><path d="M-11 0 Q-11 -11 0 -12 Q11 -11 11 0 Q11 12 0 18 Q-11 12 -11 0 Z" fill="#ece6f4"/><path d="M-6 -2 L-1 0 L-2 2 L-6 1 Z M6 -2 L1 0 L2 2 L6 1 Z" fill="#2a1a3a"/><path d="M3 -10 L0 -3 L4 4" stroke="#6b6175" stroke-width="1" fill="none"/></g></g>';
+    /* Glitch pixels, for the warp and the end */
+    s += '<g class="tj-pix">';
+    for (let i = 0; i < 40; i++) { const x = 160 + R()*68, y = 96 + R()*136, w = 3 + R()*7; s += '<rect x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + (w*.6).toFixed(1) + '" fill="' + ['#c084fc', '#2fe3ff', '#ff3ea5', '#ece6f4'][i % 4] + '" style="--dx:' + ((R() - .5)*160).toFixed(0) + 'px;--dy:' + ((R() - .7)*120).toFixed(0) + 'px;animation-delay:' + (R()*.3).toFixed(2) + 's"/>'; }
+    s += '</g>';
+    /* Tobias's guards, one of them holding your piece */
+    const gunImg = '<g class="tj-gun"><image href="' + artHi(it, wearIdx(c.e.fl)) + '" x="4" y="-96" width="70" height="28" preserveAspectRatio="xMidYMid meet"/>' + (c.chroma ? '<rect x="4" y="-96" width="70" height="28" fill="#ff7ad9" opacity=".35" filter="url(#tg' + k + ')"/>' : '') + '</g>';
+    s += '<g class="tj-g2"><g transform="translate(352 238) scale(-.86 .86)">' + suitGuard() + '</g></g>'
+      + '<g class="tj-g1"><g transform="translate(300 236) scale(-.94 .94)">' + suitGuard() + gunImg + '</g></g>';
+    /* The shot: a tracer and a flash, or for a Chroma, a rainbow beam */
+    s += '<g class="tj-shot"><path d="M232 146 L198 140" stroke="#fff6c4" stroke-width="2"/><circle cx="234" cy="146" r="10" fill="#ffe27a" opacity=".8" filter="url(#tg' + k + ')"/><path d="M234 146 l14 -6 l-6 8 l14 2 l-14 4 l8 8 l-14 -6 z" fill="#fff3b0"/></g>'
+      + '<g class="tj-beamg"><path d="M236 146 L190 136" stroke="url(#tb' + k + ')" stroke-width="12" stroke-linecap="round" opacity=".8" filter="url(#tG' + k + ')"/><path d="M236 146 L190 136" stroke="url(#tb' + k + ')" stroke-width="4" stroke-linecap="round"/><path d="M236 146 L190 136" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></g>'
+      + '<g class="tj-rain">';
+    for (let i = 0; i < 60; i++) { const x = R()*420, y = R()*260; s += '<path d="M' + x.toFixed(0) + ' ' + y.toFixed(0) + ' l-3 10" stroke="#b8c4e0" stroke-opacity=".25" stroke-width=".7"/>'; }
+    return s + '</g><rect class="tj-flash" width="400" height="260" fill="#fff"/>' + vigRect(k) + '</svg>';
+  },
+  intro: async S => {
+    const c = tjCtx || {out: 'warp'}, T = MBY.tobias;
+    S.loop(() => noise(.3, 5000, 2000, .012, 'bandpass'), 280);
+    await S.W(900);
+    await S.say("Glitched goods. Values you won't believe. Literally.", TJ_D);
+    S.on('tj-cgo');
+    await S.say("There he is. The one cooking my numbers.", T);
+    await S.say("He sells a piece at ten times what it's worth, and next week it's worth nothing. He's poisoning the whole market.", T);
+    S.on('tj-in'); const steps = S.loop(() => noise(.05, 700, 200, .1, 'lowpass'), 260); await S.W(1100); S.unloop(steps);
+    await S.say("Hands where we can see them, Glitch.", TJ_G);
+    await S.say("Tobias's errand boys? What are you going to do, staple me?", TJ_D);
+    S.on('tj-aim'); S.fx(() => { tone(220, .1, 'square', .04); noise(.08, 3000, 1500, .05); }); await S.W(800);
+    await S.say(c.chroma ? "With THIS." : "With this.", TJ_G);
+    if (c.out === 'kill') { S.on('tj-beam tj-flashon'); S.fx(() => { sweep(200, 2400, .9, 'sawtooth', .08); boom(); [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, 1, 'triangle', .05, i*.06)); }); }
+    else { S.on('tj-fire tj-flashon'); S.fx(() => { noise(.16, 2600, 160, .34, 'lowpass'); tone(85, .18, 'square', .16); noise(.05, 6000, 3000, .12, 'highpass'); }); }
+    S.shake(); await S.W(450); S.off('tj-flashon');
+    const glitchSnd = () => { for (let i = 0; i < 6; i++) tone(200 + Math.random()*1800, .05, 'square', .03, i*.05); noise(.3, 4000, 600, .06, 'bandpass'); };
+    if (c.out === 'warp') {
+      S.on('tj-glitch'); S.fx(glitchSnd); await S.W(700);
+      await S.say("Missed. Your toy can't even see me.", TJ_D);
+      S.on('tj-warp'); S.fx(() => { sweep(1800, 80, .6, 'square', .05); glitchSnd(); }); await S.W(1400);
+      await S.say("…Gone. Next time, bring me something with real teeth.", T);
+    } else if (c.out === 'conf') {
+      S.on('tj-glitch'); S.fx(glitchSnd); await S.W(500);
+      S.on('tj-run'); S.fx(() => { noise(.4, 1200, 300, .12); for (let i = 0; i < 5; i++) tone(500 + i*90, .08, 'triangle', .03, i*.07); }); await S.W(500);
+      await S.say("MY STOCK! You'll pay for that, Tobias!", TJ_D);
+      await S.say("Let him run. He's running empty-handed. Bag it, boys.", T);
+    } else if (c.out === 'cap') {
+      S.on('tj-glitch'); S.fx(glitchSnd); await S.W(600);
+      S.off('tj-glitch'); S.on('tj-down'); S.fx(() => { tone(60, .4, 'sine', .3); noise(.3, 800, 120, .2, 'lowpass'); }); await S.W(700);
+      await S.say("Why won't it load… why won't the glitch LOAD?", TJ_D);
+      S.on('tj-cuffon'); S.fx(() => { noise(.1, 3000, 1000, .08); tone(900, .05, 'square', .03); }); await S.W(500);
+      await S.say("Because you're standing in my alley. Take him to the back room.", T);
+    } else {
+      S.on('tj-glitch'); S.fx(glitchSnd); await S.W(700);
+      S.on('tj-shatter'); S.fx(() => { boom(); glitchSnd(); sweep(2400, 60, 1.4, 'sawtooth', .05); }); S.shake(); await S.W(1800);
+      await S.say("…", TJ_G);
+      await S.say("The market just got a lot quieter. And keep that thing pointed away from me.", T);
+    }
+    await S.W(600);
+  }};
+SC.tjob = TJ_SC;
 function memberIntro(m){
   return new Promise(resolve => {
     ac();
@@ -8263,7 +8492,7 @@ $('#pcLater').onclick = () => endIntro(false);
 /* ---------- Boot ---------- */
 fx.ncv = $('#seqNoise'); fx.ng = fx.ncv.getContext('2d'); fx.nimg = fx.ng.createImageData(128, 72);
 renderLogoState();
-renderMute(); setBal(); renderRack(); selectCase(); setMode('crate'); renderInv(); renderStats(); renderPresBtn(); renderYardBtn();
+renderMute(); setBal(); renderRack(); selectCase(); setMode('crate'); renderInv(); renderStats(); renderPresBtn(); renderYardBtn(); renderShopBtnState();
 function bootScenes(){
   if (state.pendingReturn) setTimeout(dealerReturns, 600);
   else if (state.gold > 0 && !state.pres.seen) setTimeout(prestigeIntro, 900);
