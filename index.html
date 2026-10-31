@@ -772,6 +772,68 @@ pre.notes{margin:0;white-space:pre-wrap;font:inherit;color:#e9fff2}
 .ret-word span.gap::before,.ret-word span.gap::after{display:none}
 
 /* The Prestige: intro cutscene */
+/* The Rejects */
+.yard-btn{color:#ff8a3d;border-color:#6b3a12;background:#140a04}
+.yard-btn.ping{animation:presPing 1.4s ease-out 3}
+.pres.yard{background:radial-gradient(900px 500px at 50% -120px,#3a1e0e 0%,transparent 70%),repeating-linear-gradient(90deg,rgba(255,138,61,.04) 0 1px,transparent 1px 90px),linear-gradient(#120b07,#070403)}
+.pres.yard .pr-top{background:linear-gradient(#120b07 70%,transparent)}
+.pres.yard .pr-brand{color:#ff8a3d}
+.pres.yard .pr-brand small{color:#a8805a}
+.pres.yard .pr-hero{border-color:#4a2a14;background:linear-gradient(135deg,rgba(255,138,61,.08),transparent 60%)}
+.pres.yard .pr-hero::after{border-color:rgba(255,138,61,.14)}
+.pres.yard .pr-hero p{color:#c9a88a}
+.pres.yard .pr-mem{border-color:#4a2a14;background:linear-gradient(#1a100a,#0c0704)}
+.pr-room.r-ma,.pr-room.r-tinny,.pr-room.r-deacon,.pr-room.r-socket{--rbg:#0c0805}
+.yti{position:fixed;inset:0;z-index:86;display:grid;place-content:center;justify-items:center;text-align:center;gap:6px;padding:16px;color:#f3e2cc;
+  background:radial-gradient(circle at 50% 45%,rgba(70,28,8,.8),rgba(0,0,0,.96) 70%)}
+.yti small{font-size:12px;letter-spacing:.42em;color:#d98a4a;font-weight:600;text-transform:uppercase}
+.yti h2{margin:0;font-family:var(--display);font-weight:700;font-size:clamp(54px,14vw,110px);line-height:.85;letter-spacing:.08em;background:linear-gradient(180deg,#ffe3c2,#ff8a3d 45%,#7a2e0a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.yti .rule{width:min(320px,70vw);height:1px;background:linear-gradient(90deg,transparent,#d98a4a,transparent);margin:6px 0}
+.yti p{margin:0 0 14px;color:#dcc0a0;max-width:440px}
+.yti.on > *{animation:pcRise .8s both}
+.yti.on > :nth-child(2){animation-delay:.15s}.yti.on > :nth-child(3){animation-delay:.3s}.yti.on > :nth-child(4){animation-delay:.45s}.yti.on > :nth-child(5){animation-delay:.6s}
+/* Scenes: the Rejects */
+.y-fl{transform-box:fill-box;transform-origin:50% 100%;animation:yFl .32s ease-in-out infinite alternate}
+.y-fl:nth-child(2n){animation-duration:.27s;animation-delay:-.1s}
+@keyframes yFl{from{transform:scale(1,1)}to{transform:scale(.86,1.2)}}
+.y-glow{animation:yGlow 1.6s ease-in-out infinite alternate}
+@keyframes yGlow{from{opacity:.7}to{opacity:1}}
+.ma-car{transform-box:view-box;transform-origin:318px 30px;animation:maSway 3s ease-in-out infinite alternate}
+@keyframes maSway{from{transform:rotate(-2deg)}to{transform:rotate(2deg)}}
+.ma-set .ma-car,.ma-drop .ma-car{animation:none;transform:translateY(112px);transition:transform .45s cubic-bezier(.6,0,1,.6)}
+.ma-set .ma-car{transition:none}
+.ma-dust{opacity:0}
+.ma-drop .ma-dust{animation:bDust 1s ease-out .42s both}
+.tn-kid{transform-box:view-box;transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.ms-tinny:not(.tn-up) .tn-kid{transform:translateY(66px)}
+.tn-front{transform-box:fill-box;transform-origin:50% 100%}
+.tn-wob .tn-front{animation:tnWob .17s ease-in-out 6}
+@keyframes tnWob{25%{transform:translateX(-2px) rotate(-1deg)}75%{transform:translateX(2px) rotate(1deg)}}
+.tn-bulb{animation:tnBlink 1.2s steps(1) infinite}
+.tn-bulb:nth-child(3n){animation-delay:-.4s}.tn-bulb:nth-child(3n+1){animation-delay:-.8s}
+@keyframes tnBlink{50%{opacity:.25}}
+.dc-fl,.dc-glow,.dc-x{opacity:0;transition:opacity .5s}
+.dc-l1 .dc-a .dc-fl,.dc-l1 .dc-a .dc-glow,.dc-l2 .dc-fl,.dc-l2 .dc-glow,.dc-lit .dc-fl,.dc-lit .dc-glow,.dc-lit .dc-x{opacity:1}
+.dc-l1 .dc-a .dc-glow,.dc-l2 .dc-glow,.dc-lit .dc-glow{opacity:.35}
+.dc-lit .dc-x{animation:yGlow 2.2s ease-in-out infinite alternate}
+.sk-mask{transform-box:view-box;transform-origin:200px 110px;transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
+.sk-up .sk-mask{transform:scaleY(.26)}
+.sk-arc,.sk-sp{opacity:0}
+.sk-weld .sk-arc{opacity:1;animation:skArc .09s steps(2) infinite}
+.sk-weld .sk-sp{opacity:1}
+.sk-sp path{transform-box:view-box;transform-origin:263px 185px;animation:skSp .32s linear infinite}
+.sk-sp path:nth-child(2n){animation-delay:-.16s}
+@keyframes skArc{50%{opacity:.35}}
+@keyframes skSp{from{opacity:1;transform:scale(.3)}to{opacity:0;transform:scale(1.5)}}
+.sk-lamp{transform-box:view-box;transform-origin:300px 0;animation:bSway 4s ease-in-out infinite alternate}
+.ms-yardc .yc-f{opacity:0;transform-box:view-box;transition:opacity .7s,transform .7s cubic-bezier(.2,.8,.3,1)}
+.ms-yardc .yc-fti{transform:translateX(150px)}
+.yc-ma .yc-fma,.yc-de .yc-fde,.yc-so .yc-fso,.yc-ti .yc-fti{opacity:1;transform:none}
+.yc-kn{opacity:0;transition:opacity 1.1s}
+.yc-knife .yc-kn{opacity:1}
+.yc-kf{transform-box:view-box;animation:ycFloat 2.4s ease-in-out infinite alternate}
+@keyframes ycFloat{to{transform:translateY(-7px)}}
+@media (prefers-reduced-motion: reduce){.y-fl,.y-glow,.ma-car,.tn-bulb,.sk-lamp,.yc-kf{animation:none}}
 .pres-btn{color:#ffcb2e;border-color:#6b4f12;background:#140f05}
 .pres-btn.ping{animation:presPing 1.4s ease-out 3}
 @keyframes presPing{0%{box-shadow:0 0 0 0 rgba(255,203,46,.7)}100%{box-shadow:0 0 0 14px rgba(255,203,46,0)}}
@@ -1432,6 +1494,7 @@ pre.notes{margin:0;white-space:pre-wrap;font:inherit;color:#e9fff2}
       <div class="bal" id="balWrap" aria-label="Credits"><span class="coin"></span><span id="bal">0</span></div>
       <button class="icon-btn mask-btn" id="shopBtn" hidden aria-label="Open the Black Market shop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9 Q5 3 12 3 Q19 3 19 9 Q19 17 12 21 Q5 17 5 9 Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7.5 9.5 L10.8 10.6 L10.3 12 L7.8 11 Z M16.5 9.5 L13.2 10.6 L13.7 12 L16.2 11 Z" fill="currentColor"/></svg></button>
       <button class="icon-btn pres-btn" id="presBtn" hidden aria-label="Go to The Prestige"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7.5" width="18" height="12" rx="2"/><path d="M9 7.5V5.5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 12.5h18"/><rect x="10.5" y="11" width="3" height="3" rx=".6" fill="currentColor"/></svg></button>
+      <button class="icon-btn yard-btn" id="yardBtn" hidden aria-label="Go to the Scrapyard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3M6 6l2.1 2.1M15.9 15.9 18 18M6 18l2.1-2.1M15.9 8.1 18 6"/></svg></button>
       <button class="icon-btn" id="muteBtn" aria-label="Mute sound"></button>
       <button class="icon-btn" id="lbBtn" aria-label="Leaderboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 20h8"/></svg></button>
       <button class="icon-btn acct-btn" id="acctBtn" hidden aria-label="Account"><span>?</span></button>
@@ -1684,6 +1747,14 @@ pre.notes{margin:0;white-space:pre-wrap;font:inherit;color:#e9fff2}
   </div>
 </div>
 
+<div class="yti" id="yti" hidden>
+  <small>Everyone the Prestige threw away</small>
+  <h2>THE REJECTS</h2>
+  <div class="rule"></div>
+  <p>Four of them, living in the Scrapyard. They only buy rust: anything out of a Scrapyard case, or anything Scarred. The more worn a piece is, the more they pay.</p>
+  <div style="display:grid;gap:10px;justify-items:center"><button class="gold-btn" id="ytEnter">Enter the Scrapyard</button><button class="link-btn" id="ytLater">Later</button></div>
+</div>
+
 <div class="mi" id="mi" hidden>
   <div class="mi-stage" id="miStage"></div>
   <div class="mi-card" id="miCard"><span class="mc-role"></span><span class="mc-name"></span><span class="mc-cap"></span></div>
@@ -1700,8 +1771,8 @@ pre.notes{margin:0;white-space:pre-wrap;font:inherit;color:#e9fff2}
     </div>
     <div id="prLobby">
       <div class="pr-hero">
-        <h2>Who are you selling to?</h2>
-        <p>Each member has one favorite weapon type and pays well above market for it. They'll buy anything else too, usually at market price. You can talk any offer up, and bringing someone the exact item on their list can pay 10× in a briefcase. Every room is also a shop: tap what's on display.</p>
+        <h2 id="prHeroH">Who are you selling to?</h2>
+        <p id="prHeroP">Each member has one favorite weapon type and pays well above market for it. They'll buy anything else too, usually at market price. You can talk any offer up, and bringing someone the exact item on their list can pay 10× in a briefcase. Every room is also a shop: tap what's on display.</p>
         <div class="pr-ledger" id="prLedger"></div>
       </div>
       <div class="pr-grid" id="prGrid"></div>
@@ -1806,6 +1877,7 @@ const ITEMS = [
   {id:'s9', w:'shotgun', name:'Furnace',     t:3, pat:'flame',   pal:['#3a0a05','#d6451b','#ffd23f']},
   {id:'s10',w:'sniper',  name:'Copperhead',  t:3, pat:'hex',     pal:['#3b2416','#d28a4a','#f0b27a']},
   {id:'s11',w:'rifle',   name:'Scrap Baron', t:4, pat:'circuit', pal:['#14110c','#ffb43a','#ff6a00']},
+  {id:'s12',w:'bowie',   name:'Rusty Knife', t:4, pat:'marble',  pal:['#3a1a0a','#b5541c','#e0904a'], m:1.3},
   // Neon Circuit
   {id:'n1', w:'smg',     name:'Grid Lock',   t:0, pat:'digital', pal:['#1b2b4a','#24406e','#11192b','#3561a8']},
   {id:'n2', w:'pistol',  name:'Static',      t:0, pat:'stripes', pal:['#3a3f4a','#5a606d']},
@@ -1861,7 +1933,7 @@ const GOLD = ITEMS.filter(i => i.t === 5).map(i => i.id);
 const BM_IDS = ITEMS.filter(i => i.t === 6 && !i.ex).map(i => i.id);
 
 const CASES = [
-  {id:'scrap', name:'Scrapyard',    tag:'Rust, grit, hazard tape', cost:100,  f:1,   w:[78.9,15,4.2,1.45,.35,.1],      cls:'k-scrap', mark:'SY', glow:'#ff9a3c', items:['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11']},
+  {id:'scrap', name:'Scrapyard',    tag:'Rust, grit, hazard tape', cost:100,  f:1,   w:[78.9,15,4.2,1.45,.35,.1],      cls:'k-scrap', mark:'SY', glow:'#ff9a3c', items:['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12']},
   {id:'neon',  name:'Neon Circuit', tag:'Synth glow after dark',   cost:200,  f:1.5, w:[75,16.5,5.8,1.9,.55,.25],     cls:'k-neon',  mark:'NC', glow:'#c34bff', items:['n1','n2','n3','n4','n5','n6','n7','n8','n9','n10']},
   {id:'frost', name:'Frostbite',    tag:'Cold-forged finishes',    cost:350,  f:1.6, w:[65,21,9,3.4,1.1,.5], cls:'k-frost', mark:'FB', glow:'#8fe0ff', items:['f1','f2','f3','f4','f5','f6','f7','f8','f9','f10']},
   {id:'c4',    name:'Case 4',       tag:'Every pull is gold',      cost:13500, f:1,  w:[0,0,0,0,0,1],          cls:'k-gold',  mark:'4',  glow:'#ffcb2e', items:[]}
@@ -2210,6 +2282,57 @@ const INST = {
 };
 const bossa = c => c + ' - . ' + c + ' - . ' + c + ' - . . ' + c + ' - . ' + c + ' - .';
 const THEMES = {
+  /* The Scrapyard: junkyard blues, an anvil for a cowbell */
+  yard:{bpm:84, steps:16, swing:.3, rev:.3, vol:1.1, tracks:[
+    {i:'ubass', v:.16, n:'E2 - . E2 G#2 - B2 - C#3 - B2 - G#2 - E2 - | A1 - . A1 C#2 - E2 - F#2 - E2 - C#2 - A1 - | B1 - . B1 D#2 - F#2 - A1 - . A1 C#2 - E2 - | E2 - . E2 G#2 - B2 - D3 - B2 - G#2 - B1 -'},
+    {i:'kick', v:.1, l:1, n:'x . . . . . . . x . . . . . . .'},
+    {i:'brush', v:.05, l:1, n:'. . . . x . . . . . . . x . . .'},
+    {i:'anvil', v:.022, l:1, n:'E5' + RS(13) + ' B5 .'},
+    {i:'rhodes', v:.04, l:2, n:'. . E3,G#3,D4 - . . . . . . E3,G#3,D4 - . . . . | . . A3,C#4,G4 - . . . . . . A3,C#4,G4 - . . . . | . . B3,D#4,A4 - . . . . . . A3,C#4,G4 - . . . . | . . E3,G#3,D4 - . . . . . . B3,D#4,A4 - . . . .'},
+    {i:'sax', v:.04, l:3, n:'B4 - - - G4 - E4 - - - G4 - A4 - - - | E5 - - - D5 - B4 - A4 - - - - - - - | F#4 - - - A4 - B4 - - - A4 - G4 - E4 - | E4' + HO(15) + RS(64)}
+  ]},
+  /* The cutscene: a low drone, a slow drum, and the knife */
+  yardc:{bpm:60, steps:16, rev:.55, vol:1.2, fadeIn:2, buildSec:3, tracks:[
+    {i:'pad', v:.05, n:'E2,B2,E3' + HO(31) + ' C2,G2,E3' + HO(31)},
+    {i:'timp', v:.12, n:'E2' + RS(15) + ' E2' + RS(7) + ' E2' + RS(7)},
+    {i:'anvil', v:.02, l:1, n:RS(8) + ' B5' + RS(23)},
+    {i:'strings', v:.03, l:2, n:'B3' + HO(15) + ' C4' + HO(15) + ' B3' + HO(15) + ' G3' + HO(15)}
+  ]},
+  /* Ma Rust: a slow back-porch stomp */
+  ma:{bpm:92, steps:16, swing:.25, rev:.3, vol:1.1, tracks:[
+    {i:'ubass', v:.17, n:'A1 . . . E2 . . . A1 . . . E2 . . . | D2 . . . A1 . . . D2 . . . A1 . . . | E2 . . . B1 . . . E2 . . . B1 . . . | A1 . . . E2 . . . A1 . . . . . . .'},
+    {i:'kick', v:.08, n:'x . . . . . . . x . . . . . . .'},
+    {i:'brush', v:.045, n:'. . . . x . . . . . . . x . . .'},
+    {i:'harpsi', v:.026, l:1, n:'A3 C#4 E4 A4 E4 C#4 A3 C#4 E4 A4 E4 C#4 A3 C#4 E4 C#4 | D4 F#4 A4 D5 A4 F#4 D4 F#4 A4 D5 A4 F#4 D4 F#4 A4 F#4 | E4 G#4 B4 E5 B4 G#4 E4 G#4 B4 E5 B4 G#4 E4 G#4 B4 G#4 | A3 C#4 E4 A4 E4 C#4 A3 C#4 E4 A4 E4 C#4 A3 . . .'},
+    {i:'anvil', v:.02, l:2, n:RS(12) + ' A5 . . .'},
+    {i:'horn', v:.034, l:3, n:'E4 - - - - - C#4 - A3 - - - B3 - C#4 - | D4 - - - - - - - F#4 - E4 - D4 - - - | E4 - - - G#4 - - - B4 - - - G#4 - E4 - | A4' + HO(15) + RS(64)}
+  ]},
+  /* Tinny: a cheap handheld game, played too loud */
+  tinny:{bpm:150, steps:16, rev:.12, vol:1.5, tracks:[
+    {i:'pulse', v:.05, n:'C3 . C3 . G2 . G2 . A2 . A2 . F2 . G2 . | C3 . C3 . G2 . G2 . F2 . F2 . G2 . G2 .'},
+    {i:'nkick', v:.2, n:'x . . . x . . . x . . . x . . .'},
+    {i:'nsnare', v:.12, l:1, n:'. . . . x . . . . . . . x . . x'},
+    {i:'nhat', v:.035, l:1, n:'x x x x x x x x x x x x x x x x'},
+    {i:'sq', v:.032, l:2, n:'C5 . E5 . G5 . E5 . A5 - G5 . E5 . D5 . | C5 . E5 . G5 . C6 . B5 - G5 . A5 - - . | F5 . A5 . C6 . A5 . G5 - E5 . D5 . C5 . | D5 . E5 . G5 . E5 . C5 - - - - - . .'}
+  ]},
+  /* Deacon: a hymn on a wheezing organ, hand claps on two and four */
+  deacon:{bpm:72, steps:16, swing:.33, rev:.5, vol:1.15, tracks:[
+    {i:'ubass', v:.15, n:'C2 - - - - - - - F1 - - - - - - - | C2 - - - - - - - G1 - - - - - - -'},
+    {i:'rhodes', v:.042, n:'C3,E3,G3,Bb3' + HO(7) + ' F3,A3,C4' + HO(7) + ' | C3,E3,G3' + HO(7) + ' G3,B3,D4,F4' + HO(7)},
+    {i:'kick', v:.07, l:1, n:'x . . . . . . . x . . x . . . .'},
+    {i:'clap', v:.06, l:1, n:'. . . . x . . . . . . . x . . .'},
+    {i:'bell', v:.02, l:2, n:'C6' + RS(31)},
+    {i:'vibe', v:.04, l:3, n:'G4 - - - A4 - G4 - E4 - - - C4 - - - | D4 - - - E4 - G4 - E4 - - - - - - -'}
+  ]},
+  /* Socket: the garage. Everything is a drum if you hit it hard enough */
+  socket:{bpm:116, steps:16, rev:.15, dist:.14, vol:1.05, tracks:[
+    {i:'chug', v:.045, n:'D2,A2 . D2,A2 . . D2,A2 . . D2,A2 . F2,C3 - . . E2,B2 .'},
+    {i:'sub', v:.09, n:'D1 . D1 . . D1 . . D1 . F1 - . . E1 .'},
+    {i:'slam', v:.2, n:'x . . . . . . . x . . . . . . .'},
+    {i:'snare', v:.14, l:1, n:'. . . . x . . . . . . . x . . .'},
+    {i:'anvil', v:.03, l:1, n:'. . D5 . . . . . . . D5 . . . A5 .'},
+    {i:'hat', v:.04, l:2, n:'x . x . x . x . x . x . x . x .'}
+  ]},
   /* The Prestige lobby: a bossa nova in the elevator */
   lobby:{bpm:100, steps:16, rev:.3, tracks:[
     {i:'rhodes', v:.04, n:bossa('A3,C4,E4') + ' ' + bossa('F3,A3,C4') + ' ' + bossa('F3,Bb3,D4') + ' ' + bossa('E3,Bb3,D4')},
@@ -2382,10 +2505,10 @@ function musWant(){
   if (state.muted || cine) return null;                                // the Black Market cinematic has its own score
   if (mus.hold !== null) return mus.hold ? [mus.hold, false] : null;
   if (captive && presOpen && !captive.pending) return ['cell', false];
-  if (mi && presOpen && mi.mid) return [mi.mid, true];
+  if (mi && mi.mid && (presOpen || mi.mid === 'yardc')) return [mi.mid, true];
   if (pc) return ['prestige', false];
   if (!$('#ret').hidden) return ['ret', false];
-  if (presOpen) return [room ? room.id : 'lobby', false];
+  if (presOpen) return [room ? room.id : crew === 'yard' ? 'yard' : 'lobby', false];
   if (shopOpen) return ['dealer', false];
   return null;
 }
@@ -2402,13 +2525,14 @@ const KEY = 'crate-rush-v1';
 const freshHacks = () => ({speed:false, speedOn:true, magnet:0, xray:0, overwrite:0, hijack:0, forger:0, keydupe:0, spoof:0});
 const fresh = () => ({econ:2, bal:5000, inv:[], found:[], opened:0, gold:0, spent:0, best:null, muted:false, trades:0, bm:0, bmFound:[],
   hacks:freshHacks(), xrayRolls:{}, shopUnlocked:false, shopVisits:0,
-  breach:false, rig:false, inject:null, bmSinceBreach:0, pendingReturn:false, locked:false, hackBuys:0, hackSpent:0, pres:freshPres()});
+  breach:false, rig:false, inject:null, bmSinceBreach:0, pendingReturn:false, locked:false, hackBuys:0, hackSpent:0, pres:freshPres(), yard:freshYard()});
+const freshYard = () => ({seen:false, knife:false, home:false, scrapN:0, peek:null, tip:null, deals:0, earned:0, briefs:0});
 const freshPres = () => ({seen:false, wants:{}, cool:{}, deals:0, earned:0, briefs:0, met:{}, sold:{}, vault:null, vaultT:0, tshelf:[], cell:null});
 let state = fresh();
 try {
   const s = JSON.parse(localStorage.getItem(KEY));
   if (s && typeof s.bal === 'number' && Array.isArray(s.inv)) {
-    state = Object.assign(fresh(), s, {inv: s.inv.filter(x => BY[x.id]), hacks: Object.assign(freshHacks(), s.hacks || {}), xrayRolls: s.xrayRolls || {}, pres: Object.assign(freshPres(), s.pres || {})});
+    state = Object.assign(fresh(), s, {inv: s.inv.filter(x => BY[x.id]), hacks: Object.assign(freshHacks(), s.hacks || {}), xrayRolls: s.xrayRolls || {}, pres: Object.assign(freshPres(), s.pres || {}), yard: Object.assign(freshYard(), s.yard || {})});
     /* Black Market used to be worth a fraction of what it is now: rescale anything saved at the old prices */
     const BM_OLD = 85000 / 6000, bmFix = v => Math.max(50000, Math.round(v * BM_OLD));
     /* economy v2 raised every regular tier: scale saved prices up once */
@@ -2658,7 +2782,8 @@ function scanCase(){
   const c = CASES[sel];
   if (busy || H().xray <= 0 || state.xrayRolls[c.id]) return;
   ac(); H().xray--;
-  const r = roll(c); state.xrayRolls[c.id] = r; save();
+  const r = (c.id === 'scrap' && Y().tip) || roll(c); if (c.id === 'scrap') Y().tip = null;
+  state.xrayRolls[c.id] = r; save();
   sweep(300, 2400, .5, 'sine', .05); for (let i = 0; i < 8; i++) tone(1400 + i*120, .03, 'square', .015, .1 + i*.05);
   selectCase();
 }
@@ -3560,6 +3685,7 @@ function closeReveal(sell){
   setMode('crate'); selectCase(); renderInv(); renderStats();
   if (state.pendingReturn && !r.preview) dealerReturns();
   else if (!r.preview && state.gold > 0 && !state.pres.seen) setTimeout(prestigeIntro, 350);
+  else if (!r.preview && Y().knife && !Y().seen) setTimeout(yardIntro, 350);
 }
 /* Contraband taken while his laptop is breached is how he finds out */
 function gotBM(id){
@@ -3574,8 +3700,15 @@ async function openCase(){
   if (busy || (!free && state.bal < c.cost)) return;
   ac(); busy = true; lockRack(true);
   if (free) H().keydupe--; else { state.bal -= c.cost; state.spent += c.cost; }
-  let r = state.xrayRolls[c.id];
-  if (r) { delete state.xrayRolls[c.id]; r.uid = uid(); r.at = Date.now(); } else r = roll(c);
+  let r = state.xrayRolls[c.id] || (c.id === 'scrap' ? Y().tip : null);
+  if (r) { delete state.xrayRolls[c.id]; if (c.id === 'scrap') Y().tip = null; r.uid = uid(); r.at = Date.now(); } else r = roll(c);
+  if (c.id === 'scrap') {
+    Y().scrapN = (Y().scrapN || 0) + 1;
+    if (!Y().knife && Y().scrapN >= YARD_N) {
+      const fl = +(.55 + Math.random()*.4).toFixed(4);
+      r = {uid: uid(), id: KNIFE_ID, fl, v: priceOf(BY[KNIFE_ID], wearIdx(fl)), at: Date.now(), hk: r.hk || []};
+    }
+  }
   consume(r.hk); state.opened++;
   save(); if (!free) setBal(-c.cost); renderOpen(); renderTrade();
   reelInfo = buildReel(c, r);
@@ -3593,6 +3726,7 @@ async function openCase(){
   }
   const it = BY[r.id];
   state.inv.unshift(r);
+  if (r.id === KNIFE_ID) Y().knife = true;
   if (it.t === 5) state.gold++;
   if (it.t === 6) gotBM(r.id);
   if (!state.best || r.v > state.best.v) state.best = {id:r.id, v:r.v};
@@ -3629,6 +3763,7 @@ document.addEventListener('keydown', e => {
   else if (!$('#ret').hidden) { retSkip = true; retWake(); }
   else if (mi) mi.skipAll();
   else if (pc) pc.skipAll();
+  else if (!$('#yti').hidden) closeYt(false);
   else if (!$('#brief').hidden) closeBrief();
   else if (presOpen) {
     if (room && ovMode) closeOv();
@@ -4281,6 +4416,54 @@ MEMBERS.push({id:'tobias', name:'Tobias', role:'The Contraband King', col:'#a855
         bluffOk:"Another buyer? In MY market? …{o}. And you'll tell me their name later.", bluffNo:"There ARE no other buyers. There's me. Get out.",
         deal:"Pleasure. You were never here.", brief:"Fellas. Bring the case.", thanks:"You were never here.", cool:"Tobias's guards won't let you past the rope.",
         legal:"Legal goods? Boring. Bring me purple."}});
+
+/* ---------- The Rejects ----------
+   Four people the Prestige threw out, living in the Scrapyard. They only buy rust: anything out of a
+   Scrapyard case, or anything Scarred. The more worn a piece is, the more they pay (Mint gets haggled down).
+   They open up once you've pulled the Rusty Knife, which comes out of your twelfth Scrapyard case. */
+const RUST_X = [.8, .9, 1, 1.2, 1.4];
+const KNIFE_ID = 's12', KNIFE_X = 5, YARD_N = 12, PEEK_EVERY = 10;
+const Y = () => state.yard;
+const fromYard = it => !!ITEM_CASE[it.id] && ITEM_CASE[it.id].id === 'scrap';
+const rustyE = e => BY[e.id].t !== 6 && (fromYard(BY[e.id]) || wearIdx(e.fl) === 4);
+const rustOf = (m, e) => { const r = RUST_X[wearIdx(e.fl)]; return m.id === 'socket' ? 1 + (r - 1) * 2 : r; };
+const knifeHome = (m, e) => m.id === 'ma' && e.id === KNIFE_ID && !Y().home;
+const yardMem = (id, name, role, col, pitch, mult, pat, wt, favName, one, many, say) =>
+  ({id, name, role, col, pitch, mult, pat, wt, yard:true, fav: it => fromYard(it) && it.w === wt, favName, one, many, say});
+MEMBERS.push(
+  yardMem('ma', 'Ma Rust', 'The Matriarch', '#ff8a3d', 104, 1.5, 3, 'rifle', 'Rusty rifles', 'rusty rifle', 'rusty rifles',
+   {hi:"Sit down, kid. Rifles, if they're rusty. Any other rust, I'll still pay for.", none:"Empty-handed in my yard? Go dig.",
+    open:"{o}. Rust like that's worth keeping.", plain:"Not a rifle. Still rust. {o}.", exact:"That's the one. I've seen it in my dreams, kid. {o}.",
+    pushOk:"Hah. Fine. {o}.", pushNo:"Don't get cute. {o}.",
+    bluffOk:"Another buyer? Out here? …{o}. Don't try it twice.", bluffNo:"Nobody else buys rust, kid. Nobody. Out of my yard.",
+    deal:"Onto the pile it goes.", brief:"Tinny! Fetch the tin.", thanks:"Rust never sleeps.", cool:"Ma Rust has locked herself in the crane cab.",
+    shiny:"Too shiny. Take that up the hill to the Prestige.", knife:"…My knife. You brought my knife home. {o}, and I'm not haggling over it.",
+    home:"Forty years that knife was gone. You're family now, kid."}),
+  yardMem('tinny', 'Tinny', 'The Kid', '#ffd23f', 300, 1.45, 4, 'smg', 'Rusty SMGs', 'rusty SMG', 'rusty SMGs',
+   {hi:"A customer! SMGs! Rusty ones! Ma says I can't buy shiny stuff.", none:"Your pockets are emptier than mine!",
+    open:"{o}! That's like a million cans.", plain:"It's not an SMG but it's nice and crusty. {o}!", exact:"THAT'S THE ONE FROM MY DRAWING! {o}!",
+    pushOk:"Aww. Okay. {o}.", pushNo:"Hey! That's my lunch money. {o}.",
+    bluffOk:"WHAT? Who?! No no no. {o}! Don't tell Ma.", bluffNo:"You're lying! Your ears do a thing. Go away!",
+    deal:"Mine now. No take-backs.", brief:"Ma said if anybody brought this one, give 'em the tin!", thanks:"Come back tomorrow! Or today!", cool:"Tinny is hiding in the tire fort and won't come out.",
+    shiny:"Ew, it's all shiny. Ma would yell at me.",
+    peek:"Psst. I snuck a look in the next Scrapyard crate. It's {t}. Don't tell anyone.", peekNo:"They're watching the crates. I can sneak back in after {n} more case open{s}."}),
+  yardMem('deacon', 'Deacon', 'The Preacher', '#e0603a', 92, 1.45, 2, 'shotgun', 'Rusty shotguns', 'rusty shotgun', 'rusty shotguns',
+   {hi:"Welcome, child. Shotguns, rusted by honest years. All rust is holy here.", none:"You come before the altar with nothing?",
+    open:"{o}. The rust provides.", plain:"Not a shotgun, but rust is rust. {o}.", exact:"Praise be. The very one I prayed for. {o}.",
+    pushOk:"Greed is a sin. But {o}.", pushNo:"Patience, child. {o}.",
+    confess:"Thou shalt not lie, child. I hear it in your voice. {o}, and say three Hail Rusts.",
+    deal:"Go in peace.", brief:"The collection plate. It's yours, child.", thanks:"Bless your rusty heart.", cool:"Deacon is at prayer and must not be disturbed.",
+    shiny:"Vanity. That shine is vanity. Take it up the hill."}),
+  yardMem('socket', 'Socket', 'The Mechanic', '#5fd1c2', 176, 1.4, 3, 'pistol', 'Rusty pistols', 'rusty pistol', 'rusty pistols',
+   {hi:"Pistols. Rusted, seized, busted, I don't care. The worse it looks, the more I pay.", none:"Nothing to fix? Then quit blocking my light.",
+    open:"{o}. Look at that corrosion. Gorgeous.", plain:"Not a pistol. Still crusty. {o}.", exact:"That's the exact one I need for parts. {o}.",
+    pushOk:"Ugh. {o}. Don't touch anything.", pushNo:"Nope. {o}.",
+    bluffOk:"Another mechanic? Who? …{o}.", bluffNo:"Nobody else in this town knows what to do with rust. Out of my garage.",
+    deal:"Straight onto the bench.", brief:"Take the toolbox. The cash is under the sockets.", thanks:"Keep it crusty.", cool:"Socket's garage door is down.",
+    shiny:"Too clean. Nothing for me to fix."})
+);
+const YARD = MEMBERS.filter(m => m.yard);
+const YARD_SPECIAL = {ma:'Wants her knife back', tinny:'Peeks inside crates', deacon:'Can’t be lied to', socket:'Rust counts double'};
 const BM_REFUSE = {
   vance:"Black Market? Not in my building. Tobias handles that kind of filth.",
   brick:"Whoa whoa whoa. That's HOT. Boss'd kill me. Take it to Tobias.",
@@ -4290,19 +4473,20 @@ const BM_REFUSE = {
   sable:"Even I have limits. Tobias collects… that sort of thing."
 };
 const MBY = {}; MEMBERS.forEach(m => { MBY[m.id] = m; });
-const REGULARS = MEMBERS.filter(m => !m.outsider);
+const REGULARS = MEMBERS.filter(m => !m.outsider && !m.yard);
 const finalLine = "{o}. That's where it stays.";
 const L = (m, k, o) => (m.say[k] || finalLine).replace('{o}', fmt(o || 0) + ' cr');
 const P = () => state.pres;
 const coolLeft = m => Math.max(0, (P().cool[m.id] || 0) - state.opened);
 const wantOf = m => BY[P().wants[m.id]];
 function newWant(m){
-  const pool = ITEMS.filter(it => m.fav(it) && !it.ex && (m.outsider || it.t !== 6)), cur = P().wants[m.id];
+  let pool = ITEMS.filter(it => m.fav(it) && !it.ex && (m.outsider || it.t !== 6)), cur = P().wants[m.id];
+  if (m.yard) { const hi = pool.filter(it => it.t >= 1); if (hi.length) pool = hi; }
   const opts = pool.length > 1 ? pool.filter(it => it.id !== cur) : pool;
   P().wants[m.id] = pickOne(opts).id;
 }
 function ensureWants(){ MEMBERS.forEach(m => { const w = BY[P().wants[m.id]]; if (!w || !m.fav(w) || w.ex || (!m.outsider && w.t === 6)) newWant(m); }); }
-const buys = (m, e) => !!BY[e.id] && (m.outsider ? BY[e.id].t === 6 : BY[e.id].t !== 6);
+const buys = (m, e) => !!BY[e.id] && (m.yard ? rustyE(e) : m.outsider ? BY[e.id].t === 6 : BY[e.id].t !== 6);
 const isFav = (m, e) => m.fav(BY[e.id]);
 const inMood = (m, e) => !isFav(m, e) && hash(e.uid + m.id) % 5 === 0;   // stable per item, so the price doesn't flicker
 /* Anything bought in a Prestige shop (or out of Sable's case) is "stock": every member pays market for it,
@@ -4311,8 +4495,10 @@ const TAG_CAP = 1.5;
 const tagged = e => e.src === 'shop' || e.src === 'vault' || e.src === 'pk1';
 const isExact = (m, e) => !tagged(e) && e.id === P().wants[m.id];
 function offerFor(m, e){
+  if (knifeHome(m, e)) return Math.round(e.v * KNIFE_X);
   if (tagged(e)) return Math.max(1, Math.round(e.v));
-  return Math.round(e.v * (isFav(m, e) ? m.mult : inMood(m, e) ? MOOD_X : 1) * (isExact(m, e) ? EXACT_BONUS : 1));
+  const o = e.v * (isFav(m, e) ? m.mult : inMood(m, e) ? MOOD_X : 1) * (isExact(m, e) ? EXACT_BONUS : 1);
+  return Math.round(m.yard ? o * rustOf(m, e) : o);
 }
 const blip = m => tone(m.pitch * (.88 + Math.random()*.3), .045, 'square', .016);
 
@@ -4324,7 +4510,11 @@ const FACE = {
   juno:{skin:'#f1c6a0', sk2:'#d6a47c', coat:'#3a1d5c'},
   kessler:{skin:'#d9a982', sk2:'#b78761', coat:'#3c4a3e'},
   sable:{skin:'#b98a6a', sk2:'#9a6d50', coat:'#120a18'},
-  tobias:{skin:'#8a5a3c', sk2:'#6b4228', coat:'#1d1026'}
+  tobias:{skin:'#8a5a3c', sk2:'#6b4228', coat:'#1d1026'},
+  ma:{skin:'#c08a62', sk2:'#9e6c48', coat:'#4a2e1a'},
+  tinny:{skin:'#e2ad80', sk2:'#c48d62', coat:'#3d5a8a'},
+  deacon:{skin:'#7a5238', sk2:'#5e3e28', coat:'#16161a'},
+  socket:{skin:'#a8724e', sk2:'#875a3a', coat:'#2f4a4a'}
 };
 function face(id){
   const F = FACE[id], sk = F.skin;
@@ -4382,6 +4572,39 @@ function face(id){
       + '<path d="M38 42 L47 43 M53 43 L62 42" stroke="#0b070f" stroke-width="1.6" stroke-linecap="round"/>'
       + '<path d="M31 46 Q30 18 52 18 Q70 20 69 36 Q58 26 44 30 Q36 34 31 46 Z" fill="#0b070f"/>'
       + '<path d="M30.5 51 Q50 56 69.5 51 L68 70 Q50 81 32 70 Z" fill="#2a0f3d" opacity=".96"/><path d="M34 58 H66 M35 64 H65" stroke="#a855f7" stroke-opacity=".45" stroke-width=".8"/>';
+  } else if (id === 'ma') {
+    back = '<path d="M27 60 Q21 18 50 16 Q79 18 73 60 Z" fill="#9c9c9c"/>';
+    feat = '<path d="M30 80 L42 104 L36 110 M70 80 L58 104 L64 110" stroke="#2e1c10" stroke-width="3" fill="none"/><path d="M36 76 L50 92 L64 76 Q50 84 36 76 Z" fill="#b5541c"/><path d="M44 80 L50 86 L56 80" stroke="#7a2e0a" stroke-width="1" fill="none"/>';
+    top = eyes() + '<path d="M37 47 l-3.5 -1.6 M37 48.6 l-3.5 1.2 M63 47 l3.5 -1.6 M63 48.6 l3.5 1.2" stroke="#7a5236" stroke-width=".8"/>'
+      + '<path d="M38 42 L47 41.5 M53 41.5 L62 42" stroke="#d6d6d6" stroke-width="1.9" stroke-linecap="round"/>'
+      + '<path d="M31 41 Q30 20 50 19 Q70 20 69 41 Q63 28 50 28 Q37 28 31 41 Z" fill="#bdbdbd"/><circle cx="50" cy="14" r="7.5" fill="#aaaaaa"/><path d="M45 12 Q50 9 55 12" stroke="#d6d6d6" stroke-width="1" fill="none"/>'
+      + '<rect x="33" y="27" width="34" height="4.5" rx="2" fill="#3a2a1c"/><circle cx="42" cy="29.5" r="5" fill="#2a1a0e" stroke="#8a5a2e" stroke-width="1.4"/><circle cx="58" cy="29.5" r="5" fill="#2a1a0e" stroke="#8a5a2e" stroke-width="1.4"/>'
+      + '<circle cx="42" cy="29.5" r="2.6" fill="#ff8a3d" opacity=".75"/><circle cx="58" cy="29.5" r="2.6" fill="#ff8a3d" opacity=".75"/>'
+      + nose + mouth('M44 60 Q51 63.5 57 59.5') + '<path d="M41 56 Q39.5 60 42 63.5 M59 56 Q60.5 60 58 63.5" stroke="#9e6c48" stroke-width=".9" fill="none"/>';
+  } else if (id === 'tinny') {
+    feat = '<path d="M22 84 Q50 68 78 84 Q50 92 22 84 Z" fill="#2e4670"/><path d="M44 82 L42 99 M56 82 L58 99" stroke="#e8e8e8" stroke-width="1.4"/><circle cx="42" cy="100" r="1.6" fill="#e8e8e8"/><circle cx="58" cy="100" r="1.6" fill="#e8e8e8"/>'
+      + '<rect x="40" y="94" width="20" height="10" rx="2" fill="#2e4670"/>';
+    top = '<ellipse cx="43" cy="47" rx="3.2" ry="3.4" fill="#fff"/><ellipse cx="57" cy="47" rx="3.2" ry="3.4" fill="#fff"/><circle cx="43.6" cy="47.6" r="2" fill="#1a120c"/><circle cx="57.6" cy="47.6" r="2" fill="#1a120c"/><circle cx="44.3" cy="46.8" r=".7" fill="#fff"/><circle cx="58.3" cy="46.8" r=".7" fill="#fff"/>'
+      + '<g fill="#b8744a"><circle cx="38.5" cy="53" r=".8"/><circle cx="41.5" cy="54.6" r=".8"/><circle cx="58.5" cy="54.6" r=".8"/><circle cx="61.5" cy="53" r=".8"/></g>'
+      + '<path d="M32 41 L34 33 L38 40 Z M62 40 L66 33 L68 41 Z" fill="#6b4a2b"/>'
+      + '<path d="M29 37 Q29 20 50 19 Q71 20 71 37 Z" fill="#9aa3ad"/><rect x="27" y="34" width="46" height="5" rx="2" fill="#7d8690"/><path d="M71 32 H83" stroke="#6b737c" stroke-width="3" stroke-linecap="round"/>'
+      + '<path d="M36 26 Q44 22 52 23" stroke="#dfe5ea" stroke-width="1.4" fill="none"/><path d="M57 26 q3 2.2 6 0" stroke="#6b737c" stroke-width="1" fill="none"/>'
+      + nose + '<path d="M43 59 Q50 66.5 57 59 Z" fill="#5a2e22"/><rect x="48.4" y="59" width="3.2" height="2.4" fill="#fff"/>';
+  } else if (id === 'deacon') {
+    feat = '<path d="M40 76 Q50 80 60 76 L60 80 Q50 84 40 80 Z" fill="#f2f2f2"/><rect x="47.5" y="78" width="5" height="5" fill="#f2f2f2"/>'
+      + '<path d="M42 78 Q50 87 58 78" stroke="#666" stroke-width=".8" fill="none"/><path d="M50 87 V103 M44.5 92 H55.5" stroke="#8a4a22" stroke-width="2.4" stroke-linecap="round"/>';
+    top = '<ellipse cx="43" cy="47" rx="2.6" ry="1.6" fill="#1a120c"/><ellipse cx="57" cy="47" rx="2.6" ry="1.6" fill="#1a120c"/>'
+      + '<path d="M36.5 42.5 L47 44.2 M63.5 42.5 L53 44.2" stroke="#dcdcdc" stroke-width="2.3" stroke-linecap="round"/><ellipse cx="44" cy="28" rx="7" ry="3.2" fill="#fff" opacity=".14"/>'
+      + '<path d="M32 51 Q33 77 50 79 Q67 77 68 51 Q64 63 58 61.5 Q50 65.5 42 61.5 Q36 63 32 51 Z" fill="#d2d2d2"/>' + nose
+      + '<path d="M45 63 Q50 64.6 55 63" stroke="#3a2a1c" stroke-width="1.4" fill="none"/>';
+  } else if (id === 'socket') {
+    back = '<path d="M63 28 Q86 32 81 66 Q77 48 66 42 Z" fill="#2fb8a6"/>';
+    feat = '<path d="M40 80 Q50 86 60 80 L62 110 H38 Z" fill="#d8d2c4" opacity=".92"/><path d="M34 80 L38 110 M66 80 L62 110" stroke="#24393a" stroke-width="5"/><circle cx="37" cy="96" r="2" fill="#c9a24a"/><circle cx="63" cy="96" r="2" fill="#c9a24a"/>';
+    top = eyes() + '<path d="M38 42.5 L47 42 M53 42 L62 42.5" stroke="#1a3a36" stroke-width="1.8" stroke-linecap="round"/>'
+      + '<path d="M31 43 Q29 19 50 18 Q71 19 69 43 Q66 31 56 29 Q44 27 34 35 Z" fill="#2fb8a6"/>'
+      + '<path d="M30 33 Q50 22 70 33 L70 38.5 Q50 28 30 38.5 Z" fill="#c0262d"/><circle cx="37" cy="31" r=".8" fill="#fff"/><circle cx="50" cy="27.5" r=".8" fill="#fff"/><circle cx="63" cy="30.5" r=".8" fill="#fff"/>'
+      + '<path d="M58 54.5 q4 1 7.5 -1.2" stroke="#2a2a2a" stroke-width="2" stroke-linecap="round" opacity=".55"/><circle cx="31" cy="54" r="1.5" fill="none" stroke="#c9a24a" stroke-width=".9"/>'
+      + nose + mouth('M45 61 Q51 61.5 56 59');
   }
   return back + shoulders + feat + neck + head + top;
 }
@@ -4477,7 +4700,7 @@ function rainStop(){
 /* Intro cutscene, after the first gold */
 let pc = null;
 function prestigeIntro(){
-  if (pc || presOpen || shopOpen || deskOpen || busy || current || cine || !$('#ret').hidden || state.pres.seen) return;
+  if (pc || mi || presOpen || shopOpen || deskOpen || busy || current || cine || !$('#ret').hidden || state.pres.seen) return;
   ac();
   const el = $('#pci');
   el.className = 'pci'; el.hidden = false;
@@ -4560,16 +4783,27 @@ function renderPresBtn(){ $('#presBtn').hidden = !state.pres.seen; }
 
 /* The building */
 let presOpen = false, room = null, neg = null, sayTok = 0;
-function openPres(){
-  if (busy || pc || shopOpen || deskOpen) return;
+let crew = 'pres';
+const PRES_HERO = () => ['Who are you selling to?', $('#prHeroP').dataset.pres || ($('#prHeroP').dataset.pres = $('#prHeroP').textContent)];
+function openPres(){ enterCrew('pres'); }
+function openYard(){ enterCrew('yard'); }
+function enterCrew(kind){
+  if (busy || pc || mi || shopOpen || deskOpen || !$('#yti').hidden) return;
   ac(); ensureWants();
-  presOpen = true; room = null; neg = null;
+  const [h, ptxt] = PRES_HERO();
+  crew = kind; presOpen = true; room = null; neg = null;
+  $('#pres').classList.toggle('yard', kind === 'yard');
+  $('#prBrand').innerHTML = kind === 'yard' ? '<small>Scrapyard · after dark</small>THE REJECTS' : '<small>Members only</small>THE PRESTIGE';
+  $('#prHeroH').textContent = kind === 'yard' ? 'Got any rust?' : h;
+  $('#prHeroP').textContent = kind === 'yard'
+    ? 'The Rejects only buy rust: anything out of a Scrapyard case, or anything Scarred. Each one pays extra for one weapon type, and every one of them pays more the more worn a piece is (Mint gets haggled down). You can still talk offers up, and bringing someone the exact piece on their list can pay 10× in a briefcase. Every room is a shop too.'
+    : ptxt;
   const el = $('#pres'); el.hidden = false; el.scrollTop = 0;
   $('#prRoom').hidden = true; $('#prLobby').hidden = false;
   renderLobby();
   tone(1318.5, .5, 'sine', .05); tone(1046.5, .7, 'sine', .05, .18);
   mus.hold = null; musSync();
-  if (cellValid()) openRoom('tobias');            // still his guest: the building only has one room for you
+  if (kind === 'pres' && cellValid()) openRoom('tobias');   // still his guest: the building only has one room for you
 }
 function closePres(){
   if (captive) { cellNo(); return; }
@@ -4582,6 +4816,7 @@ function closePres(){
 function prBal(){ const t = fmt(state.bal); $('#prBal').textContent = t; document.querySelectorAll('.rm-bal, .ov-bal').forEach(x => { x.textContent = t; }); }
 function renderLobby(){
   prBal();
+  if (crew === 'yard') { renderYardLobby(); return; }
   $('#prLedger').innerHTML = 'Deals closed <b>' + fmt(P().deals) + '</b><span>Paid to you <b>' + fmt(P().earned) + ' cr</b></span><span>Briefcases <b>' + fmt(P().briefs) + '</b></span>';
   const grid = $('#prGrid'); grid.innerHTML = '';
   REGULARS.forEach(m => {
@@ -4719,19 +4954,30 @@ function renderLeft(anim){
          : '<div class="pr-pat">Patience ' + Array.from({length: m.pat}, (_, i) => '<i' + (i < pat ? ' class="on"' : '') + '></i>').join('') + '</div>')
       + (m.id === 'vance' && !neg.raged && !tagged(e) ? '<div class="pr-pat rmc-anger">Anger ' + Array.from({length: chain ? XRAGE_AT : RAGE_AT}, (_, i) => '<i' + (i < (neg.rage || 0) ? ' class="on"' : '') + '></i>').join('') + '</div>' : '')
       + (m.ego && !neg.raged ? '<div class="rmc-sub">Big ego: he hates hearing about other buyers</div>' : '')
+      + (m.yard && !neg.knife && !tagged(e) ? '<div class="rmc-sub">' + WEARS[wi].n + ' · rust ×' + rustOf(m, e).toFixed(2) + (m.id === 'deacon' ? ' · he can tell when you lie' : '') + '</div>' : '')
+      + (neg.knife ? '<div class="rmc-exact">★ Her family knife: ' + KNIFE_X + '× market. She won’t haggle over it.</div>' : '')
       + (!neg.raged && (out ? '<div class="rmc-sub">Done haggling</div>' : maxed ? '<div class="rmc-sub">That’s the ceiling</div>' : '') || '') + '</div>';
     art = thumb(it, wi);
   } else {
     const w = wantOf(m), have = state.inv.some(e => isExact(m, e)), n = state.inv.length;
-    left = B('sell', m.outsider ? 'Sell contraband' : 'Sell something', 'gold', lock || !n, n ? n + (n === 1 ? ' item' : ' items') : 'bag empty')
+    const pk = m.id === 'tinny' ? peekLeft() : 0;
+    left = B('sell', m.outsider ? 'Sell contraband' : m.yard ? 'Sell rust' : 'Sell something', 'gold', lock || !n, n ? n + (n === 1 ? ' item' : ' items') : 'bag empty')
       + (SHOPS[m.id] ? B('shop', 'Shop · ' + SHOPS[m.id].hint, '', lock) : '')
       + (m.id === 'sable' && P().vault === 'down' ? B('vault', 'The hidden case', 'vx', lock, 'one offer') : '')
       + (m.id === 'tobias' ? B('pk1', 'Case #PK1 · on his shelf', 'pk', lock, fmt(PK1.cost) + ' cr') : '')
+      + (m.id === 'tinny' ? B('peek', 'Ask what’s in the next crate', '', lock || pk > 0, pk ? 'in ' + pk + ' open' + (pk === 1 ? '' : 's') : 'Scrapyard · free') : '')
       + B('leave', 'Leave', 'ghost', lock);
     ctx = '<div class="rmc rmc-want' + (have ? ' have' : '') + '"><div class="lab">' + (have ? '★ You have it' : 'On the list') + '</div><span class="rmc-art"></span>'
       + '<div class="t">' + WNAME[w.w] + ' | ' + w.name + '</div><div class="rmc-sub">Bring this exact one: ' + Math.round(BRIEF_CH*100) + '% chance of a ' + BRIEF_X + '× briefcase</div>'
-      + '<div class="rmc-rule">' + (m.outsider ? 'Pays <b>' + m.mult + '×</b> for Black Market · won’t touch anything else' : 'Pays <b>' + m.mult + '×</b> for ' + m.many + ' · market for the rest · no contraband') + '</div></div>';
+      + '<div class="rmc-rule">' + (m.yard ? 'Pays <b>' + m.mult + '×</b> for ' + m.many + ' · any other rust at market · ' + (m.id === 'socket' ? 'wear counts double' : 'worn pays more, Mint pays less') : m.outsider ? 'Pays <b>' + m.mult + '×</b> for Black Market · won’t touch anything else' : 'Pays <b>' + m.mult + '×</b> for ' + m.many + ' · market for the rest · no contraband') + '</div></div>';
     art = thumb(w, 0);
+    if (m.id === 'ma' && !Y().home) {
+      const hk = state.inv.find(e => e.id === KNIFE_ID);
+      ctx = '<div class="rmc rmc-want' + (hk ? ' have' : '') + '"><div class="lab">' + (hk ? '★ You have it' : 'Her family knife') + '</div><span class="rmc-art"></span>'
+        + '<div class="t">' + WNAME.bowie + ' | Rusty Knife</div><div class="rmc-sub">Bring it home: ' + KNIFE_X + '× market, no haggling</div>'
+        + '<div class="rmc-rule">Also pays <b>' + m.mult + '×</b> for ' + m.many + ' · any other rust at market · worn pays more</div></div>';
+      art = thumb(BY[KNIFE_ID], hk ? wearIdx(hk.fl) : 4);
+    }
   }
   Lp.innerHTML = left; Cx.innerHTML = ctx;
   const slot = Cx.querySelector('.rmc-art'); if (slot && art) slot.append(art);
@@ -4754,11 +5000,13 @@ function renderOv(){
     return;
   }
   const w = wantOf(m);
-  const elig = state.inv.map(e => { const tg = tagged(e), ok = buys(m, e); return {e, ok, o: ok ? offerFor(m, e) : 0, x: ok && isExact(m, e), f: ok && isFav(m, e) && !tg, md: ok && inMood(m, e) && !tg, tg}; })
-    .sort((a, b) => (b.ok - a.ok) || (b.x - a.x) || (b.f - a.f) || (b.o - a.o));
+  const elig = state.inv.map(e => { const tg = tagged(e), ok = buys(m, e); return {e, ok, o: ok ? offerFor(m, e) : 0, x: ok && isExact(m, e), f: ok && isFav(m, e) && !tg, md: ok && inMood(m, e) && !tg, tg, k: knifeHome(m, e)}; })
+    .sort((a, b) => (b.ok - a.ok) || (b.k - a.k) || (b.x - a.x) || (b.f - a.f) || (b.o - a.o));
   const have = elig.some(r => r.x);
   ov.innerHTML = head('Sell to ' + m.name, 'Pick something to offer')
-    + '<div class="ov-body"><div class="pr-req">' + (m.outsider
+    + '<div class="ov-body"><div class="pr-req">' + (m.yard
+        ? '<span class="bn">Favorite: ' + m.favName + ' · ' + m.mult + '× market</span><span>Other rust · market</span><span>Worn pays more · Mint pays less</span><span class="bn">' + YARD_SPECIAL[m.id] + '</span><span>Patience ' + m.pat + '</span><span>Nothing shiny</span>'
+        : m.outsider
         ? '<span class="bn">Black Market only · ' + m.mult + '× market</span><span>Won’t touch legal goods</span><span>Patience ' + m.pat + '</span>'
         : '<span class="bn">Favorite: ' + m.favName + ' · ' + m.mult + '× market</span><span>Everything else · market price</span><span>Sometimes likes a piece · ' + MOOD_X + '×</span><span>Patience ' + m.pat + '</span>' + (m.ego ? '<span class="bn">Big ego</span>' : '') + '<span>No Black Market</span>') + '</div>'
     + '<div class="pr-want' + (have ? ' have' : '') + '" id="prWant"><div><span class="tag">ON THE LIST</span><div class="t">' + WNAME[w.w] + ' | ' + w.name + '</div><div class="s">' + (have ? 'You have it. Sell this exact item for a ' + Math.round(BRIEF_CH*100) + '% chance of a ' + BRIEF_X + '× briefcase.' : 'Bring this exact item for a ' + Math.round(BRIEF_CH*100) + '% chance of a ' + BRIEF_X + '× briefcase payout.') + '</div></div></div>'
@@ -4766,13 +5014,13 @@ function renderOv(){
     + (elig.length ? '<div class="pr-items" id="prItems"></div>' : '<div class="pr-empty">Your inventory is empty. Open some cases first.</div>') + '</div>';
   $('#prWant').prepend(thumb(w, 0));
   const list = $('#prItems');
-  if (list) elig.forEach(({e, ok, o, x, f, md, tg}) => {
+  if (list) elig.forEach(({e, ok, o, x, f, md, tg, k}) => {
     const it = BY[e.id], wi = wearIdx(e.fl), b = document.createElement('button');
     b.type = 'button'; b.className = 'pr-it' + (ok ? '' : ' no'); b.dataset.uid = e.uid; b.style.setProperty('--tc', TIERS[it.t].color);
     b.append(thumb(it, wi));
-    const star = !ok ? (m.outsider ? '<span class="star stock">LEGAL · BORING</span>' : '<span class="star bm">CONTRABAND</span>')
-      : x ? '<span class="star">★ ON THE LIST</span>' : f ? '<span class="star fav">' + (m.outsider ? 'CONTRABAND' : 'FAVORITE') + '</span>' : md ? '<span class="star mood">LIKES IT</span>' : tg ? '<span class="star stock">BOUGHT · MARKET</span>' : '';
-    b.insertAdjacentHTML('beforeend', star + '<div class="nm">' + it.name + '</div><div class="sub">' + WNAME[it.w] + ' · ' + WEARS[wi].n + ' · ' + e.fl.toFixed(4) + '</div><div class="of"><span>Market ' + fmt(e.v) + '</span>' + (ok ? '<b>' + fmt(o) + '</b>' : '<b class="nob">' + (m.outsider ? 'Won’t buy' : 'Tobias only') + '</b>') + '</div>');
+    const star = !ok ? (m.yard ? '<span class="star stock">TOO SHINY</span>' : m.outsider ? '<span class="star stock">LEGAL · BORING</span>' : '<span class="star bm">CONTRABAND</span>')
+      : k ? '<span class="star">★ HER KNIFE</span>' : x ? '<span class="star">★ ON THE LIST</span>' : f ? '<span class="star fav">' + (m.outsider ? 'CONTRABAND' : 'FAVORITE') + '</span>' : md ? '<span class="star mood">LIKES IT</span>' : tg ? '<span class="star stock">BOUGHT · MARKET</span>' : '';
+    b.insertAdjacentHTML('beforeend', star + '<div class="nm">' + it.name + '</div><div class="sub">' + WNAME[it.w] + ' · ' + WEARS[wi].n + ' · ' + e.fl.toFixed(4) + '</div><div class="of"><span>Market ' + fmt(e.v) + '</span>' + (ok ? '<b>' + fmt(o) + '</b>' : '<b class="nob">' + (m.yard ? 'Too shiny' : m.outsider ? 'Won’t buy' : 'Tobias only') + '</b>') + '</div>');
     list.append(b);
   });
 }
@@ -4780,6 +5028,7 @@ function renderOv(){
 function refuseItem(e){
   const m = room; if (!m) return;
   closeOv();
+  if (m.yard) { sayRoom(m.say.shiny, 'mad'); tone(150, .2, 'sawtooth', .05); return; }
   if (m.outsider) { sayRoom(m.say.legal, 'mad'); tone(150, .2, 'sawtooth', .05); return; }
   tone(110, .3, 'sawtooth', .06);
   if (P().tobias) { sayRoom(BM_REFUSE[m.id] + ' You know where to find him.', 'mad'); return; }
@@ -4799,6 +5048,12 @@ function startNeg(uidv){
   const exact = isExact(m, e), tg = tagged(e);
   closeOv(); calmRoom(false);
   neg = {m, e, exact, offer: offerFor(m, e), pat: m.pat, cap: Math.round(e.v * (tg ? TAG_CAP : CAP_X)), lock: false, rage: 0};
+  if (knifeHome(m, e)) {
+    Object.assign(neg, {knife: true, exact: false, pat: 0, noBluff: true, cap: neg.offer});
+    renderLeft(); sayRoom(L(m, 'knife', neg.offer), 'happy');
+    [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, .5, 'triangle', .05, i*.1));
+    return;
+  }
   renderLeft();
   if (tg) sayRoom((e.src === 'pk1' ? (m.id === 'tobias' ? "That came out of my own case. " : "Case stock. ") : e.from === m.id ? "I sold you that. " : "Shop stock. ") + fmt(neg.offer) + " cr, market rate.");
   else sayRoom(L(m, exact ? 'exact' : isFav(m, e) || inMood(m, e) ? 'open' : 'plain', neg.offer), exact ? 'happy' : '');
@@ -4824,6 +5079,12 @@ function negAct(a){
   } else if (a === 'bluff') {
     if (m.ego) { egoBluff(m, before); return; }
     if (m.id === 'wren') { wrenBluff(m, before); return; }
+    if (m.id === 'deacon') {                       // you can't lie to a preacher, but he doesn't hold a grudge
+      neg.offer = Math.round(before * .9); neg.pat--; neg.noBluff = true;
+      sayRoom(L(m, 'confess', neg.offer), 'mad');
+      tone(196, 1.6, 'sine', .07); tone(392, 1, 'sine', .02);
+      renderDeal('down'); return;
+    }
     if (Math.random() < BLUFF_CH) {
       neg.offer = Math.min(neg.cap, Math.round(before * (1.3 + Math.random()*.2)));
       neg.pat--;
@@ -4840,12 +5101,14 @@ function negAct(a){
   }
 }
 function closeDeal(){
-  const {m, e, exact} = neg;
+  const {m, e, exact} = neg, kn = !!neg.knife;
   let amt = neg.offer;
   const brief = exact && !neg.raged && Math.random() < BRIEF_CH;
   if (brief) amt = e.v * BRIEF_X;
   state.inv = state.inv.filter(x => x.uid !== e.uid);
-  state.bal += amt; P().deals++; P().earned += amt; if (brief) P().briefs++;
+  const lg = m.yard ? Y() : P();
+  state.bal += amt; lg.deals = (lg.deals || 0) + 1; lg.earned = (lg.earned || 0) + amt; if (brief) lg.briefs = (lg.briefs || 0) + 1;
+  if (kn) Y().home = true;
   const shelved = SHOPS[m.id] && SHOPS[m.id].shelf;
   if (shelved) shelfAdd(e, amt);
   if (exact) newWant(m);
@@ -4857,7 +5120,7 @@ function closeDeal(){
     setTimeout(() => showBrief(m, amt), 900);
   } else {
     kaching(); let t = 0; for (let i = 0; i < 18; i++) { t += .025; keyClick(t, null, .02, 1600); }
-    sayRoom(shelved ? 'It goes on the shelf. ' + fmt(amt * SHELF_X) + ' cr. Triple.' : L(m, 'deal'), 'happy');
+    sayRoom(shelved ? 'It goes on the shelf. ' + fmt(amt * SHELF_X) + ' cr. Triple.' : kn ? m.say.home : L(m, 'deal'), 'happy');
     toast('Sold to ' + m.name + ' for ' + fmt(amt) + ' cr' + (shelved ? ' · on his shelf for ' + fmt(amt * SHELF_X) : ''));
     renderRoomBody();
   }
@@ -5174,6 +5437,36 @@ const SHOPS = {
     lines:['Somebody sold me this for a third of that.', 'Clean. Mostly.', 'Came in Tuesday. Leaves when you pay.', 'Triple. That’s the tax on knowing me.'],
     open:'Everything you sell me goes up there. Triple. Nobody said I was a charity.', buy:'Pleasure doing business. Again.', broke:'Triple means triple. Come back with it.', empty:'Shelf’s bare. Sell me something and it goes up there at triple.'}
 };
+/* The Rejects' shops: rust from every case, never better than Worn */
+Object.assign(SHOPS, {
+  ma:{hint:'Scrap rack', tag:'paper', group:[16, 52, 144, 112],
+    slots:[{x:26, y:58, w:100, h:40, tag:[143, 80]}, {x:26, y:88, w:100, h:40, tag:[143, 110]}, {x:26, y:118, w:100, h:40, tag:[143, 140]}],
+    lines:['Pulled that one out of a Buick.', 'Older than you. Shoots straighter, too.', 'Rust is just character.'],
+    open:"The rack's for sale. Rust and all.", buy:"Don't you dare clean it.", broke:"Rust ain't free, kid."},
+  tinny:{hint:'Fridge-door shelf', tag:'paper', group:[262, 46, 132, 128],
+    slots:[{x:270, y:52, w:94, h:34, tag:[377, 69]}, {x:270, y:92, w:94, h:34, tag:[377, 109]}, {x:270, y:132, w:94, h:34, tag:[377, 149]}],
+    lines:['Found it under a car!', 'It’s only a little bit broken.', 'This one goes pew.'],
+    open:'My stuff! Ma says I’m allowed to sell it.', buy:'Yesss! I’m rich!', broke:'You need more money. Like, way more.'},
+  deacon:{hint:'The altar', tag:'plaque', group:[56, 176, 288, 52],
+    slots:[{x:66, y:184, w:76, h:26, tag:[104, 218], hit:[62, 180, 84, 34], hr:[34, 15]},
+           {x:162, y:186, w:76, h:26, tag:[200, 218], hit:[158, 182, 84, 34], hr:[34, 15]},
+           {x:258, y:184, w:76, h:26, tag:[296, 218], hit:[254, 180, 84, 34], hr:[34, 15]}],
+    lines:['Blessed by forty winters.', 'An offering from a sinner.', 'It has seen things, child.'],
+    open:'The offerings. Take whatever speaks to you.', buy:'Go with God. And rust.', broke:'The Lord loves a cheerful giver. You are not one yet.'},
+  socket:{hint:'Pegboard', tag:'paper', group:[14, 42, 142, 140],
+    slots:[{x:24, y:50, w:86, h:34, tag:[128, 67]}, {x:24, y:94, w:86, h:34, tag:[128, 111]}, {x:24, y:138, w:86, h:34, tag:[128, 155]}],
+    lines:['Seized up. Fixed it. Mostly.', 'Parts from three different guns.', 'Don’t ask what that stain is.'],
+    open:'Rebuilt junk. Runs better than new.', buy:'Bring it back when it jams.', broke:'Parts cost money, pal.'}
+});
+function yardStock(m){
+  const ep = epochNow(), R = seeded(hash(m.id + ':stock:' + ep));
+  const pool = ITEMS.filter(it => it.w === m.wt && it.t >= 1 && it.t <= 4 && !it.ex);
+  for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(R() * (i + 1)); const t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
+  return pool.slice(0, 3).map((it, i) => {
+    const W = WEARS[R() < .7 ? 4 : 3], fl = +(W.lo + R() * (W.hi - W.lo - .0001)).toFixed(4), v = marketValue(it, fl), key = m.id + ':' + ep + ':' + i;
+    return {i, id: it.id, fl, v, price: Math.max(10, Math.round(v * SHOP_X / 10) * 10), key, sold: !!P().sold[key]};
+  });
+}
 const SHELF_X = 3, SHELF_N = 5;   // slot 0 always holds a Case #PK1; the other five hold what you sold him
 function shelfAdd(e, paid){
   const t = {k: uid(), id: e.id, fl: e.fl, v: e.v, paid, price: Math.round(paid * SHELF_X)};
@@ -5191,6 +5484,7 @@ function shopPool(m){
   return hi.length >= 3 ? hi : all;
 }
 function shopStock(m){
+  if (m.yard) return yardStock(m);
   if (SHOPS[m.id] && SHOPS[m.id].shelf)
     return [{i: 0, pk: true, id: null, price: PK1.cost, key: 'pk1', sold: false}]
       .concat((P().tshelf || []).slice(0, SHELF_N).map((t, i) => ({i: i + 1, id: t.id, fl: t.fl, v: t.v, price: t.price, paid: t.paid, key: 'ts:' + t.k, sold: !!t.sold})));
@@ -5731,6 +6025,315 @@ const SC = {
 
 /* First-visit intro runner */
 let mi = null;
+
+/* ---------- The Rejects: scenes ----------
+   The Scrapyard at night. Same rules as the Prestige rooms: one 400x260 scene per member, state classes drive
+   the intro, and "end" is how the room looks afterwards. "yardc" is the cutscene where they find you. */
+const yardDefs = k => '<linearGradient id="ys' + k + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#090d1a"/><stop offset=".55" stop-color="#21150f"/><stop offset="1" stop-color="#3a2416"/></linearGradient>'
+  + '<radialGradient id="yb' + k + '"><stop offset="0" stop-color="#ffb347" stop-opacity=".5"/><stop offset="1" stop-color="#ff6a00" stop-opacity="0"/></radialGradient>';
+const f1 = n => n.toFixed(1);
+function yStars(R, n){
+  let s = '';
+  for (let i = 0; i < n; i++) s += '<circle cx="' + f1(R()*400) + '" cy="' + f1(R()*95) + '" r="' + (.4 + R()*.8).toFixed(2) + '" fill="#fff" opacity="' + (.25 + R()*.5).toFixed(2) + '"/>';
+  return s;
+}
+const yMoon = (x, y) => '<circle cx="' + x + '" cy="' + y + '" r="15" fill="#efe2bf" opacity=".9"/><circle cx="' + (x - 4) + '" cy="' + (y - 3) + '" r="3" fill="#d6c59a" opacity=".7"/><circle cx="' + (x + 5) + '" cy="' + (y + 5) + '" r="2" fill="#d6c59a" opacity=".7"/>';
+/* Junk piles along a horizon: lumpy mounds with bits of car and pipe sticking out */
+function yPiles(R, y0, col, n){
+  let s = '';
+  for (let i = 0; i < n; i++) {
+    const cx = R()*440 - 20, w = 50 + R()*90, h = 22 + R()*40;
+    s += '<path d="M' + f1(cx - w/2) + ' ' + y0 + ' Q' + f1(cx - w/4) + ' ' + f1(y0 - h) + ' ' + f1(cx) + ' ' + f1(y0 - h*.9) + ' Q' + f1(cx + w/4) + ' ' + f1(y0 - h*1.05) + ' ' + f1(cx + w/2) + ' ' + y0 + ' Z" fill="' + col + '"/>';
+    for (let j = 0; j < 3; j++) {
+      const x = cx - w/3 + R()*w*.66, y = y0 - h*(.62 + R()*.38);
+      s += '<rect x="' + f1(x) + '" y="' + f1(y) + '" width="' + f1(4 + R()*12) + '" height="' + f1(3 + R()*6) + '" transform="rotate(' + Math.round((R() - .5)*70) + ' ' + f1(x) + ' ' + f1(y) + ')" fill="' + col + '"/>';
+    }
+  }
+  return s;
+}
+/* An oil drum with a fire in it, feet at (x, y) */
+function yFire(x, y, k){
+  return '<ellipse class="y-glow" cx="' + x + '" cy="' + (y - 40) + '" rx="74" ry="58" fill="url(#yb' + k + ')"/>'
+    + '<rect x="' + (x - 15) + '" y="' + (y - 32) + '" width="30" height="32" rx="2" fill="#5a2c14"/>'
+    + '<rect x="' + (x - 15) + '" y="' + (y - 24) + '" width="30" height="3" fill="#3a1a0a"/><rect x="' + (x - 15) + '" y="' + (y - 11) + '" width="30" height="3" fill="#3a1a0a"/>'
+    + '<path d="M' + (x - 9) + ' ' + (y - 20) + ' l3 6 M' + (x + 6) + ' ' + (y - 8) + ' l2 5" stroke="#8a4a22" stroke-width="1"/>'
+    + '<ellipse cx="' + x + '" cy="' + (y - 32) + '" rx="15" ry="3" fill="#2a1206"/><g>'
+    + [[-9, 18, '#ff6a00'], [0, 27, '#ff9a2e'], [8, 16, '#ff6a00'], [-3, 14, '#ffd23f'], [4, 11, '#fff1a8']].map(([dx, h, c]) =>
+        '<path class="y-fl" d="M' + (x + dx - 6) + ' ' + (y - 32) + ' Q' + (x + dx - 5) + ' ' + f1(y - 32 - h*.6) + ' ' + (x + dx) + ' ' + (y - 32 - h) + ' Q' + (x + dx + 5) + ' ' + f1(y - 32 - h*.6) + ' ' + (x + dx + 6) + ' ' + (y - 32) + ' Z" fill="' + c + '"/>').join('')
+    + '</g>';
+}
+const yTire = (x, y, w) => '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="13" rx="6.5" fill="#151515" stroke="#2c2c2c" stroke-width="1.4"/><path d="M' + (x + 7) + ' ' + (y + 6.5) + ' H' + (x + w - 7) + '" stroke="#2b2b2b" stroke-width="1.2" stroke-dasharray="3 2.5"/>';
+/* A car after the crusher: a flat block with a squashed window and a dead headlight */
+const yCar = (x, y, w, h, c) => '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="2" fill="' + c + '" stroke="#120a06" stroke-width="1"/>'
+  + '<path d="M' + (x + 2) + ' ' + f1(y + h*.4) + ' H' + (x + w - 2) + ' M' + (x + 2) + ' ' + f1(y + h*.7) + ' H' + (x + w - 2) + '" stroke="#000" stroke-opacity=".35" stroke-width="1.2"/>'
+  + '<rect x="' + f1(x + w*.15) + '" y="' + (y + 2) + '" width="' + f1(w*.3) + '" height="' + f1(h*.3) + '" fill="#1a2430" opacity=".85"/>'
+  + '<circle cx="' + f1(x + w*.8) + '" cy="' + f1(y + h*.55) + '" r="' + f1(h*.12) + '" fill="#ffd23f" opacity=".35"/>'
+  + '<circle cx="' + f1(x + w*.3) + '" cy="' + f1(y + h*.75) + '" r="' + f1(h*.16) + '" fill="#b5541c" opacity=".6"/>';
+const yGround = (y, c) => '<rect x="0" y="' + y + '" width="400" height="' + (260 - y) + '" fill="' + (c || '#1c120b') + '"/><path d="M0 ' + y + ' H400" stroke="#2c1d12" stroke-width="2"/>';
+
+const YARD_SC = {
+  ma:{end:'ma-set', cap:'Got thrown out of the Prestige before most of them were born.',
+    svg:k => {
+      const R = seeded(311);
+      let s = SVG0 + '<defs>' + vigDef(k) + hlDef(k) + yardDefs(k)
+        + '<pattern id="mc' + k + '" width="8" height="10" patternUnits="userSpaceOnUse"><rect width="8" height="10" fill="#5a3218"/><rect width="4" height="10" fill="#6b3d1e"/></pattern></defs>'
+        + '<rect width="400" height="260" fill="url(#ys' + k + ')"/>' + yStars(R, 36) + yMoon(232, 36)
+        + yPiles(R, 172, '#160f0b', 7) + yPiles(R, 192, '#21160e', 6);
+      /* The crane: a lattice tower on the right, its boom reaching back over the yard */
+      const lx = y => 360 - (y - 40)*10/186, rx = y => 378 + (y - 40)*10/186;
+      s += '<g><path d="M360 40 L350 226 M378 40 L388 226" stroke="#8a4f22" stroke-width="3.5"/>';
+      for (let y = 40, i = 0; y < 222; y += 16, i++) s += '<path d="M' + f1(i % 2 ? rx(y) : lx(y)) + ' ' + y + ' L' + f1(i % 2 ? lx(y + 16) : rx(y + 16)) + ' ' + (y + 16) + '" stroke="#6b3a18" stroke-width="1.6"/>';
+      s += '<path d="M368 30 L250 20 M368 40 L250 24" stroke="#8a4f22" stroke-width="2.6"/>';
+      for (let x = 256, i = 0; x < 362; x += 9, i++) {
+        const top = xx => 20 + (xx - 250)*10/118, bot = xx => 24 + (xx - 250)*16/118;
+        s += '<path d="M' + x + ' ' + f1(i % 2 ? bot(x) : top(x)) + ' L' + (x + 9) + ' ' + f1(i % 2 ? top(x + 9) : bot(x + 9)) + '" stroke="#6b3a18" stroke-width="1.1"/>';
+      }
+      s += '<rect x="352" y="22" width="40" height="26" rx="2" fill="#b5541c" stroke="#3a1a0a"/><rect x="357" y="27" width="17" height="12" fill="#ffd28a" opacity=".6"/><rect x="378" y="27" width="9" height="12" fill="#1a1008"/>'
+        + '<path d="M318 27 V68" stroke="#3a3a3a" stroke-width="1.4"/><rect x="311" y="64" width="14" height="6" fill="#2a2a2a"/>'
+        + '<rect x="296" y="72" width="44" height="7" rx="2" fill="#2b2b2b"/><ellipse cx="318" cy="72" rx="22" ry="5" fill="#3d3d3d" stroke="#1a1a1a"/></g>';
+      s += '<g class="ma-car">' + yCar(286, 82, 64, 28, '#46566a') + '</g>';
+      /* The scrap rack (her shop), corrugated and rusting */
+      s += '<rect x="22" y="160" width="6" height="64" fill="#3a1a0a"/><rect x="148" y="160" width="6" height="64" fill="#3a1a0a"/>'
+        + '<rect x="16" y="52" width="144" height="112" rx="2" fill="url(#mc' + k + ')" stroke="#2a1408" stroke-width="2"/>'
+        + '<path d="M24 66 q16 10 36 0 M100 146 q16 8 34 -2 M138 70 q4 20 -6 34" stroke="#2e1608" stroke-width="2" fill="none" opacity=".55"/>';
+      [[24, 60], [152, 60], [24, 156], [152, 156]].forEach(([x, y]) => { s += '<circle cx="' + x + '" cy="' + y + '" r="2" fill="#2a1408"/>'; });
+      s += shopSlots(MBY.ma, k)
+        + '<text x="88" y="182" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="17" fill="#ff8a3d" opacity=".6" transform="rotate(-3 88 182)">RUST ONLY</text>';
+      s += yGround(222) + '<ellipse cx="236" cy="242" rx="44" ry="5" fill="#0a0a12" opacity=".75"/>'
+        + fig('ma', 150, 94, 1)
+        + '<g class="ma-dust"><circle cx="300" cy="222" r="12" fill="#9a8f80"/><circle cx="336" cy="224" r="14" fill="#9a8f80"/><circle cx="318" cy="226" r="10" fill="#9a8f80"/></g>'
+        + yFire(98, 252, k) + vigRect(k);
+      return s + '</svg>';
+    },
+    intro: async S => {
+      const hum = S.loop(() => tone(58, .5, 'sawtooth', .016), 470);
+      await S.W(1500);
+      await S.say("Steady… steady…");
+      S.unloop(hum); S.on('ma-drop');
+      S.at(430, () => { boom(); noise(.5, 700, 90, .32, 'lowpass'); tone(46, .6, 'sine', .3); S.shake(); });
+      await S.W(1500);
+      await S.card();
+      await S.say("Sit down, kid. Rifles, if they're rusty. Any other rust, I'll still pay for.");
+    }},
+
+  tinny:{end:'tn-up', cap:'Has never once been allowed to drive the crane.',
+    svg:k => {
+      const R = seeded(523);
+      let s = SVG0 + '<defs>' + vigDef(k) + hlDef(k) + yardDefs(k) + '</defs>'
+        + '<rect width="400" height="260" fill="url(#ys' + k + ')"/>' + yStars(R, 30) + yPiles(R, 176, '#160f0b', 7) + yPiles(R, 196, '#21160e', 6);
+      /* String lights across the yard */
+      s += '<path d="M0 34 Q200 74 400 30" stroke="#2a2a2a" stroke-width="1" fill="none"/><g>';
+      const cols = ['#ff5a5a', '#ffd23f', '#5fd1c2', '#7aa2ff'];
+      for (let i = 1; i < 16; i++) { const t = i/16, y = (1-t)*(1-t)*34 + 2*(1-t)*t*74 + t*t*30; s += '<circle class="tn-bulb" cx="' + f1(400*t) + '" cy="' + f1(y + 3) + '" r="2.6" fill="' + cols[i % 4] + '"/>'; }
+      s += '</g>';
+      for (let c = 0; c < 2; c++) for (let r = 0; r < 7; r++) s += yTire(12 + c*50 + (r % 2)*3, 210 - r*13, 46);
+      /* An old fridge door on bricks is his shop */
+      s += '<rect x="270" y="172" width="12" height="50" fill="#6b3a22"/><rect x="374" y="172" width="12" height="50" fill="#6b3a22"/>'
+        + '<rect x="262" y="46" width="132" height="128" rx="6" fill="#c9c2ae" stroke="#5a5446" stroke-width="2"/><rect x="266" y="50" width="124" height="120" rx="4" fill="#ddd6c1"/>'
+        + '<rect x="386" y="90" width="4" height="34" rx="2" fill="#8a8370"/><path d="M270 90 H384 M270 130 H384" stroke="#b5ad96" stroke-width="2"/>'
+        + '<circle cx="300" cy="62" r="5" fill="#ff5a5a"/><rect x="340" y="140" width="10" height="8" rx="2" fill="#5fd1c2"/>';
+      s += shopSlots(MBY.tinny, k);
+      s += '<g transform="rotate(-6 60 40)"><rect x="18" y="24" width="86" height="32" fill="#b08a5a" stroke="#6b4e2c"/><text x="61" y="39" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="11" fill="#2a1a0a">TINNY’S STUFF</text><text x="61" y="51" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="10" fill="#c0262d">NO SHINY!!</text></g>';
+      s += yGround(222) + '<g class="tn-kid">' + fig('tinny', 161, 106, .78) + '</g><g class="tn-front">';
+      for (let r = 0; r < 4; r++) s += yTire(150 + (r % 2)*4, 209 - r*13, 96);
+      s += '</g>' + yGround(222) + vigRect(k);
+      return s + '</svg>';
+    },
+    intro: async S => {
+      await S.W(900);
+      S.on('tn-wob');
+      const rattle = S.loop(() => tone(130 + Math.random()*70, .05, 'square', .02), 170);
+      await S.W(1100); S.unloop(rattle);
+      await S.say("…Is somebody out there?");
+      S.off('tn-wob'); S.on('tn-up');
+      S.fx(() => { sweep(300, 950, .18, 'square', .04); tone(1250, .08, 'square', .03, .16); });
+      await S.W(700);
+      await S.card();
+      await S.say("A CUSTOMER! SMGs! Rusty ones! Ma says I can't buy shiny stuff.");
+    }},
+
+  deacon:{end:'dc-lit', cap:'Has married forty couples and one forklift.',
+    svg:k => {
+      const R = seeded(733);
+      let s = SVG0 + '<defs>' + vigDef(k) + hlDef(k) + yardDefs(k) + glowDef('dg' + k, 4) + '<clipPath id="dw' + k + '">';
+      for (let i = 0; i < 6; i++) s += '<rect x="' + (8 + i*66) + '" y="24" width="58" height="50" rx="5"/>';
+      s += '</clipPath></defs><rect width="400" height="260" fill="#1e1611"/>'
+        + '<g clip-path="url(#dw' + k + ')"><rect width="400" height="80" fill="url(#ys' + k + ')"/>' + yStars(R, 20) + yPiles(R, 76, '#0d0906', 9) + '</g>';
+      for (let i = 0; i < 6; i++) s += '<rect x="' + (8 + i*66) + '" y="24" width="58" height="50" rx="5" fill="none" stroke="#2c2018" stroke-width="5"/>';
+      /* The bus: ribbed roof, scorched walls, rivets */
+      s += '<rect width="400" height="18" fill="#17110d"/>';
+      for (let x = 0; x < 400; x += 22) s += '<path d="M' + x + ' 0 V18" stroke="#0e0a08" stroke-width="2"/>';
+      for (let x = 10; x < 400; x += 18) s += '<circle cx="' + x + '" cy="86" r="1.3" fill="#3a2a1c"/>';
+      s += '<ellipse cx="70" cy="140" rx="60" ry="40" fill="#0a0705" opacity=".55"/><ellipse cx="330" cy="120" rx="54" ry="30" fill="#0a0705" opacity=".45"/>';
+      /* A cross welded from rebar, hung where the driver used to sit */
+      s += '<g class="dc-x"><path d="M202 22 V80 M182 38 H222" stroke="#ff8a3d" stroke-width="9" stroke-linecap="round" opacity=".5" filter="url(#dg' + k + ')"/></g>'
+        + '<path d="M202 22 V80 M182 38 H222" stroke="#8a4a22" stroke-width="5" stroke-linecap="round"/><path d="M200 26 V76" stroke="#b5541c" stroke-width="1" opacity=".6"/>';
+      /* Candles on oil drums */
+      const candles = (cx, cls) => {
+        let g = '<rect x="' + (cx - 18) + '" y="160" width="36" height="62" rx="3" fill="#4a2410"/><rect x="' + (cx - 18) + '" y="172" width="36" height="3" fill="#2a1206"/><rect x="' + (cx - 18) + '" y="200" width="36" height="3" fill="#2a1206"/>'
+          + '<g class="' + cls + '">';
+        [[-10, 14], [0, 20], [10, 11]].forEach(([dx, h]) => {
+          const x = cx + dx, top = 160 - h;
+          g += '<rect x="' + (x - 3) + '" y="' + top + '" width="6" height="' + h + '" rx="1" fill="#efe4c8"/>'
+            + '<ellipse class="dc-glow" cx="' + x + '" cy="' + (top - 6) + '" rx="14" ry="16" fill="#ffb347" opacity=".35" filter="url(#dg' + k + ')"/>'
+            + '<g class="dc-fl"><path class="y-fl" d="M' + (x - 2.4) + ' ' + top + ' Q' + x + ' ' + (top - 12) + ' ' + (x + 2.4) + ' ' + top + ' Z" fill="#ffd23f"/></g>';
+        });
+        return g + '</g>';
+      };
+      s += candles(40, 'dc-a') + candles(360, 'dc-b');
+      s += fig('deacon', 150, 80, 1)
+        + '<circle cx="164" cy="208" r="7" fill="#7a5238"/><circle cx="236" cy="208" r="7" fill="#7a5238"/>'
+        + '<rect x="56" y="212" width="288" height="11" rx="2" fill="#4a2e1a" stroke="#22140a"/><rect x="56" y="212" width="288" height="3" fill="#6b4428"/>'
+        + shopSlots(MBY.deacon, k)
+        + '<rect x="0" y="223" width="400" height="37" fill="#120c09"/><path d="M0 223 H400" stroke="#2a1d14" stroke-width="2"/>'
+        + vigRect(k);
+      return s + '</svg>';
+    },
+    intro: async S => {
+      await S.W(700);
+      for (let i = 0; i < 3; i++) { S.fx(() => { tone(196, 2.4, 'sine', .08); tone(392, 1.6, 'sine', .025); tone(587, 1.2, 'triangle', .015); }); await S.W(950); }
+      S.on('dc-l1'); S.fx(() => tone(880, .25, 'sine', .03)); await S.W(450);
+      S.on('dc-l2'); S.fx(() => tone(1046.5, .25, 'sine', .03)); await S.W(450);
+      S.on('dc-lit'); S.fx(() => sweep(220, 660, 1.2, 'sine', .03)); await S.W(900);
+      await S.say("Rust is only iron, remembering where it came from.");
+      await S.card();
+      await S.say("Welcome, child. Shotguns, rusted by honest years. All rust is holy here.");
+    }},
+
+  socket:{end:'sk-up', cap:'Can rebuild an engine blindfolded. Has, twice.',
+    svg:k => {
+      let s = SVG0 + '<defs>' + vigDef(k) + hlDef(k) + glowDef('sg' + k, 3)
+        + '<pattern id="sw' + k + '" width="12" height="260" patternUnits="userSpaceOnUse"><rect width="12" height="260" fill="#262b2f"/><rect width="6" height="260" fill="#2e3438"/></pattern>'
+        + '<pattern id="sp' + k + '" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#5a4a36"/><circle cx="4" cy="4" r="1" fill="#2e251a"/></pattern></defs>'
+        + '<rect width="400" height="260" fill="url(#sw' + k + ')"/>'
+        + '<path d="M0 30 Q60 40 110 28 M180 60 Q240 70 300 54" stroke="#7a3a18" stroke-width="3" opacity=".25" fill="none"/>'
+        + '<rect x="14" y="42" width="142" height="140" fill="url(#sp' + k + ')" stroke="#2e251a" stroke-width="2"/>';
+      [50, 94, 138].forEach(y => { s += '<path d="M44 ' + (y - 4) + ' v6 M92 ' + (y - 4) + ' v6" stroke="#9a9a9a" stroke-width="1.6"/>'; });
+      s += shopSlots(MBY.socket, k)
+        + '<text x="85" y="198" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="15" fill="#5fd1c2" opacity=".5" transform="rotate(-2 85 198)">IF IT JAMS, IT’S YOURS</text>';
+      s += '<g class="sk-lamp"><path d="M300 0 V30" stroke="#555" stroke-width="1.4"/><path d="M288 30 H312 L306 40 H294 Z" fill="#3a4a4a"/><circle cx="300" cy="42" r="4" fill="#fff6d0"/><path d="M300 42 L216 222 H392 Z" fill="#fff6d0" opacity=".05"/></g>';
+      /* A car up on a jack, rust coming through the paint */
+      s += '<path d="M236 196 Q240 168 270 162 L300 140 Q320 132 352 134 L392 140 Q404 150 404 170 V196 Z" fill="#7a2a1a" stroke="#2a0f08" stroke-width="1.5"/>'
+        + '<path d="M304 146 Q322 140 348 141 L350 160 H296 Z" fill="#1a2430" opacity=".85"/><path d="M250 180 H404" stroke="#4a1a10" stroke-width="2"/>'
+        + '<circle cx="262" cy="176" r="5" fill="#b5541c" opacity=".7"/><circle cx="342" cy="172" r="7" fill="#b5541c" opacity=".55"/><circle cx="380" cy="186" r="4" fill="#b5541c" opacity=".6"/>'
+        + '<circle cx="276" cy="200" r="16" fill="#151515" stroke="#333" stroke-width="2"/><circle cx="276" cy="200" r="6" fill="#555"/>'
+        + '<circle cx="372" cy="202" r="16" fill="#151515" stroke="#333" stroke-width="2"/><circle cx="372" cy="202" r="6" fill="#555"/>'
+        + '<rect x="312" y="196" width="8" height="14" fill="#888"/><path d="M304 222 L316 206 L328 222 Z" fill="#c0262d"/>';
+      s += '<rect x="0" y="222" width="400" height="38" fill="#191c1e"/><path d="M0 222 H400" stroke="#2a2f33" stroke-width="2"/><ellipse cx="120" cy="238" rx="36" ry="4" fill="#0a0a0a" opacity=".7"/>'
+        + fig('socket', 150, 88, 1)
+        + '<path d="M226 184 L250 194" stroke="#2f4a4a" stroke-width="10" stroke-linecap="round"/><circle cx="252" cy="194" r="5.5" fill="#a8724e"/>'
+        + '<path d="M252 194 L262 186" stroke="#6b6b6b" stroke-width="3" stroke-linecap="round"/>'
+        + '<g class="sk-mask"><rect x="179" y="110" width="42" height="48" rx="8" fill="#1f2629" stroke="#0e1214" stroke-width="1.4"/><rect x="185" y="128" width="30" height="7" rx="2" fill="#0b3b36"/><rect x="185" y="128" width="30" height="7" rx="2" fill="#5fd1c2" opacity=".4"/><path d="M183 146 H217" stroke="#0e1214" stroke-width="1"/></g>'
+        + '<g class="sk-arc"><circle cx="263" cy="185" r="7" fill="#bff" filter="url(#sg' + k + ')"/><circle cx="263" cy="185" r="2.6" fill="#fff"/></g>'
+        + '<g class="sk-sp">' + [[-30, -20], [22, -26], [-18, -34], [30, -8], [-34, 4], [12, -38], [36, -22], [-6, -30]].map(([dx, dy]) => '<path d="M263 185 l' + f1(dx*.3) + ' ' + f1(dy*.3) + '" stroke="#ffd23f" stroke-width="1.4" stroke-linecap="round"/>').join('') + '</g>'
+        + vigRect(k);
+      return s + '</svg>';
+    },
+    intro: async S => {
+      S.on('sk-weld');
+      const hiss = S.loop(() => { noise(.12, 5200, 2600, .05, 'bandpass'); if (Math.random() < .5) tone(2400 + Math.random()*1800, .02, 'square', .01); }, 110);
+      await S.W(2600);
+      S.unloop(hiss); S.off('sk-weld'); S.on('sk-up');
+      S.fx(() => { tone(320, .06, 'square', .03); noise(.06, 3000, 800, .05); });
+      await S.W(800);
+      await S.card();
+      await S.say("Pistols. Rusted, seized, busted, I don't care. The worse it looks, the more I pay.");
+    }},
+
+  /* The cutscene: your twelfth Scrapyard case gave up the Rusty Knife, and the yard noticed */
+  yardc:{end:'', cap:'',
+    svg:k => {
+      const R = seeded(911);
+      let s = SVG0 + '<defs>' + vigDef(k) + yardDefs(k) + glowDef('yk' + k, 6)
+        + '<pattern id="yf' + k + '" width="9" height="9" patternUnits="userSpaceOnUse"><path d="M0 0 L9 9 M9 0 L0 9" stroke="#7a7f86" stroke-width=".6"/></pattern></defs>'
+        + '<rect width="400" height="260" fill="url(#ys' + k + ')"/>' + yStars(R, 50) + yMoon(64, 40)
+        + '<path d="M330 172 L334 58 L342 58 L346 172 M338 60 L248 50 M338 68 L248 54 M262 52 V88" stroke="#140d09" stroke-width="3" fill="none"/>'
+        + yPiles(R, 168, '#120c09', 8) + yPiles(R, 192, '#1c130d', 7) + yGround(210)
+        + yFire(200, 240, k)
+        + '<g class="yc-kn"><ellipse cx="200" cy="66" rx="58" ry="22" fill="#ff8a3d" opacity=".4" filter="url(#yk' + k + ')"/>'
+        + '<g class="yc-kf"><image href="' + artHi(BY[KNIFE_ID], 4) + '" x="148" y="45" width="104" height="42" preserveAspectRatio="xMidYMid meet"/></g></g>'
+        + fig('deacon', 78, 94, .72, 'yc-f yc-fde') + fig('socket', 252, 98, .72, 'yc-f yc-fso')
+        + fig('ma', 110, 100, .9, 'yc-f yc-fma') + fig('tinny', 228, 136, .66, 'yc-f yc-fti');
+      /* A chain-link fence in front, cut open in the middle */
+      s += '<path d="M0 198 H150 L158 260 H0 Z M400 198 H252 L244 260 H400 Z" fill="url(#yf' + k + ')" opacity=".55"/>'
+        + '<path d="M0 198 H150 M252 198 H400" stroke="#8a8f96" stroke-width="1.4" opacity=".6"/>';
+      [4, 74, 146, 256, 328, 396].forEach(x => { s += '<rect x="' + (x - 2) + '" y="194" width="4" height="66" fill="#4a4f56"/>'; });
+      return s + vigRect(k) + '</svg>';
+    },
+    intro: async S => {
+      const T = MBY.tinny, M = MBY.ma, D = MBY.deacon, K = MBY.socket;
+      S.loop(() => noise(.08, 1800, 500, .025, 'bandpass'), 240);
+      await S.W(1300);
+      S.on('yc-ti');
+      const steps = S.loop(() => noise(.05, 900, 300, .08, 'lowpass'), 150);
+      await S.W(700); S.unloop(steps);
+      await S.say("MA! MA! Somebody opened twelve Scrapyard crates!", T);
+      S.on('yc-ma'); await S.W(400);
+      await S.say("Twelve. And?", M);
+      S.on('yc-knife'); S.fx(() => { [659.25, 830.6, 987.8, 1318.5].forEach((f, i) => tone(f, 1.6, 'sine', .03, i*.12)); });
+      await S.say("AND THEY GOT THE RUSTY KNIFE!", T);
+      S.on('yc-de'); await S.W(300);
+      await S.say("Twelve crates deep. The rust provides.", D);
+      S.on('yc-so'); await S.W(300);
+      await S.say("Up the hill they'd laugh at it. Brick calls our stuff “shitty commons”.", K);
+      await S.say("The Prestige threw every one of us out. Too old. Too loud. Too rusty.", M);
+      await S.say("So we buy what they won't. Rusted, scarred, worn to the bone.", M);
+      await S.say("Bring that knife home, kid. And bring us rust. We pay better than you'd think.", M);
+    }}
+};
+Object.assign(SC, YARD_SC);
+
+/* ---------- The Rejects: the cutscene, the lobby, Tinny's tip ---------- */
+const YC = {id:'yardc', name:'The Rejects', role:'', favName:'', col:'#ff8a3d', pitch:120};
+function yardIntro(){
+  if (pc || mi || presOpen || shopOpen || deskOpen || busy || current || cine || !$('#ret').hidden || Y().seen) return;
+  ac();
+  memberIntro(YC).then(() => {
+    Y().seen = true; ensureWants(); save(); renderYardBtn();
+    const el = $('#yti'); el.hidden = false; restart(el, 'on');
+    mus.hold = 'yard'; musSync();
+    [329.63, 415.3, 493.88, 659.25].forEach((fq, i) => { tone(fq, 1.8, 'triangle', .05, i*.11); tone(fq/2, 1.8, 'sine', .05, i*.11); });
+    setTimeout(() => $('#ytEnter').focus({preventScroll:true}), 400);
+  });
+}
+function closeYt(enter){
+  const el = $('#yti'); if (el.hidden) return;
+  el.hidden = true; el.classList.remove('on'); mus.hold = null;
+  if (enter) openYard();
+  else { musSync(); toast('The Rejects are the tire in the top bar'); restart($('#yardBtn'), 'ping'); }
+}
+function renderYardBtn(){ $('#yardBtn').hidden = !Y().seen; }
+function renderYardLobby(){
+  $('#prLedger').innerHTML = 'Rust sold <b>' + fmt(Y().deals || 0) + '</b><span>Paid to you <b>' + fmt(Y().earned || 0) + ' cr</b></span><span>Family knife <b>' + (Y().home ? 'home' : 'missing') + '</b></span>';
+  const grid = $('#prGrid'); grid.innerHTML = '';
+  YARD.forEach(m => {
+    const kn = m.id === 'ma' && !Y().home, w = kn ? BY[KNIFE_ID] : wantOf(m);
+    const favs = state.inv.filter(e => isFav(m, e) && buys(m, e)), rust = state.inv.filter(e => buys(m, e)).length;
+    const have = kn ? state.inv.some(e => e.id === KNIFE_ID) : favs.some(e => isExact(m, e)), cl = coolLeft(m);
+    const b = document.createElement('button'); b.type = 'button';
+    b.className = 'pr-mem' + (cl ? ' cool' : ''); b.dataset.m = m.id; b.style.setProperty('--mc', m.col);
+    b.innerHTML = '<div class="pf">' + portrait(m.id) + '</div><div class="rl">' + m.role + '</div><div class="nm">' + m.name + '</div><div class="by">Pays <b style="color:var(--mc)">' + m.mult + '×</b> for ' + m.many + '. Any other rust at market. ' + YARD_SPECIAL[m.id] + '.</div>'
+      + '<div class="wn' + (have ? ' have' : '') + '"><span><b>' + (have ? '★ You have it' : kn ? 'Wants back' : 'Wants') + '</b><br>' + w.name + '</span></div>'
+      + '<div class="ct' + (cl ? '' : rust ? '' : ' zero') + '">' + (cl ? 'Won’t see you · ' + cl + ' more open' + (cl === 1 ? '' : 's') : rust ? rust + ' rusty piece' + (rust === 1 ? '' : 's') + ' in your bag' + (favs.length ? ' · ' + favs.length + ' ' + (favs.length === 1 ? m.one : m.many) : '') : 'No rust in your bag') + '</div>';
+    b.querySelector('.wn').prepend(thumb(w, kn ? 4 : 0));
+    grid.append(b);
+  });
+}
+/* Tinny sneaks a look in the next Scrapyard crate: he tells you its tier, and that's what you'll get */
+const peekLeft = () => Y().peek == null ? 0 : Math.max(0, PEEK_EVERY - (state.opened - Y().peek));
+function tinnyPeek(){
+  const m = room; if (!m || m.id !== 'tinny' || actBusy || mi || neg) return;
+  const n = peekLeft();
+  if (n) { sayRoom(m.say.peekNo.replace('{n}', n).replace('{s}', n === 1 ? '' : 's'), 'mad'); tone(150, .2, 'square', .04); return; }
+  const c = CASES.find(x => x.id === 'scrap');
+  let r = state.xrayRolls.scrap || Y().tip;
+  if (!r) { r = roll(c); Y().tip = r; }
+  Y().peek = state.opened; save();
+  const T = TIERS[BY[r.id].t].name;
+  sayRoom(m.say.peek.replace('{t}', (/^[AEIOU]/.test(T) ? 'an ' : 'a ') + T), 'happy');
+  [880, 1174.66].forEach((f, i) => tone(f, .12, 'square', .025, i*.09));
+  renderLeft();
+}
 function memberIntro(m){
   return new Promise(resolve => {
     ac();
@@ -6307,6 +6910,9 @@ function closeBrief(){
 }
 
 $('#presBtn').onclick = openPres;
+$('#yardBtn').onclick = openYard;
+$('#ytEnter').onclick = () => closeYt(true);
+$('#ytLater').onclick = () => closeYt(false);
 $('#prBack').onclick = () => { if (vaultBusy) return; if (room) leaveRoom(); else closePres(); };
 $('#prGrid').addEventListener('click', e => { const b = e.target.closest('.pr-mem'); if (b) openRoom(b.dataset.m); });
 $('#prRoom').addEventListener('click', e => {
@@ -6324,6 +6930,7 @@ $('#prRoom').addEventListener('click', e => {
   if (a && a.dataset.a === 'pkprev') { if (!a.disabled) openPreview(PK1); return; }
   if (a && a.dataset.a === 'pk1') { if (!a.disabled && room && room.id === 'tobias' && !vaultBusy && !actBusy && !mi && !captive) selectSlot(0); return; }
   if (a && a.dataset.a === 'ovclose') { closeOv(); return; }
+  if (a && a.dataset.a === 'peek') { if (!a.disabled) tinnyPeek(); return; }
   if (a && a.dataset.a === 'leave') { if (!a.disabled && !vaultBusy && !actBusy) leaveRoom(); return; }
   if (a) { if (!a.disabled) negAct(a.dataset.a); return; }
   const it = e.target.closest('.pr-it');
@@ -6346,10 +6953,11 @@ $('#pcLater').onclick = () => endIntro(false);
 /* ---------- Boot ---------- */
 fx.ncv = $('#seqNoise'); fx.ng = fx.ncv.getContext('2d'); fx.nimg = fx.ng.createImageData(128, 72);
 renderLogoState();
-renderMute(); setBal(); renderRack(); selectCase(); setMode('crate'); renderInv(); renderStats(); renderPresBtn();
+renderMute(); setBal(); renderRack(); selectCase(); setMode('crate'); renderInv(); renderStats(); renderPresBtn(); renderYardBtn();
 function bootScenes(){
   if (state.pendingReturn) setTimeout(dealerReturns, 600);
   else if (state.gold > 0 && !state.pres.seen) setTimeout(prestigeIntro, 900);
+  else if (Y().knife && !Y().seen) setTimeout(yardIntro, 900);
 }
 /* ---------- Accounts ----------
    Email + password through Supabase. Each account has one save row in the "saves" table (row-level security:
