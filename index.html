@@ -1533,6 +1533,32 @@ pre.notes{margin:0;white-space:pre-wrap;font:inherit;color:#e9fff2}
 .bc-text h2{margin:0;font-family:var(--display);font-weight:700;font-size:clamp(48px,13vw,84px);line-height:.85;letter-spacing:.06em;background:linear-gradient(180deg,#fff6cf,#ffcb2e 45%,#a86b00);-webkit-background-clip:text;background-clip:text;color:transparent}
 .bc-amt{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:700;font-size:40px;line-height:1;color:#fff3c4;font-variant-numeric:tabular-nums}
 .bc-amt .coin{width:22px;height:22px}
+
+/* The Rejects' version: a dented scrap-metal box, wired shut, stuffed with crumpled cash */
+.brief.yard{background:radial-gradient(circle at 50% 50%,#2e1408,#000 72%)}
+.brief.yard .bc-rays{background:repeating-conic-gradient(from 0deg,rgba(255,138,61,.14) 0 6deg,transparent 6deg 18deg)}
+.brief.yard .bc-stage{rotate:-2deg}
+.brief.yard .bc-base,.brief.yard .bc-lid{border:2px solid #3a1a0a;
+  background:radial-gradient(26px 18px at 22% 30%,rgba(190,90,30,.75),transparent),radial-gradient(34px 22px at 78% 70%,rgba(110,45,12,.8),transparent),radial-gradient(14px 10px at 60% 20%,rgba(220,120,50,.6),transparent),
+    radial-gradient(circle at 7% 14%,#c9c2b4 0 2.4px,transparent 3px),radial-gradient(circle at 93% 14%,#c9c2b4 0 2.4px,transparent 3px),radial-gradient(circle at 7% 86%,#c9c2b4 0 2.4px,transparent 3px),radial-gradient(circle at 93% 86%,#c9c2b4 0 2.4px,transparent 3px),
+    repeating-linear-gradient(90deg,#6e6a62 0 7px,#57534c 7px 14px)}
+.brief.yard .bc-base{border-radius:4px 4px 6px 10px;box-shadow:inset 18px -6px 20px -14px rgba(0,0,0,.7),inset -30px 8px 26px -18px rgba(0,0,0,.6),0 24px 40px rgba(0,0,0,.6)}
+.brief.yard .bc-lid{border-radius:6px 9px 2px 3px;box-shadow:inset 24px 8px 22px -16px rgba(0,0,0,.65)}
+.brief.yard .bc-base::before,.brief.yard .bc-lid::before{border:0;left:30%;right:auto;top:30%;bottom:auto;width:26%;height:30%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.35),transparent)}
+.brief.yard .bc-handle{border:4px dashed #8a8a84;border-bottom:0;border-radius:8px 14px 0 0;rotate:-6deg}
+.brief.yard .bc-latch{width:16px;height:22px;bottom:-12px;border-radius:2px;background:repeating-linear-gradient(35deg,#9a9a94 0 3px,#5a5a54 3px 6px);border:0}
+.brief.yard .bc-latch.pop{transform:translate(-6px,-10px) rotate(-60deg)}
+.brief.yard .bc-latch.r.pop{transform:translate(6px,-10px) rotate(60deg)}
+.brief.yard .bc-mono{font-family:"Permanent Marker",var(--display);font-weight:400;letter-spacing:.06em;color:#ff8a3d;opacity:.85;rotate:-6deg}
+.brief.yard .bc-glow{background:#ffd9a8}
+.brief.yard.open .bc-glow{box-shadow:0 0 80px 40px rgba(255,140,50,.5)}
+.brief.yard .bill{width:34px;height:24px;left:-17px;top:-12px;border:0;background:radial-gradient(circle at 30% 40%,rgba(255,255,255,.18),transparent 40%),linear-gradient(115deg,#3b6b3a,#5d8f52 35%,#2f5a2e 55%,#4c7d45);
+  clip-path:polygon(0 14%,16% 0,38% 9%,60% 0,84% 8%,100% 2%,93% 34%,100% 62%,95% 100%,72% 90%,48% 100%,24% 91%,4% 100%,8% 60%)}
+.brief.yard .bill::after{left:38%;width:2px;background:rgba(0,0,0,.35);transform:rotate(14deg)}
+.brief.yard .bill:nth-child(3n)::after{left:62%;transform:rotate(-20deg)}
+.brief.yard .bc-text small{color:#d98a4a}
+.brief.yard .bc-text h2{background:linear-gradient(180deg,#ffe3c2,#ff8a3d 45%,#7a2e0a);-webkit-background-clip:text;background-clip:text}
+.brief.yard .bc-text p{color:#d6b896}
 .bc-text p{margin:0 0 10px;color:#c9b88f;font-size:14px;max-width:320px}
 
 @media (prefers-reduced-motion:reduce){
@@ -1962,7 +1988,7 @@ body{background:
       <div class="pr-hero">
         <div class="pr-dial" aria-hidden="true"><span style="transform:rotate(-78deg)">L</span><span style="transform:rotate(-39deg)">10</span><span style="transform:rotate(0deg)">20</span><span style="transform:rotate(39deg)">30</span><span style="transform:rotate(78deg)">P</span><i></i></div>
         <h2 id="prHeroH">Who are you selling to?</h2>
-        <p id="prHeroP">Each member has one favorite weapon type and pays well above market for it. They'll buy anything else too, usually at market price. You can talk any offer up, and bringing someone the exact item on their list can pay 10× in a briefcase. Every room is also a shop: tap what's on display.</p>
+        <p id="prHeroP">Each member has one favorite weapon type and pays well above market for it. They'll buy anything else too, usually at market price. You can talk any offer up, and bringing someone the exact item on their list pays 10× in a briefcase. Every room is also a shop: tap what's on display.</p>
         <div class="pr-ledger" id="prLedger"></div>
       </div>
       <div class="pr-grid" id="prGrid"></div>
@@ -4561,7 +4587,7 @@ $('#retSkipBtn').onclick = () => { retSkip = true; retWake(); };
 /* ---------- The Prestige ---------- */
 /* Six members. Each buys a slice of the item pool above market, haggles with a patience budget,
    and keeps one exact item on a wish list. Bringing that exact item can pay 10x in a briefcase. */
-const BRIEF_CH = .35, BRIEF_X = 10, EXACT_BONUS = 1.25, CAP_X = 4.5, BLUFF_CH = .45;
+const BRIEF_CH = 1, BRIEF_X = 10, EXACT_BONUS = 1.25, CAP_X = 4.5, BLUFF_CH = .45;
 /* Vance and Brick have big egos: "I've got another buyer" works 70% of the time on them and doesn't use up
    their patience. Brick shoots his punching bag about it. Vance heats up with each one, and three in a row
    breaks him: he storms out and comes back with cash for 10x market. */
@@ -4996,7 +5022,7 @@ function enterCrew(kind){
   $('#prBrand').innerHTML = kind === 'yard' ? '<small>Scrapyard · after dark</small>THE REJECTS' : '<small>Members only</small>THE PRESTIGE';
   $('#prHeroH').textContent = kind === 'yard' ? 'Got any rust?' : h;
   $('#prHeroP').textContent = kind === 'yard'
-    ? 'The Rejects only buy rust: anything out of a Scrapyard case, or anything Scarred. Each one pays extra for one weapon type, and every one of them pays more the more worn a piece is (Mint gets haggled down). You can still talk offers up, and bringing someone the exact piece on their list can pay 10× in a briefcase. Every room is a shop too.'
+    ? 'The Rejects only buy rust: anything out of a Scrapyard case, or anything Scarred. Each one pays extra for one weapon type, and every one of them pays more the more worn a piece is (Mint gets haggled down). You can still talk offers up, and bringing someone the exact piece on their list pays 10× in a briefcase. Every room is a shop too.'
     : ptxt;
   const el = $('#pres'); el.hidden = false; el.scrollTop = 0;
   $('#prRoom').hidden = true; $('#prLobby').hidden = false;
@@ -5149,7 +5175,7 @@ function renderLeft(anim){
     ctx = '<div class="rmc rmc-deal" style="--tc:' + TIERS[it.t].color + '"><div class="rmc-item"><span class="rmc-art"></span><div class="rmc-nm"><div class="nm">' + it.name + '</div><div class="sub">' + WNAME[it.w] + ' · ' + WEARS[wi].n + '</div></div></div>'
       + '<div class="lab">' + m.name + '’s offer</div><div class="pr-offer' + (anim ? ' ' + anim : '') + '"><span class="coin"></span><span id="prOff">' + fmt(offer) + '</span></div>'
       + '<div class="rmc-sub">' + (offer / e.v).toFixed(2) + '× market (' + fmt(e.v) + ')</div>'
-      + (exact && !neg.raged ? '<div class="rmc-exact">★ Exact match: ' + Math.round(BRIEF_CH*100) + '% chance of ' + fmt(e.v * BRIEF_X) + ' cr in a briefcase</div>' : '')
+      + (exact && !neg.raged ? '<div class="rmc-exact">★ Exact match: shake on it and you get ' + fmt(e.v * BRIEF_X) + ' cr in a briefcase</div>' : '')
       + (neg.raged ? '<div class="rmc-exact">Cash on the table: ' + (neg.rx || RAGE_X) + '× market' + (chain && (neg.rage || 0) >= XRAGE_AT ? ' · he’s one word from calling security' : '') + '</div>'
          : '<div class="pr-pat">Patience ' + Array.from({length: m.pat}, (_, i) => '<i' + (i < pat ? ' class="on"' : '') + '></i>').join('') + '</div>')
       + (m.id === 'vance' && !neg.raged && !tagged(e) ? '<div class="pr-pat rmc-anger">Anger ' + Array.from({length: chain ? XRAGE_AT : RAGE_AT}, (_, i) => '<i' + (i < (neg.rage || 0) ? ' class="on"' : '') + '></i>').join('') + '</div>' : '')
@@ -5168,7 +5194,7 @@ function renderLeft(anim){
       + (m.id === 'tinny' ? B('peek', 'Ask what’s in the next crate', '', lock || pk > 0, pk ? 'in ' + pk + ' open' + (pk === 1 ? '' : 's') : 'Scrapyard · free') : '')
       + B('leave', 'Leave', 'ghost', lock);
     ctx = '<div class="rmc rmc-want' + (have ? ' have' : '') + '"><div class="lab">' + (have ? '★ You have it' : 'On the list') + '</div><span class="rmc-art"></span>'
-      + '<div class="t">' + WNAME[w.w] + ' | ' + w.name + '</div><div class="rmc-sub">Bring this exact one: ' + Math.round(BRIEF_CH*100) + '% chance of a ' + BRIEF_X + '× briefcase</div>'
+      + '<div class="t">' + WNAME[w.w] + ' | ' + w.name + '</div><div class="rmc-sub">Bring this exact one: ' + BRIEF_X + '× market in a briefcase</div>'
       + '<div class="rmc-rule">' + (m.yard ? 'Pays <b>' + m.mult + '×</b> for ' + m.many + ' · any other rust at market · ' + (m.id === 'socket' ? 'wear counts double' : 'worn pays more, Mint pays less') : m.outsider ? 'Pays <b>' + m.mult + '×</b> for Black Market · won’t touch anything else' : 'Pays <b>' + m.mult + '×</b> for ' + m.many + ' · market for the rest · no contraband') + '</div></div>';
     art = thumb(w, 0);
     if (m.id === 'ma' && !Y().home) {
@@ -5209,7 +5235,7 @@ function renderOv(){
         : m.outsider
         ? '<span class="bn">Black Market only · ' + m.mult + '× market</span><span>Won’t touch legal goods</span><span>Patience ' + m.pat + '</span>'
         : '<span class="bn">Favorite: ' + m.favName + ' · ' + m.mult + '× market</span><span>Everything else · market price</span><span>Sometimes likes a piece · ' + MOOD_X + '×</span><span>Patience ' + m.pat + '</span>' + (m.ego ? '<span class="bn">Big ego</span>' : '') + '<span>No Black Market</span>') + '</div>'
-    + '<div class="pr-want' + (have ? ' have' : '') + '" id="prWant"><div><span class="tag">ON THE LIST</span><div class="t">' + WNAME[w.w] + ' | ' + w.name + '</div><div class="s">' + (have ? 'You have it. Sell this exact item for a ' + Math.round(BRIEF_CH*100) + '% chance of a ' + BRIEF_X + '× briefcase.' : 'Bring this exact item for a ' + Math.round(BRIEF_CH*100) + '% chance of a ' + BRIEF_X + '× briefcase payout.') + '</div></div></div>'
+    + '<div class="pr-want' + (have ? ' have' : '') + '" id="prWant"><div><span class="tag">ON THE LIST</span><div class="t">' + WNAME[w.w] + ' | ' + w.name + '</div><div class="s">' + (have ? 'You have it. Sell this exact item for a ' + BRIEF_X + '× briefcase.' : 'Bring this exact item for a ' + BRIEF_X + '× briefcase payout.') + '</div></div></div>'
     + '<div class="eyebrow" style="margin:4px 0 8px">Your inventory · ' + m.many + ' first · the gold number is what ' + m.name + ' opens at</div>'
     + (elig.length ? '<div class="pr-items" id="prItems"></div>' : '<div class="pr-empty">Your inventory is empty. Open some cases first.</div>') + '</div>';
   $('#prWant').prepend(thumb(w, 0));
@@ -7274,7 +7300,10 @@ let briefTimers = [];
 function showBrief(m, amt){
   const el = $('#brief');
   briefTimers.forEach(clearTimeout); briefTimers = [];
-  el.className = 'brief'; el.hidden = false;
+  const yd = !!m.yard;
+  el.className = 'brief' + (yd ? ' yard' : ''); el.hidden = false;
+  el.querySelector('.bc-mono').textContent = yd ? 'SCRAP' : 'P';
+  $('#bcTake').textContent = yd ? 'Grab the cash' : 'Take the money';
   $('#bcWho').textContent = 'EXACT MATCH · ' + m.name.toUpperCase() + ' PAYS IN FULL';
   $('#bcLine').textContent = '“' + m.say.thanks + '”';
   $('#bcAmt').textContent = '0';
@@ -7286,9 +7315,10 @@ function showBrief(m, amt){
     return '<i class="bill" style="--dx:' + (Math.cos(a)*r).toFixed(0) + 'px;--dy:' + (Math.sin(a)*r).toFixed(0) + 'px;--r:' + ((Math.random() - .5)*120).toFixed(0) + 'deg;--d:' + (i*.035).toFixed(3) + 's"></i>';
   }).join('');
   const T = (ms, f) => briefTimers.push(setTimeout(f, REDUCED ? 0 : ms));
-  T(700, () => { restart(st, 'thud'); tone(55, .35, 'sine', .4); noise(.2, 800, 100, .15, 'lowpass'); });
-  T(1250, () => { el.querySelector('.bc-latch.l').classList.add('pop'); tone(2600, .03, 'square', .05); tone(900, .06, 'triangle', .06); });
-  T(1600, () => { el.querySelector('.bc-latch.r').classList.add('pop'); tone(2700, .03, 'square', .05); tone(950, .06, 'triangle', .06); });
+  const clank = f => { tone(f, .18, 'square', .05); tone(f * 2.76, .12, 'triangle', .03); noise(.14, 2400, 700, .14, 'bandpass'); };
+  T(700, () => { restart(st, 'thud'); tone(55, .35, 'sine', .4); noise(.2, 800, 100, .15, 'lowpass'); if (yd) { clank(150); setTimeout(() => clank(210), 90); setTimeout(() => clank(130), 200); } });
+  T(1250, () => { el.querySelector('.bc-latch.l').classList.add('pop'); if (yd) clank(240); else { tone(2600, .03, 'square', .05); tone(900, .06, 'triangle', .06); } });
+  T(1600, () => { el.querySelector('.bc-latch.r').classList.add('pop'); if (yd) { clank(260); sweep(320, 110, .7, 'sawtooth', .025); } else { tone(2700, .03, 'square', .05); tone(950, .06, 'triangle', .06); } });
   T(2050, () => {
     el.classList.add('open'); goldSound();
     let t = 0; for (let i = 0; i < 40; i++) { t += .03; keyClick(t, null, .018, 1500); }
