@@ -811,6 +811,46 @@ pre.notes{margin:0;white-space:pre-wrap;font:inherit;color:#e9fff2}
 .pr-gala .pa-h{font-family:"Limelight",var(--display);color:#ffd27a;font-size:24px}
 .pr-gala .pa-p{color:#c9b88f}
 .pa-gavel{flex:none;width:64px;height:64px}.pa-gavel svg{width:100%;height:100%}
+
+/* Jobs */
+.rl-btn.jobb{border-color:#3a6a8a}
+.jbb{margin-top:5px;font-size:11.5px;font-weight:700;padding:3px 7px;border-radius:5px;background:rgba(77,141,255,.12);border:1px solid rgba(77,141,255,.35);color:#cfe0ff;width:fit-content;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pres.yard .jbb{background:rgba(0,0,0,.45);border-color:#5a5048;color:#f3e2cc}
+.jbb.done{opacity:.55;font-weight:500}
+.jstars{position:relative;display:inline-block;font-size:17px;line-height:1;letter-spacing:1px;color:#4a4a52}
+.jstars i{font-style:normal;background:linear-gradient(90deg,#ffcb2e var(--p),#3a3a42 var(--p));-webkit-background-clip:text;background-clip:text;color:transparent}
+.jb-card,.jb-run{display:grid;gap:12px}
+.jb-prev{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:400/150;border:1px solid #3a3a44;background:#000}
+.jb-prev svg{width:100%;height:100%;display:block}
+.jb-prev.shake{animation:quake .5s}
+.jb-place{position:absolute;left:8px;bottom:7px;font-size:12px;font-weight:700;padding:3px 8px;border-radius:4px;background:rgba(0,0,0,.72);color:#fff}
+.jb-t{font-family:var(--display);font-weight:600;font-size:28px;line-height:1;letter-spacing:.03em}
+.jb-card.yard .jb-t,.jb-run.yard .jb-t{font-family:"Permanent Marker",var(--display);font-weight:400;font-size:24px;color:#ffb27a}
+.jb-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:4px}
+.jb-d{font-size:13px;color:var(--muted);font-weight:600}
+.jb-pay{display:inline-flex;align-items:center;gap:5px;margin-left:auto;font-weight:700;font-size:16px;color:#ffd27a;font-variant-numeric:tabular-nums}
+.jb-story{margin:6px 0 0;font-size:14.5px;line-height:1.45;color:#e2dccf;max-width:62ch}
+.jb-need .lab{font-size:13px;font-weight:700;margin-bottom:6px}
+.jb-need .lab small{font-weight:500;color:var(--muted);margin-left:6px}
+.jb-slot{border:1px solid #33363d;border-radius:8px;padding:8px;margin-bottom:8px;background:rgba(0,0,0,.25)}
+.jb-sh{display:flex;gap:8px;align-items:baseline;font-size:13px;margin-bottom:6px}.jb-sh .mute,.jb-opts .mute{color:var(--muted)}
+.jb-opts{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.jb-it{appearance:none;cursor:pointer;flex:none;width:76px;padding:4px;border-radius:6px;border:1px solid #33363d;border-bottom:3px solid var(--tc);background:#141518}
+.jb-it img,.jb-it canvas{width:100%;height:auto;display:block}
+.jb-it.on{border-color:var(--tc);box-shadow:0 0 0 2px var(--tc);background:#1e2026}
+.jb-go{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.jb-odds span{display:block;font-size:12px;color:var(--muted)}
+.jb-odds b{font-family:var(--display);font-size:34px;line-height:1}
+.jb-odds b.good{color:#39ff88}.jb-odds b.ok{color:#ffcb2e}.jb-odds b.bad{color:#ff6a5a}
+.jb-note{margin:0;font-size:12.5px;color:var(--muted)}
+.jb-done{padding:10px 12px;border-radius:8px;background:rgba(255,255,255,.05);color:var(--muted)}
+.jb-bar{height:6px;border-radius:3px;background:#24262b;overflow:hidden}.jb-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#4d8dff,#ffcb2e);transition:width 1.2s ease}
+.jb-log p{margin:4px 0;font-size:15px;animation:fadeIn .4s}
+.jb-res{display:grid;gap:8px;justify-items:start}
+.jb-res p{margin:0;color:#d8d2c4}
+.jb-win,.jb-lose{font-family:var(--display);font-weight:700;font-size:34px;line-height:1;letter-spacing:.04em}
+.jb-win{color:#39ff88}.jb-lose{color:#ff5a4a}
+.js-sp{animation:pcBlink .2s steps(1) infinite}
 /* Socket's Contraption */
 .pr-scene > svg .sk-mach,.pr-scene > svg .sk-mach *{pointer-events:auto;cursor:pointer}
 .sk-mach .hl{opacity:0}
@@ -1730,6 +1770,7 @@ body{background:
 .pres:not(.yard) .pr-mem:not(.pr-tob) .nm{order:1}
 .pres:not(.yard) .pr-mem:not(.pr-tob) .pf{order:0}
 .pres:not(.yard) .pr-mem:not(.pr-tob) .by,.pres:not(.yard) .pr-mem:not(.pr-tob) .wn,.pres:not(.yard) .pr-mem:not(.pr-tob) .ct{order:3}
+.pres:not(.yard) .pr-mem:not(.pr-tob) .jbb{order:3;margin-inline:auto}
 .pres:not(.yard) .pr-mem:not(.pr-tob) .wn{text-align:left}
 
 /* ---------- The Scrapyard: a fence at night ---------- */
@@ -5163,6 +5204,7 @@ function renderLobby(){
     b.className = 'pr-mem' + (cl ? ' cool' : ''); b.dataset.m = m.id; b.style.setProperty('--mc', m.col);
     b.innerHTML = '<div class="pf">' + portrait(m.id) + '</div><div class="rl">' + m.role + '</div><div class="nm">' + m.name + '</div><div class="by">Pays <b style="color:var(--mc)">' + m.mult + '×</b> for ' + m.many + '. Buys everything else at market.</div>'
       + '<div class="wn' + (have ? ' have' : '') + '"><span><b>' + (have ? '★ You have it' : 'Wants') + '</b><br>' + w.name + '</span></div>'
+      + jobBadge(m)
       + '<div class="ct' + (cl ? '' : favs.length ? '' : ' zero') + '">' + (cl ? 'Won’t see you · ' + cl + ' more open' + (cl === 1 ? '' : 's') : favs.length ? favs.length + ' ' + (favs.length === 1 ? m.one : m.many) + ' in your bag' : 'No ' + m.many + ' in your bag') + '</div>';
     b.querySelector('.wn').prepend(thumb(w, 0));
     grid.append(b);
@@ -5307,6 +5349,7 @@ function renderLeft(anim){
       + (VAULTS[m.id] && P()[VAULTS[m.id].key] === 'down' ? B('vault', m.id === 'vance' ? 'His private collection' : 'The hidden case', 'vx', lock, 'one offer') : '')
       + (m.id === 'tobias' ? B('pk1', 'Case #PK1 · on his shelf', 'pk', lock, fmt(PK1.cost) + ' cr') : '')
       + (m.id === 'tinny' ? B('peek', 'Ask what’s in the next crate', '', lock || pk > 0, pk ? 'in ' + pk + ' open' + (pk === 1 ? '' : 's') : 'Scrapyard · free') : '')
+      + (JOBS[m.id] ? B('job', 'Job · ' + jobOf(m).t, 'jobb', lock, jobDone(m) ? 'next in ' + jobLeft() + ' opens' : starTxt(jobOf(m).d)) : '')
       + B('leave', 'Leave', 'ghost', lock);
     ctx = '<div class="rmc rmc-want' + (have ? ' have' : '') + '"><div class="lab">' + (have ? '★ You have it' : 'On the list') + '</div><span class="rmc-art"></span>'
       + '<div class="t">' + WNAME[w.w] + ' | ' + w.name + '</div><div class="rmc-sub">Bring this exact one: ' + BRIEF_X + '× market in a briefcase</div>'
@@ -5331,10 +5374,16 @@ function openOv(mode){
   const ov = $('#prOv'); ov.hidden = false; restart(ov, 'pr-ov'); ov.scrollTop = 0;
   pickSound();
 }
-function closeOv(){ ovMode = null; const ov = $('#prOv'); if (ov) { ov.hidden = true; ov.innerHTML = ''; } }
+function closeOv(){ jobRun = null; ovMode = null; const ov = $('#prOv'); if (ov) { ov.hidden = true; ov.innerHTML = ''; } }
 function renderOv(){
   const ov = $('#prOv'), m = room; if (!ov || !m || !ovMode) return;
   const head = (small, big) => '<div class="ov-top"><div class="ov-h"><small>' + small + '</small><b>' + big + '</b></div><div class="bal"><span class="coin"></span><span class="ov-bal">' + fmt(state.bal) + '</span></div><button class="icon-btn ov-x" data-a="ovclose" aria-label="Close">✕</button></div>';
+  if (ovMode === 'jobrun') return;
+  if (ovMode === 'job') {
+    const j = jobOf(m);
+    ov.innerHTML = head(m.name + '’s job', j ? j.t : 'No job') + '<div class="ov-body">' + jobPanel(m) + '</div>';
+    fillJobThumbs(); return;
+  }
   if (ovMode === 'vault') {
     ov.innerHTML = head(VLT().title, 'Your one offer') + '<div class="ov-body">' + vaultPanel() + '</div>';
     fillVault();
@@ -6662,6 +6711,7 @@ function renderYardLobby(){
     b.className = 'pr-mem' + (cl ? ' cool' : ''); b.dataset.m = m.id; b.style.setProperty('--mc', m.col);
     b.innerHTML = '<div class="pf">' + portrait(m.id) + '</div><div class="rl">' + m.role + '</div><div class="nm">' + m.name + '</div><div class="by">Pays <b style="color:var(--mc)">' + m.mult + '×</b> for ' + m.many + '. Any other rust at market. ' + YARD_SPECIAL[m.id] + '.</div>'
       + '<div class="wn' + (have ? ' have' : '') + '"><span><b>' + (have ? '★ You have it' : kn ? 'Wants back' : 'Wants') + '</b><br>' + w.name + '</span></div>'
+      + jobBadge(m)
       + '<div class="ct' + (cl ? '' : rust ? '' : ' zero') + '">' + (cl ? 'Won’t see you · ' + cl + ' more open' + (cl === 1 ? '' : 's') : rust ? rust + ' rusty piece' + (rust === 1 ? '' : 's') + ' in your bag' + (favs.length ? ' · ' + favs.length + ' ' + (favs.length === 1 ? m.one : m.many) : '') : 'No rust in your bag') + '</div>';
     b.querySelector('.wn').prepend(thumb(w, kn ? 4 : 0));
     grid.append(b);
@@ -7143,6 +7193,231 @@ function closeBatch(sell){
   selectCase(); renderInv(); renderStats(); renderOpen();
   if (state.pendingReturn) dealerReturns();
   else if (state.gold > 0 && !state.pres.seen) setTimeout(prestigeIntro, 350);
+}
+
+/* ---------- Jobs ----------
+   Every member of the Prestige and the Rejects has a job going (Tobias doesn't share). Each one shows where it
+   happens, what to bring, the story and a 0.5-5 star difficulty. You bring weapons of the asked-for types: better
+   tiers raise your odds (for the Rejects the gear must be rusty, and rustier is better). Pull it off and you're paid
+   and keep your gear; blow it and each piece you brought has a coin-flip chance of being lost. One job per member
+   every JOB_EVERY case opens. */
+const JOB_EVERY = 10, JOB_PAY = 1200;
+const JOB_TYPES = {rifle:'Rifle', sniper:'Sniper', pistol:'Pistol', smg:'SMG', shotgun:'Shotgun', knife:'Knife'};
+const JOBS = {
+  vance:[
+    {t:'The Mayor’s Insurance', loc:'vault', place:'Golden Ace Casino, private vault', need:['knife', 'pistol'], d:4.5,
+     story:'The mayor keeps a ledger in the casino vault, and my name is in it. Get in, bring me the book, and leave the knife in the table so he knows who sent you.'},
+    {t:'Collection Day', loc:'rooftop', place:'Rooftop across from First City Bank', need:['sniper'], d:3,
+     story:'A banker forgot who he owes. Keep a scope on his window while my men go up and remind him. If anything goes wrong, it was the weather.'}],
+  brick:[
+    {t:'Truck Stop', loc:'road', place:'Route 9, mile 41', need:['rifle', 'shotgun'], d:3.5,
+     story:'Armored truck. Two guards. Boss says don’t hurt the truck. I say the truck can take it. Bring something loud.'},
+    {t:'Pier Seven', loc:'harbor', place:'Pier 7 warehouse', need:['rifle'], d:2,
+     story:'Some clowns are keeping stolen rifles at Pier 7. Our rifles. We go in, we take them back, we leave the clowns.'}],
+  wren:[
+    {t:'Long Shot', loc:'rooftop', place:'Clocktower, north district', need:['sniper'], d:4,
+     story:'Eleven hundred meters. Crosswind off the river. A man in a red tie steps onto a balcony at 9:14. Don’t miss.'},
+    {t:'Overwatch', loc:'train', place:'Eastbound rail yard', need:['sniper', 'smg'], d:2.5,
+     story:'A swap at the rail yard. I watch from the water tower. You stand close, holding something fast, in case it isn’t a swap.'}],
+  juno:[
+    {t:'Power Cut', loc:'tunnel', place:'Under the Neon Circuit arcade', need:['smg'], d:1.5,
+     story:'I need ten minutes in the city’s power box, and there are rats down there. Big rats. Possibly with jobs. Bring an SMG.'},
+    {t:'Server Snatch', loc:'servers', place:'Halcyon Data, floor B3', need:['smg', 'pistol'], d:3.5,
+     story:'One drive, one rack, three hundred cameras. I loop the cameras, you carry the drive. If an alarm goes off, it was definitely not me.'}],
+  kessler:[
+    {t:'Inventory Audit', loc:'harbor', place:'Customs depot, dock 3', need:['shotgun', 'pistol'], d:2,
+     story:'Customs seized forty crates of our stock and filed them under “miscellaneous”. Unacceptable. Recover the crates and mind the paperwork.'},
+    {t:'Supply Run', loc:'train', place:'Freight line 12', need:['shotgun'], d:1,
+     story:'A freight car of shells is sitting unguarded at the rail yard. Unguarded according to my ledger, and my ledger is rarely wrong.'}],
+  sable:[
+    {t:'The Portrait', loc:'vault', place:'City Museum of Fine Art, east wing', need:['pistol'], d:4,
+     story:'There is a portrait of me in the east wing. I never sat for it. Bring it home, quietly, darling. Something small and elegant.'},
+    {t:'Plus One', loc:'rooftop', place:'Party at Halcyon Tower, 60th floor', need:['pistol', 'knife'], d:3,
+     story:'A collector is showing off a pistol that should be mine at his party tonight. You’re on the guest list. So is your knife.'}],
+  ma:[
+    {t:'Crusher Night', loc:'landfill', place:'City landfill, cell 4', need:['rifle'], d:1.5,
+     story:'The city dumps good scrap in cell 4 and buries it before we get there. Tonight we dig it up first. Bring a rusty rifle for the dogs.'},
+    {t:'The Old Foundry', loc:'foundry', place:'Halvorsen Foundry, closed since 1987', need:['rifle', 'shotgun'], d:3.5,
+     story:'The Prestige wants to knock the old foundry down for a parking garage. Not while I’m breathing. Help me make the place look haunted.'}],
+  tinny:[
+    {t:'Bike Rescue', loc:'chopshop', place:'Slick Eddie’s Chop Shop', need:['smg'], d:.5,
+     story:'Slick Eddie took my bike and painted it SHINY. Get it back. Please. I’ll give you my lunch money. Most of it.'},
+    {t:'The Rat King', loc:'tunnel', place:'Storm drain 9', need:['smg', 'pistol'], d:2,
+     story:'There’s a rat in storm drain 9 the size of a car. Ma says it’s a dog. It is NOT a dog. Bring something rusty and come with me.'}],
+  deacon:[
+    {t:'Bingo Night', loc:'vault', place:'St. Ignatius bingo hall', need:['shotgun'], d:2.5,
+     story:'Forty years I have played bingo at St. Ignatius and never won. They rig the numbers, child. Tonight, the Lord and I win.'},
+    {t:'Mission Bells', loc:'foundry', place:'Bell foundry on Mercy Street', need:['shotgun', 'rifle'], d:4,
+     story:'Someone stole the bells from my old church and is melting them down for scrap. Scrap! That is OUR line of work. Bring them home.'}],
+  socket:[
+    {t:'Parts Run', loc:'chopshop', place:'Slick Eddie’s Chop Shop', need:['pistol'], d:1,
+     story:'Eddie owes me a gearbox. Eddie is never going to give me a gearbox. So tonight, we take the gearbox.'},
+    {t:'Pit Stop', loc:'road', place:'Speedway, pit lane 3', need:['pistol', 'smg'], d:3,
+     story:'There’s a race car at the speedway with an engine I’ve wanted for ten years. You keep watch. I bring the wrench.'}]
+};
+const JOB_BEATS = {
+  start:['You get to {p}. It’s quieter than it should be.', 'You reach {p}. Somebody left a light on.', '{p}. Right on time.'],
+  mid:['A door you didn’t expect. Then footsteps.', 'Somebody shouts. You don’t wait to hear what.', 'Two guards, not one. Of course.', 'The plan lasts about four seconds.'],
+  win:['Clean. In and out before anyone counts to ten.', 'Messy, loud, done.', 'It works. You can’t quite believe it either.'],
+  lose:['Sirens. You run and don’t look back.', 'It falls apart. You get out. Not everything does.', 'Wrong night. Wrong door. Wrong everything.']
+};
+const jobEp = () => Math.floor(state.opened / JOB_EVERY);
+const jobOf = m => { const L = JOBS[m.id]; if (!L) return null; return L[hash(m.id + ':job:' + jobEp()) % L.length]; };
+const jobDone = m => (P().jobs || {})[m.id] === jobEp();
+const jobLeft = () => JOB_EVERY - (state.opened % JOB_EVERY);
+const jobPay = j => Math.round(JOB_PAY * Math.pow(j.d, 1.8) / 50) * 50;
+const starTxt = d => '★'.repeat(Math.floor(d)) + (d % 1 ? '½' : '');
+const starsHTML = d => '<span class="jstars" style="--p:' + (d / 5 * 100) + '%" role="img" aria-label="Difficulty ' + d + ' out of 5"><i>★★★★★</i></span>';
+let jobPick = [], jobRun = null;
+/* What can go in a slot: the right weapon type, nothing Chroma, and for the Rejects it has to be rusty */
+function jobFits(m, type, e){
+  const it = BY[e.id]; if (!it || it.t >= 7) return false;
+  if (type === 'knife' ? !SHAPES[it.w].knife : it.w !== type) return false;
+  return m.yard ? rustyE(e) : true;
+}
+function jobScore(m, e){
+  const it = BY[e.id], wi = wearIdx(e.fl), mod = [.6, .3, 0, -.3, -.6][wi];
+  return 1 + it.t + (m.yard ? -mod : mod);
+}
+function jobChance(m, j, picks){
+  if (picks.length < j.need.length || picks.some(p => !p)) return 0;
+  const avg = picks.reduce((a, e) => a + jobScore(m, e), 0) / picks.length, need = 1.2 * j.d + .4;
+  return Math.max(.05, Math.min(.95, .1 + .75 * avg / need));
+}
+
+/* Little previews of where the job happens: 400x150, night everywhere */
+function jobScene(loc, k){
+  const R = seeded(hash(loc + k)), sky = (a, b) => '<defs><linearGradient id="js' + k + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + a + '"/><stop offset="1" stop-color="' + b + '"/></linearGradient></defs><rect width="400" height="150" fill="url(#js' + k + ')"/>';
+  const stars = n => { let s = ''; for (let i = 0; i < n; i++) s += '<circle cx="' + (R()*400).toFixed(0) + '" cy="' + (R()*60).toFixed(0) + '" r="' + (.4 + R()*.7).toFixed(1) + '" fill="#fff" opacity=".6"/>'; return s; };
+  const city = (y0, col, lit) => { let s = ''; for (let x = 0; x < 400;) { const w = 14 + R()*26, h = 20 + R()*60; s += '<rect x="' + x.toFixed(0) + '" y="' + (y0 - h).toFixed(0) + '" width="' + w.toFixed(0) + '" height="' + h.toFixed(0) + '" fill="' + col + '"/>';
+    if (lit) for (let wy = y0 - h + 4; wy < y0 - 3; wy += 6) for (let wx = x + 3; wx < x + w - 3; wx += 5) if (R() < .22) s += '<rect x="' + wx.toFixed(0) + '" y="' + wy.toFixed(0) + '" width="2" height="3" fill="#ffd27a" opacity=".75"/>';
+    x += w + 2; } return s; };
+  let s = '<svg viewBox="0 0 400 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">';
+  if (loc === 'harbor') {
+    s += sky('#0a1024', '#1a2440') + stars(30) + '<circle cx="320" cy="34" r="12" fill="#efe2bf"/>' + '<rect y="100" width="400" height="50" fill="#0a1a2a"/><path d="M300 104 h40 M290 112 h60 M305 120 h30" stroke="#efe2bf" opacity=".35"/>'
+      + '<path d="M40 100 V30 H150 M60 30 L40 50 M120 30 V44" stroke="#c9a54a" stroke-width="3" fill="none"/><path d="M120 44 V70" stroke="#888" stroke-width="1"/>';
+    const cols = ['#a33a2a', '#2a5a8a', '#c98a2a', '#3a6a3a', '#6a3a7a'];
+    for (let r = 0; r < 3; r++) for (let c = 0; c < 6 - r; c++) s += '<rect x="' + (150 + c*30 + r*15) + '" y="' + (88 - r*14) + '" width="28" height="13" fill="' + cols[(r*3 + c) % 5] + '" stroke="#000" stroke-opacity=".4"/>';
+  } else if (loc === 'rooftop') {
+    s += sky('#0b0f22', '#2a1a3a') + stars(24) + city(120, '#141a30', true)
+      + '<rect x="240" y="40" width="70" height="80" fill="#1c2240"/><text x="275" y="54" text-anchor="middle" font-family="Teko, sans-serif" font-size="10" fill="#c9a54a">BANK</text>'
+      + '<rect y="120" width="400" height="30" fill="#2a2a30"/><rect y="116" width="400" height="5" fill="#3a3a44"/>'
+      + '<path d="M40 116 V84 h30 v32 M45 84 l10 -14 l10 14" fill="#2a2a30" stroke="#444"/><path d="M330 116 l30 -8" stroke="#555" stroke-width="3"/>';
+  } else if (loc === 'road') {
+    s += sky('#05070f', '#1a1408') + stars(20) + '<path d="M0 150 L170 70 H230 L400 150 Z" fill="#1a1a1c"/><path d="M200 74 V80 M200 90 V100 M200 112 V128 M200 138 V150" stroke="#ffd23f" stroke-width="2"/>'
+      + [60, 140, 260, 340].map(x => '<path d="M' + x + ' 150 V60 h12" stroke="#333" stroke-width="2" fill="none"/><ellipse cx="' + (x + 12) + '" cy="62" rx="16" ry="5" fill="#ffd27a" opacity=".25"/>').join('')
+      + '<g transform="translate(180 82)"><rect width="44" height="24" rx="3" fill="#5a6a5a"/><rect x="34" y="4" width="8" height="8" fill="#a8d4ff" opacity=".6"/><circle cx="10" cy="25" r="5" fill="#111"/><circle cx="34" cy="25" r="5" fill="#111"/><circle cx="43" cy="18" r="2" fill="#fff6c4"/></g>';
+  } else if (loc === 'vault') {
+    s += sky('#1a0608', '#2a0a0c') + '<path d="M0 120 H400 V150 H0 Z" fill="#5a0a14"/><ellipse cx="200" cy="18" rx="60" ry="10" fill="#ffd27a" opacity=".25"/>'
+      + '<circle cx="200" cy="70" r="46" fill="#4a4a50" stroke="#c9a54a" stroke-width="4"/><circle cx="200" cy="70" r="30" fill="#5a5a62" stroke="#2a2a30" stroke-width="2"/>'
+      + [0, 60, 120, 180, 240, 300].map(a => '<circle cx="' + (200 + Math.cos(a*Math.PI/180)*38).toFixed(1) + '" cy="' + (70 + Math.sin(a*Math.PI/180)*38).toFixed(1) + '" r="3" fill="#c9a54a"/>').join('')
+      + '<path d="M184 70 H216 M200 54 V86" stroke="#c9a54a" stroke-width="4" stroke-linecap="round"/>'
+      + '<rect x="40" y="40" width="50" height="80" fill="#3a0a10" stroke="#c9a54a"/><rect x="310" y="40" width="50" height="80" fill="#3a0a10" stroke="#c9a54a"/>';
+  } else if (loc === 'train') {
+    s += sky('#0a0e1a', '#24201a') + stars(26) + '<rect y="96" width="400" height="54" fill="#2a2420"/>'
+      + [100, 116, 134].map(y => '<path d="M0 ' + y + ' H400" stroke="#6a6a6a" stroke-width="2"/>').join('')
+      + [0, 1, 2, 3].map(i => '<rect x="' + (30 + i*90) + '" y="64" width="84" height="34" fill="' + ['#6a2a1a', '#2a4a6a', '#5a5a2a', '#4a2a4a'][i] + '" stroke="#000" stroke-opacity=".5"/><circle cx="' + (44 + i*90) + '" cy="99" r="5" fill="#111"/><circle cx="' + (100 + i*90) + '" cy="99" r="5" fill="#111"/>').join('')
+      + '<path d="M370 96 V40" stroke="#333" stroke-width="3"/><circle cx="370" cy="40" r="5" fill="#ff4d4d"/><circle cx="370" cy="52" r="5" fill="#2a2a2a"/>';
+  } else if (loc === 'tunnel') {
+    s += '<rect width="400" height="150" fill="#06080a"/>' + [140, 110, 82, 56].map((r, i) => '<ellipse cx="200" cy="75" rx="' + r*1.4 + '" ry="' + r + '" fill="none" stroke="#2a3a34" stroke-width="' + (8 - i) + '"/>').join('')
+      + '<ellipse cx="200" cy="75" rx="40" ry="28" fill="#000"/><path d="M60 150 Q200 110 340 150 Z" fill="#14302a" opacity=".8"/><path d="M90 140 Q200 118 310 140" stroke="#3a7a6a" opacity=".5" fill="none"/>'
+      + '<path d="M0 150 L190 70 L210 70 L400 150 Z" fill="#fff6c4" opacity=".06"/><circle cx="196" cy="80" r="2" fill="#ff4d4d"/><circle cx="204" cy="80" r="2" fill="#ff4d4d"/>';
+  } else if (loc === 'servers') {
+    s += '<rect width="400" height="150" fill="#05080e"/><rect y="124" width="400" height="26" fill="#0c1220"/>';
+    for (let i = 0; i < 8; i++) { const x = 8 + i*49; s += '<rect x="' + x + '" y="24" width="42" height="100" fill="#111a2a" stroke="#1f2a40"/>';
+      for (let y = 30; y < 120; y += 7) s += '<rect x="' + (x + 4) + '" y="' + y + '" width="34" height="4" fill="#0a0f1a"/><circle cx="' + (x + 34) + '" cy="' + (y + 2) + '" r="1.2" fill="' + (R() < .7 ? '#39ff88' : '#ff4d4d') + '"/>'; }
+    s += '<circle cx="380" cy="14" r="5" fill="#ff4d4d"/><path d="M380 14 L330 60" stroke="#ff4d4d" opacity=".3" stroke-width="10"/>';
+  } else if (loc === 'landfill') {
+    s += sky('#0a0c18', '#2a1c12') + stars(22) + '<path d="M0 150 V100 Q60 60 120 90 Q180 50 250 86 Q320 56 400 92 V150 Z" fill="#2a2016"/>'
+      + '<path d="M0 150 V120 Q100 100 200 118 Q300 98 400 120 V150 Z" fill="#3a2c1c"/>';
+    for (let i = 0; i < 26; i++) s += '<rect x="' + (R()*400).toFixed(0) + '" y="' + (96 + R()*44).toFixed(0) + '" width="' + (4 + R()*10).toFixed(0) + '" height="' + (3 + R()*6).toFixed(0) + '" fill="' + ['#5a4a3a', '#3a4a5a', '#6a3a2a', '#4a4a4a'][i % 4] + '" transform="rotate(' + ((R() - .5)*60).toFixed(0) + ')"/>';
+    s += '<g transform="translate(290 74)"><rect width="50" height="22" fill="#c98a2a"/><rect x="30" y="-14" width="16" height="16" fill="#c98a2a"/><path d="M0 8 L-18 20 V26 H0" fill="#8a6a2a"/><circle cx="12" cy="24" r="6" fill="#111"/><circle cx="40" cy="24" r="6" fill="#111"/></g>'
+      + '<path d="M80 40 q5 -4 10 0 q5 -4 10 0 M150 30 q4 -3 8 0 q4 -3 8 0" stroke="#ddd" fill="none"/>';
+  } else if (loc === 'foundry') {
+    s += sky('#0c0a14', '#3a1a0a') + stars(18) + '<rect x="40" y="40" width="300" height="110" fill="#1c1410"/>'
+      + [90, 150, 270].map(x => '<rect x="' + x + '" y="0" width="16" height="44" fill="#1c1410"/><circle cx="' + (x + 8) + '" cy="-2" r="10" fill="#4a4a4a" opacity=".5"/>').join('');
+    for (let i = 0; i < 6; i++) s += '<rect x="' + (60 + i*46) + '" y="66" width="26" height="40" fill="' + (i === 2 || i === 3 ? '#ff7a2a' : '#2a1a10') + '" opacity="' + (i === 2 || i === 3 ? .8 : 1) + '"/>';
+    s += '<ellipse cx="210" cy="140" rx="90" ry="20" fill="#ff7a2a" opacity=".18"/><rect y="140" width="400" height="10" fill="#120c08"/>';
+  } else {
+    s += '<rect width="400" height="150" fill="#14161a"/><rect y="120" width="400" height="30" fill="#1c1e22"/>'
+      + '<text x="200" y="30" text-anchor="middle" font-family="Permanent Marker, Teko, sans-serif" font-size="20" fill="#ff3ea5" opacity=".85">SLICK EDDIE’S</text>'
+      + [[60, '#c0262d'], [230, '#2a6aaa']].map(([x, c]) => '<path d="M' + x + ' 100 q8 -22 40 -24 l30 -10 q30 0 40 18 q12 2 12 16 Z" fill="' + c + '"/><circle cx="' + (x + 24) + '" cy="102" r="10" fill="#111"/><circle cx="' + (x + 100) + '" cy="102" r="10" fill="#111"/><rect x="' + (x + 10) + '" y="110" width="110" height="5" fill="#555"/><rect x="' + (x + 60) + '" y="112" width="6" height="10" fill="#555"/>').join('')
+      + '<g class="js-sp"><circle cx="190" cy="92" r="4" fill="#bff"/><path d="M190 92 l-8 -6 M190 92 l9 -5 M190 92 l-6 8 M190 92 l7 7" stroke="#ffd23f"/></g>';
+  }
+  return s + '</svg>';
+}
+
+/* The job card in a room: preview, story, stars, what to bring, and your odds */
+function jobPanel(m){
+  const j = jobOf(m); if (!j) return '';
+  const picks = j.need.map((_, i) => state.inv.find(e => e.uid === jobPick[i]) || null);
+  const ch = jobChance(m, j, picks), done = jobDone(m), left = jobLeft();
+  let h = '<div class="jb-card' + (m.yard ? ' yard' : '') + '"><div class="jb-prev">' + jobScene(j.loc, m.id + 'p') + '<span class="jb-place">' + j.place + '</span></div>'
+    + '<div class="jb-meta"><div class="jb-t">' + j.t + '</div><div class="jb-row">' + starsHTML(j.d) + '<span class="jb-d">' + j.d + ' / 5</span><span class="jb-pay"><span class="coin"></span>' + fmt(jobPay(j)) + '</span></div>'
+    + '<p class="jb-story">“' + j.story + '” <b style="color:' + m.col + '">— ' + m.name + '</b></p></div>';
+  if (done) return h + '<div class="jb-done">Done for now. ' + m.name + ' will have another job in ' + left + ' case open' + (left === 1 ? '' : 's') + '.</div></div>';
+  h += '<div class="jb-need"><div class="lab">What to bring' + (m.yard ? ' <small>has to be rusty: from the Scrapyard, or Scarred. Rustier is better.</small>' : ' <small>higher tiers and better wear raise your odds</small>') + '</div>';
+  j.need.forEach((type, i) => {
+    const sel = picks[i], used = new Set(jobPick.filter((u, k) => u && k !== i));
+    const fits = state.inv.filter(e => jobFits(m, type, e) && !used.has(e.uid)).sort((a, b) => jobScore(m, b) - jobScore(m, a)).slice(0, 12);
+    h += '<div class="jb-slot"><div class="jb-sh"><b>' + JOB_TYPES[type] + '</b>' + (sel ? '<span>' + BY[sel.id].name + ' · ' + TIERS[BY[sel.id].t].name + ' · ' + WEARS[wearIdx(sel.fl)].n + '</span>' : '<span class="mute">Pick one</span>') + '</div><div class="jb-opts" data-slot="' + i + '">'
+      + (fits.length ? fits.map(e => '<button class="jb-it' + (sel && sel.uid === e.uid ? ' on' : '') + '" data-a="jpick" data-slot="' + i + '" data-uid="' + e.uid + '" style="--tc:' + TIERS[BY[e.id].t].color + '"></button>').join('')
+        : '<span class="mute">No ' + (m.yard ? 'rusty ' : '') + JOB_TYPES[type].toLowerCase() + ' in your bag</span>') + '</div></div>';
+  });
+  const pct = Math.round(ch * 100);
+  h += '</div><div class="jb-go"><div class="jb-odds"><span>Your odds</span><b class="' + (pct >= 70 ? 'good' : pct >= 40 ? 'ok' : 'bad') + '">' + (ch ? pct + '%' : '—') + '</b></div>'
+    + '<button class="gold-btn" data-a="jgo"' + (ch ? '' : ' disabled') + '>Take the job</button></div>'
+    + '<p class="jb-note">Pull it off: ' + fmt(jobPay(j)) + ' cr, and you keep your gear. Blow it: each piece you brought has a 50% chance of being lost.</p></div>';
+  return h;
+}
+function fillJobThumbs(){
+  document.querySelectorAll('#prOv .jb-it').forEach(b => { const e = state.inv.find(x => x.uid === b.dataset.uid); if (e) { b.append(thumb(BY[e.id], wearIdx(e.fl))); b.title = BY[e.id].name + ' · ' + WEARS[wearIdx(e.fl)].n; } });
+}
+function jobAct(a, el){
+  const m = room; if (!m) return;
+  if (a === 'jpick') {
+    const i = +el.dataset.slot, u = el.dataset.uid;
+    jobPick[i] = jobPick[i] === u ? null : u; pickSound(); renderOv(); return;
+  }
+  if (a === 'jgo') runJob(m);
+  if (a === 'jback') { jobRun = null; closeOv(); renderLeft(); greet(m); }
+}
+async function runJob(m){
+  const j = jobOf(m); if (!j || jobDone(m) || jobRun) return;
+  const picks = j.need.map((_, i) => state.inv.find(e => e.uid === jobPick[i]));
+  if (picks.some(p => !p)) return;
+  const ch = jobChance(m, j, picks), win = Math.random() < ch, pay = jobPay(j);
+  /* The outcome is settled up front, so closing the panel mid-job changes nothing */
+  P().jobs = P().jobs || {}; P().jobs[m.id] = jobEp();
+  let lost = [];
+  if (win) { state.bal += pay; P().earned += pay; }
+  else { lost = picks.filter(() => Math.random() < .5); const ids = new Set(lost.map(e => e.uid)); state.inv = state.inv.filter(e => !ids.has(e.uid)); }
+  save(); renderInv(); renderOpen();
+  jobRun = {m, j}; ovMode = 'jobrun'; const run = jobRun;
+  const ov = $('#prOv');
+  ov.innerHTML = '<div class="jb-run' + (m.yard ? ' yard' : '') + '"><div class="jb-prev big">' + jobScene(j.loc, m.id + 'r') + '<span class="jb-place">' + j.place + '</span></div>'
+    + '<div class="jb-t">' + j.t + '</div><div class="jb-bar"><i id="jbBar"></i></div><div class="jb-log" id="jbLog"></div><div class="jb-res" id="jbRes"></div></div>';
+  const log = t => { const lg = $('#jbLog'); if (!lg) return; const d = document.createElement('p'); d.textContent = t; lg.append(d); };
+  const bar = p => { const b = $('#jbBar'); if (b) b.style.width = p + '%'; };
+  const W = ms => wait(REDUCED ? 80 : ms);
+  tone(110, .6, 'sine', .1);
+  log(pickOne(JOB_BEATS.start).replace('{p}', j.place)); bar(25); await W(1400); if (jobRun !== run) { if (win) setBal(pay); return; }
+  log(pickOne(JOB_BEATS.mid)); bar(60); tone(160, .3, 'square', .04); noise(.2, 900, 200, .1, 'lowpass'); await W(1500); if (jobRun !== run) { if (win) setBal(pay); return; }
+  restart($('#prOv .jb-prev'), 'shake');
+  if (win) {
+    setBal(pay); prBal();
+    log(pickOne(JOB_BEATS.win)); bar(100); kaching(); [523.25, 659.25, 783.99].forEach((f, i) => tone(f, .5, 'triangle', .05, i*.1));
+    $('#jbRes').innerHTML = '<div class="jb-win">JOB DONE · +' + fmt(pay) + ' cr</div><p>' + m.name + ': “' + m.say.thanks + '” You keep all your gear.</p>';
+  } else {
+    log(pickOne(JOB_BEATS.lose)); bar(100); boom();
+    $('#jbRes').innerHTML = '<div class="jb-lose">IT WENT WRONG</div><p>' + (lost.length ? (m.yard ? 'Broken beyond fixing: ' : 'Left behind: ') + lost.map(e => BY[e.id].name).join(', ') + '.' : 'You got out with everything you brought. Lucky.') + '</p>';
+  }
+  jobPick = [];
+  $('#jbRes').insertAdjacentHTML('beforeend', '<button class="gold-btn" data-a="jback">Back to ' + m.name + '</button>');
+}
+function jobBadge(m){
+  const j = jobOf(m); if (!j) return '';
+  return '<div class="jbb' + (jobDone(m) ? ' done' : '') + '">' + (jobDone(m) ? 'Job done · next in ' + jobLeft() : 'Job · ' + j.t + ' · ' + starTxt(j.d)) + '</div>';
 }
 function memberIntro(m){
   return new Promise(resolve => {
@@ -7768,6 +8043,8 @@ $('#prRoom').addEventListener('click', e => {
   if (a && a.dataset.a === 'pkprev') { if (!a.disabled) openPreview(PK1); return; }
   if (a && a.dataset.a === 'pk1') { if (!a.disabled && room && room.id === 'tobias' && !vaultBusy && !actBusy && !mi && !captive) selectSlot(0); return; }
   if (a && a.dataset.a === 'ovclose') { closeOv(); return; }
+  if (a && a.dataset.a === 'job') { if (!a.disabled) { jobPick = []; openOv('job'); } return; }
+  if (a && (a.dataset.a === 'jpick' || a.dataset.a === 'jgo' || a.dataset.a === 'jback')) { if (!a.disabled) jobAct(a.dataset.a, a); return; }
   if (a && a.dataset.a === 'mbuy') { if (!a.disabled) machBuy(); return; }
   if (a && a.dataset.a === 'munzoom') { machClose(); return; }
   if (a && a.dataset.a === 'peek') { if (!a.disabled) tinnyPeek(); return; }
