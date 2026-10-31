@@ -953,6 +953,65 @@ html.glx-crt .wrap,html.glx-crt .adm-card{animation:glxCrt 2.1s ease-in-out both
 @keyframes glxCrt{0%{transform:none;filter:none}30%{transform:scaleY(.004) scaleX(1);filter:brightness(4)}45%{transform:scaleY(.004) scaleX(0);filter:brightness(6)}60%{transform:scaleY(.004) scaleX(0);opacity:0}100%{transform:scaleY(.004) scaleX(0);opacity:0}}
 html.glx-crt .glx{background:#000}
 @media (prefers-reduced-motion: reduce){.j-gl,html[class*="glx-"] .wrap,html[class*="glx-"] .adm-card{animation:none}}
+
+/* The Chroma cinematic */
+.chc{position:fixed;inset:0;z-index:95;overflow:hidden;background:#000;display:grid;place-items:center;transition:opacity .45s;user-select:none;-webkit-user-select:none}
+.chc.out{opacity:0}
+.chc.s6{cursor:pointer}
+.cc-bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,#24133e,#000 70%);opacity:0;transition:opacity 2s}
+.s2 .cc-bg{opacity:1}
+.s4b .cc-bg{opacity:.15;transition:opacity .4s}
+.s5 .cc-bg{background:radial-gradient(circle at 50% 50%,#fff 0%,#fff0fb 28%,#d6c8ff 60%,#5a3a9a 100%);opacity:1;transition:none}
+.cc-line{position:absolute;left:50%;top:50%;width:70vw;height:2px;margin-left:-35vw;background:#fff;box-shadow:0 0 12px 3px #fff,0 0 50px 14px rgba(255,255,255,.5);transform:scaleX(0);opacity:0}
+.s1 .cc-line{opacity:1;transform:scaleX(1);transition:transform 1.1s cubic-bezier(.2,.8,.3,1)}
+.s2 .cc-line{opacity:0;transition:opacity .5s}
+.cc-prism{position:absolute;width:min(980px,150vw);opacity:0;transform:scale(.6);transition:opacity .8s,transform 1.4s cubic-bezier(.2,.8,.3,1)}
+.s2 .cc-prism{opacity:1;transform:scale(1)}
+.cc-fan{transform-box:fill-box;transform-origin:0 50%;transform:scaleX(0);transition:transform 1.2s cubic-bezier(.2,.8,.3,1)}
+.s2b .cc-fan{transform:scaleX(1)}
+.s3 .cc-fan{animation:ccHue 1.4s linear infinite}
+@keyframes ccHue{to{filter:hue-rotate(360deg)}}
+.cc-tri{transform-box:fill-box;transform-origin:50% 62%}
+.s3 .cc-tri{animation:ccRot 2.2s linear infinite}
+@keyframes ccRot{to{rotate:360deg}}
+.chc.s4 .cc-prism{transform:scale(.04);opacity:0;transition:transform .9s cubic-bezier(.6,0,1,.6),opacity .9s}
+.cc-rings{position:absolute;inset:0;pointer-events:none}
+.cc-rings span{position:absolute;left:50%;top:50%;width:40px;height:40px;margin:-20px;border-radius:50%;border:4px solid var(--c);box-shadow:0 0 18px var(--c),inset 0 0 12px var(--c);opacity:0}
+.s3 .cc-rings span{animation:ccRing 1.6s ease-out var(--d) infinite}
+@keyframes ccRing{0%{transform:scale(.2);opacity:1}100%{transform:scale(20);opacity:0}}
+.s4 .cc-rings span{animation:none;opacity:0}
+.cc-shards{position:absolute;left:50%;top:50%;width:0;height:0}
+.cc-shards b{position:absolute;width:14px;height:24px;margin:-12px -7px;background:linear-gradient(var(--c),#fff);clip-path:polygon(50% 0,100% 100%,0 100%);opacity:0;transform:rotate(var(--a)) translateY(calc(var(--r) * -1));filter:drop-shadow(0 0 6px var(--c))}
+.s3 .cc-shards{animation:ccRot 3s linear infinite}
+.s3 .cc-shards b{opacity:1;transition:opacity .6s}
+.chc.s4 .cc-shards b{transform:rotate(var(--a)) translateY(0) scale(.2);opacity:0;transition:transform .9s cubic-bezier(.6,0,1,.6),opacity .9s}
+.cc-word{position:absolute;top:calc(50% + 110px);display:flex;gap:.16em;font:700 clamp(44px,11vw,104px)/1 var(--display);letter-spacing:.06em}
+.cc-word span{color:var(--c);opacity:0;transform:translateY(24px) scale(.5);text-shadow:0 0 18px var(--c),0 0 46px var(--c)}
+.cc-word span.on{opacity:1;transform:none;transition:all .35s cubic-bezier(.3,1.6,.5,1)}
+.chc.s4 .cc-word span{transform:translateY(-120px) scale(.1);opacity:0;transition:all .8s cubic-bezier(.6,0,1,.6)}
+.cc-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:4}
+.s5 .cc-flash{animation:ccFlash 1.5s ease-out forwards}
+@keyframes ccFlash{0%{opacity:1}100%{opacity:0}}
+.cc-rays{position:absolute;left:50%;top:50%;width:240vmax;height:240vmax;margin:-120vmax 0 0 -120vmax;border-radius:50%;opacity:0;transform:scale(.2);
+  background:repeating-conic-gradient(from 0deg,rgba(255,62,165,.5) 0 5deg,rgba(255,210,63,.5) 5deg 10deg,rgba(57,255,136,.45) 10deg 15deg,rgba(47,227,255,.5) 15deg 20deg,rgba(168,85,247,.5) 20deg 25deg,transparent 25deg 30deg)}
+.s5 .cc-rays{opacity:.85;transform:scale(1);transition:transform 1.3s cubic-bezier(.2,.8,.3,1),opacity .3s;animation:ccRot 16s linear infinite}
+.cc-parts{position:absolute;left:50%;top:50%}
+.cc-parts i{position:absolute;width:var(--s);height:var(--s);margin:calc(var(--s) / -2);border-radius:50%;background:var(--c);box-shadow:0 0 12px var(--c);opacity:0}
+.s5 .cc-parts i{animation:ccPart 2.4s cubic-bezier(.1,.8,.3,1) var(--d) forwards}
+@keyframes ccPart{0%{opacity:1;transform:translate(0,0)}100%{opacity:0;transform:translate(var(--x),var(--y))}}
+.cc-card{position:relative;z-index:2;display:grid;justify-items:center;gap:10px;text-align:center;padding:16px;opacity:0;transform:scale(.3)}
+.s5 .cc-card{opacity:1;transform:scale(1);transition:transform 1s cubic-bezier(.2,1.5,.4,1) .12s,opacity .3s .12s}
+.cc-art{width:min(560px,82vw);filter:drop-shadow(0 0 18px #ff7ad9) drop-shadow(0 0 40px #2fe3ff)}
+.cc-art img{width:100%;height:auto;display:block}
+.s6 .cc-art{animation:ccFloat 2.4s ease-in-out infinite alternate}
+@keyframes ccFloat{to{transform:translateY(-12px)}}
+.cc-one{font:700 clamp(34px,8vw,72px)/1 var(--display);letter-spacing:.22em;background:linear-gradient(90deg,#ff3ea5,#ffd23f,#39ff88,#2fe3ff,#a855f7,#ff3ea5);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:chromaShift 2s linear infinite;filter:drop-shadow(0 3px 0 rgba(40,10,60,.35))}
+.cc-name{font:600 clamp(24px,5vw,40px)/1.1 var(--display);color:#2a1440;letter-spacing:.03em}
+.cc-name span{opacity:.55}
+.cc-sub{font-size:16px;color:#4a2a6a;font-weight:700;opacity:0}
+.s6 .cc-sub{opacity:1;transition:opacity 1s}
+.cc-skip{position:absolute;top:16px;right:16px;z-index:5}
+@media (prefers-reduced-motion: reduce){.chc *{animation:none!important}}
 /* Socket's Contraption */
 .pr-scene > svg .sk-mach,.pr-scene > svg .sk-mach *{pointer-events:auto;cursor:pointer}
 .sk-mach .hl{opacity:0}
@@ -2194,6 +2253,7 @@ body{background:
   </div>
 </div>
 <div class="glx" id="glx" hidden></div>
+<div class="chc" id="chc" hidden></div>
 
 <div class="batch" id="batch" hidden>
   <div class="bt-mach" id="btMach"></div>
@@ -4231,7 +4291,10 @@ async function openCase(){
   if (!state.best || r.v > state.best.v) state.best = {id:r.id, v:r.v};
   save();
   reelInfo.slots[idx].style.zIndex = 2; reelInfo.els[idx].classList.add('won');
-  if (it.t === 6) {
+  if (it.t === 7) {
+    await wait(REDUCED ? 100 : 400);
+    await chromaCinematic(r); showReveal(r);
+  } else if (it.t === 6) {
     await wait(REDUCED ? 100 : 500);
     await bmCinematic(r); showReveal(r, true);
   } else if (it.t === 5) {
@@ -7171,7 +7234,7 @@ function aucAct(a){
     if (!state.best || r.v > state.best.v) state.best = {id: r.id, v: r.v};
     save(); closeAuction();
     busy = true; lockRack(true); $('#reveal').style.zIndex = '81';
-    showReveal(r);
+    chromaCinematic(r).then(() => showReveal(r));
   }
   if (a === 'keep') { toast(ctl.kind === 'pres' ? 'You keep it. Six very offended people watch you take the elevator down.' : 'You keep it. Four very angry people watch you leave.'); closeAuction(); }
 }
@@ -8033,6 +8096,66 @@ async function admReset(){
   try { await cloudPush(); } catch (e) {}
   location.reload();
 }
+
+/* ---------- The Chroma cinematic ----------
+   About ten seconds, and it builds: black, a heartbeat, a crack of white light. The light hits a prism and fans
+   out into a rainbow. Rings pulse, shards orbit, and C-H-R-O-M-A spells out one note at a time. Everything gets
+   pulled into the middle, a beat of silence, then a white flash: rainbow rays, the piece itself, ONE OF ONE.
+   Tap or Escape skips. */
+function chromaCinematic(r){
+  return new Promise(resolve => {
+    const it = BY[r.id], ov = $('#chc'), timers = [];
+    let done = false;
+    const finish = () => {
+      if (done) return; done = true; timers.forEach(clearTimeout);
+      ov.classList.add('out');
+      setTimeout(() => { ov.hidden = true; ov.className = 'chc'; ov.innerHTML = ''; cine = null; musSync(); resolve(); }, 450);
+    };
+    const T = (ms, f) => timers.push(setTimeout(() => { if (!done) f(); }, REDUCED ? Math.min(ms, 200) : ms));
+    const step = c => ov.classList.add(c);
+    const COLS = ['#ff3ea5', '#ff8a3d', '#ffd23f', '#39ff88', '#2fe3ff', '#7a6aff', '#c084fc'];
+    let parts = '';
+    for (let i = 0; i < 70; i++) { const a = Math.random()*Math.PI*2, d = 30 + Math.random()*60; parts += '<i style="--x:' + (Math.cos(a)*d).toFixed(1) + 'vmax;--y:' + (Math.sin(a)*d).toFixed(1) + 'vmax;--c:' + COLS[i % 7] + ';--d:' + (Math.random()*.5).toFixed(2) + 's;--s:' + (4 + Math.random()*10).toFixed(0) + 'px"></i>'; }
+    let shards = '';
+    for (let i = 0; i < 12; i++) shards += '<b style="--a:' + (i*30) + 'deg;--c:' + COLS[i % 7] + ';--r:' + (90 + (i % 3)*40) + 'px"></b>';
+    ov.innerHTML = '<div class="cc-bg"></div><div class="cc-line"></div>'
+      + '<svg class="cc-prism" viewBox="-200 -100 400 200" aria-hidden="true"><defs><filter id="ccg" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter></defs>'
+      + '<path class="cc-beam" d="M-200 6 L-22 0" stroke="#fff" stroke-width="5" filter="url(#ccg)"/><path class="cc-beam" d="M-200 6 L-22 0" stroke="#fff" stroke-width="2"/>'
+      + '<g class="cc-fan">' + COLS.map((c, i) => '<path d="M14 0 L200 ' + (-70 + i*20) + ' L200 ' + (-52 + i*20) + ' Z" fill="' + c + '" opacity=".85"/>').join('') + '</g>'
+      + '<g class="cc-tri"><path d="M0 -38 L34 22 L-34 22 Z" fill="rgba(255,255,255,.12)" stroke="#fff" stroke-width="2.4"/><path d="M0 -38 L34 22 L-34 22 Z" fill="none" stroke="#fff" stroke-width="6" opacity=".4" filter="url(#ccg)"/></g></svg>'
+      + '<div class="cc-rings">' + COLS.slice(0, 5).map((c, i) => '<span style="--c:' + c + ';--d:' + (i*.32).toFixed(2) + 's"></span>').join('') + '</div>'
+      + '<div class="cc-shards">' + shards + '</div>'
+      + '<div class="cc-word">' + 'CHROMA'.split('').map((ch, i) => '<span style="--c:' + COLS[i] + '">' + ch + '</span>').join('') + '</div>'
+      + '<div class="cc-rays"></div><div class="cc-parts">' + parts + '</div>'
+      + '<div class="cc-card"><div class="cc-one">ONE OF ONE</div><div class="cc-art"></div><div class="cc-name"><span>' + WNAME[it.w] + ' |</span> ' + it.name + '</div><div class="cc-sub">There is no other.</div></div>'
+      + '<div class="cc-flash"></div><button class="pc-skip cc-skip">Skip ››</button>';
+    ov.querySelector('.cc-art').append(imgOf(artHi(it, wearIdx(r.fl))));
+    ov.className = 'chc'; ov.hidden = false;
+    ov.onclick = e => { if (e.target.closest('.cc-skip') || ov.classList.contains('s6')) finish(); };
+    cine = {skip: finish}; musSync(); ac();
+    const beat = (v) => { tone(55, .25, 'sine', v); tone(42, .3, 'sine', v*.7, .14); };
+    /* 1. dark, a heartbeat, a crack of light */
+    beat(.3); T(700, () => beat(.34)); T(1400, () => { beat(.38); step('s1'); tone(2400, 1.2, 'sine', .02); });
+    /* 2. the light hits a prism and fans into a rainbow */
+    T(2100, () => { step('s2'); sweep(200, 900, 1.6, 'sine', .05); noise(1.4, 6000, 2000, .03, 'highpass'); });
+    T(2800, () => { step('s2b'); [523.25, 659.25, 783.99].forEach((f, i) => tone(f, 1.4, 'triangle', .03, i*.12)); });
+    /* 3. rings, orbiting shards, and the word, a letter at a time */
+    T(3600, () => { step('s3'); sweep(300, 1200, 2.4, 'sawtooth', .02); });
+    const notes = [523.25, 587.33, 659.25, 783.99, 880, 1046.5];
+    notes.forEach((f, i) => T(3900 + i*330, () => { ov.querySelectorAll('.cc-word span')[i].classList.add('on'); tone(f, .7, 'triangle', .06); tone(f*2, .5, 'sine', .02); }));
+    /* 4. everything pulled into the middle, then nothing */
+    T(6100, () => { step('s4'); sweep(1600, 80, 1, 'sine', .07); noise(.9, 400, 3000, .06); });
+    T(7100, () => { step('s4b'); });
+    /* 5. the flash */
+    T(7600, () => {
+      step('s5'); boom(); noise(.8, 8000, 400, .25);
+      [261.63, 329.63, 392, 523.25, 659.25, 783.99, 1046.5].forEach((f, i) => { tone(f, 2.6, 'triangle', .05, i*.03); tone(f/2, 2.6, 'sine', .04); });
+      if (!REDUCED) restart($('#wrap'), 'quake');
+    });
+    T(8200, () => { step('s6'); [1318.5, 1567.98, 2093].forEach((f, i) => tone(f, 1.2, 'sine', .03, .2 + i*.18)); });
+    T(11800, finish);
+  });
+}
 function memberIntro(m){
   return new Promise(resolve => {
     ac();
@@ -8354,6 +8477,7 @@ async function vaultWin(cr, items){
   vaultBusy = false;
   busy = true; lockRack(true);
   $('#reveal').style.zIndex = '81';
+  await chromaCinematic(r);
   showReveal(r);
 }
 async function vaultLose(){
