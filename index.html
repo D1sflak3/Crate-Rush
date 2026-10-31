@@ -772,6 +772,53 @@ pre.notes{margin:0;white-space:pre-wrap;font:inherit;color:#e9fff2}
 .ret-word span.gap::before,.ret-word span.gap::after{display:none}
 
 /* The Prestige: intro cutscene */
+
+/* The fire auction */
+.pr-auc{appearance:none;cursor:pointer;grid-column:1/-1;display:flex;align-items:center;gap:16px;text-align:left;color:#f3e2cc;padding:14px 18px;border-radius:4px;border:1px solid #6b3412;
+  background:radial-gradient(140px 90px at 60px 70%,rgba(255,120,30,.45),transparent 70%),linear-gradient(135deg,#2a140a,#120905);box-shadow:0 12px 24px rgba(0,0,0,.5);transition:transform .15s,border-color .15s}
+.pr-auc:hover{transform:translateY(-2px);border-color:#ff8a3d}
+.pr-auc.cool{filter:grayscale(.6);opacity:.75}
+.pa-fire{position:relative;flex:none;width:64px;height:64px}
+.pa-fire i{position:absolute;bottom:4px;left:50%;width:26px;height:44px;margin-left:-13px;border-radius:50% 50% 45% 45%/60% 60% 40% 40%;background:linear-gradient(#fff1a8,#ff9a2e 45%,#d6451b);transform-origin:50% 100%;animation:yFl .3s ease-in-out infinite alternate}
+.pa-fire i:nth-child(2){width:18px;height:30px;margin-left:-20px;animation-duration:.26s;opacity:.85}
+.pa-fire i:nth-child(3){width:16px;height:26px;margin-left:4px;animation-duration:.34s;opacity:.85}
+.pa-h{font-family:"Permanent Marker",var(--display);font-size:26px;line-height:1.05;color:#ffb27a}
+.pa-p{font-size:13.5px;color:#d9c2a6;max-width:62ch}
+.pa-ct{font-size:13px;font-weight:700;margin-top:4px}
+.pa-ct.zero{color:#9a8470;font-weight:500}
+.auc{position:fixed;inset:0;z-index:84;background:radial-gradient(circle at 50% 40%,#2a1408,#000 72%);overflow:hidden;color:#f3e2cc}
+.auc.shake{animation:quake .55s}
+.auc-stage{position:absolute;inset:0}
+.auc-stage .ms{position:absolute;inset:0}
+.auc-stage svg{width:100%;height:100%;display:block}
+@media (max-aspect-ratio:1/1){.auc-stage{inset:auto 0;top:6vh;height:min(100vw,52vh)}}
+.auc-ui{position:absolute;left:50%;bottom:max(14px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(560px,calc(100% - 24px));max-height:58vh;overflow:auto;background:rgba(14,8,4,.9);border:1px solid #5a3a1c;border-radius:10px;padding:12px 14px 14px;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+.auc-top{display:flex;align-items:flex-start;gap:10px}
+.auc-top > div{flex:1;min-width:0}
+.auc-top small{display:block;font-size:12px;color:#c98a5a;font-weight:600}
+.auc-top b{display:block;font-family:"Permanent Marker",var(--display);font-weight:400;font-size:22px;line-height:1.15;color:#fff1de}
+.auc-pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:10px}
+.au-it{appearance:none;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:8px;border-radius:8px;border:1px solid #4a2e18;background:#1a0f08;text-align:left;border-bottom:3px solid var(--tc)}
+.au-it:hover{border-color:var(--tc)}
+.au-it img,.au-it canvas{width:100%;height:auto}
+.au-it .nm{font-weight:700;font-size:14px}.au-it .sub{font-size:12px;color:#b59a7e}.au-it .v{display:flex;align-items:center;gap:5px;font-weight:700;font-variant-numeric:tabular-nums}
+.auc-board{text-align:center;margin-top:6px}
+.auc-bidw{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:700;font-size:54px;line-height:1;font-variant-numeric:tabular-nums;color:#ffd27a}
+.auc-bidw .coin{width:26px;height:26px}
+.auc-bidw.pop{animation:aucPop .3s ease-out}
+@keyframes aucPop{40%{transform:scale(1.08)}}
+.auc-x{font-weight:700;color:#c9a88a}.auc-x.hot{color:#ff6a3d}
+.auc-who{margin-top:2px;font-size:15px;font-weight:600;min-height:1.4em}
+.auc-acts{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px}
+.auc .yc-f.au-jump{animation:aucJump .35s ease-out}
+@keyframes aucJump{35%{transform:translateY(-9px)}}
+.au-dust{opacity:0;pointer-events:none}
+.au-fight .au-dust{opacity:1;animation:aucDust .22s steps(2) infinite}
+@keyframes aucDust{50%{transform:translate(3px,-2px)}}
+.au-fight .yc-fma,.au-fight .yc-fso{animation:aucBrawl .16s linear infinite}
+.au-fight .yc-fde,.au-fight .yc-fti{animation:aucBrawl .2s linear infinite reverse}
+@keyframes aucBrawl{25%{transform:translate(4px,-3px)}50%{transform:translate(-3px,2px)}75%{transform:translate(3px,3px)}}
+@media (prefers-reduced-motion: reduce){.au-fight .yc-f,.au-fight .au-dust,.pa-fire i{animation:none}}
 /* The Rejects */
 .yard-btn{color:#ff8a3d;border-color:#6b3a12;background:#140a04}
 .yard-btn.ping{animation:presPing 1.4s ease-out 3}
@@ -1874,6 +1921,20 @@ body{background:
   <div style="display:grid;gap:10px;justify-items:center"><button class="gold-btn" id="ytEnter">Enter the Scrapyard</button><button class="link-btn" id="ytLater">Later</button></div>
 </div>
 
+<div class="auc" id="auc" hidden>
+  <div class="auc-stage" id="aucStage"></div>
+  <div class="auc-ui">
+    <div class="auc-top"><div id="aucHead"></div><button class="pc-skip" id="aucClose" style="position:static">Close</button></div>
+    <div class="auc-pick" id="aucPick"></div>
+    <div class="auc-board" id="aucBoard" hidden>
+      <div class="auc-bidw"><span class="coin"></span><span id="aucBid">0</span></div>
+      <div class="auc-x" id="aucX"></div>
+      <div class="auc-who" id="aucWho"></div>
+      <div class="auc-acts" id="aucActs"></div>
+    </div>
+  </div>
+</div>
+
 <div class="mi" id="mi" hidden>
   <div class="mi-stage" id="miStage"></div>
   <div class="mi-card" id="miCard"><span class="mc-role"></span><span class="mc-name"></span><span class="mc-cap"></span></div>
@@ -2402,6 +2463,14 @@ const INST = {
 };
 const bossa = c => c + ' - . ' + c + ' - . ' + c + ' - . . ' + c + ' - . ' + c + ' - .';
 const THEMES = {
+  /* The fire auction: everyone shouting at once */
+  auction:{bpm:168, steps:16, rev:.15, dist:.12, vol:1.1, tracks:[
+    {i:'slam', v:.2, n:'x . . . x . . . x . . . x . . .'},
+    {i:'snare', v:.12, n:'. . . . x . . . . . . . x . x .'},
+    {i:'hat', v:.04, n:'x x x x x x x x x x x x x x x x'},
+    {i:'chug', v:.04, n:'E2,B2 . E2,B2 E2,B2 . E2,B2 G2,D3 . E2,B2 . E2,B2 E2,B2 . A2,E3 G2,D3 .'},
+    {i:'anvil', v:.03, n:'E5 . . . . . . . B5 . . . . . . .'}
+  ]},
   /* The Scrapyard: junkyard blues, an anvil for a cowbell */
   yard:{bpm:84, steps:16, swing:.3, rev:.3, vol:1.1, tracks:[
     {i:'ubass', v:.16, n:'E2 - . E2 G#2 - B2 - C#3 - B2 - G#2 - E2 - | A1 - . A1 C#2 - E2 - F#2 - E2 - C#2 - A1 - | B1 - . B1 D#2 - F#2 - A1 - . A1 C#2 - E2 - | E2 - . E2 G#2 - B2 - D3 - B2 - G#2 - B1 -'},
@@ -2628,6 +2697,7 @@ function musWant(){
   if (mi && mi.mid && (presOpen || mi.mid === 'yardc')) return [mi.mid, true];
   if (pc) return ['prestige', false];
   if (!$('#ret').hidden) return ['ret', false];
+  if (auc) return ['auction', false];
   if (presOpen) return [room ? room.id : crew === 'yard' ? 'yard' : 'lobby', false];
   if (shopOpen) return ['dealer', false];
   return null;
@@ -3884,6 +3954,7 @@ document.addEventListener('keydown', e => {
   else if (mi) mi.skipAll();
   else if (pc) pc.skipAll();
   else if (!$('#yti').hidden) closeYt(false);
+  else if (auc) closeAuction();
   else if (!$('#brief').hidden) closeBrief();
   else if (presOpen) {
     if (room && ovMode) closeOv();
@@ -5148,7 +5219,7 @@ function renderOv(){
 function refuseItem(e){
   const m = room; if (!m) return;
   closeOv();
-  if (m.yard) { sayRoom(m.say.shiny, 'mad'); tone(150, .2, 'sawtooth', .05); return; }
+  if (m.yard) { sayRoom(BY[e.id].t >= 5 ? 'Gold? Don’t wave that at just me. Take it to the fire and let us ALL bid on it.' : m.say.shiny, 'mad'); tone(150, .2, 'sawtooth', .05); return; }
   if (m.outsider) { sayRoom(m.say.legal, 'mad'); tone(150, .2, 'sawtooth', .05); return; }
   tone(110, .3, 'sawtooth', .06);
   if (P().tobias) { sayRoom(BM_REFUSE[m.id] + ' You know where to find him.', 'mad'); return; }
@@ -6426,6 +6497,7 @@ function renderYardBtn(){ $('#yardBtn').hidden = !Y().seen; }
 function renderYardLobby(){
   $('#prLedger').innerHTML = 'Rust sold <b>' + fmt(Y().deals || 0) + '</b><span>Paid to you <b>' + fmt(Y().earned || 0) + ' cr</b></span><span>Family knife <b>' + (Y().home ? 'home' : 'missing') + '</b></span>';
   const grid = $('#prGrid'); grid.innerHTML = '';
+  grid.append(aucCard());
   YARD.forEach(m => {
     const kn = m.id === 'ma' && !Y().home, w = kn ? BY[KNIFE_ID] : wantOf(m);
     const favs = state.inv.filter(e => isFav(m, e) && buys(m, e)), rust = state.inv.filter(e => buys(m, e)).length;
@@ -6453,6 +6525,153 @@ function tinnyPeek(){
   sayRoom(m.say.peek.replace('{t}', (/^[AEIOU]/.test(T) ? 'an ' : 'a ') + T), 'happy');
   [880, 1174.66].forEach((f, i) => tone(f, .12, 'square', .025, i*.09));
   renderLeft();
+}
+
+/* ---------- The fire auction ----------
+   Bring Gold or Black Market to the Scrapyard and all four Rejects bid on it against each other. The price
+   usually climbs to 1.15-1.75x market, and about one auction in seven goes all the way to 2x. Somewhere in the
+   middle it turns into a fight. One auction every AUC_EVERY case opens; shop, vault and PK1 stock is refused. */
+const AUC_EVERY = 8, AUC_IDS = ['ma', 'tinny', 'deacon', 'socket'];
+const AUC_POS = {deacon:[114, 104], ma:[155, 100], socket:[288, 108], tinny:[261, 146]};
+const AUC_LINES = {
+  ma:["{o}! It's MINE.", "{o}, and sit DOWN, Socket!", "I'm the matriarch! {o}!", "{o}. Nobody outbids Ma.", "{o}! I built this yard!"],
+  tinny:["{o}! I've got a jar of coins!", "NO FAIR! {o}!", "MAAA! {o}!", "{o}! I'll sell my bike!", "{o}! PLEASE!"],
+  deacon:["The Lord says {o}!", "{o}, and God forgive you all!", "BLASPHEMY! {o}!", "{o}! The collection plate is FULL!", "{o}. Amen!"],
+  socket:["{o}! I'll strip it for parts!", "Back off, preacher! {o}!", "{o}, final offer! …No! {o}!", "{o}! I need that engine!", "{o}. Don't test me."]
+};
+const AUC_FIGHT = {
+  ma:["THAT'S IT! Into the crusher!", "Hold my goggles!"], tinny:["Ow! OW! Not the pot!", "I'm telling Ma! …Wait."],
+  deacon:["Turn the other cheek! …THIS ONE!", "Lord give me strength!"], socket:["Get your hands off my wrench!", "Come here, old man!"]
+};
+let auc = null;
+const aucLeft = () => Y().aucAt == null ? 0 : Math.max(0, AUC_EVERY - (state.opened - Y().aucAt));
+const aucItems = () => state.inv.filter(e => BY[e.id] && BY[e.id].t >= 5 && !tagged(e));
+function aucCard(){
+  const n = aucItems().length, left = aucLeft(), b = document.createElement('button');
+  b.type = 'button'; b.className = 'pr-auc' + (left ? ' cool' : '');
+  b.innerHTML = '<div class="pa-fire" aria-hidden="true"><i></i><i></i><i></i></div><div class="pa-txt"><div class="pa-h">The fire auction</div>'
+    + '<div class="pa-p">Bring Gold or Black Market and all four of them bid against each other. It usually goes well above market, sometimes double. It gets loud.</div>'
+    + '<div class="pa-ct' + (n && !left ? '' : ' zero') + '">' + (left ? 'They’re still arguing about the last one · ' + left + ' more open' + (left === 1 ? '' : 's')
+      : n ? n + ' piece' + (n === 1 ? '' : 's') + ' they’d fight over' : 'No Gold or Black Market in your bag') + '</div></div>';
+  return b;
+}
+function openAuction(){
+  if (!presOpen || crew !== 'yard' || room || auc) return;
+  const left = aucLeft(), items = aucItems();
+  if (left) { toast('Still arguing about the last one. Open ' + left + ' more case' + (left === 1 ? '' : 's') + '.'); tone(150, .2, 'square', .04); return; }
+  if (!items.length) { toast('Bring Gold or Black Market. Bought stock doesn’t count.'); tone(150, .2, 'square', .04); return; }
+  ac();
+  auc = {e: null, skip: false, done: false, wake: null};
+  const el = $('#auc'); el.hidden = false; el.className = 'auc';
+  $('#aucStage').innerHTML = aucSVG(null);
+  $('#aucHead').innerHTML = '<small>The fire auction</small><b>What are you putting up?</b>';
+  $('#aucBoard').hidden = true; $('#aucPick').hidden = false;
+  $('#aucPick').innerHTML = '';
+  items.sort((a, b) => b.v - a.v).forEach(e => {
+    const it = BY[e.id], wi = wearIdx(e.fl), b = document.createElement('button');
+    b.type = 'button'; b.className = 'au-it'; b.dataset.uid = e.uid; b.style.setProperty('--tc', TIERS[it.t].color);
+    b.append(thumb(it, wi));
+    b.insertAdjacentHTML('beforeend', '<span class="nm">' + it.name + '</span><span class="sub">' + TIERS[it.t].name + ' · ' + WEARS[wi].n + '</span><span class="v"><span class="coin"></span>' + fmt(e.v) + '</span>');
+    $('#aucPick').append(b);
+  });
+  musSync();
+}
+function closeAuction(){
+  if (!auc) return;
+  auc.skip = true; if (auc.wake) auc.wake();
+  auc = null;
+  const el = $('#auc'); el.hidden = true; $('#aucStage').innerHTML = '';
+  musSync(); if (presOpen && !room) renderLobby();
+}
+/* The yard at night, everyone round the fire, the piece floating over it */
+function aucSVG(e){
+  let s = SC.yardc.svg('au');
+  const it = e ? BY[e.id] : null;
+  s = s.replace(artHi(BY[KNIFE_ID], 4), it ? artHi(it, wearIdx(e.fl)) : 'data:,');
+  if (it) s = s.replace('fill="#ff8a3d" opacity=".4"', 'fill="' + TIERS[it.t].color + '" opacity=".45"');
+  const dust = '<g class="au-dust">' + [[188, 168, 16], [214, 160, 20], [236, 172, 15], [202, 182, 13], [226, 186, 14]].map(([x, y, r]) => '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="#b9ad98" opacity=".85"/>').join('')
+    + '<path d="M170 142 l10 6 M250 140 l-9 8 M208 134 v10" stroke="#fff3c4" stroke-width="2" stroke-linecap="round"/>'
+    + '<text class="au-pow" x="212" y="152" text-anchor="middle" font-family="Permanent Marker, Teko, sans-serif" font-size="20" fill="#ffd23f" stroke="#2a1206" stroke-width="1" transform="rotate(-8 212 152)">POW!</text></g>';
+  return '<div class="ms ms-yardc yc-ma yc-de yc-so yc-ti' + (it ? ' yc-knife' : '') + '">' + s.replace('</svg>', dust + '<g id="aucB"></g></svg>') + '</div>';
+}
+function aucBubble(who, text){
+  const g = document.getElementById('aucB'); if (!g) return;
+  if (!who) { g.innerHTML = ''; return; }
+  const [px, py] = AUC_POS[who], w = Math.min(250, text.length * 4.7 + 18), x = Math.max(4, Math.min(396 - w, px - w/2)), y = py - 28;
+  g.innerHTML = '<g class="au-bub"><rect x="' + x.toFixed(1) + '" y="' + y + '" width="' + w.toFixed(1) + '" height="19" rx="4" fill="#f6ead2" stroke="' + MBY[who].col + '" stroke-width="1.6"/>'
+    + '<path d="M' + (px - 4) + ' ' + (y + 18.5) + ' L' + px + ' ' + (y + 26) + ' L' + (px + 4) + ' ' + (y + 18.5) + ' Z" fill="#f6ead2"/>'
+    + '<text x="' + (x + w/2).toFixed(1) + '" y="' + (y + 13) + '" text-anchor="middle" font-family="Barlow Semi Condensed, Arial Narrow, sans-serif" font-weight="700" font-size="9.2" fill="#1c1208">' + escH(text) + '</text></g>';
+  const f = document.querySelector('#aucStage .yc-f' + {ma:'ma', tinny:'ti', deacon:'de', socket:'so'}[who]);
+  if (f) restart(f, 'au-jump');
+}
+function aucShowBid(v, mkt, who){
+  const el = $('#aucBid'), from = +(el.dataset.v || mkt), t0 = performance.now(), D = auc && auc.skip ? 0 : 320;
+  el.dataset.v = v;
+  const step = now => { const k = D ? Math.min(1, (now - t0) / D) : 1; el.textContent = fmt(from + (v - from) * k); if (k < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+  $('#aucX').textContent = (v / mkt).toFixed(2) + '× market';
+  $('#aucX').classList.toggle('hot', v / mkt >= 1.5);
+  const m = MBY[who]; $('#aucWho').innerHTML = m ? '<span style="color:' + m.col + '">' + m.name + '</span> has it' : 'Opening bid';
+  restart($('#aucBid').parentNode, 'pop');
+}
+async function runAuction(e){
+  const ctl = auc; if (!ctl) return;
+  ctl.e = e; Y().aucAt = state.opened; save();
+  const it = BY[e.id], mkt = e.v, two = Math.random() < .15, T = two ? 2 : 1.15 + Math.random() * .6;
+  const steps = two ? 10 : 7 + Math.floor(Math.random() * 2), fightAt = 3 + Math.floor(Math.random() * 2);
+  const bids = Array.from({length: steps}, (_, i) => Math.round(mkt * (1 + (T - 1) * Math.pow((i + 1) / steps, .9))));
+  const W = ms => new Promise(res => { if (ctl.skip) return res(); const t = setTimeout(go, ms); function go(){ clearTimeout(t); if (ctl.wake === go) ctl.wake = null; res(); } ctl.wake = go; });
+  $('#aucStage').innerHTML = aucSVG(e);
+  $('#aucPick').hidden = true; $('#aucBoard').hidden = false;
+  $('#aucHead').innerHTML = '<small>The fire auction · ' + TIERS[it.t].name + '</small><b>' + WNAME[it.w] + ' | ' + it.name + '</b>';
+  $('#aucBid').dataset.v = mkt; $('#aucBid').textContent = fmt(mkt);
+  $('#aucX').textContent = 'Market ' + fmt(mkt); $('#aucX').classList.remove('hot'); $('#aucWho').textContent = 'Everyone gathers round the fire…';
+  $('#aucActs').innerHTML = '<button class="ghost sm" data-au="skip">Skip to the end</button>';
+  musSync();
+  await W(1300);
+  const gavel = () => { tone(1318.5, .4, 'sine', .05); tone(3640, .2, 'sine', .015); noise(.05, 3000, 900, .08); };
+  let last = null;
+  for (let i = 0; i < steps && !ctl.skip; i++) {
+    if (i === fightAt && last) {
+      const st = $('#aucStage .ms'); st.classList.add('au-fight'); restart($('#auc'), 'shake');
+      const punches = setInterval(() => { if (ctl.skip) return; noise(.08, 900, 120, .22, 'lowpass'); tone(70 + Math.random()*40, .12, 'square', .06); }, 170);
+      const a = last, b = pickOne(AUC_IDS.filter(x => x !== a));
+      aucBubble(b, pickOne(AUC_FIGHT[b])); await W(1300);
+      aucBubble(a, pickOne(AUC_FIGHT[a])); await W(1300);
+      clearInterval(punches); st.classList.remove('au-fight');
+      aucBubble(null); await W(300);
+    }
+    const who = pickOne(AUC_IDS.filter(x => x !== last)), v = bids[i];
+    last = who;
+    let line = pickOne(AUC_LINES[who]).split('{o}').join(fmt(v));
+    if (i > fightAt || v / mkt >= 1.5) line = line.toUpperCase();
+    aucBubble(who, line); aucShowBid(v, mkt, who); gavel();
+    tone(MBY[who].pitch * (1.6 + i * .06), .12, 'square', .03);
+    await W(i > fightAt ? 950 : 1250);
+  }
+  if (!auc || auc !== ctl) return;
+  if (ctl.skip) { last = last && Math.random() < .5 ? last : pickOne(AUC_IDS); ctl.skip = false; }
+  const amt = bids[steps - 1], win = MBY[last];
+  aucShowBid(amt, mkt, last);
+  aucBubble(last, amt >= mkt * 1.95 ? 'DOUBLE! IT\'S MINE! ' + fmt(amt) + '!' : 'SOLD! To me! ' + fmt(amt) + '!');
+  [0, .22, .44].forEach(d => { tone(196, .5, 'sine', .14, d); noise(.06, 1500, 300, .2, undefined); });
+  $('#aucWho').innerHTML = '<span style="color:' + win.col + '">' + win.name + '</span> wins it' + (amt >= mkt * 1.95 ? ' · double market!' : '');
+  ctl.done = true; ctl.win = last; ctl.amt = amt;
+  $('#aucActs').innerHTML = '<button class="gold-btn" data-au="sell">Sell to ' + win.name + ' · ' + fmt(amt) + ' cr</button><button class="link-btn" data-au="keep">Keep it</button>';
+}
+function aucAct(a){
+  const ctl = auc; if (!ctl) return;
+  if (a === 'skip') { ctl.skip = true; if (ctl.wake) ctl.wake(); return; }
+  if (a === 'sell' && ctl.done) {
+    const e = ctl.e, amt = ctl.amt;
+    if (!state.inv.some(x => x.uid === e.uid)) { closeAuction(); return; }
+    state.inv = state.inv.filter(x => x.uid !== e.uid);
+    state.bal += amt; Y().deals = (Y().deals || 0) + 1; Y().earned = (Y().earned || 0) + amt;
+    save(); setBal(amt); prBal(); kaching(); renderOpen();
+    toast('Sold to ' + MBY[ctl.win].name + ' at the fire for ' + fmt(amt) + ' cr');
+    closeAuction();
+  }
+  if (a === 'keep' && ctl.done) { toast('You keep it. Four very angry people watch you leave.'); closeAuction(); }
 }
 function memberIntro(m){
   return new Promise(resolve => {
@@ -7034,7 +7253,10 @@ $('#yardBtn').onclick = openYard;
 $('#ytEnter').onclick = () => closeYt(true);
 $('#ytLater').onclick = () => closeYt(false);
 $('#prBack').onclick = () => { if (vaultBusy) return; if (room) leaveRoom(); else closePres(); };
-$('#prGrid').addEventListener('click', e => { const b = e.target.closest('.pr-mem'); if (b) openRoom(b.dataset.m); });
+$('#prGrid').addEventListener('click', e => { if (e.target.closest('.pr-auc')) { openAuction(); return; } const b = e.target.closest('.pr-mem'); if (b) openRoom(b.dataset.m); });
+$('#aucClose').onclick = closeAuction;
+$('#aucPick').addEventListener('click', e => { const b = e.target.closest('.au-it'); if (!b || !auc || auc.e) return; const en = state.inv.find(x => x.uid === b.dataset.uid); if (en) runAuction(en); });
+$('#aucActs').addEventListener('click', e => { const b = e.target.closest('[data-au]'); if (b) aucAct(b.dataset.au); });
 $('#prRoom').addEventListener('click', e => {
   const hot = e.target.closest('.hot');
   if (hot) { onHot(+hot.getAttribute('data-slot')); return; }
