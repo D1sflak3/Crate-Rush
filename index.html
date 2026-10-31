@@ -2239,6 +2239,61 @@ body{background:
 @keyframes bdTear{0%{transform:translateY(0);opacity:.9}100%{transform:translateY(10px);opacity:0}}
 .bdo.dive .bp-messi,.bdo.storm .bp-messi{animation:bpBob 1.2s ease-in-out infinite}
 @media (prefers-reduced-motion: reduce){.bd-tear,.bp-bulb{animation:none}}
+
+/* ---------- Messi's place ---------- */
+.msi-btn{color:#7cc4ef;border-color:#1f4a6a;background:#06121e}
+.msi-btn span{font-family:var(--display);font-weight:700;font-size:18px;line-height:1;padding-top:3px}
+.msi{z-index:86;background:radial-gradient(900px 500px at 50% 25%,rgba(124,196,239,.14),transparent 70%),rgba(4,8,14,.99)}
+.msi .bdo-scene{border-color:rgba(124,196,239,.45);box-shadow:0 0 0 4px #050a12,0 0 0 5px rgba(201,165,74,.3),var(--sh-modal)}
+.msi-back{position:absolute;top:max(14px,env(safe-area-inset-top,0px));left:14px;font-size:22px}
+.msi-bal{position:absolute;top:max(14px,env(safe-area-inset-top,0px));right:14px}
+.msi-acts{flex-wrap:wrap;justify-content:center}
+.msi-scene svg .msi-tr,.msi-scene svg .msi-tr *,.msi-scene svg [data-msi],.msi-scene svg [data-msi] *{cursor:pointer;pointer-events:auto}
+.msi-tr{transform-box:fill-box;transform-origin:50% 100%;transition:filter var(--dur-fast)}
+.msi-tr:hover{filter:brightness(1.35) drop-shadow(0 0 4px #ffd27a)}
+.msi-tr.tap{animation:msiTap .35s var(--ease-spring)}
+@keyframes msiTap{40%{transform:translateY(-4px) scale(1.08)}}
+.msi-cab{transition:transform 1.6s cubic-bezier(.6,0,.3,1)}
+.msi-cab.slid{transform:translateX(150px)}
+.msi-door{opacity:0;pointer-events:none;transition:opacity 1.2s .6s}
+.msi-door.on{opacity:1;pointer-events:auto}
+.msi-door.on rect:first-child{animation:hotPulse 2.4s ease-in-out infinite}
+.ml-btn .ml-l{opacity:.15;transition:opacity .2s}
+.ml-btn.on .ml-l{opacity:1;filter:drop-shadow(0 0 4px #39ff88)}
+.ml-btn:hover circle:first-child{stroke-width:2.5}
+.ml-goat{opacity:0;transform-box:fill-box;transform-origin:center;transition:opacity 1s .4s,transform 1.2s .4s var(--ease-spring)}
+.ml-tank .ml-goat{transform:scale(.4)}
+.ml-tank.lit .ml-goat{opacity:1;transform:none;animation:hover 3s 1.6s ease-in-out infinite}
+.ml-tank.lit .ml-rb{animation:mlRb 1.2s ease-out forwards}
+@keyframes mlRb{0%{opacity:.9}100%{opacity:.18}}
+.ml-tank.empty .ml-goat,.ml-tank.drain .ml-goat{opacity:0;transition:opacity .8s}
+.ml-tank.drain .ml-fluid{transition:transform 1.6s;transform:scaleY(.05);transform-box:fill-box;transform-origin:50% 100%}
+.ml-bub{animation:mlBub 3.6s linear infinite}
+@keyframes mlBub{from{transform:translateY(0)}to{transform:translateY(-156px);opacity:0}}
+.msi-timer{width:100%;height:6px;border-radius:3px;background:var(--bg-sunken);overflow:hidden}
+.msi-timer i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#ff4d5e,#ffd23f 40%,#39e58c);transform-origin:left}
+.msi-timer i.go{width:0;transition:width 5s linear}
+.msi-offer{display:grid;gap:10px;width:100%}
+.msi-cr{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center}
+.msi-cr label{font-weight:700;color:var(--muted)}
+.msi-cr input{width:160px;padding:10px 12px;border-radius:var(--r-md);border:1px solid var(--line);background:var(--bg-sunken);color:var(--text);font:600 16px var(--mono)}
+.msi-q{display:flex;gap:6px}
+.msi-items{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-height:110px;overflow:auto}
+.msi-chip{appearance:none;cursor:pointer;padding:5px 10px;border-radius:999px;border:1px solid color-mix(in srgb,var(--tc) 40%,var(--line));background:var(--panel2);color:var(--text);font-size:12.5px;font-weight:700}
+.msi-chip b{font-family:var(--mono);font-weight:500;color:var(--muted)}
+.msi-chip.on{background:color-mix(in srgb,var(--tc) 28%,var(--panel2));border-color:var(--tc)}
+.msi-tot{color:var(--muted);font-size:13px}.msi-tot b{color:var(--accent-2);font-family:var(--mono)}
+.msi-pat{justify-content:center}
+.msi-shelf{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%}
+.msi-sh{display:grid;justify-items:center;gap:4px;padding:10px;border-radius:var(--r-md);border:1px solid color-mix(in srgb,var(--tc) 45%,var(--line));background:radial-gradient(70% 55% at 50% 25%,color-mix(in srgb,var(--tc) 22%,transparent),transparent 70%),var(--panel)}
+.msi-sh img{width:100%;max-width:130px;height:auto}.msi-sh b{font-size:14px}.msi-sh small{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tc)}
+.msi-sh .open-btn.sm{display:inline-flex;gap:6px;align-items:center;font-size:18px;padding:9px 12px 6px}
+.msi-sold{font-family:var(--display);font-size:18px;letter-spacing:.1em;color:var(--muted)}
+@media (max-width:620px){.msi-shelf{grid-template-columns:1fr}.msi-sh{grid-template-columns:auto 1fr;justify-items:start;text-align:left}}
+@media (prefers-reduced-motion: reduce){.ml-bub,.msi-cab{animation:none;transition:none}}
+.msi-offer .bdo-row{justify-content:center}
+.msi-pat i{display:inline-block;width:14px;height:6px;border-radius:3px;background:var(--line);margin-left:4px}.msi-pat i.on{background:var(--accent)}
+.msi-pat{color:var(--muted);font-size:12px;display:flex;align-items:center}
 </style>
 
 <div class="wrap" id="wrap">
@@ -2252,6 +2307,7 @@ body{background:
       <button class="icon-btn mask-btn" id="shopBtn" hidden aria-label="Open the Black Market shop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9 Q5 3 12 3 Q19 3 19 9 Q19 17 12 21 Q5 17 5 9 Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7.5 9.5 L10.8 10.6 L10.3 12 L7.8 11 Z M16.5 9.5 L13.2 10.6 L13.7 12 L16.2 11 Z" fill="currentColor"/></svg></button>
       <button class="icon-btn pres-btn" id="presBtn" hidden aria-label="Go to The Prestige"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7.5" width="18" height="12" rx="2"/><path d="M9 7.5V5.5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 12.5h18"/><rect x="10.5" y="11" width="3" height="3" rx=".6" fill="currentColor"/></svg></button>
       <button class="icon-btn yard-btn" id="yardBtn" hidden aria-label="Go to the Scrapyard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3M6 6l2.1 2.1M15.9 15.9 18 18M6 18l2.1-2.1M15.9 8.1 18 6"/></svg></button>
+      <button class="icon-btn msi-btn" id="msiBtn" hidden aria-label="Go to Messi’s place"><span>10</span></button>
       <button class="icon-btn adm-btn" id="admBtn" hidden aria-label="Admin panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7l5 5-5 5M12 18h7"/></svg></button>
       <button class="icon-btn" id="muteBtn" aria-label="Mute sound"></button>
       <button class="icon-btn" id="lbBtn" aria-label="Leaderboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 20h8"/></svg></button>
@@ -2393,6 +2449,7 @@ body{background:
   <button class="skip" id="skipBtn">Skip</button>
 </div>
 
+<div class="bdo msi" id="msi" hidden role="dialog" aria-modal="true" aria-label="Messi’s place"></div>
 <div class="reveal" id="reveal" hidden>
   <div class="rays"></div>
   <canvas class="fx" id="fx"></canvas>
@@ -2711,7 +2768,8 @@ const ITEMS = [
   {id:'b7', w:'butterfly', name:'Hex Sovereign',  t:6, pat:'runes',  pal:['#050008','#a855f7','#6b21a8'], m:1.4},
   // One of one: only exists in Sable's hidden case. Never in a case, contract, reel or wish list.
   {id:'x1', w:'pistol',    name:'Velvet Requiem', t:7, pat:'requiem', pal:['#07020a','#e11d48','#f5d0e0'], m:2.2, ex:true},
-  {id:'x2', w:'karambit',  name:'Kingmaker',      t:7, pat:'doppler', pal:['#1a0030','#ff3ea5','#2fe3ff','#ffd23f'], m:2.6, ex:true}
+  {id:'x2', w:'karambit',  name:'Kingmaker',      t:7, pat:'doppler', pal:['#1a0030','#ff3ea5','#2fe3ff','#ffd23f'], m:2.6, ex:true},
+  {id:'x3', w:'rifle',     name:'The GOAT',       t:7, pat:'wave', pal:['#6fb8e8','#f4f6fa','#ffd23f','#f4f6fa'], m:3.4, ex:true}
 ];
 
 /* ---------- RNG helpers ---------- */
@@ -4464,7 +4522,7 @@ function showReveal(r, postCine){
   $('#rvTier').textContent = t === 7 ? 'Chroma · the only one there is' : t === 5 ? 'Gold · Knife' : t === 6 ? 'Contraband · ' + WNAME[it.w].replace('★ ', '') : T.name + ' · ' + WNAME[it.w];
   const cv = $('#rvArt'), g = cv.getContext('2d'); g.clearRect(0,0,cv.width,cv.height); { const src = renderItem(it, r.fl, 3); g.drawImage(src, 0, 0); freeCanvas(src); }
   $('#rvName').innerHTML = '<span class="w">' + WNAME[it.w] + ' |</span> ' + it.name;
-  $('#rvMeta').textContent = WEARS[wi].n + ' · Float ' + r.fl.toFixed(4) + (r.src === 'trade' ? ' · Trade-up' : r.src === 'vault' ? (r.from === 'vance' ? ' · From Vance’s private collection' : ' · From Sable’s hidden case') : '') + (r.hk && r.hk.length ? ' · Hacked' : '') + (r.preview ? ' · Preview only' : '');
+  $('#rvMeta').textContent = WEARS[wi].n + ' · Float ' + r.fl.toFixed(4) + (r.src === 'trade' ? ' · Trade-up' : r.src === 'goat' ? ' · From Messi’s lab' : r.src === 'vault' ? (r.from === 'vance' ? ' · From Vance’s private collection' : ' · From Sable’s hidden case') : '') + (r.hk && r.hk.length ? ' · Hacked' : '') + (r.preview ? ' · Preview only' : '');
   $('#fbMark').style.left = (r.fl*100) + '%';
   $('#sellBtn').hidden = !!r.preview; $('#sellBtn').textContent = 'Sell · ' + (H().spoof > 0 && BY[r.id].t < 5 ? fmt(r.v*2) + ' (×2)' : fmt(r.v));
   $('#keepBtn').textContent = r.preview ? 'Close preview' : 'Keep';
@@ -8356,8 +8414,8 @@ function admAct(a, el){
   if (a === 'unlock') {
     admMark();
     state.shopUnlocked = true; state.gold = Math.max(1, state.gold || 0);
-    P().seen = true; P().tobias = true; Y().seen = true; Y().knife = true; Y().scrapN = Math.max(YARD_N, Y().scrapN || 0);
-    ensureWants(); save(); renderPresBtn(); renderYardBtn(); const sb2 = $('#shopBtn'); if (sb2) sb2.hidden = false;
+    P().seen = true; P().tobias = true; P().bdoSeen = true; Y().seen = true; Y().knife = true; Y().scrapN = Math.max(YARD_N, Y().scrapN || 0);
+    ensureWants(); save(); renderPresBtn(); renderYardBtn(); renderMsiBtn(); const sb2 = $('#shopBtn'); if (sb2) sb2.hidden = false;
     glitchFx('unlock', 'ALL AREAS UNLOCKED'); return;
   }
   if (a === 'cool') {
@@ -8587,6 +8645,7 @@ function bdoFace(o){
   if (o.lip !== false && o.mouth !== 'gap' && o.mouth !== 'grin') f += '<path d="M-3.5 33.6 Q0 34.8 3.5 33.6" stroke="' + sh + '" stroke-width="1" fill="none"/>';
   if (o.tears) f += '<path class="bd-tear" d="M-8 15 Q-10 22 -8 26 Q-6 22 -8 15 Z M8 15 Q6 22 8 26 Q10 22 8 15 Z" fill="#7cc8ff" opacity=".9"/><path d="M-11 9 Q-7 6 -3 8 M3 8 Q7 6 11 9" stroke="#2a1810" stroke-width="1.4" fill="none"/>';
   if (o.cap) f += '<path d="M-19 -6 Q-20 -24 0 -26 Q20 -24 19 -6 Z" fill="#3a4526"/><rect x="-19" y="-9" width="38" height="5" fill="#d4a017"/><path d="M-18 -4 Q0 2 20 -4 L22 -1 Q0 6 -20 -1 Z" fill="#111"/><circle cx="0" cy="-15" r="3.4" fill="#d4a017"/><circle cx="0" cy="-15" r="1.6" fill="#c0262d"/>';
+  if (o.alien) f += [-7, 7].map(x => '<ellipse cx="' + x + '" cy="11" rx="5.5" ry="3.6" fill="#39ff88" opacity=".35"/><ellipse cx="' + x + '" cy="11" rx="3.6" ry="2.2" fill="#b8ffd8"/><circle cx="' + x + '" cy="11" r="1.2" fill="#0a3a1e"/>').join('');
   return '<g transform="translate(0 15) scale(.82)">' + f + '</g>';
 }
 function bdoMan(x, y, s, o){
@@ -8684,6 +8743,7 @@ function bdoShow(kind, html){
 async function bdoAsk(){
   const m = room; if (!m || m.id !== 'vance' || bdoBusy || actBusy || neg || vaultBusy) return;
   bdoBusy = true; renderLeft();
+  if (!P().bdoSeen) { P().bdoSeen = true; save(); renderMsiBtn(); setTimeout(() => toast('Messi’s place is open: the 10 in the top bar.'), 9000); }
   tone(784, .12, 'triangle', .04); tone(1046.5, .2, 'triangle', .04, .1);
   await sayRoom('That? The 2026 Ballon d’Or. London, black tie, the whole world watching. I’ve got a spare seat.');
   await wait(REDUCED ? 100 : 1300);
@@ -8908,6 +8968,306 @@ document.addEventListener('click', e => {
   else if (a === 'go') bdoHeist(b.dataset.v);
   else if (a === 'end') bdoEnd();
 });
+/* ---------- Messi's place ----------
+   Opens once you've asked Vance about the golden ball. A trophy room that doubles as a shop. Tap the World Cup,
+   then the first Champions League (2006), then the first Ballon d'Or (2009) and the right-hand cabinet slides away:
+   a hidden door. Messi admits he's not from here. In his lab, press the three pad buttons left to right and
+   The GOAT (a Chroma rifle) appears in the tank. Answer five questions, five seconds each, and he'll hear offers. */
+const GOAT_ID = 'x3', GOAT_FL = .0001;
+const MSI_SEQ = ['wc', 'ucl-2006', 'bdo-2009'];
+const MSI_TR = {
+  'wc':'Qatar, 2022. The one I wanted most.', 'copa-2021':'Maracanã, 2021. Against Brazil. Finally.', 'copa-2024':'2024. Two in a row.',
+  'ucl-2006':'Paris, 2006. I was injured for the final. It still counts.', 'ucl-2009':'Rome, 2009. A header. Against United.', 'ucl-2011':'Wembley, 2011. United again.', 'ucl-2015':'Berlin, 2015. Against Juventus.',
+  'bdo-2009':'My first one. I was twenty-two.', 'bdo-2010':'2010.', 'bdo-2011':'2011.', 'bdo-2012':'2012. Ninety-one goals that year.', 'bdo-2015':'2015.', 'bdo-2019':'2019. Number six.', 'bdo-2021':'2021. Seven.', 'bdo-2023':'2023. Eight.'
+};
+const MSI_Q = [
+  {q:'Where was Messi born?', o:['Rosario', 'Buenos Aires', 'Córdoba', 'Mendoza'], a:0},
+  {q:'How many goals did Messi score in 2012?', o:['91', '73', '86', '69'], a:0},
+  {q:'Who did Argentina beat in the 2022 World Cup final?', o:['France', 'Croatia', 'Brazil', 'Netherlands'], a:0},
+  {q:'Who did Argentina beat in the 2021 Copa América final?', o:['Brazil', 'Chile', 'Uruguay', 'Colombia'], a:0},
+  {q:'Which club did Messi play for between Barcelona and Inter Miami?', o:['PSG', 'Man City', 'Juventus', 'Al Hilal'], a:0},
+  {q:'What number did Messi wear in his first Barcelona senior game?', o:['30', '19', '11', '9'], a:0},
+  {q:'How many Champions Leagues has Messi won?', o:['4', '3', '5', '6'], a:0},
+  {q:'What year did Messi win his first Ballon d’Or?', o:['2009', '2010', '2008', '2011'], a:0}
+];
+const MSI_PAT = 3;
+let msiPress = [], msiPad = [], msiQ = null, msiPat = MSI_PAT, msiSel = new Set(), msiCr = 0, msiView = 'room', msiTimer = null;
+const msiGoatVal = () => priceOf(BY[GOAT_ID], 0);
+const msiEl = () => $('#msi');
+function renderMsiBtn(){ const b = $('#msiBtn'); if (b) b.hidden = !P().bdoSeen; }
+
+/* ---- the trophy room ---- */
+function msiUCL(x, y, s, yr){
+  return '<g class="msi-tr" data-tr="ucl-' + yr + '" transform="translate(' + x + ' ' + y + ') scale(' + s + ')"><rect x="-14" y="-34" width="28" height="56" fill="#000" fill-opacity="0"/>'
+    + '<path d="M-8 -30 H8 Q9 -8 0 -2 Q-9 -8 -8 -30 Z" fill="#d9dde3" stroke="#8a929c" stroke-width=".8"/>'
+    + '<path d="M-8 -26 Q-18 -30 -16 -16 Q-14 -8 -6 -8 M8 -26 Q18 -30 16 -16 Q14 -8 6 -8" stroke="#c4cad2" stroke-width="2.6" fill="none"/>'
+    + '<rect x="-2" y="-2" width="4" height="8" fill="#b4bac2"/><path d="M-8 6 H8 L9 12 H-9 Z" fill="#9aa2ac"/>'
+    + '<text x="0" y="20" text-anchor="middle" font-family="Teko, sans-serif" font-size="8" fill="#c9a54a">' + yr + '</text></g>';
+}
+function msiBall(x, y, yr, k){
+  return '<g class="msi-tr" data-tr="bdo-' + yr + '"><rect x="' + (x - 11) + '" y="' + (y - 12) + '" width="22" height="34" fill="#000" fill-opacity="0"/>' + bdoBall(x, y, 8, k)
+    + '<path d="M' + (x - 5) + ' ' + (y + 12) + ' L' + (x - 4) + ' ' + (y + 7) + ' H' + (x + 4) + ' L' + (x + 5) + ' ' + (y + 12) + ' Z" fill="#2a1d08"/>'
+    + '<text x="' + x + '" y="' + (y + 20) + '" text-anchor="middle" font-family="Teko, sans-serif" font-size="7.5" fill="#c9a54a">' + yr + '</text></g>';
+}
+function msiRoomSVG(){
+  const k = 'ms', open = P().msiDoor;
+  let s = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>' + bdoDefs(k)
+    + '<linearGradient id="msW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#10233d"/><stop offset="1" stop-color="#07101e"/></linearGradient>'
+    + '<radialGradient id="msD" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#39ff88" stop-opacity=".55"/><stop offset="1" stop-color="#39ff88" stop-opacity="0"/></radialGradient></defs>'
+    + '<rect width="400" height="260" fill="url(#msW)"/>';
+  for (let i = 0; i < 8; i++) s += '<rect x="' + (i*50 + 12) + '" y="0" width="26" height="260" fill="#7cc4ef" opacity=".035"/>';
+  // the secret door (behind the right cabinet)
+  s += '<g class="msi-door' + (open ? ' on' : '') + '" data-msi="door"><rect x="282" y="34" width="92" height="166" fill="url(#msD)"/><rect x="296" y="46" width="64" height="152" rx="3" fill="#06140c" stroke="#39ff88" stroke-width="2"/>'
+    + '<path d="M328 60 Q338 70 328 80 Q318 70 328 60 Z" fill="#39ff88" opacity=".7"/><circle cx="352" cy="124" r="3" fill="#39ff88"/>'
+    + '<text x="328" y="112" text-anchor="middle" font-family="Teko, sans-serif" font-size="9" letter-spacing="2" fill="#39ff88">LAB</text></g>';
+  const cab = (x, cls, inner) => '<g class="msi-cab ' + cls + '"><rect x="' + x + '" y="24" width="112" height="176" rx="3" fill="#0a1422" stroke="#c9a54a" stroke-width="2"/>'
+    + '<rect x="' + (x + 5) + '" y="29" width="102" height="166" fill="#0e1d32"/>'
+    + [86, 146].map(y => '<rect x="' + (x + 5) + '" y="' + y + '" width="102" height="4" fill="#3a2a12"/>').join('')
+    + inner + '<rect x="' + (x + 5) + '" y="29" width="102" height="166" fill="#cfe7ff" fill-opacity=".05" stroke="#cfe7ff" stroke-opacity=".18" pointer-events="none"/>'
+    + '<path d="M' + (x + 8) + ' 32 L' + (x + 30) + ' 32 L' + (x + 8) + ' 70 Z" fill="#fff" opacity=".05" pointer-events="none"/></g>';
+  // left: Ballon d'Ors
+  let L = ''; [2009, 2010, 2011, 2012].forEach((y, i) => L += msiBall(30 + i*24, 66, y, k)); [2015, 2019, 2021, 2023].forEach((y, i) => L += msiBall(30 + i*24, 126, y, k));
+  L += '<text x="74" y="186" text-anchor="middle" font-family="Teko, sans-serif" font-size="9" letter-spacing="2" fill="#c9a54a">BALLON D’OR ×8</text>';
+  // middle: the World Cup and the Copas
+  let M = '<g class="msi-tr msi-wc" data-tr="wc"><rect x="182" y="30" width="36" height="58" fill="#000" fill-opacity="0"/>' + bdoCup(200, 78, 1.35) + '<text x="200" y="98" text-anchor="middle" font-family="Teko, sans-serif" font-size="8" fill="#c9a54a">WORLD CUP 2022</text></g>'
+    + [[164, 2021], [236, 2024]].map(([x, y]) => '<g class="msi-tr" data-tr="copa-' + y + '"><rect x="' + (x - 12) + '" y="44" width="24" height="44" fill="#000" fill-opacity="0"/><path d="M' + (x - 5) + ' 52 H' + (x + 5) + ' L' + (x + 3) + ' 74 H' + (x - 3) + ' Z" fill="#d9dde3"/><rect x="' + (x - 7) + '" y="74" width="14" height="8" fill="#3a2a12"/><text x="' + x + '" y="98" text-anchor="middle" font-family="Teko, sans-serif" font-size="7" fill="#c9a54a">COPA ' + y + '</text></g>').join('');
+  // right: Champions Leagues
+  const R = msiUCL(302, 74, 1, 2006) + msiUCL(350, 74, 1, 2009) + msiUCL(302, 134, 1, 2011) + msiUCL(350, 134, 1, 2015)
+    + '<text x="326" y="186" text-anchor="middle" font-family="Teko, sans-serif" font-size="9" letter-spacing="2" fill="#c9a54a">CHAMPIONS ×4</text>';
+  s += cab(18, 'c-l', L) + cab(144, 'c-m', M) + cab(270, 'c-r' + (open ? ' slid' : ''), R);
+  // the counter and the man himself
+  s += '<g class="msi-me">' + bdoMan(200, 118, .95, bdoP('messi', {shirt:'#14223a', trim:'#7cc4ef', alien: !!open})) + '</g>'
+    + '<rect x="0" y="200" width="400" height="60" fill="#2a1a0c"/><rect x="0" y="198" width="400" height="5" fill="#c9a54a"/>'
+    + '<rect x="120" y="212" width="160" height="30" rx="3" fill="#1c1208" stroke="#3a2a12"/><text x="200" y="232" text-anchor="middle" font-family="Teko, sans-serif" font-weight="600" font-size="16" letter-spacing="4" fill="#7cc4ef">MESSI · 10</text>';
+  return s + '</svg>';
+}
+/* ---- the lab ---- */
+function msiLabSVG(){
+  const k = 'ml', g = P().goat;
+  let s = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>' + bdoDefs(k)
+    + '<linearGradient id="mlT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#39ff88" stop-opacity=".15"/><stop offset="1" stop-color="#39ff88" stop-opacity=".45"/></linearGradient>'
+    + '<linearGradient id="mlR" x1="0" x2="1"><stop offset="0" stop-color="#ff3ea5"/><stop offset=".25" stop-color="#ffd23f"/><stop offset=".5" stop-color="#39ff88"/><stop offset=".75" stop-color="#2fe3ff"/><stop offset="1" stop-color="#7a6aff"/></linearGradient></defs>'
+    + '<rect width="400" height="260" fill="#04100c"/>';
+  for (let i = 0; i < 9; i++) s += '<path d="M' + (i*46) + ' 0 V260" stroke="#0a2a1c" stroke-width="10"/>';
+  s += '<path d="M0 26 H400 M0 34 H400" stroke="#123a28" stroke-width="3"/><rect x="0" y="210" width="400" height="50" fill="#06180f"/><path d="M0 210 H400" stroke="#39ff88" stroke-opacity=".35"/>';
+  // the tank
+  s += '<g class="ml-tank' + (g === 'unlocked' || msiPad.length === 3 ? ' lit' : '') + (g === 'owned' ? ' empty' : '') + '"><rect x="128" y="34" width="144" height="170" rx="12" fill="#03140c" stroke="#7af0b8" stroke-width="2.5"/>'
+    + '<rect class="ml-fluid" x="132" y="38" width="136" height="162" rx="10" fill="url(#mlT)"/>'
+    + '<rect class="ml-rb" x="132" y="38" width="136" height="162" rx="10" fill="url(#mlR)" opacity="0"/>'
+    + Array.from({length: 10}, (_, i) => '<circle class="ml-bub" style="animation-delay:-' + (i*.37).toFixed(2) + 's" cx="' + (142 + (i*13) % 120) + '" cy="196" r="' + (1.5 + (i % 3)) + '" fill="#bfffe0" opacity=".6"/>').join('')
+    + '<g class="ml-goat"><image href="' + artHi(BY[GOAT_ID], 0) + '" x="140" y="96" width="120" height="48" preserveAspectRatio="xMidYMid meet"/></g>'
+    + '<rect x="120" y="26" width="160" height="12" rx="3" fill="#1a3a2a"/><rect x="120" y="200" width="160" height="12" rx="3" fill="#1a3a2a"/>'
+    + '<path d="M136 44 Q140 120 136 196" stroke="#fff" stroke-opacity=".12" stroke-width="5" fill="none"/></g>';
+  // the pad
+  s += '<g class="ml-pad"><rect x="290" y="128" width="78" height="44" rx="6" fill="#0c2a1c" stroke="#39ff88" stroke-opacity=".5"/><rect x="326" y="172" width="6" height="38" fill="#0c2a1c"/>'
+    + [0, 1, 2].map(i => '<g class="ml-btn' + (msiPad.includes(i) || g === 'unlocked' || g === 'owned' ? ' on' : '') + '" data-msi="pad" data-v="' + i + '"><circle cx="' + (306 + i*23) + '" cy="150" r="9" fill="#06140c" stroke="#39ff88" stroke-width="1.5"/><circle class="ml-l" cx="' + (306 + i*23) + '" cy="150" r="5.5" fill="#39ff88"/><rect x="' + (295 + i*23) + '" y="139" width="22" height="22" fill="#000" fill-opacity="0"/></g>').join('')
+    + '</g>';
+  s += '<g class="msi-me">' + bdoMan(62, 112, 1, bdoP('messi', {shirt:'#e9eef2', trim:'#7cc4ef', alien:true})) + '</g>';
+  return s + '</svg>';
+}
+function msiShow(view, panel){
+  msiView = view;
+  const el = msiEl();
+  el.innerHTML = '<div class="bdo-scene msi-scene v-' + view + '">' + (view === 'lab' ? msiLabSVG() : msiRoomSVG()) + '</div><div class="bdo-panel" id="msiPanel">' + panel + '</div>'
+    + '<button class="icon-btn msi-back" data-msi="leave" aria-label="Leave">‹</button><div class="bal msi-bal"><span class="coin"></span><span>' + fmt(state.bal) + '</span></div>';
+}
+const msiSay = (who, line, btns) => '<div class="bdo-eyebrow">' + who + '</div><p class="bdo-line">' + line + '</p>' + (btns ? '<div class="bdo-row msi-acts">' + btns + '</div>' : '');
+const msiPanel = html => { const p = $('#msiPanel'); if (p) p.innerHTML = html; };
+const msiRoomBtns = () => '<button class="open-btn sm" data-msi="shop">Browse the shelf</button>' + (P().msiDoor ? '<button class="ghost" data-msi="door">Go to the lab</button>' : '') + '<button class="ghost" data-msi="leave">Leave</button>';
+
+function openMsi(){
+  if (!P().bdoSeen || busy) return;
+  ac(); msiPress = []; msiPad = []; msiPat = MSI_PAT;
+  const el = msiEl(); el.hidden = false; el.className = 'bdo msi in';
+  msiShow('room', msiSay('Lionel Messi', P().msiMet ? 'Back again? Look around. Don’t touch the glass.' : 'Welcome. Vance sent you? Everything here is real. Most of it.', msiRoomBtns()));
+  P().msiMet = true; save();
+  [392, 493.88, 587.33].forEach((f, i) => tone(f, .3, 'triangle', .035, i*.08));
+}
+function closeMsi(){
+  clearTimeout(msiTimer); msiQ = null;
+  const el = msiEl(); if (el) { el.hidden = true; el.innerHTML = ''; }
+}
+function msiTrophy(id){
+  if (msiView !== 'room') return;
+  tone(1046.5, .15, 'triangle', .035);
+  const n = msiPress.length;
+  if (!P().msiDoor) {
+    if (id === MSI_SEQ[n]) msiPress.push(id); else msiPress = id === MSI_SEQ[0] ? [id] : [];
+  }
+  msiPanel(msiSay('Lionel Messi', MSI_TR[id] || '…', msiRoomBtns()));
+  const el = msiEl().querySelector('[data-tr="' + id + '"]'); if (el) restart(el, 'tap');
+  if (!P().msiDoor && msiPress.length === MSI_SEQ.length) setTimeout(msiReveal, 700);
+}
+async function msiReveal(){
+  P().msiDoor = true; save();
+  const sc = msiEl().querySelector('.c-r'), dr = msiEl().querySelector('.msi-door');
+  noise(1.4, 300, 120, .08); for (let i = 0; i < 8; i++) tone(70 + Math.random()*20, .12, 'square', .03, i*.15);
+  if (sc) sc.classList.add('slid'); if (dr) dr.classList.add('on');
+  msiPanel(msiSay('Lionel Messi', '…You weren’t supposed to find that.'));
+  await wait(2200); if (msiView !== 'room' || msiEl().hidden) return;
+  const me = msiEl().querySelector('.msi-me'); if (me) me.innerHTML = bdoMan(200, 118, .95, bdoP('messi', {shirt:'#14223a', trim:'#7cc4ef', alien:true}));
+  sweep(200, 1400, 1.2, 'sine', .05);
+  msiPanel(msiSay('Lionel Messi', 'I should tell you something. I’m not from here. Not Rosario. Not Earth.'));
+  await wait(3000); if (msiView !== 'room' || msiEl().hidden) return;
+  msiPanel(msiSay('Lionel Messi', 'Why do you think nobody could ever take the ball off me? Come. The lab.', '<button class="open-btn sm" data-msi="door">Enter the lab</button>'));
+}
+function msiLab(){
+  if (!P().msiDoor) return;
+  msiPad = [];
+  const g = P().goat;
+  msiShow('lab', g === 'owned' ? msiSay('Lionel Messi', 'The tank’s empty. The GOAT is yours now. Don’t let anyone scan it.', '<button class="ghost" data-msi="room">Back to the trophies</button>')
+    : g === 'unlocked' ? msiOfferHTML('You again. It’s still in the tank. Make me an offer.')
+    : msiSay('Lionel Messi', 'Home sweet home. The pad by the tank. Don’t press anything.', '<button class="ghost" data-msi="room">Back to the trophies</button>'));
+  noise(.8, 1200, 300, .04, 'bandpass'); sweep(100, 300, .8, 'sine', .04);
+  if (g === 'unlocked') msiBindOffer();
+}
+function msiPadPress(i){
+  if (msiView !== 'lab' || P().goat) return;
+  const el = msiEl(), b = el.querySelectorAll('.ml-btn')[i];
+  tone(440 + i*220, .12, 'square', .04);
+  if (i !== msiPad.length) { msiPad = []; el.querySelectorAll('.ml-btn').forEach(x => x.classList.remove('on')); tone(140, .25, 'square', .04); return; }
+  msiPad.push(i); if (b) b.classList.add('on');
+  if (msiPad.length === 3) {
+    const t = el.querySelector('.ml-tank'); if (t) t.classList.add('lit');
+    [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((f, k) => tone(f, .6, 'triangle', .045, k*.1)); noise(1.2, 6000, 600, .06, 'highpass');
+    setTimeout(() => msiPanel(msiSay('Lionel Messi', 'You pressed it. Of course you did. That’s The GOAT. A rifle from where I’m from. One of one.', '<button class="open-btn sm" data-msi="quiz">I want it</button>')), 1400);
+  }
+}
+/* ---- five questions, five seconds each ---- */
+function msiQuiz(){
+  const pool = MSI_Q.slice().sort(() => Math.random() - .5).slice(0, 5);
+  msiQ = {list: pool, n: 0};
+  msiPanel(msiSay('Lionel Messi', 'Then prove you know who you’re buying from. Five questions. Five seconds each.', '<button class="open-btn sm" data-msi="qgo">Ready</button>'));
+}
+function msiAsk(){
+  const Q = msiQ.list[msiQ.n], ord = [0, 1, 2, 3].sort(() => Math.random() - .5);
+  msiPanel('<div class="bdo-eyebrow">Question ' + (msiQ.n + 1) + ' of 5</div><div class="msi-timer"><i></i></div><h3 class="bdo-q">' + Q.q + '</h3><div class="bdo-opts">'
+    + ord.map(i => '<button class="ghost bdo-opt" data-msi="ans" data-v="' + i + '">' + Q.o[i] + '</button>').join('') + '</div>');
+  const bar = msiEl().querySelector('.msi-timer i');
+  requestAnimationFrame(() => requestAnimationFrame(() => { if (bar) bar.classList.add('go'); }));
+  clearTimeout(msiTimer); msiTimer = setTimeout(() => msiAnswer(-1), 5000);
+  for (let s = 1; s < 5; s++) tone(880, .04, 'square', .02, s);
+}
+function msiAnswer(i){
+  if (!msiQ) return;
+  clearTimeout(msiTimer);
+  const Q = msiQ.list[msiQ.n], ok = i === Q.a, el = msiEl();
+  el.querySelectorAll('.bdo-opt').forEach(b => { b.disabled = true; const v = +b.dataset.v; if (v === Q.a) b.classList.add('right'); else if (v === i) b.classList.add('wrong'); });
+  const bar = el.querySelector('.msi-timer i'); if (bar) { bar.style.width = getComputedStyle(bar).width; bar.classList.remove('go'); }
+  if (!ok) {
+    msiQ = null; tone(160, .3, 'square', .05);
+    setTimeout(() => msiPanel(msiSay('Lionel Messi', (i < 0 ? 'Too slow. ' : 'No. It’s ' + Q.o[Q.a] + '. ') + 'The tank stays shut.', '<button class="open-btn sm" data-msi="quiz">Try again</button><button class="ghost" data-msi="room">Back to the trophies</button>')), 900);
+    return;
+  }
+  [659.25, 987.77].forEach((f, k) => tone(f, .2, 'triangle', .05, k*.08));
+  msiQ.n++;
+  if (msiQ.n < 5) { setTimeout(msiAsk, 650); return; }
+  msiQ = null;
+  P().goat = 'unlocked'; P().goatAsk = Math.round(msiGoatVal() * (1 + Math.random()*.15)); save();
+  msiPat = MSI_PAT; msiSel.clear(); msiCr = 0;
+  setTimeout(() => { msiPanel(msiOfferHTML('Five for five. Okay. It’s for sale. But it comes at a cost. Make me an offer.')); msiBindOffer(); }, 800);
+}
+/* ---- the offer ---- */
+function msiOfferHTML(line){
+  const items = state.inv.filter(e => e.id !== GOAT_ID).sort((a, b) => b.v - a.v).slice(0, 30);
+  return '<div class="bdo-eyebrow">Lionel Messi</div><p class="bdo-line">' + line + '</p>'
+    + '<div class="msi-offer"><div class="msi-cr"><label for="msiCr">Credits</label><input id="msiCr" type="number" min="0" step="1000" inputmode="numeric" value="' + (msiCr || '') + '" placeholder="0">'
+    + '<div class="msi-q">' + [['25%', .25], ['50%', .5], ['All', 1]].map(([l, f]) => '<button class="ghost sm" data-msi="crq" data-v="' + f + '">' + l + '</button>').join('') + '</div></div>'
+    + (items.length ? '<div class="msi-items">' + items.map(e => '<button class="msi-chip' + (msiSel.has(e.uid) ? ' on' : '') + '" data-msi="sel" data-v="' + e.uid + '" style="--tc:' + TIERS[BY[e.id].t].color + '">' + BY[e.id].name + ' <b>' + fmt(e.v) + '</b></button>').join('') + '</div>' : '')
+    + '<div class="msi-tot">Your offer <b id="msiTot">0</b> cr · market value of The GOAT ' + fmt(msiGoatVal()) + '</div>'
+    + '<div class="bdo-row"><button class="open-btn sm" data-msi="offer">Make the offer</button><button class="ghost" data-msi="room">Not yet</button></div>'
+    + '<div class="pr-pat msi-pat">Patience ' + Array.from({length: MSI_PAT}, (_, i) => '<i' + (i < msiPat ? ' class="on"' : '') + '></i>').join('') + '</div></div>';
+}
+function msiTotal(){
+  const cr = Math.max(0, Math.min(state.bal, Math.floor(+($('#msiCr') || {}).value || 0)));
+  msiCr = cr;
+  const t = cr + state.inv.filter(e => msiSel.has(e.uid)).reduce((a, e) => a + e.v, 0);
+  const o = $('#msiTot'); if (o) o.textContent = fmt(t);
+  return t;
+}
+function msiBindOffer(){ const i = $('#msiCr'); if (i) i.oninput = msiTotal; msiTotal(); }
+function msiOffer(){
+  if (P().goat !== 'unlocked' || msiPat <= 0) return;
+  const tot = msiTotal(), items = state.inv.filter(e => msiSel.has(e.uid));
+  if (tot <= 0) { toast('Put some credits or items in the offer first.'); return; }
+  if (bagFree() + items.length < 1) { bagBlock(1); return; }
+  const r = tot / P().goatAsk;
+  if (r >= 1) { msiDeal(msiCr, items); return; }
+  msiPat--;
+  const line = msiPat <= 0 ? 'No. That’s enough for today. Come back with a real offer.' : r < .5 ? 'Cold. Very cold. I scored ninety-one in a year, you know.' : r < .8 ? 'Warmer. Still not close.' : r < .95 ? 'Close. Closer than most defenders get.' : 'Very close. One more touch.';
+  tone(r < .8 ? 160 : 330, .25, 'square', .045);
+  msiPanel(msiPat <= 0 ? msiSay('Lionel Messi', line, '<button class="ghost" data-msi="room">Back to the trophies</button>') : msiOfferHTML(line));
+  if (msiPat > 0) msiBindOffer();
+}
+async function msiDeal(cr, items){
+  const ids = new Set(items.map(e => e.uid));
+  state.inv = state.inv.filter(e => !ids.has(e.uid)); state.bal -= cr;
+  const r = {uid: uid(), id: GOAT_ID, fl: GOAT_FL, v: msiGoatVal(), at: Date.now(), hk: [], src: 'goat', from: 'messi'};
+  state.inv.unshift(r); P().goat = 'owned'; msiSel.clear(); msiCr = 0;
+  if (!state.best || r.v > state.best.v) state.best = {id: r.id, v: r.v};
+  save(); if (cr) setBal(-cr);
+  msiPanel(msiSay('Lionel Messi', 'Deal. Take care of it. It has never missed.'));
+  const t = msiEl().querySelector('.ml-tank'); if (t) t.classList.add('drain');
+  [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, 1.2, 'triangle', .05, i*.1));
+  await wait(1800);
+  closeMsi();
+  busy = true; lockRack(true);
+  $('#reveal').style.zIndex = '81';
+  await chromaCinematic(r);
+  showReveal(r);
+}
+/* ---- the shelf ---- */
+function msiStock(){
+  const seed = Math.floor(state.opened / 10), S = P();
+  if (!S.msiStock || S.msiStock.seed !== seed) {
+    const pool = ITEMS.filter(it => (it.t === 4 || it.t === 5) && !it.ex && it.id !== KNIFE_ID), R = seeded(seed * 97 + 13), list = [];
+    while (list.length < 3 && pool.length) {
+      const it = pool.splice(Math.floor(R() * pool.length), 1)[0], fl = +(R() * .3).toFixed(4), v = priceOf(it, wearIdx(fl));
+      list.push({id: it.id, fl, v, price: Math.round(v * 1.25), sold: false});
+    }
+    S.msiStock = {seed, list}; save();
+  }
+  return S.msiStock.list;
+}
+function msiShop(){
+  const list = msiStock(), togo = 10 - (state.opened % 10);
+  msiPanel('<div class="bdo-eyebrow">Messi’s shelf · new stock in ' + togo + ' case open' + (togo === 1 ? '' : 's') + '</div><div class="msi-shelf">'
+    + list.map((s, i) => { const it = BY[s.id]; return '<div class="msi-sh" style="--tc:' + TIERS[it.t].color + '"><span class="msi-art" data-i="' + i + '"></span><b>' + it.name + '</b><small>' + TIERS[it.t].name + ' · ' + WEARS[wearIdx(s.fl)].n + '</small>'
+      + (s.sold ? '<span class="msi-sold">Sold</span>' : '<button class="open-btn sm" data-msi="buy" data-v="' + i + '"' + (state.bal < s.price ? ' disabled' : '') + '><span class="coin"></span> ' + fmt(s.price) + '</button>') + '</div>'; }).join('')
+    + '</div><p class="bdo-sub">Signed by the man himself. 1.25× market.</p><div class="bdo-row"><button class="ghost" data-msi="room">Back</button></div>');
+  msiEl().querySelectorAll('.msi-art').forEach(sp => { const s = list[+sp.dataset.i]; sp.append(thumb(BY[s.id], wearIdx(s.fl))); });
+}
+function msiBuy(i){
+  const s = msiStock()[i]; if (!s || s.sold) return;
+  if (state.bal < s.price) { toast('Not enough credits.'); return; }
+  if (bagBlock(1)) return;
+  state.bal -= s.price; s.sold = true;
+  const r = {uid: uid(), id: s.id, fl: s.fl, v: s.v, at: Date.now(), hk: [], src: 'shop', from: 'messi'};
+  state.inv.unshift(r); if (BY[s.id].t === 5) state.gold = (state.gold || 0);
+  save(); setBal(-s.price); kaching(); renderInv(); renderStats();
+  toast(BY[s.id].name + ' · signed');
+  msiShop();
+  const b = msiEl().querySelector('.msi-bal span:last-child'); if (b) b.textContent = fmt(state.bal);
+}
+document.addEventListener('click', e => {
+  const el = msiEl(); if (!el || el.hidden) return;
+  const tr = e.target.closest('.msi-tr'); if (tr && el.contains(tr)) { msiTrophy(tr.dataset.tr); return; }
+  const b = e.target.closest('[data-msi]'); if (!b || b.disabled || !el.contains(b)) return;
+  const a = b.dataset.msi, v = b.dataset.v;
+  if (a === 'leave') closeMsi();
+  else if (a === 'room') { msiQ = null; clearTimeout(msiTimer); msiShow('room', msiSay('Lionel Messi', 'Anything else?', msiRoomBtns())); }
+  else if (a === 'door') msiLab();
+  else if (a === 'shop') msiShop();
+  else if (a === 'buy') msiBuy(+v);
+  else if (a === 'pad') msiPadPress(+v);
+  else if (a === 'quiz') msiQuiz();
+  else if (a === 'qgo') msiAsk();
+  else if (a === 'ans') msiAnswer(+v);
+  else if (a === 'sel') { msiSel.has(v) ? msiSel.delete(v) : msiSel.add(v); b.classList.toggle('on'); msiTotal(); }
+  else if (a === 'crq') { const i = $('#msiCr'); if (i) { i.value = Math.floor(state.bal * +v); msiTotal(); } }
+  else if (a === 'offer') msiOffer();
+});
+document.addEventListener('keydown', e => { const el = msiEl(); if (e.key === 'Escape' && el && !el.hidden) { e.stopImmediatePropagation(); closeMsi(); } }, true);
 function memberIntro(m){
   return new Promise(resolve => {
     ac();
@@ -9510,6 +9870,7 @@ function closeBrief(){
 
 $('#presBtn').onclick = openPres;
 $('#yardBtn').onclick = openYard;
+$('#msiBtn').onclick = openMsi;
 $('#ytEnter').onclick = () => closeYt(true);
 $('#ytLater').onclick = () => closeYt(false);
 $('#prBack').onclick = () => { if (vaultBusy) return; if (room) leaveRoom(); else closePres(); };
@@ -9569,7 +9930,7 @@ $('#pcLater').onclick = () => endIntro(false);
 /* ---------- Boot ---------- */
 fx.ncv = $('#seqNoise'); fx.ng = fx.ncv.getContext('2d'); fx.nimg = fx.ng.createImageData(128, 72);
 renderLogoState();
-renderMute(); setBal(); renderRack(); selectCase(); setMode('crate'); renderInv(); renderStats(); renderPresBtn(); renderYardBtn(); renderShopBtnState(); renderAdminBtn();
+renderMute(); setBal(); renderRack(); selectCase(); setMode('crate'); renderInv(); renderStats(); if (P().bdo || P().bdoWin) P().bdoSeen = true; renderPresBtn(); renderYardBtn(); renderMsiBtn(); renderShopBtnState(); renderAdminBtn();
 function bootScenes(){
   if (state.pendingReturn) setTimeout(dealerReturns, 600);
   else if (state.gold > 0 && !state.pres.seen) setTimeout(prestigeIntro, 900);
