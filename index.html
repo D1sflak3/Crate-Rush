@@ -1742,12 +1742,12 @@ const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 
 
 /* ---------- Data ---------- */
 const TIERS = [
-  {name:'Common',       color:'#a7b2c1', base:8},
-  {name:'Rare',         color:'#4d8dff', base:30},
-  {name:'Epic',         color:'#8f5cff', base:110},
-  {name:'Mythic',       color:'#e14fd2', base:380},
-  {name:'Legendary',    color:'#ff4d4d', base:1100},
-  {name:'Gold',         color:'#ffcb2e', base:1800},
+  {name:'Common',       color:'#a7b2c1', base:10},
+  {name:'Rare',         color:'#4d8dff', base:40},
+  {name:'Epic',         color:'#8f5cff', base:250},
+  {name:'Mythic',       color:'#e14fd2', base:900},
+  {name:'Legendary',    color:'#ff4d4d', base:3500},
+  {name:'Gold',         color:'#ffcb2e', base:9000},
   {name:'Black Market', color:'#a855f7', base:85000}
 ];
 const WEARS = [
@@ -1861,10 +1861,10 @@ const GOLD = ITEMS.filter(i => i.t === 5).map(i => i.id);
 const BM_IDS = ITEMS.filter(i => i.t === 6 && !i.ex).map(i => i.id);
 
 const CASES = [
-  {id:'scrap', name:'Scrapyard',    tag:'Rust, grit, hazard tape', cost:60,   f:1,   w:[76,16,5,2,.7,.3],      cls:'k-scrap', mark:'SY', glow:'#ff9a3c', items:['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11']},
-  {id:'neon',  name:'Neon Circuit', tag:'Synth glow after dark',   cost:120,  f:1.5, w:[70,18,7,3,1.4,.6],     cls:'k-neon',  mark:'NC', glow:'#c34bff', items:['n1','n2','n3','n4','n5','n6','n7','n8','n9','n10']},
-  {id:'frost', name:'Frostbite',    tag:'Cold-forged finishes',    cost:200,  f:1.6, w:[62,20,10,4.5,2.3,1.2], cls:'k-frost', mark:'FB', glow:'#8fe0ff', items:['f1','f2','f3','f4','f5','f6','f7','f8','f9','f10']},
-  {id:'c4',    name:'Case 4',       tag:'Every pull is gold',      cost:2500, f:1,   w:[0,0,0,0,0,1],          cls:'k-gold',  mark:'4',  glow:'#ffcb2e', items:[]}
+  {id:'scrap', name:'Scrapyard',    tag:'Rust, grit, hazard tape', cost:100,  f:1,   w:[78.9,15,4.2,1.45,.35,.1],      cls:'k-scrap', mark:'SY', glow:'#ff9a3c', items:['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11']},
+  {id:'neon',  name:'Neon Circuit', tag:'Synth glow after dark',   cost:200,  f:1.5, w:[75,16.5,5.8,1.9,.55,.25],     cls:'k-neon',  mark:'NC', glow:'#c34bff', items:['n1','n2','n3','n4','n5','n6','n7','n8','n9','n10']},
+  {id:'frost', name:'Frostbite',    tag:'Cold-forged finishes',    cost:350,  f:1.6, w:[65,21,9,3.4,1.1,.5], cls:'k-frost', mark:'FB', glow:'#8fe0ff', items:['f1','f2','f3','f4','f5','f6','f7','f8','f9','f10']},
+  {id:'c4',    name:'Case 4',       tag:'Every pull is gold',      cost:13500, f:1,  w:[0,0,0,0,0,1],          cls:'k-gold',  mark:'4',  glow:'#ffcb2e', items:[]}
 ];
 CASES.forEach(c => { c.pools = [0,1,2,3,4,5].map(t => t === 5 ? GOLD : c.items.filter(id => BY[id].t === t)); });
 const MIN_COST = Math.min(...CASES.map(c => c.cost));
@@ -1875,7 +1875,7 @@ CASES.forEach(c => c.items.forEach(id => { ITEM_CASE[id] = c; }));
 
 /* Trade-up rules: inputs needed per tier, and chance the Black Market hijacks the contract */
 const TNEED = [10, 10, 10, 10, 5];
-const BMCH  = [.015, .03, .05, .10, 1];
+const BMCH  = [.002, .005, .015, .04, 1];
 
 /* ---------- Skin painters ---------- */
 const PAT = {
@@ -2400,7 +2400,7 @@ function bmRevealSound(){
 /* ---------- State ---------- */
 const KEY = 'crate-rush-v1';
 const freshHacks = () => ({speed:false, speedOn:true, magnet:0, xray:0, overwrite:0, hijack:0, forger:0, keydupe:0, spoof:0});
-const fresh = () => ({bal:5000, inv:[], found:[], opened:0, gold:0, spent:0, best:null, muted:false, trades:0, bm:0, bmFound:[],
+const fresh = () => ({econ:2, bal:5000, inv:[], found:[], opened:0, gold:0, spent:0, best:null, muted:false, trades:0, bm:0, bmFound:[],
   hacks:freshHacks(), xrayRolls:{}, shopUnlocked:false, shopVisits:0,
   breach:false, rig:false, inject:null, bmSinceBreach:0, pendingReturn:false, locked:false, hackBuys:0, hackSpent:0, pres:freshPres()});
 const freshPres = () => ({seen:false, wants:{}, cool:{}, deals:0, earned:0, briefs:0, met:{}, sold:{}, vault:null, vaultT:0, tshelf:[], cell:null});
@@ -2411,6 +2411,13 @@ try {
     state = Object.assign(fresh(), s, {inv: s.inv.filter(x => BY[x.id]), hacks: Object.assign(freshHacks(), s.hacks || {}), xrayRolls: s.xrayRolls || {}, pres: Object.assign(freshPres(), s.pres || {})});
     /* Black Market used to be worth a fraction of what it is now: rescale anything saved at the old prices */
     const BM_OLD = 85000 / 6000, bmFix = v => Math.max(50000, Math.round(v * BM_OLD));
+    /* economy v2 raised every regular tier: scale saved prices up once */
+    if ((s.econ || 1) < 2) {
+      const RX = [10/8, 40/30, 250/110, 900/380, 3500/1100, 9000/1800];
+      state.inv.forEach(e => { const t = BY[e.id].t; if (t < 6) e.v = Math.round(e.v * RX[t]); });
+      if (state.best && BY[state.best.id] && BY[state.best.id].t < 6) state.best.v = Math.round(state.best.v * RX[BY[state.best.id].t]);
+    }
+    state.econ = 2;
     /* every Black Market piece is repriced to its fixed price */
     state.inv.forEach(e => { if (BY[e.id].t === 6) e.v = bmVal(BY[e.id], e.fl); });
     if (state.best && BY[state.best.id] && BY[state.best.id].t === 6 && state.best.v < 50000) state.best.v = bmFix(state.best.v);
@@ -2424,26 +2431,26 @@ try {
 
 /* ---------- Black Market admin items ---------- */
 const HACKS = [
-  {id:'magnet',    name:'Gold Magnet',       price:2500, charges:5,  unit:['open','opens'],         file:'gold_magnet.dll',
+  {id:'magnet',    name:'Gold Magnet',       price:6000, charges:5,  unit:['open','opens'],         file:'gold_magnet.dll',
    desc:'Gold odds ×20 in Scrapyard, Neon Circuit and Frostbite for your next 5 case opens. The odds shown on each case update while it is active.',
    line:'Pulls knives like a moth to a flame. Five opens. Don’t ask where I got it.'},
-  {id:'xray',      name:'X-Ray Goggles',     price:2000, charges:10, unit:['scan','scans'],         file:'xray_lens.sys',
+  {id:'xray',      name:'X-Ray Goggles',     price:3000, charges:10, unit:['scan','scans'],         file:'xray_lens.sys',
    desc:'Scan a case before you open it and see exactly what is inside. Opening that case gives you that exact item. 10 scans.',
    line:'See through the lid. What you see is what you get.'},
   {id:'overwrite', name:'Rarity Overwrite',  price:3000, charges:3,  unit:['open','opens'],         file:'rarity_overwrite.bin',
    desc:'Your next 3 case opens roll one tier higher: Common becomes Rare, Legendary becomes Gold. It skips Case 4, so no charge is wasted there.',
    line:'One stick. Three upgrades. Plug it in and look away.'},
-  {id:'hijack',    name:'Contract Hijacker', price:5000, charges:1,  unit:['contract','contracts'], file:'contract_hijack.exe',
+  {id:'hijack',    name:'Contract Hijacker', price:160000, charges:1,  unit:['contract','contracts'], file:'contract_hijack.exe',
    desc:'Your next Common, Rare, Epic or Mythic trade-up goes straight to the Black Market. Guaranteed contraband.',
    line:'Sign whatever you like. It ends up with me anyway.'},
-  {id:'forger',    name:'Float Forger',      price:1500, charges:10, unit:['drop','drops'],         file:'float_forge.dll',
+  {id:'forger',    name:'Float Forger',      price:3000, charges:10, unit:['drop','drops'],         file:'float_forge.dll',
    desc:'Your next 10 drops, from cases or trade-ups, come out Mint with a float under 0.07.',
    line:'Factory fresh. Factory is a strong word.'},
-  {id:'keydupe',   name:'Key Dupe',          price:1500, charges:10, unit:['open','opens'],         file:'keygen_dupe.exe',
+  {id:'keydupe',   name:'Key Dupe',          price:2500, charges:10, unit:['open','opens'],         file:'keygen_dupe.exe',
    desc:'Your next 10 case opens are free. Works on every case except Case 4.',
    line:'Copied it off a guy who copied it off a guy.'},
-  {id:'spoof',     name:'Price Spoofer',     price:2500, charges:20, unit:['sale','sales'],         file:'price_spoof.js',
-   desc:'Your next 20 item sales pay double.',
+  {id:'spoof',     name:'Price Spoofer',     price:4000, charges:20, unit:['sale','sales'],         file:'price_spoof.js',
+   desc:'Your next 20 item sales pay double. Gold and Black Market pieces sell at normal price.',
    line:'Buyer sees one number. You see a bigger one.'},
   {id:'speed',     name:'Turbo Chip',        price:800,  charges:0,  perm:true,                     file:'turbo_clock.sys',
    desc:'Case reels spin 4× faster. Permanent once bought, and you can switch it on or off from the hacks bar.',
@@ -2476,7 +2483,7 @@ function effWeights(c){
   return {w, applied};
 }
 function consume(list){ (list || []).forEach(k => { if (H()[k] > 0) H()[k]--; }); }
-function payout(e){ if (H().spoof > 0) { H().spoof--; return e.v*2; } return e.v; }
+function payout(e){ if (H().spoof > 0 && BY[e.id].t < 5) { H().spoof--; return e.v*2; } return e.v; }
 /* Anything that lands in your bag is saved straight after, so the index only has to look there */
 function trackFound(){ const f = state.found || (state.found = []); state.inv.forEach(e => { if (!f.includes(e.id)) f.push(e.id); }); }
 function save(){ trackFound(); state.savedAt = Date.now(); try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} cloudQueue(); }
@@ -2661,7 +2668,7 @@ function invCard(e, isNew){
   d.className = 'icard' + tierClass(t) + (isNew ? ' new' : '');
   d.style.setProperty('--tc', TIERS[t].color);
   d.append(thumb(it, wi));
-  d.insertAdjacentHTML('beforeend', '<div class="wt">' + (t === 6 ? 'Black Market · ' : '') + WNAME[it.w] + '</div><div class="nm">' + it.name + '</div><div class="sub">' + WEARS[wi].n + ' · ' + e.fl.toFixed(4) + '</div><div class="ifoot"><span class="iv"><span class="coin"></span>' + fmt(e.v) + '</span><button class="sell" data-uid="' + e.uid + '">' + (H().spoof > 0 ? 'Sell ×2' : 'Sell') + '</button></div>');
+  d.insertAdjacentHTML('beforeend', '<div class="wt">' + (t === 6 ? 'Black Market · ' : '') + WNAME[it.w] + '</div><div class="nm">' + it.name + '</div><div class="sub">' + WEARS[wi].n + ' · ' + e.fl.toFixed(4) + '</div><div class="ifoot"><span class="iv"><span class="coin"></span>' + fmt(e.v) + '</span><button class="sell" data-uid="' + e.uid + '">' + (H().spoof > 0 && t < 5 ? 'Sell ×2' : 'Sell') + '</button></div>');
   return d;
 }
 function renderInv(newUid){
@@ -3510,7 +3517,7 @@ function showReveal(r, postCine){
   $('#rvName').innerHTML = '<span class="w">' + WNAME[it.w] + ' |</span> ' + it.name;
   $('#rvMeta').textContent = WEARS[wi].n + ' · Float ' + r.fl.toFixed(4) + (r.src === 'trade' ? ' · Trade-up' : r.src === 'vault' ? ' · From Sable’s hidden case' : '') + (r.hk && r.hk.length ? ' · Hacked' : '') + (r.preview ? ' · Preview only' : '');
   $('#fbMark').style.left = (r.fl*100) + '%';
-  $('#sellBtn').hidden = !!r.preview; $('#sellBtn').textContent = 'Sell · ' + (H().spoof > 0 ? fmt(r.v*2) + ' (×2)' : fmt(r.v));
+  $('#sellBtn').hidden = !!r.preview; $('#sellBtn').textContent = 'Sell · ' + (H().spoof > 0 && BY[r.id].t < 5 ? fmt(r.v*2) + ' (×2)' : fmt(r.v));
   $('#keepBtn').textContent = r.preview ? 'Close preview' : 'Keep';
   countUp($('#rvValue'), r.v, t >= 5 ? 1600 : 700);
   $('#live').textContent = (r.preview ? 'Preview: ' : 'You got ') + WNAME[it.w] + ' ' + it.name + ', ' + T.name + ', worth ' + fmt(r.v) + ' credits.';
@@ -4052,7 +4059,7 @@ const WINS = {
     + '<div class="ex-log" id="exLog">&gt; attached to crate_rush (pid 4471)<br>&gt; session owner: dealer</div></div>',
     bind: bindExe},
   ledger:{label:'ledger.xls', title:'ledger.xls', html: () => '<div class="tbl"><table><thead><tr><th>Date</th><th>Buyer</th><th>Item</th><th>Paid</th></tr></thead><tbody>'
-    + [['10/03','#0113','Gold Magnet','2,500'],['10/07','#0420','Key Dupe ×2','3,000'],['10/12','#0666','Contract Hijacker','5,000'],['10/19','#0013','Float Forger','1,500'],['10/24','#0099','Asked for a refund','0']]
+    + [['10/03','#0113','Gold Magnet','6,000'],['10/07','#0420','Key Dupe ×2','5,000'],['10/12','#0666','Contract Hijacker','160,000'],['10/19','#0013','Float Forger','3,000'],['10/24','#0099','Asked for a refund','0']]
       .map(r => '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td><td class="n">' + r[3] + '</td></tr>').join('')
     + '<tr class="you"><td>today</td><td>the letter kid</td><td>' + state.hackBuys + ' item' + (state.hackBuys === 1 ? '' : 's') + '</td><td class="n">' + fmt(state.hackSpent) + '</td></tr>'
     + '</tbody></table></div>'},
