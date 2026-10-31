@@ -774,6 +774,43 @@ pre.notes{margin:0;white-space:pre-wrap;font:inherit;color:#e9fff2}
 /* The Prestige: intro cutscene */
 
 
+
+/* Chroma: one of one */
+.chroma-t{background:linear-gradient(90deg,#ff3ea5,#ffd23f,#39ff88,#2fe3ff,#a855f7,#ff3ea5);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:chromaShift 3s linear infinite}
+@keyframes chromaShift{to{background-position:200% 0}}
+.icard.chroma,.mini.chroma{border-color:transparent;background:linear-gradient(#1a1020,#120b18) padding-box,linear-gradient(120deg,#ff3ea5,#ffd23f,#39ff88,#2fe3ff,#a855f7) border-box}
+.icard.chroma .wt{background:linear-gradient(90deg,#ff3ea5,#ffd23f,#2fe3ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.reveal.t7 .rv-value{color:#ffd6f4}
+.chroma-btn{background:linear-gradient(120deg,#ff7ad9,#ffd23f 40%,#7ae8ff)!important;color:#1a0a20!important}
+/* Vance's cabinet lifts away */
+.vv-cab{transform-box:view-box;transition:transform 2.1s cubic-bezier(.5,0,.3,1)}
+.vv-up .vv-cab{transform:translateY(-170px)}
+.vv-dim{filter:brightness(.6)}
+.vv-glow{animation:yGlow 1.4s ease-in-out infinite alternate}
+.vv-shut .vv-cab{transform:none}
+/* The penthouse auction */
+.auc.gala{background:radial-gradient(circle at 50% 30%,#1e1a2e,#000 72%)}
+.auc.gala .auc-ui{background:rgba(10,8,14,.92);border-color:#7a5d22}
+.auc.gala .auc-top small{color:#c9a54a}
+.auc.gala .auc-top b{font-family:"Limelight",var(--display);color:#f3e3b3}
+.ms-gala .gl-f{transform-box:view-box;transition:opacity .5s,filter .5s}
+.ms-gala .gl-pad{transform:translateY(16px)}
+.ms-gala .gl-pad.up{animation:glRaise .4s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes glRaise{from{transform:translateY(16px)}to{transform:translateY(-4px)}}
+.ms-gala .gl-pad.win{transform:translateY(-4px);filter:drop-shadow(0 0 5px #ffd27a)}
+.gl-heat .gl-f,.gl-heat .gl-glass{animation:aucBrawl .22s linear infinite}
+.gl-heat .gl-chand{transform-box:view-box;transform-origin:200px 0;animation:bSway .3s ease-in-out infinite alternate}
+.gl-hush .gl-f:not(.gl-vance){opacity:.35;filter:saturate(.2)}
+.gl-hush .gl-vance{transform:translateY(-6px);transition:transform .6s}
+.gl-swap{opacity:0;transition:opacity 1s}
+.gl-offer .gl-swap{opacity:1}
+.gl-offer .gl-item{transform:translateX(-120px) scale(.8);transform-box:view-box;transform-origin:200px 74px;transition:transform 1s}
+.gl-offer .gl-swap{transform:translateX(-12px);transform-box:view-box}
+.pr-gala{border-color:#7a5d22;color:#f3e3b3;background:radial-gradient(160px 90px at 60px 60%,rgba(201,165,74,.3),transparent 70%),linear-gradient(135deg,#1a140a,#0b0805)}
+.pr-gala:hover{border-color:#ffcb2e}
+.pr-gala .pa-h{font-family:"Limelight",var(--display);color:#ffd27a;font-size:24px}
+.pr-gala .pa-p{color:#c9b88f}
+.pa-gavel{flex:none;width:64px;height:64px}.pa-gavel svg{width:100%;height:100%}
 /* Socket's Contraption */
 .pr-scene > svg .sk-mach,.pr-scene > svg .sk-mach *{pointer-events:auto;cursor:pointer}
 .sk-mach .hl{opacity:0}
@@ -2092,7 +2129,8 @@ const TIERS = [
   {name:'Mythic',       color:'#e14fd2', base:900},
   {name:'Legendary',    color:'#ff4d4d', base:3500},
   {name:'Gold',         color:'#ffcb2e', base:9000},
-  {name:'Black Market', color:'#a855f7', base:85000}
+  {name:'Black Market', color:'#a855f7', base:85000},
+  {name:'Chroma',       color:'#ff7ad9', base:85000}
 ];
 const WEARS = [
   {n:'Mint',    lo:0,   hi:.07, m:1.4,  w:9},
@@ -2191,7 +2229,8 @@ const ITEMS = [
   {id:'b6', w:'karambit',  name:'Umbra',          t:6, pat:'abyss',  pal:['#000000','#9333ea','#f5d0fe'], m:1.6},
   {id:'b7', w:'butterfly', name:'Hex Sovereign',  t:6, pat:'runes',  pal:['#050008','#a855f7','#6b21a8'], m:1.4},
   // One of one: only exists in Sable's hidden case. Never in a case, contract, reel or wish list.
-  {id:'x1', w:'pistol',    name:'Velvet Requiem', t:6, pat:'requiem', pal:['#07020a','#e11d48','#f5d0e0'], m:2.2, ex:true}
+  {id:'x1', w:'pistol',    name:'Velvet Requiem', t:7, pat:'requiem', pal:['#07020a','#e11d48','#f5d0e0'], m:2.2, ex:true},
+  {id:'x2', w:'karambit',  name:'Kingmaker',      t:7, pat:'doppler', pal:['#1a0030','#ff3ea5','#2fe3ff','#ffd23f'], m:2.6, ex:true}
 ];
 
 /* ---------- RNG helpers ---------- */
@@ -2305,9 +2344,9 @@ function scuff(g, fl, r){
 function renderItem(it, fl, S){
   const c = document.createElement('canvas'); c.width = 200*S; c.height = 80*S;
   const g = c.getContext('2d'); g.scale(S,S);
-  const P = paths(it.w), sh = SHAPES[it.w], r = seeded(hash(it.id)), bm = it.t === 6;
+  const P = paths(it.w), sh = SHAPES[it.w], r = seeded(hash(it.id)), bm = it.t >= 6;
   g.save();
-  g.shadowColor = bm ? 'rgba(168,85,247,.9)' : 'rgba(0,0,0,.55)';
+  g.shadowColor = bm ? (it.t === 7 ? 'rgba(255,122,217,.95)' : 'rgba(168,85,247,.9)') : 'rgba(0,0,0,.55)';
   g.shadowBlur = (bm ? 12 : 6) * S; g.shadowOffsetY = (bm ? 0 : 3) * S;
   g.fillStyle = '#000'; g.fill(P.all); g.restore();
   const lg = g.createLinearGradient(0,18,0,72);
@@ -2555,6 +2594,15 @@ const INST = {
 };
 const bossa = c => c + ' - . ' + c + ' - . ' + c + ' - . . ' + c + ' - . ' + c + ' - .';
 const THEMES = {
+  /* The penthouse auction: a big band in a small room */
+  gala:{bpm:132, steps:16, swing:.3, rev:.35, vol:1.05, tracks:[
+    {i:'ubass', v:.16, n:'C2 - E2 - G2 - A2 - Bb2 - A2 - G2 - E2 - | F2 - A2 - C3 - D3 - Eb3 - D3 - C3 - A2 - | C2 - E2 - G2 - A2 - Bb2 - A2 - G2 - E2 - | G1 - B1 - D2 - F2 - G2 - F2 - D2 - B1 -'},
+    {i:'ride', v:.05, n:'x . . . x . x . x . . . x . x .'},
+    {i:'kick', v:.08, n:'x . . . . . . . x . . . . . . .'},
+    {i:'brush', v:.05, n:'. . . . x . . . . . . . x . . .'},
+    {i:'brass', v:.035, l:1, n:'. . C4,E4,G4,Bb4 - . . . . . . C4,E4,G4,Bb4 - . . . . | . . F4,A4,C5,Eb5 - . . . . . . F4,A4,C5 - . . . .'},
+    {i:'sax', v:.04, l:2, n:'G4 - Bb4 - C5 - - - Eb5 - D5 - C5 - - - | A4 - C5 - D5 - - - F5 - Eb5 - D5 - - - | G4 - Bb4 - C5 - Eb5 - G5 - - - F5 - Eb5 - | D5' + HO(15)}
+  ]},
   /* The fire auction: everyone shouting at once */
   auction:{bpm:168, steps:16, rev:.15, dist:.12, vol:1.1, tracks:[
     {i:'slam', v:.2, n:'x . . . x . . . x . . . x . . .'},
@@ -2789,7 +2837,7 @@ function musWant(){
   if (mi && mi.mid && (presOpen || mi.mid === 'yardc')) return [mi.mid, true];
   if (pc) return ['prestige', false];
   if (!$('#ret').hidden) return ['ret', false];
-  if (auc) return ['auction', false];
+  if (auc) return [auc.A.music, false];
   if (presOpen) return [room ? room.id : crew === 'yard' ? 'yard' : 'lobby', false];
   if (shopOpen) return ['dealer', false];
   return null;
@@ -2825,7 +2873,7 @@ try {
     }
     state.econ = 2;
     /* every Black Market piece is repriced to its fixed price */
-    state.inv.forEach(e => { if (BY[e.id].t === 6) e.v = bmVal(BY[e.id], e.fl); });
+    state.inv.forEach(e => { if (BY[e.id].t >= 6) e.v = bmVal(BY[e.id], e.fl); });
     if (state.best && BY[state.best.id] && BY[state.best.id].t === 6 && state.best.v < 50000) state.best.v = bmFix(state.best.v);
     if (state.pres.vaultT && state.pres.vaultT < 50000) state.pres.vaultT = bmFix(state.pres.vaultT);
     /* he now comes back after a single piece of contraband: saves that already took one are owed a visit */
@@ -2898,7 +2946,7 @@ let sel = 0, busy = false, current = null, tradeTier = 0, picks = [];
 const wearIdx = fl => { const i = WEARS.findIndex(w => fl < w.hi); return i < 0 ? 4 : i; };
 /* Black Market never goes for less than BM_MIN, whatever the wear */
 const BM_MIN = 50000;
-const priceOf = (it, wi) => it.t === 6 ? bmAt(it, wi) : Math.max(it.t === 6 ? BM_MIN : 1, Math.round(TIERS[it.t].base * (it.t >= 5 ? 1 : ITEM_CASE[it.id].f) * it.m * WEARS[wi].m * (.95 + Math.random()*.1)));
+const priceOf = (it, wi) => it.t >= 6 ? bmAt(it, wi) : Math.max(it.t === 6 ? BM_MIN : 1, Math.round(TIERS[it.t].base * (it.t >= 5 ? 1 : ITEM_CASE[it.id].f) * it.m * WEARS[wi].m * (.95 + Math.random()*.1)));
 
 function roll(c){
   const {w, applied} = effWeights(c);
@@ -2944,7 +2992,7 @@ function renderHacks(){
   bar.hidden = !chips.length;
   bar.innerHTML = '<span class="hk-label">Hacks</span>' + chips.join('');
 }
-const tierClass = t => t === 5 ? ' gold' : t === 6 ? ' bm' : '';
+const tierClass = t => t === 5 ? ' gold' : t === 6 ? ' bm' : t === 7 ? ' bm chroma' : '';
 
 function renderRack(){
   const rack = $('#rack'); rack.innerHTML = '';
@@ -3075,7 +3123,7 @@ function invCard(e, isNew){
   d.className = 'icard' + tierClass(t) + (isNew ? ' new' : '');
   d.style.setProperty('--tc', TIERS[t].color);
   d.append(thumb(it, wi));
-  d.insertAdjacentHTML('beforeend', '<div class="wt">' + (t === 6 ? 'Black Market · ' : '') + WNAME[it.w] + '</div><div class="nm">' + it.name + '</div><div class="sub">' + WEARS[wi].n + ' · ' + e.fl.toFixed(4) + '</div><div class="ifoot"><span class="iv"><span class="coin"></span>' + fmt(e.v) + '</span><button class="sell" data-uid="' + e.uid + '">' + (H().spoof > 0 && t < 5 ? 'Sell ×2' : 'Sell') + '</button></div>');
+  d.insertAdjacentHTML('beforeend', '<div class="wt">' + (t === 6 ? 'Black Market · ' : t === 7 ? 'Chroma · 1 of 1 · ' : '') + WNAME[it.w] + '</div><div class="nm">' + it.name + '</div><div class="sub">' + WEARS[wi].n + ' · ' + e.fl.toFixed(4) + '</div><div class="ifoot"><span class="iv"><span class="coin"></span>' + fmt(e.v) + '</span><button class="sell" data-uid="' + e.uid + '">' + (H().spoof > 0 && t < 5 ? 'Sell ×2' : 'Sell') + '</button></div>');
   return d;
 }
 function renderInv(newUid){
@@ -3918,11 +3966,12 @@ function showReveal(r, postCine){
   const title = $('#rvTitle');
   if (t === 5) title.innerHTML = '★ GOLD ★'.split('').map((ch, i) => '<span style="--i:' + i + '">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>').join('');
   else if (t === 6) title.innerHTML = '<span class="glitch" data-text="BLACK MARKET">BLACK MARKET</span>';
+  else if (t === 7) title.innerHTML = '<span class="chroma-t">CHROMA · 1 OF 1</span>';
   else title.innerHTML = '';
-  $('#rvTier').textContent = t === 5 ? 'Gold · Knife' : t === 6 ? 'Contraband · ' + WNAME[it.w].replace('★ ', '') : T.name + ' · ' + WNAME[it.w];
+  $('#rvTier').textContent = t === 7 ? 'Chroma · the only one there is' : t === 5 ? 'Gold · Knife' : t === 6 ? 'Contraband · ' + WNAME[it.w].replace('★ ', '') : T.name + ' · ' + WNAME[it.w];
   const cv = $('#rvArt'), g = cv.getContext('2d'); g.clearRect(0,0,cv.width,cv.height); { const src = renderItem(it, r.fl, 3); g.drawImage(src, 0, 0); freeCanvas(src); }
   $('#rvName').innerHTML = '<span class="w">' + WNAME[it.w] + ' |</span> ' + it.name;
-  $('#rvMeta').textContent = WEARS[wi].n + ' · Float ' + r.fl.toFixed(4) + (r.src === 'trade' ? ' · Trade-up' : r.src === 'vault' ? ' · From Sable’s hidden case' : '') + (r.hk && r.hk.length ? ' · Hacked' : '') + (r.preview ? ' · Preview only' : '');
+  $('#rvMeta').textContent = WEARS[wi].n + ' · Float ' + r.fl.toFixed(4) + (r.src === 'trade' ? ' · Trade-up' : r.src === 'vault' ? (r.from === 'vance' ? ' · From Vance’s private collection' : ' · From Sable’s hidden case') : '') + (r.hk && r.hk.length ? ' · Hacked' : '') + (r.preview ? ' · Preview only' : '');
   $('#fbMark').style.left = (r.fl*100) + '%';
   $('#sellBtn').hidden = !!r.preview; $('#sellBtn').textContent = 'Sell · ' + (H().spoof > 0 && BY[r.id].t < 5 ? fmt(r.v*2) + ' (×2)' : fmt(r.v));
   $('#keepBtn').textContent = r.preview ? 'Close preview' : 'Keep';
@@ -3939,6 +3988,11 @@ function showReveal(r, postCine){
       burst(x, y, 180, ['#a855f7','#e9d5ff','#7c3aed','#f0abfc'], 10);
       ring(x, y, '#c084fc'); ring(x, y, '#7c3aed', 16);
       setTimeout(() => { if (current !== r) return; fx.bolts = true; burst(x, y, 110, ['#f5d0fe','#a855f7','#ffffff'], 8); ring(x, y, '#f0abfc'); }, REDUCED ? 0 : 1100);
+    } else if (t === 7) {
+      fx.col = '#ff7ad9'; fx.embers = true;
+      const RB = ['#ff3ea5','#ffd23f','#2fe3ff','#39ff88','#a855f7','#ffffff'];
+      burst(x, y, 240, RB, 11); RB.slice(0, 5).forEach((c, i) => ring(x, y, c, 8 + i*4));
+      setTimeout(() => { if (current === r) { burst(x, y, 140, RB, 9); coins(30); } }, REDUCED ? 0 : 800);
     } else if (t === 5) {
       fx.col = '#ffcb2e'; fx.embers = true;
       burst(x, y, 200, ['#ffcb2e','#fff1b0','#ff9d1a','#ffffff'], 10);
@@ -4709,7 +4763,7 @@ const RUST_X = [.8, .9, 1, 1.2, 1.4];
 const KNIFE_ID = 's12', KNIFE_X = 5, YARD_N = 12, PEEK_EVERY = 10;
 const Y = () => state.yard;
 const fromYard = it => !!ITEM_CASE[it.id] && ITEM_CASE[it.id].id === 'scrap';
-const rustyE = e => BY[e.id].t !== 6 && (fromYard(BY[e.id]) || wearIdx(e.fl) === 4);
+const rustyE = e => BY[e.id].t < 6 && (fromYard(BY[e.id]) || wearIdx(e.fl) === 4);
 const rustOf = (m, e) => { const r = RUST_X[wearIdx(e.fl)]; return m.id === 'socket' ? 1 + (r - 1) * 2 : r; };
 const knifeHome = (m, e) => m.id === 'ma' && e.id === KNIFE_ID && !Y().home;
 const yardMem = (id, name, role, col, pitch, mult, pat, wt, favName, one, many, say) =>
@@ -4770,7 +4824,7 @@ function newWant(m){
   P().wants[m.id] = pickOne(opts).id;
 }
 function ensureWants(){ MEMBERS.forEach(m => { const w = BY[P().wants[m.id]]; if (!w || !m.fav(w) || w.ex || (!m.outsider && w.t === 6)) newWant(m); }); }
-const buys = (m, e) => !!BY[e.id] && (m.yard ? rustyE(e) : m.outsider ? BY[e.id].t === 6 : BY[e.id].t !== 6);
+const buys = (m, e) => !!BY[e.id] && (m.yard ? rustyE(e) : m.outsider ? BY[e.id].t >= 6 : BY[e.id].t < 6);
 const isFav = (m, e) => m.fav(BY[e.id]);
 const inMood = (m, e) => !isFav(m, e) && hash(e.uid + m.id) % 5 === 0;   // stable per item, so the price doesn't flicker
 /* Anything bought in a Prestige shop (or out of Sable's case) is "stock": every member pays market for it,
@@ -5113,6 +5167,7 @@ function renderLobby(){
     b.querySelector('.wn').prepend(thumb(w, 0));
     grid.append(b);
   });
+  grid.append(aucCard('pres'));
   if (P().tobias) {
     const m = MBY.tobias, cl = coolLeft(m), n = state.inv.filter(e => buys(m, e)).length, b = document.createElement('button');
     b.type = 'button'; b.className = 'pr-mem pr-tob' + (cl ? ' cool' : ''); b.dataset.m = 'tobias'; b.style.setProperty('--mc', m.col);
@@ -5128,7 +5183,7 @@ function openRoom(id){
   const R = $('#prRoom'); R.hidden = false; $('#prLobby').hidden = true;
   $('#pres').classList.add('in-room');
   R.style.setProperty('--mc', m.col); R.className = 'pr-room r-' + m.id;
-  R.innerHTML = '<div class="rm-stage"><div class="pr-scene ms ms-' + m.id + ' ' + SC[m.id].end + (m.id === 'sable' && P().vault === 'down' ? ' sx-down' : '') + '">' + SC[m.id].svg(m.id + 'r') + '</div>'
+  R.innerHTML = '<div class="rm-stage"><div class="pr-scene ms ms-' + m.id + ' ' + SC[m.id].end + (VAULTS[m.id] && P()[VAULTS[m.id].key] === 'down' ? ' ' + VAULTS[m.id].on : '') + '">' + SC[m.id].svg(m.id + 'r') + '</div>'
     + '<div class="rm-top"><button class="icon-btn rm-back" data-a="leave" aria-label="Back to the lobby"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>'
     + '<div class="rm-who"><div class="rl">' + m.role + '</div><div class="nm">' + m.name + '</div><div class="fv">Favorite · ' + m.favName + '</div></div>'
     + '<div class="rm-tr"><div class="bal"><span class="coin"></span><span class="rm-bal">' + fmt(state.bal) + '</span></div><button class="rm-chip" data-a="replay" aria-label="Replay ' + m.name + '’s intro">↻ Intro</button></div></div></div>'
@@ -5249,7 +5304,7 @@ function renderLeft(anim){
     const pk = m.id === 'tinny' ? peekLeft() : 0;
     left = B('sell', m.outsider ? 'Sell contraband' : m.yard ? 'Sell rust' : 'Sell something', 'gold', lock || !n, n ? n + (n === 1 ? ' item' : ' items') : 'bag empty')
       + (SHOPS[m.id] ? B('shop', 'Shop · ' + SHOPS[m.id].hint, '', lock) : '')
-      + (m.id === 'sable' && P().vault === 'down' ? B('vault', 'The hidden case', 'vx', lock, 'one offer') : '')
+      + (VAULTS[m.id] && P()[VAULTS[m.id].key] === 'down' ? B('vault', m.id === 'vance' ? 'His private collection' : 'The hidden case', 'vx', lock, 'one offer') : '')
       + (m.id === 'tobias' ? B('pk1', 'Case #PK1 · on his shelf', 'pk', lock, fmt(PK1.cost) + ' cr') : '')
       + (m.id === 'tinny' ? B('peek', 'Ask what’s in the next crate', '', lock || pk > 0, pk ? 'in ' + pk + ' open' + (pk === 1 ? '' : 's') : 'Scrapyard · free') : '')
       + B('leave', 'Leave', 'ghost', lock);
@@ -5281,7 +5336,7 @@ function renderOv(){
   const ov = $('#prOv'), m = room; if (!ov || !m || !ovMode) return;
   const head = (small, big) => '<div class="ov-top"><div class="ov-h"><small>' + small + '</small><b>' + big + '</b></div><div class="bal"><span class="coin"></span><span class="ov-bal">' + fmt(state.bal) + '</span></div><button class="icon-btn ov-x" data-a="ovclose" aria-label="Close">✕</button></div>';
   if (ovMode === 'vault') {
-    ov.innerHTML = head('Sable’s hidden case', 'Your one offer') + '<div class="ov-body">' + vaultPanel() + '</div>';
+    ov.innerHTML = head(VLT().title, 'Your one offer') + '<div class="ov-body">' + vaultPanel() + '</div>';
     fillVault();
     return;
   }
@@ -5762,7 +5817,7 @@ function refreshShelf(){
   const g = sceneEl() && sceneEl().querySelector('.t-shelf');
   if (g && room) g.innerHTML = shopSlots(room, room.id + 'r');
 }
-const marketValue = (it, fl) => it.t === 6 ? bmVal(it, fl) : Math.max(it.t === 6 ? BM_MIN : 1, Math.round(TIERS[it.t].base * (it.t >= 5 ? 1 : ITEM_CASE[it.id].f) * it.m * WEARS[wearIdx(fl)].m));
+const marketValue = (it, fl) => it.t >= 6 ? bmVal(it, fl) : Math.max(it.t === 6 ? BM_MIN : 1, Math.round(TIERS[it.t].base * (it.t >= 5 ? 1 : ITEM_CASE[it.id].f) * it.m * WEARS[wearIdx(fl)].m));
 const epochNow = () => Math.floor(state.opened / RESTOCK);
 const fmtK = n => n >= 10000 ? Math.round(n / 1000) + 'k' : n >= 1000 ? (Math.round(n / 100) / 10) + 'k' : String(n);
 function shopPool(m){
@@ -5848,11 +5903,16 @@ const SC = {
         x += w + 1; }
       s += '</g><rect x="110" y="18" width="180" height="116" fill="none" stroke="#3a2614" stroke-width="5"/><path d="M200 18 V134 M110 76 H290" stroke="#3a2614" stroke-width="3"/>'
         + '<circle cx="58" cy="70" r="22" fill="#1a1109" stroke="#b8860b" stroke-width="2"/><circle cx="58" cy="70" r="17" fill="none" stroke="#b8860b" stroke-width=".8"/><text x="58" y="80" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="28" fill="#d4a017">P</text>';
-      s += '<rect x="296" y="18" width="100" height="134" rx="3" fill="#1a0f08" stroke="#b8860b" stroke-width="2"/><rect x="301" y="23" width="90" height="124" fill="#2a0a12"/>'
+      s += '<g class="vv-niche"><rect x="296" y="18" width="100" height="134" rx="3" fill="#0a0408" stroke="#b8860b" stroke-width="2"/><rect x="301" y="23" width="90" height="124" fill="#14060e"/>'
+        + '<path d="M346 23 L306 147 H386 Z" fill="#fff3fb" opacity=".06"/><ellipse class="vv-glow" cx="346" cy="82" rx="40" ry="22" fill="#ff7ad9" opacity=".35" filter="url(#hb' + k + ')"/>'
+        + (P().vvault === 'won' ? '' : '<g class="yc-kf"><image href="' + artHi(BY[VANCE_ID], 0) + '" x="306" y="62" width="80" height="34" preserveAspectRatio="xMidYMid meet"/></g>')
+        + '<rect x="318" y="106" width="56" height="10" rx="1.5" fill="#c9a24a"/><text x="346" y="113.4" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="7" letter-spacing="1" fill="#2a1a04">CHROMA · 1 OF 1</text>'
+        + '<rect x="310" y="118" width="72" height="22" rx="2" fill="#3a0a1a"/><path d="M310 122 H382" stroke="#5a1a2a"/></g>'
+        + '<g class="vv-cab"><rect x="296" y="18" width="100" height="134" rx="3" fill="#1a0f08" stroke="#b8860b" stroke-width="2"/><rect x="301" y="23" width="90" height="124" fill="#2a0a12"/>'
         + [60, 98, 136].map(y => '<rect x="301" y="' + y + '" width="90" height="4" fill="#5a3a12"/><rect x="301" y="' + y + '" width="90" height="1" fill="#d4a017" opacity=".6"/>').join('')
         + shopSlots(MBY.vance, k)
         + '<rect x="301" y="23" width="90" height="124" fill="#cfe7ff" fill-opacity=".05" stroke="#cfe7ff" stroke-opacity=".22"/><path d="M301 23 H326 L301 64 Z M342 23 H352 L301 104 V88 Z" fill="#fff" opacity=".05"/>'
-        + '<text x="346" y="14" text-anchor="middle" font-family="Teko, sans-serif" font-weight="600" font-size="8" letter-spacing="2" fill="#b8860b">PRIVATE COLLECTION</text>';
+        + '</g><text x="346" y="14" text-anchor="middle" font-family="Teko, sans-serif" font-weight="600" font-size="8" letter-spacing="2" fill="#b8860b">PRIVATE COLLECTION</text>';
       s += '<path d="M140 210 V74 Q140 58 156 58 H244 Q260 58 260 74 V210 Z" fill="#1e0a0c" stroke="#3a1618" stroke-width="2"/><path d="M150 70 H250" stroke="#3a1618" stroke-width="1.5"/>'
         + [[156,82],[200,82],[244,82],[156,104],[244,104]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="1.8" fill="#0e0405"/>').join('')
         + '<g class="v-body"><g class="v-shk">' + fig('vance', 150, 80, 1)
@@ -6623,44 +6683,83 @@ function tinnyPeek(){
   renderLeft();
 }
 
-/* ---------- The fire auction ----------
-   Bring Gold or Black Market to the Scrapyard and all four Rejects bid on it against each other. The price
-   usually climbs to 1.15-1.75x market, and about one auction in seven goes all the way to 2x. Somewhere in the
-   middle it turns into a fight. One auction every AUC_EVERY case opens; shop, vault and PK1 stock is refused. */
-const AUC_EVERY = 8, AUC_IDS = ['ma', 'tinny', 'deacon', 'socket'];
-const AUC_POS = {deacon:[114, 104], ma:[155, 100], socket:[288, 108], tinny:[261, 146]};
-const AUC_LINES = {
-  ma:["{o}! It's MINE.", "{o}, and sit DOWN, Socket!", "I'm the matriarch! {o}!", "{o}. Nobody outbids Ma.", "{o}! I built this yard!"],
-  tinny:["{o}! I've got a jar of coins!", "NO FAIR! {o}!", "MAAA! {o}!", "{o}! I'll sell my bike!", "{o}! PLEASE!"],
-  deacon:["The Lord says {o}!", "{o}, and God forgive you all!", "BLASPHEMY! {o}!", "{o}! The collection plate is FULL!", "{o}. Amen!"],
-  socket:["{o}! I'll strip it for parts!", "Back off, preacher! {o}!", "{o}, final offer! …No! {o}!", "{o}! I need that engine!", "{o}. Don't test me."]
-};
-const AUC_FIGHT = {
-  ma:["THAT'S IT! Into the crusher!", "Hold my goggles!"], tinny:["Ow! OW! Not the pot!", "I'm telling Ma! …Wait."],
-  deacon:["Turn the other cheek! …THIS ONE!", "Lord give me strength!"], socket:["Get your hands off my wrench!", "Come here, old man!"]
+/* ---------- Auctions ----------
+   Two rooms, one engine. At the Scrapyard fire the Rejects bid on Gold and Black Market, and it ends in a brawl.
+   In the Prestige penthouse the six bid on Black Market only (never Tobias), and it ends in a shouting match.
+   Each crew holds one auction every AUC_EVERY case opens. Bought stock (shop, vault, PK1) is never accepted.
+   In the penthouse, if the piece is good enough (GALA_SWAP and up) and Vance still has his one of one, he
+   stops the room near the end and offers it as a straight swap. */
+const AUC_EVERY = 8, GALA_SWAP = 120000;
+const AUC_A = {
+  yard: {
+    ids: ['ma', 'tinny', 'deacon', 'socket'], log: () => Y(), music: 'auction', cls: 'yard',
+    title: 'The fire auction', pick: 'What are you putting up?', ok: e => BY[e.id].t >= 5 && BY[e.id].t <= 6,
+    lo: 1.15, span: .6, two: 2, twoCh: .15,
+    pos: {deacon:[114, 104], ma:[155, 100], socket:[288, 108], tinny:[261, 146]},
+    fig: {ma:'yc-fma', tinny:'yc-fti', deacon:'yc-fde', socket:'yc-fso'},
+    lines: {
+      ma:["{o}! It's MINE.", "{o}, and sit DOWN, Socket!", "I'm the matriarch! {o}!", "{o}. Nobody outbids Ma.", "{o}! I built this yard!"],
+      tinny:["{o}! I've got a jar of coins!", "NO FAIR! {o}!", "MAAA! {o}!", "{o}! I'll sell my bike!", "{o}! PLEASE!"],
+      deacon:["The Lord says {o}!", "{o}, and God forgive you all!", "BLASPHEMY! {o}!", "{o}! The collection plate is FULL!", "{o}. Amen!"],
+      socket:["{o}! I'll strip it for parts!", "Back off, preacher! {o}!", "{o}, final offer! …No! {o}!", "{o}! I need that engine!", "{o}. Don't test me."]},
+    heat: {
+      ma:["THAT'S IT! Into the crusher!", "Hold my goggles!"], tinny:["Ow! OW! Not the pot!", "I'm telling Ma! …Wait."],
+      deacon:["Turn the other cheek! …THIS ONE!", "Lord give me strength!"], socket:["Get your hands off my wrench!", "Come here, old man!"]},
+    heatCls: 'au-fight', heatSnd: () => { noise(.08, 900, 120, .22, 'lowpass'); tone(70 + Math.random()*40, .12, 'square', .06); },
+    svg: e => aucSVG(e), sign: (who, v, q) => aucSign(who, v, q),
+    sold: (who, amt, mkt) => amt >= mkt * 1.95 ? "DOUBLE! IT'S MINE! " + fmt(amt) + '!' : 'SOLD! To me! ' + fmt(amt) + '!'
+  },
+  pres: {
+    ids: ['wren', 'kessler', 'juno', 'vance', 'sable', 'brick'], log: () => P(), music: 'gala', cls: 'gala',
+    title: 'The penthouse auction', pick: 'Which piece of contraband?', ok: e => BY[e.id].t === 6,
+    lo: 1.1, span: .5, two: 1.9, twoCh: .15,
+    pos: {wren:[36, 104], kessler:[94, 104], juno:[150, 104], vance:[200, 92], sable:[252, 104], brick:[308, 104]},
+    fig: {wren:'gl-wren', kessler:'gl-kessler', juno:'gl-juno', vance:'gl-vance', sable:'gl-sable', brick:'gl-brick'},
+    lines: {
+      vance:["{o}. And that's generous.", "{o}. Sit down, Brick.", "{o}. This is MY building.", "{o}. Next."],
+      brick:["{o}! BOSS, LET ME HAVE IT!", "{o}! I'll flip this table!", "{o}!!", "{o}! Come on!"],
+      wren:["{o}.", "…{o}.", "{o}. Final.", "{o}. Don't."],
+      juno:["{o}! Bidding bot online!", "{o}, beat THAT!", "{o}! I can do math, you know!", "{o}! Ooh, this is fun!"],
+      kessler:["{o}. Logged.", "The ledger allows {o}.", "{o}, and I am writing this down.", "{o}. Noted, Juno."],
+      sable:["{o}, darling.", "{o}. I collect things like this.", "{o}. Don't make me ask twice.", "{o}. Be quiet, Brick."]},
+    heat: {
+      brick:["THAT'S IT! *slams the table*", "SAY THAT AGAIN, KESSLER!"], juno:["ORDER! ORDER! …Is that how it works?", "Stop shouting at my bot!"],
+      kessler:["This is HIGHLY irregular!", "My ledger! You spilled on my ledger!"], sable:["Must you, Brick.", "Someone get him a glass of water."],
+      wren:["…Enough.", "I can hit any of you from here."], vance:["SIT. DOWN. ALL OF YOU.", "Not in my building!"]},
+    heatCls: 'gl-heat', heatSnd: () => { tone(60 + Math.random()*30, .25, 'sine', .2); noise(.12, 3200, 1200, .06, 'highpass'); },
+    svg: e => galaSVG(e), sign: (who, v, q) => galaPaddle(who, v, q),
+    sold: (who, amt) => who === 'vance' ? fmt(amt) + '. Sold. To me.' : 'Sold. ' + fmt(amt) + '. To ' + MBY[who].name + '.'
+  }
 };
 let auc = null;
-const aucLeft = () => Y().aucAt == null ? 0 : Math.max(0, AUC_EVERY - (state.opened - Y().aucAt));
-const aucItems = () => state.inv.filter(e => BY[e.id] && BY[e.id].t >= 5 && !tagged(e));
-function aucCard(){
-  const n = aucItems().length, left = aucLeft(), b = document.createElement('button');
-  b.type = 'button'; b.className = 'pr-auc' + (left ? ' cool' : '');
-  b.innerHTML = '<div class="pa-fire" aria-hidden="true"><i></i><i></i><i></i></div><div class="pa-txt"><div class="pa-h">The fire auction</div>'
-    + '<div class="pa-p">Bring Gold or Black Market and all four of them bid against each other. It usually goes well above market, sometimes double. It gets loud.</div>'
-    + '<div class="pa-ct' + (n && !left ? '' : ' zero') + '">' + (left ? 'They’re still arguing about the last one · ' + left + ' more open' + (left === 1 ? '' : 's')
-      : n ? n + ' piece' + (n === 1 ? '' : 's') + ' they’d fight over' : 'No Gold or Black Market in your bag') + '</div></div>';
+const aucLeftOf = A => { const L = A.log(); return L.aucAt == null ? 0 : Math.max(0, AUC_EVERY - (state.opened - L.aucAt)); };
+const aucItemsOf = A => state.inv.filter(e => BY[e.id] && A.ok(e) && !tagged(e));
+const aucLeft = () => aucLeftOf(AUC_A.yard);
+function aucCard(kind){
+  const A = AUC_A[kind || 'yard'], n = aucItemsOf(A).length, left = aucLeftOf(A), b = document.createElement('button');
+  b.type = 'button'; b.className = 'pr-auc' + (kind === 'pres' ? ' pr-gala' : '') + (left ? ' cool' : ''); b.dataset.k = kind || 'yard';
+  const gala = kind === 'pres';
+  b.innerHTML = (gala ? '<div class="pa-gavel" aria-hidden="true"><svg viewBox="0 0 64 64"><rect x="10" y="50" width="44" height="6" rx="2" fill="#7a5d22"/><g transform="rotate(-30 32 30)"><rect x="18" y="16" width="28" height="12" rx="3" fill="#c9a54a"/><rect x="30" y="28" width="4" height="26" rx="2" fill="#5a3a12"/></g></svg></div>'
+      : '<div class="pa-fire" aria-hidden="true"><i></i><i></i><i></i></div>')
+    + '<div class="pa-txt"><div class="pa-h">' + A.title + '</div>'
+    + '<div class="pa-p">' + (gala ? 'Bring a piece of Black Market. All six take it upstairs and bid on it. Tobias isn’t invited. If the piece is good enough, Vance might put up something of his own.'
+      : 'Bring Gold or Black Market and all four of them bid against each other. It usually goes well above market, sometimes double. It gets loud.') + '</div>'
+    + '<div class="pa-ct' + (n && !left ? '' : ' zero') + '">' + (left ? (gala ? 'The penthouse is being cleaned up · ' : 'They’re still arguing about the last one · ') + left + ' more open' + (left === 1 ? '' : 's')
+      : n ? n + ' piece' + (n === 1 ? '' : 's') + ' they’d bid on' : gala ? 'No Black Market in your bag' : 'No Gold or Black Market in your bag') + '</div></div>';
   return b;
 }
-function openAuction(){
-  if (!presOpen || crew !== 'yard' || room || auc) return;
-  const left = aucLeft(), items = aucItems();
-  if (left) { toast('Still arguing about the last one. Open ' + left + ' more case' + (left === 1 ? '' : 's') + '.'); tone(150, .2, 'square', .04); return; }
-  if (!items.length) { toast('Bring Gold or Black Market. Bought stock doesn’t count.'); tone(150, .2, 'square', .04); return; }
+function openAuction(kind){
+  kind = kind || crew;
+  const A = AUC_A[kind];
+  if (!A || !presOpen || room || auc) return;
+  const left = aucLeftOf(A), items = aucItemsOf(A);
+  if (left) { toast((kind === 'pres' ? 'The penthouse isn’t ready. ' : 'Still arguing about the last one. ') + 'Open ' + left + ' more case' + (left === 1 ? '' : 's') + '.'); tone(150, .2, 'square', .04); return; }
+  if (!items.length) { toast(kind === 'pres' ? 'Bring Black Market. Bought stock doesn’t count.' : 'Bring Gold or Black Market. Bought stock doesn’t count.'); tone(150, .2, 'square', .04); return; }
   ac();
-  auc = {e: null, skip: false, done: false, wake: null};
-  const el = $('#auc'); el.hidden = false; el.className = 'auc';
-  $('#aucStage').innerHTML = aucSVG(null);
-  $('#aucHead').innerHTML = '<small>The fire auction</small><b>What are you putting up?</b>';
+  auc = {A, kind, e: null, skip: false, done: false, wake: null};
+  const el = $('#auc'); el.hidden = false; el.className = 'auc ' + A.cls;
+  $('#aucStage').innerHTML = A.svg(null);
+  $('#aucHead').innerHTML = '<small>' + A.title + '</small><b>' + A.pick + '</b>';
   $('#aucBoard').hidden = true; $('#aucPick').hidden = false;
   $('#aucPick').innerHTML = '';
   items.sort((a, b) => b.v - a.v).forEach(e => {
@@ -6691,7 +6790,64 @@ function aucSVG(e){
   const signs = it ? ['deacon', 'ma', 'socket', 'tinny'].map(aucSignSVG).join('') : '';
   return '<div class="ms ms-yardc yc-ma yc-de yc-so yc-ti' + (it ? ' yc-knife' : '') + '">' + s.replace('</svg>', signs + dust + '<g id="aucB"></g></svg>') + '</div>';
 }
-
+/* The penthouse: arched windows over the city, a chandelier, the six behind a long table, the piece on a cushion */
+const GALA_SEAT = {wren:[36, .6], kessler:[94, .6], juno:[150, .6], vance:[200, .7], sable:[252, .6], brick:[308, .6]};
+function galaSVG(e){
+  const k = 'gl', R = seeded(4242), it = e ? BY[e.id] : null;
+  let s = SVG0 + '<defs>' + vigDef(k) + glowDef('glg', 6)
+    + '<linearGradient id="glw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#121a2e"/><stop offset="1" stop-color="#0a0d18"/></linearGradient>'
+    + '<linearGradient id="gls" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#050816"/><stop offset="1" stop-color="#1a1430"/></linearGradient>'
+    + '<linearGradient id="glt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a1e10"/><stop offset="1" stop-color="#1a0c06"/></linearGradient></defs>'
+    + '<rect width="400" height="260" fill="url(#glw)"/>';
+  /* Two tall arched windows full of city */
+  [[22, 112], [266, 112]].forEach(([x, w]) => {
+    s += '<path d="M' + x + ' 150 V60 Q' + x + ' 14 ' + (x + w/2) + ' 14 Q' + (x + w) + ' 14 ' + (x + w) + ' 60 V150 Z" fill="url(#gls)"/>';
+    for (let bx = x + 2; bx < x + w - 4;) { const bw = 6 + R()*12, bh = 20 + R()*70; s += '<rect x="' + bx.toFixed(1) + '" y="' + (150 - bh).toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + bh.toFixed(1) + '" fill="#0d1226"/>';
+      for (let wy = 152 - bh; wy < 148; wy += 5) for (let wx = bx + 1.5; wx < bx + bw - 1.5; wx += 3.5) if (R() < .25) s += '<rect x="' + wx.toFixed(1) + '" y="' + wy.toFixed(1) + '" width="1.4" height="2" fill="#ffd27a" opacity=".7"/>';
+      bx += bw + 1; }
+    s += '<path d="M' + x + ' 150 V60 Q' + x + ' 14 ' + (x + w/2) + ' 14 Q' + (x + w) + ' 14 ' + (x + w) + ' 60 V150 Z" fill="none" stroke="#c9a54a" stroke-width="3"/>'
+      + '<path d="M' + (x + w/2) + ' 14 V150 M' + x + ' 82 H' + (x + w) + '" stroke="#c9a54a" stroke-width="1.4" opacity=".7"/>';
+  });
+  /* Deco pilasters and the chandelier */
+  [150, 250].forEach(x => { s += '<rect x="' + (x - 3) + '" y="10" width="6" height="150" fill="#2a2010"/><path d="M' + x + ' 14 V158" stroke="#c9a54a" stroke-width="1"/>'; });
+  s += '<g class="gl-chand"><path d="M200 0 V18" stroke="#c9a54a" stroke-width="1.4"/><path d="M168 30 Q200 44 232 30 M178 24 Q200 34 222 24" stroke="#c9a54a" stroke-width="1.6" fill="none"/>'
+    + [168, 184, 200, 216, 232].map((x, i) => '<circle cx="' + x + '" cy="' + (30 + (i % 2 ? 3 : 0)) + '" r="2.6" fill="#fff3c4"/>').join('')
+    + '<ellipse cx="200" cy="32" rx="44" ry="14" fill="#ffd27a" opacity=".16" filter="url(#glg)"/></g>';
+  /* The piece on a velvet cushion, and a spot of light */
+  if (it) s += '<path d="M200 36 L150 120 H250 Z" fill="#fff3c4" opacity=".05"/><g class="gl-item"><ellipse cx="200" cy="74" rx="56" ry="20" fill="' + TIERS[it.t].color + '" opacity=".4" filter="url(#glg)"/>'
+    + '<g class="yc-kf"><image href="' + artHi(it, wearIdx(e.fl)) + '" x="152" y="50" width="96" height="40" preserveAspectRatio="xMidYMid meet"/></g></g>';
+  s += '<g class="gl-swap"><ellipse cx="200" cy="74" rx="60" ry="22" fill="#ff7ad9" opacity=".45" filter="url(#glg)"/><g class="yc-kf"><image href="' + artHi(BY[VANCE_ID], 0) + '" x="150" y="50" width="100" height="42" preserveAspectRatio="xMidYMid meet"/></g>'
+    + '<text x="200" y="102" text-anchor="middle" font-family="Limelight, Teko, sans-serif" font-size="9" fill="#ffd6f4" letter-spacing="1">CHROMA · 1 OF 1</text></g>';
+  /* The six, behind the table */
+  ['wren', 'kessler', 'juno', 'sable', 'brick', 'vance'].forEach(id => {
+    const [cx, sc] = GALA_SEAT[id];
+    s += fig(id, cx - 50*sc, 118 - 45*sc - (id === 'vance' ? 8 : 0), sc, 'gl-f gl-' + id);
+  });
+  s += '<rect x="0" y="166" width="400" height="94" fill="url(#glt)"/><rect x="0" y="164" width="400" height="5" fill="#c9a54a"/><rect x="0" y="169" width="400" height="2" fill="#000" opacity=".4"/>'
+    + '<path d="M0 200 H400" stroke="#c9a54a" stroke-width=".8" opacity=".35"/>';
+  [60, 140, 260, 340].forEach(x => { s += '<path d="M' + (x - 4) + ' 160 h8 l-2 4 h-4 Z M' + x + ' 150 v10" stroke="#e8e8f0" stroke-width=".8" fill="#e8e8f0" opacity=".55" class="gl-glass"/>'; });
+  s += '<g class="gl-gavel" transform="translate(356 140) rotate(-24)"><rect x="-12" y="-6" width="24" height="10" rx="2" fill="#c9a54a"/><rect x="-2" y="4" width="4" height="22" rx="2" fill="#5a3a12"/></g><rect x="340" y="160" width="40" height="5" rx="1" fill="#5a3a12"/>';
+  if (it) s += AUC_A.pres.ids.map(galaPaddleSVG).join('');
+  return '<div class="ms ms-gala">' + s + vigRect(k) + '<g id="aucB"></g></svg></div>';
+}
+/* Auction paddles in each member's colour; the bid gets written across the face */
+function galaPaddleSVG(id){
+  const [cx] = GALA_SEAT[id], m = MBY[id], y = 150;
+  return '<g class="au-sign gl-pad" id="aus-' + id + '"><path d="M' + (cx + 14) + ' ' + (y + 10) + ' V' + (y + 30) + '" stroke="#5a3a12" stroke-width="3" stroke-linecap="round"/>'
+    + '<ellipse cx="' + cx + '" cy="' + y + '" rx="24" ry="12" fill="#f6efe0" stroke="' + m.col + '" stroke-width="2.4"/>'
+    + '<text x="' + (cx - 17) + '" y="' + (y - 4) + '" font-family="Limelight, Teko, sans-serif" font-size="6" fill="' + m.col + '">' + m.name[0] + '</text>'
+    + '<text class="au-num" x="' + cx + '" y="' + (y + 4) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="11" fill="#1c1208"></text>'
+    + '<path class="au-strike" d="M' + (cx - 18) + ' ' + (y + 2) + ' L' + (cx + 18) + ' ' + (y - 1) + '" stroke="#c0262d" stroke-width="1.8" fill="none" stroke-linecap="round"/></g>';
+}
+function galaPaddle(who, v, quick){
+  const g = document.getElementById('aus-' + who); if (!g) return;
+  document.querySelectorAll('#aucStage .au-sign').forEach(o => { if (o !== g && o.querySelector('.au-num').textContent) o.classList.add('out'); o.classList.remove('up'); });
+  g.classList.remove('out'); restart(g, 'up');
+  const t = g.querySelector('.au-num'), txt = fmt(v);
+  t.setAttribute('font-size', Math.min(11, 40 / (txt.length * .5)).toFixed(1));
+  t.textContent = txt;
+  if (!quick) tone(1500 + Math.random()*400, .04, 'triangle', .02);
+}
 /* Every Reject writes their bids on their own sign: Ma paints on a scrap of car door, Tinny crayons on cardboard,
    Deacon chalks a slate, Socket scrawls on an old licence plate. [cx, top, w, h] in the auction scene. */
 const AUC_SIGN = {deacon:[98, 150, 54, 30], ma:[166, 164, 62, 31], socket:[288, 154, 60, 29], tinny:[262, 186, 54, 29]};
@@ -6738,11 +6894,11 @@ function aucSign(who, v, quick){
 function aucBubble(who, text){
   const g = document.getElementById('aucB'); if (!g) return;
   if (!who) { g.innerHTML = ''; return; }
-  const [px, py] = AUC_POS[who], w = Math.min(250, text.length * 4.7 + 18), x = Math.max(4, Math.min(396 - w, px - w/2)), y = py - 28;
+  const A = auc ? auc.A : AUC_A.yard, [px, py] = A.pos[who], w = Math.min(250, text.length * 4.7 + 18), x = Math.max(4, Math.min(396 - w, px - w/2)), y = py - 28;
   g.innerHTML = '<g class="au-bub"><rect x="' + x.toFixed(1) + '" y="' + y + '" width="' + w.toFixed(1) + '" height="19" rx="4" fill="#f6ead2" stroke="' + MBY[who].col + '" stroke-width="1.6"/>'
     + '<path d="M' + (px - 4) + ' ' + (y + 18.5) + ' L' + px + ' ' + (y + 26) + ' L' + (px + 4) + ' ' + (y + 18.5) + ' Z" fill="#f6ead2"/>'
     + '<text x="' + (x + w/2).toFixed(1) + '" y="' + (y + 13) + '" text-anchor="middle" font-family="Barlow Semi Condensed, Arial Narrow, sans-serif" font-weight="700" font-size="9.2" fill="#1c1208">' + escH(text) + '</text></g>';
-  const f = document.querySelector('#aucStage .yc-f' + {ma:'ma', tinny:'ti', deacon:'de', socket:'so'}[who]);
+  const f = document.querySelector('#aucStage .' + A.fig[who]);
   if (f) restart(f, 'au-jump');
 }
 function aucShowBid(v, mkt, who){
@@ -6755,65 +6911,94 @@ function aucShowBid(v, mkt, who){
   const m = MBY[who]; $('#aucWho').innerHTML = m ? '<span style="color:' + m.col + '">' + m.name + '</span> has it' : 'Opening bid';
   restart($('#aucBid').parentNode, 'pop');
 }
+/* Vance's swap: only for a good enough piece, only while he still has his one of one */
+const vanceHasIt = () => P().vvault !== 'won' && !state.inv.some(x => x.id === VANCE_ID);
 async function runAuction(e){
   const ctl = auc; if (!ctl) return;
-  ctl.e = e; Y().aucAt = state.opened; save();
-  const it = BY[e.id], mkt = e.v, two = Math.random() < .15, T = two ? 2 : 1.15 + Math.random() * .6;
-  const steps = two ? 10 : 7 + Math.floor(Math.random() * 2), fightAt = 3 + Math.floor(Math.random() * 2);
+  const A = ctl.A;
+  ctl.e = e; A.log().aucAt = state.opened; save();
+  const it = BY[e.id], mkt = e.v, two = Math.random() < A.twoCh, T = two ? A.two : A.lo + Math.random() * A.span;
+  const steps = two ? 10 : 7 + Math.floor(Math.random() * 2), heatAt = 3 + Math.floor(Math.random() * 2);
+  const swap = ctl.kind === 'pres' && mkt >= GALA_SWAP && vanceHasIt(), swapAt = steps - 2;
   const bids = Array.from({length: steps}, (_, i) => Math.round(mkt * (1 + (T - 1) * Math.pow((i + 1) / steps, .9))));
   const W = ms => new Promise(res => { if (ctl.skip) return res(); const t = setTimeout(go, ms); function go(){ clearTimeout(t); if (ctl.wake === go) ctl.wake = null; res(); } ctl.wake = go; });
-  $('#aucStage').innerHTML = aucSVG(e);
+  $('#aucStage').innerHTML = A.svg(e);
   $('#aucPick').hidden = true; $('#aucBoard').hidden = false;
-  $('#aucHead').innerHTML = '<small>The fire auction · ' + TIERS[it.t].name + '</small><b>' + WNAME[it.w] + ' | ' + it.name + '</b>';
+  $('#aucHead').innerHTML = '<small>' + A.title + ' · ' + TIERS[it.t].name + '</small><b>' + WNAME[it.w] + ' | ' + it.name + '</b>';
   $('#aucBid').dataset.v = mkt; $('#aucBid').textContent = fmt(mkt);
-  $('#aucX').textContent = 'Market ' + fmt(mkt); $('#aucX').classList.remove('hot'); $('#aucWho').textContent = 'Everyone gathers round the fire…';
+  $('#aucX').textContent = 'Market ' + fmt(mkt); $('#aucX').classList.remove('hot');
+  $('#aucWho').textContent = ctl.kind === 'pres' ? 'The six take their seats upstairs…' : 'Everyone gathers round the fire…';
   $('#aucActs').innerHTML = '<button class="ghost sm" data-au="skip">Skip to the end</button>';
   musSync();
-  await W(1300);
+  if (ctl.kind === 'pres') { await W(900); aucBubble('vance', 'Contraband. In my building. …Fine. We do this quietly.'); await W(2200); aucBubble(null); }
+  else await W(1300);
   const gavel = () => { tone(1318.5, .4, 'sine', .05); tone(3640, .2, 'sine', .015); noise(.05, 3000, 900, .08); };
-  let last = null;
+  let last = null, offered = false;
   for (let i = 0; i < steps && !ctl.skip; i++) {
-    if (i === fightAt && last) {
-      const st = $('#aucStage .ms'); st.classList.add('au-fight'); restart($('#auc'), 'shake');
-      const punches = setInterval(() => { if (ctl.skip) return; noise(.08, 900, 120, .22, 'lowpass'); tone(70 + Math.random()*40, .12, 'square', .06); }, 170);
-      const a = last, b = pickOne(AUC_IDS.filter(x => x !== a));
-      aucBubble(b, pickOne(AUC_FIGHT[b])); await W(1300);
-      aucBubble(a, pickOne(AUC_FIGHT[a])); await W(1300);
-      clearInterval(punches); st.classList.remove('au-fight');
+    if (i === heatAt && last) {
+      const st = $('#aucStage .ms'); st.classList.add(A.heatCls); restart($('#auc'), 'shake');
+      const hits = setInterval(() => { if (!ctl.skip) A.heatSnd(); }, ctl.kind === 'pres' ? 420 : 170);
+      const a = last, b = pickOne(A.ids.filter(x => x !== a));
+      aucBubble(b, pickOne(A.heat[b])); await W(1300);
+      aucBubble(a, pickOne(A.heat[a])); await W(1300);
+      clearInterval(hits); st.classList.remove(A.heatCls);
       aucBubble(null); await W(300);
     }
-    const who = pickOne(AUC_IDS.filter(x => x !== last)), v = bids[i];
+    if (swap && i === swapAt) {
+      /* The room goes quiet. Vance stands, and puts his own piece on the table */
+      const st = $('#aucStage .ms'); st.classList.add('gl-hush');
+      mus.hold = null; aucBubble('vance', 'Enough.'); tone(98, 1.4, 'sine', .2); await W(1600);
+      st.classList.add('gl-offer'); [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((f, j) => tone(f, 1.4, 'triangle', .04, j*.09));
+      aucBubble('vance', 'My one of one. Chroma. For your contraband. Straight swap.'); await W(2600);
+      aucBubble('brick', 'Boss?! You never show anybody that!'); await W(1700);
+      aucBubble('vance', "Finish the bidding. Then the kid decides."); await W(1800);
+      st.classList.remove('gl-hush'); offered = true;
+    }
+    const who = pickOne(A.ids.filter(x => x !== last)), v = bids[i];
     last = who;
-    let line = pickOne(AUC_LINES[who]).split('{o}').join(fmt(v));
-    if (i > fightAt || v / mkt >= 1.5) line = line.toUpperCase();
-    aucBubble(who, line); aucShowBid(v, mkt, who); aucSign(who, v); gavel();
+    let line = pickOne(A.lines[who]).split('{o}').join(fmt(v));
+    if (ctl.kind === 'yard' && (i > heatAt || v / mkt >= 1.5)) line = line.toUpperCase();
+    aucBubble(who, line); aucShowBid(v, mkt, who); A.sign(who, v); gavel();
     tone(MBY[who].pitch * (1.6 + i * .06), .12, 'square', .03);
-    await W(i > fightAt ? 950 : 1250);
+    await W(i > heatAt ? 950 : 1250);
   }
   if (!auc || auc !== ctl) return;
-  if (ctl.skip) { last = last && Math.random() < .5 ? last : pickOne(AUC_IDS); ctl.skip = false; }
+  if (ctl.skip) { last = last && Math.random() < .5 ? last : pickOne(A.ids); ctl.skip = false; if (swap) { offered = true; const st = $('#aucStage .ms'); if (st) st.classList.add('gl-offer'); } }
   const amt = bids[steps - 1], win = MBY[last];
-  aucShowBid(amt, mkt, last); aucSign(last, amt, true);
+  aucShowBid(amt, mkt, last); A.sign(last, amt, true);
   { const ws = document.getElementById('aus-' + last); if (ws) ws.classList.add('win'); }
-  aucBubble(last, amt >= mkt * 1.95 ? 'DOUBLE! IT\'S MINE! ' + fmt(amt) + '!' : 'SOLD! To me! ' + fmt(amt) + '!');
-  [0, .22, .44].forEach(d => { tone(196, .5, 'sine', .14, d); noise(.06, 1500, 300, .2, undefined); });
-  $('#aucWho').innerHTML = '<span style="color:' + win.col + '">' + win.name + '</span> wins it' + (amt >= mkt * 1.95 ? ' · double market!' : '');
-  ctl.done = true; ctl.win = last; ctl.amt = amt;
-  $('#aucActs').innerHTML = '<button class="gold-btn" data-au="sell">Sell to ' + win.name + ' · ' + fmt(amt) + ' cr</button><button class="link-btn" data-au="keep">Keep it</button>';
+  aucBubble(last, A.sold(last, amt, mkt));
+  [0, .22, .44].forEach(d => { tone(196, .5, 'sine', .14, d); noise(.06, 1500, 300, .2); });
+  $('#aucWho').innerHTML = '<span style="color:' + win.col + '">' + win.name + '</span> wins it' + (amt >= mkt * 1.85 ? ' · nearly double market!' : '');
+  ctl.done = true; ctl.win = last; ctl.amt = amt; ctl.swap = offered;
+  $('#aucActs').innerHTML = '<button class="gold-btn" data-au="sell">Sell to ' + win.name + ' · ' + fmt(amt) + ' cr</button>'
+    + (offered ? '<button class="gold-btn chroma-btn" data-au="swap">Swap for Vance’s ' + BY[VANCE_ID].name + ' · Chroma 1 of 1</button>' : '')
+    + '<button class="link-btn" data-au="keep">Keep it</button>';
 }
 function aucAct(a){
   const ctl = auc; if (!ctl) return;
   if (a === 'skip') { ctl.skip = true; if (ctl.wake) ctl.wake(); return; }
-  if (a === 'sell' && ctl.done) {
-    const e = ctl.e, amt = ctl.amt;
-    if (!state.inv.some(x => x.uid === e.uid)) { closeAuction(); return; }
+  if (!ctl.done) return;
+  const e = ctl.e;
+  if (!state.inv.some(x => x.uid === e.uid)) { closeAuction(); return; }
+  if (a === 'sell') {
+    const amt = ctl.amt, L = ctl.A.log();
     state.inv = state.inv.filter(x => x.uid !== e.uid);
-    state.bal += amt; Y().deals = (Y().deals || 0) + 1; Y().earned = (Y().earned || 0) + amt;
+    state.bal += amt; L.deals = (L.deals || 0) + 1; L.earned = (L.earned || 0) + amt;
     save(); setBal(amt); prBal(); kaching(); renderOpen();
-    toast('Sold to ' + MBY[ctl.win].name + ' at the fire for ' + fmt(amt) + ' cr');
+    toast('Sold to ' + MBY[ctl.win].name + (ctl.kind === 'pres' ? ' upstairs' : ' at the fire') + ' for ' + fmt(amt) + ' cr');
     closeAuction();
   }
-  if (a === 'keep' && ctl.done) { toast('You keep it. Four very angry people watch you leave.'); closeAuction(); }
+  if (a === 'swap' && ctl.swap && vanceHasIt()) {
+    state.inv = state.inv.filter(x => x.uid !== e.uid);
+    const V = VAULTS.vance, r = {uid: uid(), id: V.id, fl: V.fl, v: marketValue(BY[V.id], V.fl), at: Date.now(), hk: [], src: 'vault', from: 'vance'};
+    state.inv.unshift(r); P().vvault = 'won'; P().deals = (P().deals || 0) + 1;
+    if (!state.best || r.v > state.best.v) state.best = {id: r.id, v: r.v};
+    save(); closeAuction();
+    busy = true; lockRack(true); $('#reveal').style.zIndex = '81';
+    showReveal(r);
+  }
+  if (a === 'keep') { toast(ctl.kind === 'pres' ? 'You keep it. Six very offended people watch you take the elevator down.' : 'You keep it. Four very angry people watch you leave.'); closeAuction(); }
 }
 
 /* ---------- Socket's Contraption ----------
@@ -7064,7 +7249,7 @@ function camScene(box){
 }
 function onHot(i){
   if (!room || vaultBusy || actBusy || mi) return;
-  if (room.id === 'sable' && pressCase(i)) return;
+  if (VAULTS[room.id] && pressCase(i)) return;
   selectSlot(i);
 }
 function selectSlot(i){
@@ -7087,6 +7272,7 @@ function selectSlot(i){
 function restView(){
   const sc = sceneEl(), svg = sc && sc.querySelector(':scope > svg'); if (!svg) return;
   if (room && room.id === 'sable' && P().vault === 'down') camScene([60, 0, 280, 222]);
+  else if (room && room.id === 'vance' && P().vvault === 'down') camScene([180, 4, 220, 200]);
   else if (WIDE_MQ.matches) camScene([90, 30, 220, 220]);
   else svg.style.transform = '';
 }
@@ -7131,11 +7317,24 @@ function buySlot(){
    Admire her three cases left to right, then right to left, and a fourth case comes down from the ceiling
    with an item that exists nowhere else. One offer of credits and/or items: she accepts for sure at 1.2x her
    hidden price, never below 0.8x, and it's a coin flip in between. A refusal sends the case up for good. */
-const VAULT_ID = 'x1', VAULT_FL = .0031;
+const VAULT_ID = 'x1', VAULT_FL = .0031, VANCE_ID = 'x2';
+/* Two hidden cases, same rules. Press the three displays top to bottom and back up, and one offer is all you get.
+   Sable's comes down from the ceiling; Vance's knife cabinet lifts up to show what he keeps behind it. */
+const VAULTS = {
+  sable:{id:'x1', fl:.0031, key:'vault', tk:'vaultT', on:'sx-down', dim:'sx-dim', open:'sx-open', shut:'sx-up', title:'Sable’s hidden case', who:'Sable', her:'her', she:'she',
+    desc:'Chroma, one of one. It isn’t in any case, contract or reel.', hello:'Well? Make it worth my time.',
+    found:['…You know how to look.', "This one isn't on any list. No case, no contract. Make me an offer. One."], yes:"…Yes. It's yours.", no:'No.', after:"It won't come down again.",
+    again:{gone:"It doesn't come down twice.", won:'You already own what was in it.', down:'It is right there. Make your offer.'}},
+  vance:{id:'x2', fl:.0007, key:'vvault', tk:'vvaultT', on:'vv-up', dim:'vv-dim', open:'vv-open', shut:'vv-shut', title:'Vance’s private collection', who:'Vance', her:'him', she:'he',
+    desc:'Chroma, one of one. Vance has never shown it to anyone, not even the Prestige.', hello:'Go on. Impress me.',
+    found:['…Nobody touches that cabinet in that order by accident.', "My one of one. Never been on a list. One offer, and choose your words carefully."], yes:'…Deal. Take it before I change my mind.', no:'No. Get out of my sight.', after:'That cabinet stays shut now.',
+    again:{gone:'That cabinet stays shut. You had your chance.', won:'You already have it. Don’t push your luck.', down:'It’s right there. Make your offer.'}}
+};
+const VLT = () => VAULTS[room && VAULTS[room.id] ? room.id : 'sable'];
 const VAULT_SEQ = [[0, 1, 2, 2, 1, 0], [0, 1, 2, 1, 0]];
 const VX_BANDS = [[.5, 'Is that a joke?', 'mad'], [.8, 'Insulting.', 'mad'], [1, 'Hm. Closer.', ''], [1.2, '…Interesting.', ''], [Infinity, 'Now you have my attention.', 'happy']];
 let sablePress = [], vaultBusy = false, vxSel = new Set(), vxCr = 0, vxBand = -1, vxTimer = 0;
-const vaultValue = () => marketValue(BY[VAULT_ID], VAULT_FL);
+const vaultValue = V => { V = V || VLT(); return marketValue(BY[V.id], V.fl); };
 function pressCase(i){
   sablePress.push(i); if (sablePress.length > 6) sablePress.shift();
   const f = [523.25, 659.25, 783.99][i];
@@ -7145,53 +7344,55 @@ function pressCase(i){
   const done = VAULT_SEQ.some(q => q.length <= sablePress.length && q.every((v, j) => sablePress[sablePress.length - q.length + j] === v));
   if (!done) return false;
   sablePress = [];
-  const v = P().vault;
+  const V = VLT(), v = P()[V.key] || null;
   if (v === null) { triggerVault(); return true; }
-  setTimeout(() => { if (room && room.id === 'sable') sayRoom(v === 'gone' ? "It doesn't come down twice." : v === 'won' ? 'You already own what was in it.' : 'It is right there. Make your offer.', v === 'gone' ? 'mad' : ''); }, 250);
+  setTimeout(() => { if (room && VAULTS[room.id] === V) sayRoom(V.again[v] || V.again.down, v === 'gone' ? 'mad' : ''); }, 250);
   return false;
 }
 function chains(ms){ const t = setInterval(() => { noise(.06, 2600, 1200, .05, 'bandpass'); tone(130 + Math.random()*50, .05, 'square', .018); }, 110); setTimeout(() => clearInterval(t), ms); }
 async function triggerVault(){
   const m = room, sc = sceneEl(); if (!m || !sc) return;
   unzoomShop(); vaultBusy = true; renderLeft();
-  P().vault = 'down'; P().vaultT = Math.round(vaultValue() * (1 + Math.random() * .35)); save();
+  const V = VLT();
+  P()[V.key] = 'down'; P()[V.tk] = Math.round(vaultValue(V) * (1 + Math.random() * .35)); save();
   sayTok++; $('#prSay').textContent = '';
-  sc.classList.add('sx-dim'); restView();
+  sc.classList.add(V.dim); restView();
   tone(48, 1.4, 'sine', .3); noise(1.1, 300, 80, .12, 'lowpass');
   await wait(800);
-  sc.classList.add('sx-down'); chains(2200);
+  sc.classList.add(V.on); chains(2200); if (V.id === VANCE_ID) { restView(); sweep(90, 420, 2, 'sawtooth', .03); }
   await wait(2250);
   tone(70, .4, 'sine', .3); noise(.2, 1500, 300, .15, 'lowpass');
-  sc.classList.remove('sx-dim');
+  sc.classList.remove(V.dim);
   vaultBusy = false;
   if (room !== m) return;
   renderRoomBody();
-  await sayRoom('…You know how to look.');
+  await sayRoom(V.found[0]);
   await wait(1000);
-  if (room === m && P().vault === 'down') sayRoom("This one isn't on any list. No case, no contract. Make me an offer. One.");
+  if (room === m && P()[V.key] === 'down') sayRoom(V.found[1]);
 }
 function syncVaultScene(){
-  const sc = sceneEl(); if (!sc || !room || room.id !== 'sable') return;
-  sc.classList.remove('sx-dim', 'sx-open', 'sx-up');
-  sc.classList.toggle('sx-down', P().vault === 'down');
+  const sc = sceneEl(); if (!sc || !room || !VAULTS[room.id]) return;
+  const V = VLT();
+  sc.classList.remove(V.dim, V.open, V.shut);
+  sc.classList.toggle(V.on, P()[V.key] === 'down');
   if (shopSel == null) restView();
 }
 function vaultPanel(){
-  const it = BY[VAULT_ID];
-  return '<div class="vx" id="vx"><div class="vx-top"><span class="tag">THE HIDDEN CASE</span><span class="vx-one">One offer. No second chances.</span></div>'
+  const V = VLT(), it = BY[V.id];
+  return '<div class="vx' + (V.id === VANCE_ID ? ' vx-vance' : '') + '" id="vx"><div class="vx-top"><span class="tag">' + (V.id === VANCE_ID ? 'PRIVATE COLLECTION' : 'THE HIDDEN CASE') + '</span><span class="vx-one">One offer. No second chances.</span></div>'
     + '<div class="vx-main"><div class="vx-art" id="vxArt"></div><div class="vx-info"><div class="t">' + WNAME[it.w] + ' | ' + it.name + '</div>'
-    + '<div class="s">Black Market contraband, one of one. It isn’t in any case, contract or reel.</div>'
-    + '<div class="s">Mint · Float ' + VAULT_FL.toFixed(4) + ' · Worth about <b>' + fmt(vaultValue()) + ' cr</b></div></div></div>'
+    + '<div class="s">' + V.desc + '</div>'
+    + '<div class="s">Mint · Float ' + V.fl.toFixed(4) + ' · Worth about <b>' + fmt(vaultValue(V)) + ' cr</b></div></div></div>'
     + '<div class="vx-build"><div class="lab">Credits</div><div class="vx-cr"><button class="ghost sm" data-vx="-1000">−1k</button><input id="vxCr" type="number" inputmode="numeric" min="0" step="100" aria-label="Credits to offer"><button class="ghost sm" data-vx="1000">+1k</button><button class="ghost sm" data-vx="5000">+5k</button><button class="ghost sm" data-vx="all">All in</button></div>'
-    + '<div class="lab">Items <small>tap to add or take back · shown at what they’re worth to her</small></div><div class="vx-items" id="vxItems"></div>'
-    + '<div class="vx-sum"><span>Your offer, the way she sees it</span><b id="vxSum">0 cr</b></div>'
-    + '<div class="vx-say"><b>Sable</b><span id="vxSay">Well? Make it worth my time.</span></div>'
+    + '<div class="lab">Items <small>tap to add or take back · shown at what they’re worth to ' + V.her + '</small></div><div class="vx-items" id="vxItems"></div>'
+    + '<div class="vx-sum"><span>Your offer, the way ' + V.she + ' sees it</span><b id="vxSum">0 cr</b></div>'
+    + '<div class="vx-say"><b>' + V.who + '</b><span id="vxSay">' + V.hello + '</span></div>'
     + '<div class="vx-act"><button class="gold-btn" id="vxGo" data-a="vxgo">Make your one offer</button></div>'
-    + '<p class="vx-note">If she says no, the case goes back up and never comes down again. You keep everything you offered.</p></div></div>';
+    + '<p class="vx-note">If ' + V.she + ' says no, ' + (V.id === VANCE_ID ? 'the cabinet comes back down and stays down' : 'the case goes back up and never comes down again') + '. You keep everything you offered.</p></div></div>';
 }
-const vxItemVal = e => offerFor(MBY.sable, e);
+const vxItemVal = e => offerFor(MBY[room && VAULTS[room.id] ? room.id : 'sable'], e);
 function fillVault(){
-  $('#vxArt').append(imgOf(artHi(BY[VAULT_ID], 0)));
+  $('#vxArt').append(imgOf(artHi(BY[VLT().id], 0)));
   const have = new Set(state.inv.map(e => e.uid)); vxSel.forEach(u => { if (!have.has(u)) vxSel.delete(u); });
   vxCr = Math.min(vxCr, state.bal); $('#vxCr').value = vxCr; $('#vxCr').max = state.bal;
   const box = $('#vxItems');
@@ -7215,14 +7416,14 @@ function vxUpdate(quiet){
   const v = vxValue(); sum.textContent = fmt(v) + ' cr';
   const go = $('#vxGo'); if (go) go.disabled = v <= 0 || vaultBusy;
   if (quiet || vaultBusy || !v) return;
-  const r = v / (P().vaultT || vaultValue()), band = VX_BANDS.findIndex(b => r < b[0]);
+  const r = v / (P()[VLT().tk] || vaultValue()), band = VX_BANDS.findIndex(b => r < b[0]);
   if (band === vxBand) return;
   clearTimeout(vxTimer);
   vxTimer = setTimeout(() => {
-    if (!room || room.id !== 'sable' || vaultBusy) return;
+    if (!room || !VAULTS[room.id] || vaultBusy) return;
     vxBand = band; sayRoom(VX_BANDS[band][1], VX_BANDS[band][2]);
     const vs = $('#vxSay'); if (vs) { vs.textContent = VX_BANDS[band][1]; vs.className = VX_BANDS[band][2]; restart(vs.parentNode, 'vx-say'); }
-    blip(MBY.sable);
+    blip(room);
   }, 380);
 }
 function vxCredits(d){
@@ -7238,48 +7439,47 @@ function vxToggle(b){
   b.classList.toggle('on', vxSel.has(u)); pickSound(); vxUpdate();
 }
 function vaultGo(btn){
-  if (P().vault !== 'down' || vaultBusy || vxValue() <= 0) return;
+  if (P()[VLT().key] !== 'down' || vaultBusy || vxValue() <= 0) return;
   arm(btn, 'Tap again. It’s final.', resolveVault);
 }
 function resolveVault(){
-  if (P().vault !== 'down' || vaultBusy) return;
+  if (P()[VLT().key] !== 'down' || vaultBusy) return;
   const cr = Math.min(vxCr, state.bal), items = state.inv.filter(e => vxSel.has(e.uid));
   const val = cr + items.reduce((a, e) => a + vxItemVal(e), 0); if (val <= 0) return;
-  const ratio = val / (P().vaultT || vaultValue()), p = Math.max(0, Math.min(1, (ratio - .8) / .4));
+  const ratio = val / (P()[VLT().tk] || vaultValue()), p = Math.max(0, Math.min(1, (ratio - .8) / .4));
   vaultBusy = true; clearTimeout(vxTimer);
   closeOv(); renderLeft();
   if (Math.random() < p) vaultWin(cr, items); else vaultLose();
 }
 async function vaultWin(cr, items){
-  const m = room, sc = sceneEl(), ids = new Set(items.map(e => e.uid));
+  const m = room, sc = sceneEl(), ids = new Set(items.map(e => e.uid)), V = VLT();
   state.inv = state.inv.filter(e => !ids.has(e.uid)); state.bal -= cr;
-  const r = {uid: uid(), id: VAULT_ID, fl: VAULT_FL, v: vaultValue(), at: Date.now(), hk: [], src: 'vault'};
-  state.inv.unshift(r); P().vault = 'won'; vxSel.clear(); vxCr = 0;
+  const r = {uid: uid(), id: V.id, fl: V.fl, v: vaultValue(V), at: Date.now(), hk: [], src: 'vault', from: room.id};
+  state.inv.unshift(r); P()[V.key] = 'won'; vxSel.clear(); vxCr = 0;
   if (!state.best || r.v > state.best.v) state.best = {id: r.id, v: r.v};
   save(); if (cr) setBal(-cr); prBal();
-  await sayRoom("…Yes. It's yours.", 'happy');
-  if (sc) sc.classList.add('sx-open');
+  await sayRoom(V.yes, 'happy');
+  if (sc) sc.classList.add(V.open);
   [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, 1.2, 'triangle', .05, i*.1)); noise(.6, 4000, 800, .1, 'highpass');
   await wait(1400);
   vaultBusy = false;
   busy = true; lockRack(true);
   $('#reveal').style.zIndex = '81';
-  await bmCinematic(r);
-  showReveal(r, true);
+  showReveal(r);
 }
 async function vaultLose(){
-  const m = room, sc = sceneEl();
-  P().vault = 'gone'; vxSel.clear(); vxCr = 0; save();
-  await sayRoom('No.', 'mad');
+  const m = room, sc = sceneEl(), V = VLT();
+  P()[V.key] = 'gone'; vxSel.clear(); vxCr = 0; save();
+  await sayRoom(V.no, 'mad');
   await wait(1000);
-  if (sc) { sc.classList.remove('sx-down'); sc.classList.add('sx-up'); }
+  if (sc) { sc.classList.remove(V.on); sc.classList.add(V.shut); }
   chains(2000);
   await wait(2050);
   tone(70, .3, 'sine', .25);
-  if (sc) sc.classList.remove('sx-up');
+  if (sc) sc.classList.remove(V.shut);
   if (shopSel == null) restView();
   vaultBusy = false;
-  if (room === m) { renderRoomBody(); sayRoom("It won't come down again."); }
+  if (room === m) { renderRoomBody(); sayRoom(V.after); }
 }
 
 /* ---------- Tobias's back room ----------
@@ -7545,7 +7745,7 @@ $('#yardBtn').onclick = openYard;
 $('#ytEnter').onclick = () => closeYt(true);
 $('#ytLater').onclick = () => closeYt(false);
 $('#prBack').onclick = () => { if (vaultBusy) return; if (room) leaveRoom(); else closePres(); };
-$('#prGrid').addEventListener('click', e => { if (e.target.closest('.pr-auc')) { openAuction(); return; } const b = e.target.closest('.pr-mem'); if (b) openRoom(b.dataset.m); });
+$('#prGrid').addEventListener('click', e => { { const ab = e.target.closest('.pr-auc'); if (ab) { openAuction(ab.dataset.k); return; } } const b = e.target.closest('.pr-mem'); if (b) openRoom(b.dataset.m); });
 $('#aucClose').onclick = closeAuction;
 $('#batchBtn').onclick = runBatch;
 $('#btKeep').onclick = () => closeBatch(false);
