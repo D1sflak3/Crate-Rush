@@ -2377,6 +2377,7 @@ body{background:
 @media (max-width:560px){.gd-card{grid-template-columns:80px 1fr}.gd-art{width:80px;height:64px}.gd-art svg{width:62px;height:50px}}
 .pk-drop.lg{background:radial-gradient(circle at 50% 50%,rgba(255,77,77,.28),rgba(0,0,0,.82) 70%)}
 .pk-drop.lg .pk-lab{color:#ffd0d0;text-shadow:0 0 14px #ff4d4d}
+.jb-once{display:inline-block;margin-top:8px;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#ffd27a;background:rgba(255,203,46,.1);border:1px solid rgba(255,203,46,.45)}
 </style>
 
 <div class="wrap" id="wrap">
@@ -6005,7 +6006,7 @@ function renderLeft(anim){
       + (m.id === 'vance' ? B('bdo', 'Ask about the golden ball', '', lock || bdoBusy, 'Ballon d’Or 2026') : '')
       + (m.id === 'tinny' ? B('bags', 'Backpacks', '', lock, bagLvl() < BAGS.length - 1 ? 'next: ' + BAGS[bagLvl() + 1].cap + ' slots' : 'biggest one') : '')
       + (m.id === 'tinny' ? B('peek', 'Ask what’s in the next crate', '', lock || pk > 0, pk ? 'in ' + pk + ' open' + (pk === 1 ? '' : 's') : 'Scrapyard · free') : '')
-      + (JOBS[m.id] ? B('job', 'Job · ' + jobOf(m).t, 'jobb', lock, jobDone(m) ? 'next in ' + jobLeft() + ' opens' : starTxt(jobOf(m).d)) : '')
+      + (jobOf(m) ? B('job', 'Job · ' + jobOf(m).t, 'jobb', lock, jobDone(m) ? 'next in ' + jobLeft() + ' opens' : starTxt(jobOf(m).d) + (jobOf(m).d > JOB_ONCE ? ' · once' : '')) : '')
       + B('leave', 'Leave', 'ghost', lock);
     ctx = '<div class="rmc rmc-want' + (have ? ' have' : '') + '"><div class="lab">' + (have ? '★ You have it' : 'On the list') + '</div><span class="rmc-art"></span>'
       + '<div class="t">' + WNAME[w.w] + ' | ' + w.name + '</div><div class="rmc-sub">Bring this exact one: ' + BRIEF_X + '× market in a briefcase</div>'
@@ -7944,7 +7945,13 @@ const JOB_BEATS = {
   lose:['Sirens. You run and don’t look back.', 'It falls apart. You get out. Not everything does.', 'Wrong night. Wrong door. Wrong everything.']
 };
 const jobEp = () => Math.floor(state.opened / JOB_EVERY);
-const jobOf = m => { const L = JOBS[m.id]; if (!L) return null; return L[hash(m.id + ':job:' + jobEp()) % L.length]; };
+/* Jobs above 3 stars are one-offs: pull one off and it's gone for good (from the next rotation on, so the
+   card you just finished still shows as done until then). Tobias's Glitch counts whatever the outcome. */
+const JOB_ONCE = 3;
+const onceKey = (m, j) => m.id + ':' + j.t;
+const jobGone = (m, j) => j.d > JOB_ONCE && (P().once || {})[onceKey(m, j)] != null && P().once[onceKey(m, j)] < jobEp();
+const markOnce = (m, j) => { if (j && j.d > JOB_ONCE) { P().once = P().once || {}; if (P().once[onceKey(m, j)] == null) P().once[onceKey(m, j)] = jobEp(); } };
+const jobOf = m => { const L = (JOBS[m.id] || []).filter(j => !jobGone(m, j)); if (!L.length) return null; return L[hash(m.id + ':job:' + jobEp()) % L.length]; };
 const jobDone = m => (P().jobs || {})[m.id] === jobEp() || (m.id === 'tobias' && !!tjBlocked());
 const jobLeft = () => JOB_EVERY - (state.opened % JOB_EVERY);
 const jobPay = j => Math.round(JOB_PAY * Math.pow(j.d, 1.8) / 50) * 50;
@@ -8242,7 +8249,8 @@ function jobPanel(m){
   const ch = jobChance(m, j, picks), done = jobDone(m), left = jobLeft();
   let h = '<div class="jb-card' + (m.yard ? ' yard' : '') + '"><div class="jb-prev">' + jobScene(j.loc, m.id + 'p') + '<span class="jb-place">' + j.place + '</span></div>'
     + '<div class="jb-meta"><div class="jb-t">' + j.t + '</div><div class="jb-row">' + starsHTML(j.d) + '<span class="jb-d">' + j.d + ' / 5</span><span class="jb-pay"><span class="coin"></span>' + (j.payTxt || fmt(jobPay(j))) + '</span></div>'
-    + '<p class="jb-story">“' + j.story + '” <b style="color:' + m.col + '">— ' + m.name + '</b></p></div>';
+    + '<p class="jb-story">“' + j.story + '” <b style="color:' + m.col + '">— ' + m.name + '</b></p>'
+    + (j.d > JOB_ONCE ? '<div class="jb-once">One time only · ' + (m.id === 'tobias' ? 'whatever happens, this job is gone after' : 'pull it off and it’s gone for good') + '</div>' : '') + '</div>';
   if (done && m.id === 'tobias' && tjBlocked()) return h + '<div class="jb-done">' + tjBlocked() + '</div></div>';
   if (done) return h + '<div class="jb-done">Done for now. ' + m.name + ' will have another job in ' + left + ' case open' + (left === 1 ? '' : 's') + '.</div></div>';
   const tj = m.id === 'tobias';
@@ -8286,7 +8294,7 @@ async function runJob(m){
   /* The outcome is settled up front, so closing the panel mid-job changes nothing */
   P().jobs = P().jobs || {}; P().jobs[m.id] = jobEp();
   let lost = [];
-  if (win) { state.bal += pay; P().earned += pay; }
+  if (win) { state.bal += pay; P().earned += pay; markOnce(m, j); }
   else { lost = picks.filter(() => Math.random() < .5); const ids = new Set(lost.map(e => e.uid)); state.inv = state.inv.filter(e => !ids.has(e.uid)); }
   save(); renderInv(); renderOpen();
   jobRun = {m, j}; ovMode = 'jobrun'; const run = jobRun;
@@ -8313,7 +8321,7 @@ async function runJob(m){
 }
 function jobBadge(m){
   const j = jobOf(m); if (!j) return '';
-  return '<div class="jbb' + (jobDone(m) ? ' done' : '') + '">' + (jobDone(m) ? 'Job done · next in ' + jobLeft() : 'Job · ' + j.t + ' · ' + starTxt(j.d)) + '</div>';
+  return '<div class="jbb' + (jobDone(m) ? ' done' : '') + '">' + (jobDone(m) ? 'Job done · next in ' + jobLeft() : 'Job · ' + j.t + ' · ' + starTxt(j.d) + (j.d > JOB_ONCE ? ' · once' : '')) + '</div>';
 }
 
 /* ---------- Tobias's job: The Glitch ----------
@@ -8347,7 +8355,7 @@ function tjApply(out){
 }
 function runTobiasJob(m, e){
   const out = tjOutcome(e);
-  P().jobs = P().jobs || {}; P().jobs[m.id] = jobEp();
+  P().jobs = P().jobs || {}; P().jobs[m.id] = jobEp(); markOnce(m, jobOf(m));
   tjCtx = {e, out, chroma: BY[e.id].t === 7};
   tjApply(out);
   jobPick = []; closeOv(); renderLeft();
