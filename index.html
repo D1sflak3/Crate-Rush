@@ -2695,6 +2695,15 @@ body.dz-open .toast{z-index:95}
 .rq-skip{position:absolute;right:16px;left:auto;top:auto;bottom:max(16px,env(safe-area-inset-bottom,0px));height:auto;z-index:8}
 @media (max-width:640px){.rq-gun{width:86vw}.rq-cushion{width:76vw;height:12vw}.rq-title{bottom:12vh}.rq-title h2{font-size:9vw}}
 @media (prefers-reduced-motion: reduce){.rq-petals,.rq-rays{display:none}.rq-flame,.rq-gun img{animation:none!important}}
+
+/* ---------- ROOT//CRATE: players ---------- */
+.adm-sec.troll{border-color:#5a1f3a}.adm-sec.troll .adm-h{color:#ff6bb0}
+.adm-sec.troll .adm-row+.adm-row,.adm-sec.troll .adm-note+.adm-row{margin-top:8px}
+.adm-lbl{min-width:68px;font-size:12px;color:#7fbf98;text-transform:uppercase;letter-spacing:.08em}
+.adm-b:disabled{opacity:.4;cursor:not-allowed}
+.rcard.chc-card{box-shadow:0 0 0 2px #ff7ad9,0 0 18px rgba(255,122,217,.6)}
+.rcard.near.near-pulse{animation:nearPulse .5s ease-in-out 4 alternate}
+@keyframes nearPulse{to{filter:brightness(1.8);transform:scale(1.05)}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -4310,7 +4319,7 @@ function cardEl(entry, i){
     else d.innerHTML = '<div class="star">★</div><div class="rname"><span class="rs">Gold Item</span></div>';
     return d;
   }
-  d.className = 'rcard' + (entry.it.t === 6 ? ' bmc' : ''); d.style.setProperty('--tc', TIERS[entry.it.t].color);
+  d.className = 'rcard' + (entry.it.t >= 6 ? ' bmc' : '') + (entry.it.t === 7 ? ' chc-card' : ''); d.style.setProperty('--tc', TIERS[entry.it.t].color);
   d.append(thumb(entry.it, entry.wi)); d.insertAdjacentHTML('beforeend', label(entry.it));
   return d;
 }
@@ -4320,7 +4329,7 @@ function entryFor(c, id, wi){
   if (it.t === 5) return (c.id === 'c4' || state.rig) ? {gold:true, it, wi} : {gold:true};
   return {it, wi};
 }
-function buildReel(c, r){
+function buildReel(c, r, near){
   const reel = $('#reel'); reel.innerHTML = '';
   const fw = effWeights(c).w, inj = state.breach && state.inject && BY[state.inject];
   const frag = document.createDocumentFragment(), entries = [], els = [], slots = [];
@@ -4328,6 +4337,7 @@ function buildReel(c, r){
   for (let i = 0; i < COUNT; i++) {
     let e;
     if (i === WIN) e = entryFor(c, r.id, wearIdx(r.fl));
+    else if (near && i === WIN + 1) e = {it: BY[near.id], wi: 0};
     else if (tease && i === WIN + 1) e = {gold:true};
     else if (inj && i % 4 === 1) e = inj.t === 5 ? {gold:true, it:inj, wi:pickW(WEAR_W)} : {it:inj, wi:pickW(WEAR_W)};
     else { const t = pickW(fw); e = entryFor(c, pickOne(c.pools[t]), pickW(WEAR_W)); }
@@ -4336,7 +4346,8 @@ function buildReel(c, r){
     entries.push(e); els.push(el); slots.push(slot); frag.append(slot);
   }
   reel.append(frag);
-  return {entries, els, slots};
+  if (near) els[WIN + 1].classList.add('near');
+  return {entries, els, slots, near: !!near};
 }
 /* Only the few cards inside the window are shown and moved, so no single huge layer is ever painted */
 function placeReel(x, vw){
@@ -4352,8 +4363,9 @@ let spin = null;
 function spinReel(){
   return new Promise(res => {
     const ptr = $('#pointer'), vw = $('#viewport').clientWidth;
-    const s = spin = {vw, x0: vw/2 - CARDW/2 - 2*STEP, x1: vw/2 - (WIN*STEP + CARDW/2) + (Math.random() - .5) * CARDW * .8,
-      t0: performance.now(), dur: REDUCED ? 1200 : speedOn() ? 1400 + Math.random()*250 : 5600 + Math.random()*900, pw: 5, x: 0, target: WIN};
+    const nearMiss = reelInfo && reelInfo.near;
+    const s = spin = {vw, x0: vw/2 - CARDW/2 - 2*STEP, x1: nearMiss ? vw/2 - (WIN*STEP + CARDW - 1.5) : vw/2 - (WIN*STEP + CARDW/2) + (Math.random() - .5) * CARDW * .8,
+      t0: performance.now(), dur: REDUCED ? 1200 : nearMiss ? (speedOn() ? 2600 : 7600) : speedOn() ? 1400 + Math.random()*250 : 5600 + Math.random()*900, pw: nearMiss ? 6 : 5, x: 0, target: WIN};
     s.x = s.x0;
     placeReel(s.x, vw);
     let last = -1, lastTick = 0;
@@ -4366,7 +4378,7 @@ function spinReel(){
         last = idx;
         if (now - lastTick > 34) { lastTick = now; tick(); if (!REDUCED && ptr.animate) ptr.animate([{transform:'scaleX(2.6)'},{transform:'scaleX(1)'}], {duration:110}); }
       }
-      if (t < 1) requestAnimationFrame(frame); else { spin = null; $('#rigTag').hidden = true; res(s.target); }
+      if (t < 1) requestAnimationFrame(frame); else { spin = null; $('#rigTag').hidden = true; if (nearMiss && s.target === WIN) nearMissFx(); res(s.target); }
     }
     requestAnimationFrame(frame);
   });
@@ -4379,6 +4391,12 @@ function grabCard(i){
   s.x0 = s.x; s.x1 = tx; s.t0 = performance.now(); s.dur = Math.min(1700, 500 + Math.abs(tx - s.x)*.22); s.pw = 3; s.target = i;
   reelInfo.els.forEach(el => el.classList.remove('grab')); reelInfo.els[i].classList.add('grab');
   for (let k = 0; k < 5; k++) tone(900 + k*260, .04, 'square', .025, k*.03);
+}
+/* the reel stopped one hair short of a Black Market or Chroma: make them feel it */
+function nearMissFx(){
+  const nx = reelInfo && reelInfo.els[WIN + 1]; if (nx) restart(nx, 'near-pulse');
+  sweep(520, 140, .9, 'sawtooth', .04); tone(196, .5, 'triangle', .05, .5); tone(185, .8, 'triangle', .05, .95);
+  if (!REDUCED) restart($('#viewport'), 'shake');
 }
 function setMode(m){ $('#crateZone').hidden = m !== 'crate'; $('#reelZone').hidden = m !== 'reel'; }
 
@@ -5086,6 +5104,9 @@ async function openCase(){
   if (state.adminRig && BY[state.adminRig.id]) {
     const ar = state.adminRig; state.adminRig = null;
     r = {uid: uid(), id: ar.id, fl: ar.fl, v: priceOf(BY[ar.id], wearIdx(ar.fl)), at: Date.now(), hk: r.hk || [], src: 'admin'};
+  } else if (prankNext('rig')) {
+    const pr = prankUse('rig'), id = BY[pr.id] ? pr.id : r.id, fl = +pr.fl || r.fl;
+    r = {uid: uid(), id, fl, v: priceOf(BY[id], wearIdx(fl)), at: Date.now(), hk: r.hk || [], src: 'rigged'};
   } else if (c.id === 'scrap') {
     Y().scrapN = (Y().scrapN || 0) + 1;
     if (!Y().knife && Y().scrapN >= YARD_N) {
@@ -5094,8 +5115,9 @@ async function openCase(){
     }
   }
   consume(r.hk); state.opened++;
+  const near = prankNext('near') ? prankUse('near') : null;
   save(); if (!free) setBal(-cost); renderOpen(); renderTrade(); renderHacks();
-  reelInfo = buildReel(c, r);
+  reelInfo = buildReel(c, r, near);
   const crate = $('#crateZone .crate');
   const fast = speedOn();
   if (!REDUCED && crate) { clunk(); crate.classList.add('opening'); await wait(fast ? 200 : 420); whoosh(); await wait(fast ? 500 : 640); }
@@ -8939,6 +8961,9 @@ SC.tjob = TJ_SC;
    Hidden in Juno's intro: three green glitched invaders sit in her game. Click each one three times, left to
    right, and ROOT//CRATE unlocks for this account. It can hand out credits and any item, rig the next case,
    unlock every area, clear cooldowns and restart the game, and every command glitches the screen in its own way.
+   Signed in, it can also reach other players: peek into their bag (even a private one), rig their next cases,
+   make their next case stop a hair before a Black Market or Chroma, flash a message or a glitch on their screen,
+   and gift them items or credits.
    A save that has used it is marked (state.admin) but plays like any other: ranked, and free to trade. */
 const ADM_SEQS = [[0, 0, 0, 1, 1, 1, 2, 2, 2], [0, 1, 2, 0, 1, 2, 0, 1, 2]];
 let admPress = [], junoHold = 0, admSel = null, admWear = 0, admBusy = false;
@@ -9010,14 +9035,63 @@ function renderAdmin(){
     + '<div class="adm-row"><button class="adm-b" data-adm="give"' + (it ? '' : ' disabled') + '>give item</button><button class="adm-b" data-adm="rig"' + (it ? '' : ' disabled') + '>rig next case</button>'
     + (state.adminRig ? '<span class="adm-note">rigged: next case gives ' + BY[state.adminRig.id].name + ' <button class="adm-b sm" data-adm="unrig">cancel</button></span>' : '') + '</div>'
     + '<div class="adm-items">' + groups.map(g => '<div class="adm-tier" style="--tc:' + TIERS[g.t].color + '">' + TIERS[g.t].name + '</div>' + g.list.map(x => '<button class="adm-it' + (admSel === x.id ? ' on' : '') + '" data-adm="pick" data-v="' + x.id + '" style="--tc:' + TIERS[x.t].color + '" title="' + WNAME[x.w] + ' | ' + x.name + '"><span>' + x.name + '</span></button>').join('')).join('') + '</div></div>'
+    + '<div class="adm-sec"><div class="adm-h">&gt; self</div><div class="adm-row"><input id="admSet" type="number" min="0" step="1000" placeholder="exact balance" inputmode="numeric"><button class="adm-b" data-adm="setbal">set balance</button>'
+    + '<button class="adm-b" data-adm="maxbag">max bag</button><button class="adm-b" data-adm="allchroma">1 of every Chroma</button><button class="adm-b" data-adm="selfnear">near-miss myself</button></div></div>'
+    + admRemoteHTML()
     + '<div class="adm-sec"><div class="adm-h">&gt; world</div><div class="adm-row"><button class="adm-b" data-adm="unlock">unlock every area</button><button class="adm-b" data-adm="cool">clear all cooldowns</button></div></div>'
     + '<div class="adm-sec danger"><div class="adm-h">&gt; restart</div><div class="adm-row"><button class="adm-b red" data-adm="reset">wipe this save and start over</button></div><div class="adm-note">Everything goes: credits, items, progress. The admin panel stays unlocked.</div></div>';
   document.querySelectorAll('#admBody .adm-it').forEach(b => { const x = BY[b.dataset.v]; b.prepend(thumb(x, 2)); });
 }
 function admMark(){ state.admin = true; }
+/* ---- reaching into other players' accounts ---- */
+let admPlayers = null, admTgt = null, admCard = null, admRigN = 1;
+function admRemoteHTML(){
+  if (!online()) return '<div class="adm-sec"><div class="adm-h">&gt; players <span>offline</span></div><div class="adm-note">sign in to reach other players’ accounts.</div></div>';
+  const it = admSel && BY[admSel];
+  let h = '<div class="adm-sec troll"><div class="adm-h">&gt; players <span>' + (admTgt ? 'target: ' + escH(admTgt.name) : 'pick a target') + '</span></div>';
+  h += '<div class="adm-row">' + (admPlayers ? admPlayers.filter(p => !p.me).map(p => '<button class="adm-b sm' + (admTgt && admTgt.uid === p.uid ? ' on' : '') + '" data-adm="tgt" data-v="' + p.uid + '">' + escH(p.name) + (p.private ? ' 🔒' : '') + '</button>').join('') || '<span class="adm-note">nobody else yet.</span>' : '<button class="adm-b" data-adm="players">load players</button>') + '</div>';
+  if (admTgt) {
+    const c = admCard;
+    h += '<div class="adm-note">' + (c ? fmt(c.opened) + ' cases · ' + (c.bal != null ? fmt(c.bal) + ' cr · ' : '') + (c.inv ? c.inv.length + ' items' + (c.inv.length ? ': ' + c.inv.slice().sort((a, b) => b.v - a.v).slice(0, 6).map(e => BY[e.id] ? BY[e.id].name : e.id).join(', ') : '') : 'bag hidden') : 'loading…') + '</div>';
+    h += '<div class="adm-row"><span class="adm-lbl">near-miss</span><button class="adm-b" data-adm="near" data-v="7">Chroma</button><button class="adm-b" data-adm="near" data-v="6">Black Market</button>'
+      + (it && it.t >= 6 ? '<button class="adm-b" data-adm="near" data-v="sel">' + it.name + '</button>' : '') + '<span class="adm-note">their next case stops a hair before it.</span></div>';
+    h += '<div class="adm-row"><span class="adm-lbl">rig</span>' + [1, 3, 5].map(n => '<button class="adm-b sm' + (admRigN === n ? ' on' : '') + '" data-adm="rign" data-v="' + n + '">×' + n + '</button>').join('')
+      + '<button class="adm-b" data-adm="rigto"' + (it ? '' : ' disabled') + '>' + (it ? '→ ' + it.name + ' · ' + WEARS[admWear].n : 'pick an item below') + '</button><button class="adm-b" data-adm="rigjunk">→ worst junk</button></div>';
+    h += '<div class="adm-row"><span class="adm-lbl">screen</span><input id="admMsg" maxlength="120" placeholder="message on their screen"><button class="adm-b" data-adm="msg">send</button><button class="adm-b" data-adm="glitch">glitch it</button></div>';
+    h += '<div class="adm-row"><span class="adm-lbl">gift</span><button class="adm-b" data-adm="gitem"' + (it ? '' : ' disabled') + '>' + (it ? it.name : 'pick an item') + '</button><button class="adm-b" data-adm="gcash">credits (amount above)</button></div>';
+  }
+  return h + '</div>';
+}
+async function admRemote(a, el){
+  const flOf = () => { const W = WEARS[admWear]; return +(W.lo + Math.random()*(W.hi - W.lo - .0001)).toFixed(4); };
+  if (a === 'players') { const {data} = await sb.rpc('leaderboard2', {lim: 100}); admPlayers = data || []; renderAdmin(); return; }
+  if (a === 'tgt') { admTgt = admPlayers.find(p => p.uid === el.dataset.v); admCard = null; renderAdmin(); const {data} = await sb.rpc('player_card', {target: admTgt.uid}); if (admTgt && data && data.uid === admTgt.uid) { admCard = data; renderAdmin(); } return; }
+  if (a === 'rign') { admRigN = +el.dataset.v; pickSound(); renderAdmin(); return; }
+  if (!admTgt) return;
+  let kind, payload, fx;
+  const pool = t => ITEMS.filter(x => x.t === t && x.id !== KNIFE_ID);
+  if (a === 'near') { const id = el.dataset.v === 'sel' ? admSel : pickOne(pool(+el.dataset.v)).id; kind = 'near'; payload = {id}; fx = ['rig', 'NEAR-MISS LOADED: ' + BY[id].name.toUpperCase()]; }
+  else if (a === 'rigto' && admSel) { kind = 'rig'; payload = {id: admSel, fl: flOf(), n: admRigN}; fx = ['rig', admTgt.name.toUpperCase() + ' RIGGED ×' + admRigN]; }
+  else if (a === 'rigjunk') { const id = pickOne(pool(0)).id; kind = 'rig'; payload = {id, fl: +(.9 + Math.random()*.09).toFixed(4), n: admRigN}; fx = ['rig', 'JUNK INCOMING ×' + admRigN]; }
+  else if (a === 'msg') { const t = ($('#admMsg').value || '').trim(); if (!t) { toast('Type a message first.'); return; } kind = 'msg'; payload = {text: t}; fx = ['item', 'MESSAGE SENT']; }
+  else if (a === 'glitch') { kind = 'glitch'; payload = {}; fx = ['item', 'GLITCH SENT']; }
+  else if (a === 'gitem' && admSel) { const fl = flOf(); kind = 'gift'; payload = {items: [{id: admSel, fl, v: priceOf(BY[admSel], wearIdx(fl))}]}; fx = ['item', 'GIFT SENT']; }
+  else if (a === 'gcash') { const v = Math.floor(+$('#admCash').value || 0); if (!(v > 0)) { toast('Type an amount in the credits box first.'); return; } kind = 'gift'; payload = {cr: v}; fx = ['cash', '+' + fmt(v) + ' → ' + admTgt.name.toUpperCase()]; }
+  else return;
+  admBusy = true;
+  const {error} = await sb.rpc('admin_prank', {target: admTgt.uid, kind, payload});
+  admBusy = false;
+  if (error) { toast(error.message); return; }
+  admMark(); save(); glitchFx(fx[0], fx[1]);
+}
 function admAct(a, el){
   if (admBusy) return;
   if (a === 'pick') { admSel = el.dataset.v; pickSound(); renderAdmin(); return; }
+  if (['players', 'tgt', 'rign', 'near', 'rigto', 'rigjunk', 'msg', 'glitch', 'gitem', 'gcash'].includes(a)) { admRemote(a, el).catch(e => { admBusy = false; toast(e.message || 'Couldn’t reach them.'); }); return; }
+  if (a === 'setbal') { const v = Math.floor(+$('#admSet').value); if (!(v >= 0) || $('#admSet').value === '') { toast('Type a balance first.'); return; } const d = v - state.bal; admMark(); state.bal = v; save(); setBal(d); renderAdmin(); glitchFx('cash', fmt(v) + ' CR'); return; }
+  if (a === 'maxbag') { admMark(); state.bag = BAGS.length - 1; save(); renderInv(); renderAdmin(); glitchFx('item', BAGS[BAGS.length - 1].n.toUpperCase()); return; }
+  if (a === 'allchroma') { const ch = ITEMS.filter(x => x.t === 7); if (bagBlock(ch.length)) return; admMark(); ch.forEach(x => { const fl = +(Math.random()*.01).toFixed(4); state.inv.unshift({uid: uid(), id: x.id, fl, v: priceOf(x, wearIdx(fl)), at: Date.now(), hk: [], src: 'admin'}); }); save(); renderInv(); renderStats(); renderAdmin(); glitchFx('item', 'EVERY CHROMA SPAWNED'); return; }
+  if (a === 'selfnear') { prankQ().push({kind: 'near', id: pickOne(ITEMS.filter(x => x.t >= 6)).id}); save(); glitchFx('rig', 'NEAR-MISS ON YOUR NEXT CASE'); return; }
   if (a === 'wear') { admWear = +el.dataset.v; pickSound(); renderAdmin(); return; }
   const flOf = () => { const W = WEARS[admWear]; return +(W.lo + Math.random()*(W.hi - W.lo - .0001)).toFixed(4); };
   if (a === 'cash' || a === 'cashc') {
@@ -11669,9 +11743,35 @@ async function tradeCall(fn, args){
   if (data && data.entries) { ledApply(data.entries); await cloudPush(); ledAck().catch(() => {}); }
   return data || {};
 }
+/* Pranks other players' admin panels queued on you. Rigs and near-misses wait for your next case; the rest land now. */
+const prankQ = () => state.pranks || (state.pranks = []);
+const prankNext = k => prankQ().some(p => p.kind === k);
+function prankUse(k){
+  const q = prankQ(), i = q.findIndex(p => p.kind === k), p = q[i];
+  if (p.kind === 'rig' && (p.n || 1) > 1) p.n--; else q.splice(i, 1);
+  save(); return p;
+}
+let prankBusy = false;
+async function prankSync(){
+  if (!online() || prankBusy) return;
+  prankBusy = true;
+  try {
+    const {data} = await sb.rpc('prank_take');
+    let shown = 0;
+    for (const p of data || []) {
+      const pl = p.payload || {};
+      if (p.kind === 'rig' && BY[pl.id]) prankQ().push({kind: 'rig', id: pl.id, fl: +pl.fl || .05, n: Math.max(1, Math.min(10, +pl.n || 1))});
+      else if (p.kind === 'near' && BY[pl.id]) prankQ().push({kind: 'near', id: pl.id});
+      else if (p.kind === 'msg' || p.kind === 'glitch') setTimeout(() => glitchFx(p.kind === 'msg' ? 'rig' : 'reset', p.kind === 'msg' ? String(pl.text || '').slice(0, 120) : 'SYSTEM COMPROMISED'), 400 + shown++ * 2600);
+    }
+    if ((data || []).some(p => p.kind === 'rig' || p.kind === 'near')) save();
+  } catch (e) {} finally { prankBusy = false; }
+}
+setInterval(prankSync, 15000);
 let tradeSyncing = false;
 async function tradeSync(){
   if (!online() || tradeSyncing) return;
+  prankSync();
   tradeSyncing = true;
   try {
     const pend = (await sb.rpc('ledger_pending')).data || [];
@@ -11715,7 +11815,7 @@ async function openCard(uid){
 }
 function renderCard(){
   const c = tv.card, inv = c.inv ? c.inv.slice().sort((a, b) => b.v - a.v) : null;
-  let h = tvHead(c.me ? 'Your profile' : 'Player profile', escH(c.name) + (c.private ? ' <span class="tv-lock" title="Private bag">🔒</span>' : ''));
+  let h = tvHead(c.me ? 'Your profile' : c.peek ? 'Player profile · ROOT//CRATE can see this private bag' : 'Player profile', escH(c.name) + (c.private ? ' <span class="tv-lock" title="Private bag">🔒</span>' : ''));
   h += '<div class="tv-stats"><span><b>' + fmt(c.opened) + '</b> cases opened</span>' + (c.bal != null ? '<span><b>' + fmt(c.bal) + '</b> credits</span>' : '') + (inv ? '<span><b>' + inv.length + '</b> items</span>' : '') + '</div>';
   if (c.me) h += '<div class="tv-acts"><button class="ghost sm" data-t="priv">' + (c.private ? '🔒 Bag is private · make it public' : '👁 Bag is public · make it private') + '</button><button class="ghost sm" data-t="inbox">My trades</button></div>';
   else h += '<div class="tv-acts">' + '<button class="gold-btn" data-t="offer">Offer a trade</button>' + '</div>';
@@ -11741,7 +11841,7 @@ async function openOffer(){
 function renderOffer(){
   const t = tv, c = t.card;
   const mineItems = state.inv.filter(e => !t.held.has(e.uid) && e.id !== KNIFE_ID).sort((a, b) => b.v - a.v);
-  const theirs = c.inv ? c.inv.slice().sort((a, b) => b.v - a.v) : null;
+  const theirs = c.inv && !c.private ? c.inv.slice().sort((a, b) => b.v - a.v) : null;
   const sum = (set, list) => list.filter(e => set.has(e.uid)).reduce((a, e) => a + (+e.v), 0);
   const gv = sum(t.give, mineItems) + t.gcr, wv = theirs ? sum(t.want, theirs) + t.wcr : t.wcr;
   let h = tvHead('Trade offer', 'You ↔ ' + escH(c.name), 'card');
