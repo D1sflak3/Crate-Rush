@@ -6873,7 +6873,7 @@ function refuseItem(e){
 function startNeg(uidv){
   const m = room, e = state.inv.find(x => x.uid === uidv); if (!m || !e || !buys(m, e) || ownStock(m, e)) return;
   if (m.id === 'tobias' && isRequiem(e)) { tobiasGrab(e); return; }
-  if (m.id === 'tobias' && e.id === GOAT_ID) { tobiasGoat(e); return; }
+  if (m.id === 'tobias' && e.id === GOAT_ID) { if (state.penaldo) tobiasGoatDance(e); else tobiasGoat(e); return; }
   if (m.id === 'tobias' && e.id === VANCE_ID) { tobiasDance(e); return; }
   const exact = isExact(m, e), tg = tagged(e);
   closeOv(); calmRoom(false);
@@ -11054,6 +11054,17 @@ function penaldoSVG(x, y, s){
 }
 
 /* ---- the dart ---- */
+/* Already been to Ronaldo's and got the bottle: Tobias doesn't dart you twice. He sends you to Dance instead. */
+async function tobiasGoatDance(e){
+  const m = room; closeOv(); actBusy = true; renderLeft();
+  await sayRoom('…The GOAT. Again. Ronaldo already gave you his little bottle, I heard.', 'mad');
+  await wait(1100); if (room !== m) return (actBusy = false);
+  await sayRoom('I’m not darting you twice. Take it to Dance. He’s been crying about that rifle for weeks.', '');
+  await wait(1400); actBusy = false; if (room !== m) return;
+  const intro = !P().danceSeen;
+  P().danceSeen = true; save(); leaveRoom();
+  openDance(intro);
+}
 async function tobiasGoat(e){
   const m = room; closeOv(); actBusy = true; renderLeft();
   await sayRoom('…Is that The GOAT? HIS rifle? Do you know what that thing is worth to the right man?', 'mad');
