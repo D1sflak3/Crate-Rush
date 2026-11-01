@@ -8939,7 +8939,7 @@ SC.tjob = TJ_SC;
    Hidden in Juno's intro: three green glitched invaders sit in her game. Click each one three times, left to
    right, and ROOT//CRATE unlocks for this account. It can hand out credits and any item, rig the next case,
    unlock every area, clear cooldowns and restart the game, and every command glitches the screen in its own way.
-   A save that has used it is marked (state.admin) and kept off the public leaderboard. */
+   A save that has used it is marked (state.admin) but plays like any other: ranked, and free to trade. */
 const ADM_SEQS = [[0, 0, 0, 1, 1, 1, 2, 2, 2], [0, 1, 2, 0, 1, 2, 0, 1, 2]];
 let admPress = [], junoHold = 0, admSel = null, admWear = 0, admBusy = false;
 function glitchDudes(){
@@ -11718,7 +11718,7 @@ function renderCard(){
   let h = tvHead(c.me ? 'Your profile' : 'Player profile', escH(c.name) + (c.private ? ' <span class="tv-lock" title="Private bag">🔒</span>' : ''));
   h += '<div class="tv-stats"><span><b>' + fmt(c.opened) + '</b> cases opened</span>' + (c.bal != null ? '<span><b>' + fmt(c.bal) + '</b> credits</span>' : '') + (inv ? '<span><b>' + inv.length + '</b> items</span>' : '') + '</div>';
   if (c.me) h += '<div class="tv-acts"><button class="ghost sm" data-t="priv">' + (c.private ? '🔒 Bag is private · make it public' : '👁 Bag is public · make it private') + '</button><button class="ghost sm" data-t="inbox">My trades</button></div>';
-  else h += '<div class="tv-acts">' + (c.admin ? '<span class="tv-note">This save used the admin panel, so it can’t trade.</span>' : '<button class="gold-btn" data-t="offer">Offer a trade</button>') + '</div>';
+  else h += '<div class="tv-acts">' + '<button class="gold-btn" data-t="offer">Offer a trade</button>' + '</div>';
   h += inv ? (inv.length ? '<div class="tv-grid">' + inv.map(e => tvItem(e, 'tabindex="-1"')).join('') + '</div>' : '<p class="lb-empty">Empty bag.</p>')
     : '<div class="tv-private">🔒<b>This bag is private.</b><span>You can still offer them items or credits, and ask for credits back.</span></div>';
   h += '<p class="au-msg" id="tvMsg"></p>';
@@ -11841,7 +11841,6 @@ async function openLb(){
   $('#lbBody').innerHTML = data.length ? data.map(r => { const gap = r.rank > prev + 1; prev = r.rank;
     return '<button type="button" class="lb-row' + (r.me ? ' me' : '') + (gap ? ' gap' : '') + '" data-uid="' + r.uid + '"><span class="lb-rk">' + r.rank + '</span><span class="lb-nm">' + escH(r.me && !state.name ? 'You (no name yet)' : r.name) + (r.private ? ' <span class="lb-lock" title="Private bag">🔒</span>' : '') + '<small>' + fmt(r.opened) + ' cases opened' + (r.me ? ' · you' : '') + '</small></span><span class="lb-w">' + fmt(r.worth) + ' cr</span></button>'; }).join('')
     : '<p class="lb-empty">Nobody on the board yet.</p>';
-  if (state.admin) $('#lbBody').insertAdjacentHTML('afterbegin', '<p class="lb-empty" style="color:#39ff88">This save has used the admin panel, so it isn’t ranked.</p>');
 }
 const escH = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function acctInit(){
