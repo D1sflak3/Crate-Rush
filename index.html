@@ -2866,7 +2866,7 @@ const CASES = [
   {id:'scrap', name:'Scrapyard',    tag:'Rust, grit, hazard tape', cost:100,  f:1,   w:[78.9,15,4.2,1.45,.35,.1],      cls:'k-scrap', mark:'SY', glow:'#ff9a3c', items:['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12']},
   {id:'neon',  name:'Neon Circuit', tag:'Synth glow after dark',   cost:200,  f:1.5, w:[75,16.5,5.8,1.9,.55,.25],     cls:'k-neon',  mark:'NC', glow:'#c34bff', items:['n1','n2','n3','n4','n5','n6','n7','n8','n9','n10']},
   {id:'frost', name:'Frostbite',    tag:'Cold-forged finishes',    cost:350,  f:1.6, w:[65,21,9,3.4,1.1,.5], cls:'k-frost', mark:'FB', glow:'#8fe0ff', items:['f1','f2','f3','f4','f5','f6','f7','f8','f9','f10']},
-  {id:'c4',    name:'Case 4',       tag:'Every pull is gold',      cost:13500, f:1,  w:[0,0,0,0,0,1],          cls:'k-gold',  mark:'4',  glow:'#ffcb2e', items:[]}
+  {id:'c4',    name:'Case 4',       tag:'Every pull is gold',      cost:20000, f:1,  w:[0,0,0,0,0,1],          cls:'k-gold',  mark:'4',  glow:'#ffcb2e', items:[]}
 ];
 CASES.forEach(c => { c.pools = [0,1,2,3,4,5].map(t => t === 5 ? GOLD : c.items.filter(id => BY[id].t === t)); });
 const MIN_COST = Math.min(...CASES.map(c => c.cost));
@@ -5965,9 +5965,9 @@ function renderLeft(anim){
       + '<div class="lab">' + m.name + '’s offer</div><div class="pr-offer' + (anim ? ' ' + anim : '') + '"><span class="coin"></span><span id="prOff">' + fmt(offer) + '</span></div>'
       + '<div class="rmc-sub">' + (offer / e.v).toFixed(2) + '× market (' + fmt(e.v) + ')</div>'
       + (exact && !neg.raged ? '<div class="rmc-exact">★ Exact match: shake on it and you get ' + fmt(e.v * BRIEF_X) + ' cr in a briefcase</div>' : '')
-      + (neg.raged ? '<div class="rmc-exact">Cash on the table: ' + (neg.rx || RAGE_X) + '× market' + (chain && (neg.rage || 0) >= XRAGE_AT ? ' · he’s one word from calling security' : '') + '</div>'
+      + (neg.raged ? '<div class="rmc-exact">Cash on the table: ' + (neg.rx || RAGE_X) + '× market' + (chain && (neg.rage || 0) >= XRAGE_AT ? (neg.rage >= XLAST_AT ? ' · the whole vault' : ' · one more bluff: 25% he pays 20×, or security takes the knife') : '') + '</div>'
          : '<div class="pr-pat">Patience ' + Array.from({length: m.pat}, (_, i) => '<i' + (i < pat ? ' class="on"' : '') + '></i>').join('') + '</div>')
-      + (m.id === 'vance' && !neg.raged && !tagged(e) ? '<div class="pr-pat rmc-anger">Anger ' + Array.from({length: chain ? XRAGE_AT : RAGE_AT}, (_, i) => '<i' + (i < (neg.rage || 0) ? ' class="on"' : '') + '></i>').join('') + '</div>' : '')
+      + (m.id === 'vance' && !neg.raged && !tagged(e) ? '<div class="pr-pat rmc-anger">Anger ' + Array.from({length: chain ? XLAST_AT : RAGE_AT}, (_, i) => '<i' + (i < (neg.rage || 0) ? ' class="on"' : '') + '></i>').join('') + '</div>' : '')
       + (m.ego && !neg.raged ? '<div class="rmc-sub">Big ego: he hates hearing about other buyers</div>' : '')
       + (m.yard && !neg.knife && !tagged(e) ? '<div class="rmc-sub">' + WEARS[wi].n + ' · rust ×' + rustOf(m, e).toFixed(2) + (m.id === 'deacon' ? ' · he can tell when you lie' : '') + '</div>' : '')
       + (neg.knife ? '<div class="rmc-exact">★ Her family knife: ' + KNIFE_X + '× market. She won’t haggle over it.</div>' : '')
@@ -6291,8 +6291,9 @@ async function wrenBluff(m, before){
 }
 function sc_thump(){ const sc = roomSc(); if (!sc) return; restart(sc, 'v-thump'); tone(60, .3, 'sine', .35); noise(.12, 900, 200, .18, 'lowpass'); shakeStage(); }
 function egoKick(m, line){ bluffFail(m, line, 2400); }
-async function vanceRage(m, mult){
-  const X = mult || RAGE_X, big = X > RAGE_X;
+const XWORD = {5:'FIVE', 10:'TEN', 20:'TWENTY'};
+async function vanceRage(m, mult, lvl){
+  const X = mult || RAGE_X, big = (lvl || 0) >= 1, huge = lvl === 2, prev = neg.rx, W = XWORD[X] || X;
   const sc = roomSc(), e = neg.e, ten = Math.round(e.v * X), alive = () => room === m && neg && sc.isConnected;
   neg.rx = X;
   sc.classList.toggle('v-big', big);
@@ -6300,7 +6301,7 @@ async function vanceRage(m, mult){
   setAnger(3);
   if (mus.id) scratch(); mus.hold = ''; musStop(.12);
   tone(55, 1.2, 'sawtooth', .07); tone(58, 1.2, 'sawtooth', .06);
-  await sayRoom(big ? 'FOUR. TIMES. ENOUGH!' : 'ENOUGH.', 'mad');
+  await sayRoom(huge ? '…Five times. FIVE. You know what? FINE.' : big ? 'FOUR. TIMES. ENOUGH!' : 'ENOUGH.', 'mad');
   if (big) { boom(); shakeStage(); sc_thump(); }
   await wait(700); if (!alive()) return (actBusy = false);
   sc.classList.add('v-stand'); noise(.4, 300, 120, .2, 'lowpass');
@@ -6310,8 +6311,8 @@ async function vanceRage(m, mult){
   await wait(800); if (!alive()) return (actBusy = false);
   { const st = sc.querySelector('.v-signt'); if (st) st.textContent = X + '× MARKET'; }
   sc.classList.add('v-signon'); tone(90, .25, 'square', .12); tone(45, .4, 'sine', .3);
-  neg.offer = ten; neg.cap = ten; neg.raged = true; renderLeft('up');
-  await sayRoom(big ? 'TEN wasn’t enough for you?! TWENTY. TIMES. MARKET. ' + fmt(ten) + ' cr!' : 'You want a price?! TEN TIMES MARKET. ' + fmt(ten) + ' cr!', 'mad');
+  neg.offer = ten; neg.cap = ten; neg.raged = true; if (huge) neg.noBluff = true; renderLeft('up');
+  await sayRoom(huge ? 'EVERYTHING I HAVE. ' + W + '. TIMES. MARKET. ' + fmt(ten) + ' cr!' : big ? (XWORD[prev] || prev) + ' wasn’t enough for you?! ' + W + '. TIMES. MARKET. ' + fmt(ten) + ' cr!' : 'You want a price?! ' + W + ' TIMES MARKET. ' + fmt(ten) + ' cr!', 'mad');
   if (big) { shakeStage(); tone(45, .6, 'sine', .35); }
   await wait(1100); if (!alive()) return (actBusy = false);
   await sayRoom('Don’t. Move.', 'mad');
@@ -6351,20 +6352,20 @@ async function vanceRage(m, mult){
   await wait(450);
   if (big) { await wait(200); boom(); shakeStage(); }
   sc.classList.remove('v-stand', 'v-back'); setAnger(big ? 3 : 2);
-  await sayRoom(big ? 'TWENTY TIMES. ' + fmt(ten) + ' cr. On top of the first pile. Leave the knife on my desk and TAKE IT.' : 'Count it. ' + fmt(ten) + ' cr, cash. Now shake my hand.', big ? 'mad' : 'happy');
+  await sayRoom(huge ? W + ' TIMES. ' + fmt(ten) + ' cr. The whole vault. Take it before I change my mind.' : big ? W + ' TIMES. ' + fmt(ten) + ' cr. On top of the first pile. Leave the knife on my desk and TAKE IT.' : 'Count it. ' + fmt(ten) + ' cr, cash. Now shake my hand.', big ? 'mad' : 'happy');
   actBusy = false; renderLeft();
 }
-/* Vance with the exact knife on his list can't say no to it. Bluffs always land: the third is his usual
-   10x rage, the fourth sends him out again for twice the cash (20x), and a fifth gets security called on you:
-   they take the knife and throw you out. */
-const XRAGE_X = 20, XRAGE_AT = 4, SEC_COOL = 5;
+/* Vance with the exact knife on his list can't say no to it. Bluffs always land: the third makes him put 5x
+   market on the table, the fourth sends him out again for 10x, and the fifth is a coin flip weighted against you:
+   25% he empties the vault for 20x, otherwise security takes the knife and throws you out. */
+const XRAGE_AT = 4, XLAST_AT = 5, XLAST_CH = .25, SEC_COOL = 5;
 const vanceChain = (m, e) => m.id === 'vance' && isExact(m, e);
 async function vanceExact(m, before){
   neg.xc = true; neg.rage = (neg.rage || 0) + 1;
   const n = neg.rage;
-  if (n > XRAGE_AT) { await vanceSecurity(m); return; }
-  if (n === XRAGE_AT) { await vanceRage(m, XRAGE_X); return; }
-  if (n === RAGE_AT) { await vanceRage(m); return; }
+  if (n >= XLAST_AT) { if (Math.random() < XLAST_CH) await vanceRage(m, 20, 2); else await vanceSecurity(m); return; }
+  if (n === XRAGE_AT) { await vanceRage(m, 10, 1); return; }
+  if (n === RAGE_AT) { await vanceRage(m, 5); return; }
   neg.offer = Math.min(neg.cap, Math.round(before * (1.3 + Math.random()*.2)));
   setAnger(n);
   if (n === 1) { tone(110, .4, 'sine', .12); sayRoom('…Another buyer. For MY knife. ' + fmt(neg.offer) + ' cr.', ''); }
