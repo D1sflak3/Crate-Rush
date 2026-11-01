@@ -10207,7 +10207,7 @@ function danceFig(x, y, s, mood, pose){
     + '<circle cx="0" cy="78" r="4.4" fill="#ffd23f" stroke="#a8650a"/><text x="0" y="80.6" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="6.4" fill="#7a4a05">D</text>'
     + '<path d="M-14 47 Q0 56 14 47" stroke="#1a1a20" stroke-width="3" fill="none"/><ellipse cx="-15" cy="47" rx="4.6" ry="6" fill="#1a1a20"/><ellipse cx="15" cy="47" rx="4.6" ry="6" fill="#1a1a20"/><ellipse cx="-15" cy="47" rx="2.6" ry="4" fill="#ff3ea5"/><ellipse cx="15" cy="47" rx="2.6" ry="4" fill="#2fe3ff"/>';
   g += '<path d="M-6 38 H6 V52 Q0 55 -6 52 Z" fill="' + sk + '"/>' + danceFace(id, mood);
-  if (pose === 'sit') g += '<path d="M-30 64 Q-46 80 -26 92 M30 64 Q46 80 26 92" stroke="#f4f1ea" stroke-width="10" stroke-linecap="round" fill="none"/><circle cx="-24" cy="92" r="5" fill="' + sk + '"/><circle cx="24" cy="92" r="5" fill="' + sk + '"/>';
+  if (pose === 'sit') g += '<path d="M-30 62 Q-38 78 -24 90 M30 62 Q38 78 24 90" stroke="#f4f1ea" stroke-width="10" stroke-linecap="round" fill="none"/>';
   if (pose === 'pockets') g += '<g class="dz-pk"><path d="M-30 62 Q-44 52 -46 40 M30 62 Q44 52 46 40" stroke="#f4f1ea" stroke-width="10" stroke-linecap="round" fill="none"/>'
     + '<path d="M-52 40 Q-62 54 -52 62 Q-42 56 -44 40 Z" fill="#fbfaf6" stroke="#cfc8b8"/><path d="M44 40 Q42 56 52 62 Q62 54 52 40 Z" fill="#fbfaf6" stroke="#cfc8b8"/>'
     + '<circle cx="-48" cy="38" r="5.4" fill="' + sk + '"/><circle cx="48" cy="38" r="5.4" fill="' + sk + '"/><g class="dz-moth"><ellipse cx="52" cy="50" rx="1.6" ry="3.4" fill="#8a7a6a"/><path d="M52 50 l-6 -4 l1 6 Z M52 50 l6 -4 l-1 6 Z" fill="#c8b8a8"/></g></g>';
@@ -10313,9 +10313,11 @@ function dzRoomSVG(k){
   // the sofa and Dance on it
   s += '<path d="M156 214 V150 Q156 118 186 116 H258 Q288 118 288 150 V214 Z" fill="#5a0a5a" stroke="#ffd23f" stroke-width="1.6"/>'
     + '<path d="M162 210 V152 Q162 124 188 122 H256 Q282 124 282 152 V210" fill="url(#' + k + 'tf)" opacity=".8"/>'
-    + '<g class="dz-me">' + danceFig(222, 102, 1.15, dz && dz.mood, broke ? 'pockets' : 'sit') + '</g>'
-    + '<path d="M150 214 V176 Q150 166 162 166 H282 Q294 166 294 176 V214 Z" fill="#6a0e6a" stroke="#ffd23f" stroke-width="1.4"/><path d="M156 182 H288" stroke="#000" stroke-opacity=".25"/>'
-    + '<rect x="146" y="160" width="14" height="54" rx="6" fill="#7a127a" stroke="#ffd23f" stroke-width="1.2"/><rect x="284" y="160" width="14" height="54" rx="6" fill="#7a127a" stroke="#ffd23f" stroke-width="1.2"/>';
+    + '<path d="M150 214 V196 Q150 188 162 188 H282 Q294 188 294 196 V214 Z" fill="#6a0e6a" stroke="#ffd23f" stroke-width="1.4"/><path d="M156 200 H288" stroke="#000" stroke-opacity=".25"/>'
+    + '<g class="dz-me">' + danceFig(222, 88, 1.12, dz && dz.mood, broke ? 'pockets' : 'sit')
+    + '<path d="M196 188 Q192 202 198 210 H218 Q222 200 220 188 Z M224 188 Q222 200 226 210 H246 Q252 202 248 188 Z" fill="#f4f1ea" stroke="#cfc8b8" stroke-width=".8"/><path d="M208 192 V206 M236 192 V206" stroke="#cfc8b8" stroke-width=".8"/>'
+    + (broke ? '' : '<circle cx="195" cy="191" r="5.2" fill="#c99a74"/><circle cx="249" cy="191" r="5.2" fill="#c99a74"/>') + '</g>'
+    + '<rect x="146" y="166" width="14" height="48" rx="6" fill="#7a127a" stroke="#ffd23f" stroke-width="1.2"/><rect x="284" y="166" width="14" height="48" rx="6" fill="#7a127a" stroke="#ffd23f" stroke-width="1.2"/>';
   // the coffee table: drinks, and whatever he's piling up for The GOAT
   s += '<ellipse cx="222" cy="240" rx="88" ry="10" fill="#000" opacity=".5"/><path d="M144 224 H300 L292 234 H152 Z" fill="#e8f4ff" fill-opacity=".14" stroke="#ffd23f" stroke-width="1"/><path d="M152 234 V254 M292 234 V254" stroke="#ffd23f" stroke-width="2"/>'
     + '<path d="M286 224 L284 212 H294 L292 224 Z" fill="#ff3ea5" fill-opacity=".5" stroke="#fff" stroke-opacity=".5" stroke-width=".6"/><path d="M289 212 L296 204" stroke="#39ff88" stroke-width="1.2"/>'
@@ -10393,7 +10395,8 @@ function openDance(intro){
   if (cine == null) { cine = {skip: closeDance}; musSync(); }
   if (!intro) {
     dzMusic(true);
-    dzShow('club', dzSay(P().danceBroke ? 'Hey… it’s you. Come on back. Not much to show you anymore.' : 'There they are! Not out here, baby. Come on back to my room. We talk business in private.', dzB('private', 'Follow him to the back')));
+    dzShow('club', dzSay(P().danceBroke ? 'Hey… it’s you. Come on back. Not much to show you anymore.' : 'There they are! Not out here, baby. Come on back to my room. We talk business in private.'));
+    bdoT(2400, dzToPrivate);
     return;
   }
   dzMusic(true, true);
@@ -10404,10 +10407,11 @@ function openDance(intro){
   T(6000, () => { el.classList.add('i-ring'); cap('The dancers form a circle and throw ribbons of light into the middle of the floor…'); sweep(200, 1200, 2.4, 'sine', .04); });
   T(8600, () => { el.classList.add('i-made'); cap('…and out spins a Chroma. Then another. Then another.'); boom(); [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, .6, 'triangle', .05, i*.08)); });
   T(11000, () => { el.classList.add('i-host'); cap('“WELCOME TO DANCE’S, BABY! Come on back. We talk business in private.”'); sweep(1400, 300, .35, 'sawtooth', .05); setTimeout(() => sweep(300, 1400, .3, 'sawtooth', .05), 340); [784, 988, 1175, 1568].forEach((f, i) => tone(f, .25, 'square', .035, .6 + i*.1)); });
-  T(13200, () => { const p = $('#dzPanel'); if (p) p.insertAdjacentHTML('beforeend', '<div class="dz-acts">' + dzB('private', 'Follow him to the back') + '</div>'); });
+  T(13600, dzToPrivate);
 }
 /* Through the beaded curtain: the club goes quiet and muffled, the room fades in */
 function dzToPrivate(){
+  if (!dz || dzEl().hidden) return;
   bdoTimers.forEach(clearTimeout); bdoTimers = [];
   const el = dzEl(); el.classList.add('dz-wipe');
   noise(.5, 3000, 600, .05, 'bandpass'); for (let i = 0; i < 8; i++) tone(1800 + Math.random()*1600, .05, 'triangle', .02, i*.04);
