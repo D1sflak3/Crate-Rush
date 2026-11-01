@@ -177,6 +177,8 @@ button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outli
 .k-neon{--c1:#3b2b8a;--c2:#130c34;--l1:#5140ad;--band:linear-gradient(90deg,#ff2bd6,#2be0ff);--plate:#0b0820;--mark:#2be0ff;--glow:#c34bff}
 .k-frost{--c1:#c4e3f4;--c2:#5a90b5;--l1:#e8f6fd;--band:linear-gradient(180deg,#ffffff,#a6d8f3);--plate:#16324a;--mark:#c6f2ff;--glow:#8fe0ff}
 .k-gold{--c1:#ffd86c;--c2:#9a6806;--l1:#ffeeb0;--band:linear-gradient(90deg,#3a2600,#140d00 50%,#3a2600);--plate:#140d00;--mark:#ffd34d;--glow:#ffe27a}
+.k-lg{--c1:#7a1418;--c2:#1a0405;--l1:#b3202a;--band:repeating-linear-gradient(-45deg,#ff4d4d 0 6px,#1a0405 6px 12px);--plate:#1a0405;--mark:#ffd0d0;--glow:#ff4d4d}
+.k-lg .c-body::after{content:"";position:absolute;inset:-30%;background:linear-gradient(110deg,transparent 44%,rgba(255,208,208,.35) 50%,transparent 56%);animation:sheen 3.4s ease-in-out infinite}
 .k-pk{--c1:#3b0f63;--c2:#0b0414;--l1:#5b21b6;--band:repeating-linear-gradient(-45deg,#a855f7 0 6px,#0b0414 6px 12px);--plate:#0b0414;--mark:#e9d5ff;--glow:#a855f7}
 .k-pk .c-body::after{content:"";position:absolute;inset:-30%;background:linear-gradient(110deg,transparent 44%,rgba(233,213,255,.35) 50%,transparent 56%);animation:sheen 3.4s ease-in-out infinite}
 .k-gold .c-body::after{content:"";position:absolute;inset:-30%;background:linear-gradient(110deg,transparent 42%,rgba(255,255,255,.6) 50%,transparent 58%);animation:sheen 3s ease-in-out infinite}
@@ -2373,6 +2375,8 @@ body{background:
 .hk.gad{background:linear-gradient(90deg,#0d2a26,#0a1614);border-color:#2f8a7a;color:#c8fff4}
 .hk.gad svg{width:20px;height:16px}
 @media (max-width:560px){.gd-card{grid-template-columns:80px 1fr}.gd-art{width:80px;height:64px}.gd-art svg{width:62px;height:50px}}
+.pk-drop.lg{background:radial-gradient(circle at 50% 50%,rgba(255,77,77,.28),rgba(0,0,0,.82) 70%)}
+.pk-drop.lg .pk-lab{color:#ffd0d0;text-shadow:0 0 14px #ff4d4d}
 </style>
 
 <div class="wrap" id="wrap">
@@ -2871,6 +2875,10 @@ const CASES = [
 CASES.forEach(c => { c.pools = [0,1,2,3,4,5].map(t => t === 5 ? GOLD : c.items.filter(id => BY[id].t === t)); });
 const MIN_COST = Math.min(...CASES.map(c => c.cost));
 /* Case #PK1: sold only in Tobias's back room. Every pull is Black Market. */
+/* Case #LG1: on Brick's wall shelf. Every pull is Legendary (never the Rusty Knife). */
+const LG1 = {id:'lg1', name:'Case #LG1', tag:'Every pull is Legendary', cost:5500, cls:'k-lg', mark:'LG1', glow:'#ff4d4d'};
+const LG_IDS = () => ITEMS.filter(it => it.t === 4 && !it.ex && it.id !== 's12');
+const pkCase = st => st && st.pk === 'lg1' ? LG1 : PK1;
 const PK1 = {id:'pk1', name:'Case #PK1', tag:'Every pull is contraband', cost:110000, cls:'k-pk', mark:'PK1', glow:'#a855f7'};
 const ITEM_CASE = {};
 CASES.forEach(c => c.items.forEach(id => { ITEM_CASE[id] = c; }));
@@ -3675,6 +3683,7 @@ const EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-w
    never had show as a silhouette. Odds follow any active hacks, same as the odds chips. */
 function previewGroups(c){
   if (c.id === 'pk1') return {groups: [{t: 6, pct: 100, ids: BM_IDS}], hacked: []};
+  if (c.id === 'lg1') return {groups: [{t: 4, pct: 100, ids: LG_IDS().map(i => i.id)}], hacked: []};
   const {w, applied} = effWeights(c), tot = w.reduce((a, b) => a + b, 0), groups = [];
   for (let t = 5; t >= 0; t--) if (w[t] > 0) groups.push({t, pct: w[t] / tot * 100, ids: c.pools[t]});
   return {groups, hacked: applied};
@@ -5503,7 +5512,7 @@ const inMood = (m, e) => !isFav(m, e) && hash(e.uid + m.id) % 5 === 0;   // stab
 /* Anything bought in a Prestige shop (or out of Sable's case) is "stock": every member pays market for it,
    haggling tops out at TAG_CAP, and it can never be an exact wish-list match. No buy-low, sell-high loops. */
 const TAG_CAP = 1.5;
-const tagged = e => e.src === 'shop' || e.src === 'vault' || e.src === 'pk1';
+const tagged = e => e.src === 'shop' || e.src === 'vault' || e.src === 'pk1' || e.src === 'lg1';
 const isExact = (m, e) => !tagged(e) && e.id === P().wants[m.id];
 function offerFor(m, e){
   if (knifeHome(m, e)) return Math.round(e.v * KNIFE_X);
@@ -5927,7 +5936,17 @@ function renderLeft(anim){
   }
   if (machSel && m.id === 'socket') { Lp.innerHTML = machLeft(B, lock); Cx.innerHTML = machCtx(); return; }
   if (shopSel != null && shopStock(m)[shopSel] && shopStock(m)[shopSel].pk) {
-    const n = shopStock(m).length, afford = state.bal >= PK1.cost;
+    const n = shopStock(m).length, PC = pkCase(shopStock(m)[shopSel]), lg = PC === LG1, afford = state.bal >= PC.cost;
+    if (lg) {
+      left = B('buy', afford ? 'Buy it and open it' : 'Can’t afford it', 'gold', lock, fmt(PC.cost) + ' cr')
+        + B('lgprev', 'Preview what’s inside', '', lock)
+        + '<div class="rl-row">' + B('zprev', '‹ Prev', 'sm', lock) + B('znext', 'Next ›', 'sm', lock) + '</div>'
+        + B('unzoom', 'Back', 'ghost', lock);
+      ctx = '<div class="rmc rmc-shop" style="--tc:' + TIERS[4].color + '"><div class="lab">' + m.name + '’s wall shelf · ' + (shopSel + 1) + ' of ' + n + '</div>'
+        + '<div class="t">Case #LG1</div><div class="ps-meta"><span class="ps-tier">Legendary only</span><span>Always in stock</span></div>'
+        + '<div class="rmc-price"><span class="coin"></span>' + fmt(PC.cost) + '</div><div class="rmc-sub">Opens right here · every pull is Legendary · counts as shop stock</div></div>';
+      Lp.innerHTML = left; Cx.innerHTML = ctx; return;
+    }
     left = B('buy', afford ? 'Buy it and open it' : 'Can’t afford it', 'gold', lock, fmt(PK1.cost) + ' cr')
       + B('pkprev', 'Preview what’s inside', 'pk', lock)
       + '<div class="rl-row">' + B('zprev', '‹ Prev', 'sm', lock) + B('znext', 'Next ›', 'sm', lock) + '</div>'
@@ -6435,7 +6454,7 @@ const SHOPS = {
     lines:['Balanced like a scalpel.', 'Took it off a man who talked too much.', 'Never been used. Officially.'],
     open:'My private cabinet. Everything in this building has a price.', buy:"Don't scratch it.", broke:'Come back when your pockets match your taste.'},
   brick:{hint:'Rifle rack', tag:'paper', group:[16, 52, 144, 112],
-    slots:[{x:26, y:58, w:100, h:40, tag:[143, 80]}, {x:26, y:88, w:100, h:40, tag:[143, 110]}, {x:26, y:118, w:100, h:40, tag:[143, 140]}],
+    slots:[{x:26, y:58, w:100, h:40, tag:[143, 80]}, {x:26, y:88, w:100, h:40, tag:[143, 110]}, {x:26, y:118, w:100, h:40, tag:[143, 140]}, {x:238, y:40, w:48, h:30, tag:[262, 92], own:[204, 14, 118, 94]}],
     lines:['Kicks like a mule.', 'Won this one arm wrestling.', 'Loud. Real loud.'],
     open:"Old rifles. Take 'em, I need the wall space.", buy:'Hah! Good pick.', broke:"You're short, buddy."},
   wren:{hint:'Spare rifles', tag:'paper', group:[258, 96, 136, 120],
@@ -6518,11 +6537,12 @@ function shopStock(m){
   const ep = epochNow(), R = seeded(hash(m.id + ':stock:' + ep)), pool = shopPool(m).slice();
   for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(R() * (i + 1)); const t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
   const tot = WEAR_W.reduce((a, b) => a + b, 0);
+  const lgSlot = m.id === 'brick' ? [{i: 3, pk: 'lg1', id: null, price: LG1.cost, key: 'lg1', sold: false}] : [];
   return pool.slice(0, 3).map((it, i) => {
     let x = R() * tot, wi = 0; while (x >= WEAR_W[wi] && wi < WEAR_W.length - 1) { x -= WEAR_W[wi]; wi++; }
     const W = WEARS[wi], fl = +(W.lo + R() * (W.hi - W.lo - .0001)).toFixed(4), v = marketValue(it, fl), key = m.id + ':' + ep + ':' + i;
     return {i, id: it.id, fl, v, price: Math.max(10, Math.round(v * SHOP_X / 10) * 10), key, sold: !!P().sold[key]};
-  });
+  }).concat(lgSlot);
 }
 /* Big art for scenes and the zoom: same painter as thumbnails, at 2x the resolution */
 const artHiCache = {};
@@ -6538,9 +6558,24 @@ function tagSVG(style, pos, st){
   if (style === 'marquee') return '<text class="tt' + so + '" x="' + tx + '" y="' + (ty + 1.6) + '" text-anchor="middle" font-family="Teko, sans-serif" font-size="10" font-weight="700" letter-spacing=".5" fill="#0b0414">' + txt + '</text>';
   return '<g class="tag"><path d="M' + (tx - 8) + ' ' + (ty - 9) + ' L' + (tx - 9) + ' ' + (ty - 1) + '" stroke="#d8cfb8" stroke-width=".5"/><path d="M' + (tx - 13) + ' ' + (ty - 5) + ' h24 l3 5 l-3 5 h-24 z" fill="#efe6cf" stroke="#8a7a58" stroke-width=".5"/><circle cx="' + (tx - 9.5) + '" cy="' + ty + '" r=".9" fill="#5a4a30"/><text class="tt' + so + '" x="' + (tx + 1.5) + '" y="' + (ty + 2.2) + '" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" font-weight="700" fill="#1c140a">' + txt + '</text></g>';
 }
-/* Case #PK1 as it sits on Tobias's shelf: a small purple crate centred in its slot */
-function pkCrateSVG(s){
+/* Case #LG1 on Brick's wall shelf: a small red crate on a plank with two brackets */
+function lgCrateSVG(s){
   const cx = s.x + s.w/2, w = 34, x = cx - w/2, y = s.y + 1;
+  let g = '<rect x="' + (s.x - 4) + '" y="' + (y + 25) + '" width="' + (s.w + 8) + '" height="4" rx="1" fill="#6b4a2a" stroke="#2a1a0c" stroke-width=".6"/>'
+    + '<path d="M' + (s.x + 2) + ' ' + (y + 29) + ' v7 l6 -7 M' + (s.x + s.w - 2) + ' ' + (y + 29) + ' v7 l-6 -7" stroke="#3a3f44" stroke-width="1.6" fill="none"/>'
+    + '<ellipse cx="' + cx + '" cy="' + (y + 24) + '" rx="20" ry="2.4" fill="#000" opacity=".45"/>'
+    + '<rect x="' + x + '" y="' + (y + 6) + '" width="' + w + '" height="18" rx="2" fill="#7a1418" stroke="#2a0406" stroke-width=".6"/>'
+    + '<rect x="' + x + '" y="' + (y + 19) + '" width="' + w + '" height="5" rx="1.5" fill="#4a0a0e"/><rect x="' + x + '" y="' + (y + 9.5) + '" width="' + w + '" height="3.6" fill="#1a0405"/>';
+  for (let i = 0; i < 9; i++) g += '<path d="M' + (x + 1 + i*4) + ' ' + (y + 13.1) + ' l2 -3.6 h1.8 l-2 3.6 z" fill="#ff4d4d"/>';
+  g += '<rect x="' + (x - 1) + '" y="' + y + '" width="' + (w + 2) + '" height="6.5" rx="1.6" fill="#b3202a" stroke="#2a0406" stroke-width=".6"/><rect x="' + (x - 1) + '" y="' + y + '" width="' + (w + 2) + '" height="1.4" rx=".7" fill="#ffb0b0" opacity=".6"/>'
+    + '<rect x="' + (cx - 8) + '" y="' + (y + 13.6) + '" width="16" height="7.6" rx="1" fill="#1a0405" stroke="#ff4d4d" stroke-width=".4"/>'
+    + '<text x="' + cx + '" y="' + (y + 19.6) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="7" fill="#ffd0d0">LG1</text>';
+  return g;
+}
+/* Case #PK1 as it sits on Tobias's shelf: a small purple crate centred in its slot */
+function pkCrateSVG(s, lg){
+  const cx = s.x + s.w/2, w = 34, x = cx - w/2, y = s.y + 1;
+  if (lg) return lgCrateSVG(s);
   let g = '<ellipse cx="' + cx + '" cy="' + (y + 24) + '" rx="22" ry="3" fill="#000" opacity=".5"/>'
     + '<rect x="' + x + '" y="' + (y + 6) + '" width="' + w + '" height="18" rx="2" fill="#3b0f63" stroke="#170626" stroke-width=".6"/>'
     + '<rect x="' + x + '" y="' + (y + 19) + '" width="' + w + '" height="5" rx="1.5" fill="#1f0838"/>'
@@ -6558,7 +6593,7 @@ function slotSVG(m, k, i){
   if (st.pk) {
     const cx = s.x + s.w/2, cy = s.y + s.h/2;
     return '<g class="hot pk" data-slot="' + i + '"><ellipse class="hl" cx="' + cx + '" cy="' + cy + '" rx="26" ry="16" style="fill:var(--mc)" filter="url(#hb' + k + ')"/>'
-      + '<g class="fl">' + pkCrateSVG(s) + '</g>' + tagSVG(cfg.tag, s.tag, st)
+      + '<g class="fl">' + pkCrateSVG(s, st.pk === 'lg1') + '</g>' + tagSVG(cfg.tag, s.tag, st)
       + '<rect class="hit" x="' + s.x + '" y="' + s.y + '" width="' + s.w + '" height="' + s.h + '" fill="#000" fill-opacity="0"/></g>';
   }
   const it = BY[st.id];
@@ -9875,7 +9910,7 @@ function memberIntro(m){
 let shopSel = null;
 const SHOP_ACTS = new Set(['shop', 'zprev', 'znext', 'unzoom', 'buy']);
 const sceneEl = () => $('#prRoom .pr-scene');
-const shopBox = (m, i) => { const c = SHOPS[m.id], s = c.slots[i]; return c.group || s.box || [s.x, s.y, s.w, s.h]; };
+const shopBox = (m, i) => { const c = SHOPS[m.id], s = c.slots[i]; return s.own || c.group || s.box || [s.x, s.y, s.w, s.h]; };
 const WIDE_MQ = matchMedia('(min-aspect-ratio: 6/5) and (min-width: 700px)');
 /* The part of the stage nothing covers: below the top bar (and, on wide screens, right of the left-hand
    choices and below the speech box). The art may slide out from under the panels on the left/top, since
@@ -9918,7 +9953,8 @@ function selectSlot(i){
   renderLeft();
   camScene(shopBox(m, i));
   const st = shopStock(m)[i];
-  if (st && st.pk) { if (first) whoosh(); else pickSound(); sayRoom(first ? 'My own case. A hundred and ten grand, and every pull is hot.' : pickOne(PK_LINES)); }
+  if (st && st.pk === 'lg1') { if (first) whoosh(); else pickSound(); sayRoom('That red one? Legendaries. Only legendaries. ' + fmt(LG1.cost) + '. Don’t drop it.'); }
+  else if (st && st.pk) { if (first) whoosh(); else pickSound(); sayRoom(first ? 'My own case. A hundred and ten grand, and every pull is hot.' : pickOne(PK_LINES)); }
   else if (first) { whoosh(); sayRoom(SHOPS[m.id].open); }
   else { pickSound(); sayRoom(SHOPS[m.id].lines[i % SHOPS[m.id].lines.length]); }
 }
@@ -9953,6 +9989,7 @@ function shopAct(act, btn){
 function renderShopCard(){ renderLeft(); }
 function buySlot(){
   const m = room, st = shopStock(m)[shopSel]; if (!st || st.sold) return;
+  if (st.pk === 'lg1') { openLG1(); return; }
   if (st.pk) { openPK1(); return; }
   if (bagBlock(1)) return;
   if (state.bal < st.price) { sayRoom(SHOPS[m.id].broke, 'mad'); tone(150, .22, 'sawtooth', .05); return; }
@@ -10361,6 +10398,34 @@ async function openPK1(){
   showReveal(r, true);
 }
 
+async function openLG1(){
+  const m = room; if (!m || m.id !== 'brick' || actBusy || vaultBusy || mi || busy || captive) return;
+  if (state.bal < LG1.cost) { sayRoom(SHOPS.brick.broke, 'mad'); tone(150, .22, 'sawtooth', .05); return; }
+  if (bagBlock(1)) return;
+  actBusy = true; closeOv(); if (shopSel != null) unzoomShop(); renderLeft();
+  state.bal -= LG1.cost; state.spent += LG1.cost; state.opened++;
+  const it = pickOne(LG_IDS()), W = WEARS[pickW(WEAR_W)], fl = +(W.lo + Math.random()*(W.hi - W.lo)).toFixed(4);
+  const r = {uid: uid(), id: it.id, fl, v: priceOf(it, wearIdx(fl)), at: Date.now(), hk: [], src: 'lg1', from: 'brick'};
+  state.inv.unshift(r);
+  if (!state.best || r.v > state.best.v) state.best = {id: r.id, v: r.v};
+  save(); setBal(-LG1.cost); prBal();
+  sayRoom('Ha! Rip it open. Careful, it bites.');
+  const R0 = $('#prRoom'), d = document.createElement('div');
+  d.className = 'pk-drop lg'; d.innerHTML = '<div class="pk-fall">' + crateHTML(LG1, true) + '</div><div class="pk-lab">CASE #LG1</div>';
+  R0.append(d);
+  await wait(40); d.classList.add('in'); whoosh();
+  await wait(REDUCED ? 100 : 520); tone(55, .4, 'sine', .4); noise(.3, 900, 100, .2, 'lowpass'); shakeStage();
+  await wait(REDUCED ? 100 : 800);
+  const cr = d.querySelector('.crate'); clunk(); if (cr && !REDUCED) cr.classList.add('opening');
+  await wait(REDUCED ? 100 : 420); whoosh(); await wait(REDUCED ? 60 : 640);
+  d.remove(); actBusy = false;
+  if (room !== m) return;
+  renderLeft();
+  busy = true; lockRack(true);
+  $('#reveal').style.zIndex = '81';
+  showReveal(r);
+}
+
 /* 10x briefcase */
 let briefTimers = [];
 function showBrief(m, amt){
@@ -10425,6 +10490,7 @@ $('#prRoom').addEventListener('click', e => {
   if (a && a.dataset.a === 'vxgo') { if (!a.disabled) vaultGo(a); return; }
   if (a && a.dataset.a === 'sell') { if (!a.disabled) openOv('sell'); return; }
   if (a && a.dataset.a === 'vault') { if (!a.disabled) openOv('vault'); return; }
+  if (a && a.dataset.a === 'lgprev') { if (!a.disabled) openPreview(LG1); return; }
   if (a && a.dataset.a === 'pkprev') { if (!a.disabled) openPreview(PK1); return; }
   if (a && a.dataset.a === 'pk1') { if (!a.disabled && room && room.id === 'tobias' && !vaultBusy && !actBusy && !mi && !captive) selectSlot(0); return; }
   if (a && a.dataset.a === 'ovclose') { closeOv(); return; }
