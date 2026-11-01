@@ -2309,6 +2309,47 @@ body{background:
 .ml-tank.lit .ml-fluid{animation:mlLit 1.6s ease-out}
 @keyframes mlLit{0%{filter:brightness(2.4)}}
 @media (prefers-reduced-motion: reduce){.ms-dust,.ml-txt,.ml-radar,.ml-flow,.ml-blink,.ml-surf{animation:none}}
+
+/* ---------- Ronaldo's house, the Penaldo bottle, penalties ---------- */
+.crh.dart{background:rgba(0,0,0,.2);animation:none}
+.crh-blur{position:fixed;inset:0;backdrop-filter:blur(6px) saturate(.6);-webkit-backdrop-filter:blur(6px) saturate(.6);animation:crSwim 2.6s ease-in forwards}
+@keyframes crSwim{0%{backdrop-filter:blur(0);background:rgba(0,0,0,0)}100%{backdrop-filter:blur(12px);background:rgba(0,0,0,.85)}}
+.crh.black{background:#000}
+.crh-msg{position:relative}
+.crh .bdo-scene{border-color:rgba(201,165,74,.6)}
+.crh-scene svg [data-cr],.crh-scene svg [data-cr] *{cursor:pointer;pointer-events:auto}
+.cr-jersey{transition:filter var(--dur-fast)}
+.cr-jersey:hover{filter:brightness(1.15) drop-shadow(0 0 6px #ffd23f)}
+.cr-jersey > rect:first-child{animation:crHint 3s ease-in-out infinite}
+@keyframes crHint{50%{stroke:#ffe9a0}}
+.cf-flame{animation:cfFl .4s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes cfFl{to{transform:scaleY(1.25) translateX(.5px)}}
+.cf-bottle{transform-box:fill-box;transform-origin:50% 100%}
+.cf-bottle.glow{animation:cfGlow 1.2s ease-in-out infinite;filter:drop-shadow(0 0 8px #39ff88)}
+@keyframes cfGlow{50%{transform:translateY(-4px)}}
+.cf-bottle.taken{transition:transform .6s var(--ease-in),opacity .6s;transform:translateY(40px) scale(.4);opacity:0}
+.pk .bdo-scene{border-color:rgba(57,229,140,.5)}
+.pk-scene svg .pk-z,.pk-scene svg .pk-z *{cursor:pointer;pointer-events:auto}
+.pk-zones{opacity:0;pointer-events:none;transition:opacity .3s}
+.pk.aim .pk-zones{opacity:1;pointer-events:auto}
+.pk-z circle:first-child{animation:pkPulse 1.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.pk-z:hover circle:first-child{fill-opacity:.4}
+@keyframes pkPulse{50%{transform:scale(1.15)}}
+.pk.shot .pk-zones{opacity:0}
+.pk-ball,.pk-keeper{transition:transform .55s cubic-bezier(.2,.7,.3,1)}
+.pk-ball{transform-box:fill-box;transform-origin:center}
+.pk-keeper{transform-box:fill-box;transform-origin:50% 60%;transition-duration:.6s}
+.pk-jersey{opacity:0;transition:opacity .5s}
+.pk.fan .pk-jersey{opacity:1}
+.pk.fan .pk-keeper{transform:none!important;transition:none}
+.pk-big{opacity:0}
+.pk.goal .pk-big,.pk.saved .pk-big{animation:pkBig .5s var(--ease-spring) forwards}
+.pk.saved .pk-big{fill:#ff4d5e}
+@keyframes pkBig{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+.pk-big{transform-box:fill-box;transform-origin:center}
+.pk.goal .pk-scene{animation:quake .4s .55s}
+.hk.pen{background:linear-gradient(90deg,#08321c,#0a1a10);border-color:#1fd47a;color:#c8ffe0}
+.hk.pen.off{opacity:.55}
 </style>
 
 <div class="wrap" id="wrap">
@@ -3583,6 +3624,7 @@ function renderHacks(){
     chips.push('<button class="hk rig' + (state.rig ? '' : ' off') + '" data-h="rig" aria-pressed="' + !!state.rig + '">' + ch + 'Reel grab · ' + (state.rig ? 'On' : 'Off') + '</button>');
     if (state.inject && BY[state.inject]) chips.push('<span class="hk rig">' + ch + 'Injecting · ' + BY[state.inject].name + '</span>');
   }
+  if (state.penaldo) chips.push('<span class="hk pen' + (penReady() ? '' : ' off') + '"><svg viewBox="-16 -52 32 90" aria-hidden="true">' + penaldoSVG(0, 0, 1).replace(/^<g transform="[^"]*">/, '<g>') + '</svg>Penaldo · ' + (penReady() ? 'ready' : 'in ' + penLeft() + ' open' + (penLeft() === 1 ? '' : 's')) + '</span>');
   bar.hidden = !chips.length;
   bar.innerHTML = '<span class="hk-label">Hacks</span>' + chips.join('');
 }
@@ -6003,6 +6045,7 @@ function refuseItem(e){
 function startNeg(uidv){
   const m = room, e = state.inv.find(x => x.uid === uidv); if (!m || !e || !buys(m, e)) return;
   if (m.id === 'tobias' && isRequiem(e)) { tobiasGrab(e); return; }
+  if (m.id === 'tobias' && e.id === GOAT_ID) { tobiasGoat(e); return; }
   const exact = isExact(m, e), tg = tagged(e);
   closeOv(); calmRoom(false);
   neg = {m, e, exact, offer: offerFor(m, e), pat: m.pat, cap: Math.round(e.v * (tg ? TAG_CAP : CAP_X)), lock: false, rage: 0};
@@ -6050,11 +6093,7 @@ function negAct(a){
       tone(523, .14, 'triangle', .07); tone(784, .14, 'triangle', .07, .09); tone(1046, .25, 'triangle', .07, .18);
       renderDeal('up');
     } else {
-      neg.lock = true; P().cool[m.id] = state.opened + 2; save();
-      sayRoom(m.say.bluffNo, 'mad');
-      boom(); restart($('#pres'), 'shake');
-      renderDeal('down');
-      setTimeout(() => { if (room === m) { leaveRoom(); toast(m.name + ' kicked you out. Open 2 more cases to try again.'); } }, 2200);
+      bluffFail(m, m.say.bluffNo, 2200);
     }
   }
 }
@@ -6217,12 +6256,7 @@ async function wrenBluff(m, before){
   } else egoKick(m, m.say.bluffNo);
 }
 function sc_thump(){ const sc = roomSc(); if (!sc) return; restart(sc, 'v-thump'); tone(60, .3, 'sine', .35); noise(.12, 900, 200, .18, 'lowpass'); shakeStage(); }
-function egoKick(m, line){
-  actBusy = false; neg.lock = true; P().cool[m.id] = state.opened + 2; save();
-  sayRoom(line, 'mad'); boom(); shakeStage();
-  renderLeft('down');
-  setTimeout(() => { if (room === m) { leaveRoom(); toast(m.name + ' kicked you out. Open 2 more cases to try again.'); } }, 2400);
-}
+function egoKick(m, line){ bluffFail(m, line, 2400); }
 async function vanceRage(m, mult){
   const X = mult || RAGE_X, big = X > RAGE_X;
   const sc = roomSc(), e = neg.e, ten = Math.round(e.v * X), alive = () => room === m && neg && sc.isConnected;
@@ -8854,6 +8888,7 @@ function bdoCeremony(){
   bdoT(t0 + 3000, bdoPlot);
 }
 function bdoClose(){
+  if (pkCtx) { const k = pkCtx.kick; pkCtx = null; pkClose(); k(); return; }
   bdoTimers.forEach(clearTimeout); bdoTimers = [];
   const el = $('#bdo'); if (el) { el.hidden = true; el.innerHTML = ''; el.className = 'bdo'; }
   if (cine && cine.skip === bdoClose) { cine = null; musSync(); }
@@ -9402,6 +9437,242 @@ document.addEventListener('click', e => {
   else if (a === 'offer') msiOffer();
 });
 document.addEventListener('keydown', e => { const el = msiEl(); if (e.key === 'Escape' && el && !el.hidden) { e.stopImmediatePropagation(); closeMsi(); } }, true);
+/* ---------- Tobias, Ronaldo and the Penaldo bottle ----------
+   Offer The GOAT to Tobias and his guards dart you. You wake up in Ronaldo's living room, and he keeps raising his
+   offer for the rifle. Tap the Portugal shirt framed behind him and you're in his secret room: he's a Messi fan.
+   He hands you the Penaldo bottle (one of one). When a member doesn't buy your bluff, the bottle lets you take a
+   penalty: score (about 80%, depending on where you aim) and they pull out a Messi shirt and accept the bluff.
+   After use it needs PEN_CD case opens to recharge. */
+const PEN_CD = 10;
+const CR_OFFERS = [500000, 750000, 1000000, 1250000, 1500000];
+const CR_LINES = ['I want that rifle. 500,000. Cash. Today.', 'No? 750,000. I am being generous.', 'One million. ONE MILLION. Nobody says no to me.', '1,250,000. Please. I am asking nicely.', '1,500,000. Final. FINAL. …Siuuu?'];
+let crN = 0;
+const penReady = () => !!state.penaldo && state.opened >= (state.penAt || 0);
+const penLeft = () => Math.max(0, (state.penAt || 0) - state.opened);
+
+function penaldoSVG(x, y, s){
+  return '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')"><path d="M-6 -44 H6 V-34 Q14 -28 14 -16 V30 Q14 36 8 36 H-8 Q-14 36 -14 30 V-16 Q-14 -28 -6 -34 Z" fill="#1fd47a" fill-opacity=".85" stroke="#0a6a3a" stroke-width="1.4"/>'
+    + '<rect x="-7" y="-50" width="14" height="7" rx="1.5" fill="#d4a017"/><path d="M-10 -20 Q-11 10 -9 30" stroke="#fff" stroke-opacity=".45" stroke-width="2.4" fill="none"/>'
+    + '<rect x="-13" y="-6" width="26" height="22" rx="2" fill="#f4f1e6"/><text x="0" y="6.2" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="8.6" fill="#c0262d">PENALDO</text>'
+    + '<circle cx="0" cy="11.4" r="2.6" fill="#fff" stroke="#111" stroke-width=".6"/><text x="0" y="28" text-anchor="middle" font-family="Teko, sans-serif" font-size="5" fill="#0a3a1e">1 OF 1</text></g>';
+}
+
+/* ---- the dart ---- */
+async function tobiasGoat(e){
+  const m = room; closeOv(); actBusy = true; renderLeft();
+  await sayRoom('…Is that The GOAT? HIS rifle? Do you know what that thing is worth to the right man?', 'mad');
+  await wait(1100); if (room !== m) return (actBusy = false);
+  await sayRoom('Guards. Put our guest to sleep.', 'mad');
+  await wait(500); if (room !== m) return (actBusy = false);
+  noise(.08, 5000, 2000, .1, 'highpass'); tone(1800, .05, 'square', .04);
+  const el = bdoEl(); el.hidden = false; el.className = 'bdo crh dart';
+  el.innerHTML = '<div class="crh-blur"></div><div class="bdo-panel crh-msg"><p class="bdo-line">A dart in the neck. The room tilts…</p></div>';
+  sweep(400, 60, 2.4, 'sine', .06);
+  await wait(2600);
+  el.classList.add('black'); el.innerHTML = '<div class="bdo-panel crh-msg"><div class="bdo-eyebrow">Some time later</div><p class="bdo-line">Madeira. A very white house.</p></div>';
+  await wait(2200);
+  actBusy = false; leaveRoom();
+  crN = 0; crHouse('You’re awake. Good. Tobias says you have something I want.');
+}
+/* ---- Ronaldo's living room ---- */
+function crHouseSVG(){
+  const k = 'cr';
+  let s = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>' + bdoDefs(k)
+    + '<linearGradient id="crW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f1ea"/><stop offset="1" stop-color="#dcd6ca"/></linearGradient>'
+    + '<linearGradient id="crSea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd3ff"/><stop offset=".55" stop-color="#cfefff"/><stop offset=".56" stop-color="#1f7fc4"/><stop offset="1" stop-color="#0d4f8a"/></linearGradient>'
+    + '<linearGradient id="crF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9e3d6"/><stop offset="1" stop-color="#bfb6a4"/></linearGradient></defs>'
+    + '<rect width="400" height="260" fill="url(#crW)"/>';
+  // window onto the sea
+  s += '<rect x="14" y="20" width="120" height="150" rx="2" fill="url(#crSea)"/><path d="M74 20 V170 M14 95 H134" stroke="#fff" stroke-width="4"/><rect x="14" y="20" width="120" height="150" fill="none" stroke="#c9a54a" stroke-width="3"/>'
+    + '<circle cx="110" cy="44" r="10" fill="#fff6c8"/><path d="M20 120 Q40 116 60 120 T100 120 T130 120" stroke="#fff" stroke-opacity=".5" fill="none"/>';
+  // the framed Portugal shirt (the secret)
+  s += '<g class="cr-jersey" data-cr="jersey"><rect x="168" y="22" width="64" height="78" rx="2" fill="#1a1208" stroke="#c9a54a" stroke-width="2.4"/><rect x="173" y="27" width="54" height="68" fill="#f8f4ea"/>'
+    + '<path d="M181 40 L190 33 H210 L219 40 L216 50 L211 48 V88 H189 V48 L184 50 Z" fill="#c8102e"/><path d="M190 33 Q200 40 210 33" stroke="#0a7a3a" stroke-width="2.4" fill="none"/><path d="M189 84 H211" stroke="#0a7a3a" stroke-width="3"/>'
+    + '<text x="200" y="70" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="20" fill="#ffd23f">7</text><rect x="168" y="22" width="64" height="78" fill="#000" fill-opacity="0"/></g>';
+  // trophies and a gold 7 on the right wall
+  s += '<rect x="262" y="40" width="120" height="6" fill="#c9a54a"/><rect x="262" y="96" width="120" height="6" fill="#c9a54a"/>'
+    + [[278, 40], [306, 40], [334, 40], [362, 40], [292, 96], [348, 96]].map(([x, y], i) => i % 3 === 1 ? bdoBall(x, y - 10, 8, k) : bdoCup(x, y - 2, .9)).join('')
+    + '<text x="322" y="150" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="44" fill="#c9a54a" opacity=".85">7</text>';
+  // floor, sofa, the man
+  s += '<rect x="0" y="190" width="400" height="70" fill="url(#crF)"/><path d="M0 190 H400" stroke="#c9a54a" stroke-width="2"/>'
+    + '<path d="M120 196 Q120 150 150 150 H250 Q280 150 280 196 Z" fill="#fbfaf6" stroke="#d8d2c4"/>'
+    + bdoMan(200, 108, 1.05, bdoP('cr7', {shirt:'#ffffff', trim:'#d8d2c4', mouth:'grin', arm:'up'}))
+    + '<rect x="108" y="186" width="184" height="26" rx="8" fill="#f4f1ea" stroke="#d8d2c4"/><rect x="104" y="170" width="22" height="40" rx="8" fill="#f4f1ea" stroke="#d8d2c4"/><rect x="274" y="170" width="22" height="40" rx="8" fill="#f4f1ea" stroke="#d8d2c4"/>'
+    + '<g class="cr-cash"><rect x="300" y="214" width="34" height="12" rx="1.5" fill="#2f6b3a" stroke="#1d4524"/><rect x="314" y="214" width="6" height="12" fill="#e8d9a8"/><rect x="306" y="204" width="34" height="12" rx="1.5" fill="#2f6b3a" stroke="#1d4524"/><rect x="320" y="204" width="6" height="12" fill="#e8d9a8"/></g>';
+  return s + '</svg>';
+}
+function crFanSVG(){
+  const k = 'cf';
+  let s = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>' + bdoDefs(k)
+    + '<radialGradient id="cfL" cx=".5" cy=".4" r=".7"><stop offset="0" stop-color="#ffd27a" stop-opacity=".35"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></radialGradient>'
+    + '<linearGradient id="cfBn" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#75bde9"/><stop offset=".33" stop-color="#75bde9"/><stop offset=".33" stop-color="#f4f7fb"/><stop offset=".67" stop-color="#f4f7fb"/><stop offset=".67" stop-color="#75bde9"/></linearGradient></defs>'
+    + '<rect width="400" height="260" fill="#1a1020"/><rect width="400" height="260" fill="url(#cfL)"/>';
+  for (let x = 0; x < 400; x += 20) s += '<rect x="' + x + '" y="0" width="10" height="190" fill="#75bde9" opacity=".08"/>';
+  // posters of the man he secretly worships
+  [[46, 30, -4], [112, 22, 3], [288, 22, -3], [354, 30, 4]].forEach(([x, y, r]) => {
+    s += '<g transform="rotate(' + r + ' ' + x + ' ' + (y + 40) + ')"><rect x="' + (x - 30) + '" y="' + y + '" width="60" height="80" fill="#0b2a4a" stroke="#f4f7fb" stroke-width="2"/>'
+      + '<rect x="' + (x - 26) + '" y="' + (y + 4) + '" width="52" height="56" fill="url(#cfBn)" opacity=".5"/>'
+      + '<g transform="translate(0 0)">' + bdoMan(x, y + 10, .52, bdoP('messi', {shirt:'stripes', num:'10', numc:'#0b2a4a', trim:'#0b2a4a', mouth:'grin'})) + '</g>'
+      + '<text x="' + x + '" y="' + (y + 76) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="11" fill="#ffd23f">GOAT</text></g>';
+  });
+  // the shrine
+  s += '<rect x="160" y="120" width="80" height="70" rx="3" fill="#2a1a10" stroke="#c9a54a" stroke-width="1.4"/><path d="M164 120 V60 Q200 28 236 60 V120" fill="#20141a" stroke="#c9a54a" stroke-width="1.4"/>'
+    + '<path d="M184 70 L192 62 H208 L216 70 L213 78 L209 76 V112 H191 V76 L187 78 Z" fill="url(#cfBn)"/><text x="200" y="100" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="14" fill="#0b2a4a">10</text>'
+    + [170, 230].map(x => '<rect x="' + (x - 3) + '" y="104" width="6" height="16" fill="#f4f1e6"/><ellipse class="cf-flame" cx="' + x + '" cy="100" rx="2.6" ry="5" fill="#ffb02e"/>').join('')
+    + '<text x="200" y="146" text-anchor="middle" font-family="Teko, sans-serif" font-size="9" letter-spacing="2" fill="#e8cf86">MY HERO</text>';
+  s += '<rect x="0" y="190" width="400" height="70" fill="#120a14"/><path d="M0 190 H400" stroke="#c9a54a" stroke-width="1.4"/>';
+  s += '<g class="cf-cr">' + bdoMan(96, 120, 1, bdoP('cr7', {shirt:'stripes', num:'10', numc:'#0b2a4a', trim:'#0b2a4a', mouth:'smile', brow:'arch'})) + '<ellipse cx="86" cy="152" rx="4" ry="2.4" fill="#ff8aa8" opacity=".6"/><ellipse cx="106" cy="152" rx="4" ry="2.4" fill="#ff8aa8" opacity=".6"/></g>';
+  s += '<g class="cf-bottle"><ellipse cx="304" cy="176" rx="30" ry="10" fill="#39ff88" opacity=".25"/><rect x="278" y="170" width="52" height="20" rx="2" fill="#2a1a10" stroke="#c9a54a"/>' + penaldoSVG(304, 128, 1) + '</g>';
+  return s + '</svg>';
+}
+function crShow(kind, panel){
+  const el = bdoEl(); el.hidden = false; el.className = 'bdo crh in';
+  el.innerHTML = '<div class="bdo-scene crh-scene k-' + kind + '">' + (kind === 'fan' ? crFanSVG() : crHouseSVG()) + '</div><div class="bdo-panel" id="crPanel">' + panel + '</div>';
+}
+const crHas = () => state.inv.find(e => e.id === GOAT_ID);
+function crHouse(first){
+  const n = Math.min(crN, CR_OFFERS.length - 1), has = crHas();
+  crShow('house', '<div class="bdo-eyebrow">Cristiano Ronaldo</div><p class="bdo-line">' + (first ? first + ' ' : '') + (has ? CR_LINES[n] : 'You came back without the rifle? Then why are you in my house?') + '</p>'
+    + '<div class="bdo-row msi-acts">' + (has ? '<button class="open-btn sm" data-cr="sell">Sell it · ' + fmt(CR_OFFERS[n]) + '</button>' + (crN < CR_OFFERS.length - 1 ? '<button class="ghost" data-cr="no">No</button>' : '') : '') + '<button class="ghost" data-cr="home">Go home</button></div>'
+    + '<p class="bdo-sub">Something about that framed shirt behind him…</p>');
+  [392, 523.25].forEach((f, i) => tone(f, .2, 'triangle', .04, i*.08));
+}
+function crSell(){
+  const e = crHas(); if (!e) return;
+  const amt = CR_OFFERS[Math.min(crN, CR_OFFERS.length - 1)];
+  state.inv = state.inv.filter(x => x.uid !== e.uid); state.bal += amt; save(); setBal(amt); renderInv(); renderStats(); kaching();
+  crShow('house', '<div class="bdo-eyebrow ok">Sold</div><p class="bdo-line">“SIUUU! It’s mine!” He hugs the rifle like a trophy. ' + fmt(amt) + ' cr is yours.</p><div class="bdo-row"><button class="open-btn sm" data-cr="home">Go home</button></div>');
+  for (let i = 0; i < 4; i++) tone(523.25 + i*130, .25, 'triangle', .05, i*.09);
+}
+function crFan(){
+  const first = !state.penaldo;
+  crShow('fan', '<div class="bdo-eyebrow">Cristiano Ronaldo</div><p class="bdo-line" id="crSay">…You weren’t supposed to see this.</p>');
+  noise(.6, 400, 150, .05); sweep(300, 120, .8, 'sine', .04);
+  const say = t => { const s = $('#crSay'); if (s) s.textContent = t; };
+  bdoT(1800, () => say('Okay. Yes. I’m a Messi fan. I have been since 2004. If you tell anyone, I will deny it on Instagram.'));
+  bdoT(4600, () => {
+    const p = $('#crPanel'); if (!p) return;
+    if (first) {
+      say('Take this. The Penaldo bottle. One of one. When nobody believes you, take a penalty. You’ll score. Probably.');
+      p.insertAdjacentHTML('beforeend', '<button class="open-btn sm" data-cr="take">Take the bottle</button>');
+      const b = bdoEl().querySelector('.cf-bottle'); if (b) b.classList.add('glow');
+    } else {
+      say('You already have the bottle. Use it wisely. And don’t tell Messi I said hi. Actually… tell him.');
+      p.insertAdjacentHTML('beforeend', '<button class="ghost" data-cr="back">Back to the living room</button>');
+    }
+  });
+}
+function crTake(){
+  state.penaldo = true; state.penAt = 0; save(); renderHacks();
+  [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((f, i) => tone(f, .5, 'triangle', .05, i*.1));
+  const b = bdoEl().querySelector('.cf-bottle'); if (b) b.classList.add('taken');
+  const p = $('#crPanel'); if (p) p.innerHTML = '<div class="bdo-eyebrow ok">Penaldo bottle · 1 of 1</div><p class="bdo-line">If a member doesn’t buy your bluff, you can take a penalty to save it. It recharges after ' + PEN_CD + ' case opens.</p><div class="bdo-row"><button class="ghost" data-cr="back">Back to the living room</button><button class="open-btn sm" data-cr="home">Go home</button></div>';
+  toast('Penaldo bottle: you can take a penalty when a bluff fails');
+}
+document.addEventListener('click', e => {
+  const el = $('#bdo'); if (!el || el.hidden || !el.classList.contains('crh')) return;
+  const j = e.target.closest('[data-cr="jersey"]'); if (j) { crFan(); return; }
+  const b = e.target.closest('[data-cr]'); if (!b || b.disabled) return;
+  const a = b.dataset.cr;
+  if (a === 'no') { crN++; tone(160, .2, 'square', .04); crHouse(); }
+  else if (a === 'sell') crSell();
+  else if (a === 'take') crTake();
+  else if (a === 'back') crHouse();
+  else if (a === 'home') { bdoClose(); el.className = 'bdo'; }
+});
+
+/* ---- a failed bluff, and the penalty that can save it ---- */
+function bluffFail(m, line, delay){
+  actBusy = false;
+  const prev = P().cool[m.id];
+  neg.lock = true; P().cool[m.id] = state.opened + 2; save();
+  sayRoom(line, 'mad'); boom(); shakeStage(); renderLeft('down');
+  const kick = () => { if (room === m) { leaveRoom(); toast(m.name + ' kicked you out. Open 2 more cases to try again.'); } };
+  if (penReady() && neg) { setTimeout(() => { if (room === m && neg) penPrompt(m, prev, kick); else kick(); }, 1500); return; }
+  setTimeout(kick, delay || 2300);
+}
+const PK_Z = [
+  {id:'tl', x:142, y:92, p:.9, l:'Top left'}, {id:'tc', x:200, y:88, p:.7, l:'Top middle'}, {id:'tr', x:258, y:92, p:.9, l:'Top right'},
+  {id:'bl', x:146, y:138, p:.82, l:'Low left'}, {id:'bc', x:200, y:140, p:.55, l:'Low middle'}, {id:'br', x:254, y:138, p:.82, l:'Low right'}
+];
+let pkCtx = null;
+function pkSVG(m){
+  let s = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>'
+    + '<pattern id="pkN" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0 L8 8 M8 0 L0 8" stroke="#fff" stroke-opacity=".25" stroke-width=".6"/></pattern>'
+    + '<linearGradient id="pkS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a1020"/><stop offset="1" stop-color="#1a2440"/></linearGradient></defs>'
+    + '<rect width="400" height="160" fill="url(#pkS)"/>';
+  for (let i = 0; i < 9; i++) s += '<path d="M' + (i*50) + ' 0 L' + (i*50 + 20) + ' 60" stroke="#fff" stroke-opacity=".06" stroke-width="16"/>';
+  s += '<rect x="0" y="150" width="400" height="110" fill="#1f6b32"/>' + Array.from({length: 6}, (_, i) => '<rect x="0" y="' + (150 + i*20) + '" width="400" height="10" fill="#237a3a"/>').join('')
+    + '<path d="M60 260 L120 166 H280 L340 260" stroke="#e8f4e8" stroke-width="2" fill="none" opacity=".8"/><ellipse cx="200" cy="232" rx="3" ry="1.4" fill="#fff"/>'
+    + '<rect x="118" y="64" width="164" height="94" fill="url(#pkN)"/><path d="M118 158 V64 H282 V158" stroke="#fff" stroke-width="5" fill="none"/>';
+  s += '<g class="pk-keeper"><g transform="translate(176 72) scale(.48)">' + fig(m.id, 0, 0, 1) + '</g></g>';
+  s += '<g class="pk-zones">' + PK_Z.map((z, i) => '<g class="pk-z" data-pk="' + i + '"><circle cx="' + z.x + '" cy="' + z.y + '" r="14" fill="#ffd23f" fill-opacity=".14" stroke="#ffd23f" stroke-width="1.6" stroke-dasharray="4 3"/><circle cx="' + z.x + '" cy="' + z.y + '" r="3" fill="#ffd23f"/></g>').join('') + '</g>';
+  s += '<g class="pk-ball"><circle cx="200" cy="226" r="7" fill="#f4f6fa" stroke="#111" stroke-width=".8"/><path d="M200 221.5 L203 224 L202 228 H198 L197 224 Z" fill="#111"/></g>'
+    + '<g class="pk-jersey"><g transform="translate(176 72) scale(.48)"><rect x="6" y="100" width="88" height="130" rx="8" fill="#f4f7fb"/>'
+    + [0, 1, 2].map(i => '<rect x="' + (14 + i*30) + '" y="100" width="14" height="130" fill="#75bde9"/>').join('')
+    + '<text x="50" y="186" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="56" fill="#0b2a4a">10</text><text x="50" y="138" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="20" fill="#0b2a4a">MESSI</text></g></g>'
+    + '<text class="pk-big" x="200" y="50" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="40" fill="#ffd23f"></text>';
+  return s + '</svg>';
+}
+function penPrompt(m, prev, kick){
+  pkCtx = {m, prev, kick, done: false};
+  const el = bdoEl(); el.hidden = false; el.className = 'bdo pk in';
+  el.innerHTML = '<div class="bdo-scene pk-scene">' + pkSVG(m) + '</div><div class="bdo-panel" id="pkPanel"><div class="bdo-eyebrow">' + m.name + ' didn’t buy it</div>'
+    + '<p class="bdo-line">You pull out the Penaldo bottle. One penalty. Score it and the bluff stands.</p>'
+    + '<div class="bdo-row"><button class="open-btn sm" data-pk="go">Take the penalty</button><button class="ghost" data-pk="walk">Walk away</button></div></div>';
+  tone(880, .1, 'square', .04); tone(1320, .14, 'square', .04, .1);
+}
+function pkAim(){
+  const el = bdoEl(); el.classList.add('aim');
+  const p = $('#pkPanel'); if (p) p.innerHTML = '<div class="bdo-eyebrow">Pick your spot</div><p class="bdo-line">Corners are safest. Down the middle is a gamble.</p>';
+  noise(.8, 700, 300, .03, 'bandpass');
+}
+function pkShoot(i){
+  if (!pkCtx || pkCtx.done) return;
+  pkCtx.done = true;
+  const z = PK_Z[i], el = bdoEl(), {m} = pkCtx, goal = Math.random() < z.p;
+  el.classList.remove('aim'); el.classList.add('shot');
+  state.penAt = state.opened + PEN_CD; save(); renderHacks();
+  const ball = el.querySelector('.pk-ball'), kp = el.querySelector('.pk-keeper');
+  const side = goal ? (z.x < 190 ? 1 : z.x > 210 ? -1 : (Math.random() < .5 ? -1 : 1)) : (z.x < 190 ? -1 : z.x > 210 ? 1 : 0);
+  if (ball) ball.style.transform = 'translate(' + (z.x - 200) + 'px,' + (z.y - 226) + 'px) scale(.6)';
+  if (kp) kp.style.transform = side ? 'translate(' + side*58 + 'px,' + (z.y < 110 ? -14 : 10) + 'px) rotate(' + side*70 + 'deg)' : 'translateY(' + (z.y < 110 ? -18 : 6) + 'px)';
+  noise(.15, 3000, 400, .12); tone(120, .1, 'sine', .2);
+  const big = el.querySelector('.pk-big'), p = $('#pkPanel');
+  setTimeout(() => {
+    if (goal) {
+      el.classList.add('goal'); if (big) big.textContent = 'GOAL!';
+      noise(1.6, 1500, 400, .1, 'bandpass'); [523.25, 659.25, 783.99, 1046.5].forEach((f, k) => tone(f, .4, 'triangle', .05, k*.08));
+      if (p) p.innerHTML = '<div class="bdo-eyebrow ok">Goal</div><p class="bdo-line">' + m.name + ' stares at the net… then pulls a Messi shirt out from under the table and puts it on.</p>';
+      setTimeout(() => el.classList.add('fan'), 900);
+      setTimeout(pkWin, 3400);
+    } else {
+      el.classList.add('saved'); if (big) big.textContent = 'SAVED!';
+      tone(150, .4, 'sawtooth', .06); noise(.6, 600, 200, .06);
+      if (p) p.innerHTML = '<div class="bdo-eyebrow no">Saved</div><p class="bdo-line">' + m.name + ' holds the ball up. “Penaldo can’t save you.”</p>';
+      setTimeout(pkLose, 2600);
+    }
+  }, 700);
+}
+function pkClose(){ const el = $('#bdo'); if (el) { el.hidden = true; el.innerHTML = ''; el.className = 'bdo'; } }
+function pkWin(){
+  const {m, prev} = pkCtx; pkCtx = null; pkClose();
+  if (room !== m || !neg) return;
+  neg.lock = false; if (prev == null) delete P().cool[m.id]; else P().cool[m.id] = prev;
+  neg.offer = Math.min(neg.cap, Math.round(neg.offer * (1.3 + Math.random()*.2))); neg.pat = Math.max(1, neg.pat - 1);
+  save(); renderLeft('up');
+  sayRoom('…Fine. You’re with HIM. ' + fmt(neg.offer) + ' cr. Vamos.', 'happy');
+  tone(523, .14, 'triangle', .07); tone(784, .14, 'triangle', .07, .09); tone(1046, .25, 'triangle', .07, .18);
+}
+function pkLose(){ const {kick} = pkCtx; pkCtx = null; pkClose(); kick(); }
+document.addEventListener('click', e => {
+  const el = $('#bdo'); if (!el || el.hidden || !el.classList.contains('pk')) return;
+  const b = e.target.closest('[data-pk]'); if (!b) return;
+  const a = b.dataset.pk;
+  if (a === 'go') pkAim();
+  else if (a === 'walk') { const k = pkCtx && pkCtx.kick; pkCtx = null; pkClose(); if (k) k(); }
+  else if (el.classList.contains('aim')) pkShoot(+a);
+});
 function memberIntro(m){
   return new Promise(resolve => {
     ac();
