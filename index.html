@@ -2336,7 +2336,7 @@ body{background:
 .crh.black{background:#000}
 .crh-msg{position:relative}
 .crh .bdo-scene{border-color:rgba(201,165,74,.6)}
-.crh-scene svg [data-cr],.crh-scene svg [data-cr] *{cursor:pointer;pointer-events:auto}
+.crh-scene svg [data-cr],.crh-scene svg [data-cr] *,.crx-stage svg [data-cr],.crx-stage svg [data-cr] *{cursor:pointer;pointer-events:auto}
 .cr-jersey{transition:filter var(--dur-fast)}
 .cr-jersey:hover{filter:brightness(1.15) drop-shadow(0 0 6px #ffd23f)}
 .cr-jersey > rect:first-child{animation:crHint 3s ease-in-out infinite}
@@ -2990,8 +2990,6 @@ body.dz-open .toast{z-index:95}
 .crx-hud .bdo-line{text-align:left;margin:0}
 .crx-hud .bdo-row{justify-content:flex-start}
 .crx-hud .bdo-sub{text-align:left}
-.crx .cr-jersey{cursor:pointer}
-.crx .cr-jersey > rect:first-child{animation:crHint 2.6s ease-in-out infinite}
 .cr-glit{animation:crGlit 1.4s steps(3) infinite}
 @keyframes crGlit{50%{opacity:.4}}
 .cr-caus{animation:crCaus 3s ease-in-out infinite alternate}
@@ -3018,6 +3016,33 @@ body.dz-open .toast{z-index:95}
 .pr-scene.sx-down:not(.vx-lean) .sx > rect:nth-child(2){animation:vxHint 2.2s ease-in-out infinite}
 .pr-scene.vv-up:not(.vx-lean) .vv-niche > rect:first-child{animation:vxHint 2.2s ease-in-out infinite}
 @keyframes vxHint{50%{stroke:#fff;stroke-width:3}}
+
+.cr-l text{transition:filter .2s}
+.cr-l:hover text{filter:brightness(1.3) drop-shadow(0 0 3px #ffd23f)}
+.cr-l.on text{filter:brightness(1.5) drop-shadow(0 0 6px #ffd23f)}
+.cr-l.press{animation:crPressL .3s}
+@keyframes crPressL{40%{transform:translateY(2px)}}
+.cr-panel{transition:transform 2s cubic-bezier(.5,0,.3,1)}
+.cr-open .cr-panel{transform:translateY(-170px)}
+.cr-door{pointer-events:none}
+.cr-open .cr-door{pointer-events:auto}
+.cr-open .cr-door rect:nth-child(2){animation:crDoorG 2s ease-in-out infinite}
+@keyframes crDoorG{50%{stroke:#9fd8ff;stroke-width:3}}
+
+/* Messi's offer, over the lab */
+.msi-scene svg{transition:transform .5s cubic-bezier(.3,0,.2,1);transform-origin:50% 46%}
+.msi-scene.zoom-tank svg{transform:scale(1.7)}
+.ml-tank.tap{cursor:pointer}
+.ml-tank.tap > rect:first-child{animation:mlTap 2s ease-in-out infinite}
+@keyframes mlTap{50%{fill:#0c3a22}}
+.msi-ov{position:absolute;inset:0;z-index:6;display:grid;place-items:center;padding:16px;background:rgba(2,6,12,.7);overflow:auto;animation:fadeIn .25s}
+.msi-ov .vx{width:min(760px,100%);max-height:calc(100% - 8px);overflow:auto;margin:0;border-color:#75bde9;background:radial-gradient(circle at 20% 0%,rgba(117,189,233,.22),transparent 60%),#050b14;box-shadow:0 0 40px rgba(117,189,233,.25),0 30px 80px rgba(0,0,0,.6)}
+.vx-msi .tag{background:#75bde9;color:#0b2a4a}
+.vx-msi .vx-one{display:flex;align-items:center;gap:5px}
+.vx-msi .vx-one i{width:16px;height:6px;border-radius:3px;background:rgba(255,255,255,.15)}
+.vx-msi .vx-one i.on{background:#ffd23f}
+.vx-x{margin-left:auto}
+.vx-msi .vx-say b{color:#0b2a4a}
 </style>
 
 <div class="wrap" id="wrap">
@@ -10711,7 +10736,7 @@ function msiLabSVG(){
   for (let y = 214; y < 260; y += 10) s += '<path d="M0 ' + y + ' H400" stroke="#0f2e20" stroke-width=".8"/>';
   s += '<ellipse cx="200" cy="214" rx="96" ry="14" fill="url(#mlGl)"/>';
   // the tank
-  s += '<g class="ml-tank' + (g === 'unlocked' || msiPad.length === 3 ? ' lit' : '') + (g === 'owned' ? ' empty' : '') + '">'
+  s += '<g class="ml-tank' + (g === 'unlocked' || msiPad.length === 3 ? ' lit' : '') + (g === 'owned' ? ' empty' : '') + (g === 'unlocked' ? ' tap' : '') + '"' + (g === 'unlocked' ? ' data-msi="tank"' : '') + '>'
     + '<rect x="138" y="44" width="124" height="152" fill="#03140c"/>'
     + '<rect class="ml-fluid" x="138" y="52" width="124" height="144" fill="url(#mlT)"/>'
     + '<rect class="ml-rb" x="138" y="52" width="124" height="144" fill="url(#mlR)" opacity="0"/>'
@@ -10787,10 +10812,9 @@ function msiLab(){
   msiPad = [];
   const g = P().goat;
   msiShow('lab', g === 'owned' ? msiSay('Lionel Messi', 'The tank’s empty. The GOAT is yours now. Don’t let anyone scan it.', '<button class="ghost" data-msi="room">Back to the trophies</button>')
-    : g === 'unlocked' ? msiOfferHTML('You again. It’s still in the tank. Make me an offer.')
+    : g === 'unlocked' ? msiSay('Lionel Messi', 'You again. It’s still in the tank. Tap it and make me an offer.', '<button class="ghost" data-msi="room">Back to the trophies</button>')
     : msiSay('Lionel Messi', 'Home sweet home. The pad by the tank. Don’t press anything.', '<button class="ghost" data-msi="room">Back to the trophies</button>'));
   noise(.8, 1200, 300, .04, 'bandpass'); sweep(100, 300, .8, 'sine', .04);
-  if (g === 'unlocked') msiBindOffer();
 }
 function msiPadPress(i){
   if (msiView !== 'lab' || P().goat) return;
@@ -10836,39 +10860,76 @@ function msiAnswer(i){
   msiQ = null;
   P().goat = 'unlocked'; P().goatAsk = Math.round(msiGoatVal() * (1 + Math.random()*.15)); save();
   msiPat = MSI_PAT; msiSel.clear(); msiCr = 0;
-  setTimeout(() => { msiPanel(msiOfferHTML('Five for five. Okay. It’s for sale. But it comes at a cost. Make me an offer.')); msiBindOffer(); }, 800);
+  setTimeout(() => { msiPanel(msiSay('Lionel Messi', 'Five for five. Okay. It’s for sale. But it comes at a cost. Tap the tank and make me an offer.', '<button class="ghost" data-msi="room">Back to the trophies</button>')); const t = msiEl().querySelector('.ml-tank'); if (t) { t.classList.add('tap'); t.setAttribute('data-msi', 'tank'); } }, 800);
 }
 /* ---- the offer ---- */
-function msiOfferHTML(line){
-  const items = state.inv.filter(e => e.id !== GOAT_ID).sort((a, b) => b.v - a.v).slice(0, 30);
-  return '<div class="bdo-eyebrow">Lionel Messi</div><p class="bdo-line">' + line + '</p>'
-    + '<div class="msi-offer"><div class="msi-cr"><label for="msiCr">Credits</label><input id="msiCr" type="number" min="0" step="1000" inputmode="numeric" value="' + (msiCr || '') + '" placeholder="0">'
-    + '<div class="msi-q">' + [['25%', .25], ['50%', .5], ['All', 1]].map(([l, f]) => '<button class="ghost sm" data-msi="crq" data-v="' + f + '">' + l + '</button>').join('') + '</div></div>'
-    + (items.length ? '<div class="msi-items">' + items.map(e => '<button class="msi-chip' + (msiSel.has(e.uid) ? ' on' : '') + '" data-msi="sel" data-v="' + e.uid + '" style="--tc:' + TIERS[BY[e.id].t].color + '">' + BY[e.id].name + ' <b>' + fmt(e.v) + '</b></button>').join('') + '</div>' : '')
-    + '<div class="msi-tot">Your offer <b id="msiTot">0</b> cr · market value of The GOAT ' + fmt(msiGoatVal()) + '</div>'
-    + '<div class="bdo-row"><button class="open-btn sm" data-msi="offer">Make the offer</button><button class="ghost" data-msi="room">Not yet</button></div>'
-    + '<div class="pr-pat msi-pat">Patience ' + Array.from({length: MSI_PAT}, (_, i) => '<i' + (i < msiPat ? ' class="on"' : '') + '></i>').join('') + '</div></div>';
+/* Tap the tank: the camera leans in and the offer opens over the lab, the same way Sable's and Vance's do.
+   He hints hot or cold as you build it; you get MSI_PAT tries before he's done for the day. */
+let mvSel = new Set(), mvCr = 0, mvBand = -1, mvT = 0;
+const MV_BANDS = [[.5, 'Cold. Very cold. I scored ninety-one in a year, you know.', 'mad'], [.8, 'Warmer. Still not close.', ''], [.95, 'Close. Closer than most defenders get.', ''], [1, 'Very close. One more touch.', 'happy'], [Infinity, '…Okay. Now we’re talking.', 'happy']];
+function msiTankTap(){
+  const el = msiEl(); if (msiView !== 'lab' || P().goat !== 'unlocked' || el.querySelector('.msi-ov')) return;
+  if (msiPat <= 0) { msiPanel(msiSay('Lionel Messi', 'No more offers today. Come back later.', '<button class="ghost" data-msi="room">Back to the trophies</button>')); tone(150, .3, 'square', .05); return; }
+  const sc = el.querySelector('.msi-scene'); if (sc) sc.classList.add('zoom-tank');
+  tone(392, .25, 'triangle', .04); tone(587.33, .3, 'triangle', .035, .1); noise(.4, 1800, 600, .04, 'bandpass');
+  setTimeout(msiOfferOpen, 520);
 }
-function msiTotal(){
-  const cr = Math.max(0, Math.min(state.bal, Math.floor(+($('#msiCr') || {}).value || 0)));
-  msiCr = cr;
-  const t = cr + state.inv.filter(e => msiSel.has(e.uid)).reduce((a, e) => a + e.v, 0);
-  const o = $('#msiTot'); if (o) o.textContent = fmt(t);
-  return t;
+function msiOfferOpen(){
+  const el = msiEl(), it = BY[GOAT_ID]; if (!el || el.hidden) return;
+  const have = new Set(state.inv.map(e => e.uid)); mvSel.forEach(u => { if (!have.has(u)) mvSel.delete(u); });
+  mvCr = Math.min(mvCr, state.bal); mvBand = -1;
+  const ov = document.createElement('div'); ov.className = 'msi-ov';
+  ov.innerHTML = '<div class="vx vx-msi"><div class="vx-top"><span class="tag">THE LAB · ONE OF ONE</span><span class="vx-one">Patience ' + Array.from({length: MSI_PAT}, (_, i) => '<i class="' + (i < msiPat ? 'on' : '') + '"></i>').join('') + '</span><button class="icon-btn vx-x" data-msi="vclose" aria-label="Close">✕</button></div>'
+    + '<div class="vx-main"><div class="vx-art" id="mvArt"></div><div class="vx-info"><div class="t">' + WNAME[it.w] + ' | ' + it.name + '</div>'
+    + '<div class="s">Chroma, one of one. A rifle from where he’s from. It has never missed.</div>'
+    + '<div class="s">Mint · Float ' + GOAT_FL.toFixed(4) + ' · Worth about <b>' + fmt(msiGoatVal()) + ' cr</b></div></div></div>'
+    + '<div class="vx-build"><div class="lab">Credits</div><div class="vx-cr"><button class="ghost sm" data-msi="vcr" data-v="-100000">−100k</button><input id="mvCr" type="number" inputmode="numeric" min="0" step="1000" aria-label="Credits to offer" value="' + (mvCr || '') + '"><button class="ghost sm" data-msi="vcr" data-v="100000">+100k</button><button class="ghost sm" data-msi="vcr" data-v="1000000">+1M</button><button class="ghost sm" data-msi="vcr" data-v="all">All in</button></div>'
+    + '<div class="lab">Items <small>tap to add or take back · shown at market value</small></div><div class="vx-items" id="mvItems"></div>'
+    + '<div class="vx-sum"><span>Your offer, the way he sees it</span><b id="mvSum">0 cr</b></div>'
+    + '<div class="vx-say"><b>Messi</b><span id="mvSay">Go on. What’s it worth to you?</span></div>'
+    + '<div class="vx-act"><button class="gold-btn" id="mvGo" data-msi="voffer">Make the offer</button></div>'
+    + '<p class="vx-note">If he says no, you lose a bit of his patience. You keep everything you offered.</p></div></div>';
+  el.append(ov);
+  ov.querySelector('#mvArt').append(imgOf(artHi(it, 0)));
+  const box = ov.querySelector('#mvItems'), list = state.inv.filter(e => e.id !== GOAT_ID).sort((a, b) => b.v - a.v).slice(0, 150);
+  if (!list.length) box.innerHTML = '<div class="pr-empty" style="grid-column:1/-1">No items. Credits only, then.</div>';
+  list.forEach(e => {
+    const x = BY[e.id], b = document.createElement('button');
+    b.type = 'button'; b.className = 'vx-it' + (mvSel.has(e.uid) ? ' on' : ''); b.dataset.msi = 'vsel'; b.dataset.v = e.uid; b.style.setProperty('--tc', TIERS[x.t].color);
+    b.append(thumb(x, wearIdx(e.fl))); b.insertAdjacentHTML('beforeend', '<div class="nm">' + x.name + '</div><div class="vl">' + fmt(e.v) + ' cr</div>');
+    box.append(b);
+  });
+  ov.querySelector('#mvCr').oninput = ev => { mvCr = Math.max(0, Math.min(state.bal, Math.floor(+ev.target.value || 0))); mvUpdate(); };
+  pickSound(); mvUpdate(true);
 }
-function msiBindOffer(){ const i = $('#msiCr'); if (i) i.oninput = msiTotal; msiTotal(); }
+function mvValue(){ return Math.min(mvCr, state.bal) + state.inv.filter(e => mvSel.has(e.uid)).reduce((a, e) => a + e.v, 0); }
+function mvUpdate(quiet){
+  const sum = $('#mvSum'); if (!sum) return;
+  const v = mvValue(); sum.textContent = fmt(v) + ' cr';
+  const go = $('#mvGo'); if (go) go.disabled = v <= 0;
+  if (quiet || !v) return;
+  const band = MV_BANDS.findIndex(b => v / P().goatAsk < b[0]);
+  if (band === mvBand) return;
+  clearTimeout(mvT);
+  mvT = setTimeout(() => { mvBand = band; const vs = $('#mvSay'); if (vs) { vs.textContent = MV_BANDS[band][1]; vs.className = MV_BANDS[band][2]; restart(vs.parentNode, 'vx-say'); } tone(band >= 3 ? 660 : 300, .12, 'triangle', .04); }, 380);
+}
+function msiOfferClose(){
+  const el = msiEl(), ov = el && el.querySelector('.msi-ov'); if (ov) ov.remove();
+  const sc = el && el.querySelector('.msi-scene'); if (sc) sc.classList.remove('zoom-tank');
+}
 function msiOffer(){
   if (P().goat !== 'unlocked' || msiPat <= 0) return;
-  const tot = msiTotal(), items = state.inv.filter(e => msiSel.has(e.uid));
-  if (tot <= 0) { toast('Put some credits or items in the offer first.'); return; }
+  const cr = Math.min(mvCr, state.bal), items = state.inv.filter(e => mvSel.has(e.uid)), tot = cr + items.reduce((a, e) => a + e.v, 0);
+  if (tot <= 0) return;
   if (bagFree() + items.length < 1) { bagBlock(1); return; }
-  const r = tot / P().goatAsk;
-  if (r >= 1) { msiDeal(msiCr, items); return; }
+  if (tot >= P().goatAsk) { msiOfferClose(); mvSel.clear(); mvCr = 0; msiDeal(cr, items); return; }
   msiPat--;
-  const line = msiPat <= 0 ? 'No. That’s enough for today. Come back with a real offer.' : r < .5 ? 'Cold. Very cold. I scored ninety-one in a year, you know.' : r < .8 ? 'Warmer. Still not close.' : r < .95 ? 'Close. Closer than most defenders get.' : 'Very close. One more touch.';
+  const r = tot / P().goatAsk, line = msiPat <= 0 ? 'No. That’s enough for today. Come back with a real offer.' : r < .5 ? 'Cold. Very cold. That’s not even close.' : r < .8 ? 'No. Warmer, but no.' : r < .95 ? 'Close. Closer than most defenders get. Still no.' : 'So close. One more touch.';
   tone(r < .8 ? 160 : 330, .25, 'square', .045);
-  msiPanel(msiPat <= 0 ? msiSay('Lionel Messi', line, '<button class="ghost" data-msi="room">Back to the trophies</button>') : msiOfferHTML(line));
-  if (msiPat > 0) msiBindOffer();
+  if (msiPat <= 0) { msiOfferClose(); msiPanel(msiSay('Lionel Messi', line, '<button class="ghost" data-msi="room">Back to the trophies</button>')); return; }
+  const vs = $('#mvSay'); if (vs) { vs.textContent = line; vs.className = 'mad'; restart(vs.parentNode, 'vx-say'); }
+  const pips = msiEl().querySelectorAll('.vx-msi .vx-one i'); pips.forEach((p, i) => p.classList.toggle('on', i < msiPat));
+  const go = $('#mvGo'); if (go) { clearTimeout(armTimers.get(go)); go.classList.remove('armed'); go.textContent = 'Make the offer'; }
 }
 async function msiDeal(cr, items){
   const ids = new Set(items.map(e => e.uid));
@@ -10934,9 +10995,11 @@ document.addEventListener('click', e => {
   else if (a === 'quiz') msiQuiz();
   else if (a === 'qgo') msiAsk();
   else if (a === 'ans') msiAnswer(+v);
-  else if (a === 'sel') { msiSel.has(v) ? msiSel.delete(v) : msiSel.add(v); b.classList.toggle('on'); msiTotal(); }
-  else if (a === 'crq') { const i = $('#msiCr'); if (i) { i.value = Math.floor(state.bal * +v); msiTotal(); } }
-  else if (a === 'offer') msiOffer();
+  else if (a === 'tank') msiTankTap();
+  else if (a === 'vclose') msiOfferClose();
+  else if (a === 'vsel') { mvSel.has(v) ? mvSel.delete(v) : mvSel.add(v); b.classList.toggle('on', mvSel.has(v)); pickSound(); mvUpdate(); }
+  else if (a === 'vcr') { mvCr = v === 'all' ? state.bal : Math.max(0, Math.min(state.bal, mvCr + (+v))); const i = $('#mvCr'); if (i) i.value = mvCr; tone(900, .04, 'triangle', .04); mvUpdate(); }
+  else if (a === 'voffer') arm(b, 'Tap again to offer ' + fmt(mvValue()) + ' cr', msiOffer);
 });
 document.addEventListener('keydown', e => { const el = msiEl(); if (e.key === 'Escape' && el && !el.hidden) { e.stopImmediatePropagation(); closeMsi(); } }, true);
 /* ---------- Tobias, Ronaldo and the Penaldo bottle ----------
@@ -10998,17 +11061,22 @@ function crHouseSVG(){
     + '<g class="cr-glit">' + Array.from({length: 14}, (_, i) => '<rect x="' + f1(186 + (R() - .5) * (i * 3 + 10)) + '" y="' + f1(128 + i * 2.6) + '" width="' + f1(6 + R() * 10) + '" height="1.2" fill="#ffe3a0" opacity="' + f1(.4 + R() * .5) + '"/>').join('') + '</g>'
     + '<path d="M0 150 H400 V170 H0 Z" fill="url(#crPo)"/><g class="cr-caus">' + Array.from({length: 10}, (_, i) => '<path d="M' + (i * 44 - 10) + ' 158 q10 -4 20 0 t20 0" stroke="#bff6ff" stroke-width=".8" fill="none" opacity=".6"/>').join('') + '</g>'
     + '<path d="M0 150 H400" stroke="#e8fbff" stroke-width="1.4"/>'
-    + '<text x="200" y="48" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="34" letter-spacing="4" fill="url(#crGd)" opacity=".9">CR7</text>'
+    + ['C', 'R', '7'].map((ch, i) => '<g class="cr-l" data-cr="l' + i + '"><rect x="' + (172 + i * 20) + '" y="18" width="18" height="34" fill="#000" fill-opacity="0"/><text x="' + (181 + i * 20) + '" y="48" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="34" fill="url(#crGd)">' + ch + '</text></g>').join('')
     + '<path d="M0 8 H400" stroke="#1a1408" stroke-width="16"/><path d="M0 16 H400" stroke="url(#crGd)" stroke-width="1.4"/>';
   // glass mullions and the two marble pillars
   [0, 74, 138, 262, 326].forEach(x => { s += '<rect x="' + (x - 1.5) + '" y="16" width="3" height="154" fill="url(#crGd)" opacity=".8"/>'; });
-  [[74, 64], [262, 64]].forEach(([x, w]) => { s += '<rect x="' + x + '" y="16" width="' + w + '" height="154" fill="url(#crMb)"/><path d="M' + (x + 10) + ' 16 q8 40 -4 80 q-6 30 6 58" stroke="#c9c0ae" stroke-width=".8" fill="none" opacity=".7"/><rect x="' + x + '" y="16" width="' + w + '" height="154" fill="none" stroke="url(#crGd)" stroke-width="1.6"/>'; });
+  [[262, 64]].forEach(([x, w]) => { s += '<rect x="' + x + '" y="16" width="' + w + '" height="154" fill="url(#crMb)"/><path d="M' + (x + 10) + ' 16 q8 40 -4 80 q-6 30 6 58" stroke="#c9c0ae" stroke-width=".8" fill="none" opacity=".7"/><rect x="' + x + '" y="16" width="' + w + '" height="154" fill="none" stroke="url(#crGd)" stroke-width="1.6"/>'; });
   s += '<path d="M0 16 L74 16 L74 170 L0 170 Z M326 16 L400 16 L400 170 L326 170 Z" fill="#fff" opacity=".06"/><path d="M150 16 L130 170 M244 16 L224 170" stroke="#fff" stroke-opacity=".12" stroke-width="10"/>';
-  // the framed Portugal shirt: the secret
-  s += '<g class="cr-jersey" data-cr="jersey"><rect x="82" y="34" width="48" height="62" rx="2" fill="#1a1208" stroke="url(#crGd)" stroke-width="2.6"/><rect x="86" y="38" width="40" height="54" fill="#0a3a22"/>'
+  // behind the left pillar's panel: the secret entrance
+  s += '<g class="cr-door" data-cr="enter"><rect x="80" y="20" width="52" height="150" fill="#05070f"/><rect x="86" y="34" width="40" height="136" rx="20" fill="#0b1426" stroke="url(#crGd)" stroke-width="2"/>'
+    + '<path d="M86 54 Q106 30 126 54 V170 H86 Z" fill="#7cc4ef" opacity=".14"/>' + [0, 1, 2, 3, 4].map(i => '<rect x="' + (90 + i * 2) + '" y="' + (150 + i * 4) + '" width="' + (32 - i * 4) + '" height="3" fill="#2a3a5a"/>').join('')
+    + '<text x="106" y="100" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="22" fill="#9fd8ff" opacity=".7">10</text><ellipse cx="106" cy="110" rx="24" ry="40" fill="#7cc4ef" opacity=".12"/></g>';
+  // the framed Portugal shirt hangs on a marble panel that lifts away
+  s += '<g class="cr-panel"><rect x="74" y="16" width="64" height="154" fill="url(#crMb)"/><path d="M84 16 q8 40 -4 80 q-6 30 6 58" stroke="#c9c0ae" stroke-width=".8" fill="none" opacity=".7"/><rect x="74" y="16" width="64" height="154" fill="none" stroke="url(#crGd)" stroke-width="1.6"/>'
+    + '<g class="cr-jersey"><rect x="82" y="34" width="48" height="62" rx="2" fill="#1a1208" stroke="url(#crGd)" stroke-width="2.6"/><rect x="86" y="38" width="40" height="54" fill="#0a3a22"/>'
     + '<path d="M92 50 L99 44 H113 L120 50 L118 58 L114 56 V86 H98 V56 L94 58 Z" fill="#c8102e"/><path d="M99 44 Q106 50 113 44" stroke="#0a7a3a" stroke-width="2" fill="none"/>'
     + '<text x="106" y="76" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="16" fill="#ffd23f">7</text>'
-    + '<rect x="94" y="100" width="24" height="5" rx="1" fill="url(#crGd)"/><rect x="82" y="34" width="48" height="62" fill="#fff" fill-opacity=".08"/></g>';
+    + '<rect x="94" y="100" width="24" height="5" rx="1" fill="url(#crGd)"/><rect x="82" y="34" width="48" height="62" fill="#fff" fill-opacity=".08"/></g></g>';
   // his trophies, lit, on the right pillar
   s += '<ellipse cx="294" cy="90" rx="34" ry="60" fill="url(#crLp)"/>' + [52, 92, 132].map(y => '<rect x="268" y="' + y + '" width="52" height="4" fill="url(#crGd)"/>').join('')
     + [[282, 52, 'c'], [306, 52, 'b'], [282, 92, 'b'], [306, 92, 'c'], [294, 132, 'c']].map(([x, y, t]) => t === 'c' ? bdoCup(x, y - 1, .8) : bdoBall(x, y - 9, 8, k)).join('');
@@ -11020,10 +11088,10 @@ function crHouseSVG(){
     + '<g><path d="M40 222 V140" stroke="url(#crGd)" stroke-width="2"/><path d="M28 140 H52 L46 124 H34 Z" fill="#fbfaf6" stroke="url(#crGd)"/><ellipse cx="40" cy="160" rx="34" ry="40" fill="url(#crLp)"/><ellipse cx="40" cy="223" rx="12" ry="3" fill="url(#crGd)"/></g>'
     + '<g><rect x="350" y="198" width="22" height="22" rx="3" fill="url(#crGd)"/>' + Array.from({length: 9}, (_, i) => '<path d="M361 198 q' + ((i - 4) * 6) + ' -20 ' + ((i - 4) * 9) + ' -' + (34 + (i % 3) * 8) + '" stroke="#2f7a3a" stroke-width="3.2" fill="none" stroke-linecap="round"/>').join('') + '</g>';
   // the man himself, and the briefcase that fills up as he raises
-  s += '<g class="cr-me">' + bdoMan(176, 106, 1.1, bdoP('cr7', {shirt:'#ffffff', trim:'#d8d2c4', chain:true, mouth:'grin', brow:'arch', arm:'up'})) + '</g>'
-    + '<ellipse cx="170" cy="230" rx="80" ry="6" fill="#000" opacity=".18"/><path d="M96 198 Q96 186 108 186 H232 Q244 186 244 198 V222 H96 Z" fill="#fbfaf6" stroke="#d8d2c4"/><path d="M100 204 H240" stroke="#e2dccf"/>'
-    + '<rect x="88" y="190" width="18" height="34" rx="7" fill="#f6f3ec" stroke="#d8d2c4"/><rect x="234" y="190" width="18" height="34" rx="7" fill="#f6f3ec" stroke="#d8d2c4"/>'
-    + '<path d="M104 224 V230 M236 224 V230" stroke="url(#crGd)" stroke-width="3"/><rect x="150" y="192" width="22" height="16" rx="4" fill="#c8102e" opacity=".9"/><rect x="176" y="192" width="22" height="16" rx="4" fill="url(#crGd)" opacity=".9"/>'
+  s += '<ellipse cx="176" cy="250" rx="34" ry="5" fill="#000" opacity=".22"/><g class="cr-me">'
+    + '<path d="M164 206 L162 246 M188 206 L190 246" stroke="#f2efe8" stroke-width="13" stroke-linecap="round"/><path d="M164 206 L162 246" stroke="#d8d2c4" stroke-width="1" opacity=".6"/>'
+    + '<path d="M152 247 Q154 242 166 242 L168 251 H150 Z M186 242 Q198 242 200 247 L202 251 H184 Z" fill="#6a4020"/><rect x="160" y="203" width="32" height="5" rx="1" fill="#1a1208"/><rect x="173" y="203" width="6" height="5" fill="url(#crGd)"/>'
+    + bdoMan(176, 106, 1.1, bdoP('cr7', {shirt:'#ffffff', trim:'#d8d2c4', chain:true, mouth:'grin', brow:'arch', arm:'up'})) + '</g>'
     + '<g><rect x="232" y="196" width="104" height="5" rx="2" fill="#e8f6ff" fill-opacity=".5" stroke="url(#crGd)"/><path d="M240 201 V222 M328 201 V222" stroke="url(#crGd)" stroke-width="2.4"/>'
     + '<rect x="248" y="178" width="72" height="18" rx="2" fill="#1a1a1e" stroke="url(#crGd)"/><path d="M248 178 L254 160 H314 L320 178" fill="#232328" stroke="url(#crGd)"/>'
     + '<g class="cr-cash">' + Array.from({length: cash}, (_, i) => '<rect x="' + (252 + (i % 4) * 16.5) + '" y="' + (188 - Math.floor(i / 4) * 5) + '" width="15" height="6" rx="1" fill="#2f6b3a" stroke="#1d4524" stroke-width=".5"/><rect x="' + (258 + (i % 4) * 16.5) + '" y="' + (188 - Math.floor(i / 4) * 5) + '" width="3.4" height="6" fill="#e8d9a8"/>').join('') + '</g></g>';
@@ -11062,19 +11130,20 @@ function crFanSVG(){
     + '<text x="200" y="176" text-anchor="middle" font-family="Teko, sans-serif" font-size="9" letter-spacing="3" fill="#e8cf86">MY HERO</text>';
   s += '<rect x="0" y="192" width="400" height="68" fill="#0d0f1c"/><path d="M0 192 H400" stroke="#c9a54a" stroke-width="1.4"/><ellipse cx="200" cy="226" rx="160" ry="18" fill="#1a1f38"/>';
   // Ronaldo in a 10 shirt, hugging a Messi plush, hearts floating up
-  s += '<ellipse cx="104" cy="214" rx="30" ry="5" fill="#000" opacity=".3"/><g class="cf-cr">' + bdoMan(104, 112, 1, bdoP('cr7', {shirt:'stripes', num:'10', numc:'#0b2a4a', trim:'#0b2a4a', mouth:'smile', brow:'arch'}))
+  s += '<ellipse cx="104" cy="242" rx="30" ry="5" fill="#000" opacity=".35"/><g class="cf-cr"><path d="M94 206 L92 236 M114 206 L116 236" stroke="#2a3a5a" stroke-width="12" stroke-linecap="round"/><path d="M82 238 Q84 233 96 233 L98 242 H80 Z M112 233 Q124 233 126 238 L128 242 H110 Z" fill="#f4f6fa" stroke="#7cc4ef" stroke-width="1"/>' + bdoMan(104, 112, 1, bdoP('cr7', {shirt:'stripes', num:'10', numc:'#0b2a4a', trim:'#0b2a4a', mouth:'smile', brow:'arch'}))
     + '<ellipse cx="94" cy="144" rx="4" ry="2.4" fill="#ff8aa8" opacity=".7"/><ellipse cx="114" cy="144" rx="4" ry="2.4" fill="#ff8aa8" opacity=".7"/>'
     + '<g transform="translate(120 172)"><path d="M-9 0 Q-10 -18 0 -20 Q10 -18 9 0 Z" fill="url(#cfSt)"/><circle cx="0" cy="-26" r="8" fill="#ebb995"/><path d="M-8 -28 Q-8 -36 0 -36 Q8 -36 8 -28 Q4 -32 0 -31 Q-4 -32 -8 -28 Z" fill="#3b2615"/><path d="M-5 -22 Q0 -18 5 -22" stroke="#3b2615" stroke-width="2.2" fill="none"/><circle cx="-3" cy="-27" r=".9" fill="#222"/><circle cx="3" cy="-27" r=".9" fill="#222"/></g>'
     + '<path d="M78 168 Q100 186 124 168" stroke="#7cc4ef" stroke-width="9" stroke-linecap="round" fill="none"/></g>'
-    + '<path d="M50 222 Q46 196 70 192 Q104 186 140 192 Q162 196 158 222 Q104 232 50 222 Z" fill="#7cc4ef"/><path d="M60 214 Q104 206 150 214" stroke="#f4f6fa" stroke-width="5" fill="none" opacity=".8"/><path d="M58 198 Q104 192 150 198" stroke="#fff" stroke-opacity=".35" stroke-width="2" fill="none"/>'
+
     + '<g class="cf-hearts">' + [0, 1, 2, 3].map(i => '<path style="animation-delay:' + (i * .7) + 's" transform="translate(' + (96 + i * 8) + ' 100)" d="M0 3 C-6 -3 -3 -8 0 -4 C3 -8 6 -3 0 3 Z" fill="#ff6b9a"/>').join('') + '</g>';
   // the Penaldo bottle on a lit pedestal
   s += '<path d="M282 0 H310 L330 196 H262 Z" fill="url(#cfSp)"/><g class="cf-bottle"><ellipse cx="296" cy="190" rx="34" ry="10" fill="url(#cfG)"/><rect x="274" y="168" width="44" height="24" rx="2" fill="#2a1a10" stroke="#c9a54a"/><rect x="274" y="168" width="44" height="3" fill="#c9a54a"/>' + penaldoSVG(296, 128, .95) + '</g>';
   return s + '</svg>';
 }
+let crPress = [];
 function crShow(kind, panel){
   const el = bdoEl(), fan = kind === 'fan';
-  el.hidden = false; el.className = 'bdo crh crx in k-' + kind;
+  el.hidden = false; el.className = 'bdo crh crx in k-' + kind + (!fan && state.crDoor ? ' cr-open' : '');
   el.innerHTML = '<div class="crx-stage">' + (fan ? crFanSVG() : crHouseSVG()) + '</div>'
     + '<div class="crx-top"><div class="crx-brand"><small>' + (fan ? 'Behind the framed shirt' : 'Madeira') + '</small>' + (fan ? 'The secret room' : 'Ronaldo’s house') + '</div><div class="bal"><span class="coin"></span><span>' + fmt(state.bal) + '</span></div></div>'
     + '<div class="crx-hud" id="crPanel">' + panel + '</div>';
@@ -11084,7 +11153,7 @@ function crHouse(first){
   const n = Math.min(crN, CR_OFFERS.length - 1), has = crHas();
   crShow('house', '<div class="bdo-eyebrow">Cristiano Ronaldo</div><p class="bdo-line">' + (first ? first + ' ' : '') + (has ? CR_LINES[n] : 'You came back without the rifle? Then why are you in my house?') + '</p>'
     + '<div class="bdo-row msi-acts">' + (has ? '<button class="open-btn sm" data-cr="sell">Sell it · ' + fmt(CR_OFFERS[n]) + '</button>' + (crN < CR_OFFERS.length - 1 ? '<button class="ghost" data-cr="no">No</button>' : '') : '') + '<button class="ghost" data-cr="home">Go home</button></div>'
-    + '<p class="bdo-sub">Something about that framed shirt behind him…</p>');
+    + '<p class="bdo-sub">' + (state.crDoor ? 'The panel behind the shirt is open. Go on in.' : 'Those gold letters on the glass look… pressable.') + '</p>');
   [392, 523.25].forEach((f, i) => tone(f, .2, 'triangle', .04, i*.08));
 }
 function crSell(){
@@ -11103,8 +11172,8 @@ function crFan(){
   bdoT(4600, () => {
     const p = $('#crPanel'); if (!p) return;
     if (first) {
-      say('Take this. The Penaldo bottle. One of one. When nobody believes you, take a penalty. You’ll score. Probably.');
-      p.insertAdjacentHTML('beforeend', '<button class="open-btn sm" data-cr="take">Take the bottle</button>');
+      say('The Penaldo bottle. One of one. When nobody believes you, take a penalty. You’ll score. Probably. 300,000. Even heroes have bills.');
+      p.insertAdjacentHTML('beforeend', '<div class="bdo-row"><button class="open-btn sm" data-cr="take"' + (state.bal < PEN_PRICE ? ' disabled' : '') + '>Buy the bottle · 300,000</button><button class="ghost" data-cr="back">Not now</button></div>');
       const b = bdoEl().querySelector('.cf-bottle'); if (b) b.classList.add('glow');
     } else {
       say('You already have the bottle. Use it wisely. And don’t tell Messi I said hi. Actually… tell him.');
@@ -11112,7 +11181,23 @@ function crFan(){
     }
   });
 }
+/* C, then R, then 7: the marble panel with the shirt on it slides up into the ceiling */
+function crLetter(i, g){
+  const el = bdoEl(); if (el.classList.contains('cr-open')) return;
+  restart(g, 'press'); tone([392, 523.25, 659.25][i], .25, 'triangle', .05);
+  if (i !== crPress.length) { crPress = []; tone(150, .3, 'square', .05); el.querySelectorAll('.cr-l').forEach(x => x.classList.remove('on')); return; }
+  crPress.push(i); g.classList.add('on');
+  if (crPress.length < 3) return;
+  crPress = []; state.crDoor = true; save();
+  [523.25, 659.25, 783.99].forEach((f, k) => tone(f, .5, 'triangle', .05, .1 + k * .12));
+  setTimeout(() => { el.classList.add('cr-open'); noise(1.6, 300, 900, .1, 'lowpass'); for (let k = 0; k < 8; k++) tone(90 + k * 6, .12, 'square', .03, k * .18); }, 450);
+  setTimeout(() => { const s2 = el.querySelector('.bdo-sub'); if (s2) s2.textContent = 'A hidden doorway, lit sky blue. Tap it.'; tone(98, .8, 'sine', .2); }, 2200);
+}
+const PEN_PRICE = 300000;
 function crTake(){
+  if (state.penaldo) return;
+  if (state.bal < PEN_PRICE) { tone(150, .3, 'square', .05); const s2 = $('#crSay'); if (s2) s2.textContent = 'Three hundred thousand. I don’t do discounts. Not even for Messi fans.'; return; }
+  state.bal -= PEN_PRICE; setBal(-PEN_PRICE); kaching();
   state.penaldo = true; state.penAt = 0; save(); renderHacks();
   [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((f, i) => tone(f, .5, 'triangle', .05, i*.1));
   const b = bdoEl().querySelector('.cf-bottle'); if (b) b.classList.add('taken');
@@ -11121,9 +11206,10 @@ function crTake(){
 }
 document.addEventListener('click', e => {
   const el = $('#bdo'); if (!el || el.hidden || !el.classList.contains('crh')) return;
-  const j = e.target.closest('[data-cr="jersey"]'); if (j) { crFan(); return; }
   const b = e.target.closest('[data-cr]'); if (!b || b.disabled) return;
   const a = b.dataset.cr;
+  if (/^l[0-2]$/.test(a)) { crLetter(+a[1], b); return; }
+  if (a === 'enter') { if (el.classList.contains('cr-open')) crFan(); return; }
   if (a === 'no') { crN++; tone(160, .2, 'square', .04); crHouse(); }
   else if (a === 'sell') crSell();
   else if (a === 'take') crTake();
