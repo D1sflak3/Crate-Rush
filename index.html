@@ -2427,6 +2427,59 @@ body{background:
 .pr-dance{border-color:#ff3ea5!important;background:radial-gradient(circle at 12% 50%,rgba(255,62,165,.28),transparent 55%),linear-gradient(135deg,#1a0820,#07030c)!important}
 .pr-dance .pf{background:radial-gradient(circle,#2a0a3a,#07030c)}
 @media (prefers-reduced-motion: reduce){.dz-ball,.dz-beams,.dz-tile,.dz-dancer,.dz-arm,.dz-sign{animation:none}}
+
+/* ---------- Vance's office, redesigned ---------- */
+.v-search{transform-box:fill-box;transform-origin:50% 100%;animation:vSearch 9s ease-in-out infinite alternate}
+.v-search.v-s2{animation-duration:11s;animation-delay:-4s}
+@keyframes vSearch{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+.v-tw{animation:vTw 4s steps(1) infinite}
+@keyframes vTw{0%,100%{opacity:.8}40%{opacity:0}70%{opacity:.8}}
+.v-blink{animation:vBlink 1.8s steps(1) infinite}
+@keyframes vBlink{50%{opacity:0}}
+.v-cig,.vi-smoke path{animation:vSmoke 3.2s ease-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes vSmoke{0%{opacity:0;transform:translateY(4px) scaleY(.6)}30%{opacity:.5}100%{opacity:0;transform:translateY(-10px) scaleY(1.2)}}
+/* intro: the elevator, the turned chair, the spin */
+.vi-doors{display:none}
+.vi-shut .vi-doors{display:inline}
+.vi-dl,.vi-dr{transform-box:view-box;transition:transform 1.5s cubic-bezier(.6,0,.2,1)}
+.vi-open .vi-dl{transform:translateX(-205px)}.vi-open .vi-dr{transform:translateX(205px)}
+.vi-open .vi-dial,.vi-open .vi-pl{opacity:0;transition:opacity .3s}
+.r-vance .rl-btn:disabled{opacity:.5;filter:saturate(.5)}
+.vi-needle{transform-box:view-box;transform-origin:200px 66px;transform:rotate(-70deg)}
+.vi-shut .vi-needle{animation:viNeedle 2.1s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes viNeedle{from{transform:rotate(-70deg)}to{transform:rotate(70deg)}}
+.vi-back{opacity:0;pointer-events:none}
+.vi-turned .vi-back{opacity:1}
+.vi-turned .v-body,.vi-turned .v-knife{opacity:0}
+.vi-back{transform-box:fill-box;transform-origin:50% 50%}
+.vi-spin .vi-back{animation:viOut .5s cubic-bezier(.5,0,.8,.4) forwards}
+@keyframes viOut{to{transform:scaleX(0)}}
+.vi-spin:not(.vi-turned) .v-body{animation:viIn .55s cubic-bezier(.2,.8,.3,1.2) both;transform-box:fill-box;transform-origin:50% 50%}
+@keyframes viIn{from{transform:scaleX(0)}}
+/* Vance's room UI: black lacquer and brass */
+.pr-room.r-vance{--rbg:#080604}
+.r-vance .rm-who .rl{color:#e8c06a}
+.r-vance .rm-who .nm{font-family:"Limelight",var(--display);font-weight:400;letter-spacing:.06em;background:linear-gradient(180deg,#fff2c4,#e6b53c 55%,#9a6a14);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.9))}
+.r-vance .rm-who .fv{color:#c9b07a}
+.r-vance .rl-btn{border-radius:4px;border:1px solid rgba(201,162,74,.38);border-left:3px solid #c9a24a;background:linear-gradient(90deg,rgba(14,10,5,.95),rgba(14,10,5,.62));color:#f3e3b3;font-weight:600;letter-spacing:.02em;box-shadow:inset 0 0 0 1px rgba(0,0,0,.6)}
+.r-vance .rl-btn::before{content:"◆";font-size:8px;color:#c9a24a}
+.r-vance .rl-btn:hover:not(:disabled){background:linear-gradient(90deg,rgba(40,28,10,.95),rgba(20,14,6,.7));border-color:#e8c06a;transform:translateX(3px)}
+.r-vance .rl-btn small{color:#e8c06a}
+.r-vance .rl-btn.gold{background:linear-gradient(180deg,#fff2c4,#e6b53c 50%,#a8761a);color:#1c1204;border-color:#fff2c4;border-left-color:#fff2c4;box-shadow:0 6px 22px rgba(230,181,60,.25),inset 0 1px 0 rgba(255,255,255,.6)}
+.r-vance .rl-btn.gold::before,.r-vance .rl-btn.gold small{color:#1c1204}
+.r-vance .rl-btn.ghost{color:#c9b07a;border-left-color:rgba(201,162,74,.5)}
+.r-vance .rl-btn.risk{border-left-color:#ff4d5e}.r-vance .rl-btn.risk::before{color:#ff4d5e}
+.r-vance .rmc{border-radius:4px;border:1px solid rgba(201,162,74,.5);background:linear-gradient(180deg,rgba(18,13,6,.96),rgba(8,6,3,.96));box-shadow:inset 0 0 0 3px #080604,inset 0 0 0 4px rgba(201,162,74,.25),0 14px 34px rgba(0,0,0,.6)}
+.r-vance .rmc .lab{color:#e8c06a;letter-spacing:.2em}
+.r-vance .rmc .t,.r-vance .rmc .nm{font-family:"Limelight",var(--display);font-weight:400;color:#f3e3b3}
+.r-vance .pr-say{background:linear-gradient(180deg,#1a130a,#0e0a05);color:#f3e3b3;border:1px solid rgba(201,162,74,.6);border-radius:4px;font-family:var(--body);box-shadow:0 10px 30px rgba(0,0,0,.6),inset 0 0 0 3px #0e0a05,inset 0 0 0 4px rgba(201,162,74,.22)}
+.r-vance .rm-say .pr-say::before{border-bottom-color:#c9a24a}
+.r-vance .pr-say.mad{background:linear-gradient(180deg,#3a0a0e,#1a0406);color:#ffd6cf;border-color:#ff4d5e}
+.r-vance .rm-say .pr-say.mad::before{border-bottom-color:#ff4d5e}
+.r-vance .pr-say.happy{background:linear-gradient(180deg,#2a2008,#140f04);color:#fff1b8;border-color:#ffe29a}
+.r-vance .rm-say .pr-say.happy::before{border-bottom-color:#ffe29a}
+.r-vance .rm-back,.r-vance .rm-chip,.r-vance .rm-tr .bal{border-color:rgba(201,162,74,.5);background:rgba(10,7,3,.75);color:#f3e3b3}
+@media (prefers-reduced-motion: reduce){.v-search,.v-tw,.v-blink,.v-cig,.vi-smoke path{animation:none}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -5598,10 +5651,17 @@ function face(id){
   const mouth = d => '<path d="' + d + '" fill="none" stroke="#5a2e22" stroke-width="1.6" stroke-linecap="round"/>';
   let back = '', feat = '', top = '';
   if (id === 'vance') {
-    feat = '<path d="M40 76 L50 98 L60 76 Z" fill="#ececec"/><path d="M38 77 L50 100 L44 110 L30 110 L34 82 Z M62 77 L50 100 L56 110 L70 110 L66 82 Z" fill="#23232c"/><path d="M48 80 H52 L54.5 99 L50 104 L45.5 99 Z" fill="#d4a017"/>';
-    top = '<path d="M31 42 Q29 21 50 19 Q71 21 69 42 Q66 31 58 29 Q46 27 36 32 Q32 36 31 42 Z" fill="#111"/>'
-      + '<rect x="35.5" y="42" width="12" height="8" rx="2" fill="#050505" stroke="#d4a017" stroke-width="1"/><rect x="52.5" y="42" width="12" height="8" rx="2" fill="#050505" stroke="#d4a017" stroke-width="1"/><path d="M47.5 45 H52.5" stroke="#d4a017" stroke-width="1"/><path d="M38 44 L42 43 M55 44 L59 43" stroke="#fff" stroke-opacity=".45" stroke-width="1"/>'
-      + nose + mouth('M44 60 Q51 62.5 57 58');
+    feat = '<path d="M14 92 L22 110 M24 86 L30 110 M76 86 L70 110 M86 92 L78 110" stroke="#2c2c36" stroke-width=".7"/>'
+      + '<path d="M40 76 L50 98 L60 76 Z" fill="#f4f1ea"/><path d="M38 77 L50 100 L44 110 L30 110 L34 82 Z M62 77 L50 100 L56 110 L70 110 L66 82 Z" fill="#1c1c24"/>'
+      + '<path d="M38 77 L46 92 L40 88 Z M62 77 L54 92 L60 88 Z" fill="#2a2a34"/>'
+      + '<path d="M48 80 H52 L54.5 99 L50 104 L45.5 99 Z" fill="#d4a017"/><path d="M48 80 H52 L51 84 H49 Z" fill="#a8761a"/><path d="M46 92 H54" stroke="#fff2c4" stroke-width="1"/>'
+      + '<path d="M24 90 L32 88 L30 93 Z" fill="#d4a017"/><circle cx="66" cy="88" r="1.6" fill="#ffe29a"/>';
+    top = '<path d="M31 50 Q33 64 50 67 Q67 64 69 50 Q66 62 50 64 Q34 62 31 50 Z" fill="#000" opacity=".12"/>'
+      + '<path d="M31 42 Q29 21 50 19 Q71 21 69 42 Q66 31 58 29 Q46 27 36 32 Q32 36 31 42 Z" fill="#111"/>'
+      + '<path d="M38 26 Q50 21 62 25" stroke="#4a4a52" stroke-width="1.4" fill="none" opacity=".9"/><path d="M31 42 Q30.5 36 32.5 33 M69 42 Q69.5 36 67.5 33" stroke="#8a8a92" stroke-width="2" fill="none"/>'
+      + '<rect x="35" y="41.5" width="13" height="8.6" rx="2.4" fill="#0a0a0c" stroke="#e8c06a" stroke-width="1.1"/><rect x="52" y="41.5" width="13" height="8.6" rx="2.4" fill="#0a0a0c" stroke="#e8c06a" stroke-width="1.1"/>'
+      + '<path d="M36.5 43.5 L41 43.5 M53.5 43.5 L58 43.5" stroke="#ffe29a" stroke-width="1" opacity=".75"/><path d="M48 45 Q50 43.6 52 45" stroke="#e8c06a" stroke-width="1.1" fill="none"/><path d="M35 44 L31.5 43 M65 44 L68.5 43" stroke="#e8c06a" stroke-width="1"/>'
+      + nose + mouth('M43.5 59.5 Q51 62.5 57.5 57.6');
   } else if (id === 'brick') {
     feat = '<path d="M26 78 Q50 90 74 78 L76 86 Q50 98 24 86 Z" fill="#6b5a3a"/>';
     top = '<path d="M31 52 Q50 76 69 52 Q68 67 50 69 Q32 67 31 52 Z" fill="#000" opacity=".22"/>' + eyes()
@@ -6672,67 +6732,142 @@ const shopSlots = (m, k) => SHOPS[m.id].slots.map((_, i) => slotSVG(m, k, i)).jo
 const SC = {
   vance:{end:'v-stab', cap:'Owns the building. And the street. And probably you.',
     svg:k => {
-      const R = seeded(77);
+      const R = seeded(77), f1 = n => n.toFixed(1);
       let s = SVG0 + '<defs>' + vigDef(k) + hlDef(k)
-        + '<linearGradient id="vw' + k + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#26190f"/><stop offset="1" stop-color="#110a05"/></linearGradient>'
-        + '<radialGradient id="vl' + k + '" cx="200" cy="120" r="210" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffd98a" stop-opacity=".22"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>'
-        + '<clipPath id="vc' + k + '"><rect x="110" y="18" width="180" height="116"/></clipPath></defs>'
+        + '<linearGradient id="vw' + k + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#120d08"/><stop offset=".7" stop-color="#0a0705"/><stop offset="1" stop-color="#050403"/></linearGradient>'
+        + '<linearGradient id="vsky' + k + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#05061a"/><stop offset=".6" stop-color="#14123a"/><stop offset="1" stop-color="#3a1f3a"/></linearGradient>'
+        + '<linearGradient id="vgd' + k + '" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8a5a06"/><stop offset=".45" stop-color="#ffe29a"/><stop offset=".6" stop-color="#d4a017"/><stop offset="1" stop-color="#7a4f05"/></linearGradient>'
+        + '<linearGradient id="vdk' + k + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1610"/><stop offset="1" stop-color="#070504"/></linearGradient>'
+        + '<linearGradient id="vmb' + k + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1a1a1e"/><stop offset=".5" stop-color="#2a2a30"/><stop offset="1" stop-color="#121216"/></linearGradient>'
+        + '<linearGradient id="vch' + k + '" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0b0a0c"/><stop offset=".5" stop-color="#1e1a1c"/><stop offset="1" stop-color="#0b0a0c"/></linearGradient>'
+        + '<radialGradient id="vl' + k + '" cx="200" cy="130" r="220" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffd98a" stop-opacity=".2"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>'
+        + '<radialGradient id="vlamp' + k + '" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffe7a0" stop-opacity=".55"/><stop offset="1" stop-color="#ffe7a0" stop-opacity="0"/></radialGradient>'
+        + '<linearGradient id="vbeam' + k + '" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#cfe7ff" stop-opacity=".22"/><stop offset="1" stop-color="#cfe7ff" stop-opacity="0"/></linearGradient>'
+        + '<clipPath id="vc' + k + '"><path d="M78 168 V70 Q78 8 184 8 Q290 8 290 70 V168 Z"/></clipPath>'
+        + '<pattern id="vtf' + k + '" width="14" height="14" patternUnits="userSpaceOnUse"><path d="M7 0 L14 7 L7 14 L0 7 Z" fill="none" stroke="#000" stroke-opacity=".55" stroke-width="1"/><circle cx="7" cy="7" r="1" fill="#c9a24a"/></pattern>'
+        + glowDef('vgl' + k, 3) + '</defs>'
         + '<rect width="400" height="260" fill="url(#vw' + k + ')"/>';
-      for (let x = 0; x < 400; x += 44) s += '<rect x="' + (x + 4) + '" y="146" width="36" height="52" rx="2" fill="none" stroke="#2c1d10" stroke-width="1.4"/>';
-      s += '<g clip-path="url(#vc' + k + ')"><rect x="110" y="18" width="180" height="116" fill="#070917"/>';
-      for (let x = 110; x < 290;) { const w = 10 + R()*16, h = 30 + R()*80; s += '<rect x="' + x.toFixed(1) + '" y="' + (134 - h).toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + h.toFixed(1) + '" fill="#10132a"/>';
-        for (let wy = 138 - h; wy < 132; wy += 6) for (let wx = x + 2; wx < x + w - 2; wx += 4) if (R() < .22) s += '<rect x="' + wx.toFixed(1) + '" y="' + wy.toFixed(1) + '" width="1.6" height="2.4" fill="#f4c46a" opacity=".75"/>';
-        x += w + 1; }
-      s += '</g><rect x="110" y="18" width="180" height="116" fill="none" stroke="#3a2614" stroke-width="5"/><path d="M200 18 V134 M110 76 H290" stroke="#3a2614" stroke-width="3"/>'
-        + '<circle cx="58" cy="70" r="22" fill="#1a1109" stroke="#b8860b" stroke-width="2"/><circle cx="58" cy="70" r="17" fill="none" stroke="#b8860b" stroke-width=".8"/><text x="58" y="80" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="28" fill="#d4a017">P</text>';
-      s += '<g class="vv-niche"><rect x="296" y="18" width="100" height="134" rx="3" fill="#0a0408" stroke="#b8860b" stroke-width="2"/><rect x="301" y="23" width="90" height="124" fill="#14060e"/>'
+      /* Black lacquer walls with gold pinstripe panels */
+      [[4, 70], [296, 100]].forEach(([x, w]) => { for (let px = x; px < x + w - 8; px += 24) s += '<rect x="' + px + '" y="12" width="20" height="156" fill="#0e0b08" stroke="#c9a24a" stroke-opacity=".22" stroke-width=".7"/>'; });
+      s += '<rect x="0" y="0" width="400" height="8" fill="#050403"/><rect x="0" y="8" width="400" height="1.4" fill="url(#vgd' + k + ')" opacity=".7"/>';
+      /* The window: an art deco arch over the city */
+      s += '<g clip-path="url(#vc' + k + ')"><rect x="70" y="0" width="230" height="170" fill="url(#vsky' + k + ')"/>';
+      for (let i = 0; i < 46; i++) s += '<circle cx="' + f1(80 + R()*208) + '" cy="' + f1(12 + R()*60) + '" r="' + (.3 + R()*.6).toFixed(2) + '" fill="#fff" opacity="' + (.3 + R()*.6).toFixed(2) + '"/>';
+      s += '<circle cx="246" cy="38" r="11" fill="#fff3d0"/><circle cx="251" cy="35" r="10" fill="#0d0c26"/><circle cx="246" cy="38" r="18" fill="#fff3d0" opacity=".08"/>';
+      s += '<g class="v-search"><path d="M120 168 L94 20 L110 20 Z" fill="url(#vbeam' + k + ')"/></g><g class="v-search v-s2"><path d="M262 168 L270 20 L286 20 Z" fill="url(#vbeam' + k + ')"/></g>';
+      const layer = (yb, hmin, hmax, col, lit, op) => { let g = ''; for (let x = 74; x < 294;) { const w = 9 + R()*16, h = hmin + R()*(hmax - hmin); g += '<rect x="' + f1(x) + '" y="' + f1(yb - h) + '" width="' + f1(w) + '" height="' + f1(h) + '" fill="' + col + '"/>';
+          if (R() < .25) g += '<rect x="' + f1(x + w/2 - .6) + '" y="' + f1(yb - h - 8) + '" width="1.2" height="8" fill="' + col + '"/><circle class="v-blink" cx="' + f1(x + w/2) + '" cy="' + f1(yb - h - 8) + '" r="1" fill="#ff4d4d" style="animation-delay:-' + (R()*2).toFixed(2) + 's"/>';
+          for (let wy = yb - h + 4; wy < yb - 3; wy += 5) for (let wx = x + 2; wx < x + w - 2; wx += 3.6) if (R() < lit) g += '<rect class="' + (R() < .08 ? 'v-tw' : '') + '" x="' + f1(wx) + '" y="' + f1(wy) + '" width="1.5" height="2.2" fill="#f4c46a" opacity="' + op + '" style="animation-delay:-' + (R()*4).toFixed(2) + 's"/>';
+          x += w + 1 + R()*3; } return g; };
+      s += layer(168, 40, 100, '#191a3a', .12, .45) + layer(168, 20, 70, '#0f1028', .2, .7) + layer(168, 8, 36, '#08081a', .26, .85);
+      s += '<rect x="70" y="150" width="230" height="20" fill="#ff8a3d" opacity=".08"/></g>';
+      // the frame and its sunburst mullions
+      s += '<path d="M78 168 V70 Q78 8 184 8 Q290 8 290 70 V168" fill="none" stroke="url(#vgd' + k + ')" stroke-width="4"/>'
+        + '<g stroke="#c9a24a" stroke-width="1.6" opacity=".9">' + [-60, -40, -20, 0, 20, 40, 60].map(a => { const r = a * Math.PI / 180; return '<path d="M184 70 L' + f1(184 + Math.sin(r)*120) + ' ' + f1(70 - Math.cos(r)*70) + '"/>'; }).join('') + '<path d="M78 70 H290 M131 70 V168 M237 70 V168"/></g>'
+        + '<path d="M164 70 A20 20 0 0 1 204 70 Z" fill="#c9a24a" opacity=".9"/><path d="M78 118 H290" stroke="#c9a24a" stroke-width="1" opacity=".45"/>';
+      // left wall: a sconce, the P medallion, a bar cart
+      s += '<g><path d="M30 34 L46 34 L52 52 L24 52 Z" fill="url(#vgd' + k + ')"/><path d="M24 52 L52 52 L58 62 L18 62 Z" fill="#fff1c8" opacity=".25"/><ellipse cx="38" cy="54" rx="26" ry="16" fill="#ffd98a" opacity=".14" filter="url(#vgl' + k + ')"/></g>'
+        + '<g transform="translate(38 98)"><path d="M0 -20 L14 -14 L20 0 L14 14 L0 20 L-14 14 L-20 0 L-14 -14 Z" fill="#120d06" stroke="url(#vgd' + k + ')" stroke-width="2"/><text x="0" y="8" text-anchor="middle" font-family="Limelight, Teko, sans-serif" font-size="22" fill="#e8c06a">P</text></g>'
+        + '<g><rect x="10" y="150" width="54" height="4" rx="1" fill="url(#vgd' + k + ')"/><rect x="14" y="170" width="46" height="3" fill="#7a5d22"/><path d="M14 154 V196 M60 154 V196" stroke="#c9a24a" stroke-width="1.6"/>'
+        + '<path d="M22 150 V136 Q22 128 28 128 V122 H32 V128 Q38 128 38 136 V150 Z" fill="#7a3a12" fill-opacity=".75" stroke="#e8c27a" stroke-width=".8"/><rect x="26" y="118" width="8" height="5" rx="1" fill="#c9a24a"/>'
+        + '<path d="M44 150 L42 140 H52 L50 150 Z M53 150 L51.5 142 H58.5 L57 150 Z" fill="#cfe7ff" fill-opacity=".25" stroke="#e8f4ff" stroke-opacity=".55" stroke-width=".6"/></g>';
+      /* The knife cabinet: black glass, gold frame, red velvet (and the niche hidden behind it) */
+      s += '<g class="vv-niche"><rect x="296" y="18" width="100" height="134" rx="3" fill="#0a0408" stroke="url(#vgd' + k + ')" stroke-width="2"/><rect x="301" y="23" width="90" height="124" fill="#14060e"/>'
         + '<path d="M346 23 L306 147 H386 Z" fill="#fff3fb" opacity=".06"/><ellipse class="vv-glow" cx="346" cy="82" rx="40" ry="22" fill="#ff7ad9" opacity=".35" filter="url(#hb' + k + ')"/>'
         + (P().vvault === 'won' ? '' : '<g class="yc-kf"><image href="' + artHi(BY[VANCE_ID], 0) + '" x="306" y="62" width="80" height="34" preserveAspectRatio="xMidYMid meet"/></g>')
         + '<rect x="318" y="106" width="56" height="10" rx="1.5" fill="#c9a24a"/><text x="346" y="113.4" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="7" letter-spacing="1" fill="#2a1a04">CHROMA · 1 OF 1</text>'
         + '<rect x="310" y="118" width="72" height="22" rx="2" fill="#3a0a1a"/><path d="M310 122 H382" stroke="#5a1a2a"/></g>'
-        + '<g class="vv-cab"><rect x="296" y="18" width="100" height="134" rx="3" fill="#1a0f08" stroke="#b8860b" stroke-width="2"/><rect x="301" y="23" width="90" height="124" fill="#2a0a12"/>'
-        + [60, 98, 136].map(y => '<rect x="301" y="' + y + '" width="90" height="4" fill="#5a3a12"/><rect x="301" y="' + y + '" width="90" height="1" fill="#d4a017" opacity=".6"/>').join('')
+        + '<g class="vv-cab"><rect x="294" y="16" width="104" height="138" rx="4" fill="#120c06" stroke="url(#vgd' + k + ')" stroke-width="2.4"/><rect x="301" y="23" width="90" height="124" fill="#3a0812"/>'
+        + '<rect x="301" y="23" width="90" height="124" fill="url(#vtf' + k + ')" opacity=".5"/>'
+        + [60, 98, 136].map(y => '<rect x="301" y="' + y + '" width="90" height="4" fill="#2a1a08"/><rect x="301" y="' + y + '" width="90" height="1.2" fill="url(#vgd' + k + ')"/><rect x="305" y="' + (y - 36) + '" width="82" height="2" fill="#fff1c8" opacity=".55" filter="url(#vgl' + k + ')"/>').join('')
         + shopSlots(MBY.vance, k)
-        + '<rect x="301" y="23" width="90" height="124" fill="#cfe7ff" fill-opacity=".05" stroke="#cfe7ff" stroke-opacity=".22"/><path d="M301 23 H326 L301 64 Z M342 23 H352 L301 104 V88 Z" fill="#fff" opacity=".05"/>'
-        + '</g><text x="346" y="14" text-anchor="middle" font-family="Teko, sans-serif" font-weight="600" font-size="8" letter-spacing="2" fill="#b8860b">PRIVATE COLLECTION</text>';
-      s += '<path d="M140 210 V74 Q140 58 156 58 H244 Q260 58 260 74 V210 Z" fill="#1e0a0c" stroke="#3a1618" stroke-width="2"/><path d="M150 70 H250" stroke="#3a1618" stroke-width="1.5"/>'
-        + [[156,82],[200,82],[244,82],[156,104],[244,104]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="1.8" fill="#0e0405"/>').join('')
-        + '<g class="v-body"><g class="v-shk">' + fig('vance', 150, 80, 1)
+        + '<rect x="301" y="23" width="90" height="124" fill="#cfe7ff" fill-opacity=".04" stroke="#cfe7ff" stroke-opacity=".25" pointer-events="none"/><path d="M301 23 H326 L301 64 Z M342 23 H352 L301 104 V88 Z" fill="#fff" opacity=".06" pointer-events="none"/>'
+        + '<rect x="322" y="148" width="48" height="8" rx="1.5" fill="url(#vgd' + k + ')"/><text x="346" y="154.2" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="5.6" letter-spacing="1.4" fill="#2a1a04">PRIVATE COLLECTION</text></g>';
+      /* Wainscot under the window */
+      s += '<rect x="0" y="168" width="400" height="30" fill="#0c0906"/><rect x="0" y="168" width="400" height="1.6" fill="url(#vgd' + k + ')" opacity=".8"/>'
+        + Array.from({length: 10}, (_, i) => '<rect x="' + (6 + i*40) + '" y="173" width="34" height="20" fill="none" stroke="#c9a24a" stroke-opacity=".25"/>').join('');
+      /* The chair: tufted black leather, gold studs, wings */
+      const chair = '<path d="M136 210 V82 Q136 48 170 44 H230 Q264 48 264 82 V210 Z" fill="url(#vch' + k + ')" stroke="#c9a24a" stroke-width="1.6"/>'
+        + '<path d="M142 206 V84 Q142 54 172 50 H228 Q258 54 258 84 V206 Z" fill="url(#vtf' + k + ')" opacity=".9"/>'
+        + '<path d="M136 120 Q124 124 124 150 V210 H140 Z M264 120 Q276 124 276 150 V210 H260 Z" fill="#141114" stroke="#c9a24a" stroke-width="1.2"/>'
+        + Array.from({length: 13}, (_, i) => { const t = i / 12, a = Math.PI * (1 - t); return '<circle cx="' + f1(200 + Math.cos(a)*64) + '" cy="' + f1(84 - Math.sin(a)*38) + '" r="1.4" fill="#e8c06a"/>'; }).join('');
+      s += '<g class="v-chair">' + chair + '</g>';
+      /* Vance himself (stands, storms out and comes back during a rage) */
+      s += '<g class="v-body"><g class="v-shk">' + fig('vance', 150, 80, 1)
         + '<ellipse class="v-red" cx="200" cy="125" rx="18.5" ry="22" fill="#ff1a1a"/>'
         + '<path class="v-brow" d="M184.5 117 L197 121.5 M215.5 117 L203 121.5" stroke="#0a0a0a" stroke-width="2.8" stroke-linecap="round"/>'
         + '<path class="v-vein" d="M208 104.5 l3.4 3 l-3.2 2.2 l4 3.4" stroke="#c0141e" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
         + '<g class="v-steam"><circle cx="179" cy="121" r="3.2" fill="#fff"/><circle cx="221" cy="121" r="3.2" fill="#fff"/><circle cx="177" cy="116" r="2.2" fill="#fff" style="animation-delay:-.6s"/><circle cx="223" cy="116" r="2.2" fill="#fff" style="animation-delay:-.6s"/></g>'
         + '<g class="v-shout"><ellipse cx="200.5" cy="140" rx="7.5" ry="3.6" fill="#c99a74"/><ellipse cx="200.5" cy="140.6" rx="5.4" ry="3.4" fill="#3a0d08"/><rect x="196.5" y="137.6" width="8" height="1.6" rx=".6" fill="#f3efe6"/></g>'
-        + '<g class="v-hand"><path d="M240 188 Q262 176 262 162" fill="none" stroke="#14141a" stroke-width="12" stroke-linecap="round"/><ellipse cx="262" cy="160" rx="6.5" ry="6" fill="#c99a74"/></g></g></g>'
-        + '<g class="v-knife">' + gun('karambit', 262 - 40*.34, 150 - 40*.34, .34, '#ffcb2e', '#3a2a00') + '</g>'
-        + '<g class="v-sec v-sec-l"><g transform="translate(78 200)">' + suitGuard() + '</g></g><g class="v-sec v-sec-r"><g transform="translate(322 200) scale(-1 1)">' + suitGuard() + '</g></g>'
-        + '<rect x="28" y="196" width="344" height="12" rx="2" fill="#4a2c16"/><rect x="40" y="208" width="320" height="52" fill="#2a180c"/><rect x="52" y="216" width="140" height="36" rx="2" fill="none" stroke="#1a0e06" stroke-width="2"/><rect x="208" y="216" width="140" height="36" rx="2" fill="none" stroke="#1a0e06" stroke-width="2"/>'
-        + '<path class="v-crack" d="M232 197 l-6 5 M232 197 l7 4 M232 197 l-1 7" stroke="#120804" stroke-width="1.2"/>';
+        + '<g class="v-hand"><path d="M240 188 Q262 176 262 162" fill="none" stroke="#14141a" stroke-width="12" stroke-linecap="round"/><path d="M255 170 L262 167" stroke="#e8c06a" stroke-width="2.4"/><ellipse cx="262" cy="160" rx="6.5" ry="6" fill="#c99a74"/></g></g></g>'
+        + '<g class="v-knife">' + gun('karambit', 262 - 40*.34, 150 - 40*.34, .34, '#ffcb2e', '#3a2a00') + '</g>';
+      /* For the intro: the chair turned away from you, a curl of cigar smoke over the top */
+      s += '<g class="vi-back">' + chair + '<path d="M150 204 V96 Q150 62 200 58 Q250 62 250 96 V204" fill="none" stroke="#c9a24a" stroke-opacity=".35"/>'
+        + '<g class="vi-smoke">' + [0, 1, 2].map(i => '<path d="M' + (226 + i*3) + ' 46 q-6 -8 0 -16 q6 -8 0 -16" stroke="#d8d4cc" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".5" style="animation-delay:-' + (i*.8) + 's"/>').join('') + '</g>'
+        + '<circle cx="232" cy="48" r="1.8" fill="#ff8a3d"/></g>';
+      s += '<g class="v-sec v-sec-l"><g transform="translate(78 200)">' + suitGuard() + '</g></g><g class="v-sec v-sec-r"><g transform="translate(322 200) scale(-1 1)">' + suitGuard() + '</g></g>';
+      /* The desk: black marble top, gold edge, lacquer front with a deco sunburst */
+      s += '<rect x="22" y="192" width="356" height="12" rx="2" fill="url(#vmb' + k + ')"/><rect x="22" y="192" width="356" height="1.6" fill="#fff" opacity=".18"/><rect x="22" y="202" width="356" height="2.4" fill="url(#vgd' + k + ')"/>'
+        + '<path d="M60 197 Q120 194 170 198 M240 196 Q300 199 350 196" stroke="#fff" stroke-opacity=".07" fill="none"/>'
+        + '<rect x="34" y="204" width="332" height="56" fill="url(#vdk' + k + ')"/><rect x="34" y="204" width="332" height="56" fill="none" stroke="#c9a24a" stroke-opacity=".35"/>'
+        + '<g opacity=".9">' + [-50, -30, -10, 10, 30, 50].map(a => { const r = a * Math.PI / 180; return '<path d="M200 258 L' + f1(200 + Math.sin(r)*44) + ' ' + f1(258 - Math.cos(r)*44) + '" stroke="#c9a24a" stroke-width="1.2" stroke-opacity=".7"/>'; }).join('')
+        + '<path d="M156 258 A44 44 0 0 1 244 258" fill="none" stroke="url(#vgd' + k + ')" stroke-width="1.6"/><circle cx="200" cy="258" r="8" fill="url(#vgd' + k + ')"/></g>'
+        + '<rect x="48" y="214" width="96" height="36" rx="2" fill="none" stroke="#c9a24a" stroke-opacity=".3"/><rect x="256" y="214" width="96" height="36" rx="2" fill="none" stroke="#c9a24a" stroke-opacity=".3"/>'
+        + '<path class="v-crack" d="M232 195 l-6 5 M232 195 l7 4 M232 195 l-1 7" stroke="#e8e8e8" stroke-opacity=".7" stroke-width="1"/>';
+      /* A banker's lamp, its pool of light, a cigar in a crystal ashtray */
+      s += '<ellipse cx="60" cy="196" rx="44" ry="8" fill="url(#vlamp' + k + ')"/><path d="M60 192 V172 M52 192 H68" stroke="url(#vgd' + k + ')" stroke-width="2.4"/><path d="M44 172 Q60 160 76 172 Z" fill="#1d5a3a" stroke="#c9a24a" stroke-width="1"/><path d="M48 172 H72" stroke="#fff1c8" stroke-width="1.6" opacity=".9"/>'
+        + '<g><ellipse cx="136" cy="194" rx="9" ry="2.6" fill="#cfe7ff" fill-opacity=".25" stroke="#e8f4ff" stroke-opacity=".5" stroke-width=".6"/><rect x="128" y="190" width="14" height="2.6" rx="1.2" fill="#6b3a1a"/><circle cx="142.6" cy="191.3" r="1.3" fill="#ff8a3d"/>'
+        + '<path class="v-cig" d="M143 189 q-3 -6 1 -11 q4 -6 0 -12" stroke="#d8d4cc" stroke-width="1.4" fill="none" opacity=".45"/></g>';
       s += '<g class="v-coins">';
-      for (let st = 0; st < 2; st++) for (let i = 0; i < 5 - st; i++) s += '<ellipse cx="' + (84 + st*22) + '" cy="' + (192 - i*3.2) + '" rx="9" ry="3" fill="#ffcb2e" stroke="#a86b00" stroke-width=".7"/>';
+      for (let st = 0; st < 2; st++) for (let i = 0; i < 5 - st; i++) s += '<ellipse cx="' + (84 + st*22) + '" cy="' + (190 - i*3.2) + '" rx="9" ry="3" fill="#ffcb2e" stroke="#a86b00" stroke-width=".7"/>';
       s += '</g>';
       s += bdoTrophySVG(k);
       [[-150, -70, 300], [-120, 10, -240], [-90, -110, 420], [-170, -20, 200], [-60, -140, -300], [-140, 40, 260], [-40, -60, 520], [-200, -90, -380]].forEach(([dx, dy, r], i) => {
-        s += '<ellipse class="v-fly" style="--dx:' + dx + 'px;--dy:' + dy + 'px;--r:' + r + 'deg;animation-delay:' + (i*.03).toFixed(2) + 's" cx="95" cy="186" rx="5" ry="5" fill="#ffcb2e" stroke="#a86b00" stroke-width=".6"/>'; });
+        s += '<ellipse class="v-fly" style="--dx:' + dx + 'px;--dy:' + dy + 'px;--r:' + r + 'deg;animation-delay:' + (i*.03).toFixed(2) + 's" cx="95" cy="184" rx="5" ry="5" fill="#ffcb2e" stroke="#a86b00" stroke-width=".6"/>'; });
       s += '<g class="v-cash">';
       const bundle = (x, y) => '<rect x="' + x + '" y="' + y + '" width="28" height="8" rx="1" fill="#2f6b3a" stroke="#1d4524" stroke-width=".6"/><rect x="' + (x + 11.5) + '" y="' + y + '" width="5" height="8" fill="#e8d9a8"/>';
-      for (let r = 0; r < 6; r++) for (let c = 0; c < 3 - (r > 3 ? 1 : 0); c++) s += bundle(52 + c*29 + (r % 2)*6, 188 - r*8);
-      for (let r = 0; r < 5; r++) for (let c = 0; c < 2; c++) s += bundle(262 + c*29 + (r % 2)*5, 188 - r*8);
-      s += '<path d="M150 194 l18 -6 l3 8 l-18 5 z M224 196 l20 -3 l1 7 l-20 2 z" fill="#3a7a46" stroke="#1d4524" stroke-width=".5"/></g><g class="v-cash2">';
-      for (let r = 0; r < 5; r++) for (let c = 0; c < 4 - (r > 2 ? 1 : 0); c++) s += bundle(144 + c*29 + (r % 2)*7 + (r > 2 ? 14 : 0), 188 - r*8);
-      for (let r = 0; r < 8; r++) s += bundle(16 + (r % 2)*4, 188 - r*8) + bundle(344 - (r % 2)*4, 188 - r*8);
+      for (let r = 0; r < 6; r++) for (let c = 0; c < 3 - (r > 3 ? 1 : 0); c++) s += bundle(52 + c*29 + (r % 2)*6, 186 - r*8);
+      for (let r = 0; r < 5; r++) for (let c = 0; c < 2; c++) s += bundle(262 + c*29 + (r % 2)*5, 186 - r*8);
+      s += '<path d="M150 192 l18 -6 l3 8 l-18 5 z M224 194 l20 -3 l1 7 l-20 2 z" fill="#3a7a46" stroke="#1d4524" stroke-width=".5"/></g><g class="v-cash2">';
+      for (let r = 0; r < 5; r++) for (let c = 0; c < 4 - (r > 2 ? 1 : 0); c++) s += bundle(144 + c*29 + (r % 2)*7 + (r > 2 ? 14 : 0), 186 - r*8);
+      for (let r = 0; r < 8; r++) s += bundle(16 + (r % 2)*4, 186 - r*8) + bundle(344 - (r % 2)*4, 186 - r*8);
       s += '</g>'
-        + '<g class="v-sign"><path d="M168 0 V32 M232 0 V32" stroke="#6b4a12" stroke-width="1.2"/><rect x="138" y="30" width="124" height="34" rx="4" fill="#ffcb2e" stroke="#7a5200" stroke-width="2"/><text x="200" y="54.5" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="23" letter-spacing="1" fill="#1c1204" class="v-signt">10× MARKET</text></g>';
-      s += '<rect x="306" y="180" width="12" height="16" rx="2" fill="#d48a2a" opacity=".6" stroke="#e8c27a" stroke-width=".8"/>'
+        + '<g class="v-sign"><path d="M168 0 V32 M232 0 V32" stroke="#c9a24a" stroke-width="1.2"/><rect x="134" y="28" width="132" height="38" rx="3" fill="#0e0a05" stroke="url(#vgd' + k + ')" stroke-width="2.4"/><rect x="138" y="32" width="124" height="30" rx="2" fill="none" stroke="#c9a24a" stroke-opacity=".5"/>'
+        + '<text class="v-signt" x="200" y="55" text-anchor="middle" font-family="Limelight, Teko, sans-serif" font-size="19" letter-spacing="1.5" fill="#ffe29a">10× MARKET</text></g>';
+      s += '<rect x="306" y="178" width="12" height="16" rx="2" fill="#d48a2a" opacity=".6" stroke="#e8c27a" stroke-width=".8"/>'
         + '<rect width="400" height="260" fill="url(#vl' + k + ')"/>' + vigRect(k) + '<rect class="v-alarmw" width="400" height="260" fill="#ff1a1a"/>';
+      /* The private elevator: gold deco doors and the floor dial, only shown in the intro */
+      s += '<g class="vi-doors"><g class="vi-dl"><rect x="0" y="0" width="200" height="260" fill="#16100a"/>'
+        + [0, 1, 2, 3].map(i => '<rect x="' + (14 + i*46) + '" y="40" width="40" height="200" fill="none" stroke="url(#vgd' + k + ')" stroke-width="1.4" opacity=".7"/>').join('')
+        + '<path d="M200 260 L200 150 ' + [-80, -60, -40, -20].map(a => { const r = a * Math.PI / 180; return 'M200 200 L' + f1(200 + Math.sin(r)*120) + ' ' + f1(200 - Math.cos(r)*120); }).join(' ') + '" stroke="#c9a24a" stroke-width="2" opacity=".85"/><rect x="196" y="0" width="4" height="260" fill="url(#vgd' + k + ')"/></g>'
+        + '<g class="vi-dr"><rect x="200" y="0" width="200" height="260" fill="#16100a"/>'
+        + [0, 1, 2, 3].map(i => '<rect x="' + (210 + i*46) + '" y="40" width="40" height="200" fill="none" stroke="url(#vgd' + k + ')" stroke-width="1.4" opacity=".7"/>').join('')
+        + '<path d="' + [80, 60, 40, 20].map(a => { const r = a * Math.PI / 180; return 'M200 200 L' + f1(200 + Math.sin(r)*120) + ' ' + f1(200 - Math.cos(r)*120); }).join(' ') + '" stroke="#c9a24a" stroke-width="2" opacity=".85"/><rect x="200" y="0" width="4" height="260" fill="url(#vgd' + k + ')"/></g>'
+        + '<g class="vi-dial"><path d="M156 66 A44 44 0 0 1 244 66 Z" fill="#0c0905" stroke="url(#vgd' + k + ')" stroke-width="2.4"/><path d="M162 66 A38 38 0 0 1 238 66" fill="none" stroke="#c9a24a" stroke-opacity=".4"/>'
+        + ['1', '20', '40', '60', 'P'].map((t, i) => { const a = (-70 + i*35) * Math.PI / 180; return '<text x="' + f1(200 + Math.sin(a)*32) + '" y="' + f1(66 - Math.cos(a)*32 + 3) + '" text-anchor="middle" font-family="Limelight, Teko, sans-serif" font-size="8" fill="' + (t === 'P' ? '#ffe29a' : '#a8956a') + '">' + t + '</text>'; }).join('')
+        + '<path class="vi-needle" d="M200 66 L200 38" stroke="#ffe29a" stroke-width="2.2" stroke-linecap="round"/><circle cx="200" cy="66" r="3.4" fill="url(#vgd' + k + ')"/></g>'
+        + '<g class="vi-pl"><circle cx="200" cy="150" r="22" fill="#0c0905" stroke="url(#vgd' + k + ')" stroke-width="2.4"/><text x="200" y="160" text-anchor="middle" font-family="Limelight, Teko, sans-serif" font-size="28" fill="#e8c06a">P</text></g></g>';
       return s + '</svg>';
     },
     intro: async S => {
-      const sp = S.loop(() => sweep(300, 900, .12, 'sine', .025), 450);
-      await S.W(2300);
-      S.unloop(sp); S.on('v-stab');
+      S.on('vi-shut vi-turned');
+      const hum = S.loop(() => { tone(55, .5, 'sine', .08); tone(110, .4, 'triangle', .015); }, 480);
+      await S.W(2200);
+      S.unloop(hum);
+      S.fx(() => { tone(1318.5, .5, 'sine', .07); tone(1760, .7, 'sine', .05, .14); });
+      await S.W(500);
+      S.on('vi-open'); S.fx(() => { noise(1.3, 300, 1200, .05, 'bandpass'); sweep(90, 60, 1.2, 'sine', .08); });
+      await S.W(1700);
+      S.off('vi-shut');
+      await S.say("…You took my private elevator. Nobody takes my private elevator.");
+      S.on('vi-spin'); S.fx(() => { noise(.5, 900, 300, .06, 'bandpass'); sweep(500, 200, .5, 'sine', .05); });
+      await S.W(520);
+      S.off('vi-turned');
+      await S.W(1500);
+      S.on('v-stab');
       S.at(170, () => { noise(.14, 5000, 1500, .22, 'highpass'); tone(180, .15, 'triangle', .15); tone(60, .35, 'sine', .35); S.shake(); });
       await S.W(1100);
+      S.off('vi-spin vi-open');
       await S.card();
       await S.say("Sit.");
       await S.say("You've been pulling gold. I want knives. All of them. The rest, I'll take at market.");
