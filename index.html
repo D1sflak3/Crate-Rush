@@ -2930,6 +2930,50 @@ body.dz-open .toast{z-index:95}
 .gt-skip{position:absolute;top:16px;right:16px;z-index:7}
 @media (max-width:640px){.gt-cap{bottom:14vh}.gt-prow{grid-template-columns:72px repeat(4,1fr)}.gt-pen small{font-size:8.5px}}
 @media (prefers-reduced-motion: reduce){.gtc *{animation:none!important}}
+
+/* GOAT reveal: Lusail, the last kick and the trophy */
+.gtc[data-s="5b"] .gt-s5b{opacity:1;visibility:visible;transition:opacity .4s}
+.gt-s5 .gt-cap{bottom:auto;top:8vh}
+.gtc[data-s="5"] .gt-s5 .gt-cap small,.gtc[data-s="5"] .gt-s5 .gt-cap p{opacity:1;transform:none}
+.gt-kicker{transition:transform .7s ease-in}
+.gtc.runup .gt-kicker{transform:translate(26px,-16px) scale(.92)}
+.gt-kleg{transform-box:fill-box;transform-origin:0 0}
+.gtc.kick .gt-kleg{transform:rotate(-55deg);transition:transform .12s ease-out}
+.gt-pball{transition:transform .34s cubic-bezier(.2,.6,.3,1)}
+.gtc.kick .gt-pball{transform:translate(46px,-128px) scale(.42)}
+.gt-pball{transform-box:fill-box;transform-origin:50% 50%}
+.gt-kp{transform-box:fill-box;transform-origin:50% 100%;transition:transform .45s cubic-bezier(.3,.6,.4,1)}
+.gtc.runup .gt-kp{animation:gtKp .3s ease-in-out infinite alternate}
+@keyframes gtKp{to{transform:translateX(-3px)}}
+.gtc.kick .gt-kp{animation:none;transform:translate(-44px,8px) rotate(-72deg)}
+.gt-pnet{transform-box:fill-box;transform-origin:50% 0}
+.gtc.scored .gt-pnet{animation:gtNet2 .45s ease-out}
+@keyframes gtNet2{40%{transform:scale(1.04,1.12)}}
+.gt-white{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+.gtc.scored .gt-white{animation:gtWhite .5s ease-out forwards}
+@keyframes gtWhite{0%{opacity:0}30%{opacity:.95}100%{opacity:.9}}
+.gt-beam{animation:gtBeam 4.4s var(--d) ease-in-out infinite alternate;transform:rotate(var(--a))}
+@keyframes gtBeam{to{transform:rotate(calc(var(--a) * -1))}}
+.gt-tm{animation:gtJump .42s var(--d) cubic-bezier(.3,0,.7,1) infinite alternate}
+@keyframes gtJump{to{transform:translateY(-12px)}}
+.gt-mes{transform:translateY(8px);transition:transform .6s}
+.gt-lift{transform:translateY(92px) scale(.85);transform-box:view-box;transition:transform 1.2s cubic-bezier(.3,0,.2,1)}
+.gtc.lift .gt-lift{transform:none}
+.gtc.champ2 .gt-lift{animation:gtPump .5s 1s ease-in-out infinite alternate}
+@keyframes gtPump{to{transform:translateY(-5px)}}
+.gtc.lift .gt-mes{transform:none}
+.gt-wstars{position:absolute;left:50%;top:5vh;transform:translateX(-50%);z-index:3}
+.gt-wstars svg{opacity:0;transform:scale(0)}
+.gtc.champ2 .gt-wstars svg{opacity:1;transform:none;transition:transform .5s cubic-bezier(.2,1.8,.4,1),opacity .2s}
+.gtc.champ2 .gt-wstars svg:nth-child(2){transition-delay:.2s}.gtc.champ2 .gt-wstars svg:nth-child(3){transition-delay:.4s}
+.gt-champ2{position:absolute;left:0;right:0;bottom:5vh;z-index:3;text-align:center;display:grid;justify-items:center;gap:4px;text-shadow:0 4px 20px rgba(0,0,0,.8)}
+.gt-champ2 h3{margin:0;font:700 clamp(44px,8.6vw,96px)/1 var(--display);letter-spacing:.1em;background:linear-gradient(180deg,#9fd8ff 0 33%,#fff 33% 66%,#9fd8ff 66%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 0 #0b2a4a) drop-shadow(0 0 22px rgba(117,189,233,.6));opacity:0;transform:scale(1.6)}
+.gt-champ2 p{margin:0;font:700 clamp(16px,2.6vw,26px)/1 var(--display);letter-spacing:.32em;color:#ffd23f;opacity:0;transform:translateY(10px)}
+.gt-champ2 small{font:600 13px var(--body);color:#c9d8ee;opacity:0}
+.gtc.champ2 .gt-champ2 h3{opacity:1;transform:none;transition:transform .5s cubic-bezier(.2,1.5,.4,1),opacity .2s}
+.gtc.champ2 .gt-champ2 p{opacity:1;transform:none;transition:all .5s .35s}
+.gtc.champ2 .gt-champ2 small{opacity:1;transition:opacity .6s .9s}
+@media (max-width:640px){.gt-champ2{bottom:9vh}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -9611,11 +9655,55 @@ function goatCinematic(r){
       + '<path class="gt-run1" d="M-3 -12 L-6 0 M3 -12 L7 -2" stroke="#ffd23f" stroke-width="3.4" stroke-linecap="round"/><circle cx="0" cy="-36" r="16" fill="#ffd23f" opacity=".18"/></g><circle class="gt-sball" cx="10" cy="-2" r="3.2" fill="#fff"/></g>'
       + '<text class="gt-goaltxt" x="200" y="100" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="58" letter-spacing="6" fill="#ffd23f">GOAL</text></svg>';
     /* -- 5. Lusail -- */
-    const PENS = [['f', 1, 'Mbappé'], ['a', 1, 'Messi'], ['f', 0, 'Coman'], ['a', 1, 'Dybala'], ['f', 0, 'Tchouaméni'], ['a', 1, 'Paredes'], ['f', 1, 'Kolo Muani'], ['a', 1, 'Montiel']];
-    const penRow = (side, name) => '<div class="gt-prow"><b>' + name + '</b>' + PENS.filter(p => p[0] === side).map(p => '<span class="gt-pen" data-k="' + PENS.indexOf(p) + '"><i></i><small>' + p[2] + '</small></span>').join('') + '</div>';
-    const trophy = '<svg class="gt-cup" viewBox="0 0 100 140" aria-hidden="true"><defs><linearGradient id="gtC" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8a5a00"/><stop offset=".45" stop-color="#ffe9a0"/><stop offset=".7" stop-color="#ffd23f"/><stop offset="1" stop-color="#7a4a00"/></linearGradient></defs>'
-      + '<path d="M22 8 H78 Q78 52 56 66 V92 Q56 100 66 104 H34 Q44 100 44 92 V66 Q22 52 22 8 Z" fill="url(#gtC)"/><path d="M22 14 Q4 16 8 34 Q12 48 28 50 M78 14 Q96 16 92 34 Q88 48 72 50" stroke="url(#gtC)" stroke-width="5" fill="none"/>'
-      + '<rect x="28" y="104" width="44" height="12" rx="2" fill="url(#gtC)"/><rect x="22" y="116" width="56" height="16" rx="2" fill="#1d3a6b"/><path d="M36 20 Q38 46 50 58" stroke="#fff" stroke-opacity=".6" stroke-width="3" fill="none"/></svg>';
+    /* -- 5a. the last kick -- */
+    let s5 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="gtF5"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>'
+      + '<linearGradient id="gtP5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b6a2f"/><stop offset="1" stop-color="#0c3517"/></linearGradient>'
+      + '<pattern id="gtSt5" width="14" height="10" patternUnits="userSpaceOnUse"><rect width="14" height="10" fill="#f4f6fa"/><rect width="7" height="10" fill="#7cc4ef"/></pattern></defs>'
+      + '<rect width="400" height="260" fill="#03060e"/><rect y="18" width="400" height="80" fill="#0a1020"/>';
+    for (let i = 0; i < 220; i++) s5 += '<rect class="' + (i % 7 ? '' : 'gt-bulb') + '" style="animation-delay:-' + f1(R() * 3) + 's" x="' + f1(R() * 400) + '" y="' + f1(22 + R() * 72) + '" width="1.6" height="1.6" fill="' + ['#7cc4ef', '#f4f6fa', '#3a5a8a', '#fff'][i % 4] + '" opacity=".6"/>';
+    [[50, 12], [350, 12]].forEach(([x, y]) => { s5 += '<circle cx="' + x + '" cy="' + y + '" r="40" fill="url(#gtF5)" opacity=".45"/><rect x="' + (x - 16) + '" y="' + (y - 6) + '" width="32" height="12" rx="2" fill="#fff"/>'; });
+    s5 += '<rect y="96" width="400" height="164" fill="url(#gtP5)"/>' + [0, 1, 2, 3, 4].map(i => '<rect y="' + (96 + i * 34) + '" width="400" height="' + (12 + i * 4) + '" fill="#fff" opacity=".03"/>').join('')
+      + '<path d="M30 260 L118 128 H282 L370 260" stroke="#fff" stroke-opacity=".35" stroke-width="1.6" fill="none"/><path d="M120 128 H280" stroke="#fff" stroke-opacity=".5" stroke-width="1.6"/>'
+      + '<g class="gt-pnet"><rect x="142" y="70" width="116" height="58" fill="#000" opacity=".35"/>' + Array.from({length: 12}, (_, i) => '<path d="M' + (142 + i * 10.5) + ' 70 V128" stroke="#fff" stroke-opacity=".22" stroke-width=".7"/>').join('') + Array.from({length: 6}, (_, i) => '<path d="M142 ' + (70 + i * 11.6) + ' H258" stroke="#fff" stroke-opacity=".22" stroke-width=".7"/>').join('') + '</g>'
+      + '<path d="M142 128 V70 H258 V128" stroke="#fff" stroke-width="3.4" fill="none"/>'
+      + '<g class="gt-kp"><path d="M192 128 L194 112 M208 128 L206 112" stroke="#1d1d24" stroke-width="5" stroke-linecap="round"/><path d="M190 112 Q200 108 210 112 L209 96 Q200 92 191 96 Z" fill="#2b2f3a"/><path d="M191 98 L178 88 M209 98 L222 88" stroke="#2b2f3a" stroke-width="5" stroke-linecap="round"/><circle cx="177" cy="87" r="3.4" fill="#d4ff3a"/><circle cx="223" cy="87" r="3.4" fill="#d4ff3a"/><circle cx="200" cy="88" r="5.6" fill="#c69472"/></g>'
+      + '<g class="gt-pball"><ellipse cx="200" cy="214" rx="9" ry="2.6" fill="#000" opacity=".4"/><circle cx="200" cy="208" r="7" fill="#f4f6fa"/><path d="M200 204 L203 206.4 L202 210 H198 L197 206.4 Z" fill="#14161c"/></g>'
+      + '<g class="gt-kicker"><path d="M128 260 L132 226 M156 260 L152 226" stroke="#0e1424" stroke-width="10" stroke-linecap="round"/><path class="gt-kleg" d="M152 226 L160 252" stroke="#0e1424" stroke-width="10" stroke-linecap="round"/>'
+      + '<rect x="122" y="214" width="40" height="16" rx="4" fill="#0e1424"/><path d="M120 216 Q118 176 142 170 Q166 176 164 216 Z" fill="url(#gtSt5)"/><path d="M120 184 L110 210 M164 184 L174 210" stroke="#7cc4ef" stroke-width="9" stroke-linecap="round"/>'
+      + '<rect x="137" y="160" width="10" height="10" fill="#b98a64"/><circle cx="142" cy="152" r="12" fill="#2a1c12"/></g></svg>';
+    /* -- 5b. on the stage, the trophy goes up -- */
+    const k5 = 'gtw';
+    let s5b = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs>' + bdoDefs(k5)
+      + '<linearGradient id="gtSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#040916"/><stop offset="1" stop-color="#0d2142"/></linearGradient>'
+      + '<linearGradient id="gtBm" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>'
+      + '<linearGradient id="gtCup" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8a5a00"/><stop offset=".45" stop-color="#fff0b0"/><stop offset=".7" stop-color="#ffd23f"/><stop offset="1" stop-color="#7a4a00"/></linearGradient>'
+      + '<radialGradient id="gtCg"><stop offset="0" stop-color="#ffe9a0" stop-opacity=".9"/><stop offset="1" stop-color="#ffd23f" stop-opacity="0"/></radialGradient>'
+      + '<pattern id="gtSt" width="12" height="10" patternUnits="userSpaceOnUse"><rect width="12" height="10" fill="#f4f6fa"/><rect width="6" height="10" fill="#7cc4ef"/></pattern></defs>'
+      + '<rect width="400" height="260" fill="url(#gtSky)"/>'
+      + [[60, -18], [150, 12], [250, -12], [340, 18]].map(([x, a], i) => '<path class="gt-beam" style="--a:' + a + 'deg;--d:-' + (i * .7) + 's;transform-origin:' + x + 'px 260px" d="M' + (x - 6) + ' 260 L' + (x - 60) + ' -40 H' + (x + 60) + ' L' + (x + 6) + ' 260 Z" fill="url(#gtBm)"/>').join('')
+      + '<path d="M-20 150 Q200 70 420 150 V200 H-20 Z" fill="#081226"/>';
+    for (let i = 0; i < 260; i++) { const x = R() * 400, y = 110 + R() * 70; if (y < 150 - Math.sin(x / 400 * Math.PI) * 76) continue; s5b += '<rect class="' + (i % 6 ? '' : 'gt-bulb') + '" style="animation-delay:-' + f1(R() * 3) + 's" x="' + f1(x) + '" y="' + f1(y) + '" width="1.8" height="1.8" fill="' + ['#7cc4ef', '#f4f6fa', '#7cc4ef', '#ffd23f'][i % 4] + '" opacity=".7"/>'; }
+    s5b += '<rect x="20" y="206" width="360" height="60" fill="#0a0c14"/><path d="M20 206 H380" stroke="#d4a017" stroke-width="2"/>';
+    // teammates in the stripes, jumping, arms up
+    [[74, .8], [114, .86], [152, .9], [248, .9], [286, .86], [326, .8]].forEach(([x, sc], i) => {
+      const skin = ['#c48b62', '#e0b08a', '#a8754f', '#d9a37c', '#b98057', '#e6bb93'][i];
+      s5b += '<g class="gt-tm" style="--d:-' + (i * .13).toFixed(2) + 's"><g transform="translate(' + x + ' 206) scale(' + sc + ')">'
+        + '<path d="M-8 0 L-6 -26 M8 0 L6 -26" stroke="#0e1424" stroke-width="7" stroke-linecap="round"/><rect x="-13" y="-34" width="26" height="12" rx="3" fill="#0e1424"/>'
+        + '<path d="M-15 -30 Q-16 -66 0 -70 Q16 -66 15 -30 Z" fill="url(#gtSt)"/><path d="M-13 -62 L-24 -92 M13 -62 L24 -92" stroke="#7cc4ef" stroke-width="7" stroke-linecap="round"/>'
+        + '<circle cx="-25" cy="-95" r="4" fill="' + skin + '"/><circle cx="25" cy="-95" r="4" fill="' + skin + '"/><rect x="-4" y="-76" width="8" height="7" fill="' + skin + '"/><circle cx="0" cy="-84" r="10" fill="' + skin + '"/>'
+        + '<path d="M-10 -86 Q-10 -96 0 -96 Q10 -96 10 -86 Q4 -91 0 -90 Q-4 -91 -10 -86 Z" fill="#20160e"/></g></g>';
+    });
+    // him: the stripes, the 10, the bisht, and the trophy going up
+    const mp = bdoP('messi', {shirt:'stripes', num:'10', numc:'#0b2a4a', trim:'#0b2a4a', mouth:'grin'});
+    s5b += '<g class="gt-mes"><ellipse cx="200" cy="210" rx="40" ry="5" fill="#000" opacity=".5"/>' + bdoMan(200, 114, 1.02, mp)
+      + '<g transform="translate(200 114) scale(1.02)"><path d="M-36 96 Q-35 58 -12 51 L-6 96 Z" fill="#0b0b0d" opacity=".94"/><path d="M36 96 Q35 58 12 51 L6 96 Z" fill="#0b0b0d" opacity=".94"/>'
+      + '<path d="M-12 51 L-6 96 M12 51 L6 96" stroke="#d4a017" stroke-width="2.2"/><path d="M-12 51 Q0 46 12 51" stroke="#d4a017" stroke-width="1.6" fill="none"/>'
+      + '<g class="gt-lift"><path d="M-27 62 Q-34 30 -16 -8" stroke="#0b0b0d" stroke-width="11" stroke-linecap="round" fill="none"/><path d="M27 62 Q34 30 16 -8" stroke="#0b0b0d" stroke-width="11" stroke-linecap="round" fill="none"/>'
+      + '<path d="M-19 0 L-15 -6 M19 0 L15 -6" stroke="#d4a017" stroke-width="3"/><circle cx="-14" cy="-11" r="5.4" fill="' + mp.skin + '"/><circle cx="14" cy="-11" r="5.4" fill="' + mp.skin + '"/>'
+      + '<ellipse cx="0" cy="-38" rx="34" ry="40" fill="url(#gtCg)" opacity=".7"/>'
+      + '<path d="M-10 -12 H10 L8 -20 Q14 -34 12 -46 Q20 -60 10 -72 Q4 -78 0 -78 Q-4 -78 -10 -72 Q-20 -60 -12 -46 Q-14 -34 -8 -20 Z" fill="url(#gtCup)" stroke="#6a4300" stroke-width=".8"/>'
+      + '<circle cx="0" cy="-66" r="9" fill="url(#gtCup)" stroke="#6a4300" stroke-width=".8"/><path d="M-3 -70 Q-1 -60 -6 -50" stroke="#fff" stroke-opacity=".7" stroke-width="2" fill="none"/>'
+      + '<rect x="-11" y="-14" width="22" height="5" rx="1" fill="#1e7a3a"/></g></g></g></svg>';
     const STAR = '<svg viewBox="-10 -10 20 20"><path d="M0 -9 L2.6 -2.8 L9 -2.8 L3.8 1.2 L5.6 7.8 L0 4 L-5.6 7.8 L-3.8 1.2 L-9 -2.8 L-2.6 -2.8 Z" fill="#ffd23f"/></svg>';
     /* -- 7/8. lights out, and the last spotlight -- */
     let lights = '';
@@ -9628,9 +9716,8 @@ function goatCinematic(r){
         + '<div class="gt-cap c"><small>Age 13</small><p>His first contract was written on a napkin.</p></div></section>'
       + '<section class="gt-s gt-s3">' + s3 + '<div class="gt-stats"><div class="gt-st" data-n="672"><b>0</b><span>goals for Barcelona</span></div><div class="gt-st"><b>91</b><span>goals in one year · 2012</span></div><div class="gt-st"><b>4</b><span>Champions Leagues</span></div></div></section>'
       + '<section class="gt-s gt-s4"><div class="gt-eight">8</div><div class="gt-balls">' + [2009, 2010, 2011, 2012, 2015, 2019, 2021, 2023].map((y, i) => '<div class="gt-bdo" style="--i:' + i + '"><i></i><small>' + y + '</small></div>').join('') + '</div><div class="gt-cap c"><small>Ballon d’Or</small><p>Eight. Nobody else has more than five.</p></div></section>'
-      + '<section class="gt-s gt-s5"><div class="gt-final"><small>Lusail · 18 December 2022 · World Cup final</small><div class="gt-score"><span>ARGENTINA</span><b>3 – 3</b><span>FRANCE</span></div><div class="gt-scorer">Messi 23′ (pen), 108′ · after extra time</div>'
-        + '<div class="gt-pens">' + penRow('f', 'FRANCE') + penRow('a', 'ARGENTINA') + '</div></div>'
-        + '<div class="gt-champ"><div class="gt-stars">' + STAR + STAR + STAR + '</div>' + trophy + '<h3>CAMPEONES DEL MUNDO</h3><p>4–2 on penalties</p></div></section>'
+      + '<section class="gt-s gt-s5">' + s5 + '<div class="gt-cap"><small>Lusail · 18 December 2022 · World Cup final</small><p>3–3 after extra time. One kick left.</p></div><div class="gt-white"></div></section>'
+      + '<section class="gt-s gt-s5b">' + s5b + '<div class="gt-stars gt-wstars">' + STAR + STAR + STAR + '</div><div class="gt-champ2"><h3>ARGENTINA</h3><p>CHAMPIONS OF THE WORLD</p><small>3–3 · won 4–2 on penalties · Messi scored twice</small></div></section>'
       + '<section class="gt-s gt-s6"><div class="gt-cap c big"><small>2026</small><p>At 39, he took them to one more World Cup final.</p><p class="gt-p2">By then, the World Cup’s all-time top scorer.</p></div></section>'
       + '<section class="gt-s gt-s7"><div class="gt-lights">' + lights + '</div><div class="gt-cap c big"><p>There will never be another.</p></div></section>'
       + '<section class="gt-s gt-s8"><div class="gt-flag"></div><div class="gt-spot"></div><div class="gt-ten10">10</div>'
@@ -9649,15 +9736,19 @@ function goatCinematic(r){
     const CC = ['#75bde9', '#ffffff', '#ffd23f', '#75bde9', '#ffffff'];
     const burst = (n, x, y, up) => { for (let i = 0; i < n; i++) parts.push({x: x == null ? R() * W : x, y: y == null ? -10 : y, vx: (R() - .5) * (up ? .9 : .12), vy: up ? -(.35 + R() * .6) : .05 + R() * .12, w: 4 + R() * 6, h: 6 + R() * 8, a: R() * 6, va: (R() - .5) * .02, c: CC[i % 5], life: 5000}); };
     const cannon = (n, left) => { for (let i = 0; i < n; i++) { const a = (left ? -Math.PI / 2 + .25 + R() * .55 : -Math.PI / 2 - .25 - R() * .55), v = .55 + R() * .6; parts.push({x: left ? 0 : W, y: H, vx: Math.cos(a) * v, vy: Math.sin(a) * v, w: 4 + R() * 6, h: 6 + R() * 8, a: R() * 6, va: (R() - .5) * .02, c: CC[i % 5], life: 5000}); } };
+    let fwOn = false, fwLast = 0;
+    const firework = (x, y) => { const c = CC[Math.floor(R() * 3)], c2 = CC[Math.floor(R() * 3)]; for (let i = 0; i < 70; i++) { const a = i / 70 * Math.PI * 2, v = .12 + R() * .2; parts.push({fw: true, x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, c: i % 3 ? c : c2, life: 1100 + R() * 500, max: 1600}); } };
     let last = performance.now();
     function frame(now){
       if (done) return;
       const dt = Math.min(50, now - last); last = now;
       g.clearRect(0, 0, W, H);
       if (confettiOn && parts.length < 420) burst(3);
+      if (fwOn && now - fwLast > 420) { fwLast = now; firework(W * (.12 + R() * .76), H * (.08 + R() * .3)); noise(.5, 3000, 500, .03, 'highpass'); tone(80 + R() * 40, .2, 'sine', .08); }
       for (let i = parts.length - 1; i >= 0; i--) {
         const p = parts[i]; p.life -= dt; p.vy += .00028 * dt; p.vx *= .995; p.x += p.vx * dt; p.y += p.vy * dt; p.a += p.va * dt;
         if (p.life <= 0 || p.y > H + 20) { parts.splice(i, 1); continue; }
+        if (p.fw) { p.vy -= .00018 * dt; g.globalAlpha = Math.max(0, p.life / p.max); g.fillStyle = p.c; g.fillRect(p.x - 1.3, p.y - 1.3, 2.6, 2.6); g.globalAlpha = 1; continue; }
         g.save(); g.translate(p.x, p.y); g.rotate(p.a); g.scale(1, Math.abs(Math.cos(p.a * 1.7)) + .15); g.fillStyle = p.c; g.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); g.restore();
       }
       raf = requestAnimationFrame(frame);
@@ -9700,20 +9791,22 @@ function goatCinematic(r){
     T(12000, () => { go(4); noise(1, 6000, 2000, .02, 'highpass'); });
     [523.25, 587.33, 659.25, 698.46, 783.99, 880, 987.77, 1046.5].forEach((f, i) => T(12250 + i * 300, () => { tone(f, 1.1, 'triangle', .045); tone(f * 2, .5, 'sine', .015); tone(70, .12, 'sine', .15); }));
     T(14700, () => { add('eight'); boom(); chord([261.63, 329.63, 392, 523.25], 2, .035, 0); });
-    // 5. Lusail
-    T(15800, () => { go(5); tone(49, 6, 'sawtooth', .012); tone(73.42, 6, 'sine', .03); });
-    PENS.forEach((p, i) => {
-      const at = 17000 + i * 640 + (i === 7 ? 700 : 0);
-      T(at - 330, () => heart(i === 7 ? .4 : .25));
-      if (i === 7) { T(at - 900, () => add('hold')); T(at - 600, () => heart(.4)); }
-      T(at, () => { const el = ov.querySelector('.gt-pen[data-k="' + i + '"]'); if (el) el.classList.add(p[1] ? 'ok' : 'no'); if (p[0] === 'a') { if (p[1]) cheer(); } else if (p[1]) { noise(.5, 700, 300, .05, 'bandpass'); } else groan(); });
-    });
-    T(17000 + 7 * 640 + 1000, () => {
-      add('champ'); ov.classList.remove('hold'); boom(); roar(.2, 3.4);
-      chord([261.63, 329.63, 392], 1.2, .035, 0); chord([349.23, 440, 523.25], 1.2, .035, .5); chord([392, 493.88, 587.33], 1.2, .035, 1); chord([523.25, 659.25, 783.99, 1046.5], 2.4, .04, 1.5);
+    // 5a. Lusail, the last kick
+    T(15800, () => { go(5); tone(49, 5, 'sawtooth', .012); tone(73.42, 5, 'sine', .03); noise(2.4, 700, 300, .035, 'bandpass'); });
+    [16500, 17150, 17700].forEach((d, i) => T(d, () => heart(.28 + i * .07)));
+    T(17600, () => { add('runup'); noise(.4, 600, 300, .03, 'lowpass'); });
+    T(18300, () => { add('kick'); tone(140, .12, 'square', .1); noise(.08, 2000, 800, .15, 'bandpass'); sweep(900, 300, .3, 'sine', .04); });
+    T(18650, () => { add('scored'); boom(); roar(.2, 3.4); tone(36, 1.4, 'sine', .3); });
+    // 5b. the trophy goes up
+    T(19050, () => { go('5b'); fwOn = true; for (let i = 0; i < 10; i++) setTimeout(() => { if (!done) noise(.05, 3000, 1500, .11, 'highpass'); }, 300 + i * 260 + (i % 4 === 3 ? 120 : 0)); });
+    T(19600, () => { add('lift'); sweep(160, 880, 1.3, 'sine', .04); chord([261.63, 329.63, 392], 1.2, .035, .2); chord([349.23, 440, 523.25], 1.2, .035, .7); });
+    T(20800, () => {
+      add('champ2'); boom(); roar(.18, 3);
+      chord([392, 493.88, 587.33], 1.1, .035, 0); chord([523.25, 659.25, 783.99, 1046.5], 2.6, .045, .5);
       confettiOn = true; cannon(110, true); cannon(110, false); setTimeout(() => { if (!done) { cannon(70, true); cannon(70, false); } }, 600);
       if (!REDUCED) restart($('#wrap'), 'quake');
     });
+    T(23400, () => { fwOn = false; });
     // 6. 2026
     T(24000, () => { go(6); confettiOn = false; });
     [392, 440, 493.88, 587.33, 493.88, 440, 392, 329.63].forEach((f, i) => T(24300 + i * 330, () => { tone(f, 1.4, 'sine', .035); tone(f / 2, 1.4, 'triangle', .012); }));
