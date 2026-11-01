@@ -5513,6 +5513,8 @@ const inMood = (m, e) => !isFav(m, e) && hash(e.uid + m.id) % 5 === 0;   // stab
    haggling tops out at TAG_CAP, and it can never be an exact wish-list match. No buy-low, sell-high loops. */
 const TAG_CAP = 1.5;
 const tagged = e => e.src === 'shop' || e.src === 'vault' || e.src === 'pk1' || e.src === 'lg1';
+/* You can't sell someone back what you bought off their shelf, out of their case, or out of their hidden case. */
+const ownStock = (m, e) => !!m && tagged(e) && e.from === m.id;
 const isExact = (m, e) => !tagged(e) && e.id === P().wants[m.id];
 function offerFor(m, e){
   if (knifeHome(m, e)) return Math.round(e.v * KNIFE_X);
@@ -6046,8 +6048,8 @@ function renderOv(){
     return;
   }
   const w = wantOf(m);
-  const elig = state.inv.map(e => { const tg = tagged(e), ok = buys(m, e); return {e, ok, o: ok ? offerFor(m, e) : 0, x: ok && isExact(m, e), f: ok && isFav(m, e) && !tg, md: ok && inMood(m, e) && !tg, tg, k: knifeHome(m, e)}; })
-    .sort((a, b) => (b.ok - a.ok) || (b.k - a.k) || (b.x - a.x) || (b.f - a.f) || (b.o - a.o));
+  const elig = state.inv.map(e => { const tg = tagged(e), own = ownStock(m, e), ok = buys(m, e) && !own; return {e, ok, o: ok ? offerFor(m, e) : 0, x: ok && isExact(m, e), f: ok && isFav(m, e) && !tg, md: ok && inMood(m, e) && !tg, tg, k: knifeHome(m, e)}; })
+    .map(r => Object.assign(r, {own: ownStock(m, r.e)})).sort((a, b) => (b.ok - a.ok) || (b.k - a.k) || (b.x - a.x) || (b.f - a.f) || (b.o - a.o));
   const have = elig.some(r => r.x);
   ov.innerHTML = head('Sell to ' + m.name, 'Pick something to offer')
     + '<div class="ov-body"><div class="pr-req">' + (m.yard
@@ -6060,11 +6062,11 @@ function renderOv(){
     + (elig.length ? '<div class="pr-items" id="prItems"></div>' : '<div class="pr-empty">Your inventory is empty. Open some cases first.</div>') + '</div>';
   $('#prWant').prepend(thumb(w, 0));
   const list = $('#prItems');
-  if (list) elig.forEach(({e, ok, o, x, f, md, tg, k}) => {
+  if (list) elig.forEach(({e, ok, o, x, f, md, tg, k, own}) => {
     const it = BY[e.id], wi = wearIdx(e.fl), b = document.createElement('button');
     b.type = 'button'; b.className = 'pr-it' + (ok ? '' : ' no'); b.dataset.uid = e.uid; b.style.setProperty('--tc', TIERS[it.t].color);
     b.append(thumb(it, wi));
-    const star = !ok ? (m.yard ? '<span class="star stock">TOO SHINY</span>' : m.outsider ? '<span class="star stock">LEGAL · BORING</span>' : '<span class="star bm">CONTRABAND</span>')
+    const star = own ? '<span class="star stock">' + (m.yard ? 'YOURS NOW' : 'HIS OWN STOCK') + '</span>' : !ok ? (m.yard ? '<span class="star stock">TOO SHINY</span>' : m.outsider ? '<span class="star stock">LEGAL · BORING</span>' : '<span class="star bm">CONTRABAND</span>')
       : k ? '<span class="star">★ HER KNIFE</span>' : x ? '<span class="star">★ ON THE LIST</span>' : f ? '<span class="star fav">' + (m.outsider ? 'CONTRABAND' : 'FAVORITE') + '</span>' : md ? '<span class="star mood">LIKES IT</span>' : tg ? '<span class="star stock">BOUGHT · MARKET</span>' : '';
     b.insertAdjacentHTML('beforeend', star + '<div class="nm">' + it.name + '</div><div class="sub">' + WNAME[it.w] + ' · ' + WEARS[wi].n + ' · ' + e.fl.toFixed(4) + '</div><div class="of"><span>Market ' + fmt(e.v) + '</span>' + (ok ? '<b>' + fmt(o) + '</b>' : '<b class="nob">' + (m.yard ? 'Too shiny' : m.outsider ? 'Won’t buy' : 'Tobias only') + '</b>') + '</div>');
     list.append(b);
@@ -6074,6 +6076,7 @@ function renderOv(){
 function refuseItem(e){
   const m = room; if (!m) return;
   closeOv();
+  if (ownStock(m, e)) { sayRoom(e.src === 'vault' ? 'I gave you one chance at that. I’m not buying it back.' : e.src === 'pk1' || e.src === 'lg1' ? 'That came out of MY case. I don’t buy my own stock. Try the auction.' : 'I sold you that. I’m not buying it back. Take it somewhere else.', 'mad'); tone(150, .2, 'sawtooth', .05); return; }
   if (m.yard) { sayRoom(BY[e.id].t >= 5 ? 'Gold? Don’t wave that at just me. Take it to the fire and let us ALL bid on it.' : m.say.shiny, 'mad'); tone(150, .2, 'sawtooth', .05); return; }
   if (m.outsider) { sayRoom(m.say.legal, 'mad'); tone(150, .2, 'sawtooth', .05); return; }
   tone(110, .3, 'sawtooth', .06);
@@ -6089,7 +6092,7 @@ function refuseItem(e){
   })();
 }
 function startNeg(uidv){
-  const m = room, e = state.inv.find(x => x.uid === uidv); if (!m || !e || !buys(m, e)) return;
+  const m = room, e = state.inv.find(x => x.uid === uidv); if (!m || !e || !buys(m, e) || ownStock(m, e)) return;
   if (m.id === 'tobias' && isRequiem(e)) { tobiasGrab(e); return; }
   if (m.id === 'tobias' && e.id === GOAT_ID) { tobiasGoat(e); return; }
   const exact = isExact(m, e), tg = tagged(e);
@@ -7411,7 +7414,7 @@ function tinnyPeek(){
 /* ---------- Auctions ----------
    Two rooms, one engine. At the Scrapyard fire the Rejects bid on Gold and Black Market, and it ends in a brawl.
    In the Prestige penthouse the six bid on Black Market only (never Tobias), and it ends in a shouting match.
-   Each crew holds one auction every AUC_EVERY case opens. Bought stock (shop, vault, PK1) is never accepted.
+   Each crew holds one auction every AUC_EVERY case opens. Bought stock is accepted; whoever sold it to you sits that auction out.
    In the penthouse, if the piece is good enough (GALA_SWAP and up) and Vance still has his one of one, he
    stops the room near the end and offers it as a straight swap. */
 const AUC_EVERY = 8, GALA_SWAP = 120000;
@@ -7458,7 +7461,7 @@ const AUC_A = {
 };
 let auc = null;
 const aucLeftOf = A => { const L = A.log(); return L.aucAt == null ? 0 : Math.max(0, AUC_EVERY - (state.opened - L.aucAt)); };
-const aucItemsOf = A => state.inv.filter(e => BY[e.id] && A.ok(e) && !tagged(e));
+const aucItemsOf = A => state.inv.filter(e => BY[e.id] && A.ok(e));
 const aucLeft = () => aucLeftOf(AUC_A.yard);
 function aucCard(kind){
   const A = AUC_A[kind || 'yard'], n = aucItemsOf(A).length, left = aucLeftOf(A), b = document.createElement('button');
@@ -7479,7 +7482,7 @@ function openAuction(kind){
   if (!A || !presOpen || room || auc) return;
   const left = aucLeftOf(A), items = aucItemsOf(A);
   if (left) { toast((kind === 'pres' ? 'The penthouse isn’t ready. ' : 'Still arguing about the last one. ') + 'Open ' + left + ' more case' + (left === 1 ? '' : 's') + '.'); tone(150, .2, 'square', .04); return; }
-  if (!items.length) { toast(kind === 'pres' ? 'Bring Black Market. Bought stock doesn’t count.' : 'Bring Gold or Black Market. Bought stock doesn’t count.'); tone(150, .2, 'square', .04); return; }
+  if (!items.length) { toast(kind === 'pres' ? 'Bring Black Market to the penthouse.' : 'Bring Gold or Black Market to the fire.'); tone(150, .2, 'square', .04); return; }
   ac();
   auc = {A, kind, e: null, skip: false, done: false, wake: null};
   const el = $('#auc'); el.hidden = false; el.className = 'auc ' + A.cls;
@@ -7640,7 +7643,7 @@ function aucShowBid(v, mkt, who){
 const vanceHasIt = () => P().vvault !== 'won' && !state.inv.some(x => x.id === VANCE_ID);
 async function runAuction(e){
   const ctl = auc; if (!ctl) return;
-  const A = ctl.A;
+  const A0 = ctl.A, A = Object.assign({}, A0, {ids: A0.ids.filter(x => x !== e.from)});   // whoever sold it to you sits this one out
   ctl.e = e; A.log().aucAt = state.opened; save();
   const it = BY[e.id], mkt = e.v, two = Math.random() < A.twoCh, T = two ? A.two : A.lo + Math.random() * A.span;
   const steps = two ? 10 : 7 + Math.floor(Math.random() * 2), heatAt = 3 + Math.floor(Math.random() * 2);
@@ -10510,7 +10513,7 @@ $('#prRoom').addEventListener('click', e => {
   const it = e.target.closest('.pr-it');
   if (it && !(neg && neg.lock) && !actBusy) {
     const ent = state.inv.find(x => x.uid === it.dataset.uid);
-    if (ent && room && !buys(room, ent)) refuseItem(ent); else startNeg(it.dataset.uid);
+    if (ent && room && (!buys(room, ent) || ownStock(room, ent))) refuseItem(ent); else startNeg(it.dataset.uid);
   }
 });
 $('#bcTake').onclick = closeBrief;
