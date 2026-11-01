@@ -2721,6 +2721,16 @@ body.dz-open .toast{z-index:95}
 .rcard.chc-card{box-shadow:0 0 0 2px #ff7ad9,0 0 18px rgba(255,122,217,.6)}
 .rcard.near.near-pulse{animation:nearPulse .5s ease-in-out 4 alternate}
 @keyframes nearPulse{to{filter:brightness(1.8);transform:scale(1.05)}}
+
+/* Brick stepping into Vance's office */
+.bk-in{position:absolute;inset:0;z-index:2;pointer-events:none}
+.bk-in svg{display:block;width:100%;height:100%}
+.bk-body{transform:translateX(170px);transition:transform .45s cubic-bezier(.2,1.25,.4,1)}
+.bk-in.on .bk-body{transform:none}
+.bk-arm{opacity:0;transition:opacity .2s .4s}
+.bk-in.on .bk-arm{opacity:1}
+.bk-in.out .bk-body{transform:translateX(190px);transition:transform .6s cubic-bezier(.6,0,.8,.4)}
+.bk-in.out .bk-arm{opacity:0;transition-delay:0s}
 </style>
 
 <div class="wrap" id="wrap">
@@ -3177,15 +3187,18 @@ const ITEMS = [
   {id:'f8', w:'smg',     name:'Blizzard',    t:3, pat:'tiger',   pal:['#e8f3fb','#264f73']},
   {id:'f9', w:'rifle',   name:'Polar Night', t:3, pat:'galaxy',  pal:['#020a16','#1e6bff','#29ffd4']},
   {id:'f10',w:'sniper',  name:'Frost Wyrm',  t:4, pat:'doppler', pal:['#06182b','#2aa8ff','#c9f2ff']},
-  // Gold pool (knives)
+  // Gold pool: knives and rifles. Retired pieces (ex) stay valid in anyone's bag but no longer drop.
   {id:'g1', w:'karambit',  name:'Solar Flare',    t:5, pat:'doppler', pal:['#2a0500','#ff3d1a','#ffcf3a'], m:1.4},
-  {id:'g2', w:'karambit',  name:'Deep Space',     t:5, pat:'galaxy',  pal:['#03020a','#7a3cff','#2fd3ff'], m:1.2},
+  {id:'g2', w:'karambit',  name:'Deep Space',     t:5, pat:'galaxy',  pal:['#03020a','#7a3cff','#2fd3ff'], m:1.2, ex:true},
   {id:'g3', w:'bayonet',   name:'Liquid Gold',    t:5, pat:'fade',    pal:['#7a4a00','#ffd34d','#fff3b0','#c98a0b'], m:1.3},
   {id:'g4', w:'bayonet',   name:'Emerald Tide',   t:5, pat:'doppler', pal:['#01150c','#13d36b','#9dffcf'], m:1.5},
   {id:'g5', w:'butterfly', name:'Prism',          t:5, pat:'fade',    pal:['#ff3e6c','#ffd23f','#2fe38a','#3aa0ff','#a24bff'], m:1.6},
-  {id:'g6', w:'butterfly', name:'Night Tiger',    t:5, pat:'tiger',   pal:['#f2b632','#120c02'], m:1.0},
-  {id:'g7', w:'bowie',     name:'Blood Moon',     t:5, pat:'marble',  pal:['#3a0006','#b3001b','#ff6b6b'], m:1.0},
+  {id:'g6', w:'butterfly', name:'Night Tiger',    t:5, pat:'tiger',   pal:['#f2b632','#120c02'], m:1.0, ex:true},
+  {id:'g7', w:'bowie',     name:'Blood Moon',     t:5, pat:'marble',  pal:['#3a0006','#b3001b','#ff6b6b'], m:1.0, ex:true},
   {id:'g8', w:'bowie',     name:'Sapphire Storm', t:5, pat:'doppler', pal:['#020a24','#1f4dff','#7fd0ff'], m:1.7},
+  {id:'g9', w:'rifle',     name:'Gilded Lion',    t:5, pat:'fade',    pal:['#7a4a00','#ffd34d','#fff3b0','#c98a0b'], m:1.3},
+  {id:'g10',w:'rifle',     name:'Inferno Crown',  t:5, pat:'flame',   pal:['#2a0500','#ff6a1a','#ffd23f'], m:1.2},
+  {id:'g11',w:'rifle',     name:'Aurora Royale',  t:5, pat:'galaxy',  pal:['#03020a','#7a3cff','#2fd3ff'], m:1.5},
   // Black Market (trade-up only)
   {id:'b1', w:'rifle',     name:'Abyssal Crown',  t:6, pat:'abyss',  pal:['#05010a','#a855f7','#f0e1ff'], m:1.0},
   {id:'b2', w:'sniper',    name:'Void Monarch',   t:6, pat:'runes',  pal:['#06020c','#b46cff','#3b0a6b'], m:1.15},
@@ -3208,7 +3221,7 @@ const pickOne = a => a[Math.floor(Math.random()*a.length)];
 
 const BY = {};
 ITEMS.forEach(it => { if (it.m == null) it.m = .85 + (hash(it.id) % 40) / 100; BY[it.id] = it; });
-const GOLD = ITEMS.filter(i => i.t === 5).map(i => i.id);
+const GOLD = ITEMS.filter(i => i.t === 5 && !i.ex).map(i => i.id);
 const BM_IDS = ITEMS.filter(i => i.t === 6 && !i.ex).map(i => i.id);
 
 const CASES = [
@@ -4097,7 +4110,7 @@ function openPreview(c){
   const body = $('#pvBody'); body.innerHTML = hacked.length ? '<div class="pv-note">Odds include your active hacks: ' + hacked.map(k => HACK_BY[k].name).join(' + ') + '</div>' : '';
   groups.forEach(g => {
     const T = TIERS[g.t], n = g.ids.filter(id => have.has(id)).length;
-    body.insertAdjacentHTML('beforeend', '<div class="pv-grp" style="--tc:' + T.color + '"><span>' + T.name + (g.t === 5 ? ' ★ knives' : '') + ' · ' + pctText(g.pct) + '</span><b>' + n + '/' + g.ids.length + '</b></div>');
+    body.insertAdjacentHTML('beforeend', '<div class="pv-grp" style="--tc:' + T.color + '"><span>' + T.name + (g.t === 5 ? ' ★ knives & rifles' : '') + ' · ' + pctText(g.pct) + '</span><b>' + n + '/' + g.ids.length + '</b></div>');
     const grid = document.createElement('div'); grid.className = 'pv-grid';
     g.ids.forEach(id => {
       const it = BY[id], ok = have.has(id), d = document.createElement('div');
@@ -4147,7 +4160,7 @@ function renderContents(c, w, tot){
     const pool = c.pools[t]; count += pool.length;
     const each = w[t] / tot * 100 / pool.length;
     const h = document.createElement('div'); h.className = 'grp';
-    h.textContent = TIERS[t].name + (t === 5 ? ' ★ knives' : '') + ' · ' + pctText(w[t]/tot*100);
+    h.textContent = TIERS[t].name + (t === 5 ? ' ★ knives & rifles' : '') + ' · ' + pctText(w[t]/tot*100);
     grid.append(h);
     pool.forEach(id => {
       const it = BY[id], d = document.createElement('div');
@@ -5046,7 +5059,7 @@ function showReveal(r, postCine){
   else if (t === 6) title.innerHTML = '<span class="glitch" data-text="BLACK MARKET">BLACK MARKET</span>';
   else if (t === 7) title.innerHTML = '<span class="chroma-t">CHROMA · 1 OF 1</span>';
   else title.innerHTML = '';
-  $('#rvTier').textContent = t === 7 ? 'Chroma · the only one there is' : t === 5 ? 'Gold · Knife' : t === 6 ? 'Contraband · ' + WNAME[it.w].replace('★ ', '') : T.name + ' · ' + WNAME[it.w];
+  $('#rvTier').textContent = t === 7 ? 'Chroma · the only one there is' : t === 5 ? 'Gold · ' + WNAME[it.w].replace('★ ', '') : t === 6 ? 'Contraband · ' + WNAME[it.w].replace('★ ', '') : T.name + ' · ' + WNAME[it.w];
   const cv = $('#rvArt'), g = cv.getContext('2d'); g.clearRect(0,0,cv.width,cv.height); { const src = renderItem(it, r.fl, 3); g.drawImage(src, 0, 0); freeCanvas(src); }
   $('#rvName').innerHTML = '<span class="w">' + WNAME[it.w] + ' |</span> ' + it.name;
   $('#rvMeta').textContent = WEARS[wi].n + ' · Float ' + r.fl.toFixed(4) + (r.src === 'trade' ? ' · Trade-up' : r.src === 'goat' ? ' · From Messi’s lab' : r.src === 'vault' ? (r.from === 'vance' ? ' · From Vance’s private collection' : ' · From Sable’s hidden case') : '') + (r.hk && r.hk.length ? ' · Hacked' : '') + (r.preview ? ' · Preview only' : '');
@@ -6586,6 +6599,7 @@ function closeDeal(){
   state.inv = state.inv.filter(x => x.uid !== e.uid);
   const lg = m.yard ? Y() : P();
   state.bal += amt; lg.deals = (lg.deals || 0) + 1; lg.earned = (lg.earned || 0) + amt; if (brief) lg.briefs = (lg.briefs || 0) + 1;
+  if (m.id === 'vance') P().vanceTook = (P().vanceTook || 0) + amt;
   if (kn) Y().home = true;
   const shelved = SHOPS[m.id] && SHOPS[m.id].shelf;
   if (shelved) shelfAdd(e, amt);
@@ -6681,7 +6695,8 @@ async function egoBluff(m, before){
     } else egoKick(m, 'GET OUT! And don’t come back till I calm down!');
     return;
   }
-  // Vance
+  // Vance. Once you've taken 300k off him in total, Brick is watching: two bluffs, and the third one he steps in.
+  if (brickGuard()) { neg.vb = (neg.vb || 0) + 1; if (neg.vb > BRICK_MAX) { await brickStops(m); return; } }
   if (vanceChain(m, e)) { await vanceExact(m, before); return; }
   if (!ok) {
     setAnger(2); sc_thump();
@@ -6735,6 +6750,42 @@ async function wrenBluff(m, before){
     tone(523, .14, 'triangle', .07); tone(784, .14, 'triangle', .07, .09);
     renderLeft('up');
   } else egoKick(m, m.say.bluffNo);
+}
+const BRICK_CUT = 300000, BRICK_MAX = 2;
+const brickGuard = () => (P().vanceTook || 0) >= BRICK_CUT;
+async function brickStops(m){
+  const sc = roomSc(), st = $('#prRoom .rm-stage'), alive = () => room === m && neg && sc && sc.isConnected, first = !P().brickStopped;
+  setAnger(3); sc_thump();
+  await sayRoom('ANOTHER buyer?! That’s it. I’m going to the safe. I’m going to—', 'mad');
+  if (!alive()) return (actBusy = false);
+  sc.classList.add('v-stand'); noise(.4, 300, 120, .2, 'lowpass');
+  await wait(500); if (!alive()) return (actBusy = false);
+  // the door, then Brick
+  boom(); noise(.5, 1200, 150, .3, 'lowpass'); shakeStage();
+  const F = FACE.brick, ov = document.createElement('div'); ov.className = 'bk-in';
+  ov.innerHTML = SVG0 + '<g class="bk-body">' + fig('brick', 284, 30, 1.08)
+    + '<path class="bk-arm" d="M294 168 Q262 150 226 138" stroke="' + F.coat + '" stroke-width="22" stroke-linecap="round" fill="none"/><circle class="bk-arm" cx="224" cy="137" r="13" fill="' + F.skin + '"/></g></svg>';
+  if (st) st.append(ov);
+  requestAnimationFrame(() => ov.classList.add('on'));
+  [0, 160, 320].forEach(t => setTimeout(() => tone(62, .16, 'sine', .3), t));
+  await wait(650); if (!alive()) { ov.remove(); return (actBusy = false); }
+  tone(90, .3, 'sawtooth', .08); noise(.2, 800, 200, .12, 'lowpass');
+  await sayRoom('Brick: WHOA. Whoa whoa whoa. Boss. Sit. DOWN.', 'mad');
+  await wait(900); if (!alive()) { ov.remove(); return (actBusy = false); }
+  if (first) {
+    await sayRoom('Brick: This one’s taken ' + fmt(P().vanceTook) + ' off you already. With that “other buyer” line.', '');
+    await wait(1300); if (!alive()) { ov.remove(); return (actBusy = false); }
+    await sayRoom('Brick: Two bluffs. That’s the limit with this one now. I’m cutting you off.', '');
+    await wait(1200); if (!alive()) { ov.remove(); return (actBusy = false); }
+  } else {
+    await sayRoom('Brick: Nope. Two’s the limit, Boss. We talked about this.', '');
+    await wait(1100); if (!alive()) { ov.remove(); return (actBusy = false); }
+  }
+  sc.classList.remove('v-stand'); setAnger(1);
+  ov.classList.add('out'); setTimeout(() => ov.remove(), 700);
+  P().brickStopped = true; neg.noBluff = true; save();
+  await sayRoom('…Fine. My offer stands. ' + fmt(neg.offer) + ' cr. No more games.', 'mad');
+  actBusy = false; renderLeft();
 }
 function sc_thump(){ const sc = roomSc(); if (!sc) return; restart(sc, 'v-thump'); tone(60, .3, 'sine', .35); noise(.12, 900, 200, .18, 'lowpass'); shakeStage(); }
 function egoKick(m, line){ bluffFail(m, line, 2400); }
