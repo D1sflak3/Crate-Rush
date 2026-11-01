@@ -2580,6 +2580,50 @@ body.dz-open .toast{z-index:95}
   .dz-hud{left:10px;right:10px;width:auto;bottom:max(10px,env(safe-area-inset-bottom,0px));top:calc(min(56vh,100vw) - 12px);max-height:none}
 }
 @media (prefers-reduced-motion: reduce){.dz-lp,.dz-band,.dz-flecks,.dz-facets,.dz-fg0,.dz-fg1,.dz-fg2,.dz-me,.dz-cwa,.dz-dn,.dz-sign,.dz-strips,.dz-lava,.dz-beads{animation:none}}
+
+/* ---------- Trading ---------- */
+.lb-row{width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;transition:border-color var(--dur-fast),transform var(--dur-fast)}
+.lb-row:hover{border-color:var(--accent);transform:translateX(2px)}
+.lb-lock{font-size:12px}
+.lb-empty+.lb-row{margin-top:10px}
+.tr-btn{position:relative}.tr-btn b{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#ff3ea5;color:#fff;font:700 11px/18px var(--body);box-shadow:0 0 0 2px var(--bg,#0a0f15)}
+.tv .pv-card{width:min(860px,100%)}
+.tv .pv-head{align-items:center;gap:10px}
+.tv-back{flex:none}
+.tv-stats{display:flex;flex-wrap:wrap;gap:8px 18px;margin:6px 0 12px;color:var(--muted);font-size:14px}.tv-stats b{color:var(--text);font-family:var(--display);font-size:20px;margin-right:4px}
+.tv-acts{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0}
+.tv-note{color:var(--muted);font-size:13px}
+.tv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(122px,1fr));gap:8px;margin-top:10px}
+.tv-grid.sm{grid-template-columns:repeat(auto-fill,minmax(104px,1fr));max-height:min(46vh,420px);overflow:auto;padding:2px}
+.tv-it{appearance:none;display:grid;justify-items:center;gap:2px;padding:8px 6px;border-radius:10px;border:1px solid var(--line);background:linear-gradient(180deg,color-mix(in srgb,var(--tc) 14%,#111720),#0d1218);color:var(--text);font:inherit;cursor:pointer;position:relative;box-shadow:inset 0 -2px 0 var(--tc)}
+.tv-it[tabindex="-1"]{cursor:default}
+.tv-it i{display:grid;place-items:center;width:100%;height:46px}.tv-it i img{max-width:92px;max-height:44px}
+.tv-it b{font-size:12px;line-height:1.15;text-align:center}.tv-it small{font-size:10.5px;color:var(--muted);text-align:center}
+.tv-it.on{border-color:var(--accent);box-shadow:inset 0 -2px 0 var(--tc),0 0 0 2px var(--accent)}
+.tv-it.on::after{content:"✓";position:absolute;top:4px;right:6px;font-weight:800;color:var(--accent)}
+.tv-private{display:grid;justify-items:center;gap:4px;padding:26px 12px;margin-top:10px;border:1px dashed var(--line);border-radius:12px;text-align:center;color:var(--muted);font-size:26px}
+.tv-private b{font-size:16px;color:var(--text)}.tv-private span{font-size:13px}
+.tv-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+.tv-cols section{min-width:0;padding:12px;border:1px solid var(--line);border-radius:12px;background:#0d1218}
+.tv-cols h3,.tv-h{margin:0 0 8px;font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:.03em}
+.tv-cols h3 small{font-family:var(--body);font-size:12px;font-weight:600;color:var(--muted);margin-left:6px}
+.tv-h{margin:18px 0 6px}
+.tv-cr{display:flex;align-items:center;gap:8px;padding:0 10px;border:1px solid var(--line);border-radius:10px;background:#0a0f15}
+.tv-cr input{flex:1;min-width:0;padding:10px 0;border:0;background:none;color:var(--text);font:600 15px var(--body);outline:none}
+.tv-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;flex-wrap:wrap}
+.tv-tr{padding:12px;border:1px solid var(--line);border-radius:12px;background:#0d1218;margin-top:8px}
+.tv-tr.accepted{border-color:color-mix(in srgb,#39ff88 45%,var(--line))}.tv-tr.declined,.tv-tr.cancelled,.tv-tr.failed{opacity:.6}
+.tv-trh{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.tv-st{font-size:12px;color:var(--muted);text-transform:capitalize}
+.tv-who{appearance:none;border:0;background:none;color:var(--accent);font:inherit;padding:0;cursor:pointer;text-decoration:underline}
+.tv-swap{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:start}
+.tv-swap small{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.tv-arr{align-self:center;font-size:22px;color:var(--muted)}
+.tv-side{display:flex;flex-wrap:wrap;gap:6px}.tv-side .tv-it{width:96px}
+.tv-crchip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid var(--line);font-weight:700;font-size:14px;align-self:center}
+.tv-nothing{color:var(--muted);font-size:13px;align-self:center}
+.dz-shelf-list .dz-it em{font-style:normal;font-size:10px;color:#2fe3ff;opacity:.85}
+@media (max-width:640px){.tv-cols{grid-template-columns:1fr}.tv-swap{grid-template-columns:1fr}.tv-arr{display:none}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -2597,6 +2641,7 @@ body.dz-open .toast{z-index:95}
       <button class="icon-btn adm-btn" id="admBtn" hidden aria-label="Admin panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7l5 5-5 5M12 18h7"/></svg></button>
       <button class="icon-btn" id="muteBtn" aria-label="Mute sound"></button>
       <button class="icon-btn" id="lbBtn" aria-label="Leaderboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 20h8"/></svg></button>
+      <button class="icon-btn tr-btn" id="trBtn" hidden aria-label="Trades"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg><b id="trBadge" hidden></b></button>
       <button class="icon-btn acct-btn" id="acctBtn" hidden aria-label="Account"><span>?</span></button>
       <div class="acct-menu" id="acctMenu" hidden><div id="acctWho"></div><button class="ghost sm" id="acctOut" type="button">Sign out</button></div>
     </div>
@@ -10160,7 +10205,8 @@ const DANCE_LADDER = [
 let dz = null, dzBeat = null;
 const DZ_COLS = ['#ff3ea5', '#ffd23f', '#39ff88', '#2fe3ff', '#7a6aff', '#ff8a3d'];
 const dzId = () => Math.random().toString(36).slice(2, 7);
-const dzShelf = () => P().dshelf || (P().dshelf = []);
+/* signed in: the shelf everyone shares (see Trading). Offline: this device's own shelf */
+const dzShelf = () => (online() && gShelf) ? gShelf : (P().dshelf || (P().dshelf = []));
 
 /* His face: long jaw, sideburns, a chevron moustache, a big grin with one gold tooth, and huge rainbow shades */
 function danceFace(id, mood){
@@ -10417,8 +10463,10 @@ function dzToPrivate(){
   noise(.5, 3000, 600, .05, 'bandpass'); for (let i = 0; i < 8; i++) tone(1800 + Math.random()*1600, .05, 'triangle', .02, i*.04);
   setTimeout(() => { if (!dz) return; dzMusic(true, true); dzBooth(); const d = dzEl(); d.classList.add('dz-enter'); setTimeout(() => d.classList.remove('dz-enter'), 700); }, 420);
 }
-function dzBooth(line){
+function dzBooth(line, loaded){
   const broke = P().danceBroke;
+  if (!loaded && online()) shelfLoad().then(() => { if (dz && !dz.e && !dzEl().hidden && dzEl().classList.contains('k-private')) dzBooth(line || dz.lastLine, true); });
+  if (dz) { dz.lastLine = line; dz.e = null; }
   if (dz && !line) Object.assign(dz, {pile: [], stacks: 0, mood: broke ? 'cry' : ''});
   if (dz) dz.broke = broke;
   const n = dzShelf().length;
@@ -10435,16 +10483,25 @@ function dzShelfPanel(sel){
   const sh = dzShelf();
   if (!sh.length) { dzPanel(dzSay('Empty, baby! Sell me some Chroma and it goes right up there. Lit from below. Very classy.', dzB('back', 'Back', true))); return; }
   const i = sel != null && sh[sel] ? sel : 0, it = sh[i], X = BY[it.id];
-  dzPanel(dzChat(i === sel ? 'That one? ' + fmt(it.price) + '. I paid you ' + fmt(it.paid) + ' for it. Twice that, baby. I’m fun, not stupid.' : 'My shelf! Everything you ever sold me. ' + DANCE_SHELF_X + '× what I paid, if you want one back.')
-    + '<div class="dz-shelf-list">' + sh.map((x, k) => '<button class="dz-it' + (k === i ? ' on' : '') + '" data-dz="shelfsel" data-v="' + k + '"><span class="dzt" data-u="s' + k + '"></span><b>' + BY[x.id].name + '</b><small>' + fmt(x.price) + ' cr</small></button>').join('') + '</div>'
+  const by = it.seller ? (it.mine ? 'you' : escH(it.seller)) : 'you';
+  dzPanel(dzChat(i === sel ? 'That one? ' + by.replace(/^you$/, 'You') + ' sold it to me for ' + fmt(it.paid) + '. ' + fmt(it.price) + ' and it’s yours. Twice that, baby. I’m fun, not stupid.' : gShelf && online() ? 'My shelf! Everybody in town sells to me, and everybody can see it. First one to pay ' + DANCE_SHELF_X + '× what I paid takes it home.' : 'My shelf! Everything you ever sold me. ' + DANCE_SHELF_X + '× what I paid, if you want one back.')
+    + '<div class="dz-shelf-list">' + sh.map((x, k) => '<button class="dz-it' + (k === i ? ' on' : '') + '" data-dz="shelfsel" data-v="' + k + '"><span class="dzt" data-u="s' + k + '"></span><b>' + BY[x.id].name + '</b><small>' + fmt(x.price) + ' cr</small>' + (x.seller ? '<em>from ' + (x.mine ? 'you' : escH(x.seller)) + '</em>' : '') + '</button>').join('') + '</div>'
     + '<div class="dz-acts">' + dzB('shelfbuy', 'Buy the ' + X.name, false, state.bal < it.price, fmt(it.price) + ' cr') + dzB('back', 'Back', true) + '</div>');
   dz.shelfSel = i;
   dzEl().querySelectorAll('.dz-shelf-list .dzt').forEach(sp => { const x = sh[+sp.dataset.u.slice(1)]; if (x) sp.append(thumb(BY[x.id], wearIdx(x.fl))); });
 }
-function dzShelfBuy(){
+async function dzShelfBuy(){
   const sh = dzShelf(), i = dz.shelfSel, it = sh[i]; if (!it) return;
   if (state.bal < it.price) { tone(150, .2, 'sawtooth', .05); dzShelfPanel(i); return; }
   if (bagBlock(1)) return;
+  if (it.sid) {
+    dzPanel(dzSay('Wrapping it up for you, baby…'));
+    try { await tradeCall('shelf_buy', {sid: it.sid}); }
+    catch (err) { tone(150, .2, 'sawtooth', .05); await shelfLoad(); dzBooth(/too slow/i.test(err.message) ? 'Ooh, sorry baby. ' + err.message + '.' : 'Paperwork problem: ' + err.message); return; }
+    kaching(); await shelfLoad();
+    dzBooth('Off the shelf and into your bag! ' + fmt(it.price) + ' cr. ' + (it.mine ? 'Welcome home, little one.' : 'Don’t tell ' + escH(it.seller) + '.'), true);
+    return;
+  }
   state.bal -= it.price; sh.splice(i, 1);
   state.inv.unshift({uid: uid(), id: it.id, fl: it.fl, v: it.v, at: Date.now(), hk: [], src: 'shop', from: 'dance'});
   save(); setBal(-it.price); renderInv(); renderStats(); kaching();
@@ -10495,13 +10552,21 @@ function dzBluff(){
 async function dzDeal(){
   const {e, goat, offer, pile} = dz;
   if (!state.inv.find(x => x.uid === e.uid)) return;
+  // signed in: it goes on the shelf everybody sees
+  let shared = false;
+  if (online()) {
+    dzPanel(dzSay('Hold on, baby, let me make room on the shelf…'));
+    try { const r = await tradeCall('shelf_put', {item_uid: e.uid, paid: offer}); shared = !r.skip; }
+    catch (err) { tone(150, .2, 'sawtooth', .05); dzNeg('Paperwork problem: ' + err.message); return; }
+  }
   state.inv = state.inv.filter(x => x.uid !== e.uid);
   let items = [], cash = offer;
   if (pile.length && bagFree() >= pile.length) { items = pile.map(p => ({uid: uid(), id: p.id, fl: p.fl, v: p.v, at: Date.now(), hk: [], src: 'shop', from: 'dance'})); cash = offer - items.reduce((a, x) => a + x.v, 0); }
   items.forEach(x => { state.inv.unshift(x); gotBM(x.id); });
   state.bal += cash; P().danceDeals = (P().danceDeals || 0) + 1;
   // up it goes on his shelf
-  const sh = dzShelf(); sh.unshift({k: uid(), id: e.id, fl: e.fl, v: e.v, paid: offer, price: Math.round(offer * DANCE_SHELF_X)}); sh.length = Math.min(sh.length, DANCE_SHELF_N);
+  if (shared) shelfLoad().then(() => { if (dz && !dzEl().hidden && !dz.broke) dzShow('private', $('#dzPanel').innerHTML); });
+  else { const sh = P().dshelf || (P().dshelf = []); sh.unshift({k: uid(), id: e.id, fl: e.fl, v: e.v, paid: offer, price: Math.round(offer * DANCE_SHELF_X)}); sh.length = Math.min(sh.length, DANCE_SHELF_N); }
   if (goat && dz.step >= DANCE_LADDER.length) P().danceBroke = true;
   save(); setBal(cash); renderInv(); renderStats(); kaching();
   let t = 0; for (let i = 0; i < 26; i++) { t += .025; keyClick(t, null, .025, 1500); }
@@ -11255,12 +11320,12 @@ function cloudQueue(){
 }
 function cloudPush(keep){
   clearTimeout(pushTimer);
-  if (!me || !sbSession || offline || localStorage.getItem(UID_KEY) !== me.id) return Promise.resolve();
+  if (!me || !sbSession || offline || localStorage.getItem(UID_KEY) !== me.id) return Promise.resolve(false);
   return fetch(SB_URL + '/rest/v1/saves?on_conflict=user_id', {
     method: 'POST', keepalive: !!keep,
     headers: {apikey: SB_KEY, Authorization: 'Bearer ' + sbSession.access_token, 'Content-Type': 'application/json', Prefer: 'resolution=merge-duplicates,return=minimal'},
     body: JSON.stringify({user_id: me.id, data: state, updated_at: new Date().toISOString()})
-  }).then(r => { acctDot(r.ok ? 'ok' : 'err'); }).catch(() => acctDot('err'));
+  }).then(r => { acctDot(r.ok ? 'ok' : 'err'); return r.ok; }).catch(() => { acctDot('err'); return false; });
 }
 addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') cloudPush(true); });
 addEventListener('pagehide', () => cloudPush(true));
@@ -11284,6 +11349,7 @@ function showGate(mode){
 function gateMsg(text, kind){ const m = $g('#auMsg'); m.textContent = text || ''; m.className = 'au-msg' + (kind ? ' ' + kind : ''); }
 function hideGate(){
   $('#auth').hidden = true; acctRender();
+  if (me && !offline) setTimeout(tradeSync, 1200);
   if (!booted) { booted = true; bootScenes(); }
 }
 function acctDot(s){ const b = $('#acctBtn'); if (b) b.dataset.sync = s; }
@@ -11386,6 +11452,198 @@ async function signOut(){
   try { localStorage.removeItem(KEY); localStorage.removeItem(UID_KEY); } catch (e) {}
   location.reload();
 }
+/* ---------- Trading, profiles and the shared shelf ----------
+   The server never edits a save. Every move (an offer taking your items, a trade landing, a refund, a buy off
+   Dance's shelf) is written to your ledger once; the game applies each entry exactly once (its id goes into
+   state.led), pushes the save, and the server only marks an entry done once the pushed save carries its id.
+   That way a crash, a second tab or a slow connection can't duplicate or lose anything. */
+const ledIds = () => state.led || (state.led = []);
+const online = () => !!(me && !offline && sb && sbSession);
+function ledApply(entries){
+  let n = 0, dcr = 0;
+  for (const e of entries || []) {
+    if (ledIds().includes(e.id)) continue;
+    const rm = new Set(e.rm || []);
+    state.inv = state.inv.filter(x => !rm.has(x.uid));
+    for (const it of e.add || []) if (BY[it.id] && !state.inv.some(x => x.uid === it.uid)) state.inv.unshift(Object.assign({at: Date.now(), hk: []}, it, {v: Number(it.v) || 0, fl: Number(it.fl) || 0}));
+    const cr = Number(e.cr) || 0; state.bal += cr; dcr += cr;
+    ledIds().push(e.id); n++;
+  }
+  if (state.led.length > 400) state.led = state.led.slice(-400);
+  if (n) { save(); renderInv(); renderStats(); setBal(dcr); prBal(); }
+  return n;
+}
+async function ledAck(){
+  const pend = (await sb.rpc('ledger_pending')).data || [];
+  const ids = pend.map(e => e.id).filter(id => ledIds().includes(id));
+  if (ids.length) await sb.rpc('ledger_ack', {ids});
+}
+/* push the save, run a server move, apply what it hands back, push again, confirm */
+async function tradeCall(fn, args){
+  if (!online()) throw new Error('Sign in to trade.');
+  if (!(await cloudPush())) throw new Error('Couldn’t save to your account. Check your connection.');
+  const {data, error} = await sb.rpc(fn, args);
+  if (error) throw new Error((error.message || 'Something went wrong').replace(/^.*?:\s*/, '').replace(/^\w/, c => c.toUpperCase()));
+  if (data && data.entries) { ledApply(data.entries); await cloudPush(); ledAck().catch(() => {}); }
+  return data || {};
+}
+let tradeSyncing = false;
+async function tradeSync(){
+  if (!online() || tradeSyncing) return;
+  tradeSyncing = true;
+  try {
+    const pend = (await sb.rpc('ledger_pending')).data || [];
+    const fresh = pend.filter(e => !ledIds().includes(e.id));
+    if (fresh.length) {
+      ledApply(fresh);
+      const got = fresh.filter(e => /^trade|^returned/.test(e.why) && ((e.add || []).length || e.cr > 0));
+      if (got.length) toast(got.some(e => /^trade/.test(e.why)) ? 'A trade went through. Check your bag!' : 'An offer came back to you.');
+    }
+    if (pend.length) { await cloudPush(); await ledAck(); }
+    const {count} = await sb.from('trades').select('id', {count: 'exact', head: true}).eq('to_uid', me.id).eq('status', 'pending');
+    const b = $('#trBadge'); if (b) { b.textContent = count || ''; b.hidden = !count; }
+    $('#trBtn').hidden = false;
+  } catch (e) {} finally { tradeSyncing = false; }
+}
+setInterval(tradeSync, 40000);
+addEventListener('focus', () => tradeSync());
+
+/* ---- overlays ---- */
+function tvOpen(html){
+  let el = $('#tv'); if (!el) { el = document.createElement('div'); el.id = 'tv'; el.className = 'pv tv'; document.body.append(el);
+    el.addEventListener('click', e => { if (e.target === el) tvClose(); }); }
+  el.hidden = false; el.innerHTML = '<div class="pv-card" role="dialog" aria-modal="true">' + html + '</div>';
+  return el;
+}
+function tvClose(){ const el = $('#tv'); if (el) { el.hidden = true; el.innerHTML = ''; } }
+const tvHead = (eyebrow, title, back) => '<div class="pv-head">' + (back ? '<button class="icon-btn tv-back" data-t="' + back + '" aria-label="Back">‹</button>' : '') + '<div class="pv-ttl"><div class="eyebrow">' + eyebrow + '</div><h2>' + title + '</h2></div><button class="icon-btn pv-x" data-t="close" aria-label="Close">✕</button></div>';
+const tvMsg = (t, kind) => { const m = $('#tvMsg'); if (m) { m.textContent = t || ''; m.className = 'au-msg' + (kind ? ' ' + kind : ''); } };
+function tvThumbs(root){ (root || $('#tv')).querySelectorAll('[data-th]').forEach(s => { if (s.firstChild) return; const [id, fl] = s.dataset.th.split('|'); if (BY[id]) s.append(thumb(BY[id], wearIdx(+fl))); }); }
+const tvItem = (e, attrs, on) => { const it = BY[e.id]; if (!it) return ''; return '<button type="button" class="tv-it' + (on ? ' on' : '') + '" style="--tc:' + TIERS[it.t].color + '" ' + (attrs || '') + '><i data-th="' + e.id + '|' + e.fl + '"></i><b>' + it.name + '</b><small>' + WEARS[wearIdx(+e.fl)].n + ' · ' + fmt(Math.round(+e.v)) + '</small></button>'; };
+
+let tv = null;   // what the trade window is showing
+async function openCard(uid){
+  tv = {view: 'card', uid};
+  tvOpen(tvHead('Player', 'Loading…') + '<p class="lb-empty">Loading…</p>');
+  if (uid === me.id) await cloudPush();
+  const {data, error} = await sb.rpc('player_card', {target: uid});
+  if (!tv || tv.uid !== uid) return;
+  if (error) { tvOpen(tvHead('Player', 'Couldn’t load') + '<p class="lb-empty">' + escH(error.message) + '</p>'); return; }
+  tv.card = data; renderCard();
+}
+function renderCard(){
+  const c = tv.card, inv = c.inv ? c.inv.slice().sort((a, b) => b.v - a.v) : null;
+  let h = tvHead(c.me ? 'Your profile' : 'Player profile', escH(c.name) + (c.private ? ' <span class="tv-lock" title="Private bag">🔒</span>' : ''));
+  h += '<div class="tv-stats"><span><b>' + fmt(c.opened) + '</b> cases opened</span>' + (c.bal != null ? '<span><b>' + fmt(c.bal) + '</b> credits</span>' : '') + (inv ? '<span><b>' + inv.length + '</b> items</span>' : '') + '</div>';
+  if (c.me) h += '<div class="tv-acts"><button class="ghost sm" data-t="priv">' + (c.private ? '🔒 Bag is private · make it public' : '👁 Bag is public · make it private') + '</button><button class="ghost sm" data-t="inbox">My trades</button></div>';
+  else h += '<div class="tv-acts">' + (c.admin ? '<span class="tv-note">This save used the admin panel, so it can’t trade.</span>' : '<button class="gold-btn" data-t="offer">Offer a trade</button>') + '</div>';
+  h += inv ? (inv.length ? '<div class="tv-grid">' + inv.map(e => tvItem(e, 'tabindex="-1"')).join('') + '</div>' : '<p class="lb-empty">Empty bag.</p>')
+    : '<div class="tv-private">🔒<b>This bag is private.</b><span>You can still offer them items or credits, and ask for credits back.</span></div>';
+  h += '<p class="au-msg" id="tvMsg"></p>';
+  tvOpen(h); tvThumbs();
+}
+async function setPrivate(on){
+  state.invPrivate = on; save(); await cloudPush();
+  if (tv && tv.card) { tv.card.private = on; renderCard(); }
+  toast(on ? 'Your bag is private now.' : 'Anyone can see your bag now.');
+}
+/* the trade builder */
+async function openOffer(){
+  const c = tv.card;
+  if (!state.name) { tvMsg('Pick a leaderboard name first (open the leaderboard).', 'err'); return; }
+  await cloudPush();
+  const mine = (await sb.rpc('player_card', {target: me.id})).data || {};
+  tv = {view: 'offer', uid: c.uid, card: c, held: new Set(mine.held || []), give: new Set(), want: new Set(), gcr: 0, wcr: 0};
+  renderOffer();
+}
+function renderOffer(){
+  const t = tv, c = t.card;
+  const mineItems = state.inv.filter(e => !t.held.has(e.uid) && e.id !== KNIFE_ID).sort((a, b) => b.v - a.v);
+  const theirs = c.inv ? c.inv.slice().sort((a, b) => b.v - a.v) : null;
+  const sum = (set, list) => list.filter(e => set.has(e.uid)).reduce((a, e) => a + (+e.v), 0);
+  const gv = sum(t.give, mineItems) + t.gcr, wv = theirs ? sum(t.want, theirs) + t.wcr : t.wcr;
+  let h = tvHead('Trade offer', 'You ↔ ' + escH(c.name), 'card');
+  h += '<div class="tv-cols"><section><h3>You give <small id="tvGs">' + t.give.size + '/8 · worth ' + fmt(gv) + '</small></h3>'
+    + '<label class="tv-cr"><span class="coin"></span><input type="number" min="0" step="100" inputmode="numeric" data-cr="g" value="' + (t.gcr || '') + '" placeholder="Credits (you have ' + fmt(state.bal) + ')"></label>'
+    + (mineItems.length ? '<div class="tv-grid sm">' + mineItems.map(e => tvItem(e, 'data-t="g" data-u="' + e.uid + '"', t.give.has(e.uid))).join('') + '</div>' : '<p class="lb-empty">Nothing in your bag to offer.</p>') + '</section>'
+    + '<section><h3>You get <small id="tvWs">' + t.want.size + '/8 · worth ' + fmt(wv) + '</small></h3>'
+    + '<label class="tv-cr"><span class="coin"></span><input type="number" min="0" step="100" inputmode="numeric" data-cr="w" value="' + (t.wcr || '') + '" placeholder="Credits from them"></label>'
+    + (theirs ? (theirs.length ? '<div class="tv-grid sm">' + theirs.map(e => tvItem(e, 'data-t="w" data-u="' + e.uid + '"', t.want.has(e.uid))).join('') + '</div>' : '<p class="lb-empty">Their bag is empty.</p>') : '<div class="tv-private">🔒<b>Private bag.</b><span>You can only ask for credits.</span></div>') + '</section></div>'
+    + '<div class="tv-foot"><span class="tv-note">What you give leaves your bag now and waits in the offer. Cancel any time to get it back.</span><button class="gold-btn" data-t="send">Send offer</button></div><p class="au-msg" id="tvMsg"></p>';
+  const sc = $('#tv .pv-card'), top = sc ? sc.scrollTop : 0;
+  tvOpen(h); tvThumbs(); const nc = $('#tv .pv-card'); if (nc) nc.scrollTop = top;
+}
+async function sendOffer(btn){
+  const t = tv; if (t.gcr > state.bal) { tvMsg('You don’t have that many credits.', 'err'); return; }
+  if (t.give.size > 8 || t.want.size > 8) { tvMsg('Up to 8 items each side.', 'err'); return; }
+  btn.disabled = true; tvMsg('Sending…');
+  try {
+    await tradeCall('trade_send', {to_user: t.uid, give_uids: [...t.give], give_cr: t.gcr, want_uids: [...t.want], want_cr: t.wcr});
+    kaching(); toast('Offer sent to ' + t.card.name + '.'); openInbox();
+  } catch (e) { btn.disabled = false; tvMsg(e.message, 'err'); }
+}
+/* offers in and out */
+async function openInbox(){
+  tv = {view: 'inbox'};
+  tvOpen(tvHead('Trading', 'My trades') + '<p class="lb-empty">Loading…</p>');
+  await tradeSync();
+  const {data, error} = await sb.from('trades').select('*').or('from_uid.eq.' + me.id + ',to_uid.eq.' + me.id).order('id', {ascending: false}).limit(40);
+  if (!tv || tv.view !== 'inbox') return;
+  if (error) { tvOpen(tvHead('Trading', 'My trades') + '<p class="lb-empty">Couldn’t load your trades.</p>'); return; }
+  tv.list = data; renderInbox();
+}
+function renderInbox(){
+  const L = tv.list || [], inc = L.filter(t => t.status === 'pending' && t.to_uid === me.id), out = L.filter(t => t.status === 'pending' && t.from_uid === me.id), old = L.filter(t => t.status !== 'pending').slice(0, 12);
+  const side = (items, cr) => '<div class="tv-side">' + (items || []).map(e => tvItem(e, 'tabindex="-1"')).join('') + (cr > 0 ? '<span class="tv-crchip"><span class="coin"></span>' + fmt(cr) + '</span>' : '') + (!(items || []).length && !(cr > 0) ? '<span class="tv-nothing">nothing</span>' : '') + '</div>';
+  const row = (t, acts) => { const mine = t.from_uid === me.id, who = mine ? t.to_name : t.from_name;
+    return '<div class="tv-tr ' + t.status + '"><div class="tv-trh"><b>' + (mine ? 'To ' : 'From ') + '<button class="tv-who" data-t="who" data-u="' + (mine ? t.to_uid : t.from_uid) + '">' + escH(who) + '</button></b><span class="tv-st">' + (t.status === 'pending' ? new Date(t.created_at).toLocaleDateString() : t.status) + '</span></div>'
+      + '<div class="tv-swap"><div><small>' + (mine ? 'You give' : 'You get') + '</small>' + side(t.give, t.give_cr) + '</div><span class="tv-arr">⇄</span><div><small>' + (mine ? 'You get' : 'You give') + '</small>' + side(t.want, t.want_cr) + '</div></div>' + (acts ? '<div class="tv-acts">' + acts + '</div>' : '') + '</div>'; };
+  let h = tvHead('Trading', 'My trades');
+  h += '<div class="tv-acts"><button class="ghost sm" data-t="mycard">' + (state.invPrivate ? '🔒 Bag private' : '👁 Bag public') + ' · my profile</button><span class="tv-note">Find players to trade with on the leaderboard.</span></div><p class="au-msg" id="tvMsg"></p>';
+  h += '<h3 class="tv-h">Offers to you</h3>' + (inc.length ? inc.map(t => row(t, '<button class="gold-btn" data-t="accept" data-id="' + t.id + '">Accept</button><button class="ghost sm" data-t="decline" data-id="' + t.id + '">Decline</button>')).join('') : '<p class="lb-empty">No offers right now.</p>');
+  h += '<h3 class="tv-h">Your open offers</h3>' + (out.length ? out.map(t => row(t, '<button class="ghost sm" data-t="cancel" data-id="' + t.id + '">Cancel and get it back</button>')).join('') : '<p class="lb-empty">You haven’t sent any.</p>');
+  if (old.length) h += '<h3 class="tv-h">Recent</h3>' + old.map(t => row(t)).join('');
+  tvOpen(h); tvThumbs();
+}
+async function respond(id, act, btn){
+  const t = (tv.list || []).find(x => x.id === id); if (!t) return;
+  if (act === 'accept') { const room = (t.give || []).length - (t.want || []).length; if (room > 0 && bagBlock(room)) return; if (t.want_cr > state.bal) { tvMsg('You don’t have the credits they asked for.', 'err'); return; } }
+  btn.disabled = true; tvMsg(act === 'accept' ? 'Trading…' : '…');
+  try { await tradeCall('trade_respond', {tid: id, act}); if (act === 'accept') { kaching(); toast('Trade done!'); } else toast(act === 'cancel' ? 'Offer cancelled. Your stuff is back.' : 'Offer declined.'); openInbox(); }
+  catch (e) { btn.disabled = false; tvMsg(e.message, 'err'); }
+}
+document.addEventListener('click', e => {
+  const el = $('#tv'); if (!el || el.hidden) return;
+  const b = e.target.closest('[data-t]'); if (!b || !el.contains(b) || b.disabled) return;
+  const a = b.dataset.t;
+  if (a === 'close') tvClose();
+  else if (a === 'card') { tv.view = 'card'; renderCard(); }
+  else if (a === 'priv') setPrivate(!tv.card.private);
+  else if (a === 'inbox') openInbox();
+  else if (a === 'mycard' ) openCard(me.id);
+  else if (a === 'who') openCard(b.dataset.u);
+  else if (a === 'offer') openOffer();
+  else if (a === 'g' || a === 'w') { const s = a === 'g' ? tv.give : tv.want, u = b.dataset.u; if (s.has(u)) s.delete(u); else if (s.size < 8) s.add(u); else { tvMsg('Up to 8 items each side.', 'err'); return; } tone(a === 'g' ? 520 : 660, .06, 'triangle', .04); renderOffer(); }
+  else if (a === 'send') sendOffer(b);
+  else if (a === 'accept' || a === 'decline' || a === 'cancel') respond(+b.dataset.id, a, b);
+});
+document.addEventListener('input', e => {
+  const i = e.target.closest('#tv [data-cr]'); if (!i || !tv || tv.view !== 'offer') return;
+  const v = Math.max(0, Math.floor(+i.value || 0)); if (i.dataset.cr === 'g') tv.gcr = v; else tv.wcr = v;
+  const t = tv, worth = (set, list) => (list || []).filter(x => set.has(x.uid)).reduce((a, x) => a + (+x.v), 0);
+  $('#tvGs').textContent = t.give.size + '/8 · worth ' + fmt(worth(t.give, state.inv) + t.gcr);
+  $('#tvWs').textContent = t.want.size + '/8 · worth ' + fmt(worth(t.want, t.card.inv) + t.wcr);
+});
+document.addEventListener('keydown', e => { const el = $('#tv'); if (e.key === 'Escape' && el && !el.hidden) { e.stopImmediatePropagation(); tvClose(); } }, true);
+
+/* ---- Dance's shared shelf ---- */
+let gShelf = null;   // the shelf everyone sees, when signed in
+async function shelfLoad(){
+  if (!online()) { gShelf = null; return; }
+  const {data, error} = await sb.from('dance_shelf').select('id,item,seller,seller_name,paid,price').is('buyer', null).order('id', {ascending: false}).limit(12);
+  if (!error) gShelf = data.filter(r => BY[r.item.id]).map(r => ({sid: r.id, id: r.item.id, fl: +r.item.fl, v: +r.item.v, paid: +r.paid, price: +r.price, seller: r.seller_name, mine: r.seller === me.id}));
+}
+
 /* ---------- Leaderboard ----------
    Ranked in the database from everyone's saves (see the leaderboard() function in Supabase), so the
    numbers are whatever the saves say; the client only chooses a display name. */
@@ -11395,17 +11653,19 @@ async function openLb(){
   $('#lbName').hidden = !!state.name; if (!state.name) $('#lbIn').value = '';
   $('#lbBody').innerHTML = '<p class="lb-empty">Loading…</p>';
   await cloudPush();
-  const {data, error} = await sb.rpc('leaderboard', {lim: 50});
+  const {data, error} = await sb.rpc('leaderboard2', {lim: 50});
   if (error) { $('#lbBody').innerHTML = '<p class="lb-empty">Couldn’t load the leaderboard. Try again in a moment.</p>'; return; }
   let prev = 0;
   $('#lbBody').innerHTML = data.length ? data.map(r => { const gap = r.rank > prev + 1; prev = r.rank;
-    return '<div class="lb-row' + (r.me ? ' me' : '') + (gap ? ' gap' : '') + '"><span class="lb-rk">' + r.rank + '</span><span class="lb-nm">' + escH(r.me && !state.name ? 'You (no name yet)' : r.name) + '<small>' + fmt(r.opened) + ' cases opened' + (r.me ? ' · you' : '') + '</small></span><span class="lb-w">' + fmt(r.worth) + ' cr</span></div>'; }).join('')
+    return '<button type="button" class="lb-row' + (r.me ? ' me' : '') + (gap ? ' gap' : '') + '" data-uid="' + r.uid + '"><span class="lb-rk">' + r.rank + '</span><span class="lb-nm">' + escH(r.me && !state.name ? 'You (no name yet)' : r.name) + (r.private ? ' <span class="lb-lock" title="Private bag">🔒</span>' : '') + '<small>' + fmt(r.opened) + ' cases opened' + (r.me ? ' · you' : '') + '</small></span><span class="lb-w">' + fmt(r.worth) + ' cr</span></button>'; }).join('')
     : '<p class="lb-empty">Nobody on the board yet.</p>';
   if (state.admin) $('#lbBody').insertAdjacentHTML('afterbegin', '<p class="lb-empty" style="color:#39ff88">This save has used the admin panel, so it isn’t ranked.</p>');
 }
 const escH = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function acctInit(){
   $('#lbBtn').onclick = openLb;
+  $('#lbBody').addEventListener('click', e => { const r = e.target.closest('.lb-row[data-uid]'); if (r && online()) openCard(r.dataset.uid); });
+  $('#trBtn').onclick = () => { if (online()) openInbox(); };
   $('#lbX').onclick = () => { $('#lb').hidden = true; };
   $('#lb').addEventListener('click', e => { if (e.target.id === 'lb') $('#lb').hidden = true; });
   $('#lbName').addEventListener('submit', async e => {
