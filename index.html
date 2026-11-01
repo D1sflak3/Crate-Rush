@@ -2850,7 +2850,7 @@ const ITEMS = [
   {id:'b6', w:'karambit',  name:'Umbra',          t:6, pat:'abyss',  pal:['#000000','#9333ea','#f5d0fe'], m:1.6},
   {id:'b7', w:'butterfly', name:'Hex Sovereign',  t:6, pat:'runes',  pal:['#050008','#a855f7','#6b21a8'], m:1.4},
   // One of one: only exists in Sable's hidden case. Never in a case, contract, reel or wish list.
-  {id:'x1', w:'pistol',    name:'Velvet Requiem', t:7, pat:'requiem', pal:['#07020a','#e11d48','#f5d0e0'], m:2.2, ex:true},
+  {id:'x1', w:'pistol',    name:'Velvet Requiem', t:6, pat:'requiem', pal:['#07020a','#e11d48','#f5d0e0'], m:2.8, ex:true},
   {id:'x2', w:'karambit',  name:'Kingmaker',      t:7, pat:'doppler', pal:['#1a0030','#ff3ea5','#2fe3ff','#ffd23f'], m:2.6, ex:true},
   {id:'x3', w:'rifle',     name:'The GOAT',       t:7, pat:'goat', pal:['#75bde9','#f4f7fb','#ffd23f'], m:3.4, ex:true}
 ];
@@ -10015,7 +10015,7 @@ const VAULT_ID = 'x1', VAULT_FL = .0031, VANCE_ID = 'x2';
    Sable's comes down from the ceiling; Vance's knife cabinet lifts up to show what he keeps behind it. */
 const VAULTS = {
   sable:{id:'x1', fl:.0031, key:'vault', tk:'vaultT', on:'sx-down', dim:'sx-dim', open:'sx-open', shut:'sx-up', title:'Sable’s hidden case', who:'Sable', her:'her', she:'she',
-    desc:'Chroma, one of one. It isn’t in any case, contract or reel.', hello:'Well? Make it worth my time.',
+    desc:'Black Market, one of one: the best piece of contraband there is. It isn’t in any case, contract or reel.', hello:'Well? Make it worth my time.',
     found:['…You know how to look.', "This one isn't on any list. No case, no contract. Make me an offer. One."], yes:"…Yes. It's yours.", no:'No.', after:"It won't come down again.",
     again:{gone:"It doesn't come down twice.", won:'You already own what was in it.', down:'It is right there. Make your offer.'}},
   vance:{id:'x2', fl:.0007, key:'vvault', tk:'vvaultT', on:'vv-up', dim:'vv-dim', open:'vv-open', shut:'vv-shut', title:'Vance’s private collection', who:'Vance', her:'him', she:'he',
@@ -10159,8 +10159,8 @@ async function vaultWin(cr, items){
   vaultBusy = false;
   busy = true; lockRack(true);
   $('#reveal').style.zIndex = '81';
-  await chromaCinematic(r);
-  showReveal(r);
+  if (BY[r.id].t === 7) { await chromaCinematic(r); showReveal(r); }
+  else { await bmCinematic(r); showReveal(r, true); }
 }
 async function vaultLose(){
   const m = room, sc = sceneEl(), V = VLT();
