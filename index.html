@@ -2350,6 +2350,29 @@ body{background:
 .pk.goal .pk-scene{animation:quake .4s .55s}
 .hk.pen{background:linear-gradient(90deg,#08321c,#0a1a10);border-color:#1fd47a;color:#c8ffe0}
 .hk.pen.off{opacity:.55}
+
+/* ---------- Socket's gadgets ---------- */
+.gd-card{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:center;padding:14px;border-radius:var(--r-lg);border:1px solid #2f5a52;background:radial-gradient(80% 90% at 15% 50%,rgba(95,209,194,.16),transparent 70%),var(--panel)}
+.gd-art{width:110px;height:88px;display:grid;place-items:center;border-radius:var(--r-md);background:var(--bg-sunken)}
+.gd-art svg{width:84px;height:68px;overflow:visible}
+.gd-card .lab{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#5fd1c2}
+.gd-card b{font-family:var(--display);font-weight:600;font-size:28px;line-height:1}
+.gd-card p{margin:4px 0 2px;color:var(--text);font-weight:600}.gd-card small{color:var(--muted)}
+.gd-parts{display:grid;gap:10px;margin-top:12px}
+.gd-part{padding:10px 12px;border-radius:var(--r-md);border:1px dashed var(--line-strong);background:var(--panel)}
+.gd-part.ok{border-style:solid;border-color:rgba(57,229,140,.5)}
+.gd-need{display:flex;align-items:center;gap:8px;font-weight:700}
+.gd-need span{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;background:var(--panel2);border:1px solid var(--line)}
+.gd-part.ok .gd-need span{background:var(--good);color:#04130a;border-color:var(--good)}
+.gd-its{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.gd-it{display:grid;justify-items:center;gap:2px;width:96px;padding:6px;border-radius:var(--r-sm);border:1px solid color-mix(in srgb,var(--tc) 45%,var(--line));background:var(--bg-sunken)}
+.gd-it img{width:80px;height:auto}.gd-it small{font-size:11px;font-weight:700;text-align:center}
+.gd-miss{align-self:center;color:var(--danger);font-weight:700;font-size:13px}
+.gd-acts{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.gd-acts .gold-btn{display:inline-flex;gap:8px;align-items:center;font-size:20px;padding:10px 18px 7px}
+.hk.gad{background:linear-gradient(90deg,#0d2a26,#0a1614);border-color:#2f8a7a;color:#c8fff4}
+.hk.gad svg{width:20px;height:16px}
+@media (max-width:560px){.gd-card{grid-template-columns:80px 1fr}.gd-art{width:80px;height:64px}.gd-art svg{width:62px;height:50px}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -3624,6 +3647,7 @@ function renderHacks(){
     chips.push('<button class="hk rig' + (state.rig ? '' : ' off') + '" data-h="rig" aria-pressed="' + !!state.rig + '">' + ch + 'Reel grab · ' + (state.rig ? 'On' : 'Off') + '</button>');
     if (state.inject && BY[state.inject]) chips.push('<span class="hk rig">' + ch + 'Injecting · ' + BY[state.inject].name + '</span>');
   }
+  chips.push(...gadChips());
   if (state.penaldo) chips.push('<span class="hk pen' + (penReady() ? '' : ' off') + '"><svg viewBox="-16 -52 32 90" aria-hidden="true">' + penaldoSVG(0, 0, 1).replace(/^<g transform="[^"]*">/, '<g>') + '</svg>Penaldo · ' + (penReady() ? 'ready' : 'in ' + penLeft() + ' open' + (penLeft() === 1 ? '' : 's')) + '</span>');
   bar.hidden = !chips.length;
   bar.innerHTML = '<span class="hk-label">Hacks</span>' + chips.join('');
@@ -4671,13 +4695,14 @@ function gotBM(id){
 
 /* ---------- Open flow ---------- */
 async function openCase(){
-  const c = CASES[sel], free = isFree(c);
-  if (busy || (!free && state.bal < c.cost)) return;
+  const c = CASES[sel], free = isFree(c), coil = !free && G().coil > 0, cost = coil ? Math.round(c.cost / 2) : c.cost;
+  if (busy || (!free && state.bal < cost)) return;
   if (bagBlock(1)) return;
   ac(); busy = true; lockRack(true);
-  if (free) H().keydupe--; else { state.bal -= c.cost; state.spent += c.cost; }
+  if (free) H().keydupe--; else { state.bal -= cost; state.spent += cost; if (coil) G().coil--; }
   let r = state.xrayRolls[c.id] || (c.id === 'scrap' ? Y().tip : null);
   if (r) { delete state.xrayRolls[c.id]; if (c.id === 'scrap') Y().tip = null; r.uid = uid(); r.at = Date.now(); } else r = roll(c);
+  if (G().magnet > 0) { G().magnet--; for (let i = 0; i < 60 && BY[r.id].t === 0; i++) r = roll(c); }
   if (state.adminRig && BY[state.adminRig.id]) {
     const ar = state.adminRig; state.adminRig = null;
     r = {uid: uid(), id: ar.id, fl: ar.fl, v: priceOf(BY[ar.id], wearIdx(ar.fl)), at: Date.now(), hk: r.hk || [], src: 'admin'};
@@ -4689,7 +4714,7 @@ async function openCase(){
     }
   }
   consume(r.hk); state.opened++;
-  save(); if (!free) setBal(-c.cost); renderOpen(); renderTrade();
+  save(); if (!free) setBal(-cost); renderOpen(); renderTrade(); renderHacks();
   reelInfo = buildReel(c, r);
   const crate = $('#crateZone .crate');
   const fast = speedOn();
@@ -5955,6 +5980,7 @@ function renderLeft(anim){
       + (SHOPS[m.id] ? B('shop', 'Shop · ' + SHOPS[m.id].hint, '', lock) : '')
       + (VAULTS[m.id] && P()[VAULTS[m.id].key] === 'down' ? B('vault', m.id === 'vance' ? 'His private collection' : 'The hidden case', 'vx', lock, 'one offer') : '')
       + (m.id === 'tobias' ? B('pk1', 'Case #PK1 · on his shelf', 'pk', lock, fmt(PK1.cost) + ' cr') : '')
+      + (m.id === 'socket' ? (gadEnsure(), Y().gReady ? B('gad', 'Socket’s gadget', '', lock, GADGETS[Y().gReady].n + ' · ' + fmt(GADGETS[Y().gReady].price)) : Y().gReq ? B('gad', 'Socket needs parts', '', lock, 'makes: ' + GADGETS[Y().gReq.gad].n) : '') : '')
       + (m.id === 'vance' ? B('bdo', 'Ask about the golden ball', '', lock || bdoBusy, 'Ballon d’Or 2026') : '')
       + (m.id === 'tinny' ? B('bags', 'Backpacks', '', lock, bagLvl() < BAGS.length - 1 ? 'next: ' + BAGS[bagLvl() + 1].cap + ' slots' : 'biggest one') : '')
       + (m.id === 'tinny' ? B('peek', 'Ask what’s in the next crate', '', lock || pk > 0, pk ? 'in ' + pk + ' open' + (pk === 1 ? '' : 's') : 'Scrapyard · free') : '')
@@ -5988,6 +6014,7 @@ function renderOv(){
   const ov = $('#prOv'), m = room; if (!ov || !m || !ovMode) return;
   const head = (small, big) => '<div class="ov-top"><div class="ov-h"><small>' + small + '</small><b>' + big + '</b></div><div class="bal"><span class="coin"></span><span class="ov-bal">' + fmt(state.bal) + '</span></div><button class="icon-btn ov-x" data-a="ovclose" aria-label="Close">✕</button></div>';
   if (ovMode === 'jobrun') return;
+  if (ovMode === 'gad') { ov.innerHTML = head('Socket’s workbench', Y().gReady ? 'Fresh off the bench' : 'She needs parts') + '<div class="ov-body">' + gadPanel() + '</div>'; gadFill(); return; }
   if (ovMode === 'bags') { ov.innerHTML = head('Tinny’s backpacks', 'More room for your stuff') + '<div class="ov-body">' + bagsPanel() + '</div>'; return; }
   if (ovMode === 'job') {
     const j = jobOf(m);
@@ -6078,6 +6105,12 @@ function negAct(a){
     if (ok) { tone(660, .12, 'triangle', .07); tone(990, .16, 'triangle', .06, .08); } else { tone(150, .25, 'sawtooth', .05); }
     renderDeal(ok ? 'up' : 'down');
   } else if (a === 'bluff') {
+    if (G().echo > 0 && m.id !== 'deacon') {
+      G().echo--; neg.offer = Math.min(neg.cap, Math.round(before * (1.3 + Math.random()*.2))); neg.pat--; save(); renderHacks();
+      sayRoom(L(m, 'bluffOk', neg.offer), 'happy'); toast('Echo Box: the fake call worked');
+      tone(523, .14, 'triangle', .07); tone(784, .14, 'triangle', .07, .09); tone(1046, .25, 'triangle', .07, .18);
+      renderDeal('up'); return;
+    }
     if (m.ego) { egoBluff(m, before); return; }
     if (m.id === 'wren') { wrenBluff(m, before); return; }
     if (m.id === 'deacon') {                       // you can't lie to a preacher, but he doesn't hold a grudge
@@ -6102,6 +6135,7 @@ function closeDeal(){
   let amt = neg.offer;
   const brief = exact && !neg.raged && Math.random() < BRIEF_CH;
   if (brief) amt = e.v * BRIEF_X;
+  if (m.yard && G().polish > 0) { G().polish--; amt = Math.round(amt * 1.5); setTimeout(() => toast('Rust Polish: paid 1.5×'), 1200); }
   state.inv = state.inv.filter(x => x.uid !== e.uid);
   const lg = m.yard ? Y() : P();
   state.bal += amt; lg.deals = (lg.deals || 0) + 1; lg.earned = (lg.earned || 0) + amt; if (brief) lg.briefs = (lg.briefs || 0) + 1;
@@ -7660,7 +7694,7 @@ function aucAct(a){
    A clanking machine in the back of her garage. Buy it and the home screen gets an "Open 10" button: ten cases
    of the selected kind in one go, for ten times the price. It runs until a Gold or Black Market piece comes out of
    it, then blows apart, and Socket will build you another for the same price. Not for Case 4 (every pull is Gold). */
-const MACH_COST = 6000, MACH_N = 10;
+const MACH_COST = 50000, MACH_N = 10;
 let machSel = false, batch = null;
 function machSVG(){
   const bolt = (x, y) => '<circle cx="' + x + '" cy="' + y + '" r="1.6" fill="#a9b3ad" stroke="#1d2a28" stroke-width=".5"/>';
@@ -9673,6 +9707,97 @@ document.addEventListener('click', e => {
   else if (a === 'walk') { const k = pkCtx && pkCtx.kick; pkCtx = null; pkClose(); if (k) k(); }
   else if (el.classList.contains('aim')) pkShoot(+a);
 });
+/* ---------- Socket's gadgets ----------
+   Every so often Socket needs parts: a couple of specific pieces from your bag (never Gold, Black Market or Chroma).
+   Hand them over and she builds a one-shot gadget she'll sell you:
+   Magnet Glove (next case can't be Common), Echo Box (your next bluff is believed), Rust Polish (next Scrapyard
+   sale pays 1.5×), Spring Coil (next 3 cases cost half). After a request is done, the next one comes 6-10 opens later. */
+const GADGETS = {
+  magnet:{n:'Magnet Glove', price:2500, fx:'Your next case can’t land on Common.', line:'Pulls the good stuff toward you. Don’t wear it near a fridge.'},
+  echo:{n:'Echo Box', price:9000, fx:'Your next bluff is believed. Anywhere.', line:'Plays a fake phone call from “another buyer”. Works every time. Once.'},
+  polish:{n:'Rust Polish', price:3000, fx:'Your next sale in the Scrapyard pays 1.5×.', line:'Makes rust look older. Ma will cry.'},
+  coil:{n:'Spring Coil', price:6000, fx:'Your next 3 case opens cost half.', line:'Springs the lock early. The case doesn’t notice. Three times.'}
+};
+const G = () => state.gad || (state.gad = {});
+const GUNS = ['pistol', 'smg', 'shotgun', 'rifle', 'sniper'];
+const partText = p => p.k === 'w' ? p.n + ' ' + WNAME[p.v] + (p.v === 'smg' ? 's' : p.n > 1 ? 's' : '') + ', any condition'
+  : p.k === 'wear' ? p.n + ' ' + WEARS[p.v].n + ' piece' + (p.n > 1 ? 's' : '') : p.n + ' ' + TIERS[p.v].name + (p.n > 1 ? 's' : '');
+const partOk = (p, e) => { const it = BY[e.id]; if (!it || it.t >= 5 || e.id === KNIFE_ID) return false; return p.k === 'w' ? it.w === p.v : p.k === 'wear' ? wearIdx(e.fl) === p.v : it.t === p.v; };
+function gadEnsure(){
+  const Yd = Y();
+  if (Yd.gReq || Yd.gReady || state.opened < (Yd.gNext || 0) || Yd.gRoll === state.opened) return;
+  Yd.gRoll = state.opened;
+  if (Yd.gAsked && Math.random() < .4) { Yd.gNext = state.opened + 3; save(); return; }
+  const R = () => Math.random(), pick = a => a[Math.floor(R() * a.length)];
+  const second = pick([{k:'wear', v:4, n:1}, {k:'tier', v:1, n:2}, {k:'tier', v:2, n:1}, {k:'wear', v:3, n:1}]);
+  Yd.gReq = {parts: [{k:'w', v:pick(GUNS), n:2}, second], gad: pick(Object.keys(GADGETS))};
+  Yd.gAsked = true; save();
+}
+function gadPick(){
+  const used = new Set(), out = [];
+  for (const p of Y().gReq.parts) {
+    const c = state.inv.filter(e => !used.has(e.uid) && partOk(p, e)).sort((a, b) => a.v - b.v).slice(0, p.n);
+    c.forEach(e => used.add(e.uid)); out.push({p, items: c});
+  }
+  return out;
+}
+function gadSVG(id){
+  const S = b => '<svg viewBox="0 0 80 64" aria-hidden="true">' + b + '</svg>';
+  if (id === 'magnet') return S('<path d="M18 12 V36 Q18 54 40 54 Q62 54 62 36 V12 H48 V36 Q48 42 40 42 Q32 42 32 36 V12 Z" fill="#c0262d" stroke="#5a0a10" stroke-width="1.6"/><rect x="18" y="8" width="14" height="10" fill="#c9cfd6"/><rect x="48" y="8" width="14" height="10" fill="#c9cfd6"/><path d="M10 6 L4 0 M70 6 L76 0 M40 2 V-4" stroke="#5fd1c2" stroke-width="2"/><path d="M22 26 V38" stroke="#fff" stroke-opacity=".4" stroke-width="3"/>');
+  if (id === 'echo') return S('<rect x="12" y="10" width="56" height="44" rx="6" fill="#3f5a55" stroke="#1d2a28" stroke-width="1.6"/><circle cx="32" cy="32" r="12" fill="#1d2a28"/><circle cx="32" cy="32" r="7" fill="#5f6e64"/><circle cx="32" cy="32" r="2.6" fill="#1d2a28"/><rect x="50" y="18" width="12" height="7" rx="1" fill="#141414"/><circle cx="56" cy="38" r="3" fill="#39ff88"/><circle cx="56" cy="46" r="3" fill="#ff4d4d"/><path d="M70 22 Q76 32 70 42 M74 18 Q82 32 74 46" stroke="#5fd1c2" stroke-width="2" fill="none"/>');
+  if (id === 'polish') return S('<rect x="26" y="16" width="24" height="42" rx="5" fill="#b5541c" stroke="#5a2a0a" stroke-width="1.6"/><rect x="30" y="8" width="16" height="10" rx="2" fill="#3a3f44"/><rect x="34" y="2" width="8" height="7" fill="#c9cfd6"/><rect x="26" y="28" width="24" height="16" fill="#f4e8d0"/><text x="38" y="40" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="10" fill="#8a3a14">RUST</text><path d="M46 6 Q58 2 66 8 M48 10 Q60 8 70 14" stroke="#e0904a" stroke-width="2" stroke-dasharray="2 3" fill="none"/>');
+  return S('<path d="M20 52 ' + Array.from({length: 7}, (_, i) => 'L60 ' + (48 - i*6) + ' L20 ' + (45 - i*6)).join(' ') + '" stroke="#c9cfd6" stroke-width="4" fill="none" stroke-linejoin="round"/><rect x="14" y="52" width="52" height="6" rx="2" fill="#3a3f44"/><rect x="14" y="4" width="52" height="6" rx="2" fill="#3a3f44"/><path d="M8 30 H2 M72 30 H78" stroke="#ffd23f" stroke-width="2"/>');
+}
+function gadPanel(){
+  const Yd = Y();
+  if (Yd.gReady) {
+    const g = GADGETS[Yd.gReady], afford = state.bal >= g.price;
+    return '<div class="gd-card"><div class="gd-art">' + gadSVG(Yd.gReady) + '</div><div><div class="lab">Built for you</div><b>' + g.n + '</b><p>' + g.fx + '</p><small>' + g.line + '</small></div></div>'
+      + '<div class="gd-acts"><button class="gold-btn" data-a="gbuy"' + (afford ? '' : ' disabled') + '><span class="coin"></span> ' + fmt(g.price) + '</button><button class="ghost" data-a="ovclose">Not now</button></div>'
+      + '<p class="jb-note">She’ll keep it on the bench for you. One use, then it’s scrap.</p>';
+  }
+  if (!Yd.gReq) return '<p class="jb-note">She’s not building anything right now. Check back in a few case opens.</p>';
+  const P2 = gadPick(), ok = P2.every(x => x.items.length >= x.p.n), g = GADGETS[Yd.gReq.gad];
+  return '<div class="gd-card"><div class="gd-art">' + gadSVG(Yd.gReq.gad) + '</div><div><div class="lab">She wants to build</div><b>' + g.n + '</b><p>' + g.fx + '</p></div></div>'
+    + '<div class="gd-parts">' + P2.map((x, i) => '<div class="gd-part' + (x.items.length >= x.p.n ? ' ok' : '') + '"><div class="gd-need"><span>' + (x.items.length >= x.p.n ? '✓' : (i + 1)) + '</span>' + partText(x.p) + '</div><div class="gd-its">'
+      + x.items.map(e => '<span class="gd-it" data-uid="' + e.uid + '" style="--tc:' + TIERS[BY[e.id].t].color + '"><i></i><small>' + BY[e.id].name + '</small></span>').join('')
+      + (x.items.length < x.p.n ? '<span class="gd-miss">' + (x.p.n - x.items.length) + ' missing</span>' : '') + '</div></div>').join('') + '</div>'
+    + '<div class="gd-acts"><button class="gold-btn" data-a="ggive"' + (ok ? '' : ' disabled') + '>Hand them over</button><button class="ghost" data-a="ovclose">Not now</button></div>'
+    + '<p class="jb-note">She takes your cheapest pieces that fit. Never Gold, Black Market or Chroma.</p>';
+}
+function gadFill(){ document.querySelectorAll('#prOv .gd-it').forEach(s => { const e = state.inv.find(x => x.uid === s.dataset.uid); if (e) s.querySelector('i').append(thumb(BY[e.id], wearIdx(e.fl))); }); }
+async function gadGive(){
+  const m = room; if (!m || m.id !== 'socket' || !Y().gReq) return;
+  const P2 = gadPick(); if (!P2.every(x => x.items.length >= x.p.n)) return;
+  const ids = new Set(P2.flatMap(x => x.items.map(e => e.uid)));
+  state.inv = state.inv.filter(e => !ids.has(e.uid));
+  const gid = Y().gReq.gad; Y().gReq = null; Y().gReady = gid; save(); renderInv(); renderStats();
+  closeOv(); actBusy = true; renderLeft();
+  const sc = sceneEl(); if (sc) restart(sc, 'b-hit');
+  for (let i = 0; i < 6; i++) { tone(120 + Math.random()*200, .08, 'square', .04, i*.18); noise(.06, 3000, 900, .06, 'bandpass'); }
+  await sayRoom('Okay, okay… a bit of this, a bit of that… hold this. Don’t hold that.', 'happy');
+  await wait(1200); actBusy = false; if (room !== m) return;
+  await sayRoom('Done. The ' + GADGETS[gid].n + '. ' + fmt(GADGETS[gid].price) + ' and it’s yours.', 'happy');
+  openOv('gad');
+}
+function gadBuy(){
+  const m = room, gid = Y().gReady; if (!m || m.id !== 'socket' || !gid) return;
+  const g = GADGETS[gid];
+  if (state.bal < g.price) { sayRoom('Parts cost money, pal.', 'mad'); return; }
+  state.bal -= g.price; G()[gid] = (G()[gid] || 0) + (gid === 'coil' ? 3 : 1);
+  Y().gReady = null; Y().gNext = state.opened + 6 + Math.floor(Math.random() * 5); Y().gRoll = null;
+  save(); setBal(-g.price); prBal(); kaching(); renderHacks();
+  closeOv(); renderLeft();
+  sayRoom(g.line, 'happy'); toast(g.n + ': ' + g.fx);
+}
+function gadChips(){
+  const Gd = G(), out = [];
+  if (Gd.magnet > 0) out.push(['magnet', 'Magnet Glove']);
+  if (Gd.echo > 0) out.push(['echo', 'Echo Box']);
+  if (Gd.polish > 0) out.push(['polish', 'Rust Polish']);
+  if (Gd.coil > 0) out.push(['coil', 'Spring Coil · ' + Gd.coil + ' left']);
+  return out.map(([id, n]) => '<span class="hk gad">' + gadSVG(id) + n + '</span>');
+}
 function memberIntro(m){
   return new Promise(resolve => {
     ac();
@@ -10307,6 +10432,9 @@ $('#prRoom').addEventListener('click', e => {
   if (a && a.dataset.a === 'mbuy') { if (!a.disabled) machBuy(); return; }
   if (a && a.dataset.a === 'munzoom') { machClose(); return; }
   if (a && a.dataset.a === 'bdo') { if (!a.disabled) bdoAsk(); return; }
+  if (a && a.dataset.a === 'gad') { if (!a.disabled) { openOv('gad'); if (!Y().gReady && Y().gReq) sayRoom('I need parts. ' + Y().gReq.parts.map(partText).join(', and ') + '. Bring ’em and I’ll build you something.'); } return; }
+  if (a && a.dataset.a === 'ggive') { if (!a.disabled) gadGive(); return; }
+  if (a && a.dataset.a === 'gbuy') { if (!a.disabled) gadBuy(); return; }
   if (a && a.dataset.a === 'bags') { if (!a.disabled) { openOv('bags'); sayRoom('Backpacks! I got ’em from… places. Good places.'); } return; }
   if (a && a.dataset.a === 'bagbuy') { if (!a.disabled) bagBuy(+a.dataset.v); return; }
   if (a && a.dataset.a === 'peek') { if (!a.disabled) tinnyPeek(); return; }
