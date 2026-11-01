@@ -2294,6 +2294,21 @@ body{background:
 .msi-offer .bdo-row{justify-content:center}
 .msi-pat i{display:inline-block;width:14px;height:6px;border-radius:3px;background:var(--line);margin-left:4px}.msi-pat i.on{background:var(--accent)}
 .msi-pat{color:var(--muted);font-size:12px;display:flex;align-items:center}
+
+.ms-dust{animation:msDust 6s linear infinite}
+@keyframes msDust{0%{transform:translate(0,0);opacity:0}20%{opacity:.6}100%{transform:translate(8px,-30px);opacity:0}}
+.ml-txt{animation:mlTxt 2.4s steps(4) infinite}
+@keyframes mlTxt{50%{opacity:.25}}
+.ml-radar{transform-box:view-box;transform-origin:368px 54px;animation:mlRad 2.2s linear infinite}
+@keyframes mlRad{to{transform:rotate(360deg)}}
+.ml-flow{animation:mlFlow 1.2s linear infinite}
+@keyframes mlFlow{to{stroke-dashoffset:-24}}
+.ml-blink{animation:mlTxt 1.6s steps(2) infinite}
+.ml-surf{animation:mlSurf 2.4s ease-in-out infinite alternate}
+@keyframes mlSurf{to{transform:translateY(2px)}}
+.ml-tank.lit .ml-fluid{animation:mlLit 1.6s ease-out}
+@keyframes mlLit{0%{filter:brightness(2.4)}}
+@media (prefers-reduced-motion: reduce){.ms-dust,.ml-txt,.ml-radar,.ml-flow,.ml-blink,.ml-surf{animation:none}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -2769,7 +2784,7 @@ const ITEMS = [
   // One of one: only exists in Sable's hidden case. Never in a case, contract, reel or wish list.
   {id:'x1', w:'pistol',    name:'Velvet Requiem', t:7, pat:'requiem', pal:['#07020a','#e11d48','#f5d0e0'], m:2.2, ex:true},
   {id:'x2', w:'karambit',  name:'Kingmaker',      t:7, pat:'doppler', pal:['#1a0030','#ff3ea5','#2fe3ff','#ffd23f'], m:2.6, ex:true},
-  {id:'x3', w:'rifle',     name:'The GOAT',       t:7, pat:'wave', pal:['#6fb8e8','#f4f6fa','#ffd23f','#f4f6fa'], m:3.4, ex:true}
+  {id:'x3', w:'rifle',     name:'The GOAT',       t:7, pat:'goat', pal:['#75bde9','#f4f7fb','#ffd23f'], m:3.4, ex:true}
 ];
 
 /* ---------- RNG helpers ---------- */
@@ -2834,6 +2849,20 @@ const PAT = {
     for(let row=4;row<H;row+=11){for(let x=2+r()*6;x<W;x+=9+r()*5){if(r()<.45)continue;g.beginPath();g.moveTo(x,row);for(let s=0;s<3;s++)g.lineTo(x+Math.floor(r()*3)*2.5,row+Math.floor(r()*3)*3);g.stroke();}}
     g.shadowBlur=0;
   },
+  goat(g,W,H,p,r){
+    for(let x=0;x<W;x+=10){g.fillStyle=(x/10)%2?p[1]:p[0];g.fillRect(x,0,10,H);}
+    const sh=g.createLinearGradient(0,0,W,H);sh.addColorStop(0,'rgba(255,255,255,0)');sh.addColorStop(.42,'rgba(255,255,255,0)');sh.addColorStop(.5,'rgba(255,255,255,.55)');sh.addColorStop(.58,'rgba(255,255,255,0)');sh.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=sh;g.fillRect(0,0,W,H);
+    for(let i=0;i<5;i++){const x=r()*W,y=r()*H,R=14+r()*20,rg=g.createRadialGradient(x,y,0,x,y,R);rg.addColorStop(0,['rgba(255,62,165,.35)','rgba(47,227,255,.35)','rgba(255,210,63,.35)'][i%3]);rg.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=rg;g.fillRect(0,0,W,H);}
+    g.strokeStyle=p[2];g.lineWidth=1.1;g.shadowColor='#ffb800';g.shadowBlur=3;
+    [[30.8],[45.2],[33.2],[43]].forEach(([y],i)=>{g.beginPath();g.moveTo(i<2?40:112,y);g.lineTo(i<2?112:150,y);g.stroke();});
+    const sx=76,sy=38;g.fillStyle=p[2];g.beginPath();g.arc(sx,sy,5,0,7);g.fill();
+    for(let k=0;k<16;k++){const a=k/16*Math.PI*2,R0=6,R1=k%2?8.5:10;g.lineWidth=k%2?.9:1.3;g.beginPath();g.moveTo(sx+Math.cos(a)*R0,sy+Math.sin(a)*R0);g.lineTo(sx+Math.cos(a)*R1,sy+Math.sin(a)*R1);g.stroke();}
+    g.shadowBlur=0;g.fillStyle='#b8860b';g.beginPath();g.arc(sx-1.6,sy-1,.7,0,7);g.arc(sx+1.6,sy-1,.7,0,7);g.fill();g.strokeStyle='#b8860b';g.lineWidth=.6;g.beginPath();g.arc(sx,sy+.6,1.8,.2,Math.PI-.2);g.stroke();
+    const star=(cx,cy,R)=>{g.beginPath();for(let k=0;k<10;k++){const a=-Math.PI/2+k*Math.PI/5,rr=k%2?R*.45:R;g.lineTo(cx+Math.cos(a)*rr,cy+Math.sin(a)*rr);}g.closePath();g.fill();};
+    g.fillStyle=p[2];g.shadowColor='#ffb800';g.shadowBlur=4;[[122,38],[131,38],[140,38]].forEach(([x,y])=>star(x,y,3));g.shadowBlur=0;
+    g.font='bold 9px Teko, sans-serif';g.fillStyle='#0b2a4a';g.textAlign='center';g.fillText('10',24,54);
+    for(let i=0;i<40;i++){g.fillStyle=i%3?'#fff':p[2];g.globalAlpha=.4+r()*.6;const x=r()*W,y=r()*H,z=.5+r()*1.2;g.fillRect(x-z/2,y-z/2,z,z);}g.globalAlpha=1;
+  },
   requiem(g,W,H,p,r){
     const lg=g.createLinearGradient(0,0,0,H);lg.addColorStop(0,'#8a0f30');lg.addColorStop(.32,p[1]);lg.addColorStop(.47,'#4a0818');lg.addColorStop(1,p[0]);g.fillStyle=lg;g.fillRect(0,0,W,H);
     g.globalAlpha=.16;g.fillStyle='#fff';for(let i=0;i<5;i++){const x=r()*W;g.beginPath();g.moveTo(x,0);g.lineTo(x+8,0);g.lineTo(x-14,H);g.lineTo(x-22,H);g.closePath();g.fill();}
@@ -2854,6 +2883,22 @@ const PAT = {
   }
 };
 
+/* The GOAT gets real gold parts on top of the rifle: a scope, a muzzle brake, rails and trim. */
+function goatParts(g){
+  const gold = (x0, y0, x1, y1) => { const lg = g.createLinearGradient(x0, y0, x1, y1); lg.addColorStop(0, '#fff3c0'); lg.addColorStop(.35, '#ffd23f'); lg.addColorStop(.7, '#c98a0b'); lg.addColorStop(1, '#7a5200'); return lg; };
+  g.save(); g.lineJoin = 'round';
+  g.fillStyle = gold(0, 16, 0, 28); g.strokeStyle = 'rgba(60,35,0,.8)'; g.lineWidth = .8;
+  g.beginPath(); g.roundRect(60, 17, 44, 8, 3.5); g.fill(); g.stroke();
+  g.beginPath(); g.roundRect(55, 15.5, 9, 11, 2.5); g.fill(); g.stroke(); g.beginPath(); g.roundRect(100, 16, 8, 10, 2.5); g.fill(); g.stroke();
+  [[67, 25], [92, 25]].forEach(([x, y]) => { g.fillStyle = '#2a1d08'; g.fillRect(x, y, 4, 2.6); });
+  g.fillStyle = '#7cc4ef'; g.beginPath(); g.ellipse(107.5, 21, 1.4, 3.6, 0, 0, 7); g.fill(); g.fillStyle = 'rgba(255,255,255,.8)'; g.fillRect(106.8, 18.6, .8, 1.6);
+  g.fillStyle = gold(0, 32, 0, 44); g.beginPath(); g.roundRect(184, 32.5, 13, 10, 1.5); g.fill(); g.stroke();
+  g.fillStyle = '#2a1d08'; [187, 190.5, 194].forEach(x => g.fillRect(x, 34.5, 1.4, 6));
+  g.fillStyle = gold(0, 28, 0, 31); g.fillRect(54, 27.4, 46, 2.4);
+  g.fillStyle = gold(88, 46, 110, 72); g.globalAlpha = .9; g.fill(new Path2D('M88 46 H101 L110 70 L96 73 Z')); g.globalAlpha = 1; g.stroke(new Path2D('M88 46 H101 L110 70 L96 73 Z'));
+  g.fillStyle = '#75bde9'; g.font = 'bold 7px Teko, sans-serif'; g.textAlign = 'center'; g.fillText('G.O.A.T', 103, 62);
+  g.restore();
+}
 const pathCache = {};
 function paths(w){
   if (!pathCache[w]) {
@@ -2885,7 +2930,7 @@ function renderItem(it, fl, S){
   const g = c.getContext('2d'); g.scale(S,S);
   const P = paths(it.w), sh = SHAPES[it.w], r = seeded(hash(it.id)), bm = it.t >= 6;
   g.save();
-  g.shadowColor = bm ? (it.t === 7 ? 'rgba(255,122,217,.95)' : 'rgba(168,85,247,.9)') : 'rgba(0,0,0,.55)';
+  g.shadowColor = it.pat === 'goat' ? 'rgba(255,214,90,.95)' : bm ? (it.t === 7 ? 'rgba(255,122,217,.95)' : 'rgba(168,85,247,.9)') : 'rgba(0,0,0,.55)';
   g.shadowBlur = (bm ? 12 : 6) * S; g.shadowOffsetY = (bm ? 0 : 3) * S;
   g.fillStyle = '#000'; g.fill(P.all); g.restore();
   const lg = g.createLinearGradient(0,18,0,72);
@@ -2907,6 +2952,7 @@ function renderItem(it, fl, S){
   g.lineJoin='round'; g.strokeStyle='rgba(0,0,0,.7)'; g.lineWidth=1; g.stroke(P.dark); g.stroke(P.skin);
   if (bm) { g.strokeStyle='rgba(216,180,254,.5)'; g.lineWidth=.5; g.stroke(P.all); }
   if (sh.rivets) sh.rivets.forEach(([x,y]) => { g.fillStyle = bm ? '#c084fc' : '#d9b45a'; g.beginPath(); g.arc(x,y,1.7,0,7); g.fill(); g.strokeStyle='rgba(0,0,0,.6)'; g.lineWidth=.5; g.stroke(); });
+  if (it.pat === 'goat') goatParts(g);
   return c;
 }
 
@@ -8658,6 +8704,10 @@ function bdoMan(x, y, s, o){
       + '<path d="M-24 58 L22 96 H10 L-30 64 Z" fill="#c0262d"/>'
       + [64, 72, 80, 88].map(y => '<circle cx="0" cy="' + y + '" r="1.6" fill="#d4a017"/>').join('')
       + [[12, 66, '#d4a017'], [17, 67, '#c0c0c8'], [22, 68, '#c0262d'], [12, 74, '#2f6bff']].map(([x, y, c]) => '<rect x="' + (x - 1.5) + '" y="' + (y - 4) + '" width="3" height="4" fill="' + c + '"/><circle cx="' + x + '" cy="' + (y + 2) + '" r="2.2" fill="' + c + '"/>').join('');
+  } else if (o.labcoat) {
+    g += '<path d="M-34 96 Q-34 58 -12 51 H12 Q34 58 34 96 Z" fill="#f2f5f7"/><path d="M-10 51 L0 62 L10 51 L10 96 H-10 Z" fill="#75bde9"/><path d="M-10 51 L0 62 L10 51" fill="none" stroke="#4a8ab8" stroke-width="2"/>'
+      + '<path d="M-12 51 L-4 74 L-14 96 M12 51 L4 74 L14 96" stroke="#c9d2da" stroke-width="2" fill="none"/><path d="M-12 51 L-3 70 L-9 62 Z M12 51 L3 70 L9 62 Z" fill="#dfe6ec"/>'
+      + '<rect x="16" y="70" width="10" height="7" rx="1" fill="none" stroke="#c9d2da"/><path d="M19 70 V66" stroke="#39ff88" stroke-width="1.6"/><path d="M20 56 Q34 62 34 96 H26 Q27 70 20 56 Z" fill="rgba(0,0,0,.08)"/>';
   } else if (o.hoodie) {
     g += '<path d="M-34 96 Q-34 58 -12 51 H12 Q34 58 34 96 Z" fill="#17171c"/><path d="M-14 51 Q0 62 14 51" stroke="#26262e" stroke-width="5" fill="none"/><path d="M-3 58 V74 M3 58 V74" stroke="#b0b0b8" stroke-width="1"/><path d="M-14 80 H14 V92 H-14 Z" fill="#101014"/>';
   } else if (o.suit) {
@@ -8998,71 +9048,155 @@ function renderMsiBtn(){ const b = $('#msiBtn'); if (b) b.hidden = !P().bdoSeen;
 
 /* ---- the trophy room ---- */
 function msiUCL(x, y, s, yr){
-  return '<g class="msi-tr" data-tr="ucl-' + yr + '" transform="translate(' + x + ' ' + y + ') scale(' + s + ')"><rect x="-14" y="-34" width="28" height="56" fill="#000" fill-opacity="0"/>'
-    + '<path d="M-8 -30 H8 Q9 -8 0 -2 Q-9 -8 -8 -30 Z" fill="#d9dde3" stroke="#8a929c" stroke-width=".8"/>'
-    + '<path d="M-8 -26 Q-18 -30 -16 -16 Q-14 -8 -6 -8 M8 -26 Q18 -30 16 -16 Q14 -8 6 -8" stroke="#c4cad2" stroke-width="2.6" fill="none"/>'
-    + '<rect x="-2" y="-2" width="4" height="8" fill="#b4bac2"/><path d="M-8 6 H8 L9 12 H-9 Z" fill="#9aa2ac"/>'
-    + '<text x="0" y="20" text-anchor="middle" font-family="Teko, sans-serif" font-size="8" fill="#c9a54a">' + yr + '</text></g>';
+  return '<g class="msi-tr" data-tr="ucl-' + yr + '"><g transform="translate(' + x + ' ' + y + ') scale(' + s + ')"><rect x="-16" y="-36" width="32" height="62" fill="#000" fill-opacity="0"/>'
+    + '<ellipse cx="0" cy="13" rx="13" ry="2.4" fill="#000" opacity=".45"/>'
+    + '<path d="M-9 -31 Q0 -34 9 -31 Q10 -12 2 -5 L2 0 H-2 L-2 -5 Q-10 -12 -9 -31 Z" fill="url(#msS)" stroke="#6e7782" stroke-width=".6"/>'
+    + '<path d="M-9 -27 Q-21 -33 -19 -18 Q-17 -9 -6 -10 M9 -27 Q21 -33 19 -18 Q17 -9 6 -10" stroke="url(#msS)" stroke-width="3.4" fill="none" stroke-linecap="round"/>'
+    + '<path d="M-6 -29 Q-7 -18 -3 -11" stroke="#fff" stroke-width="1.2" opacity=".75" fill="none"/>'
+    + '<path d="M-6 0 H6 L8 6 H-8 Z" fill="url(#msS)"/><rect x="-10" y="6" width="20" height="6" rx="1" fill="#1a1410" stroke="#c9a54a" stroke-width=".5"/>'
+    + '<rect x="-7" y="16" width="14" height="6" rx="1" fill="#c9a54a"/><text x="0" y="20.8" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="5.6" fill="#2a1a04">' + yr + '</text></g></g>';
 }
 function msiBall(x, y, yr, k){
-  return '<g class="msi-tr" data-tr="bdo-' + yr + '"><rect x="' + (x - 11) + '" y="' + (y - 12) + '" width="22" height="34" fill="#000" fill-opacity="0"/>' + bdoBall(x, y, 8, k)
-    + '<path d="M' + (x - 5) + ' ' + (y + 12) + ' L' + (x - 4) + ' ' + (y + 7) + ' H' + (x + 4) + ' L' + (x + 5) + ' ' + (y + 12) + ' Z" fill="#2a1d08"/>'
-    + '<text x="' + x + '" y="' + (y + 20) + '" text-anchor="middle" font-family="Teko, sans-serif" font-size="7.5" fill="#c9a54a">' + yr + '</text></g>';
+  return '<g class="msi-tr" data-tr="bdo-' + yr + '"><rect x="' + (x - 13) + '" y="' + (y - 13) + '" width="26" height="36" fill="#000" fill-opacity="0"/>'
+    + '<ellipse cx="' + x + '" cy="' + (y + 13) + '" rx="10" ry="2" fill="#000" opacity=".45"/>'
+    + '<circle cx="' + x + '" cy="' + y + '" r="12" fill="#ffd23f" opacity=".14"/>' + bdoBall(x, y, 8.5, k)
+    + '<path d="M' + (x - 6) + ' ' + (y + 13) + ' L' + (x - 4.5) + ' ' + (y + 7.5) + ' H' + (x + 4.5) + ' L' + (x + 6) + ' ' + (y + 13) + ' Z" fill="#2a1d08" stroke="#c9a54a" stroke-width=".4"/>'
+    + '<rect x="' + (x - 7) + '" y="' + (y + 15) + '" width="14" height="5.6" rx="1" fill="#c9a54a"/><text x="' + x + '" y="' + (y + 19.4) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="5.6" fill="#2a1a04">' + yr + '</text></g>';
 }
+function msiMe(alien){ return bdoMan(128, 116, 1.05, bdoP('messi', {shirt:'#0f1b2e', trim:'#75bde9', alien})); }
 function msiRoomSVG(){
-  const k = 'ms', open = P().msiDoor;
+  const k = 'ms', open = P().msiDoor, R = seeded(1010);
   let s = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>' + bdoDefs(k)
-    + '<linearGradient id="msW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#10233d"/><stop offset="1" stop-color="#07101e"/></linearGradient>'
-    + '<radialGradient id="msD" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#39ff88" stop-opacity=".55"/><stop offset="1" stop-color="#39ff88" stop-opacity="0"/></radialGradient></defs>'
+    + '<linearGradient id="msW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1a2c"/><stop offset=".7" stop-color="#08111e"/><stop offset="1" stop-color="#050a12"/></linearGradient>'
+    + '<linearGradient id="msF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a130c"/><stop offset="1" stop-color="#070504"/></linearGradient>'
+    + '<linearGradient id="msS" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8a939e"/><stop offset=".35" stop-color="#f4f7fa"/><stop offset=".6" stop-color="#c3cad3"/><stop offset="1" stop-color="#6e7782"/></linearGradient>'
+    + '<linearGradient id="msGd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9a6508"/><stop offset=".4" stop-color="#ffe9a0"/><stop offset=".6" stop-color="#f5c542"/><stop offset="1" stop-color="#8a5a06"/></linearGradient>'
+    + '<linearGradient id="msC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2014"/><stop offset=".12" stop-color="#16110b"/><stop offset="1" stop-color="#0c0906"/></linearGradient>'
+    + '<linearGradient id="msL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1c8" stop-opacity=".55"/><stop offset="1" stop-color="#fff1c8" stop-opacity="0"/></linearGradient>'
+    + '<linearGradient id="msBn" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#75bde9"/><stop offset=".33" stop-color="#75bde9"/><stop offset=".33" stop-color="#f4f7fb"/><stop offset=".67" stop-color="#f4f7fb"/><stop offset=".67" stop-color="#75bde9"/></linearGradient>'
+    + '<radialGradient id="msD" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#39ff88" stop-opacity=".6"/><stop offset="1" stop-color="#39ff88" stop-opacity="0"/></radialGradient>'
+    + '<radialGradient id="msP" cx=".5" cy=".3" r=".7"><stop offset="0" stop-color="#ffe7a0" stop-opacity=".45"/><stop offset="1" stop-color="#ffe7a0" stop-opacity="0"/></radialGradient>'
+    + '<filter id="msB" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2"/></filter></defs>'
     + '<rect width="400" height="260" fill="url(#msW)"/>';
-  for (let i = 0; i < 8; i++) s += '<rect x="' + (i*50 + 12) + '" y="0" width="26" height="260" fill="#7cc4ef" opacity=".035"/>';
+  // wall: wood panels and a lit cornice
+  for (let x = 0; x < 400; x += 40) s += '<rect x="' + (x + 3) + '" y="16" width="34" height="168" rx="2" fill="#0f1e33" stroke="#13263f" stroke-width="1"/>';
+  s += '<rect x="0" y="0" width="400" height="14" fill="#04070c"/><rect x="0" y="13" width="400" height="2" fill="#c9a54a" opacity=".6"/>'
+    + '<rect x="0" y="14" width="400" height="10" fill="url(#msL)" opacity=".5"/>';
+  // the banner behind the World Cup
+  s += '<g opacity=".9"><path d="M170 18 H230 V112 L200 124 L170 112 Z" fill="url(#msBn)"/><path d="M170 18 H230 V112 L200 124 L170 112 Z" fill="#000" opacity=".25"/>'
+    + '<circle cx="200" cy="56" r="10" fill="#ffd23f" opacity=".85"/>' + Array.from({length: 16}, (_, i) => { const a = i/16*Math.PI*2; return '<path d="M' + (200 + Math.cos(a)*11).toFixed(1) + ' ' + (56 + Math.sin(a)*11).toFixed(1) + ' L' + (200 + Math.cos(a)*(i % 2 ? 15 : 17)).toFixed(1) + ' ' + (56 + Math.sin(a)*(i % 2 ? 15 : 17)).toFixed(1) + '" stroke="#ffd23f" stroke-width="1.6" opacity=".85"/>'; }).join('')
+    + '<text x="200" y="104" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="26" fill="#0b2a4a" opacity=".55">10</text></g>';
+  // framed shirt and a mate on the right wall
+  s += '<rect x="250" y="34" width="40" height="52" rx="2" fill="#1a1208" stroke="#c9a54a" stroke-width="1.5"/><rect x="254" y="38" width="32" height="44" fill="#0b1626"/>'
+    + '<path d="M259 46 L264 42 H276 L281 46 L279 52 L276 51 V78 H264 V51 L261 52 Z" fill="url(#msBn)"/><text x="270" y="68" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="11" fill="#0b2a4a">10</text>'
+    + '<rect x="258" y="150" width="24" height="34" rx="2" fill="#1a1208" stroke="#3a2a12"/><path d="M264 150 Q262 138 270 136 Q278 138 276 150 Z" fill="#6b4a2a"/><path d="M272 136 L276 124" stroke="#c0c4ca" stroke-width="1.6"/>';
+  // floor with reflections
+  s += '<rect x="0" y="184" width="400" height="76" fill="url(#msF)"/><rect x="0" y="183" width="400" height="2" fill="#c9a54a" opacity=".5"/>';
+  for (let i = -6; i <= 6; i++) s += '<path d="M' + (200 + i*12) + ' 185 L' + (200 + i*70) + ' 260" stroke="#2a2014" stroke-width=".8" opacity=".6"/>';
+  s += '<ellipse cx="200" cy="214" rx="80" ry="12" fill="#ffe7a0" opacity=".08"/>';
+  // spotlights
+  [[57, 34], [200, 50], [343, 34]].forEach(([x, w]) => s += '<path d="M' + (x - 6) + ' 14 L' + (x - w) + ' 196 H' + (x + w) + ' L' + (x + 6) + ' 14 Z" fill="url(#msL)" opacity=".35"/><rect x="' + (x - 7) + '" y="10" width="14" height="6" rx="2" fill="#2a2a30"/><ellipse cx="' + x + '" cy="16" rx="5" ry="1.6" fill="#fff6d8"/>');
+  // dust in the light
+  for (let i = 0; i < 26; i++) s += '<circle class="ms-dust" style="animation-delay:-' + (R()*6).toFixed(2) + 's" cx="' + (150 + R()*100).toFixed(1) + '" cy="' + (30 + R()*150).toFixed(1) + '" r="' + (.4 + R()*.7).toFixed(2) + '" fill="#fff6d8" opacity=".5"/>';
   // the secret door (behind the right cabinet)
-  s += '<g class="msi-door' + (open ? ' on' : '') + '" data-msi="door"><rect x="282" y="34" width="92" height="166" fill="url(#msD)"/><rect x="296" y="46" width="64" height="152" rx="3" fill="#06140c" stroke="#39ff88" stroke-width="2"/>'
-    + '<path d="M328 60 Q338 70 328 80 Q318 70 328 60 Z" fill="#39ff88" opacity=".7"/><circle cx="352" cy="124" r="3" fill="#39ff88"/>'
-    + '<text x="328" y="112" text-anchor="middle" font-family="Teko, sans-serif" font-size="9" letter-spacing="2" fill="#39ff88">LAB</text></g>';
-  const cab = (x, cls, inner) => '<g class="msi-cab ' + cls + '"><rect x="' + x + '" y="24" width="112" height="176" rx="3" fill="#0a1422" stroke="#c9a54a" stroke-width="2"/>'
-    + '<rect x="' + (x + 5) + '" y="29" width="102" height="166" fill="#0e1d32"/>'
-    + [86, 146].map(y => '<rect x="' + (x + 5) + '" y="' + y + '" width="102" height="4" fill="#3a2a12"/>').join('')
-    + inner + '<rect x="' + (x + 5) + '" y="29" width="102" height="166" fill="#cfe7ff" fill-opacity=".05" stroke="#cfe7ff" stroke-opacity=".18" pointer-events="none"/>'
-    + '<path d="M' + (x + 8) + ' 32 L' + (x + 30) + ' 32 L' + (x + 8) + ' 70 Z" fill="#fff" opacity=".05" pointer-events="none"/></g>';
-  // left: Ballon d'Ors
-  let L = ''; [2009, 2010, 2011, 2012].forEach((y, i) => L += msiBall(30 + i*24, 66, y, k)); [2015, 2019, 2021, 2023].forEach((y, i) => L += msiBall(30 + i*24, 126, y, k));
-  L += '<text x="74" y="186" text-anchor="middle" font-family="Teko, sans-serif" font-size="9" letter-spacing="2" fill="#c9a54a">BALLON D’OR ×8</text>';
-  // middle: the World Cup and the Copas
-  let M = '<g class="msi-tr msi-wc" data-tr="wc"><rect x="182" y="30" width="36" height="58" fill="#000" fill-opacity="0"/>' + bdoCup(200, 78, 1.35) + '<text x="200" y="98" text-anchor="middle" font-family="Teko, sans-serif" font-size="8" fill="#c9a54a">WORLD CUP 2022</text></g>'
-    + [[164, 2021], [236, 2024]].map(([x, y]) => '<g class="msi-tr" data-tr="copa-' + y + '"><rect x="' + (x - 12) + '" y="44" width="24" height="44" fill="#000" fill-opacity="0"/><path d="M' + (x - 5) + ' 52 H' + (x + 5) + ' L' + (x + 3) + ' 74 H' + (x - 3) + ' Z" fill="#d9dde3"/><rect x="' + (x - 7) + '" y="74" width="14" height="8" fill="#3a2a12"/><text x="' + x + '" y="98" text-anchor="middle" font-family="Teko, sans-serif" font-size="7" fill="#c9a54a">COPA ' + y + '</text></g>').join('');
-  // right: Champions Leagues
-  const R = msiUCL(302, 74, 1, 2006) + msiUCL(350, 74, 1, 2009) + msiUCL(302, 134, 1, 2011) + msiUCL(350, 134, 1, 2015)
-    + '<text x="326" y="186" text-anchor="middle" font-family="Teko, sans-serif" font-size="9" letter-spacing="2" fill="#c9a54a">CHAMPIONS ×4</text>';
-  s += cab(18, 'c-l', L) + cab(144, 'c-m', M) + cab(270, 'c-r' + (open ? ' slid' : ''), R);
-  // the counter and the man himself
-  s += '<g class="msi-me">' + bdoMan(200, 118, .95, bdoP('messi', {shirt:'#14223a', trim:'#7cc4ef', alien: !!open})) + '</g>'
-    + '<rect x="0" y="200" width="400" height="60" fill="#2a1a0c"/><rect x="0" y="198" width="400" height="5" fill="#c9a54a"/>'
-    + '<rect x="120" y="212" width="160" height="30" rx="3" fill="#1c1208" stroke="#3a2a12"/><text x="200" y="232" text-anchor="middle" font-family="Teko, sans-serif" font-weight="600" font-size="16" letter-spacing="4" fill="#7cc4ef">MESSI · 10</text>';
+  s += '<g class="msi-door' + (open ? ' on' : '') + '" data-msi="door"><rect x="300" y="30" width="92" height="160" fill="url(#msD)"/>'
+    + '<path d="M312 186 V54 Q312 40 326 40 H366 Q380 40 380 54 V186 Z" fill="#031008" stroke="#39ff88" stroke-width="2"/>'
+    + '<path d="M318 186 V58 Q318 46 330 46 H362 Q374 46 374 58 V186" fill="none" stroke="#39ff88" stroke-opacity=".35" stroke-width="1"/>'
+    + '<g transform="translate(346 92)"><ellipse rx="9" ry="12" fill="#39ff88" opacity=".85"/><ellipse cx="-3.6" cy="1" rx="2.6" ry="4" fill="#031008" transform="rotate(20 -3.6 1)"/><ellipse cx="3.6" cy="1" rx="2.6" ry="4" fill="#031008" transform="rotate(-20 3.6 1)"/></g>'
+    + '<text x="346" y="130" text-anchor="middle" font-family="Teko, sans-serif" font-size="10" letter-spacing="3" fill="#39ff88">LAB</text><circle cx="368" cy="140" r="2.6" fill="#39ff88"/></g>';
+  // cabinets
+  const cab = (x, cls, title, shelves, inner) => {
+    let c = '<g class="msi-cab ' + cls + '"><rect x="' + (x - 3) + '" y="26" width="100" height="162" rx="4" fill="#1d150c" stroke="#c9a54a" stroke-width="1.4"/>'
+      + '<rect x="' + x + '" y="40" width="94" height="144" fill="url(#msC)"/><rect x="' + x + '" y="29" width="94" height="10" fill="#120d07"/>'
+      + '<text x="' + (x + 47) + '" y="36.6" text-anchor="middle" font-family="Teko, sans-serif" font-weight="600" font-size="7" letter-spacing="2" fill="#e8cf86">' + title + '</text>';
+    shelves.forEach(y => c += '<rect x="' + x + '" y="' + (y - 34) + '" width="94" height="34" fill="url(#msP)" opacity=".8"/><rect x="' + x + '" y="' + y + '" width="94" height="3.4" fill="#3a2a14"/><rect x="' + x + '" y="' + y + '" width="94" height="1" fill="#ffe7a0" opacity=".55"/>'
+      + '<rect x="' + (x + 6) + '" y="' + (y - 33) + '" width="82" height="1.4" fill="#fff6d8" filter="url(#msB)" opacity=".9"/>');
+    c += inner
+      + '<rect x="' + x + '" y="40" width="94" height="144" fill="#cfe7ff" fill-opacity=".04" stroke="#cfe7ff" stroke-opacity=".22" pointer-events="none"/>'
+      + '<path d="M' + (x + 6) + ' 42 L' + (x + 26) + ' 42 L' + (x + 6) + ' 96 Z M' + (x + 34) + ' 42 H' + (x + 40) + ' L' + (x + 8) + ' 128 V112 Z" fill="#fff" opacity=".06" pointer-events="none"/>'
+      + '<rect x="' + (x - 3) + '" y="184" width="100" height="6" rx="1" fill="#1d150c" stroke="#c9a54a" stroke-width=".8"/></g>';
+    return c;
+  };
+  let L = ''; [[2009, 2010], [2011, 2012], [2015, 2019], [2021, 2023]].forEach(([a, b], i) => { const y = 56 + i*34; L += msiBall(33, y, a, k) + msiBall(81, y, b, k); });
+  s += cab(10, 'c-l', 'BALLON D’OR ×8', [69, 103, 137, 171], L);
+  const Rr = msiUCL(319, 104, 1.08, 2006) + msiUCL(367, 104, 1.08, 2009) + msiUCL(319, 166, 1.08, 2011) + msiUCL(367, 166, 1.08, 2015);
+  s += cab(296, 'c-r' + (open ? ' slid' : ''), 'CHAMPIONS ×4', [120, 182], Rr);
+  // the World Cup on its plinth, under a dome
+  s += '<path d="M200 14 L160 196 H240 Z" fill="url(#msL)" opacity=".45"/>'
+    + '<rect x="150" y="176" width="100" height="10" rx="2" fill="#0e0b08" stroke="#c9a54a" stroke-width=".8"/><rect x="158" y="160" width="84" height="16" rx="2" fill="#15110c" stroke="#c9a54a" stroke-width=".8"/>'
+    + '<rect x="181" y="116" width="38" height="44" fill="#0c0a08"/><rect x="181" y="116" width="38" height="44" fill="url(#msGd)" opacity=".12"/><rect x="181" y="116" width="38" height="3" fill="url(#msGd)"/><rect x="181" y="157" width="38" height="3" fill="url(#msGd)"/>'
+    + '<text x="200" y="142" text-anchor="middle" font-family="Teko, sans-serif" font-weight="600" font-size="7" letter-spacing="1" fill="#e8cf86">QATAR 2022</text>'
+    + '<g class="msi-tr msi-wc" data-tr="wc"><rect x="178" y="56" width="44" height="62" fill="#000" fill-opacity="0"/>'
+    + '<ellipse cx="200" cy="90" rx="26" ry="30" fill="#ffd23f" opacity=".14" filter="url(#msB)"/>' + bdoCup(200, 110, 1.9)
+    + '<path d="M178 116 V74 Q178 52 200 52 Q222 52 222 74 V116" fill="#cfe7ff" fill-opacity=".05" stroke="#e8f4ff" stroke-opacity=".4" stroke-width=".8"/><path d="M184 110 V76 Q184 62 194 58" stroke="#fff" stroke-opacity=".35" stroke-width="1.6" fill="none"/></g>'
+    + [[168, 2021], [232, 2024]].map(([x, y]) => '<g class="msi-tr" data-tr="copa-' + y + '"><rect x="' + (x - 10) + '" y="128" width="20" height="34" fill="#000" fill-opacity="0"/>'
+      + '<path d="M' + (x - 4) + ' 132 Q' + x + ' 128 ' + (x + 4) + ' 132 L' + (x + 3) + ' 152 H' + (x - 3) + ' Z" fill="url(#msS)"/><circle cx="' + x + '" cy="134" r="3" fill="url(#msGd)"/>'
+      + '<rect x="' + (x - 6) + '" y="152" width="12" height="7" fill="#1a1410" stroke="#c9a54a" stroke-width=".5"/><text x="' + x + '" y="171.5" text-anchor="middle" font-family="Teko, sans-serif" font-weight="600" font-size="5.6" fill="#e8cf86">COPA ' + y + '</text></g>').join('');
+  // Messi behind a little glass counter
+  s += '<g class="msi-me">' + msiMe(!!open) + '</g>'
+    + '<rect x="88" y="194" width="80" height="30" rx="3" fill="#cfe7ff" fill-opacity=".07" stroke="#e8f4ff" stroke-opacity=".4"/><rect x="88" y="222" width="80" height="16" fill="#1d150c" stroke="#c9a54a" stroke-width=".8"/>'
+    + '<rect x="92" y="196" width="72" height="1.4" fill="#fff6d8" opacity=".6"/><circle cx="114" cy="211" r="8" fill="#f4f6fa"/><path d="M114 204.6 L117.6 208 L116.4 213 H111.6 L110.4 208 Z" fill="#1a1a1a"/>'
+    + '<rect x="128" y="204" width="28" height="14" rx="1" fill="#f4f7fb"/><rect x="128" y="204" width="28" height="4.6" fill="#75bde9"/><rect x="128" y="213.4" width="28" height="4.6" fill="#75bde9"/><circle cx="142" cy="211" r="1.6" fill="#ffd23f"/>'
+    + '<rect x="0" y="0" width="400" height="260" fill="none" stroke="#000" stroke-width="40" opacity=".35" filter="url(#msB)" pointer-events="none"/>';
   return s + '</svg>';
 }
-/* ---- the lab ---- */
 function msiLabSVG(){
-  const k = 'ml', g = P().goat;
+  const k = 'ml', g = P().goat, R = seeded(2022);
   let s = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>' + bdoDefs(k)
-    + '<linearGradient id="mlT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#39ff88" stop-opacity=".15"/><stop offset="1" stop-color="#39ff88" stop-opacity=".45"/></linearGradient>'
-    + '<linearGradient id="mlR" x1="0" x2="1"><stop offset="0" stop-color="#ff3ea5"/><stop offset=".25" stop-color="#ffd23f"/><stop offset=".5" stop-color="#39ff88"/><stop offset=".75" stop-color="#2fe3ff"/><stop offset="1" stop-color="#7a6aff"/></linearGradient></defs>'
-    + '<rect width="400" height="260" fill="#04100c"/>';
-  for (let i = 0; i < 9; i++) s += '<path d="M' + (i*46) + ' 0 V260" stroke="#0a2a1c" stroke-width="10"/>';
-  s += '<path d="M0 26 H400 M0 34 H400" stroke="#123a28" stroke-width="3"/><rect x="0" y="210" width="400" height="50" fill="#06180f"/><path d="M0 210 H400" stroke="#39ff88" stroke-opacity=".35"/>';
+    + '<pattern id="mlH" width="18" height="31.2" patternUnits="userSpaceOnUse"><path d="M9 0 L18 5.2 V15.6 L9 20.8 L0 15.6 V5.2 Z M9 20.8 V31.2" fill="none" stroke="#0f2e20" stroke-width="1"/></pattern>'
+    + '<linearGradient id="mlT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#39ff88" stop-opacity=".18"/><stop offset="1" stop-color="#1fd47a" stop-opacity=".55"/></linearGradient>'
+    + '<linearGradient id="mlG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".02"/><stop offset=".12" stop-color="#fff" stop-opacity=".28"/><stop offset=".2" stop-color="#fff" stop-opacity=".02"/><stop offset=".85" stop-color="#fff" stop-opacity=".04"/><stop offset=".92" stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity=".02"/></linearGradient>'
+    + '<linearGradient id="mlM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a5560"/><stop offset=".5" stop-color="#232a31"/><stop offset="1" stop-color="#11161b"/></linearGradient>'
+    + '<linearGradient id="mlR" x1="0" x2="1"><stop offset="0" stop-color="#ff3ea5"/><stop offset=".25" stop-color="#ffd23f"/><stop offset=".5" stop-color="#39ff88"/><stop offset=".75" stop-color="#2fe3ff"/><stop offset="1" stop-color="#7a6aff"/></linearGradient>'
+    + '<radialGradient id="mlSp" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#2a0d4a"/><stop offset="1" stop-color="#06020e"/></radialGradient>'
+    + '<radialGradient id="mlPl" cx=".35" cy=".35" r=".7"><stop offset="0" stop-color="#b8ffd8"/><stop offset=".5" stop-color="#2fc47a"/><stop offset="1" stop-color="#0a3a22"/></radialGradient>'
+    + '<radialGradient id="mlGl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#39ff88" stop-opacity=".5"/><stop offset="1" stop-color="#39ff88" stop-opacity="0"/></radialGradient>'
+    + '<clipPath id="mlWc"><circle cx="66" cy="66" r="40"/></clipPath>'
+    + '<filter id="mlB" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter></defs>'
+    + '<rect width="400" height="260" fill="#030b08"/><rect width="400" height="260" fill="url(#mlH)"/>';
+  // porthole onto home
+  s += '<g clip-path="url(#mlWc)"><rect x="20" y="20" width="92" height="92" fill="url(#mlSp)"/>';
+  for (let i = 0; i < 40; i++) s += '<circle cx="' + (26 + R()*80).toFixed(1) + '" cy="' + (26 + R()*80).toFixed(1) + '" r="' + (.3 + R()*.8).toFixed(2) + '" fill="#fff" opacity="' + (.4 + R()*.6).toFixed(2) + '"/>';
+  s += '<circle cx="80" cy="80" r="24" fill="url(#mlPl)"/><ellipse cx="80" cy="80" rx="38" ry="7" fill="none" stroke="#9affc8" stroke-width="2" opacity=".55" transform="rotate(-18 80 80)"/><circle cx="44" cy="44" r="5" fill="#d8c8ff" opacity=".8"/></g>'
+    + '<circle cx="66" cy="66" r="41" fill="none" stroke="url(#mlM)" stroke-width="9"/><circle cx="66" cy="66" r="45.5" fill="none" stroke="#39ff88" stroke-opacity=".35"/>'
+    + Array.from({length: 8}, (_, i) => { const a = i/8*Math.PI*2; return '<circle cx="' + (66 + Math.cos(a)*41).toFixed(1) + '" cy="' + (66 + Math.sin(a)*41).toFixed(1) + '" r="1.6" fill="#8a96a2"/>'; }).join('');
+  // monitors
+  s += '<g><rect x="298" y="18" width="88" height="56" rx="4" fill="#061a10" stroke="url(#mlM)" stroke-width="3"/>'
+    + Array.from({length: 6}, (_, i) => '<rect class="ml-txt" style="animation-delay:-' + (i*.4) + 's" x="306" y="' + (26 + i*7) + '" width="' + (20 + R()*44).toFixed(0) + '" height="3" rx="1" fill="#39ff88" opacity=".7"/>').join('')
+    + '<circle cx="368" cy="54" r="12" fill="none" stroke="#39ff88" stroke-opacity=".5"/><circle cx="368" cy="54" r="6" fill="none" stroke="#39ff88" stroke-opacity=".3"/><path class="ml-radar" d="M368 54 L380 54" stroke="#39ff88" stroke-width="1.4"/>'
+    + '<text x="342" y="82" text-anchor="middle" font-family="Teko, sans-serif" font-size="6.4" letter-spacing="2" fill="#39ff88" opacity=".7">SPECIMEN 10 · STABLE</text></g>';
+  // pipes
+  s += '<path d="M200 0 V26 M150 0 V18 Q150 26 162 26 H178 M250 0 V18 Q250 26 238 26 H222" stroke="url(#mlM)" stroke-width="9" fill="none"/>'
+    + '<path d="M200 0 V26 M150 0 V18 Q150 26 162 26 H178 M250 0 V18 Q250 26 238 26 H222" stroke="#39ff88" stroke-width="1.2" stroke-dasharray="3 9" fill="none" class="ml-flow"/>';
+  // floor
+  s += '<rect x="0" y="206" width="400" height="54" fill="#06120c"/><rect x="0" y="205" width="400" height="2" fill="#39ff88" opacity=".35"/>';
+  for (let i = -8; i <= 8; i++) s += '<path d="M' + (200 + i*14) + ' 207 L' + (200 + i*60) + ' 260" stroke="#0f2e20" stroke-width="1"/>';
+  for (let y = 214; y < 260; y += 10) s += '<path d="M0 ' + y + ' H400" stroke="#0f2e20" stroke-width=".8"/>';
+  s += '<ellipse cx="200" cy="214" rx="96" ry="14" fill="url(#mlGl)"/>';
   // the tank
-  s += '<g class="ml-tank' + (g === 'unlocked' || msiPad.length === 3 ? ' lit' : '') + (g === 'owned' ? ' empty' : '') + '"><rect x="128" y="34" width="144" height="170" rx="12" fill="#03140c" stroke="#7af0b8" stroke-width="2.5"/>'
-    + '<rect class="ml-fluid" x="132" y="38" width="136" height="162" rx="10" fill="url(#mlT)"/>'
-    + '<rect class="ml-rb" x="132" y="38" width="136" height="162" rx="10" fill="url(#mlR)" opacity="0"/>'
-    + Array.from({length: 10}, (_, i) => '<circle class="ml-bub" style="animation-delay:-' + (i*.37).toFixed(2) + 's" cx="' + (142 + (i*13) % 120) + '" cy="196" r="' + (1.5 + (i % 3)) + '" fill="#bfffe0" opacity=".6"/>').join('')
-    + '<g class="ml-goat"><image href="' + artHi(BY[GOAT_ID], 0) + '" x="140" y="96" width="120" height="48" preserveAspectRatio="xMidYMid meet"/></g>'
-    + '<rect x="120" y="26" width="160" height="12" rx="3" fill="#1a3a2a"/><rect x="120" y="200" width="160" height="12" rx="3" fill="#1a3a2a"/>'
-    + '<path d="M136 44 Q140 120 136 196" stroke="#fff" stroke-opacity=".12" stroke-width="5" fill="none"/></g>';
-  // the pad
-  s += '<g class="ml-pad"><rect x="290" y="128" width="78" height="44" rx="6" fill="#0c2a1c" stroke="#39ff88" stroke-opacity=".5"/><rect x="326" y="172" width="6" height="38" fill="#0c2a1c"/>'
-    + [0, 1, 2].map(i => '<g class="ml-btn' + (msiPad.includes(i) || g === 'unlocked' || g === 'owned' ? ' on' : '') + '" data-msi="pad" data-v="' + i + '"><circle cx="' + (306 + i*23) + '" cy="150" r="9" fill="#06140c" stroke="#39ff88" stroke-width="1.5"/><circle class="ml-l" cx="' + (306 + i*23) + '" cy="150" r="5.5" fill="#39ff88"/><rect x="' + (295 + i*23) + '" y="139" width="22" height="22" fill="#000" fill-opacity="0"/></g>').join('')
-    + '</g>';
-  s += '<g class="msi-me">' + bdoMan(62, 112, 1, bdoP('messi', {shirt:'#e9eef2', trim:'#7cc4ef', alien:true})) + '</g>';
+  s += '<g class="ml-tank' + (g === 'unlocked' || msiPad.length === 3 ? ' lit' : '') + (g === 'owned' ? ' empty' : '') + '">'
+    + '<rect x="138" y="44" width="124" height="152" fill="#03140c"/>'
+    + '<rect class="ml-fluid" x="138" y="52" width="124" height="144" fill="url(#mlT)"/>'
+    + '<rect class="ml-rb" x="138" y="52" width="124" height="144" fill="url(#mlR)" opacity="0"/>'
+    + '<path class="ml-surf" d="M138 52 Q169 48 200 52 T262 52" stroke="#b8ffd8" stroke-width="1.2" fill="none" opacity=".7"/>'
+    + Array.from({length: 14}, (_, i) => '<circle class="ml-bub" style="animation-delay:-' + (i*.31).toFixed(2) + 's" cx="' + (146 + (i*17) % 108) + '" cy="192" r="' + (1.2 + (i % 3)*.9) + '" fill="#d8ffe8" opacity=".6"/>').join('')
+    + '<ellipse cx="200" cy="124" rx="70" ry="34" fill="#39ff88" opacity=".12" filter="url(#mlB)"/>'
+    + '<g class="ml-goat"><ellipse cx="200" cy="122" rx="62" ry="22" fill="#7cc4ef" opacity=".25" filter="url(#mlB)"/><image href="' + artHi(BY[GOAT_ID], 0) + '" x="138" y="97" width="124" height="50" preserveAspectRatio="xMidYMid meet"/></g>'
+    + '<rect x="138" y="44" width="124" height="152" fill="url(#mlG)"/><rect x="138" y="44" width="124" height="152" fill="none" stroke="#9affc8" stroke-opacity=".5" stroke-width="1.2"/>'
+    + '<path d="M128 44 H272 L266 30 H134 Z" fill="url(#mlM)"/><rect x="128" y="40" width="144" height="6" fill="#2a333c"/><rect x="128" y="45" width="144" height="2" fill="#39ff88" opacity=".8"/>'
+    + '<path d="M128 196 H272 L278 214 H122 Z" fill="url(#mlM)"/><rect x="128" y="194" width="144" height="2" fill="#39ff88" opacity=".8"/>'
+    + [142, 170, 200, 230, 258].map(x => '<circle cx="' + x + '" cy="37" r="1.6" fill="#8a96a2"/><circle cx="' + x + '" cy="205" r="1.6" fill="#8a96a2"/>').join('')
+    + '<rect x="186" y="200" width="28" height="7" rx="1.5" fill="#031008"/><text x="200" y="205.6" text-anchor="middle" font-family="Teko, sans-serif" font-size="5.6" letter-spacing="1" fill="#39ff88">G.O.A.T.</text></g>';
+  // the console and its pad
+  s += '<g class="ml-pad"><path d="M296 206 L304 150 H372 L380 206 Z" fill="url(#mlM)"/><path d="M300 150 L292 126 H384 L376 150 Z" fill="#1a2128" stroke="#39ff88" stroke-opacity=".45"/>'
+    + '<rect x="318" y="98" width="40" height="24" rx="2" fill="#061a10" stroke="url(#mlM)" stroke-width="2"/><text x="338" y="113" text-anchor="middle" font-family="Teko, sans-serif" font-size="8" letter-spacing="2" fill="#39ff88" class="ml-blink">' + (g ? 'OPEN' : '1 · 2 · 3') + '</text><rect x="336" y="122" width="4" height="6" fill="#2a333c"/>'
+    + [0, 1, 2].map(i => { const x = 314 + i*24; return '<g class="ml-btn' + (msiPad.includes(i) || g ? ' on' : '') + '" data-msi="pad" data-v="' + i + '"><ellipse cx="' + x + '" cy="140" rx="10" ry="5" fill="#03140c" stroke="#8a96a2" stroke-width="1.2"/><ellipse cx="' + x + '" cy="138" rx="8" ry="4" fill="#0f3a24"/><ellipse class="ml-l" cx="' + x + '" cy="137.6" rx="6.4" ry="3.2" fill="#39ff88"/><rect x="' + (x - 12) + '" y="128" width="24" height="18" fill="#000" fill-opacity="0"/></g>'; }).join('')
+    + '<path d="M300 170 H376 M300 182 H376" stroke="#0f2e20" stroke-width="1.4"/></g>';
+  // Messi in a lab coat, behind a bench of specimen jars
+  s += '<g class="msi-me">' + bdoMan(66, 124, .95, bdoP('messi', {labcoat:true, alien:true})) + '</g>'
+    + '<rect x="14" y="192" width="112" height="14" rx="2" fill="url(#mlM)"/><rect x="14" y="191" width="112" height="2" fill="#39ff88" opacity=".5"/>'
+    + [[28, '#39ff88'], [104, '#7cc4ef']].map(([x, c]) => '<rect x="' + (x - 9) + '" y="166" width="18" height="26" rx="3" fill="' + c + '" fill-opacity=".18" stroke="#cfe7ff" stroke-opacity=".5"/><rect x="' + (x - 10) + '" y="162" width="20" height="5" rx="1" fill="#4a5560"/><circle cx="' + x + '" cy="180" r="6" fill="#f4f6fa"/><path d="M' + x + ' 175.5 L' + (x + 2.6) + ' 178 L' + (x + 1.6) + ' 181.6 H' + (x - 1.6) + ' L' + (x - 2.6) + ' 178 Z" fill="#1a1a1a"/>').join('')
+    + '<rect x="0" y="0" width="400" height="260" fill="none" stroke="#000" stroke-width="40" opacity=".4" filter="url(#mlB)" pointer-events="none"/>';
   return s + '</svg>';
 }
 function msiShow(view, panel){
@@ -9105,7 +9239,7 @@ async function msiReveal(){
   if (sc) sc.classList.add('slid'); if (dr) dr.classList.add('on');
   msiPanel(msiSay('Lionel Messi', '…You weren’t supposed to find that.'));
   await wait(2200); if (msiView !== 'room' || msiEl().hidden) return;
-  const me = msiEl().querySelector('.msi-me'); if (me) me.innerHTML = bdoMan(200, 118, .95, bdoP('messi', {shirt:'#14223a', trim:'#7cc4ef', alien:true}));
+  const me = msiEl().querySelector('.msi-me'); if (me) me.innerHTML = msiMe(true);
   sweep(200, 1400, 1.2, 'sine', .05);
   msiPanel(msiSay('Lionel Messi', 'I should tell you something. I’m not from here. Not Rosario. Not Earth.'));
   await wait(3000); if (msiView !== 'room' || msiEl().hidden) return;
