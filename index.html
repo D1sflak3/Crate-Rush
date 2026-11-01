@@ -2378,6 +2378,55 @@ body{background:
 .pk-drop.lg{background:radial-gradient(circle at 50% 50%,rgba(255,77,77,.28),rgba(0,0,0,.82) 70%)}
 .pk-drop.lg .pk-lab{color:#ffd0d0;text-shadow:0 0 14px #ff4d4d}
 .jb-once{display:inline-block;margin-top:8px;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#ffd27a;background:rgba(255,203,46,.1);border:1px solid rgba(255,203,46,.45)}
+
+/* ---------- Dance's club ---------- */
+.dance{z-index:86;background:radial-gradient(900px 500px at 50% 30%,rgba(255,62,165,.16),transparent 70%),rgba(6,2,12,.99)}
+.dance .bdo-scene{border-color:rgba(255,62,165,.5);box-shadow:0 0 0 4px #0a0414,0 0 0 5px rgba(255,210,63,.3),0 0 80px rgba(255,62,165,.25)}
+.dz-ball{transform-box:fill-box;transform-origin:center;animation:dzSpin 4s linear infinite}
+@keyframes dzSpin{to{transform:rotate(360deg)}}
+.dz-beams{transform-box:view-box;transform-origin:200px 62px;animation:dzBeams 6s ease-in-out infinite alternate}
+@keyframes dzBeams{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+.dz-tile{animation:dzTile 1.7s steps(1) infinite;opacity:.25}
+@keyframes dzTile{0%{opacity:.25}30%{opacity:.85}60%{opacity:.4}}
+.dz-sign{animation:dzSign 3s steps(1) infinite}
+@keyframes dzSign{0%,100%{opacity:1}8%{opacity:.4}10%{opacity:1}52%{opacity:.7}54%{opacity:1}}
+.dz-dancer{animation:dzBob .5s ease-in-out infinite alternate}
+@keyframes dzBob{to{transform:translateY(-5px)}}
+.dz-arm{animation:dzArm .5s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes dzArm{to{transform:rotate(14deg)}}
+.dance.k-intro .dz-floor,.dance.k-intro .dz-beams,.dance.k-intro .dz-dancer,.dance.k-intro .dz-ball{opacity:0;transition:opacity .8s}
+.dance.k-intro.lit .dz-floor,.dance.k-intro.lit .dz-beams,.dance.k-intro.lit .dz-dancer,.dance.k-intro.lit .dz-ball{opacity:1}
+.dz-stream{stroke-dasharray:260;stroke-dashoffset:260;opacity:0}
+.dance.stream .dz-stream{opacity:.9;animation:dzStream 1.4s ease-out forwards,dzGlow .8s 1.4s ease-in-out infinite alternate}
+@keyframes dzStream{to{stroke-dashoffset:0}}
+@keyframes dzGlow{to{opacity:.4}}
+.dz-forge{opacity:0;transition:opacity .6s}.dance.stream .dz-forge{opacity:1}
+.dz-made{opacity:0;transform-box:fill-box;transform-origin:center}
+.dance.made .dz-made{animation:dzMade 1.2s var(--ease-spring) forwards,hover 3s 1.2s ease-in-out infinite}
+@keyframes dzMade{0%{opacity:0;transform:scale(.2) translateY(30px);filter:brightness(3)}100%{opacity:1;transform:none;filter:none}}
+.dance.made .dz-stream{opacity:.25}
+.dz-cap{opacity:0;transition:opacity .6s}.dance.made .dz-cap{opacity:1}.dance.host .dz-cap{opacity:0}
+.dz-host{opacity:0;transform:translateY(60px);transition:opacity .5s,transform .7s var(--ease-spring)}
+.dance.host .dz-host{opacity:1;transform:none}
+.dance.host .dz-made{opacity:.25!important}
+.dz-pi{animation:dzPi .6s var(--ease-spring) both;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes dzPi{from{opacity:0;transform:translateY(-40px) scale(.5)}}
+.dz-scene.dz-hit{animation:quake .4s}
+.dz-offer{display:flex;align-items:baseline;gap:10px;justify-content:center;font-family:var(--display);font-size:40px;line-height:1;color:var(--accent-2)}
+.dz-offer .coin{width:22px;height:22px;align-self:center}
+.dz-offer small{font-family:var(--body);font-size:13px;color:var(--muted)}
+.dance.crying .dz-me{animation:dzSob .35s ease-in-out infinite alternate}
+@keyframes dzSob{to{transform:translateY(2px)}}
+.dz-pockets{opacity:0;transition:opacity .4s}
+.dance.broke .dz-pockets{opacity:1}
+.dz-moth{opacity:0}
+.dance.broke .dz-moth{animation:dzMoth 2.4s .5s ease-out forwards}
+@keyframes dzMoth{0%{opacity:1;transform:translate(0,0)}100%{opacity:0;transform:translate(60px,-120px) rotate(30deg)}}
+.dance.broke .dz-beams,.dance.broke .dz-tile{animation-play-state:paused;opacity:.15}
+.dz-pick .bdo-it small{color:#ffd6f4}
+.pr-dance{border-color:#ff3ea5!important;background:radial-gradient(circle at 12% 50%,rgba(255,62,165,.28),transparent 55%),linear-gradient(135deg,#1a0820,#07030c)!important}
+.pr-dance .pf{background:radial-gradient(circle,#2a0a3a,#07030c)}
+@media (prefers-reduced-motion: reduce){.dz-ball,.dz-beams,.dz-tile,.dz-dancer,.dz-arm,.dz-sign{animation:none}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -5861,6 +5910,13 @@ function renderLobby(){
       + jobBadge(m) + '<div class="ct' + (cl ? '' : n ? '' : ' zero') + '">' + (cl ? 'Won’t see you · ' + cl + ' more open' + (cl === 1 ? '' : 's') : n ? n + ' piece' + (n === 1 ? '' : 's') + ' of contraband in your bag' : 'No contraband in your bag') + '</div></div>';
     grid.append(b);
   }
+  if (P().danceSeen) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'pr-mem pr-tob pr-dance'; b.dataset.dance = '1'; b.style.setProperty('--mc', '#ff3ea5');
+    b.innerHTML = '<div class="pf"><svg viewBox="0 0 120 120" aria-hidden="true">' + danceMan(60, 22, .9, '') + '</svg></div><div class="tb-txt"><div class="rl">Across the river · a door with no sign</div><div class="nm">Dance</div><div class="by">Vance’s little brother. The fun one. Buys <b style="color:var(--mc)">Chroma only</b>, at ' + DANCE_X + '× market. Rarely falls for a bluff.</div>'
+      + '<div class="ct' + (P().danceBroke ? ' zero' : '') + '">' + (P().danceBroke ? 'Broke. Still dancing.' : state.inv.filter(e => BY[e.id] && BY[e.id].t === 7).length + ' Chroma in your bag') + '</div></div>';
+    grid.append(b);
+  }
 }
 function openRoom(id){
   const m = MBY[id], cl = coolLeft(m), held = id === 'tobias' && cellValid();
@@ -6096,6 +6152,7 @@ function startNeg(uidv){
   const m = room, e = state.inv.find(x => x.uid === uidv); if (!m || !e || !buys(m, e) || ownStock(m, e)) return;
   if (m.id === 'tobias' && isRequiem(e)) { tobiasGrab(e); return; }
   if (m.id === 'tobias' && e.id === GOAT_ID) { tobiasGoat(e); return; }
+  if (m.id === 'tobias' && e.id === VANCE_ID) { tobiasDance(e); return; }
   const exact = isExact(m, e), tg = tagged(e);
   closeOv(); calmRoom(false);
   neg = {m, e, exact, offer: offerFor(m, e), pat: m.pat, cap: Math.round(e.v * (tg ? TAG_CAP : CAP_X)), lock: false, rage: 0};
@@ -8804,6 +8861,8 @@ function bdoFace(o){
   else if (o.mouth === 'open') f += '<ellipse cx="0" cy="31.5" rx="4.5" ry="3.6" fill="#5a1a14"/><path d="M-3.5 29.5 H3.5" stroke="#fff" stroke-width="1.4"/>';
   else f += '<path d="M-6.5 30 Q0 34.4 6.5 30" stroke="#6a2a1e" stroke-width="1.7" fill="none" stroke-linecap="round"/>';
   if (o.lip !== false && o.mouth !== 'gap' && o.mouth !== 'grin') f += '<path d="M-3.5 33.6 Q0 34.8 3.5 33.6" stroke="' + sh + '" stroke-width="1" fill="none"/>';
+  if (o.glasses === 'disco') f += '<defs><linearGradient id="dzg' + (o.gid || 'x') + '" x1="0" x2="1"><stop offset="0" stop-color="#ff3ea5"/><stop offset=".5" stop-color="#ffd23f"/><stop offset="1" stop-color="#2fe3ff"/></linearGradient></defs>'
+    + [-7.5, 7.5].map(x => '<circle cx="' + x + '" cy="11" r="6.2" fill="url(#dzg' + (o.gid || 'x') + ')" fill-opacity=".8" stroke="#ffd23f" stroke-width="1.4"/><ellipse cx="' + (x - 2) + '" cy="9" rx="2" ry="1.2" fill="#fff" opacity=".7"/>').join('') + '<path d="M-1.3 10 Q0 8.6 1.3 10" stroke="#ffd23f" stroke-width="1.2" fill="none"/><path d="M-13.7 10 L-16 9 M13.7 10 L16 9" stroke="#ffd23f" stroke-width="1.2"/>';
   if (o.tears) f += '<path class="bd-tear" d="M-8 15 Q-10 22 -8 26 Q-6 22 -8 15 Z M8 15 Q6 22 8 26 Q10 22 8 15 Z" fill="#7cc8ff" opacity=".9"/><path d="M-11 9 Q-7 6 -3 8 M3 8 Q7 6 11 9" stroke="#2a1810" stroke-width="1.4" fill="none"/>';
   if (o.cap) f += '<path d="M-19 -6 Q-20 -24 0 -26 Q20 -24 19 -6 Z" fill="#3a4526"/><rect x="-19" y="-9" width="38" height="5" fill="#d4a017"/><path d="M-18 -4 Q0 2 20 -4 L22 -1 Q0 6 -20 -1 Z" fill="#111"/><circle cx="0" cy="-15" r="3.4" fill="#d4a017"/><circle cx="0" cy="-15" r="1.6" fill="#c0262d"/>';
   if (o.alien) f += [-7, 7].map(x => '<ellipse cx="' + x + '" cy="11" rx="5.5" ry="3.6" fill="#39ff88" opacity=".35"/><ellipse cx="' + x + '" cy="11" rx="3.6" ry="2.2" fill="#b8ffd8"/><circle cx="' + x + '" cy="11" r="1.2" fill="#0a3a1e"/>').join('');
@@ -8831,11 +8890,13 @@ function bdoMan(x, y, s, o){
   } else {
     const id = 'st' + Math.random().toString(36).slice(2, 7);
     g += (sh === 'stripes' ? '<defs><pattern id="' + id + '" width="12" height="10" patternUnits="userSpaceOnUse"><rect width="12" height="10" fill="#f4f6fa"/><rect width="6" height="10" fill="#7cc4ef"/></pattern></defs>' : '')
-      + '<path d="M-34 96 Q-34 58 -12 51 H12 Q34 58 34 96 Z" fill="' + (sh === 'stripes' ? 'url(#' + id + ')' : sh) + '"/>'
+      + (sh === 'disco' ? '<defs><pattern id="' + id + '" width="14" height="12" patternUnits="userSpaceOnUse"><rect width="14" height="12" fill="#5b1a8a"/><path d="M0 6 L3.5 2 L7 6 L10.5 2 L14 6" stroke="#ffd23f" stroke-width="1.4" fill="none"/><circle cx="3" cy="10" r="1.3" fill="#2fe3ff"/><circle cx="10" cy="10" r="1.3" fill="#ff3ea5"/></pattern></defs>' : '')
+      + '<path d="M-34 96 Q-34 58 -12 51 H12 Q34 58 34 96 Z" fill="' + (sh === 'stripes' || sh === 'disco' ? 'url(#' + id + ')' : sh) + '"/>'
       + '<path d="M20 56 Q34 62 34 96 H26 Q27 70 20 56 Z" fill="rgba(0,0,0,.14)"/>'
       + '<path d="M-9 51 L0 61 L9 51" fill="none" stroke="' + (o.trim || 'rgba(0,0,0,.25)') + '" stroke-width="3.2" stroke-linejoin="round"/>'
       + (o.num ? '<text x="0" y="88" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="24" fill="' + (o.numc || '#fff') + '">' + o.num + '</text>' : '');
   }
+  if (o.chain) g += '<path d="M-12 53 Q0 72 12 53" stroke="#ffd23f" stroke-width="2.2" fill="none" stroke-dasharray="2.2 1.2"/><circle cx="0" cy="66" r="3.4" fill="#ffd23f" stroke="#a8650a" stroke-width=".8"/>';
   g += '<path d="M-6.5 40 H6.5 V54 Q0 57 -6.5 54 Z" fill="' + sk + '"/><path d="M-6.5 42 Q0 47 6.5 42 V46 Q0 50 -6.5 46 Z" fill="rgba(90,40,20,.22)"/>';
   g += bdoFace(o);
   if (o.arm === 'up') g += '<path d="M24 62 Q36 40 34 16" stroke="' + (o.uniform ? '#3d4a2a' : o.hoodie ? '#17171c' : o.suit ? '#111318' : sh === 'stripes' ? '#7cc4ef' : sh) + '" stroke-width="10" stroke-linecap="round" fill="none"/><circle cx="34" cy="13" r="5.5" fill="' + sk + '"/>';
@@ -9845,6 +9906,210 @@ function gadChips(){
   if (Gd.coil > 0) out.push(['coil', 'Spring Coil · ' + Gd.coil + ' left']);
   return out.map(([id, n]) => '<span class="hk gad">' + gadSVG(id) + n + '</span>');
 }
+/* ---------- Dance: Vance's brother ----------
+   Offer Kingmaker (Vance's Chroma knife) to Tobias and he won't touch family business: he sends you to Vance's
+   brother, Dance, who runs a disco where the dancers make Chromas out of thin air. Dance buys Chroma only. He
+   almost never falls for a bluff, except over The GOAT: then every bluff works, and he keeps piling Black Market
+   pieces and cash onto his offer, sweating, then crying, all the way to 5,000,000. Take it and he turns out his
+   pockets: nothing left. He's broke for good after that. */
+const DANCE_X = 1.5, DANCE_BLUFF = .15;
+const DANCE_LADDER = [
+  {tot:650000, add:1, line:'Okay, OKAY. Hold the music. Plus one of my babies from the back.', mood:''},
+  {tot:1100000, add:1, line:'Another buyer?! For THE GOAT? Bring out the purple one!', mood:''},
+  {tot:1800000, add:1, line:'You’re killing me. You’re KILLING me. Take this one too. Cash on top.', mood:'sweat'},
+  {tot:2700000, add:1, line:'That was my favourite. That was my FAVOURITE one.', mood:'sweat'},
+  {tot:3800000, add:1, line:'*sniff* Everything in the back room. Everything.', mood:'tear'},
+  {tot:5000000, add:0, line:'FIVE. MILLION. That’s… *sob* that’s everything I’ve got, baby.', mood:'cry'}
+];
+let dz = null, dzBeat = null;
+const DZ_COLS = ['#ff3ea5', '#ffd23f', '#39ff88', '#2fe3ff', '#7a6aff', '#ff8a3d'];
+
+function danceMan(x, y, s, mood){
+  return bdoMan(x, y, s, {skin:'#c99a74', shade:'rgba(90,40,20,.2)', head:'round', hair:'afro', hc:'#1a110b', glasses:'disco', chain:true, shirt:'disco', trim:'#ffd23f', mouth: mood === 'cry' ? 'open' : 'grin', tears: mood === 'tear' || mood === 'cry', brow:'arch'});
+}
+function danceSVG(kind){
+  const k = 'dz', R = seeded(7777);
+  let s = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>' + bdoDefs(k)
+    + '<radialGradient id="dzBall" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#c9d2da"/><stop offset="1" stop-color="#4a5560"/></radialGradient>'
+    + '<linearGradient id="dzRb" x1="0" x2="1"><stop offset="0" stop-color="#ff3ea5"/><stop offset=".25" stop-color="#ffd23f"/><stop offset=".5" stop-color="#39ff88"/><stop offset=".75" stop-color="#2fe3ff"/><stop offset="1" stop-color="#7a6aff"/></linearGradient>'
+    + '<filter id="dzB" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter></defs>'
+    + '<rect width="400" height="260" fill="#0a0414"/>';
+  // back wall, neon sign
+  for (let i = 0; i < 10; i++) s += '<rect x="' + (i*40) + '" y="0" width="38" height="150" fill="#140826"/>';
+  s += '<g class="dz-sign"><text x="200" y="40" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="34" letter-spacing="8" fill="none" stroke="#ff3ea5" stroke-width="1.6" filter="url(#dzB)">DANCE’S</text>'
+    + '<text x="200" y="40" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="34" letter-spacing="8" fill="#ffd6f0">DANCE’S</text></g>';
+  // light beams from the ball
+  s += '<g class="dz-beams">' + DZ_COLS.map((c, i) => '<path d="M200 62 L' + (20 + i*72) + ' 260 L' + (50 + i*72) + ' 260 Z" fill="' + c + '" opacity=".12" style="animation-delay:-' + (i*.4) + 's"/>').join('') + '</g>';
+  // mirror ball
+  s += '<path d="M200 0 V48" stroke="#8a96a2" stroke-width="1.4"/><g class="dz-ball"><circle cx="200" cy="62" r="15" fill="url(#dzBall)"/>';
+  for (let i = 0; i < 18; i++) s += '<rect x="' + (189 + (i % 6)*4) + '" y="' + (52 + Math.floor(i / 6)*7) + '" width="3" height="3" fill="#fff" opacity="' + (.3 + R()*.7).toFixed(2) + '"/>';
+  s += '</g>';
+  // dance floor
+  s += '<g class="dz-floor">';
+  for (let r = 0; r < 5; r++) for (let c = 0; c < 10; c++) {
+    const y0 = 150 + r*22, w0 = 40 + r*8, x0 = 200 - 5*w0 + c*w0;
+    s += '<path class="dz-tile" style="animation-delay:-' + (((r*3 + c*7) % 10) * .17).toFixed(2) + 's;--c:' + DZ_COLS[(r + c) % 6] + '" d="M' + x0 + ' ' + y0 + ' H' + (x0 + w0) + ' L' + (x0 + w0 + (c - 4.5)*1.6) + ' ' + (y0 + 22) + ' H' + (x0 + (c - 5.5)*1.6) + ' Z" fill="' + DZ_COLS[(r + c) % 6] + '" stroke="#0a0414" stroke-width="1.4"/>';
+  }
+  s += '</g>';
+  if (kind === 'intro') {
+    // the dancers, each one feeding a rainbow stream into the forge
+    [[60, 150], [120, 168], [280, 168], [340, 150], [90, 196], [310, 196]].forEach(([x, y], i) => {
+      s += '<g class="dz-dancer" style="animation-delay:-' + (i*.21) + 's"><g transform="translate(' + x + ' ' + y + ')">'
+        + '<circle cx="0" cy="-34" r="7" fill="#1a0a2a"/><path d="M-8 -26 Q0 -30 8 -26 L6 -6 H-6 Z" fill="#1a0a2a"/><path d="M-6 -6 L-10 8 M6 -6 L10 8" stroke="#1a0a2a" stroke-width="4" stroke-linecap="round"/>'
+        + '<path class="dz-arm" d="M-7 -24 L-16 -40 M7 -24 L16 -14" stroke="#1a0a2a" stroke-width="3.6" stroke-linecap="round"/>'
+        + '<circle cx="0" cy="-34" r="9" fill="' + DZ_COLS[i] + '" opacity=".35" filter="url(#dzB)"/></g></g>'
+        + '<path class="dz-stream" d="M' + x + ' ' + (y - 30) + ' Q' + ((x + 200) / 2) + ' ' + (y - 90) + ' 200 150" stroke="' + DZ_COLS[i] + '" stroke-width="2.6" fill="none" stroke-linecap="round" style="animation-delay:' + (i*.12) + 's"/>';
+    });
+    s += '<g class="dz-forge"><ellipse cx="200" cy="160" rx="34" ry="10" fill="url(#dzRb)" opacity=".5" filter="url(#dzB)"/><path d="M182 168 H218 L212 154 H188 Z" fill="#2a2a34"/><rect x="176" y="168" width="48" height="8" fill="#3a3a46"/></g>'
+      + '<g class="dz-made"><ellipse cx="200" cy="128" rx="54" ry="22" fill="url(#dzRb)" opacity=".55" filter="url(#dzB)"/><image href="' + artHi(BY[VANCE_ID], 0) + '" x="160" y="112" width="80" height="32" preserveAspectRatio="xMidYMid meet"/></g>'
+      + '<g class="dz-cap"><rect x="110" y="208" width="180" height="22" rx="11" fill="#000" opacity=".7"/><text x="200" y="223" text-anchor="middle" font-family="Teko, sans-serif" font-size="12" letter-spacing="2" fill="#fff">EVERY MOVE MAKES ANOTHER CHROMA</text></g>'
+      + '<g class="dz-host">' + danceMan(200, 118, 1.15, '') + '</g>';
+  } else {
+    // his VIP booth, with the pile for whatever he's offering
+    s += '<g class="dz-crowd">' + [[50, 196], [354, 200], [90, 214], [312, 216]].map(([x, y], i) => '<g class="dz-dancer" style="animation-delay:-' + (i*.3) + 's"><g transform="translate(' + x + ' ' + y + ')"><circle cx="0" cy="-34" r="7" fill="#1a0a2a"/><path d="M-8 -26 Q0 -30 8 -26 L6 -6 H-6 Z" fill="#1a0a2a"/><path class="dz-arm" d="M-7 -24 L-16 -40 M7 -24 L16 -14" stroke="#1a0a2a" stroke-width="3.6" stroke-linecap="round"/></g></g>').join('') + '</g>'
+      + '<g class="dz-me">' + danceMan(150, 96, 1.2, dz && dz.mood) + '</g>'
+      + '<rect x="70" y="200" width="170" height="40" rx="4" fill="#1a0a2a" stroke="#ffd23f" stroke-width="1.2"/><rect x="70" y="200" width="170" height="3" fill="url(#dzRb)"/>'
+      + '<text x="155" y="226" text-anchor="middle" font-family="Teko, sans-serif" font-weight="600" font-size="14" letter-spacing="4" fill="#ffd6f0">V.I.P.</text>'
+      + '<g class="dz-pockets"><path d="M120 196 Q114 212 124 216 Q132 210 128 196 Z M172 196 Q168 210 176 216 Q186 212 180 196 Z" fill="#f4f1ea" stroke="#c9c2b4"/><g class="dz-moth"><ellipse cx="176" cy="196" rx="2" ry="4" fill="#8a7a6a"/><path d="M176 196 l-6 -4 l1 6 Z M176 196 l6 -4 l-1 6 Z" fill="#b8a898"/></g></g>'
+      + '<g class="dz-pile"><rect x="246" y="186" width="140" height="10" rx="2" fill="#2a1a3a" stroke="#ffd23f" stroke-width=".8"/>'
+      + (dz && dz.pile ? dz.pile.map((e, i) => '<g class="dz-pi" style="animation-delay:' + (i === dz.pile.length - 1 && dz.fresh ? '.1s' : '0s') + '"><ellipse cx="' + (282 + (i % 2)*52) + '" cy="' + (176 - Math.floor(i / 2)*26) + '" rx="30" ry="10" fill="#a855f7" opacity=".35" filter="url(#dzB)"/><image href="' + artHi(BY[e.id], wearIdx(e.fl)) + '" x="' + (256 + (i % 2)*52) + '" y="' + (158 - Math.floor(i / 2)*26) + '" width="66" height="26" preserveAspectRatio="xMidYMid meet" style="filter:drop-shadow(0 0 4px #c084fc) brightness(1.3)"/></g>').join('') : '')
+      + (dz && dz.stacks ? Array.from({length: dz.stacks}, (_, i) => '<g><rect x="' + (250 + (i % 7)*19) + '" y="' + (176 - Math.floor(i / 7)*7) + '" width="17" height="6" rx="1" fill="#2f6b3a" stroke="#1d4524" stroke-width=".5"/><rect x="' + (256 + (i % 7)*19) + '" y="' + (176 - Math.floor(i / 7)*7) + '" width="4" height="6" fill="#e8d9a8"/></g>').join('') : '')
+      + '</g>';
+  }
+  return s + '</svg>';
+}
+function dzEl(){ let el = $('#dance'); if (!el) { el = document.createElement('div'); el.id = 'dance'; el.className = 'bdo dance'; el.hidden = true; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', 'Dance’s club'); document.body.append(el); } return el; }
+function dzMusic(on){
+  clearInterval(dzBeat); dzBeat = null; if (!on) return;
+  let n = 0; const bass = [110, 110, 146.83, 130.81];
+  dzBeat = setInterval(() => { if (state.muted) return; tone(58, .14, 'sine', .22); tone(bass[Math.floor(n / 2) % 4], .2, 'sawtooth', .025); if (n % 2) noise(.05, 9000, 6000, .025, 'highpass'); n++; }, 250);
+}
+function dzShow(kind, panel){
+  const el = dzEl(); el.hidden = false; el.className = 'bdo dance in k-' + kind;
+  el.innerHTML = '<div class="bdo-scene dz-scene">' + danceSVG(kind) + '</div><div class="bdo-panel" id="dzPanel">' + panel + '</div><button class="icon-btn bdo-x" data-dz="leave" aria-label="Leave">✕</button>';
+}
+const dzSay = (line, btns) => '<div class="bdo-eyebrow">Dance</div><p class="bdo-line">' + line + '</p>' + (btns ? '<div class="bdo-row msi-acts">' + btns + '</div>' : '');
+const dzPanel = h => { const p = $('#dzPanel'); if (p) p.innerHTML = h; };
+
+/* Tobias sends you over */
+async function tobiasDance(e){
+  const m = room; closeOv(); actBusy = true; renderLeft();
+  await sayRoom('…That’s Vance’s knife. I don’t touch family business.', 'mad');
+  await wait(1100); if (room !== m) return (actBusy = false);
+  await sayRoom('But his brother would. Dance. Here’s the address. Wear something shiny.', '');
+  await wait(1400); actBusy = false; if (room !== m) return;
+  P().danceSeen = true; save(); leaveRoom();
+  openDance(true);
+}
+function openDance(intro){
+  if (busy) return;
+  ac(); dz = {pile: [], stacks: 0, mood: ''};
+  if (cine == null) { cine = {skip: closeDance}; musSync(); }
+  dzMusic(true);
+  if (intro) {
+    dzShow('intro', '<div class="bdo-eyebrow">Across the river</div><p class="bdo-line" id="dzCap">A door with no sign. A bass line you can feel in your teeth…</p>');
+    const T = (ms, f) => bdoT(ms, f), cap = t => { const c = $('#dzCap'); if (c) c.textContent = t; }, el = dzEl();
+    T(1800, () => { el.classList.add('lit'); cap('The floor lights up. Everybody’s moving.'); });
+    T(4200, () => { el.classList.add('stream'); cap('Every dancer throws a ribbon of light into the middle of the floor…'); sweep(200, 1200, 2.4, 'sine', .04); });
+    T(7000, () => { el.classList.add('made'); cap('…and out comes a Chroma. Then another. Then another.'); boom(); [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, .6, 'triangle', .05, i*.08)); });
+    T(9800, () => { el.classList.add('host'); cap('“WELCOME TO DANCE’S, BABY!”'); [784, 988, 1175].forEach((f, i) => tone(f, .25, 'square', .04, i*.1)); });
+    T(12000, () => { const p = $('#dzPanel'); if (p) p.insertAdjacentHTML('beforeend', '<button class="open-btn sm" data-dz="booth">Go up to the booth</button>'); });
+    return;
+  }
+  dzBooth();
+}
+function dzBooth(line){
+  const broke = P().danceBroke;
+  if (dz && !line) Object.assign(dz, {pile: [], stacks: 0, mood: ''});
+  dzShow('room', dzSay(line || (broke ? 'I’m broke, baby. Spent it all on a rifle. Still dancing though!' : 'Vance’s little brother. The FUN one. I buy Chroma, and only Chroma. What you got?'),
+    (broke ? '' : '<button class="open-btn sm" data-dz="sell">Show him something</button>') + '<button class="ghost" data-dz="leave">Leave</button>'));
+}
+function dzPick(){
+  const items = state.inv.filter(e => BY[e.id] && BY[e.id].t === 7);
+  if (!items.length) { dzPanel(dzSay('No Chroma? Then dance, baby! But I’m not buying.', '<button class="ghost" data-dz="back">Back</button>')); return; }
+  dzPanel('<div class="bdo-eyebrow">Sell to Dance · Chroma only · ' + DANCE_X + '× market</div><div class="bdo-pick dz-pick">' + items.map(e => '<button class="bdo-it chroma" data-dz="item" data-v="' + e.uid + '" style="--tc:#ff7ad9"><span class="dzt" data-u="' + e.uid + '"></span><span>' + BY[e.id].name + '</span><small>' + fmt(Math.round(e.v * DANCE_X)) + '</small></button>').join('') + '</div><div class="bdo-row"><button class="ghost" data-dz="back">Back</button></div>');
+  dzEl().querySelectorAll('.dzt').forEach(sp => { const e = state.inv.find(x => x.uid === sp.dataset.u); if (e) sp.append(thumb(BY[e.id], wearIdx(e.fl))); });
+}
+function dzStart(uid){
+  const e = state.inv.find(x => x.uid === uid); if (!e) return;
+  const goat = e.id === GOAT_ID;
+  Object.assign(dz, {e, goat, offer: Math.round(e.v * DANCE_X), step: 0, push: 3, noBluff: false, pile: [], stacks: 0, mood: ''});
+  dzNeg(goat ? 'THE GOAT?! Is that… oh, baby. ' + fmt(dz.offer) + ' cr. Right now.' : 'Ooh, shiny. ' + fmt(dz.offer) + ' cr for the ' + BY[e.id].name + '.');
+}
+function dzNeg(line, fresh){
+  const e = dz.e, it = BY[e.id], top = dz.goat && dz.step >= DANCE_LADDER.length;
+  dz.fresh = !!fresh;
+  dzShow('room', '<div class="bdo-eyebrow">Dance · ' + it.name + '</div><p class="bdo-line">' + line + '</p>'
+    + '<div class="dz-offer"><span class="coin"></span><b>' + fmt(dz.offer) + '</b><small>' + (dz.pile.length ? 'cash + ' + dz.pile.length + ' Black Market piece' + (dz.pile.length === 1 ? '' : 's') : (dz.offer / e.v).toFixed(2) + '× market') + '</small></div>'
+    + '<div class="bdo-row msi-acts"><button class="open-btn sm" data-dz="deal">Shake on it</button>'
+    + (dz.goat ? '' : '<button class="ghost" data-dz="push"' + (dz.push > 0 ? '' : ' disabled') + '>Push for more</button>')
+    + '<button class="ghost" data-dz="bluff"' + (dz.noBluff || top ? ' disabled' : '') + '>' + (dz.goat ? 'Bluff: “Messi’s people called”' : 'Bluff: “I’ve got another buyer”') + '</button>'
+    + '<button class="ghost" data-dz="back">Never mind</button></div>');
+  if (dz.mood === 'cry') dzEl().classList.add('crying');
+}
+function dzPush(){
+  if (!dz || dz.push <= 0) return;
+  dz.push--;
+  if (Math.random() < .55) { dz.offer = Math.min(Math.round(dz.e.v * 2), Math.round(dz.offer * (1.08 + Math.random()*.08))); tone(660, .12, 'triangle', .06); dzNeg('Okay, okay, you’re fun. ' + fmt(dz.offer) + '.'); }
+  else { tone(150, .2, 'sawtooth', .05); dzNeg('Nope! Not moving, baby. ' + fmt(dz.offer) + '.'); }
+}
+function dzBluff(){
+  if (!dz || dz.noBluff) return;
+  if (!dz.goat) {
+    if (Math.random() < DANCE_BLUFF) { dz.offer = Math.round(dz.offer * 1.25); dz.noBluff = true; tone(784, .2, 'triangle', .06); dzNeg('…Huh. Fine. ' + fmt(dz.offer) + '. Don’t do that again.'); }
+    else { dz.offer = Math.round(dz.offer * .95); dz.noBluff = true; [400, 500, 600].forEach((f, i) => tone(f, .1, 'square', .04, i*.07)); dzNeg('HA! Another buyer! You’re hilarious. Vance tells me that one every Christmas. ' + fmt(dz.offer) + '.'); }
+    return;
+  }
+  const L = DANCE_LADDER[dz.step]; if (!L) return;
+  dz.step++;
+  if (L.add) { const id = pickOne(BM_IDS), W = WEARS[pickW(WEAR_W)], fl = +(W.lo + Math.random()*(W.hi - W.lo)).toFixed(4); dz.pile.push({id, fl, v: priceOf(BY[id], wearIdx(fl))}); }
+  dz.offer = L.tot; dz.mood = L.mood; dz.stacks = Math.min(28, dz.step * 4 + (L.mood === 'cry' ? 6 : 0));
+  // the snap, a dancer brings out another piece, the cash comes down
+  boom(); noise(.3, 4000, 900, .06, 'highpass'); [523.25, 659.25, 783.99].forEach((f, i) => tone(f * (1 + dz.step*.06), .3, 'triangle', .05, i*.07));
+  if (L.mood === 'tear' || L.mood === 'cry') for (let i = 0; i < 4; i++) tone(520 - i*40, .3, 'sine', .03, .3 + i*.25);
+  dzNeg(L.line + ' ' + fmt(dz.offer) + ' cr.', true);
+  const sc = dzEl().querySelector('.dz-scene'); if (sc) restart(sc, 'dz-hit');
+}
+async function dzDeal(){
+  const {e, goat, offer, pile} = dz, it = BY[e.id];
+  if (!state.inv.find(x => x.uid === e.uid)) return;
+  state.inv = state.inv.filter(x => x.uid !== e.uid);
+  let items = [], cash = offer;
+  if (pile.length && bagFree() >= pile.length) { items = pile.map(p => ({uid: uid(), id: p.id, fl: p.fl, v: p.v, at: Date.now(), hk: [], src: 'shop', from: 'dance'})); cash = offer - items.reduce((a, x) => a + x.v, 0); }
+  items.forEach(x => { state.inv.unshift(x); gotBM(x.id); });
+  state.bal += cash; P().danceDeals = (P().danceDeals || 0) + 1;
+  if (goat && dz.step >= DANCE_LADDER.length) P().danceBroke = true;
+  save(); setBal(cash); renderInv(); renderStats(); kaching();
+  let t = 0; for (let i = 0; i < 26; i++) { t += .025; keyClick(t, null, .025, 1500); }
+  if (!(goat && P().danceBroke)) { dzBooth('Pleasure doing business, baby! ' + fmt(offer) + ' cr' + (items.length ? ' and ' + items.length + ' Black Market pieces' : '') + '. Now DANCE.'); return; }
+  dzPanel(dzSay('He hands over the cash. All of it. Then the ' + items.length + ' pieces' + (items.length ? '' : '… no room in your bag, so he pays for those in cash too') + '. Then he pats his pockets.'));
+  const el = dzEl(); el.classList.remove('crying');
+  await wait(2200); if (el.hidden) return;
+  el.classList.add('broke'); noise(.4, 600, 200, .04); tone(196, .6, 'sine', .05); tone(147, .8, 'sine', .05, .3);
+  dzMusic(false);
+  dzPanel(dzSay('…Oh. Oh no. I have nothing left. Not even bus fare. Worth it. WORTH IT. *sob*', '<button class="open-btn sm" data-dz="leave">Leave him to it</button>'));
+  toast('Sold The GOAT to Dance for ' + fmt(offer) + ' cr');
+}
+function closeDance(){
+  bdoTimers.forEach(clearTimeout); bdoTimers = [];
+  dzMusic(false); dz = null;
+  const el = $('#dance'); if (el) { el.hidden = true; el.innerHTML = ''; el.className = 'bdo dance'; }
+  if (cine && cine.skip === closeDance) { cine = null; musSync(); }
+  if (presOpen && !room && !$('#prLobby').hidden) renderLobby();
+}
+document.addEventListener('click', e => {
+  const el = $('#dance'); if (!el || el.hidden) return;
+  const b = e.target.closest('[data-dz]'); if (!b || b.disabled || !el.contains(b)) return;
+  const a = b.dataset.dz;
+  if (a === 'leave') closeDance();
+  else if (a === 'booth' || a === 'back') { bdoTimers.forEach(clearTimeout); bdoTimers = []; dzBooth(); }
+  else if (a === 'sell') dzPick();
+  else if (a === 'item') dzStart(b.dataset.v);
+  else if (a === 'push') dzPush();
+  else if (a === 'bluff') dzBluff();
+  else if (a === 'deal') dzDeal();
+});
+document.addEventListener('keydown', e => { const el = $('#dance'); if (e.key === 'Escape' && el && !el.hidden) { e.stopImmediatePropagation(); closeDance(); } }, true);
 function memberIntro(m){
   return new Promise(resolve => {
     ac();
@@ -10481,7 +10746,7 @@ $('#msiBtn').onclick = openMsi;
 $('#ytEnter').onclick = () => closeYt(true);
 $('#ytLater').onclick = () => closeYt(false);
 $('#prBack').onclick = () => { if (vaultBusy) return; if (room) leaveRoom(); else closePres(); };
-$('#prGrid').addEventListener('click', e => { { const ab = e.target.closest('.pr-auc'); if (ab) { openAuction(ab.dataset.k); return; } } const b = e.target.closest('.pr-mem'); if (b) openRoom(b.dataset.m); });
+$('#prGrid').addEventListener('click', e => { { const ab = e.target.closest('.pr-auc'); if (ab) { openAuction(ab.dataset.k); return; } } const b = e.target.closest('.pr-mem'); if (b && b.dataset.dance) { openDance(false); return; } if (b) openRoom(b.dataset.m); });
 $('#aucClose').onclick = closeAuction;
 $('#batchBtn').onclick = runBatch;
 $('#btKeep').onclick = () => closeBatch(false);
