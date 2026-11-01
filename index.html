@@ -3043,6 +3043,18 @@ body.dz-open .toast{z-index:95}
 .vx-msi .vx-one i.on{background:#ffd23f}
 .vx-x{margin-left:auto}
 .vx-msi .vx-say b{color:#0b2a4a}
+
+/* the case giving away a Black Market or Chroma before the reel does */
+#viewport.omen{animation:omenShake .09s steps(2) infinite}
+#viewport.omen #reel{filter:saturate(.2) brightness(.7) contrast(1.2) blur(2.5px);transition:filter .6s}
+@keyframes omenShake{50%{transform:translate(2px,-1px)}}
+#viewport.omen::after{content:"";position:absolute;inset:0;width:auto;z-index:30;pointer-events:none;animation:omenPulse .6s ease-in-out infinite alternate}
+#viewport.omen-bm::after{background:radial-gradient(ellipse at 50% 50%,rgba(168,85,247,.18),transparent 60%);box-shadow:inset 0 0 50px 24px rgba(192,132,252,.95),inset 0 0 120px 60px rgba(109,40,217,.75)}
+#viewport.omen-ch::after{background:conic-gradient(from 0deg,rgba(255,62,165,.75),rgba(255,210,63,.75),rgba(57,255,136,.75),rgba(47,227,255,.75),rgba(122,106,255,.75),rgba(255,62,165,.75));-webkit-mask:radial-gradient(ellipse,transparent 20%,#000 70%);mask:radial-gradient(ellipse,transparent 20%,#000 70%);animation:omenPulse .5s ease-in-out infinite alternate,omenSpin 2s linear infinite}
+@keyframes omenPulse{to{opacity:.45}}
+@keyframes omenSpin{to{filter:hue-rotate(360deg)}}
+#viewport.omen-out{filter:brightness(0);transition:filter .3s}
+@media (prefers-reduced-motion: reduce){#viewport.omen{animation:none}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -4671,14 +4683,14 @@ function entryFor(c, id, wi){
   if (it.t === 5) return (c.id === 'c4' || state.rig) ? {gold:true, it, wi} : {gold:true};
   return {it, wi};
 }
-function buildReel(c, r, near){
+function buildReel(c, r, near, decoy){
   const reel = $('#reel'); reel.innerHTML = '';
   const fw = effWeights(c).w, inj = state.breach && state.inject && BY[state.inject];
   const frag = document.createDocumentFragment(), entries = [], els = [], slots = [];
   const tease = !state.rig && BY[r.id].t < 5 && c.w[5] > 0 && Math.random() < .22;
   for (let i = 0; i < COUNT; i++) {
     let e;
-    if (i === WIN) e = entryFor(c, r.id, wearIdx(r.fl));
+    if (i === WIN) e = decoy ? entryFor(c, pickOne(c.pools[0]), pickW(WEAR_W)) : entryFor(c, r.id, wearIdx(r.fl));
     else if (near && i === WIN + 1) e = {it: BY[near.id], wi: 0};
     else if (tease && i === WIN + 1) e = {gold:true};
     else if (inj && i % 4 === 1) e = inj.t === 5 ? {gold:true, it:inj, wi:pickW(WEAR_W)} : {it:inj, wi:pickW(WEAR_W)};
@@ -4720,6 +4732,7 @@ function spinReel(){
         last = idx;
         if (now - lastTick > 34) { lastTick = now; tick(); if (!REDUCED && ptr.animate) ptr.animate([{transform:'scaleX(2.6)'},{transform:'scaleX(1)'}], {duration:110}); }
       }
+      if (s.abort) { spin = null; $('#rigTag').hidden = true; res(s.target); return; }
       if (t < 1) requestAnimationFrame(frame); else { spin = null; $('#rigTag').hidden = true; if (nearMiss && s.target === WIN) nearMissFx(); res(s.target); }
     }
     requestAnimationFrame(frame);
@@ -5459,14 +5472,32 @@ async function openCase(){
   consume(r.hk); state.opened++;
   const near = prankNext('near') ? prankUse('near') : null;
   save(); if (!free) setBal(-cost); renderOpen(); renderTrade(); renderHacks();
-  reelInfo = buildReel(c, r, near);
+  reelInfo = buildReel(c, r, near, BY[r.id].t >= 6 && !(state.breach && state.rig));
   const crate = $('#crateZone .crate');
   const fast = speedOn();
   if (!REDUCED && crate) { clunk(); crate.classList.add('opening'); await wait(fast ? 200 : 420); whoosh(); await wait(fast ? 500 : 640); }
   setMode('reel');
   const rigged = !!(state.breach && state.rig);
   $('#viewport').classList.toggle('rig', rigged); $('#rigTag').hidden = !rigged;
-  const idx = await spinReel();
+  /* Black Market or Chroma: the case gives itself away before the reel can. Partway through the spin the screen
+     starts to go wrong, and then the cinematic takes over; the reel never gets to show it. */
+  const big = BY[r.id].t >= 6 && !rigged, sp = spinReel();
+  let idx;
+  if (big) {
+    const ch = BY[r.id].t === 7, vp = $('#viewport'), fast = speedOn() || REDUCED;
+    await wait(fast ? 350 : 900);
+    vp.classList.add('omen', ch ? 'omen-ch' : 'omen-bm');
+    tone(42, 2.2, 'sawtooth', .05); tone(55, 2.2, 'sine', .2); noise(2, 200, 60, .08, 'lowpass');
+    [0, 650, 1200].forEach((d, i) => setTimeout(() => { tone(58, .28, 'sine', .3 + i * .08); tone(50, .32, 'sine', .25 + i * .06, .2); }, d));
+    setTimeout(() => sweep(ch ? 2400 : 900, 80, 1, 'sawtooth', .04), 900);
+    if (!REDUCED) restart($('#wrap'), 'quake');
+    await wait(fast ? 900 : 1500);
+    vp.classList.add('omen-out');
+    await wait(320);
+    if (spin) spin.abort = true;
+    idx = await sp;
+    vp.classList.remove('omen', 'omen-ch', 'omen-bm', 'omen-out');
+  } else idx = await sp;
   if (idx !== WIN) {                                   // the player grabbed a different card
     const e = reelInfo.entries[idx], W = WEARS[e.wi];
     const fl = +(W.lo + Math.random()*(W.hi - W.lo)).toFixed(4);
@@ -5481,10 +5512,10 @@ async function openCase(){
   save();
   reelInfo.slots[idx].style.zIndex = 2; reelInfo.els[idx].classList.add('won');
   if (it.t === 7) {
-    await wait(REDUCED ? 100 : 400);
+    if (!big) await wait(REDUCED ? 100 : 400);
     await chromaCinematic(r); showReveal(r);
   } else if (it.t === 6) {
-    await wait(REDUCED ? 100 : 500);
+    if (!big) await wait(REDUCED ? 100 : 500);
     await bmCinematic(r); showReveal(r, true);
   } else if (it.t === 5) {
     await wait(REDUCED ? 100 : 480);
