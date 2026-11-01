@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Barlow+Semi+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Limelight&family=Monoton&family=Permanent+Marker&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Barlow+Semi+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Limelight&family=Monoton&family=Cinzel:wght@600;800&family=Permanent+Marker&display=swap" rel="stylesheet">
 <style>
 /* Layout: one arcade column — HUD, case rack, stage (crate -> reel), trade-up contract, inventory, stats */
 :root{
@@ -2624,6 +2624,77 @@ body.dz-open .toast{z-index:95}
 .tv-nothing{color:var(--muted);font-size:13px;align-self:center}
 .dz-shelf-list .dz-it em{font-style:normal;font-size:10px;color:#2fe3ff;opacity:.85}
 @media (max-width:640px){.tv-cols{grid-template-columns:1fr}.tv-swap{grid-template-columns:1fr}.tv-arr{display:none}}
+
+/* ---------- Velvet Requiem reveal ---------- */
+.rqc{position:fixed;inset:0;z-index:96;overflow:hidden;background:#050003;display:grid;place-items:center;user-select:none;-webkit-user-select:none;transition:opacity .5s;color:#ffe9c2}
+.rqc.out{opacity:0}
+.rq-dark{position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 55%,#2a0412,#050003 70%)}
+/* 1. the candle */
+.rq-candle{position:absolute;z-index:5;left:50%;top:56%;width:14px;height:70px;transform:translateX(-50%);opacity:0;transition:opacity .8s}
+.rq-wax{position:absolute;left:0;right:0;bottom:0;height:52px;border-radius:3px 3px 1px 1px;background:linear-gradient(90deg,#d8c8b0,#fff6e6 45%,#c9b597)}
+.rq-flame{position:absolute;left:50%;bottom:52px;width:10px;height:20px;margin-left:-5px;border-radius:50% 50% 50% 50%/65% 65% 35% 35%;background:radial-gradient(circle at 50% 75%,#fff 0 18%,#ffd76a 40%,#ff7a1a 70%,transparent 72%);transform-origin:50% 100%;animation:rqFlick .14s steps(2) infinite alternate}
+@keyframes rqFlick{to{transform:scale(.92,1.08) skewX(3deg)}}
+.rq-halo{position:absolute;left:50%;bottom:30px;width:240px;height:240px;margin-left:-120px;border-radius:50%;background:radial-gradient(circle,rgba(255,190,90,.28),transparent 65%)}
+.s1 .rq-candle{opacity:1}
+.s2 .rq-candle{opacity:0;transition-duration:.6s}
+/* 2. the stage, the curtains */
+.rq-stage{position:absolute;inset:0;display:grid;place-items:center}
+.rq-spot{position:absolute;left:50%;top:-10%;width:min(70vw,640px);height:120%;transform:translateX(-50%);background:linear-gradient(rgba(255,236,200,.32),rgba(255,236,200,.04) 75%,transparent);clip-path:polygon(42% 0,58% 0,100% 100%,0 100%);opacity:0;transition:opacity 1s .6s}
+.s2 .rq-spot{opacity:1}
+.rq-curtain{position:absolute;top:0;bottom:0;width:51%;z-index:3;
+  background:repeating-linear-gradient(90deg,#3d0412 0,#8a0f2c 3.5%,#c8143c 6%,#8a0f2c 8.5%,#3d0412 12%),#8a0f2c;box-shadow:inset 0 -60px 80px rgba(0,0,0,.6);transition:transform 1.8s cubic-bezier(.6,0,.25,1)}
+.rq-curtain::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.35),transparent 30%,transparent 70%,rgba(0,0,0,.5))}
+.rq-curtain.l{left:0;transform-origin:0 0}.rq-curtain.r{right:0;transform-origin:100% 0}
+.rq-tie{position:absolute;top:58%;width:22px;height:46px;border-radius:8px;background:linear-gradient(#ffe39a,#c98a0b);box-shadow:0 0 12px rgba(255,200,80,.5);opacity:0;transition:opacity .4s 1.4s}
+.rq-curtain.l .rq-tie{right:6%}.rq-curtain.r .rq-tie{left:6%}
+.s2 .rq-curtain.l{transform:translateX(-78%) skewX(4deg)}.s2 .rq-curtain.r{transform:translateX(78%) skewX(-4deg)}
+.s2 .rq-tie{opacity:1}
+.rq-valance{position:absolute;left:0;right:0;top:0;height:9vh;z-index:4;background:repeating-radial-gradient(circle at 50% -40%,#8a0f2c 0 30px,#5a0619 31px 34px),#8a0f2c;border-bottom:3px solid #d4a24a;box-shadow:0 6px 24px rgba(0,0,0,.6);
+  -webkit-mask:radial-gradient(28px 22px at 28px 100%,transparent 98%,#000) 0 0/56px 100% repeat-x;mask:radial-gradient(28px 22px at 28px 100%,transparent 98%,#000) 0 0/56px 100% repeat-x}
+/* 3. the cushion, the pistol */
+.rq-cushion{position:absolute;left:50%;top:62%;width:min(58vw,460px);height:min(9vw,70px);transform:translate(-50%,0) scale(.9);opacity:0;transition:opacity .8s,transform .8s}
+.rq-cushion span{position:absolute;inset:0;border-radius:50%;background:radial-gradient(60% 70% at 50% 35%,#d01c46,#7a0a24 60%,#2a0410);box-shadow:0 20px 40px rgba(0,0,0,.7),inset 0 4px 10px rgba(255,150,170,.35)}
+.rq-cushion::before,.rq-cushion::after{content:"";position:absolute;top:40%;width:16px;height:22px;border-radius:50% 50% 40% 40%;background:#d4a24a}
+.rq-cushion::before{left:-4px}.rq-cushion::after{right:-4px}
+.s2 .rq-cushion{opacity:1;transform:translate(-50%,0)}
+.rq-gun{position:absolute;left:50%;top:42%;width:min(64vw,560px);transform:translate(-50%,40px) scale(.7);opacity:0;transition:transform 1.6s cubic-bezier(.2,.9,.3,1),opacity 1s}
+.rq-gun img{display:block;width:100%;height:auto;filter:drop-shadow(0 0 18px rgba(255,45,85,.55)) drop-shadow(0 18px 20px rgba(0,0,0,.6))}
+.s3 .rq-gun{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.s3 .rq-gun img{animation:rqHover 3s 1.6s ease-in-out infinite}
+@keyframes rqHover{50%{transform:translateY(-8px)}}
+.rq-sheen{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;opacity:0;
+  background:linear-gradient(100deg,transparent 30%,rgba(255,62,165,.0) 35%,rgba(255,62,165,.7) 42%,rgba(255,210,63,.7) 48%,rgba(57,255,136,.6) 54%,rgba(47,227,255,.7) 60%,rgba(122,106,255,.0) 66%,transparent 70%) -120% 0/250% 100% no-repeat;
+  -webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+.s4 .rq-sheen{opacity:1;animation:rqSheen 1.4s ease-in-out 2}
+@keyframes rqSheen{from{background-position:-120% 0}to{background-position:220% 0}}
+.rq-rays{position:absolute;left:50%;top:42%;width:0;height:0;opacity:0;transition:opacity .8s}
+.rq-rays b{position:absolute;left:0;top:0;width:60vmax;height:3px;margin-top:-1.5px;transform-origin:0 50%;transform:rotate(var(--a));background:linear-gradient(90deg,var(--c),transparent);opacity:.55}
+.s4 .rq-rays{opacity:1;animation:rqSpin 14s linear infinite}
+@keyframes rqSpin{to{transform:rotate(360deg)}}
+/* petals */
+.rq-petals{position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity .6s}
+.s3 .rq-petals{opacity:1}
+.rq-petals i{position:absolute;left:var(--x);top:-6vh;width:14px;height:10px;border-radius:70% 0 70% 0;background:linear-gradient(135deg,#ff5577,#a3082c);transform:scale(var(--s)) rotate(var(--r));animation:rqPetal var(--t) var(--d) linear infinite;opacity:.9}
+@keyframes rqPetal{to{transform:translate(var(--dx),115vh) scale(var(--s)) rotate(calc(var(--r) + 540deg))}}
+/* 4. the title */
+.rq-title{position:absolute;left:0;right:0;bottom:9vh;z-index:6;text-align:center;opacity:0;transition:opacity .4s}
+.s4 .rq-title{opacity:1}
+.rq-title small{display:block;font:600 12px/1 var(--body);letter-spacing:.42em;text-transform:uppercase;color:#d8a9b8;margin-bottom:10px}
+.rq-title h2{margin:0;font-family:Cinzel,Georgia,serif;font-weight:800;font-size:clamp(30px,6.4vw,74px);letter-spacing:.06em;line-height:1;white-space:nowrap}
+.rq-title h2 span{display:inline-block;opacity:0;transform:translateY(16px);transition:opacity .3s calc(var(--i)*90ms),transform .5s calc(var(--i)*90ms) cubic-bezier(.2,1.4,.4,1);
+  background:linear-gradient(180deg,#fff6d6,#ffd25a 45%,#b8780a 75%,#ffe9a8);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 0 #3a0010) drop-shadow(0 0 14px rgba(255,180,80,.35))}
+.s4 .rq-title h2 span{opacity:1;transform:none}
+.rq-sub{margin-top:12px;font:700 13px/1 var(--body);letter-spacing:.3em;color:#ffd6e6}
+.rq-ch{background:linear-gradient(90deg,#ff3ea5,#ffd23f,#39ff88,#2fe3ff,#7a6aff,#ff3ea5) 0 0/200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:rqCh 2s linear infinite}
+@keyframes rqCh{to{background-position:200% 0}}
+/* 5. the flash */
+.rq-flash{position:absolute;inset:0;z-index:7;pointer-events:none;background:radial-gradient(circle at 50% 42%,#fff,rgba(255,214,230,.9) 30%,rgba(255,62,165,0) 70%);opacity:0}
+.s5 .rq-flash{animation:rqFlash 1.2s ease-out}
+@keyframes rqFlash{0%{opacity:0}12%{opacity:1}100%{opacity:0}}
+.s5 .rq-gun img{filter:drop-shadow(0 0 26px rgba(255,122,217,.9)) drop-shadow(0 18px 20px rgba(0,0,0,.6))}
+.rq-skip{position:absolute;right:16px;left:auto;top:auto;bottom:max(16px,env(safe-area-inset-bottom,0px));height:auto;z-index:8}
+@media (max-width:640px){.rq-gun{width:86vw}.rq-cushion{width:76vw;height:12vw}.rq-title{bottom:12vh}.rq-title h2{font-size:9vw}}
+@media (prefers-reduced-motion: reduce){.rq-petals,.rq-rays{display:none}.rq-flame,.rq-gun img{animation:none!important}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -2999,7 +3070,7 @@ const TIERS = [
   {name:'Legendary',    color:'#ff4d4d', base:3500},
   {name:'Gold',         color:'#ffcb2e', base:9000},
   {name:'Black Market', color:'#a855f7', base:85000},
-  {name:'Chroma',       color:'#ff7ad9', base:85000}
+  {name:'Chroma',       color:'#ff7ad9', base:850000}
 ];
 const WEARS = [
   {n:'Mint',    lo:0,   hi:.07, m:1.4,  w:9},
@@ -3011,7 +3082,7 @@ const WEARS = [
 const WEAR_W = WEARS.map(w => w.w);
 /* Black Market prices are fixed: the item and its wear set the price, no daily noise, and wear only nudges it */
 const BM_WEAR = [1.1, 1.05, 1, .95, .9];
-function bmAt(it, wi){ return Math.round(TIERS[6].base * it.m * BM_WEAR[wi]); }
+function bmAt(it, wi){ return Math.round(TIERS[it.t >= 7 ? 7 : 6].base * it.m * BM_WEAR[wi]); }
 function bmVal(it, fl){ const i = WEARS.findIndex(w => fl < w.hi); return bmAt(it, i < 0 ? 4 : i); }
 const VIS_FLOAT = [.04, .26, .62];
 const visGroup = wi => wi <= 1 ? 0 : wi === 2 ? 1 : 2;
@@ -3098,7 +3169,7 @@ const ITEMS = [
   {id:'b6', w:'karambit',  name:'Umbra',          t:6, pat:'abyss',  pal:['#000000','#9333ea','#f5d0fe'], m:1.6},
   {id:'b7', w:'butterfly', name:'Hex Sovereign',  t:6, pat:'runes',  pal:['#050008','#a855f7','#6b21a8'], m:1.4},
   // One of one: only exists in Sable's hidden case. Never in a case, contract, reel or wish list.
-  {id:'x1', w:'pistol',    name:'Velvet Requiem', t:6, pat:'requiem', pal:['#07020a','#e11d48','#f5d0e0'], m:2.8, ex:true},
+  {id:'x1', w:'pistol',    name:'Velvet Requiem', t:7, pat:'requiem', pal:['#14020a','#c8143c','#ffd6e6'], m:2.8, ex:true},
   {id:'x2', w:'karambit',  name:'Kingmaker',      t:7, pat:'doppler', pal:['#1a0030','#ff3ea5','#2fe3ff','#ffd23f'], m:2.6, ex:true},
   {id:'x3', w:'rifle',     name:'The GOAT',       t:7, pat:'goat', pal:['#75bde9','#f4f7fb','#ffd23f'], m:3.4, ex:true}
 ];
@@ -3183,16 +3254,34 @@ const PAT = {
     g.font='bold 9px Teko, sans-serif';g.fillStyle='#0b2a4a';g.textAlign='center';g.fillText('10',24,54);
     for(let i=0;i<40;i++){g.fillStyle=i%3?'#fff':p[2];g.globalAlpha=.4+r()*.6;const x=r()*W,y=r()*H,z=.5+r()*1.2;g.fillRect(x-z/2,y-z/2,z,z);}g.globalAlpha=1;
   },
+  /* Velvet Requiem: crimson crushed velvet, a chroma sheen that shifts pink → gold → teal → violet across it,
+     gold filigree vines, black lace roses and a scatter of rubies */
   requiem(g,W,H,p,r){
-    const lg=g.createLinearGradient(0,0,0,H);lg.addColorStop(0,'#8a0f30');lg.addColorStop(.32,p[1]);lg.addColorStop(.47,'#4a0818');lg.addColorStop(1,p[0]);g.fillStyle=lg;g.fillRect(0,0,W,H);
-    g.globalAlpha=.16;g.fillStyle='#fff';for(let i=0;i<5;i++){const x=r()*W;g.beginPath();g.moveTo(x,0);g.lineTo(x+8,0);g.lineTo(x-14,H);g.lineTo(x-22,H);g.closePath();g.fill();}
-    for(let i=0;i<6;i++){const x=r()*W,y=r()*H,R=10+r()*22,rg=g.createRadialGradient(x,y,0,x,y,R);rg.addColorStop(0,'#ff4d7a');rg.addColorStop(1,'rgba(0,0,0,0)');g.globalAlpha=.25+r()*.25;g.fillStyle=rg;g.fillRect(0,0,W,H);}
-    g.globalAlpha=1;g.lineCap='round';g.shadowColor=p[1];g.shadowBlur=3;
-    for(let k=0;k<22;k++){let x=r()*W,y=r()*H;g.strokeStyle=k%4===0?'#e8b84a':p[2];g.lineWidth=.55+r()*.5;g.beginPath();g.moveTo(x,y);
-      for(let s=0;s<3;s++){const cx=x+(r()-.5)*26,cy=y+(r()-.5)*14;x+=(r()-.5)*28;y+=(r()-.5)*10;g.quadraticCurveTo(cx,cy,x,y);}g.stroke();
-      const cr=1.4+r()*2.4,a0=r()*6;g.beginPath();g.arc(x,y,cr,a0,a0+4.4);g.stroke();}
+    const lg=g.createLinearGradient(0,0,0,H);lg.addColorStop(0,'#6e0a26');lg.addColorStop(.3,p[1]);lg.addColorStop(.55,'#5a0619');lg.addColorStop(1,p[0]);g.fillStyle=lg;g.fillRect(0,0,W,H);
+    // crushed velvet: soft light and dark pools
+    for(let i=0;i<14;i++){const x=r()*W,y=r()*H,R=8+r()*26,rg=g.createRadialGradient(x,y,0,x,y,R),lt=i%2;rg.addColorStop(0,lt?'rgba(255,70,110,.3)':'rgba(10,0,4,.6)');rg.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=rg;g.fillRect(0,0,W,H);}
+    g.globalAlpha=.1;g.strokeStyle='#000';g.lineWidth=.4;for(let x=-H;x<W;x+=2.2){g.beginPath();g.moveTo(x,0);g.lineTo(x+H,H);g.stroke();}g.globalAlpha=1;
+    // the chroma sheen
+    g.save();g.globalCompositeOperation='screen';
+    // narrow iridescent bands, like light catching oil on silk
+    for(let i=0;i<4;i++){const x=18+i*50+r()*16,w=14+r()*8,cg=g.createLinearGradient(x-w,0,x+w,0);
+      [['rgba(255,62,165,0)',0],['#ff3ea5',.2],['#ffd23f',.38],['#39ff88',.52],['#2fe3ff',.66],['#7a6aff',.82],['rgba(122,106,255,0)',1]].forEach(([c,o])=>cg.addColorStop(o,c));
+      g.globalAlpha=.42;g.fillStyle=cg;g.beginPath();g.moveTo(x-w+14,0);g.lineTo(x+w+14,0);g.lineTo(x+w-14,H);g.lineTo(x-w-14,H);g.closePath();g.fill();}
+    g.globalAlpha=.18;g.fillStyle='#fff';for(let i=0;i<2;i++){const x=40+i*90+r()*20;g.beginPath();g.moveTo(x,0);g.lineTo(x+5,0);g.lineTo(x-21,H);g.lineTo(x-26,H);g.closePath();g.fill();}
+    g.restore();
+    // gold filigree vines
+    g.lineCap='round';g.shadowColor='#ffcf5a';g.shadowBlur=2.5;
+    for(let k=0;k<9;k++){let x=r()*W,y=r()*H;g.strokeStyle=k%3?'#e8b84a':'#fff1b8';g.lineWidth=.6+r()*.4;g.beginPath();g.moveTo(x,y);
+      for(let s2=0;s2<3;s2++){const cx=x+(r()-.5)*30,cy=y+(r()-.5)*16;x+=(r()-.5)*30;y+=(r()-.5)*12;g.quadraticCurveTo(cx,cy,x,y);}g.stroke();
+      for(let c=0;c<2;c++){const a0=r()*6,cr=1.6+r()*2.4;g.beginPath();g.arc(x+(r()-.5)*6,y+(r()-.5)*6,cr,a0,a0+4.6);g.stroke();}}
     g.shadowBlur=0;
-    for(let i=0;i<26;i++){const x=r()*W,y=r()*H,z=1.1+r()*1.6;g.fillStyle=i%3?'#ff8aa8':'#fff0f4';g.globalAlpha=.85;g.beginPath();g.moveTo(x,y-z);g.lineTo(x+z*.7,y);g.lineTo(x,y+z);g.lineTo(x-z*.7,y);g.closePath();g.fill();}
+    // lace roses
+    const rose=(cx,cy,R0)=>{g.fillStyle='#14020a';g.globalAlpha=.85;g.beginPath();g.arc(cx,cy,R0,0,7);g.fill();g.globalAlpha=1;g.strokeStyle='#ff6b8f';g.lineWidth=.55;
+      g.beginPath();for(let t=0;t<15;t+=.3){const rr=R0*.9*(1-t/15);g.lineTo(cx+Math.cos(t*1.7)*rr,cy+Math.sin(t*1.7)*rr);}g.stroke();
+      g.fillStyle='#2a6a3a';[[-1,1],[1,1.2]].forEach(([d,q])=>{g.beginPath();g.ellipse(cx+d*R0*1.2,cy+R0*.7*q,R0*.55,R0*.25,d*.6,0,7);g.fill();});};
+    for(let i=0;i<5;i++)rose(10+r()*(W-20),8+r()*(H-16),3+r()*2.5);
+    // rubies and glints
+    for(let i=0;i<22;i++){const x=r()*W,y=r()*H,z=.9+r()*1.5;g.fillStyle=i%4?'#ffd6e6':'#ff2d55';g.globalAlpha=.9;g.beginPath();g.moveTo(x,y-z);g.lineTo(x+z*.7,y);g.lineTo(x,y+z);g.lineTo(x-z*.7,y);g.closePath();g.fill();}
     g.globalAlpha=1;
   },
   wraith(g,W,H,p,r){
@@ -3217,6 +3306,36 @@ function goatParts(g){
   g.fillStyle = gold(0, 28, 0, 31); g.fillRect(54, 27.4, 46, 2.4);
   g.fillStyle = gold(88, 46, 110, 72); g.globalAlpha = .9; g.fill(new Path2D('M88 46 H101 L110 70 L96 73 Z')); g.globalAlpha = 1; g.stroke(new Path2D('M88 46 H101 L110 70 L96 73 Z'));
   g.fillStyle = '#75bde9'; g.font = 'bold 7px Teko, sans-serif'; g.textAlign = 'center'; g.fillText('G.O.A.T', 103, 62);
+  g.restore();
+}
+function requiemParts(g){
+  const gold = (x0, y0, x1, y1) => { const lg = g.createLinearGradient(x0, y0, x1, y1); lg.addColorStop(0, '#fff3c0'); lg.addColorStop(.4, '#ffcf4a'); lg.addColorStop(.75, '#b8780a'); lg.addColorStop(1, '#6a4300'); return lg; };
+  g.save(); g.lineCap = 'round';
+  // engraved rails along the slide
+  g.strokeStyle = gold(0, 20, 0, 38); g.lineWidth = 1.3;
+  g.beginPath(); g.moveTo(58, 23.6); g.lineTo(144, 23.6); g.moveTo(58, 34.4); g.lineTo(144, 34.4); g.stroke();
+  g.fillStyle = '#fff1b8';
+  const stud = (x, y) => { g.beginPath(); g.moveTo(x, y - 1.1); g.lineTo(x + .8, y); g.lineTo(x, y + 1.1); g.lineTo(x - .8, y); g.closePath(); g.fill(); };
+  for (let x = 63; x < 142; x += 7) { stud(x, 23.6); stud(x, 34.4); }
+  // serrations at the back of the slide
+  g.strokeStyle = 'rgba(40,0,10,.75)'; g.lineWidth = .8; for (let x = 62; x < 76; x += 2.6) { g.beginPath(); g.moveTo(x, 25.5); g.lineTo(x, 32.5); g.stroke(); }
+  // the rose medallion
+  const cx = 104, cy = 29;
+  g.fillStyle = gold(cx - 6, cy - 6, cx + 6, cy + 6); g.beginPath(); g.arc(cx, cy, 5.6, 0, 7); g.fill();
+  g.fillStyle = '#2a0410'; g.beginPath(); g.arc(cx, cy, 4.4, 0, 7); g.fill();
+  g.strokeStyle = '#5a0018'; g.lineWidth = .35;
+  for (let k = 0; k < 5; k++) { const a = k / 5 * Math.PI * 2 - Math.PI / 2; g.fillStyle = '#c8143c'; g.beginPath(); g.ellipse(cx + Math.cos(a) * 2, cy + Math.sin(a) * 2, 2.3, 1.6, a, 0, 7); g.fill(); g.stroke(); }
+  for (let k = 0; k < 3; k++) { const a = k / 3 * Math.PI * 2 + .5; g.fillStyle = '#ff4d6d'; g.beginPath(); g.ellipse(cx + Math.cos(a) * .9, cy + Math.sin(a) * .9, 1.4, 1, a, 0, 7); g.fill(); g.stroke(); }
+  g.fillStyle = '#ffd6e6'; g.beginPath(); g.arc(cx, cy, .55, 0, 7); g.fill();
+  // name
+  g.fillStyle = gold(0, 26, 0, 33); g.font = '600 6.2px Cinzel, Georgia, serif'; g.textAlign = 'left'; g.fillText('REQUIEM', 113, 31.4);
+  // a ruby set in the grip
+  g.fillStyle = gold(70, 52, 82, 64); g.beginPath(); g.ellipse(75, 58, 4.6, 5.8, 0, 0, 7); g.fill();
+  const rb = g.createRadialGradient(74, 56, .5, 75, 58, 4.4); rb.addColorStop(0, '#ffd0dc'); rb.addColorStop(.35, '#ff2d55'); rb.addColorStop(1, '#5a0018');
+  g.fillStyle = rb; g.beginPath(); g.moveTo(75, 53.2); g.lineTo(78.4, 58); g.lineTo(75, 62.8); g.lineTo(71.6, 58); g.closePath(); g.fill();
+  g.fillStyle = 'rgba(255,255,255,.85)'; g.fillRect(73.6, 55.6, .9, 1.6);
+  // gold muzzle crown
+  g.fillStyle = gold(146, 24, 151, 34); g.fillRect(145, 23.5, 2.2, 11);
   g.restore();
 }
 const pathCache = {};
@@ -3273,6 +3392,7 @@ function renderItem(it, fl, S){
   if (bm) { g.strokeStyle='rgba(216,180,254,.5)'; g.lineWidth=.5; g.stroke(P.all); }
   if (sh.rivets) sh.rivets.forEach(([x,y]) => { g.fillStyle = bm ? '#c084fc' : '#d9b45a'; g.beginPath(); g.arc(x,y,1.7,0,7); g.fill(); g.strokeStyle='rgba(0,0,0,.6)'; g.lineWidth=.5; g.stroke(); });
   if (it.pat === 'goat') goatParts(g);
+  if (it.pat === 'requiem') requiemParts(g);
   return c;
 }
 
@@ -3790,6 +3910,9 @@ try {
     state.inv.forEach(e => { if (BY[e.id].t >= 6) e.v = bmVal(BY[e.id], e.fl); });
     if (state.best && BY[state.best.id] && BY[state.best.id].t === 6 && state.best.v < 50000) state.best.v = bmFix(state.best.v);
     if (state.pres.vaultT && state.pres.vaultT < 50000) state.pres.vaultT = bmFix(state.pres.vaultT);
+    /* Chroma went up tenfold: a hidden case already down keeps its price in line */
+    if (state.pres.vaultT && state.pres.vaultT < 1500000) state.pres.vaultT *= 10;
+    if (state.pres.vvaultT && state.pres.vvaultT < 1500000) state.pres.vvaultT *= 10;
     /* he now comes back after a single piece of contraband: saves that already took one are owed a visit */
     if (state.breach && (state.bmSinceBreach || 0) >= 1) state.pendingReturn = true;
     /* the collection index started after these saves did: count what's provably been held */
@@ -8938,7 +9061,66 @@ async function admReset(){
    out into a rainbow. Rings pulse, shards orbit, and C-H-R-O-M-A spells out one note at a time. Everything gets
    pulled into the middle, a beat of silence, then a white flash: rainbow rays, the piece itself, ONE OF ONE.
    Tap or Escape skips. */
+/* ---------- Velvet Requiem: its own reveal ----------
+   A requiem in five beats: one candle in the dark and an organ chord; crimson velvet curtains part under a spotlight;
+   rose petals fall while the pistol rises off a velvet cushion; the chroma sheen washes over it and the title rings
+   out in gold; then the bell, and the card. */
+function requiemCinematic(r){
+  return new Promise(resolve => {
+    let ov = $('#rqc');
+    if (!ov) { ov = document.createElement('div'); ov.id = 'rqc'; ov.className = 'rqc'; ov.hidden = true; document.body.append(ov); }
+    const it = BY[r.id], timers = [];
+    let done = false;
+    const finish = () => {
+      if (done) return; done = true; timers.forEach(clearTimeout);
+      ov.classList.add('out');
+      setTimeout(() => { ov.hidden = true; ov.className = 'rqc'; ov.innerHTML = ''; cine = null; musSync(); resolve(); }, 500);
+    };
+    const T = (ms, f) => timers.push(setTimeout(() => { if (!done) f(); }, REDUCED ? Math.min(ms, 200) : ms));
+    const step = c => ov.classList.add(c);
+    const COLS = ['#ff3ea5', '#ffd23f', '#39ff88', '#2fe3ff', '#7a6aff'];
+    let petals = '';
+    for (let i = 0; i < 34; i++) petals += '<i style="--x:' + (Math.random()*100).toFixed(1) + 'vw;--dx:' + ((Math.random() - .5)*30).toFixed(1) + 'vw;--d:' + (Math.random()*4).toFixed(2) + 's;--t:' + (4 + Math.random()*3).toFixed(2) + 's;--s:' + (.6 + Math.random()*.8).toFixed(2) + ';--r:' + Math.round(Math.random()*360) + 'deg"></i>';
+    let rays = '';
+    for (let i = 0; i < 10; i++) rays += '<b style="--a:' + (i*36) + 'deg;--c:' + COLS[i % 5] + '"></b>';
+    const title = 'VELVET REQUIEM'.split('').map((ch, i) => '<span style="--i:' + i + '">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>').join('');
+    ov.innerHTML = '<div class="rq-dark"></div>'
+      + '<div class="rq-candle"><span class="rq-flame"></span><span class="rq-wax"></span><span class="rq-halo"></span></div>'
+      + '<div class="rq-stage"><div class="rq-spot"></div><div class="rq-rays">' + rays + '</div>'
+      + '<div class="rq-cushion"><span></span></div><div class="rq-gun"><div class="rq-sheen"></div></div></div>'
+      + '<div class="rq-curtain l"><span class="rq-tie"></span></div><div class="rq-curtain r"><span class="rq-tie"></span></div><div class="rq-valance"></div>'
+      + '<div class="rq-petals">' + petals + '</div>'
+      + '<div class="rq-title"><small>Sable’s one of one</small><h2>' + title + '</h2><div class="rq-sub"><span class="rq-ch">CHROMA</span> · ONE OF ONE · ' + WNAME[it.w].toUpperCase() + '</div></div>'
+      + '<div class="rq-flash"></div><button class="pc-skip rq-skip">Skip ››</button>';
+    const src = artHi(it, wearIdx(r.fl)); ov.querySelector('.rq-gun').prepend(imgOf(src)); ov.querySelector('.rq-sheen').style.setProperty('--m', 'url("' + src + '")');
+    ov.hidden = false; ov.className = 'rqc';
+    ov.onclick = e => { if (e.target.closest('.rq-skip') || ov.classList.contains('s5')) finish(); };
+    cine = {skip: finish}; musSync(); ac();
+    // an organ: stacked saws and sines, slow in, slow out
+    const organ = (fs, dur, v, at) => fs.forEach(f => { tone(f, dur, 'sawtooth', v * .35, at); tone(f, dur, 'sine', v, at); tone(f * 2, dur, 'triangle', v * .25, at); });
+    const bell = (f, at, v) => { tone(f, 2.4, 'sine', v || .05, at); tone(f * 2.76, 1.2, 'sine', (v || .05) * .35, at); tone(f * 5.4, .6, 'sine', (v || .05) * .15, at); };
+    /* 1. a match, one candle, a low chord */
+    T(250, () => { noise(.25, 3000, 900, .05, 'bandpass'); step('s1'); });
+    T(700, () => organ([73.42, 110, 146.83], 3.2, .045, 0));
+    /* 2. the curtains part, the spotlight hits the cushion */
+    T(2300, () => { step('s2'); noise(1.6, 900, 200, .05, 'lowpass'); organ([87.31, 130.81, 174.61], 2.6, .05, .2); });
+    /* 3. petals fall, the pistol rises */
+    T(3600, () => { step('s3'); sweep(220, 660, 1.8, 'sine', .03); [293.66, 349.23, 440, 587.33].forEach((f, i) => tone(f, 1.6, 'triangle', .035, .2 + i*.22)); });
+    /* 4. the chroma sheen washes over it, and the name rings out letter by letter */
+    T(5200, () => { step('s4'); sweep(400, 2400, 1.2, 'sine', .03); noise(1, 7000, 3000, .03, 'highpass'); });
+    'VELVET REQUIEM'.split('').forEach((ch, i) => { if (ch !== ' ') T(5450 + i*90, () => tone([587.33, 659.25, 698.46, 783.99, 880][i % 5] * (i > 6 ? 2 : 1), .5, 'triangle', .025)); });
+    /* 5. the bell, the flash, and the chord resolves to major */
+    T(6900, () => {
+      step('s5'); boom(); bell(523.25, 0, .06); bell(392, .35, .05); bell(659.25, .7, .04);
+      organ([130.81, 196, 261.63, 329.63], 3.6, .05, 0);
+      if (!REDUCED) restart($('#wrap'), 'quake');
+    });
+    T(11000, finish);
+  });
+}
+
 function chromaCinematic(r){
+  if (r.id === 'x1') return requiemCinematic(r);
   return new Promise(resolve => {
     const it = BY[r.id], ov = $('#chc'), timers = [];
     let done = false;
@@ -9866,8 +10048,8 @@ document.addEventListener('keydown', e => { const el = msiEl(); if (e.key === 'E
    penalty: score (about 80%, depending on where you aim) and they pull out a Messi shirt and accept the bluff.
    After use it needs PEN_CD case opens to recharge. */
 const PEN_CD = 10;
-const CR_OFFERS = [500000, 750000, 1000000, 1250000, 1500000];
-const CR_LINES = ['I want that rifle. 500,000. Cash. Today.', 'No? 750,000. I am being generous.', 'One million. ONE MILLION. Nobody says no to me.', '1,250,000. Please. I am asking nicely.', '1,500,000. Final. FINAL. …Siuuu?'];
+const CR_OFFERS = [5000000, 7500000, 10000000, 12500000, 15000000];
+const CR_LINES = ['I want that rifle. 5,000,000. Cash. Today.', 'No? 7,500,000. I am being generous.', 'Ten million. TEN MILLION. Nobody says no to me.', '12,500,000. Please. I am asking nicely.', '15,000,000. Final. FINAL. …Siuuu?'];
 let crN = 0;
 const penReady = () => !!state.penaldo && state.opened >= (state.penAt || 0);
 const penLeft = () => Math.max(0, (state.penAt || 0) - state.opened);
@@ -10192,15 +10374,15 @@ function gadChips(){
    takes you to his private room to talk business. He buys Chroma only, and everything he buys goes on his Chroma
    shelf, where you can buy it back at DANCE_SHELF_X what he paid. He almost never falls for a bluff, except over
    The GOAT: then every bluff works, and he keeps piling Black Market pieces and cash onto his offer, sweating,
-   then crying, all the way to 5,000,000. Take it and he turns out his pockets: nothing left. Broke for good. */
+   then crying, all the way to 50,000,000. Take it and he turns out his pockets: nothing left. Broke for good. */
 const DANCE_X = 1.5, DANCE_BLUFF = .15, DANCE_SHELF_X = 2, DANCE_SHELF_N = 6;
 const DANCE_LADDER = [
-  {tot:650000, add:1, line:'Okay, OKAY. Hold the music. Plus one of my babies from the back.', mood:''},
-  {tot:1100000, add:1, line:'Another buyer?! For THE GOAT? Bring out the purple one!', mood:''},
-  {tot:1800000, add:1, line:'You’re killing me. You’re KILLING me. Take this one too. Cash on top.', mood:'sweat'},
-  {tot:2700000, add:1, line:'That was my favourite. That was my FAVOURITE one.', mood:'sweat'},
-  {tot:3800000, add:1, line:'*sniff* Everything in the back room. Everything.', mood:'tear'},
-  {tot:5000000, add:0, line:'FIVE. MILLION. That’s… *sob* that’s everything I’ve got, baby.', mood:'cry'}
+  {tot:6500000, add:1, line:'Okay, OKAY. Hold the music. Plus one of my babies from the back.', mood:''},
+  {tot:11000000, add:1, line:'Another buyer?! For THE GOAT? Bring out the purple one!', mood:''},
+  {tot:18000000, add:1, line:'You’re killing me. You’re KILLING me. Take this one too. Cash on top.', mood:'sweat'},
+  {tot:27000000, add:1, line:'That was my favourite. That was my FAVOURITE one.', mood:'sweat'},
+  {tot:38000000, add:1, line:'*sniff* Everything in the back room. Everything.', mood:'tear'},
+  {tot:50000000, add:0, line:'FIFTY. MILLION. That’s… *sob* that’s everything I’ve got, baby.', mood:'cry'}
 ];
 let dz = null, dzBeat = null;
 const DZ_COLS = ['#ff3ea5', '#ffd23f', '#39ff88', '#2fe3ff', '#7a6aff', '#ff8a3d'];
@@ -10785,7 +10967,7 @@ const VAULT_ID = 'x1', VAULT_FL = .0031, VANCE_ID = 'x2';
    Sable's comes down from the ceiling; Vance's knife cabinet lifts up to show what he keeps behind it. */
 const VAULTS = {
   sable:{id:'x1', fl:.0031, key:'vault', tk:'vaultT', on:'sx-down', dim:'sx-dim', open:'sx-open', shut:'sx-up', title:'Sable’s hidden case', who:'Sable', her:'her', she:'she',
-    desc:'Black Market, one of one: the best piece of contraband there is. It isn’t in any case, contract or reel.', hello:'Well? Make it worth my time.',
+    desc:'Chroma, one of one. Velvet Requiem. It isn’t in any case, contract or reel.', hello:'Well? Make it worth my time.',
     found:['…You know how to look.', "This one isn't on any list. No case, no contract. Make me an offer. One."], yes:"…Yes. It's yours.", no:'No.', after:"It won't come down again.",
     again:{gone:"It doesn't come down twice.", won:'You already own what was in it.', down:'It is right there. Make your offer.'}},
   vance:{id:'x2', fl:.0007, key:'vvault', tk:'vvaultT', on:'vv-up', dim:'vv-dim', open:'vv-open', shut:'vv-shut', title:'Vance’s private collection', who:'Vance', her:'him', she:'he',
