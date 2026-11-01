@@ -2771,6 +2771,165 @@ body.dz-open .toast{z-index:95}
 .bs-hit.black .bs-dark{background:#000;animation:none;opacity:1;transition:background .9s}
 .bs-hit.gone{opacity:0;transition:opacity .8s}
 @media (prefers-reduced-motion: reduce){#prRoom.bs-tilt{transform:none}.bs-hit i{animation-duration:.1s}}
+
+/* ---------- The GOAT reveal ---------- */
+.gtc{position:fixed;inset:0;z-index:96;overflow:hidden;background:#000;color:#fff;user-select:none;-webkit-user-select:none;transition:opacity .5s}
+.gtc.out{opacity:0}
+.gtc.ready{cursor:pointer}
+.gt-cv{position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none}
+.gt-s{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .7s,visibility 0s .7s}
+.gt-s>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.gtc[data-s="1"] .gt-s1,.gtc[data-s="2"] .gt-s2,.gtc[data-s="3"] .gt-s3,.gtc[data-s="4"] .gt-s4,.gtc[data-s="5"] .gt-s5,.gtc[data-s="6"] .gt-s6,.gtc[data-s="7"] .gt-s7,.gtc[data-s="8"] .gt-s8{opacity:1;visibility:visible;transition:opacity .7s}
+/* captions */
+.gt-cap{position:absolute;left:6vw;bottom:9vh;z-index:3;max-width:min(560px,88vw)}
+.gt-cap.c{left:0;right:0;margin:auto;text-align:center}
+.gt-cap small{display:block;font:700 12px/1 var(--body);letter-spacing:.34em;text-transform:uppercase;color:#75bde9;margin-bottom:10px;opacity:0;transform:translateY(8px);transition:all .6s .2s}
+.gt-cap p{margin:0;font:600 clamp(24px,4.4vw,44px)/1.1 var(--display);letter-spacing:.02em;opacity:0;transform:translateY(12px);transition:all .8s .5s}
+.gt-cap.big p{font-size:clamp(26px,5vw,52px)}
+.gt-cap .gt-p2{font-size:clamp(18px,3vw,28px);color:#ffd23f;margin-top:12px;transition-delay:1.6s}
+.gtc[data-s="1"] .gt-s1 .gt-cap small,.gtc[data-s="2"] .gt-s2 .gt-cap small,.gtc[data-s="4"] .gt-s4 .gt-cap small,.gtc[data-s="6"] .gt-s6 .gt-cap small{opacity:1;transform:none}
+.gtc.c1 .gt-s1 .gt-cap p,.gtc[data-s="2"] .gt-s2 .gt-cap p,.gtc.eight .gt-s4 .gt-cap p,.gtc[data-s="6"] .gt-s6 .gt-cap p,.gtc[data-s="7"] .gt-s7 .gt-cap p{opacity:1;transform:none}
+.gtc[data-s="2"] .gt-s2 .gt-cap p{transition-delay:1.6s}
+.gtc[data-s="7"] .gt-s7 .gt-cap p{transition-delay:1s;transition-duration:1.2s}
+/* 1. the kid */
+.gt-jball{animation:gtJ .5s cubic-bezier(.3,0,.7,1) infinite alternate}
+@keyframes gtJ{to{transform:translateY(-26px)}}
+.gt-leg{transform-box:fill-box;transform-origin:0 0;animation:gtLeg .5s ease-in-out infinite alternate}
+@keyframes gtLeg{to{transform:rotate(-14deg)}}
+/* 2. the napkin */
+.gt-s2{display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,#2a1d12,#0a0603 70%)}
+.gt-napkin{position:relative;width:min(420px,78vw);aspect-ratio:1;transform:rotate(-4deg) scale(.6);opacity:0;border-radius:6px;margin-top:-8vh;
+  background:radial-gradient(circle at 30% 20%,#fffdf6,#f1ead8 70%),#f6f0e0;box-shadow:0 30px 60px rgba(0,0,0,.6),inset 0 0 40px rgba(160,130,80,.25);
+  -webkit-mask:radial-gradient(7px at 7px 50%,transparent 96%,#000) -7px 0/14px 14px repeat-y,linear-gradient(#000,#000) 7px 0/calc(100% - 14px) 100% no-repeat;
+  mask:radial-gradient(7px at 7px 50%,transparent 96%,#000) -7px 0/14px 14px repeat-y,linear-gradient(#000,#000) 7px 0/calc(100% - 14px) 100% no-repeat}
+.gt-napkin::before{content:"";position:absolute;inset:14px;border:2px dashed rgba(170,140,90,.35);border-radius:4px}
+.gtc[data-s="2"] .gt-napkin{opacity:1;transform:rotate(-4deg);transition:transform 1s cubic-bezier(.2,1.2,.4,1),opacity .4s}
+.gt-ink{position:absolute;inset:16% 12%;font:400 clamp(16px,3.4vw,28px)/1.35 "Permanent Marker",cursive;color:#1d3a8a}
+.gt-ink p{margin:0 0 6px;clip-path:inset(0 100% 0 0)}
+.gtc[data-s="2"] .gt-ink p{clip-path:inset(0 0 0 0);transition:clip-path .7s linear}
+.gtc[data-s="2"] .gt-l1{transition-delay:.5s!important}.gtc[data-s="2"] .gt-l2{transition-delay:1.2s!important}.gtc[data-s="2"] .gt-l3{transition-delay:1.9s!important}
+.gt-sig{position:static!important;width:70%!important;height:auto!important;margin-top:8px}
+.gt-sig path{stroke-dasharray:420;stroke-dashoffset:420}
+.gtc[data-s="2"] .gt-sig path{stroke-dashoffset:0;transition:stroke-dashoffset .9s 2.4s ease-out}
+/* 3. the destroyer */
+.gt-bulb{animation:gtFlash 3s steps(1) infinite}
+@keyframes gtFlash{0%,92%{opacity:.6}93%{opacity:1;fill:#fff}}
+.gt-ten{transform:translate(60px,206px)}
+.gtc[data-s="3"] .gt-ten{animation:gtRun 2.8s .2s cubic-bezier(.45,0,.4,1) forwards}
+@keyframes gtRun{0%{transform:translate(60px,206px)}18%{transform:translate(120px,204px)}36%{transform:translate(170px,208px)}54%{transform:translate(220px,203px)}72%{transform:translate(270px,208px)}90%{transform:translate(318px,204px)}100%{transform:translate(336px,206px)}}
+.gt-tenb{animation:gtBob .22s ease-in-out infinite alternate}
+@keyframes gtBob{to{transform:translateY(-2px)}}
+.gt-run1{animation:gtStride .22s steps(2) infinite}
+@keyframes gtStride{50%{transform:scaleX(-1)}}
+.gt-def{transform-box:view-box}
+.gtc[data-s="3"] .gt-def{animation:gtFall .5s var(--d) cubic-bezier(.4,0,.8,.6) forwards}
+@keyframes gtFall{30%{transform:rotate(-18deg)}100%{transform:rotate(84deg) translateY(4px);opacity:.75}}
+.gt-trail{stroke-dasharray:520;stroke-dashoffset:520}
+.gtc[data-s="3"] .gt-trail{stroke-dashoffset:120;transition:stroke-dashoffset 2.8s .2s cubic-bezier(.45,0,.4,1)}
+.gtc.goal .gt-trail{stroke-dashoffset:0;transition:stroke-dashoffset .25s linear}
+.gt-sball{transition:transform .3s cubic-bezier(.2,.8,.3,1)}
+.gtc.goal .gt-sball{transform:translate(32px,-28px)}
+.gt-net{transform-box:fill-box;transform-origin:100% 50%}
+.gtc.goal .gt-net{animation:gtNet .5s .2s ease-out}
+@keyframes gtNet{40%{transform:scaleX(1.18)}}
+.gt-goaltxt{opacity:0;transform-box:fill-box;transform-origin:50% 50%}
+.gtc.goal .gt-goaltxt{animation:gtGoal 1.2s .25s cubic-bezier(.2,1.6,.4,1) forwards}
+@keyframes gtGoal{0%{opacity:0;transform:scale(.3)}30%{opacity:1;transform:scale(1.1)}100%{opacity:0;transform:scale(1.6)}}
+.gt-stats{position:absolute;left:0;right:0;top:9vh;display:grid;justify-items:center;gap:6px;z-index:3;text-shadow:0 4px 18px rgba(0,0,0,.9)}
+.gt-st{display:flex;align-items:baseline;gap:12px;opacity:0;transform:scale(1.8);filter:blur(6px)}
+.gt-st b{font:700 clamp(40px,7vw,78px)/1 var(--display);color:#ffd23f;min-width:2ch;text-align:right}
+.gt-st span{font:600 clamp(16px,2.6vw,26px)/1 var(--display);letter-spacing:.04em}
+.gtc.st1 .gt-st:nth-child(1),.gtc.st2 .gt-st:nth-child(2),.gtc.st3 .gt-st:nth-child(3){opacity:1;transform:none;filter:none;transition:all .35s cubic-bezier(.2,1.4,.4,1)}
+/* 4. eight */
+.gt-s4{display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,#2a1f05,#000 70%)}
+.gt-eight{position:absolute;font:700 min(70vh,80vw)/1 var(--display);color:transparent;-webkit-text-stroke:2px rgba(255,210,63,.12);opacity:.4;transition:all .8s}
+.gtc.eight .gt-eight{-webkit-text-stroke:2px rgba(255,210,63,.6);color:rgba(255,210,63,.08);text-shadow:0 0 60px rgba(255,210,63,.4);opacity:1}
+.gt-balls{display:flex;gap:min(2.4vw,18px);flex-wrap:wrap;justify-content:center;max-width:94vw;margin-top:-10vh;z-index:2}
+.gt-bdo{display:grid;justify-items:center;gap:8px;opacity:0;transform:translateY(-60vh)}
+.gtc[data-s="4"] .gt-bdo{opacity:1;transform:none;transition:transform .55s calc(.25s + var(--i)*.3s) cubic-bezier(.3,1.5,.5,1),opacity .2s calc(.25s + var(--i)*.3s)}
+.gt-bdo i{width:min(8.5vw,64px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fffbe0,#ffd23f 35%,#b8780a 75%,#6a4300);box-shadow:0 0 24px rgba(255,210,63,.55),inset -4px -6px 10px rgba(0,0,0,.3);position:relative}
+.gt-bdo i::after{content:"";position:absolute;inset:22%;border-radius:50%;border:2px solid rgba(122,74,0,.45);clip-path:polygon(50% 0,100% 38%,82% 100%,18% 100%,0 38%)}
+.gt-bdo small{font:700 clamp(11px,1.6vw,14px) var(--mono);color:#ffe29a}
+.gtc.eight .gt-bdo i{animation:gtGlow 1.2s ease-in-out infinite alternate}
+@keyframes gtGlow{to{box-shadow:0 0 40px rgba(255,210,63,.9),inset -4px -6px 10px rgba(0,0,0,.3)}}
+/* 5. Lusail */
+.gt-s5{display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,#0f2340,#02050c 70%)}
+.gt-final{display:grid;justify-items:center;gap:10px;text-align:center;transition:all .8s}
+.gt-final>small{font:700 12px var(--body);letter-spacing:.3em;text-transform:uppercase;color:#75bde9}
+.gt-score{display:flex;align-items:center;gap:clamp(12px,3vw,30px);font:700 clamp(20px,3.6vw,36px)/1 var(--display);letter-spacing:.06em}
+.gt-score b{font-size:clamp(52px,10vw,110px);color:#fff;text-shadow:0 0 30px rgba(117,189,233,.5)}
+.gt-scorer{font:600 14px var(--body);color:#c9d8ee}
+.gt-pens{display:grid;gap:12px;margin-top:16px}
+.gt-prow{display:grid;grid-template-columns:clamp(84px,14vw,130px) repeat(4,clamp(52px,9vw,78px));align-items:center;gap:8px}
+.gt-prow b{font:700 clamp(14px,2vw,18px) var(--display);letter-spacing:.1em;text-align:right;padding-right:8px}
+.gt-pen{display:grid;justify-items:center;gap:4px}
+.gt-pen i{width:clamp(26px,4vw,38px);aspect-ratio:1;border-radius:50%;border:2px solid rgba(255,255,255,.3);display:grid;place-items:center;font-style:normal;font-weight:800;transition:all .25s}
+.gt-pen small{font:600 10px var(--body);color:#8aa0bf;white-space:nowrap}
+.gt-pen.ok i{background:#39d26e;border-color:#39d26e;box-shadow:0 0 18px rgba(57,210,110,.7);transform:scale(1.15)}
+.gt-pen.ok i::after{content:"✓";color:#04220f}
+.gt-pen.no i{background:#e0283c;border-color:#e0283c;box-shadow:0 0 18px rgba(224,40,60,.6)}
+.gt-pen.no i::after{content:"✕";color:#2a0006}
+.gtc.hold .gt-s5{animation:gtHold 1s ease-in-out}
+@keyframes gtHold{50%{filter:brightness(.6)}}
+.gtc.hold .gt-pen[data-k="7"] i{animation:gtPulse .3s ease-in-out infinite alternate;border-color:#ffd23f}
+@keyframes gtPulse{to{transform:scale(1.25)}}
+.gt-champ{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:8px;text-align:center;opacity:0;pointer-events:none}
+.gtc.champ .gt-final{opacity:0;transform:scale(.8);filter:blur(4px)}
+.gtc.champ .gt-champ{opacity:1;transition:opacity .4s .2s}
+.gt-cup{width:min(26vh,180px);transform:translateY(40px) scale(.6);opacity:0;filter:drop-shadow(0 0 30px rgba(255,210,63,.6))}
+.gtc.champ .gt-cup{transform:none;opacity:1;transition:transform 1s .3s cubic-bezier(.2,1.4,.4,1),opacity .4s .3s}
+.gt-champ h3{margin:6px 0 0;font:700 clamp(30px,6vw,64px)/1 var(--display);letter-spacing:.06em;background:linear-gradient(90deg,#75bde9,#fff,#75bde9,#fff,#75bde9) 0 0/200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gtFlagT 3s linear infinite}
+@keyframes gtFlagT{to{background-position:200% 0}}
+.gt-champ p{margin:0;font:700 14px var(--body);letter-spacing:.3em;text-transform:uppercase;color:#ffd23f}
+.gt-stars{display:flex;gap:10px}
+.gt-stars svg{width:clamp(22px,3.4vw,34px);height:auto;filter:drop-shadow(0 0 10px rgba(255,210,63,.8))}
+.gt-champ .gt-stars svg{opacity:0;transform:scale(0)}
+.gtc.champ .gt-champ .gt-stars svg{opacity:1;transform:none;transition:transform .5s cubic-bezier(.2,1.8,.4,1),opacity .2s}
+.gtc.champ .gt-champ .gt-stars svg:nth-child(2){transition-delay:.2s}.gtc.champ .gt-champ .gt-stars svg:nth-child(3){transition-delay:.4s}
+/* 6. 2026 */
+.gt-s6{background:radial-gradient(circle at 50% 50%,#101a2c,#000 70%)}
+.gt-s6 .gt-cap{bottom:auto;top:50%;transform:translateY(-50%)}
+/* 7. lights out */
+.gt-s7{background:#000}
+.gt-lights{position:absolute;left:0;right:0;top:8vh;height:18vh}
+.gt-lights i{position:absolute;top:0;width:min(9vw,70px);aspect-ratio:2.4;border-radius:4px;background:#fff;box-shadow:0 0 40px 18px rgba(255,255,255,.55);animation:gtOff .2s calc(.3s + var(--d)) steps(1) forwards}
+@keyframes gtOff{to{background:#111;box-shadow:none}}
+.gt-s7 .gt-cap{bottom:auto;top:52%}
+/* 8. the GOAT */
+.gt-s8{display:grid;place-items:center}
+.gt-flag{position:absolute;inset:-10%;opacity:0;background:repeating-linear-gradient(90deg,#75bde9 0 12%,#f4f7fb 12% 24%);filter:blur(1px) brightness(.35);transform:skewY(-4deg) scale(1.1);transition:opacity 1.2s}
+.gtc.land .gt-flag{opacity:1;animation:gtWave 4s ease-in-out infinite alternate}
+@keyframes gtWave{to{transform:skewY(4deg) scale(1.15) translateX(-3%)}}
+.gt-spot{position:absolute;left:50%;top:-20%;width:min(80vw,700px);height:140%;transform:translateX(-50%);background:linear-gradient(rgba(255,244,214,.55),rgba(255,244,214,.06) 70%,transparent);clip-path:polygon(44% 0,56% 0,100% 100%,0 100%);opacity:0;transition:opacity .8s}
+.gtc[data-s="8"] .gt-spot{opacity:1}
+.gt-ten10{position:absolute;font:700 min(80vh,90vw)/1 var(--display);color:rgba(255,255,255,.04);-webkit-text-stroke:2px rgba(255,210,63,.18);opacity:0;transform:scale(1.3);transition:all 1.2s}
+.gtc.land .gt-ten10{opacity:1;transform:none}
+.gt-rv{position:relative;z-index:2;display:grid;justify-items:center;gap:10px;text-align:center;padding:16px}
+.gt-rv .gt-stars{opacity:0;transform:translateY(-20px)}
+.gtc.land .gt-rv .gt-stars{opacity:1;transform:none;transition:all .6s .5s cubic-bezier(.2,1.5,.4,1)}
+.gt-art{position:relative;width:min(640px,88vw);transform:translateY(-70vh) rotate(-8deg);filter:drop-shadow(0 0 22px rgba(255,214,90,.8)) drop-shadow(0 0 50px rgba(117,189,233,.7))}
+.gt-art img{display:block;width:100%;height:auto}
+.gtc[data-s="8"] .gt-art{transform:translateY(-6vh) rotate(-3deg);transition:transform .8s cubic-bezier(.3,0,.6,1)}
+.gtc.land .gt-art{transform:none;transition:transform .5s cubic-bezier(.2,1.6,.4,1);animation:gtFloat 3s 1s ease-in-out infinite alternate}
+@keyframes gtFloat{to{transform:translateY(-10px)}}
+.gt-foil{position:absolute;inset:0;mix-blend-mode:screen;pointer-events:none;
+  background:linear-gradient(105deg,transparent 30%,rgba(117,189,233,.8) 42%,rgba(255,255,255,.9) 50%,rgba(255,210,63,.85) 58%,transparent 70%) -150% 0/260% 100% no-repeat;
+  -webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+.gtc.land .gt-foil{animation:gtFoil 2.6s .6s ease-in-out infinite}
+@keyframes gtFoil{0%{background-position:-150% 0}60%,100%{background-position:250% 0}}
+.gt-rv h2{margin:0;font:700 clamp(46px,9vw,108px)/1 var(--display);letter-spacing:.08em}
+.gt-rv h2 span{display:inline-block;opacity:0;transform:translateY(30px) scale(.5);background:linear-gradient(180deg,#fff7d0,#ffd23f 50%,#b8780a);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 0 #3a2400) drop-shadow(0 0 24px rgba(255,210,63,.5))}
+.gtc.land .gt-rv h2 span{opacity:1;transform:none;transition:opacity .2s calc(.4s + var(--i)*70ms),transform .55s calc(.4s + var(--i)*70ms) cubic-bezier(.2,1.7,.4,1)}
+.gt-sub{font:700 13px var(--body);letter-spacing:.34em;padding:7px 14px;border-radius:999px;background:linear-gradient(90deg,#75bde9,#fff,#ffd23f);color:#0b2a4a;opacity:0}
+.gt-val{display:flex;align-items:center;gap:8px;font:600 clamp(24px,4vw,38px)/1 var(--display);color:#ffe29a;text-shadow:0 0 16px rgba(255,210,63,.5);opacity:0}
+.gt-val .coin{width:22px;height:22px}
+.gt-tap{font:700 12px var(--body);letter-spacing:.24em;text-transform:uppercase;color:#c9d8ee;opacity:0}
+.gtc.land .gt-sub{opacity:1;transition:opacity .5s 1s}
+.gtc.land .gt-val{opacity:1;transition:opacity .5s 1.2s}
+.gtc.ready .gt-tap{opacity:1;transition:opacity 1s 1s;animation:cxBreath 2s 2s ease-in-out infinite}
+.gt-skip{position:absolute;top:16px;right:16px;z-index:7}
+@media (max-width:640px){.gt-cap{bottom:14vh}.gt-prow{grid-template-columns:72px repeat(4,1fr)}.gt-pen small{font-size:8.5px}}
+@media (prefers-reduced-motion: reduce){.gtc *{animation:none!important}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -9399,8 +9558,187 @@ function requiemCinematic(r){
    6. SUPERNOVA: a white-out, shockwaves and a thousand particles
    7. REVEAL: the piece appears as a black silhouette against the light, then a wave of colour floods across it;
       name, value, embers. Tap (once it's revealed), the skip button or Escape ends it. */
+/* ---------- The GOAT: its own reveal ----------
+   About half a minute, Messi's career in eight beats. Everything on screen is checked:
+   napkin contract 14 Dec 2000 at 13 (signed by Carles Rexach); 672 goals for Barcelona; 91 goals in 2012;
+   4 Champions Leagues; 8 Ballons d'Or (2009, 10, 11, 12, 15, 19, 21, 23); the 2022 final in Lusail, 3–3 and 4–2
+   on penalties with France shooting first (Mbappé ✓ Messi ✓ Coman ✗ Dybala ✓ Tchouaméni ✗ Paredes ✓
+   Kolo Muani ✓ Montiel ✓), Messi scoring 23' (pen) and 108'; and 2026, one more World Cup final at 39, by
+   then the tournament's all-time top scorer.
+   1. ROSARIO: a small kid juggling under a streetlight. "Too small, they said."
+   2. THE NAPKIN: the contract, written on a paper napkin
+   3. THE DESTROYER: a night stadium; he slaloms through five defenders who go down one by one, and scores
+   4. EIGHT: eight golden balls drop in, year by year
+   5. LUSAIL: the final. The shootout, kick by kick, with a heartbeat between. Then: champions of the world.
+   6. 2026: one more final, at 39
+   7. LIGHTS OUT: the stadium goes dark, one light at a time
+   8. THE GOAT: the rifle descends into the last spotlight, sky blue and white behind it, three stars above */
+function goatCinematic(r){
+  return new Promise(resolve => {
+    let ov = $('#gtc');
+    if (!ov) { ov = document.createElement('div'); ov.id = 'gtc'; ov.className = 'gtc'; ov.hidden = true; document.body.append(ov); }
+    const it = BY[r.id], timers = [], R = Math.random;
+    let done = false, raf = 0, cnt = 0;
+    const T = (ms, f) => timers.push(setTimeout(() => { if (!done) f(); }, REDUCED ? Math.min(ms, 300) : ms));
+    const go = n => { ov.dataset.s = n; };
+    const add = c => ov.classList.add(c);
+    const f1 = n => n.toFixed(1);
+    /* -- 1. Rosario -- */
+    let s1 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="gtN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#03060f"/><stop offset="1" stop-color="#101c34"/></linearGradient>'
+      + '<linearGradient id="gtL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe2a0" stop-opacity=".55"/><stop offset="1" stop-color="#ffe2a0" stop-opacity="0"/></linearGradient></defs>'
+      + '<rect width="400" height="260" fill="url(#gtN)"/>';
+    for (let i = 0; i < 40; i++) s1 += '<circle cx="' + f1(R() * 400) + '" cy="' + f1(R() * 120) + '" r="' + f1(.4 + R() * .8) + '" fill="#fff" opacity="' + f1(.3 + R() * .6) + '"/>';
+    for (let x = -10; x < 410; x += 34 + R() * 20) { const h = 30 + R() * 34; s1 += '<rect x="' + f1(x) + '" y="' + f1(196 - h) + '" width="' + f1(30 + R() * 16) + '" height="' + f1(h) + '" fill="#070b16"/>' + (R() < .6 ? '<rect x="' + f1(x + 8) + '" y="' + f1(204 - h) + '" width="6" height="7" fill="#ffcf73" opacity=".7"/>' : ''); }
+    s1 += '<rect y="196" width="400" height="64" fill="#2a1c12"/><path d="M0 196 H400" stroke="#3a2a1c" stroke-width="2"/>'
+      + '<path d="M232 66 L180 214 H300 Z" fill="url(#gtL)"/><rect x="262" y="50" width="4" height="150" fill="#1a1a22"/><path d="M264 52 Q250 50 240 62" stroke="#1a1a22" stroke-width="4" fill="none"/><ellipse cx="238" cy="64" rx="9" ry="4" fill="#fff4d0"/>'
+      + '<ellipse cx="240" cy="206" rx="40" ry="5" fill="#ffe2a0" opacity=".25"/>'
+      + '<g class="gt-kid"><circle cx="240" cy="160" r="6" fill="#0a0a10"/><path d="M234 168 Q240 165 246 168 L245 186 H235 Z" fill="#0a0a10"/><path d="M236 186 L234 202 M244 186 L248 198" class="gt-leg" stroke="#0a0a10" stroke-width="4" stroke-linecap="round"/><path d="M235 170 L229 182 M245 170 L251 181" stroke="#0a0a10" stroke-width="3" stroke-linecap="round"/></g>'
+      + '<circle class="gt-jball" cx="252" cy="194" r="3.6" fill="#f4f6fa"/></svg>';
+    /* -- 3. the stadium -- */
+    let s3 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="gtF"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>'
+      + '<linearGradient id="gtP" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c6b30"/><stop offset="1" stop-color="#0f3d1b"/></linearGradient>'
+      + '<linearGradient id="gtA" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffd23f" stop-opacity="0"/><stop offset="1" stop-color="#ffd23f"/></linearGradient></defs>'
+      + '<rect width="400" height="260" fill="#04060c"/><rect y="40" width="400" height="80" fill="#0b0f1a"/>';
+    for (let i = 0; i < 260; i++) s3 += '<rect class="' + (i % 9 ? '' : 'gt-bulb') + '" style="animation-delay:-' + f1(R() * 3) + 's" x="' + f1(R() * 400) + '" y="' + f1(46 + R() * 70) + '" width="1.6" height="1.6" fill="' + ['#8fa4c8', '#c9d4e8', '#5c6f92', '#fff'][i % 4] + '" opacity=".6"/>';
+    [[40, 22], [360, 22]].forEach(([x, y]) => { s3 += '<circle cx="' + x + '" cy="' + y + '" r="34" fill="url(#gtF)" opacity=".5"/><rect x="' + (x - 14) + '" y="' + (y - 6) + '" width="28" height="12" rx="2" fill="#fff"/>'; });
+    s3 += '<path d="M-40 260 L60 120 H340 L440 260 Z" fill="url(#gtP)"/>';
+    for (let i = 0; i < 7; i++) s3 += '<path d="M' + f1(-40 + i * 68.6) + ' 260 L' + f1(60 + i * 40) + ' 120 L' + f1(80 + i * 40) + ' 120 L' + f1(-5.7 + i * 68.6) + ' 260 Z" fill="#fff" opacity=".035"/>';
+    s3 += '<path d="M60 120 H340" stroke="#fff" stroke-opacity=".3"/><g class="gt-goal"><rect x="352" y="150" width="34" height="46" fill="none" stroke="#fff" stroke-width="2.4"/><g class="gt-net">' + Array.from({length: 6}, (_, i) => '<path d="M' + (352 + i * 6.8) + ' 150 V196 M352 ' + (150 + i * 9) + ' H386" stroke="#fff" stroke-opacity=".35" stroke-width=".6"/>').join('') + '</g></g>';
+    const DEF = [110, 160, 210, 260, 310];
+    DEF.forEach((x, i) => { s3 += '<g class="gt-def" style="--d:' + (.45 + i * .46).toFixed(2) + 's;transform-origin:' + x + 'px 206px"><circle cx="' + x + '" cy="168" r="6" fill="#20263a"/><path d="M' + (x - 7) + ' 176 Q' + x + ' 172 ' + (x + 7) + ' 176 L' + (x + 6) + ' 194 H' + (x - 6) + ' Z" fill="#283048"/><path d="M' + (x - 3) + ' 194 L' + (x - 5) + ' 206 M' + (x + 3) + ' 194 L' + (x + 5) + ' 206" stroke="#20263a" stroke-width="3.6" stroke-linecap="round"/></g>'; });
+    s3 += '<path class="gt-trail" d="M60 204 C90 196 100 214 130 204 S170 194 180 206 S220 214 232 204 S272 194 282 206 S318 212 336 200 L370 176" stroke="url(#gtA)" stroke-width="3" fill="none" stroke-linecap="round"/>'
+      + '<g class="gt-ten"><g class="gt-tenb"><circle cx="0" cy="-38" r="6" fill="#ffd23f"/><path d="M-7 -30 Q0 -34 7 -30 L6 -12 H-6 Z" fill="#ffd23f"/><text x="0" y="-17" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="9" fill="#7a4a00">10</text>'
+      + '<path class="gt-run1" d="M-3 -12 L-6 0 M3 -12 L7 -2" stroke="#ffd23f" stroke-width="3.4" stroke-linecap="round"/><circle cx="0" cy="-36" r="16" fill="#ffd23f" opacity=".18"/></g><circle class="gt-sball" cx="10" cy="-2" r="3.2" fill="#fff"/></g>'
+      + '<text class="gt-goaltxt" x="200" y="100" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="58" letter-spacing="6" fill="#ffd23f">GOAL</text></svg>';
+    /* -- 5. Lusail -- */
+    const PENS = [['f', 1, 'Mbappé'], ['a', 1, 'Messi'], ['f', 0, 'Coman'], ['a', 1, 'Dybala'], ['f', 0, 'Tchouaméni'], ['a', 1, 'Paredes'], ['f', 1, 'Kolo Muani'], ['a', 1, 'Montiel']];
+    const penRow = (side, name) => '<div class="gt-prow"><b>' + name + '</b>' + PENS.filter(p => p[0] === side).map(p => '<span class="gt-pen" data-k="' + PENS.indexOf(p) + '"><i></i><small>' + p[2] + '</small></span>').join('') + '</div>';
+    const trophy = '<svg class="gt-cup" viewBox="0 0 100 140" aria-hidden="true"><defs><linearGradient id="gtC" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8a5a00"/><stop offset=".45" stop-color="#ffe9a0"/><stop offset=".7" stop-color="#ffd23f"/><stop offset="1" stop-color="#7a4a00"/></linearGradient></defs>'
+      + '<path d="M22 8 H78 Q78 52 56 66 V92 Q56 100 66 104 H34 Q44 100 44 92 V66 Q22 52 22 8 Z" fill="url(#gtC)"/><path d="M22 14 Q4 16 8 34 Q12 48 28 50 M78 14 Q96 16 92 34 Q88 48 72 50" stroke="url(#gtC)" stroke-width="5" fill="none"/>'
+      + '<rect x="28" y="104" width="44" height="12" rx="2" fill="url(#gtC)"/><rect x="22" y="116" width="56" height="16" rx="2" fill="#1d3a6b"/><path d="M36 20 Q38 46 50 58" stroke="#fff" stroke-opacity=".6" stroke-width="3" fill="none"/></svg>';
+    const STAR = '<svg viewBox="-10 -10 20 20"><path d="M0 -9 L2.6 -2.8 L9 -2.8 L3.8 1.2 L5.6 7.8 L0 4 L-5.6 7.8 L-3.8 1.2 L-9 -2.8 L-2.6 -2.8 Z" fill="#ffd23f"/></svg>';
+    /* -- 7/8. lights out, and the last spotlight -- */
+    let lights = '';
+    for (let i = 0; i < 8; i++) lights += '<i style="left:' + (6 + i * 12.6).toFixed(1) + '%;--d:' + (i * .14).toFixed(2) + 's"></i>';
+    const title = 'THE GOAT'.split('').map((ch, i) => '<span style="--i:' + i + '">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>').join('');
+    ov.innerHTML = '<canvas class="gt-cv"></canvas>'
+      + '<section class="gt-s gt-s1">' + s1 + '<div class="gt-cap"><small>Rosario, Argentina · 1987</small><p>Too small, they said.</p></div></section>'
+      + '<section class="gt-s gt-s2"><div class="gt-napkin"><div class="gt-ink"><p class="gt-l1">Barcelona, 14 Dec 2000</p><p class="gt-l2">We commit to sign</p><p class="gt-l3">Lionel Messi.</p>'
+        + '<svg class="gt-sig" viewBox="0 0 160 40"><path d="M6 28 C20 4 30 34 42 18 S60 6 66 24 S84 34 96 14 S118 10 124 26 S146 30 154 12" stroke="#1d3a8a" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg></div></div>'
+        + '<div class="gt-cap c"><small>Age 13</small><p>His first contract was written on a napkin.</p></div></section>'
+      + '<section class="gt-s gt-s3">' + s3 + '<div class="gt-stats"><div class="gt-st" data-n="672"><b>0</b><span>goals for Barcelona</span></div><div class="gt-st"><b>91</b><span>goals in one year · 2012</span></div><div class="gt-st"><b>4</b><span>Champions Leagues</span></div></div></section>'
+      + '<section class="gt-s gt-s4"><div class="gt-eight">8</div><div class="gt-balls">' + [2009, 2010, 2011, 2012, 2015, 2019, 2021, 2023].map((y, i) => '<div class="gt-bdo" style="--i:' + i + '"><i></i><small>' + y + '</small></div>').join('') + '</div><div class="gt-cap c"><small>Ballon d’Or</small><p>Eight. Nobody else has more than five.</p></div></section>'
+      + '<section class="gt-s gt-s5"><div class="gt-final"><small>Lusail · 18 December 2022 · World Cup final</small><div class="gt-score"><span>ARGENTINA</span><b>3 – 3</b><span>FRANCE</span></div><div class="gt-scorer">Messi 23′ (pen), 108′ · after extra time</div>'
+        + '<div class="gt-pens">' + penRow('f', 'FRANCE') + penRow('a', 'ARGENTINA') + '</div></div>'
+        + '<div class="gt-champ"><div class="gt-stars">' + STAR + STAR + STAR + '</div>' + trophy + '<h3>CAMPEONES DEL MUNDO</h3><p>4–2 on penalties</p></div></section>'
+      + '<section class="gt-s gt-s6"><div class="gt-cap c big"><small>2026</small><p>At 39, he took them to one more World Cup final.</p><p class="gt-p2">By then, the World Cup’s all-time top scorer.</p></div></section>'
+      + '<section class="gt-s gt-s7"><div class="gt-lights">' + lights + '</div><div class="gt-cap c big"><p>There will never be another.</p></div></section>'
+      + '<section class="gt-s gt-s8"><div class="gt-flag"></div><div class="gt-spot"></div><div class="gt-ten10">10</div>'
+        + '<div class="gt-rv"><div class="gt-stars top">' + STAR + STAR + STAR + '</div><div class="gt-art"><span class="gt-foil"></span></div>'
+        + '<h2>' + title + '</h2><div class="gt-sub">CHROMA · ONE OF ONE</div><div class="gt-val"><span class="coin"></span><span id="gtVal">0</span></div><div class="gt-tap">tap to continue</div></div></section>'
+      + '<button class="pc-skip gt-skip">Skip ››</button>';
+    const src = artHi(it, wearIdx(r.fl)), art = ov.querySelector('.gt-art');
+    art.prepend(imgOf(src)); art.querySelector('.gt-foil').style.setProperty('--m', 'url("' + src + '")');
+    ov.className = 'gtc'; ov.hidden = false; go(0);
+
+    /* confetti, only while it's needed */
+    const cv = ov.querySelector('.gt-cv'), g = cv.getContext('2d');
+    let W = 0, H = 0, parts = [], confettiOn = false;
+    const size = () => { const d = Math.min(devicePixelRatio || 1, 1.5); W = innerWidth; H = innerHeight; cv.width = W * d; cv.height = H * d; g.setTransform(d, 0, 0, d, 0, 0); };
+    size(); addEventListener('resize', size);
+    const CC = ['#75bde9', '#ffffff', '#ffd23f', '#75bde9', '#ffffff'];
+    const burst = (n, x, y, up) => { for (let i = 0; i < n; i++) parts.push({x: x == null ? R() * W : x, y: y == null ? -10 : y, vx: (R() - .5) * (up ? .9 : .12), vy: up ? -(.35 + R() * .6) : .05 + R() * .12, w: 4 + R() * 6, h: 6 + R() * 8, a: R() * 6, va: (R() - .5) * .02, c: CC[i % 5], life: 5000}); };
+    const cannon = (n, left) => { for (let i = 0; i < n; i++) { const a = (left ? -Math.PI / 2 + .25 + R() * .55 : -Math.PI / 2 - .25 - R() * .55), v = .55 + R() * .6; parts.push({x: left ? 0 : W, y: H, vx: Math.cos(a) * v, vy: Math.sin(a) * v, w: 4 + R() * 6, h: 6 + R() * 8, a: R() * 6, va: (R() - .5) * .02, c: CC[i % 5], life: 5000}); } };
+    let last = performance.now();
+    function frame(now){
+      if (done) return;
+      const dt = Math.min(50, now - last); last = now;
+      g.clearRect(0, 0, W, H);
+      if (confettiOn && parts.length < 420) burst(3);
+      for (let i = parts.length - 1; i >= 0; i--) {
+        const p = parts[i]; p.life -= dt; p.vy += .00028 * dt; p.vx *= .995; p.x += p.vx * dt; p.y += p.vy * dt; p.a += p.va * dt;
+        if (p.life <= 0 || p.y > H + 20) { parts.splice(i, 1); continue; }
+        g.save(); g.translate(p.x, p.y); g.rotate(p.a); g.scale(1, Math.abs(Math.cos(p.a * 1.7)) + .15); g.fillStyle = p.c; g.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); g.restore();
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    raf = requestAnimationFrame(frame);
+
+    const finish = () => {
+      if (done) return; done = true; timers.forEach(clearTimeout); clearInterval(cnt); cancelAnimationFrame(raf); removeEventListener('resize', size);
+      ov.classList.add('out');
+      setTimeout(() => { ov.hidden = true; ov.className = 'gtc'; ov.innerHTML = ''; cine = null; musSync(); resolve(); }, 500);
+    };
+    ov.onclick = e => { if (e.target.closest('.gt-skip') || ov.classList.contains('ready')) finish(); };
+    cine = {skip: finish}; musSync(); ac();
+
+    /* sound */
+    const chord = (fs, dur, v, at) => fs.forEach(f => { tone(f, dur, 'triangle', v, at); tone(f / 2, dur, 'sine', v * .7, at); });
+    const roar = (v, dur) => { noise(dur || 2.2, 900, 400, v, 'bandpass'); noise((dur || 2.2) * .8, 2400, 1200, v * .6, 'bandpass'); };
+    const cheer = () => { noise(.9, 1500, 600, .09, 'bandpass'); tone(523.25, .3, 'triangle', .04); tone(783.99, .4, 'triangle', .04, .08); };
+    const groan = () => { noise(.8, 500, 200, .07, 'lowpass'); sweep(330, 196, .6, 'triangle', .035); };
+    const heart = v => { tone(58, .28, 'sine', v); tone(50, .32, 'sine', v * .8, .2); };
+    const box = [659.25, 783.99, 987.77, 1174.66, 987.77, 783.99, 880, 783.99, 659.25, 587.33, 659.25, 783.99];
+
+    // 1. Rosario
+    T(100, () => go(1));
+    box.forEach((f, i) => T(300 + i * 250, () => { tone(f, .9, 'triangle', .03); tone(f * 2, .4, 'sine', .008); }));
+    [700, 1200, 1700, 2200, 2700].forEach(d => T(d, () => tone(160, .06, 'sine', .08)));
+    T(1400, () => add('c1'));
+    // 2. The napkin
+    T(3400, () => { go(2); noise(.3, 2000, 500, .04, 'bandpass'); });
+    for (let i = 0; i < 16; i++) T(3900 + i * 150, () => noise(.07, 3800 + R() * 1500, 1200, .025, 'bandpass'));
+    T(5400, () => { for (let i = 0; i < 6; i++) setTimeout(() => noise(.06, 4200, 1500, .03, 'bandpass'), i * 80); chord([392, 493.88, 587.33], 1.4, .02, .1); });
+    // 3. The destroyer
+    T(6600, () => { go(3); roar(.05, 3.4); tone(55, 3, 'sine', .08); });
+    [0, 1, 2, 3, 4].forEach(i => T(6800 + 450 + i * 460, () => { sweep(900, 200, .25, 'sine', .04); noise(.12, 600, 200, .1, 'lowpass'); tone(330 + i * 70, .18, 'triangle', .04); }));
+    T(9600, () => { add('goal'); boom(); roar(.16, 2.6); chord([261.63, 329.63, 392, 523.25], 1.6, .03, 0); });
+    T(9900, () => { add('st1'); tone(65, .3, 'sine', .25); const b = ov.querySelector('.gt-st[data-n] b'), t0 = performance.now(); const iv = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 700); if (b) b.textContent = Math.round(672 * (1 - Math.pow(1 - k, 3))); if (k >= 1) clearInterval(iv); }, 30); timers.push(iv); });
+    T(10500, () => { add('st2'); tone(65, .3, 'sine', .25); tone(880, .3, 'triangle', .03); });
+    T(11100, () => { add('st3'); tone(65, .3, 'sine', .25); tone(1046.5, .4, 'triangle', .03); });
+    // 4. Eight
+    T(12000, () => { go(4); noise(1, 6000, 2000, .02, 'highpass'); });
+    [523.25, 587.33, 659.25, 698.46, 783.99, 880, 987.77, 1046.5].forEach((f, i) => T(12250 + i * 300, () => { tone(f, 1.1, 'triangle', .045); tone(f * 2, .5, 'sine', .015); tone(70, .12, 'sine', .15); }));
+    T(14700, () => { add('eight'); boom(); chord([261.63, 329.63, 392, 523.25], 2, .035, 0); });
+    // 5. Lusail
+    T(15800, () => { go(5); tone(49, 6, 'sawtooth', .012); tone(73.42, 6, 'sine', .03); });
+    PENS.forEach((p, i) => {
+      const at = 17000 + i * 640 + (i === 7 ? 700 : 0);
+      T(at - 330, () => heart(i === 7 ? .4 : .25));
+      if (i === 7) { T(at - 900, () => add('hold')); T(at - 600, () => heart(.4)); }
+      T(at, () => { const el = ov.querySelector('.gt-pen[data-k="' + i + '"]'); if (el) el.classList.add(p[1] ? 'ok' : 'no'); if (p[0] === 'a') { if (p[1]) cheer(); } else if (p[1]) { noise(.5, 700, 300, .05, 'bandpass'); } else groan(); });
+    });
+    T(17000 + 7 * 640 + 1000, () => {
+      add('champ'); ov.classList.remove('hold'); boom(); roar(.2, 3.4);
+      chord([261.63, 329.63, 392], 1.2, .035, 0); chord([349.23, 440, 523.25], 1.2, .035, .5); chord([392, 493.88, 587.33], 1.2, .035, 1); chord([523.25, 659.25, 783.99, 1046.5], 2.4, .04, 1.5);
+      confettiOn = true; cannon(110, true); cannon(110, false); setTimeout(() => { if (!done) { cannon(70, true); cannon(70, false); } }, 600);
+      if (!REDUCED) restart($('#wrap'), 'quake');
+    });
+    // 6. 2026
+    T(24000, () => { go(6); confettiOn = false; });
+    [392, 440, 493.88, 587.33, 493.88, 440, 392, 329.63].forEach((f, i) => T(24300 + i * 330, () => { tone(f, 1.4, 'sine', .035); tone(f / 2, 1.4, 'triangle', .012); }));
+    // 7. Lights out
+    T(27200, () => { go(7); parts = []; });
+    for (let i = 0; i < 8; i++) T(27500 + i * 140, () => { tone(90, .1, 'square', .06); noise(.08, 400, 200, .1, 'lowpass'); });
+    T(28800, () => heart(.35)); T(29900, () => heart(.38));
+    // 8. The GOAT
+    T(30800, () => { go(8); heart(.42); sweep(120, 900, 1.6, 'sine', .04); });
+    T(31600, () => {
+      add('land'); boom(); roar(.12, 3);
+      chord([261.63, 329.63, 392, 523.25, 659.25], 3.4, .035, 0);
+      [0, .25, .5, .75, .9, 1.05, 1.2].forEach((d, i) => setTimeout(() => { if (!done) noise(.06, 3000, 1500, .12, 'highpass'); }, (1.2 + d + (i > 3 ? .5 : 0)) * 1000));
+      confettiOn = true; setTimeout(() => { confettiOn = false; }, 2600);
+      const el = $('#gtVal'), t0 = performance.now();
+      cnt = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 1700); if (el) el.textContent = fmt(Math.round(r.v * (1 - Math.pow(1 - k, 3)))); if (k >= 1) { clearInterval(cnt); kaching(); } }, 40);
+    });
+    T(32800, () => add('ready'));
+    T(38500, finish);
+  });
+}
+
 function chromaCinematic(r){
   if (r.id === 'x1') return requiemCinematic(r);
+  if (r.id === 'x3') return goatCinematic(r);
   return new Promise(resolve => {
     const it = BY[r.id], ov = $('#chc'), timers = [];
     let done = false, raf = 0, cnt = 0;
