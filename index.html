@@ -12770,21 +12770,25 @@ async function prankSync(){
   } catch (e) {} finally { prankBusy = false; }
 }
 setInterval(prankSync, 15000);
-let tradeSyncing = false;
+let tradeSyncing = false, tradeSeen = null;
 async function tradeSync(){
   if (!online() || tradeSyncing) return;
   prankSync();
   tradeSyncing = true;
   try {
+    await sb.rpc('bot_tick');
     const pend = (await sb.rpc('ledger_pending')).data || [];
     const fresh = pend.filter(e => !ledIds().includes(e.id));
     if (fresh.length) {
       ledApply(fresh);
       const got = fresh.filter(e => /^trade|^returned/.test(e.why) && ((e.add || []).length || e.cr > 0));
-      if (got.length) toast(got.some(e => /^trade/.test(e.why)) ? 'A trade went through. Check your bag!' : 'An offer came back to you.');
+      if (got.length) toast(got.some(e => /^trade/.test(e.why)) ? 'A trade went through. Check your bag!' : 'An offer was declined. Your stuff is back in your bag.');
     }
     if (pend.length) { await cloudPush(); await ledAck(); }
-    const {count} = await sb.from('trades').select('id', {count: 'exact', head: true}).eq('to_uid', me.id).eq('status', 'pending');
+    const L = (await sb.rpc('my_trades')).data || [], inc = L.filter(t => t.status === 'pending' && t.to_uid === me.id);
+    const count = inc.length, newest = inc.reduce((a, t) => Math.max(a, Math.abs(t.id)), 0);
+    if (count && tradeSeen != null && inc.some(t => !tradeSeen.has(t.id))) { const t = inc.find(x => !tradeSeen.has(x.id)); toast('New trade offer from ' + t.from_name); tone(880, .12, 'triangle', .05); tone(1175, .16, 'triangle', .05, .1); }
+    tradeSeen = new Set(inc.map(t => t.id));
     const b = $('#trBadge'); if (b) { b.textContent = count || ''; b.hidden = !count; }
     $('#trBtn').hidden = false;
   } catch (e) {} finally { tradeSyncing = false; }
@@ -12870,8 +12874,9 @@ async function sendOffer(btn){
 async function openInbox(){
   tv = {view: 'inbox'};
   tvOpen(tvHead('Trading', 'My trades') + '<p class="lb-empty">Loading…</p>');
-  await tradeSync();
-  const {data, error} = await sb.from('trades').select('*').or('from_uid.eq.' + me.id + ',to_uid.eq.' + me.id).order('id', {ascending: false}).limit(40);
+  await sb.rpc('bot_tick');
+  const {data, error} = await sb.rpc('my_trades');
+  setTimeout(tradeSync, 50);
   if (!tv || tv.view !== 'inbox') return;
   if (error) { tvOpen(tvHead('Trading', 'My trades') + '<p class="lb-empty">Couldn’t load your trades.</p>'); return; }
   tv.list = data; renderInbox();
@@ -12893,7 +12898,7 @@ async function respond(id, act, btn){
   const t = (tv.list || []).find(x => x.id === id); if (!t) return;
   if (act === 'accept') { const room = (t.give || []).length - (t.want || []).length; if (room > 0 && bagBlock(room)) return; if (t.want_cr > state.bal) { tvMsg('You don’t have the credits they asked for.', 'err'); return; } }
   btn.disabled = true; tvMsg(act === 'accept' ? 'Trading…' : '…');
-  try { await tradeCall('trade_respond', {tid: id, act}); if (act === 'accept') { kaching(); toast('Trade done!'); } else toast(act === 'cancel' ? 'Offer cancelled. Your stuff is back.' : 'Offer declined.'); openInbox(); }
+  try { const r = await tradeCall('trade_respond', {tid: id, act}); if (r.gone) toast('They don’t have that any more. Offer cancelled.'); else if (act === 'accept') { kaching(); toast('Trade done!'); } else toast(act === 'cancel' ? 'Offer cancelled. Your stuff is back.' : 'Offer declined.'); openInbox(); }
   catch (e) { btn.disabled = false; tvMsg(e.message, 'err'); }
 }
 document.addEventListener('click', e => {
