@@ -2731,6 +2731,46 @@ body.dz-open .toast{z-index:95}
 .bk-in.on .bk-arm{opacity:1}
 .bk-in.out .bk-body{transform:translateX(190px);transition:transform .6s cubic-bezier(.6,0,.8,.4)}
 .bk-in.out .bk-arm{opacity:0;transition-delay:0s}
+
+/* Brick's safe */
+.bs{position:absolute;inset:0;z-index:2;pointer-events:none}
+.bs svg{display:block;width:100%;height:100%;overflow:visible}
+.bs-safe{transform:translateX(190px);transform-box:fill-box;transform-origin:50% 60%;transition:transform 1.9s cubic-bezier(.3,.1,.3,1)}
+.bs.in .bs-safe{transform:none}
+.bs-door{transform-box:fill-box;transform-origin:0 50%;transition:transform .7s cubic-bezier(.3,1.4,.5,1)}
+.bs.open .bs-door{transform:perspective(300px) rotateY(-105deg)}
+.bs.shut .bs-door{transform:none;transition-duration:.25s}
+.bs-dial{transform-box:fill-box;transform-origin:50% 50%}
+.bs.dial .bs-dial{animation:bsDial 1.3s ease-in-out}
+@keyframes bsDial{30%{transform:rotate(250deg)}60%{transform:rotate(80deg)}100%{transform:rotate(320deg)}}
+.bs-cash{opacity:0;transition:opacity .3s .2s}
+.bs.open .bs-cash{opacity:1}
+.bs.shut .bs-cash{opacity:0}
+.bs-bill{opacity:0;transform-box:fill-box;transform-origin:50% 50%}
+.bs.burst .bs-bill{animation:bsBill 1.6s var(--d) cubic-bezier(.2,.8,.4,1) forwards}
+@keyframes bsBill{0%{opacity:1;transform:translate(0,0) rotate(0)}100%{opacity:0;transform:translate(var(--x),-120px) rotate(var(--r))}}
+.bs.lift .bs-safe{transform:translate(-30px,-46px) rotate(-6deg);transition:transform 1s cubic-bezier(.4,0,.3,1)}
+.bs.throw .bs-safe{transform:translate(-110px,-30px) scale(4.2) rotate(-24deg);transition:transform .52s cubic-bezier(.6,0,1,.7)}
+.bs.fall .bs-safe{transform:translate(-90px,420px) scale(4.2) rotate(-40deg);transition:transform .7s cubic-bezier(.5,0,1,.5)}
+#prRoom.bs-tilt{transform:rotate(-9deg) scale(1.12) translateY(3%);filter:saturate(.45) brightness(.8);transition:transform .35s cubic-bezier(.2,1.5,.4,1),filter 1.2s}
+.bs-hit{position:fixed;inset:0;z-index:97;pointer-events:none;overflow:hidden}
+.bs-hit b{position:absolute;width:var(--s);height:var(--s);margin:calc(var(--s) / -2);border-radius:46% 54% 60% 40%/50% 42% 58% 50%;
+  background:radial-gradient(circle at 40% 40%,#b0101a,#6a0008 48%,rgba(70,0,6,0) 50%),radial-gradient(circle at 78% 30%,#8a0010 0 9%,transparent 10%),radial-gradient(circle at 20% 82%,#8a0010 0 7%,transparent 8%),
+    radial-gradient(circle at 86% 74%,#7a000c 0 5%,transparent 6%),radial-gradient(circle at 10% 20%,#7a000c 0 4%,transparent 5%),radial-gradient(ellipse 18% 6% at 70% 52%,#8a0010 60%,transparent 62%);
+  opacity:0;transform:scale(.3) rotate(var(--rot,0deg));animation:bsSplat .25s var(--d) cubic-bezier(.2,1.6,.4,1) forwards}
+@keyframes bsSplat{to{opacity:.92;transform:scale(1) rotate(var(--rot,0deg))}}
+.bs-hit i{position:absolute;width:var(--w);height:0;border-radius:0 0 999px 999px;background:linear-gradient(#8a0010,#5a0008);opacity:.9;animation:bsDrip var(--t) var(--d) ease-in forwards}
+@keyframes bsDrip{to{height:var(--h)}}
+.bs-crack{position:absolute;inset:0;background:
+  linear-gradient(32deg,transparent 49.6%,rgba(255,255,255,.55) 50%,transparent 50.4%) 55% 40%/40% 50% no-repeat,
+  linear-gradient(-58deg,transparent 49.6%,rgba(255,255,255,.5) 50%,transparent 50.4%) 40% 45%/34% 44% no-repeat,
+  linear-gradient(80deg,transparent 49.5%,rgba(255,255,255,.4) 50%,transparent 50.5%) 50% 60%/22% 40% no-repeat;animation:bsFlash .4s ease-out}
+@keyframes bsFlash{0%{background-color:rgba(255,255,255,.8)}100%{background-color:transparent}}
+.bs-dark{position:absolute;inset:0;background:radial-gradient(circle,transparent 30%,rgba(0,0,0,.85) 100%);animation:bsPulse 1.1s ease-in-out infinite alternate}
+@keyframes bsPulse{to{opacity:.6}}
+.bs-hit.black .bs-dark{background:#000;animation:none;opacity:1;transition:background .9s}
+.bs-hit.gone{opacity:0;transition:opacity .8s}
+@media (prefers-reduced-motion: reduce){#prRoom.bs-tilt{transform:none}.bs-hit i{animation-duration:.1s}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -6323,6 +6363,7 @@ function openRoom(id){
 function greet(m){ if (room === m) sayRoom(state.inv.length ? m.say.hi : m.say.none); }
 function playIntro(m){ unzoomShop(); $('#prSay').textContent = ''; sayTok++; memberIntro(m).then(() => greet(m)); }
 function leaveRoom(){
+  { const bsx = $('#prRoom .bs'); if (bsx) bsx.remove(); $('#prRoom').classList.remove('bs-tilt'); }
   machSel = false;
   if (captive) { cellNo(); return; }
   closeOv(); room = null; neg = null; shopSel = null; actBusy = false; sayTok++;
@@ -6413,7 +6454,7 @@ function renderLeft(anim){
   } else if (neg) {
     const {e, offer, pat, exact, cap} = neg, it = BY[e.id], wi = wearIdx(e.fl), out = pat <= 0, maxed = offer >= cap;
     const chain = vanceChain(m, e);
-    const noBluff = (neg.raged && !chain) || neg.noBluff || (m.ego ? (m.id === 'brick' && maxed) : (out || maxed));
+    const noBluff = (neg.raged && !chain) || neg.noBluff || (m.ego ? false : (out || maxed));
     left = B('deal', neg.raged ? 'Take the cash' : 'Shake on it', 'gold', lock, fmt(offer) + ' cr')
       + B('push', 'Push for more', '', lock || out || maxed || neg.raged)
       + B('bluff', neg.raged && chain ? 'Bluff again: “Another buyer”' : 'Bluff: “I’ve got another buyer”', 'risk', lock || noBluff)
@@ -6669,6 +6710,96 @@ async function brickLift(heavy, m){
   setTimeout(() => { if (sc.isConnected) { boom(); noise(.4, 900, 120, .3, 'lowpass'); shakeStage(); } }, 420);
   await wait(1000);
 }
+/* Third bluff: the heavy lift, then he drags his safe in and pays out of it. Fourth: he throws the safe at you. */
+function safeSVG(){
+  const bills = Array.from({length: 9}, (_, i) => '<rect class="bs-bill" style="--x:' + (-60 + i*15) + 'px;--r:' + (i*37 % 90 - 45) + 'deg;--d:' + (i*.06).toFixed(2) + 's" x="286" y="160" width="20" height="9" rx="1" fill="#3f8a4c" stroke="#1d4524" stroke-width=".6"/>').join('');
+  return SVG0 + '<defs><linearGradient id="bsS" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5d6670"/><stop offset=".5" stop-color="#3a4048"/><stop offset="1" stop-color="#1c2026"/></linearGradient>'
+    + '<radialGradient id="bsG"><stop offset="0" stop-color="#ffe9a0" stop-opacity=".9"/><stop offset="1" stop-color="#ffd23f" stop-opacity="0"/></radialGradient></defs>'
+    + '<g class="bs-safe"><ellipse cx="296" cy="226" rx="56" ry="7" fill="#000" opacity=".55"/>'
+    + '<rect x="244" y="122" width="104" height="102" rx="6" fill="url(#bsS)" stroke="#111" stroke-width="2"/>'
+    + '<rect x="252" y="130" width="88" height="86" rx="3" fill="#0d0f12"/>'
+    + '<g class="bs-cash"><circle cx="296" cy="172" r="40" fill="url(#bsG)"/>' + [0, 1, 2, 3, 4, 5].map(i => '<rect x="' + (258 + (i % 3)*26) + '" y="' + (190 - Math.floor(i / 3)*14) + '" width="24" height="12" rx="1" fill="#2f6b3a" stroke="#1d4524" stroke-width=".6"/><rect x="' + (267 + (i % 3)*26) + '" y="' + (190 - Math.floor(i / 3)*14) + '" width="5" height="12" fill="#e8d9a8"/>').join('')
+    + '<rect x="262" y="140" width="68" height="18" rx="2" fill="#c9a24a"/><rect x="266" y="144" width="60" height="10" fill="#e8c35a"/></g>'
+    + '<g class="bs-door"><rect x="252" y="130" width="88" height="86" rx="3" fill="url(#bsS)" stroke="#111" stroke-width="1.6"/>'
+    + '<circle cx="296" cy="168" r="18" fill="#2a2f36" stroke="#8a929c" stroke-width="2"/><g class="bs-dial"><circle cx="296" cy="168" r="12" fill="#c9cfd6"/>' + Array.from({length: 12}, (_, k) => { const a = k / 12 * Math.PI * 2; return '<path d="M' + (296 + Math.cos(a)*9).toFixed(1) + ' ' + (168 + Math.sin(a)*9).toFixed(1) + ' L' + (296 + Math.cos(a)*11.5).toFixed(1) + ' ' + (168 + Math.sin(a)*11.5).toFixed(1) + '" stroke="#333" stroke-width="1"/>'; }).join('') + '<path d="M296 158 V163" stroke="#c0262d" stroke-width="2"/></g>'
+    + '<path d="M322 156 V182" stroke="#c9cfd6" stroke-width="5" stroke-linecap="round"/>'
+    + [[258, 136], [334, 136], [258, 210], [334, 210]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="2.4" fill="#8a929c"/>').join('')
+    + '<text x="296" y="204" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="11" letter-spacing="2" fill="#8a929c">BRICK</text></g>'
+    + '<g class="bs-bills">' + bills + '</g></g></svg>';
+}
+function safeEl(){
+  let el = $('#prRoom .bs'); if (el) return el;
+  const st = $('#prRoom .rm-stage'); if (!st) return null;
+  el = document.createElement('div'); el.className = 'bs'; el.innerHTML = safeSVG(); st.append(el);
+  return el;
+}
+async function brickSafe(m){
+  const sc = roomSc(), alive = () => room === m && neg && sc && sc.isConnected, e = neg.e;
+  await brickLift(true, m);
+  if (!alive()) return (actBusy = false);
+  await sayRoom('STILL another buyer?! You want MONEY? I’ll SHOW you money.', 'mad');
+  await wait(600); if (!alive()) return (actBusy = false);
+  const bs = safeEl(); if (!bs) return (actBusy = false);
+  // dragging it in: a long scrape, three heaves
+  const scrape = setInterval(() => { if (!bs.isConnected) return clearInterval(scrape); noise(.25, 700, 300, .08, 'bandpass'); }, 230);
+  [0, 700, 1400].forEach(t => grunt(t, true));
+  requestAnimationFrame(() => bs.classList.add('in'));
+  await wait(2000); clearInterval(scrape); if (!alive()) return (actBusy = false);
+  boom(); noise(.5, 600, 100, .3, 'lowpass'); shakeStage();
+  await sayRoom('Four hundred kilos. Solid steel. Watch.', '');
+  await wait(400); if (!alive()) return (actBusy = false);
+  bs.classList.add('dial');
+  for (let i = 0; i < 14; i++) keyClick(i * .09, null, .03, 2600 + (i % 3) * 300);
+  await wait(1400); if (!alive()) return (actBusy = false);
+  tone(180, .15, 'square', .08); tone(120, .3, 'sine', .15, .1);
+  bs.classList.add('open'); noise(.4, 3000, 600, .08, 'highpass');
+  [523.25, 659.25, 783.99].forEach((f, i) => tone(f, .6, 'triangle', .04, .2 + i * .08));
+  await wait(700); if (!alive()) return (actBusy = false);
+  bs.classList.add('burst');
+  let t = 0; for (let i = 0; i < 24; i++) { t += .03; keyClick(t, null, .025, 1500); }
+  neg.offer = Math.round(e.v * 3); neg.cap = neg.offer; neg.safe = true;
+  actBusy = false; renderLeft('up');
+  sayRoom('THERE. ' + fmt(neg.offer) + ' cr. Straight outta the safe. Three times market. Say “buyer” ONE more time.', 'mad');
+}
+async function brickThrow(m){
+  const sc = roomSc(), R0 = $('#prRoom'), alive = () => room === m && neg && sc && sc.isConnected;
+  neg.lock = true; renderLeft();
+  if (mus.id) scratch(); mus.hold = ''; musStop(.1);
+  await sayRoom('…', 'mad');
+  await wait(700); if (!alive()) return (actBusy = false);
+  await sayRoom('ANOTHER. BUYER.', 'mad');
+  const bs = safeEl(); if (!bs) return (actBusy = false);
+  bs.classList.add('in', 'shut'); bs.classList.remove('open', 'burst', 'dial');
+  await wait(300);
+  grunt(0, true); grunt(500, true);
+  bs.classList.add('lift'); noise(.6, 400, 1400, .12);
+  await wait(1100); if (!alive()) return (actBusy = false);
+  sayRoom('CATCH.', 'mad');
+  sweep(300, 1400, .5, 'sawtooth', .05); noise(.5, 600, 5000, .12, 'bandpass');
+  bs.classList.add('throw');
+  await wait(520);
+  // impact
+  boom(); setTimeout(boom, 90); tone(38, 1.2, 'sine', .45); noise(.9, 900, 80, .45, 'lowpass');
+  const hit = document.createElement('div'); hit.className = 'bs-hit';
+  let blood = '';
+  for (let i = 0; i < 9; i++) blood += '<b style="left:' + (8 + Math.random() * 80).toFixed(1) + '%;top:' + (Math.random() * 60).toFixed(1) + '%;--rot:' + Math.round(Math.random() * 360) + 'deg;--s:' + (60 + Math.random() * 160).toFixed(0) + 'px;--d:' + (Math.random() * .25).toFixed(2) + 's"></b>';
+  for (let i = 0; i < 14; i++) blood += '<i style="left:' + (4 + Math.random() * 92).toFixed(1) + '%;top:' + (Math.random() * 30).toFixed(1) + '%;--w:' + (4 + Math.random() * 10).toFixed(0) + 'px;--h:' + (25 + Math.random() * 55).toFixed(0) + 'vh;--d:' + (.3 + Math.random() * 1.2).toFixed(2) + 's;--t:' + (2.2 + Math.random() * 2.4).toFixed(2) + 's"></i>';
+  hit.innerHTML = '<div class="bs-crack"></div>' + blood + '<div class="bs-dark"></div>';
+  document.body.append(hit);
+  setTimeout(() => bs.classList.add('fall'), 120);
+  R0.classList.add('bs-tilt');
+  [600, 1700, 3000, 4500].forEach(d => setTimeout(heartbeat, d));
+  sweep(500, 50, 3, 'sine', .05);
+  P().cool[m.id] = state.opened + 3; neg.lock = true; save();
+  await wait(4600);
+  hit.classList.add('black');
+  await wait(1300);
+  R0.classList.remove('bs-tilt'); bs.remove();
+  actBusy = false; mus.hold = null;
+  if (room === m) leaveRoom();
+  hit.classList.add('gone'); setTimeout(() => hit.remove(), 900);
+  toast('Brick threw his safe at you. Open 3 more cases before you go back.');
+}
 function setAnger(n){
   const sc = roomSc(); if (!sc) return;
   sc.classList.remove('v-ang1', 'v-ang2', 'v-ang3');
@@ -6679,7 +6810,9 @@ async function egoBluff(m, before){
   actBusy = true; renderLeft();
   if (m.id === 'brick') {
     neg.bk = (neg.bk || 0) + 1;
-    const kind = (neg.bk - 1) % 3;
+    if (neg.bk === 3) { await brickSafe(m); return; }
+    if (neg.bk >= 4) { await brickThrow(m); return; }
+    const kind = neg.bk - 1;
     if (kind === 0) {
       sayRoom(ok ? 'ANOTHER BUYER?!' : 'ANOTHER BUYER?! YOU THINK I’M STUPID?!', 'mad');
       tone(70, .5, 'sawtooth', .08);
