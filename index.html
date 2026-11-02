@@ -2303,6 +2303,41 @@ body{background:
 .msi-chip.on{background:color-mix(in srgb,var(--tc) 28%,var(--panel2));border-color:var(--tc)}
 .msi-tot{color:var(--muted);font-size:13px}.msi-tot b{color:var(--accent-2);font-family:var(--mono)}
 .msi-pat{justify-content:center}
+.msi.gone .msi-me{display:none}
+/* Messi flies home */
+.v-ufo .fa-ufo{transform:translate(200px,-70px);transform-origin:0 0;transition:transform 1.7s cubic-bezier(.2,.8,.3,1)}
+.v-ufo.s1 .fa-ufo{transform:translate(200px,64px)}
+.v-ufo.s4 .fa-ufo{transform:translate(470px,-60px) scale(.2);transition:transform 1.5s cubic-bezier(.6,0,.9,.6)}
+.v-ufo .fa-beam{opacity:0;transition:opacity .4s}
+.v-ufo.s2 .fa-beam{opacity:.85;animation:faBeam .14s steps(2) infinite}
+.v-ufo.s4 .fa-beam{opacity:0;animation:none}
+@keyframes faBeam{50%{opacity:.6}}
+.v-ufo .fa-me{transform-origin:200px 150px;transition:transform 1.5s cubic-bezier(.5,0,.6,1),opacity 1.5s}
+.v-ufo.s3 .fa-me{transform:translateY(-70px) scale(.12);opacity:0}
+.fa-led{animation:faLed .5s steps(1) infinite}
+@keyframes faLed{50%{fill:#ff3ea5}}
+.v-ufo .fa-b{opacity:0;transition:opacity 1.1s}
+.v-ufo.s5 .fa-b{opacity:1}
+.fa-spin{animation:faSpin 9s linear infinite}
+@keyframes faSpin{to{transform:translateX(-340px)}}
+.v-ufo .fa-u2{transform:translate(-40px,20px) scale(.24);transform-origin:0 0;transition:transform 1.8s cubic-bezier(.2,.8,.3,1)}
+.v-ufo.s6 .fa-u2{transform:translate(200px,72px) scale(.24)}
+.v-ufo .fa-flag{opacity:0;transform:translateY(6px);transition:opacity .4s,transform .5s cubic-bezier(.2,1.6,.4,1)}
+.v-ufo.s7 .fa-flag{opacity:1;transform:none}
+/* penalties against Messi */
+.v-pens .mp-kp{transform-origin:200px 196px;transition:transform .34s cubic-bezier(.2,.8,.3,1)}
+.v-pens .mp-hit{cursor:crosshair}
+.v-pens .mp-aim{filter:drop-shadow(0 0 4px rgba(255,210,63,.8))}
+.v-pens .mp-big{opacity:0;transform-box:fill-box;transform-origin:center;}
+.v-pens.mp-goal .mp-big,.v-pens.mp-miss .mp-big{opacity:1;animation:mpBig .5s cubic-bezier(.2,1.6,.4,1)}
+.v-pens.mp-miss .mp-big{fill:#ff5d6c}
+@keyframes mpBig{from{transform:scale(.4)}}
+.v-pens.mp-goal rect[fill="url(#mpN)"]{animation:mpNet .5s ease-out}
+@keyframes mpNet{30%{transform:translateY(-3px)}}
+.mp-pips{display:flex;gap:8px;justify-content:center}
+.mp-pips i{width:14px;height:14px;border-radius:50%;border:2px solid #39ff88;background:transparent;transition:background .3s}
+.mp-pips i.on{background:#39ff88;box-shadow:0 0 10px #39ff88}
+@media (prefers-reduced-motion: reduce){.fa-spin,.fa-led,.v-ufo.s2 .fa-beam{animation:none}}
 .msi-shelf{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%}
 .msi-sh{display:grid;justify-items:center;gap:4px;padding:10px;border-radius:var(--r-md);border:1px solid color-mix(in srgb,var(--tc) 45%,var(--line));background:radial-gradient(70% 55% at 50% 25%,color-mix(in srgb,var(--tc) 22%,transparent),transparent 70%),var(--panel)}
 .msi-sh img{width:100%;max-width:130px;height:auto}.msi-sh b{font-size:14px}.msi-sh small{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tc)}
@@ -10707,7 +10742,8 @@ document.addEventListener('click', e => {
    Opens once you've asked Vance about the golden ball. A trophy room that doubles as a shop. Tap the World Cup,
    then the first Champions League (2006), then the first Ballon d'Or (2009) and the right-hand cabinet slides away:
    a hidden door. Messi admits he's not from here. In his lab, press the three pad buttons left to right and
-   The GOAT (a Chroma rifle) appears in the tank. Answer five questions, five seconds each, and he'll hear offers. */
+   The GOAT (a Chroma rifle) appears in the tank. Answer ten questions, five seconds each, with one try: miss one (or
+   walk out) and he flies home in a UFO for good. Get all ten, then score three penalties in a row past him, and he'll hear offers. */
 const GOAT_ID = 'x3', GOAT_FL = .0001;
 const MSI_SEQ = ['wc', 'ucl-2006', 'bdo-2009'];
 const MSI_TR = {
@@ -10723,8 +10759,21 @@ const MSI_Q = [
   {q:'Which club did Messi play for between Barcelona and Inter Miami?', o:['PSG', 'Man City', 'Juventus', 'Al Hilal'], a:0},
   {q:'What number did Messi wear in his first Barcelona senior game?', o:['30', '19', '11', '9'], a:0},
   {q:'How many Champions Leagues has Messi won?', o:['4', '3', '5', '6'], a:0},
-  {q:'What year did Messi win his first Ballon d’Or?', o:['2009', '2010', '2008', '2011'], a:0}
+  {q:'What year did Messi win his first Ballon d’Or?', o:['2009', '2010', '2008', '2011'], a:0},
+  {q:'Which club did Messi play for as a kid in Rosario?', o:['Newell’s Old Boys', 'Rosario Central', 'River Plate', 'Boca Juniors'], a:0},
+  {q:'Who did Barcelona beat in the 2015 Champions League final?', o:['Juventus', 'Bayern Munich', 'Man United', 'Arsenal'], a:0},
+  {q:'How many official goals did Messi score for Barcelona?', o:['672', '643', '701', '598'], a:0},
+  {q:'Who beat Argentina in the 2014 World Cup final?', o:['Germany', 'Brazil', 'Spain', 'Netherlands'], a:0},
+  {q:'How many goals did Messi score at the 2022 World Cup?', o:['7', '5', '8', '6'], a:0},
+  {q:'What year did Messi join Inter Miami?', o:['2023', '2022', '2024', '2021'], a:0},
+  {q:'What was the first trophy Messi won with Inter Miami?', o:['Leagues Cup', 'MLS Cup', 'US Open Cup', 'Supporters’ Shield'], a:0},
+  {q:'How many La Liga titles did Messi win with Barcelona?', o:['10', '8', '9', '11'], a:0},
+  {q:'Who set up Messi’s first official Barcelona goal?', o:['Ronaldinho', 'Eto’o', 'Deco', 'Xavi'], a:0},
+  {q:'Which manager gave Messi his Barcelona debut?', o:['Frank Rijkaard', 'Pep Guardiola', 'Louis van Gaal', 'Tito Vilanova'], a:0},
+  {q:'What number did Messi wear at PSG?', o:['30', '10', '19', '7'], a:0},
+  {q:'Who did Argentina beat in the 2024 Copa América final?', o:['Colombia', 'Brazil', 'Uruguay', 'Chile'], a:0}
 ];
+const MSI_QN = 10;
 const MSI_PAT = 3;
 let msiPress = [], msiPad = [], msiQ = null, msiPat = MSI_PAT, msiSel = new Set(), msiCr = 0, msiView = 'room', msiTimer = null;
 const msiGoatVal = () => priceOf(BY[GOAT_ID], 0);
@@ -10859,7 +10908,7 @@ function msiLabSVG(){
   for (let y = 214; y < 260; y += 10) s += '<path d="M0 ' + y + ' H400" stroke="#0f2e20" stroke-width=".8"/>';
   s += '<ellipse cx="200" cy="214" rx="96" ry="14" fill="url(#mlGl)"/>';
   // the tank
-  s += '<g class="ml-tank' + (g === 'unlocked' || msiPad.length === 3 ? ' lit' : '') + (g === 'owned' ? ' empty' : '') + (g === 'unlocked' ? ' tap' : '') + '"' + (g === 'unlocked' ? ' data-msi="tank"' : '') + '>'
+  s += '<g class="ml-tank' + (g === 'unlocked' || g === 'pens' || msiPad.length === 3 ? ' lit' : '') + (g === 'owned' || g === 'gone' ? ' empty' : '') + (g === 'unlocked' ? ' tap' : '') + '"' + (g === 'unlocked' ? ' data-msi="tank"' : '') + '>'
     + '<rect x="138" y="44" width="124" height="152" fill="#03140c"/>'
     + '<rect class="ml-fluid" x="138" y="52" width="124" height="144" fill="url(#mlT)"/>'
     + '<rect class="ml-rb" x="138" y="52" width="124" height="144" fill="url(#mlR)" opacity="0"/>'
@@ -10887,27 +10936,30 @@ function msiLabSVG(){
 function msiShow(view, panel){
   msiView = view;
   const el = msiEl();
-  el.innerHTML = '<div class="bdo-scene msi-scene v-' + view + '">' + (view === 'lab' ? msiLabSVG() : msiRoomSVG()) + '</div><div class="bdo-panel" id="msiPanel">' + panel + '</div>'
+  el.innerHTML = '<div class="bdo-scene msi-scene v-' + view + '">' + (view === 'lab' ? msiLabSVG() : view === 'ufo' ? msiFlySVG() : view === 'pens' ? msiPenSVG() : msiRoomSVG()) + '</div><div class="bdo-panel" id="msiPanel">' + panel + '</div>'
     + '<button class="icon-btn msi-back" data-msi="leave" aria-label="Leave">‹</button><div class="bal msi-bal"><span class="coin"></span><span>' + fmt(state.bal) + '</span></div>';
 }
 const msiSay = (who, line, btns) => '<div class="bdo-eyebrow">' + who + '</div><p class="bdo-line">' + line + '</p>' + (btns ? '<div class="bdo-row msi-acts">' + btns + '</div>' : '');
 const msiPanel = html => { const p = $('#msiPanel'); if (p) p.innerHTML = html; };
-const msiRoomBtns = () => '<button class="open-btn sm" data-msi="shop">Browse the shelf</button>' + (P().msiDoor ? '<button class="ghost" data-msi="door">Go to the lab</button>' : '') + '<button class="ghost" data-msi="leave">Leave</button>';
+const msiRoomBtns = () => P().goat === 'gone' ? '<button class="ghost" data-msi="leave">Leave</button>' : '<button class="open-btn sm" data-msi="shop">Browse the shelf</button>' + (P().msiDoor ? '<button class="ghost" data-msi="door">Go to the lab</button>' : '') + '<button class="ghost" data-msi="leave">Leave</button>';
 
 function openMsi(){
   if (!P().bdoSeen || busy) return;
   ac(); msiPress = []; msiPad = []; msiPat = MSI_PAT;
-  const el = msiEl(); el.hidden = false; el.className = 'bdo msi in';
+  if (P().goatQuiz && !P().goat) { P().goatQuiz = false; P().goat = 'gone'; save(); }
+  const el = msiEl(); el.hidden = false; el.className = 'bdo msi in' + (P().goat === 'gone' ? ' gone' : '');
+  if (P().goat === 'gone') { msiShow('room', msiSay('A note on the counter', '“Gone home. I took the rifle with me. Some people only get one try. — L.”', msiRoomBtns())); tone(220, .5, 'triangle', .03); return; }
   msiShow('room', msiSay('Lionel Messi', P().msiMet ? 'Back again? Look around. Don’t touch the glass.' : 'Welcome. Vance sent you? Everything here is real. Most of it.', msiRoomBtns()));
   P().msiMet = true; save();
   [392, 493.88, 587.33].forEach((f, i) => tone(f, .3, 'triangle', .035, i*.08));
 }
 function closeMsi(){
-  clearTimeout(msiTimer); msiQ = null;
+  msiQuit(); clearTimeout(msiTimer); msiQ = null;
+  if (mpAim) { cancelAnimationFrame(mpAim.raf); mpAim = null; }
   const el = msiEl(); if (el) { el.hidden = true; el.innerHTML = ''; }
 }
 function msiTrophy(id){
-  if (msiView !== 'room') return;
+  if (msiView !== 'room' || P().goat === 'gone') return;
   tone(1046.5, .15, 'triangle', .035);
   const n = msiPress.length;
   if (!P().msiDoor) {
@@ -10931,10 +10983,12 @@ async function msiReveal(){
   msiPanel(msiSay('Lionel Messi', 'Why do you think nobody could ever take the ball off me? Come. The lab.', '<button class="open-btn sm" data-msi="door">Enter the lab</button>'));
 }
 function msiLab(){
-  if (!P().msiDoor) return;
+  if (!P().msiDoor || P().goat === 'gone') return;
   msiPad = [];
+  if (mpAim) { cancelAnimationFrame(mpAim.raf); mpAim = null; }
   const g = P().goat;
-  msiShow('lab', g === 'owned' ? msiSay('Lionel Messi', 'The tank’s empty. The GOAT is yours now. Don’t let anyone scan it.', '<button class="ghost" data-msi="room">Back to the trophies</button>')
+  msiShow('lab', g === 'pens' ? msiSay('Lionel Messi', 'Ten for ten, and you still owe me three penalties. In a row.', '<button class="open-btn sm" data-msi="pens">Take the penalties</button><button class="ghost" data-msi="room">Back to the trophies</button>')
+    : g === 'owned' ? msiSay('Lionel Messi', 'The tank’s empty. The GOAT is yours now. Don’t let anyone scan it.', '<button class="ghost" data-msi="room">Back to the trophies</button>')
     : g === 'unlocked' ? msiSay('Lionel Messi', 'You again. It’s still in the tank. Tap it and make me an offer.', '<button class="ghost" data-msi="room">Back to the trophies</button>')
     : msiSay('Lionel Messi', 'Home sweet home. The pad by the tank. Don’t press anything.', '<button class="ghost" data-msi="room">Back to the trophies</button>'));
   noise(.8, 1200, 300, .04, 'bandpass'); sweep(100, 300, .8, 'sine', .04);
@@ -10951,15 +11005,27 @@ function msiPadPress(i){
     setTimeout(() => msiPanel(msiSay('Lionel Messi', 'You pressed it. Of course you did. That’s The GOAT. A rifle from where I’m from. One of one.', '<button class="open-btn sm" data-msi="quiz">I want it</button>')), 1400);
   }
 }
-/* ---- five questions, five seconds each ---- */
+/* ---- ten questions, five seconds each, one try ---- */
 function msiQuiz(){
-  const pool = MSI_Q.slice().sort(() => Math.random() - .5).slice(0, 5);
-  msiQ = {list: pool, n: 0};
-  msiPanel(msiSay('Lionel Messi', 'Then prove you know who you’re buying from. Five questions. Five seconds each.', '<button class="open-btn sm" data-msi="qgo">Ready</button>'));
+  if (P().goat) return;
+  msiPanel(msiSay('Lionel Messi', 'Then prove you know who you’re buying from. Ten questions. Five seconds each. Get one wrong and I leave. For good.', '<button class="open-btn sm" data-msi="qgo">Ready</button><button class="ghost" data-msi="room">Not yet</button>'));
+}
+function msiQStart(){
+  if (P().goat || msiQ) return;
+  msiQ = {list: MSI_Q.slice().sort(() => Math.random() - .5).slice(0, MSI_QN), n: 0};
+  P().goatQuiz = true; save();
+  msiAsk();
+}
+/* Walking out mid-quiz counts as a wrong answer. */
+function msiQuit(){
+  if (!msiQ) return false;
+  msiQ = null; clearTimeout(msiTimer);
+  P().goatQuiz = false; P().goat = 'gone'; save();
+  return true;
 }
 function msiAsk(){
   const Q = msiQ.list[msiQ.n], ord = [0, 1, 2, 3].sort(() => Math.random() - .5);
-  msiPanel('<div class="bdo-eyebrow">Question ' + (msiQ.n + 1) + ' of 5</div><div class="msi-timer"><i></i></div><h3 class="bdo-q">' + Q.q + '</h3><div class="bdo-opts">'
+  msiPanel('<div class="bdo-eyebrow">Question ' + (msiQ.n + 1) + ' of ' + MSI_QN + '</div><div class="msi-timer"><i></i></div><h3 class="bdo-q">' + Q.q + '</h3><div class="bdo-opts">'
     + ord.map(i => '<button class="ghost bdo-opt" data-msi="ans" data-v="' + i + '">' + Q.o[i] + '</button>').join('') + '</div>');
   const bar = msiEl().querySelector('.msi-timer i');
   requestAnimationFrame(() => requestAnimationFrame(() => { if (bar) bar.classList.add('go'); }));
@@ -10973,17 +11039,160 @@ function msiAnswer(i){
   el.querySelectorAll('.bdo-opt').forEach(b => { b.disabled = true; const v = +b.dataset.v; if (v === Q.a) b.classList.add('right'); else if (v === i) b.classList.add('wrong'); });
   const bar = el.querySelector('.msi-timer i'); if (bar) { bar.style.width = getComputedStyle(bar).width; bar.classList.remove('go'); }
   if (!ok) {
-    msiQ = null; tone(160, .3, 'square', .05);
-    setTimeout(() => msiPanel(msiSay('Lionel Messi', (i < 0 ? 'Too slow. ' : 'No. It’s ' + Q.o[Q.a] + '. ') + 'The tank stays shut.', '<button class="open-btn sm" data-msi="quiz">Try again</button><button class="ghost" data-msi="room">Back to the trophies</button>')), 900);
+    msiQuit(); tone(160, .3, 'square', .05); tone(110, .5, 'square', .05, .25);
+    setTimeout(() => msiFlyAway(i < 0 ? 'Too slow.' : 'No. It’s ' + Q.o[Q.a] + '.'), 1300);
     return;
   }
   [659.25, 987.77].forEach((f, k) => tone(f, .2, 'triangle', .05, k*.08));
   msiQ.n++;
-  if (msiQ.n < 5) { setTimeout(msiAsk, 650); return; }
-  msiQ = null;
+  if (msiQ.n < MSI_QN) { setTimeout(msiAsk, 650); return; }
+  msiQ = null; P().goatQuiz = false; P().goat = 'pens'; save();
+  [523.25, 659.25, 783.99, 1046.5].forEach((f, k) => tone(f, .4, 'triangle', .05, k*.09));
+  setTimeout(() => msiPanel(msiSay('Lionel Messi', 'Ten for ten. Nobody’s done that. But you want The GOAT? Beat me from the spot. Three penalties. In a row.', '<button class="open-btn sm" data-msi="pens">Take the penalties</button><button class="ghost" data-msi="room">Later</button>')), 800);
+}
+/* ---- he leaves: a UFO, and a planet that's a football ---- */
+function msiFlySVG(){
+  const R = seeded(1987);
+  let s = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>' + bdoDefs('fa')
+    + '<linearGradient id="faSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#050414"/><stop offset=".7" stop-color="#18123a"/><stop offset="1" stop-color="#2a1f4e"/></linearGradient>'
+    + '<linearGradient id="faBeam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8ffd8" stop-opacity=".95"/><stop offset="1" stop-color="#39ff88" stop-opacity=".15"/></linearGradient>'
+    + '<radialGradient id="faPl" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#ffffff"/><stop offset=".7" stop-color="#dfe4ea"/><stop offset="1" stop-color="#8f99a6"/></radialGradient>'
+    + '<radialGradient id="faAt" cx=".5" cy=".5" r=".5"><stop offset=".78" stop-color="#7cc4ef" stop-opacity="0"/><stop offset=".86" stop-color="#7cc4ef" stop-opacity=".55"/><stop offset="1" stop-color="#7cc4ef" stop-opacity="0"/></radialGradient>'
+    + '<clipPath id="faClip"><circle cx="0" cy="0" r="92"/></clipPath>'
+    + '<linearGradient id="faHull" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9e2ea"/><stop offset=".55" stop-color="#7f8b97"/><stop offset="1" stop-color="#3a434c"/></linearGradient></defs>';
+  const ufo = '<g><ellipse cx="0" cy="-8" rx="17" ry="13" fill="#9affc8" fill-opacity=".55" stroke="#d8ffe8" stroke-width="1"/><ellipse cx="0" cy="2" rx="46" ry="11" fill="url(#faHull)"/><ellipse cx="0" cy="0" rx="46" ry="5" fill="#cfd8e0" opacity=".6"/>'
+    + [-34, -17, 0, 17, 34].map((x, i) => '<circle class="fa-led" style="animation-delay:' + (i*.12) + 's" cx="' + x + '" cy="5" r="2.6" fill="#39ff88"/>').join('') + '<ellipse cx="0" cy="12" rx="16" ry="3.4" fill="#39ff88" opacity=".7"/></g>';
+  // scene A: the roof outside the lab
+  s += '<g class="fa-a"><rect width="400" height="260" fill="url(#faSky)"/>';
+  for (let i = 0; i < 70; i++) s += '<circle cx="' + (R()*400).toFixed(1) + '" cy="' + (R()*170).toFixed(1) + '" r="' + (.3 + R()*.9).toFixed(2) + '" fill="#fff" opacity="' + (.3 + R()*.7).toFixed(2) + '"/>';
+  s += '<circle cx="330" cy="46" r="16" fill="#efe6c8" opacity=".85"/><circle cx="336" cy="42" r="14" fill="#18123a" opacity=".9"/>'
+    + '<path d="M0 214 L60 196 L120 206 L200 192 L270 204 L340 190 L400 200 V260 H0 Z" fill="#0a0f1e"/>'
+    + '<path class="fa-beam" d="M186 76 H214 L262 214 H138 Z" fill="url(#faBeam)"/>'
+    + '<g class="fa-me"><g transform="translate(200 116) scale(.82)">' + bdoMan(0, 0, 1, bdoP('messi', {labcoat:true, alien:true})) + '</g></g>'
+    + '<path d="M0 236 Q100 196 200 202 Q300 196 400 232 V260 H0 Z" fill="#06120c"/><path d="M0 236 Q100 196 200 202 Q300 196 400 232" stroke="#39ff88" stroke-opacity=".35" fill="none"/>'
+    + '<g class="fa-ufo">' + ufo + '</g></g>';
+  // scene B: home
+  s += '<g class="fa-b"><rect width="400" height="260" fill="#04030c"/>';
+  for (let i = 0; i < 110; i++) s += '<circle cx="' + (R()*400).toFixed(1) + '" cy="' + (R()*260).toFixed(1) + '" r="' + (.3 + R()*1).toFixed(2) + '" fill="#fff" opacity="' + (.25 + R()*.75).toFixed(2) + '"/>';
+  s += '<circle cx="60" cy="50" r="10" fill="#ff7ad9" opacity=".5"/><circle cx="352" cy="214" r="6" fill="#7cc4ef" opacity=".6"/>'
+    + '<g transform="translate(200 172)"><circle r="112" fill="url(#faAt)"/><circle r="92" fill="url(#faPl)"/><g clip-path="url(#faClip)"><g class="fa-spin">';
+  const pent = (x, y, r) => '<path d="' + Array.from({length: 5}, (_, i) => { const a = -Math.PI/2 + i*2*Math.PI/5; return (i ? 'L' : 'M') + (x + Math.cos(a)*r).toFixed(1) + ' ' + (y + Math.sin(a)*r).toFixed(1); }).join(' ') + ' Z" fill="#14161a"/>';
+  [[0, 0, 26], [-62, -36, 22], [60, -40, 22], [-58, 52, 22], [62, 50, 22], [0, -86, 20], [0, 88, 20], [-104, 4, 20], [104, 6, 20], [-170, 0, 26], [170, 0, 26]].forEach(([x, y, r]) => { s += pent(x, y, r) + pent(x + 340, y, r); });
+  s += '</g></g><circle r="92" fill="none" stroke="#000" stroke-opacity=".25" stroke-width="10"/></g>'
+    + '<g class="fa-u2">' + ufo + '</g><g class="fa-flag"><path d="M206 64 V44" stroke="#d9e2ea" stroke-width="1.6"/><path d="M206 44 H222 L218 49 L222 54 H206 Z" fill="#75bde9"/><text x="213" y="52.6" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="7" fill="#fff">10</text></g></g>';
+  return s + '</svg>';
+}
+async function msiFlyAway(first){
+  const el = msiEl(); if (!el || el.hidden) return;
+  msiOfferClose();
+  msiShow('ufo', msiSay('Lionel Messi', first + ' I told you. One try.'));
+  const sc = el.querySelector('.msi-scene'), st = c => sc && sc.classList.add(c), say = (w, t, b) => msiPanel(msiSay(w, t, b));
+  const T = async (ms, f) => { await wait(REDUCED ? 200 : ms); if (msiView === 'ufo' && !el.hidden) f(); return msiView === 'ufo' && !el.hidden; };
+  if (!await T(1500, () => { st('s1'); say('Lionel Messi', 'He takes off the lab coat. Something is humming above the roof.'); sweep(60, 140, 1.6, 'sawtooth', .05); noise(1.6, 200, 90, .08, 'lowpass'); })) return;
+  if (!await T(1800, () => { st('s2'); sweep(300, 1600, .9, 'sine', .06); noise(1.2, 4000, 1200, .05, 'highpass'); })) return;
+  if (!await T(900, () => { st('s3'); say('Lionel Messi', '“Adiós.” He doesn’t look back.'); for (let i = 0; i < 6; i++) tone(500 + i*160, .14, 'sine', .04, i*.12); })) return;
+  if (!await T(1700, () => { st('s4'); sweep(400, 2400, 1, 'sawtooth', .05); })) return;
+  if (!await T(1500, () => { st('s5'); say('Somewhere far away', 'Home. A planet that’s a football. Of course it is.'); [196, 246.94, 293.66, 392].forEach((f, i) => tone(f, 1.6, 'triangle', .035, i*.1)); })) return;
+  if (!await T(1200, () => { st('s6'); noise(.5, 600, 200, .05); })) return;
+  if (!await T(2000, () => { st('s7'); tone(784, .2, 'triangle', .04); })) return;
+  await T(1500, () => say('Messi’s lab', 'He’s gone. So is The GOAT.', '<button class="ghost" data-msi="leave">Leave</button>'));
+}
+/* ---- three penalties in a row, Messi in goal ---- */
+let mpAim = null;
+function msiPenSVG(){
+  const R = seeded(310);
+  let s = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>' + bdoDefs('mp')
+    + '<pattern id="mpN" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0 L8 8 M8 0 L0 8" stroke="#fff" stroke-opacity=".22" stroke-width=".6"/></pattern>'
+    + '<linearGradient id="mpSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#05030f"/><stop offset="1" stop-color="#1c1440"/></linearGradient>'
+    + '<radialGradient id="mpPl" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#9aa3ad"/></radialGradient></defs>'
+    + '<rect width="400" height="200" fill="url(#mpSky)"/>';
+  for (let i = 0; i < 60; i++) s += '<circle cx="' + (R()*400).toFixed(1) + '" cy="' + (R()*150).toFixed(1) + '" r="' + (.3 + R()*.8).toFixed(2) + '" fill="#fff" opacity="' + (.3 + R()*.6).toFixed(2) + '"/>';
+  s += '<g transform="translate(346 40)"><circle r="20" fill="url(#mpPl)"/><path d="M0 -7 L6.7 -2.2 L4.1 5.7 H-4.1 L-6.7 -2.2 Z" fill="#14161a"/><path d="M-17 -10 L-12 -6 M14 -12 L11 -6 M-15 11 L-10 7 M15 11 L10 7" stroke="#14161a" stroke-width="3"/></g>'
+    + '<rect x="0" y="196" width="400" height="64" fill="#0d3a20"/>' + Array.from({length: 4}, (_, i) => '<rect x="0" y="' + (200 + i*16) + '" width="400" height="8" fill="#10472a"/>').join('')
+    + '<path d="M40 260 L104 200 H296 L360 260" stroke="#e8f4e8" stroke-opacity=".7" stroke-width="1.6" fill="none"/><ellipse cx="200" cy="240" rx="3.4" ry="1.4" fill="#fff"/>'
+    + '<rect x="110" y="80" width="180" height="116" fill="url(#mpN)"/><path d="M110 80 L124 92 H276 L290 80 M124 92 V196 M276 92 V196" stroke="#fff" stroke-opacity=".25" fill="none"/>';
+  s += '<g class="mp-kp"><g transform="translate(200 120) scale(.55)">'
+    + '<path d="M-16 92 L-20 136 H-6 L-2 96 Z M16 92 L20 136 H6 L2 96 Z" fill="#1a1a1a"/><path d="M-24 134 H-4 V142 H-26 Z M24 134 H4 V142 H26 Z" fill="#39ff88"/>'
+    + bdoMan(0, 0, 1, bdoP('messi', {shirt:'#39ff88', trim:'#0a3a22', alien:true}))
+    + '<circle cx="-46" cy="56" r="11" fill="#f4f6fa" stroke="#39ff88" stroke-width="3"/><circle cx="46" cy="56" r="11" fill="#f4f6fa" stroke="#39ff88" stroke-width="3"/></g></g>'
+    + '<path d="M110 196 V80 H290 V196" stroke="#fff" stroke-width="5" fill="none" stroke-linejoin="round"/>'
+    + '<g class="mp-aim"><circle r="11" fill="none" stroke="#ffd23f" stroke-width="2"/><circle r="2.4" fill="#ffd23f"/><path d="M-17 0 H-7 M7 0 H17 M0 -17 V-7 M0 7 V17" stroke="#ffd23f" stroke-width="2"/></g>'
+    + '<g class="mp-ball" style="transform:translate(200px,240px)"><circle r="10" fill="#f4f6fa" stroke="#111" stroke-width="1"/><path d="M0 -4.5 L4.3 -1.4 L2.6 3.6 H-2.6 L-4.3 -1.4 Z" fill="#111"/></g>'
+    + '<text class="mp-big" x="200" y="56" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="42" fill="#ffd23f"></text>'
+    + '<rect class="mp-hit" data-msi="shoot" x="0" y="0" width="400" height="260" fill="#000" fill-opacity="0"/>';
+  return s + '</svg>';
+}
+function msiPens(){
+  if (P().goat !== 'pens') return;
+  msiShow('pens', '');
+  mpAim = {streak: 0, busy: false, t0: performance.now(), raf: 0, x: 200, y: 140, sp: 1};
+  mpPanel('Lionel Messi', 'Three in a row. Miss one and we start again. Tap when the target’s where you want it.');
+  mpReset(); mpLoop();
+  tone(392, .2, 'triangle', .04); tone(523.25, .25, 'triangle', .04, .1);
+}
+function mpPanel(who, line){
+  const st = mpAim ? mpAim.streak : 0;
+  msiPanel('<div class="bdo-eyebrow">' + who + '</div><div class="mp-pips">' + [0, 1, 2].map(i => '<i class="' + (i < st ? 'on' : '') + '"></i>').join('') + '</div><p class="bdo-line">' + line + '</p>'
+    + '<div class="bdo-row msi-acts"><button class="open-btn sm" data-msi="shoot"' + (mpAim && mpAim.busy ? ' disabled' : '') + '>Shoot</button><button class="ghost" data-msi="lab">Back to the lab</button></div>');
+}
+function mpReset(){
+  const el = msiEl(), b = el.querySelector('.mp-ball'), k = el.querySelector('.mp-kp'), big = el.querySelector('.mp-big'), sc = el.querySelector('.msi-scene');
+  if (b) { b.style.transition = 'none'; b.style.transform = 'translate(200px,240px)'; b.style.opacity = 1; }
+  if (k) k.style.transform = '';
+  if (big) big.textContent = '';
+  if (sc) sc.classList.remove('mp-goal', 'mp-miss');
+  mpAim.t0 = performance.now(); mpAim.busy = false; mpAim.sp = .85 + mpAim.streak * .15;
+}
+function mpLoop(){
+  if (!mpAim || msiView !== 'pens') return;
+  const a = msiEl().querySelector('.mp-aim');
+  if (!mpAim.busy && a) {
+    const t = (performance.now() - mpAim.t0) / 1000 * mpAim.sp;
+    mpAim.x = 200 + 118 * Math.sin(t * 2.6); mpAim.y = 136 + 66 * Math.sin(t * 3.7 + 1.1);
+    a.setAttribute('transform', 'translate(' + mpAim.x.toFixed(1) + ' ' + mpAim.y.toFixed(1) + ')');
+  }
+  mpAim.raf = requestAnimationFrame(mpLoop);
+}
+function mpShoot(){
+  if (!mpAim || mpAim.busy || msiView !== 'pens') return;
+  mpAim.busy = true; mpPanel('Lionel Messi', '…');
+  const {x, y} = mpAim, el = msiEl(), b = el.querySelector('.mp-ball'), k = el.querySelector('.mp-kp'), big = el.querySelector('.mp-big'), sc = el.querySelector('.msi-scene');
+  const zoneOf = px => px < 175 ? 0 : px > 225 ? 2 : 1;
+  const dive = Math.random() < .4 ? zoneOf(x) : Math.floor(Math.random() * 3);
+  const wide = x < 113 || x > 287, over = y < 83;
+  const cover = [[112, 184], [166, 234], [216, 288]][dive];
+  const bins = y < 100 && (x < 134 || x > 266);
+  const saved = !wide && !over && !bins && x >= cover[0] && x <= cover[1] && (dive !== 1 || y > 98);
+  noise(.15, 3000, 400, .12); tone(120, .1, 'sine', .2);
+  const tx = wide ? x + (x < 200 ? -40 : 40) : x, ty = over ? y - 40 : y;
+  if (b) { b.style.transition = 'transform .4s cubic-bezier(.2,.7,.3,1)'; b.style.transform = 'translate(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px) scale(.6)'; }
+  if (k) setTimeout(() => { k.style.transform = dive === 1 ? 'translateY(' + (y < 140 ? -22 : 4) + 'px)' : 'translate(' + (dive ? 62 : -62) + 'px,' + (y < 140 ? -8 : 18) + 'px) rotate(' + (dive ? 72 : -72) + 'deg)'; }, 60);
+  setTimeout(() => {
+    if (msiView !== 'pens') return;
+    const goal = !wide && !over && !saved;
+    if (goal) {
+      mpAim.streak++; sc.classList.add('mp-goal'); if (big) big.textContent = 'GOAL!';
+      noise(1.4, 1500, 400, .1, 'bandpass'); [523.25, 659.25, 783.99].forEach((f, i) => tone(f, .35, 'triangle', .05, i*.08));
+    } else {
+      mpAim.streak = 0; sc.classList.add('mp-miss'); if (big) big.textContent = wide ? 'WIDE!' : over ? 'OVER!' : 'SAVED!';
+      tone(150, .4, 'sawtooth', .06); noise(.5, 600, 200, .06);
+      if (saved && b) { b.style.transition = 'transform .5s ease-out'; b.style.transform = 'translate(' + (200 + (x - 200) * .3).toFixed(1) + 'px,' + Math.min(250, y + 60).toFixed(1) + 'px) scale(.75)'; }
+    }
+    if (mpAim.streak >= 3) { setTimeout(mpWin, 1400); mpPanel('Lionel Messi', 'Three. In a row. …Okay.'); return; }
+    const lines = goal ? ['Lucky.', 'Hm. Again.', 'Not bad. One more.'] : saved ? ['Saved. I can read you. Back to zero.', 'Too easy. Start again.', 'Mine. From zero.'] : ['Off target. That’s on you. Back to zero.', 'The stands thank you. From zero.'];
+    mpPanel('Lionel Messi', goal ? (mpAim.streak === 2 ? 'Not bad. One more.' : pickOne(lines.slice(0, 2))) : pickOne(lines));
+    mpAim.busy = true;
+    setTimeout(() => { if (msiView === 'pens' && mpAim) { mpReset(); mpPanel('Lionel Messi', mpAim.streak ? mpAim.streak + ' down. Again.' : 'Again. Three in a row.'); } }, 1500);
+  }, 450);
+}
+function mpWin(){
+  if (!mpAim) return;
+  cancelAnimationFrame(mpAim.raf); mpAim = null;
   P().goat = 'unlocked'; P().goatAsk = Math.round(msiGoatVal() * (1 + Math.random()*.15)); save();
   msiPat = MSI_PAT; msiSel.clear(); msiCr = 0;
-  setTimeout(() => { msiPanel(msiSay('Lionel Messi', 'Five for five. Okay. It’s for sale. But it comes at a cost. Tap the tank and make me an offer.', '<button class="ghost" data-msi="room">Back to the trophies</button>')); const t = msiEl().querySelector('.ml-tank'); if (t) { t.classList.add('tap'); t.setAttribute('data-msi', 'tank'); } }, 800);
+  msiLab();
+  msiPanel(msiSay('Lionel Messi', 'Ten questions. Three penalties. Okay. It’s for sale. But it comes at a cost. Tap the tank and make me an offer.', '<button class="ghost" data-msi="room">Back to the trophies</button>'));
+  [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((f, k) => tone(f, .6, 'triangle', .045, k*.1));
 }
 /* ---- the offer ---- */
 /* Tap the tank: the camera leans in and the offer opens over the lab, the same way Sable's and Vance's do.
@@ -11110,13 +11319,16 @@ document.addEventListener('click', e => {
   const b = e.target.closest('[data-msi]'); if (!b || b.disabled || !el.contains(b)) return;
   const a = b.dataset.msi, v = b.dataset.v;
   if (a === 'leave') closeMsi();
-  else if (a === 'room') { msiQ = null; clearTimeout(msiTimer); msiShow('room', msiSay('Lionel Messi', 'Anything else?', msiRoomBtns())); }
+  else if (a === 'room') { if (msiQuit()) { msiFlyAway('You walked away mid-question.'); return; } if (mpAim) { cancelAnimationFrame(mpAim.raf); mpAim = null; } msiShow('room', msiSay('Lionel Messi', 'Anything else?', msiRoomBtns())); }
+  else if (a === 'lab') msiLab();
+  else if (a === 'pens') msiPens();
+  else if (a === 'shoot') mpShoot();
   else if (a === 'door') msiLab();
   else if (a === 'shop') msiShop();
   else if (a === 'buy') msiBuy(+v);
   else if (a === 'pad') msiPadPress(+v);
   else if (a === 'quiz') msiQuiz();
-  else if (a === 'qgo') msiAsk();
+  else if (a === 'qgo') msiQStart();
   else if (a === 'ans') msiAnswer(+v);
   else if (a === 'tank') msiTankTap();
   else if (a === 'vclose') msiOfferClose();
