@@ -10620,22 +10620,26 @@ function bdoFace(o){
   if (o.hair === 'afro') f += '<ellipse cx="0" cy="-6" rx="25" ry="22" fill="' + hc + '"/>';
   if (o.hair === 'messi') f += '<path d="M-18 10 Q-22 -20 0 -22 Q22 -21 19 10 L17 22 L-17 22 Z" fill="' + hc + '"/>';
   // ears
-  f += '<ellipse cx="-16.5" cy="14" rx="3.6" ry="5.4" fill="' + sk + '"/><ellipse cx="16.5" cy="14" rx="3.6" ry="5.4" fill="' + sk + '"/>'
-    + '<path d="M-17 11 Q-15 14 -17 17 M17 11 Q15 14 17 17" stroke="' + sh + '" stroke-width="1.2" fill="none"/>';
+  const mbH = o.head === 'mbappe', ex = mbH ? 18.6 : 16.5;
+  f += '<ellipse cx="-' + ex + '" cy="14" rx="' + (mbH ? 4.4 : 3.6) + '" ry="' + (mbH ? 6.2 : 5.4) + '" fill="' + sk + '"/><ellipse cx="' + ex + '" cy="14" rx="' + (mbH ? 4.4 : 3.6) + '" ry="' + (mbH ? 6.2 : 5.4) + '" fill="' + sk + '"/>'
+    + '<path d="M-' + (ex + .5) + ' 11 Q-' + (ex - 1.5) + ' 14 -' + (ex + .5) + ' 17 M' + (ex + .5) + ' 11 Q' + (ex - 1.5) + ' 14 ' + (ex + .5) + ' 17" stroke="' + sh + '" stroke-width="1.2" fill="none"/>';
   if (o.stud) f += '<circle cx="-16.5" cy="19.2" r="1.3" fill="#fff" stroke="#bbb" stroke-width=".4"/>';
   // head
-  const jaw = o.head === 'round' ? 'M-16 8 Q-17 -16 0 -17 Q17 -16 16 8 Q16 32 0 39 Q-16 32 -16 8 Z'
+  const jaw = mbH ? 'M-18.5 8 Q-19.5 -15 0 -16 Q19.5 -15 18.5 8 Q18.5 29 0 36.5 Q-18.5 29 -18.5 8 Z'
+    : o.head === 'round' ? 'M-16 8 Q-17 -16 0 -17 Q17 -16 16 8 Q16 32 0 39 Q-16 32 -16 8 Z'
     : o.head === 'long' ? 'M-15 8 Q-16 -17 0 -18 Q16 -17 15 8 Q14 34 0 42 Q-14 34 -15 8 Z'
     : 'M-16 8 Q-17 -16 0 -17 Q17 -16 16 8 Q15 31 0 40 Q-15 31 -16 8 Z';
   f += '<path d="' + jaw + '" fill="' + sk + '"/>'
-    + '<path d="M9 -12 Q17 -6 16 8 Q15 31 0 40 Q12 30 12 10 Q12 -4 9 -12 Z" fill="' + sh + '"/>';
+    + (mbH ? '<path d="M11 -12 Q19.5 -6 18.5 8 Q18.5 29 0 36.5 Q14 28 14 10 Q14 -4 11 -12 Z" fill="' + sh + '"/><ellipse cx="-11" cy="21" rx="4.5" ry="3" fill="#7a4632" opacity=".25"/><ellipse cx="11" cy="21" rx="4.5" ry="3" fill="#7a4632" opacity=".25"/>'
+      : '<path d="M9 -12 Q17 -6 16 8 Q15 31 0 40 Q12 30 12 10 Q12 -4 9 -12 Z" fill="' + sh + '"/>');
   // hair in front
   if (o.hair === 'messi') f += '<path d="M-17 8 Q-19 -16 0 -19 Q18 -18 17 6 Q14 -5 6 -8 Q-2 -3 -10 -8 Q-14 -3 -17 8 Z" fill="' + hc + '"/><path d="M-16.5 6 V18 M16.5 6 V18" stroke="' + hc + '" stroke-width="3"/>';
   if (o.hair === 'fade') f += '<path d="M-16 6 Q-16 -14 0 -16 Q16 -14 16 6 Q14 -4 0 -5 Q-14 -4 -16 6 Z" fill="' + hc + '" opacity=".55"/>'
     + [[-9,-13],[-4,-16],[2,-17],[8,-15],[12,-11],[-12,-9],[-6,-11],[0,-12],[6,-11]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="4" fill="' + (o.hl || '#d8b25e') + '"/>').join('')
     + '<path d="M-14 -6 Q0 -10 14 -6" stroke="' + hc + '" stroke-width="1.6" fill="none" opacity=".6"/>';
   if (o.hair === 'part') f += '<path d="M-17 8 Q-18 -18 2 -19 Q18 -17 17 4 Q15 -8 6 -10 L-4 -10 Q-12 -6 -17 8 Z" fill="' + hc + '"/><path d="M-4 -19 Q-6 -14 -4 -10" stroke="' + sk + '" stroke-width="1.2" opacity=".6"/>';
-  if (o.hair === 'buzz') f += '<path d="M-16 6 Q-16 -16 0 -17 Q16 -16 16 6 Q12 -6 0 -7 Q-12 -6 -16 6 Z" fill="' + hc + '" opacity=".75"/>';
+  if (o.hair === 'buzz' && mbH) f += '<path d="M-18.5 5 Q-19 -15 0 -16.5 Q19 -15 18.5 5 L16.5 3 Q15 -5 10 -6.5 L0 -7 L-10 -6.5 Q-15 -5 -16.5 3 Z" fill="' + hc + '" opacity=".85"/><path d="M-16.5 3 L-16 8 M16.5 3 L16 8" stroke="' + hc + '" stroke-width="1.6" opacity=".7"/>';
+  else if (o.hair === 'buzz') f += '<path d="M-16 6 Q-16 -16 0 -17 Q16 -16 16 6 Q12 -6 0 -7 Q-12 -6 -16 6 Z" fill="' + hc + '" opacity=".75"/>';
   if (o.hair === 'afro') f += '<path d="M-17 4 Q-18 -14 0 -15 Q18 -14 17 4 Q10 -7 0 -7 Q-10 -7 -17 4 Z" fill="' + hc + '"/>';
   if (o.hair === 'blond') f += '<path d="M-16 6 L-15 -10 L-11 -14 L-8 -19 L-4 -15 L0 -21 L4 -15 L8 -19 L11 -14 L15 -10 L16 6 Q12 -5 0 -6 Q-12 -5 -16 6 Z" fill="' + (o.hl || '#e8c86a') + '"/>';
   if (o.hair === 'curly') f += '<path d="M-16 6 Q-16 -10 0 -12 Q16 -10 16 6 Q12 -4 0 -5 Q-12 -4 -16 6 Z" fill="' + hc + '"/>' + [-11,-6,-1,4,9,13].map((x, i) => '<circle cx="' + x + '" cy="' + (-13 - (i % 2)*3) + '" r="4.2" fill="' + hc + '"/>').join('');
@@ -10859,7 +10863,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#bdo') 
    Chroma blows the whole stage apart, every nominee runs for it except Messi, who wins his 9th, and Cristiano
    dives and storms out yelling for a penalty. Nobody gets hurt. */
 const BDO_PPL = {
-  mbappe:{skin:'#5e3a26', shade:'rgba(25,10,5,.28)', head:'round', hair:'buzz', hc:'#0d0806', brow:'thick', nose:'wide', mouth:'grin', iris:'#2a1810'},
+  mbappe:{skin:'#5e3a26', shade:'rgba(25,10,5,.28)', head:'mbappe', hair:'buzz', hc:'#0d0806', brow:'thick', nose:'wide', mouth:'grin', iris:'#2a1810'},
   vini:{skin:'#563621', shade:'rgba(20,8,4,.3)', head:'long', hair:'curly', hc:'#0c0806', beard:'stubble', brow:'arch', nose:'wide', mouth:'smile'},
   kane:{skin:'#f1c9a8', shade:'rgba(140,70,40,.16)', head:'long', hair:'part', hc:'#8a6038', bc:'#6a4626', iris:'#4a6a8a', brow:'flat', mouth:'smile'},
   messi:{skin:'#ebb995', shade:'rgba(120,60,30,.16)', head:'oval', hair:'messi', hc:'#3b2615', beard:'full', brow:'flat', iris:'#5a3a1e', mouth:'smile'},
