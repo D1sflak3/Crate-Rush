@@ -324,6 +324,10 @@ h2{font-family:var(--display);font-weight:600;font-size:32px;line-height:1;margi
 .trade.bm .contract{background:linear-gradient(180deg,#150822,#06030b);border-color:#6b21a8;box-shadow:0 0 0 1px rgba(168,85,247,.18) inset,0 0 50px rgba(124,58,237,.2)}
 .trade.bm .contract::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(168,85,247,.05) 0 1px,transparent 1px 3px)}
 .trade.bm .slot{border-color:#4c1d95}
+.trade.chu .contract{background:linear-gradient(180deg,#22081c,#0a0310);border-color:#ff7ad9;box-shadow:0 0 0 1px rgba(255,122,217,.22) inset,0 0 60px rgba(255,62,165,.22)}
+.trade.chu .bm-banner .glitch{background:linear-gradient(90deg,#ff3ea5,#ffd23f,#2fe3ff,#a24bff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.trade.chu .bm-banner small{color:#ffc4ec}
+.trade.chu .slot{border-color:#ff7ad9}
 .trade.intro .contract{animation:flicker .8s steps(1)}
 .trade.intro .bm-banner{animation:bannerIn .9s cubic-bezier(.2,1.3,.4,1)}
 @keyframes flicker{0%{opacity:.15}15%{opacity:1}25%{opacity:.35}40%{opacity:1}55%{opacity:.6}70%{opacity:1}}
@@ -3744,7 +3748,7 @@ body.dz-open .toast{z-index:95}
   <section class="trade" id="trade">
     <div class="sec-head">
       <h2>Trade Up</h2>
-      <p class="sec-note" style="margin:0">Put in 10 items of one rarity, get 1 of the next. The output float is the average of what you put in. Any contract can get hijacked by the Black Market.</p>
+      <p class="sec-note" style="margin:0">Two contracts. 5 Legendaries in, one piece of Black Market contraband out. Or put in a Velvet Requiem or Kingmaker for a 25% shot at Chroma.</p>
     </div>
     <div class="tiers" id="tTiers" role="tablist" aria-label="Contract type"></div>
     <div class="contract" id="contract">
@@ -4158,8 +4162,11 @@ const ITEMS = [
   {id:'b6', w:'karambit',  name:'Umbra',          t:6, pat:'abyss',  pal:['#000000','#9333ea','#f5d0fe'], m:1.6},
   {id:'b7', w:'butterfly', name:'Hex Sovereign',  t:6, pat:'runes',  pal:['#050008','#a855f7','#6b21a8'], m:1.4},
   // One of one: only exists in Sable's hidden case. Never in a case, contract, reel or wish list.
-  {id:'x1', w:'pistol',    name:'Velvet Requiem', t:7, pat:'requiem', pal:['#14020a','#c8143c','#ffd6e6'], m:2.8, ex:true},
-  {id:'x2', w:'karambit',  name:'Kingmaker',      t:7, pat:'doppler', pal:['#1a0030','#ff3ea5','#2fe3ff','#ffd23f'], m:2.6, ex:true},
+  {id:'x1', w:'pistol',    name:'Velvet Requiem', t:6, pat:'requiem', pal:['#14020a','#c8143c','#ffd6e6'], m:340000 / 93500, ex:true},
+  {id:'x2', w:'karambit',  name:'Kingmaker',      t:6, pat:'doppler', pal:['#1a0030','#ff3ea5','#2fe3ff','#ffd23f'], m:211000 / 93500, ex:true},
+  // Chroma versions: same weapon, same finish. Only the Black Market → Chroma contract makes them.
+  {id:'x1c', w:'pistol',   name:'Velvet Requiem', t:7, pat:'requiem', pal:['#14020a','#c8143c','#ffd6e6'], m:2.8, ex:true},
+  {id:'x2c', w:'karambit', name:'Kingmaker',      t:7, pat:'doppler', pal:['#1a0030','#ff3ea5','#2fe3ff','#ffd23f'], m:2.6, ex:true},
   {id:'x3', w:'rifle',     name:'The GOAT',       t:7, pat:'goat', pal:['#75bde9','#f4f7fb','#ffd23f'], m:7.6, ex:true},
   {id:'x4', w:'shotgun',   name:'The SFOT',       t:7, pat:'sfot', pal:['#0b1736','#1f4fd1','#e1262d','#c9d2de'], m:5.35, ex:true},
   {id:'x5', w:'sniper',    name:'The Sui',        t:7, pat:'sui', pal:['#070103','#da291c','#ffd23f','#046a38'], m:7.5, ex:true},
@@ -4197,7 +4204,10 @@ const ITEM_CASE = {};
 CASES.forEach(c => c.items.forEach(id => { ITEM_CASE[id] = c; }));
 
 /* Trade-up rules: inputs needed per tier, and chance the Black Market hijacks the contract */
-const TNEED = [10, 10, 10, 10, 5];
+const TNEED = [10, 10, 10, 10, 5, 0, 1];
+/* Black Market → Chroma: one Requiem or Kingmaker in, 25% it comes back Chroma (your first one always does), otherwise it burns */
+const CH_UP = {x1:'x1c', x2:'x2c'}, CH_CHANCE = .25;
+const chFirst = () => !(state.chUps > 0);
 const BMCH  = [.002, .005, .015, .04, 1];
 
 /* ---------- Skin painters ---------- */
@@ -5072,9 +5082,6 @@ const HACKS = [
   {id:'overwrite', name:'Rarity Overwrite',  price:3000, charges:3,  unit:['open','opens'],         file:'rarity_overwrite.bin',
    desc:'Your next 3 case opens roll one tier higher: Common becomes Rare, Legendary becomes Gold. It skips Case 4, so no charge is wasted there.',
    line:'One stick. Three upgrades. Plug it in and look away.'},
-  {id:'hijack',    name:'Contract Hijacker', price:160000, charges:1,  unit:['contract','contracts'], file:'contract_hijack.exe',
-   desc:'Your next Common, Rare, Epic or Mythic trade-up goes straight to the Black Market. Guaranteed contraband.',
-   line:'Sign whatever you like. It ends up with me anyway.'},
   {id:'forger',    name:'Float Forger',      price:3000, charges:10, unit:['drop','drops'],         file:'float_forge.dll',
    desc:'Your next 10 drops, from cases or trade-ups, come out Mint with a float under 0.07.',
    line:'Factory fresh. Factory is a strong word.'},
@@ -5120,7 +5127,7 @@ function payout(e){ if (H().spoof > 0 && BY[e.id].t < 5) { H().spoof--; return e
 function trackFound(){ const f = state.found || (state.found = []); state.inv.forEach(e => { if (!f.includes(e.id)) f.push(e.id); }); }
 function save(){ trackFound(); state.savedAt = Date.now(); try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} cloudQueue(); }
 
-let sel = 0, busy = false, current = null, tradeTier = 0, picks = [];
+let sel = 0, busy = false, current = null, tradeTier = 4, picks = [];
 const wearIdx = fl => { const i = WEARS.findIndex(w => fl < w.hi); return i < 0 ? 4 : i; };
 /* Black Market never goes for less than BM_MIN, whatever the wear */
 const BM_MIN = 50000;
@@ -5348,7 +5355,7 @@ function warmStep(){
 }
 
 /* ---------- Trade up UI ---------- */
-const eligible = t => state.inv.filter(e => BY[e.id].t === t);
+const eligible = t => state.inv.filter(e => t === 6 ? !!CH_UP[e.id] : BY[e.id].t === t);
 function outcomeMap(list, t){
   const m = {};
   if (!list.length) return m;
@@ -5362,12 +5369,15 @@ function outcomeMap(list, t){
   return m;
 }
 function renderTrade(){
+  if (tradeTier !== 4 && tradeTier !== 6) tradeTier = 4;
+  if (tradeTier === 6) return renderChTrade();
   const t = tradeTier, need = TNEED[t], next = t === 4 ? 6 : t + 1, isBM = t === 4;
   const owned = new Set(eligible(t).map(e => e.uid));
   picks = picks.filter(u => owned.has(u)).slice(0, need);
-  $('#trade').classList.toggle('bm', isBM);
+  $('#trade').classList.toggle('bm', isBM); $('#trade').classList.remove('chu'); tradeBanner(t);
 
-  $('#tTiers').innerHTML = [0,1,2,3,4].map(k => {
+  $('#tTiers').innerHTML = tierChips(t);
+  if (0) [].map(k => {
     const nx = k === 4 ? 6 : k + 1, have = eligible(k).length;
     return '<button class="tchip' + (k === 4 ? ' bmchip' : '') + '" role="tab" data-t="' + k + '" aria-selected="' + (k === t) + '"' + (busy ? ' disabled' : '') + ' style="--a:' + TIERS[k].color + ';--b:' + TIERS[nx].color + '"><span class="tc-flow"><i style="background:var(--a)"></i>' + TIERS[k].name + ' → <i style="background:var(--b)"></i>' + TIERS[nx].name + '</span><span class="tc-count">' + have + ' owned · needs ' + TNEED[k] + '</span></button>';
   }).join('');
@@ -5426,6 +5436,91 @@ function renderTrade(){
     });
   }
   renderContra();
+}
+function tierChips(t){
+  return [4, 6].map(k => {
+    const nx = k === 4 ? 6 : 7, have = eligible(k).length;
+    return '<button class="tchip' + (k === 4 ? ' bmchip' : ' chchip') + '" role="tab" data-t="' + k + '" aria-selected="' + (k === t) + '"' + (busy ? ' disabled' : '') + ' style="--a:' + TIERS[k].color + ';--b:' + TIERS[nx].color + '"><span class="tc-flow"><i style="background:var(--a)"></i>' + TIERS[k].name + ' → <i style="background:var(--b)"></i>' + TIERS[nx].name + '</span><span class="tc-have">' + (k === 6 ? have + ' in your bag' : have + ' / ' + TNEED[k]) + '</span></button>';
+  }).join('');
+}
+function tradeBanner(t){
+  const g = $('#trade .bm-banner .glitch'), sm = $('#trade .bm-banner small');
+  const txt = t === 6 ? 'CHROMA CONTRACT' : 'BLACK MARKET CONTRACT';
+  g.textContent = txt; g.dataset.text = txt;
+  sm.textContent = t === 6 ? 'One Velvet Requiem or Kingmaker in. 25% it comes out Chroma. Otherwise it burns.' : '5 Legendaries in. One piece of contraband out.';
+}
+function renderChTrade(){
+  const t = 6, owned = new Set(eligible(t).map(e => e.uid));
+  picks = picks.filter(u => owned.has(u)).slice(0, 1);
+  $('#trade').classList.add('bm', 'chu'); tradeBanner(t);
+  $('#tTiers').innerHTML = tierChips(t);
+  const e = picks.length ? state.inv.find(x => x.uid === picks[0]) : null, sure = chFirst();
+  const slots = $('#slots'); slots.innerHTML = '';
+  const b = document.createElement('button'); b.type = 'button';
+  if (e) { b.className = 'slot filled'; b.dataset.uid = e.uid; b.style.setProperty('--tc', TIERS[6].color); b.disabled = busy; b.setAttribute('aria-label', 'Remove ' + BY[e.id].name); b.append(thumb(BY[e.id], wearIdx(e.fl))); b.insertAdjacentHTML('beforeend', '<span class="x">✕</span>'); }
+  else { b.className = 'slot'; b.disabled = true; b.textContent = '1'; }
+  slots.append(b);
+  const up = e ? BY[CH_UP[e.id]] : null, out = $('#cOut'); out.style.setProperty('--oc', TIERS[7].color);
+  out.innerHTML = '<div class="eyebrow">You get</div><div class="co-tier">1 × Chroma</div>'
+    + '<div class="co-row"><span>Weapon</span><b>' + (up ? 'Same ' + up.name : '—') + '</b></div>'
+    + '<div class="co-row"><span>Value</span><b>' + (up ? fmt(bmVal(up, e.fl)) : '—') + '</b></div>'
+    + '<div class="co-bm"><span>Chroma chance</span><b>' + (sure ? 'Guaranteed (first one)' : pctText(CH_CHANCE * 100)) + '</b></div>';
+  const outs = $('#outs'); outs.innerHTML = '';
+  if (!e) outs.innerHTML = '<span class="outs-empty">Put in a Velvet Requiem or a Kingmaker.</span>';
+  else {
+    const d = document.createElement('div'); d.className = 'oc'; d.style.setProperty('--tc', TIERS[7].color);
+    d.append(thumb(up, wearIdx(e.fl))); d.insertAdjacentHTML('beforeend', '<span>' + up.name + ' · Chroma</span><b>' + (sure ? '100%' : pctText(CH_CHANCE * 100)) + '</b>');
+    outs.append(d);
+    if (!sure) outs.insertAdjacentHTML('beforeend', '<div class="oc mystery"><span class="q">✕</span><span>Burned. You lose it</span><b>' + pctText((1 - CH_CHANCE) * 100) + '</b></div>');
+  }
+  const sign = $('#signBtn'); sign.disabled = busy || !e; sign.textContent = 'Sign contract · ' + (e ? 1 : 0) + '/1';
+  $('#autoFill').disabled = busy || !!e || !owned.size; $('#clearC').disabled = busy || !e;
+  const list = eligible(t).filter(x => x.uid !== (e && e.uid)), pk = $('#picks'); pk.innerHTML = '';
+  $('#pickHead').textContent = 'Your Velvet Requiem / Kingmaker · tap to add';
+  if (!list.length) pk.innerHTML = '<div class="empty small">' + (e ? 'It’s in the contract.' : 'You don’t have a Velvet Requiem or a Kingmaker.') + '</div>';
+  else list.forEach(x => {
+    const it = BY[x.id], bb = document.createElement('button');
+    bb.type = 'button'; bb.className = 'pick'; bb.dataset.uid = x.uid; bb.disabled = busy || !!e; bb.style.setProperty('--tc', TIERS[6].color);
+    bb.append(thumb(it, wearIdx(x.fl))); bb.insertAdjacentHTML('beforeend', '<div class="nm">' + it.name + '</div><div class="sub">' + x.fl.toFixed(4) + ' · ' + fmt(x.v) + '</div>');
+    pk.append(bb);
+  });
+  renderContra();
+}
+async function runChTrade(){
+  if (busy || picks.length !== 1) return;
+  const e = state.inv.find(x => x.uid === picks[0]); if (!e || !CH_UP[e.id]) return;
+  ac(); busy = true; lockRack(true); renderOpen();
+  const win = chFirst() || Math.random() < CH_CHANCE;
+  state.chUps = (state.chUps || 0) + 1; state.trades++;
+  const id = CH_UP[e.id], r = win ? Object.assign({}, e, {uid: uid(), id, v: bmVal(BY[id], e.fl), at: Date.now(), src: 'trade', hk: []}) : null;
+  state.inv = state.inv.filter(x => x.uid !== e.uid);
+  if (r) { state.inv.unshift(r); if (!state.best || r.v > state.best.v) state.best = {id, v: r.v}; }
+  save(); picks = [];
+  await playChSeq(e, r);
+}
+async function playChSeq(e, r){
+  const seq = $('#seq'), ringEl = $('#seqRing'), orb = $('#orb'), hint = $('#seqHint'), col = TIERS[7].color;
+  seqSkip = false; seqRes = []; tapRes = null; resetSeq();
+  seq.className = 'seq'; seq.hidden = false; seq.style.setProperty('--sc', col); orb.style.setProperty('--oc', col);
+  fxStart($('#seqFx'));
+  const cx = innerWidth/2, cy = innerHeight/2, d = document.createElement('div');
+  d.className = 'rc'; d.style.setProperty('--tc', TIERS[6].color); d.append(thumb(BY[e.id], wearIdx(e.fl)));
+  d.style.transform = 'translate(0px,-120px) scale(.2)'; d.style.opacity = '0'; ringEl.append(d);
+  try {
+    void ringEl.offsetWidth;
+    d.style.transform = 'translate(0px,-120px) scale(1.25)'; d.style.opacity = '1'; whoosh();
+    await sw(1100);
+    orb.classList.add('on'); riser(2.2); fx.suck = {x: cx, y: cy, c: col};
+    d.style.transform = 'translate(0px,0px) scale(.1) rotate(260deg)'; d.style.opacity = '0';
+    await sw(1600); fx.suck = null;
+    for (let i = 0; i < 3; i++) { heartbeat(); restart($('#vign'), 'beat'); hint.textContent = ['25%…', '…', '…'][i]; await sw(800 - i * 120); }
+    hint.textContent = '';
+    if (r) { orb.classList.add('burst'); flash(col); burst(cx, cy, 160, ['#ff3ea5', '#ffd23f', '#2fe3ff', '#ffffff'], 9); ring(cx, cy, col); await sw(500); }
+    else { orb.classList.add('corrupt'); glitchSound(); fx.noise = .4; shake(seq); await sw(900); orb.classList.add('collapse'); await sw(400); fx.noise = 0; seq.classList.add('dark'); hint.textContent = 'Burned. Your ' + BY[e.id].name + ' is gone.'; await sw(2200); }
+  } catch (x) { if (x !== SKIP) throw x; }
+  endSeq();
+  if (r) { await chromaCinematic(r); showReveal(r); }
+  else { busy = false; lockRack(false); renderOpen(); renderTrade(); toast('The contract burned your ' + BY[e.id].name + '.'); }
 }
 function renderContra(){
   const g = $('#contraGrid'); g.innerHTML = '';
@@ -6359,7 +6454,7 @@ $('#tTiers').addEventListener('click', e => {
   const b = e.target.closest('.tchip'); if (!b || busy) return;
   const t = +b.dataset.t; if (t === tradeTier) return;
   tradeTier = t; picks = []; renderTrade();
-  if (t === 4) { ac(); glitchSound(); restart($('#trade'), 'intro'); }
+  ac(); glitchSound(); restart($('#trade'), 'intro');
 });
 $('#slots').addEventListener('click', e => {
   const b = e.target.closest('.slot.filled'); if (!b || busy) return;
@@ -6372,11 +6467,12 @@ $('#picks').addEventListener('click', e => {
 $('#autoFill').onclick = () => {
   if (busy) return;
   const need = TNEED[tradeTier], set = new Set(picks);
+  if (tradeTier === 6) { const x = eligible(6).sort((a, b) => a.v - b.v)[0]; if (x && !picks.length) picks = [x.uid]; renderTrade(); return; }
   eligible(tradeTier).filter(e => !set.has(e.uid)).sort((a, b) => a.v - b.v).forEach(e => { if (picks.length < need) picks.push(e.uid); });
   renderTrade();
 };
 $('#clearC').onclick = () => { picks = []; renderTrade(); };
-$('#signBtn').onclick = runTrade;
+$('#signBtn').onclick = () => tradeTier === 6 ? runChTrade() : runTrade();
 $('#previewBm').onclick = previewBM;
 
 const armTimers = new WeakMap();
@@ -9440,7 +9536,7 @@ async function runAuction(e){
       const st = $('#aucStage .ms'); st.classList.add('gl-hush');
       mus.hold = null; aucBubble('vance', 'Enough.'); tone(98, 1.4, 'sine', .2); await W(1600);
       st.classList.add('gl-offer'); [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((f, j) => tone(f, 1.4, 'triangle', .04, j*.09));
-      aucBubble('vance', 'My one of one. Chroma. For your contraband. Straight swap.'); await W(2600);
+      aucBubble('vance', 'My one of one. For your contraband. Straight swap.'); await W(2600);
       aucBubble('brick', 'Boss?! You never show anybody that!'); await W(1700);
       aucBubble('vance', "Finish the bidding. Then the kid decides."); await W(1800);
       st.classList.remove('gl-hush'); offered = true;
@@ -9463,7 +9559,7 @@ async function runAuction(e){
   $('#aucWho').innerHTML = '<span style="color:' + win.col + '">' + win.name + '</span> wins it' + (amt >= mkt * 1.85 ? ' · nearly double market!' : '');
   ctl.done = true; ctl.win = last; ctl.amt = amt; ctl.swap = offered;
   $('#aucActs').innerHTML = '<button class="gold-btn" data-au="sell">Sell to ' + win.name + ' · ' + fmt(amt) + ' cr</button>'
-    + (offered ? '<button class="gold-btn chroma-btn" data-au="swap">Swap for Vance’s ' + BY[VANCE_ID].name + ' · Chroma 1 of 1</button>' : '')
+    + (offered ? '<button class="gold-btn chroma-btn" data-au="swap">Swap for Vance’s ' + BY[VANCE_ID].name + ' · Black Market 1 of 1</button>' : '')
     + '<button class="link-btn" data-au="keep">Keep it</button>';
 }
 function aucAct(a){
@@ -11553,7 +11649,7 @@ function princeCinematic(r){
   });
 }
 function chromaCinematic(r){
-  if (r.id === 'x1') return requiemCinematic(r);
+  if (r.id === 'x1' || r.id === 'x1c') return requiemCinematic(r);
   if (r.id === 'x3' || r.id === SFOT_ID) return goatCinematic(r);
   if (r.id === SUI_ID || r.id === PULGA_ID) return suiCinematic(r);
   if (r.id === PRINCE_ID) return princeCinematic(r);
@@ -14098,7 +14194,7 @@ const VAULT_ID = 'x1', VAULT_FL = .0031, VANCE_ID = 'x2';
    Sable's comes down from the ceiling; Vance's knife cabinet lifts up to show what he keeps behind it. */
 const VAULTS = {
   sable:{id:'x1', fl:.0031, key:'vault', tk:'vaultT', on:'sx-down', dim:'sx-dim', open:'sx-open', shut:'sx-up', title:'Sable’s hidden case', who:'Sable', her:'her', she:'she',
-    desc:'Chroma, one of one. Velvet Requiem. It isn’t in any case, contract or reel.', hello:'Well? Make it worth my time.',
+    desc:'Black Market, one of one. Velvet Requiem. It isn’t in any case, contract or reel.', hello:'Well? Make it worth my time.',
     found:['…You know how to look.', "This one isn't on any list. No case, no contract. Make me an offer. One."], yes:"…Yes. It's yours.", no:'No.', after:"It won't come down again.",
     again:{gone:"It doesn't come down twice.", won:'You already own what was in it.', down:'It is right there. Make your offer.'}},
   vance:{id:'x2', fl:.0007, key:'vvault', tk:'vvaultT', on:'vv-up', dim:'vv-dim', open:'vv-open', shut:'vv-shut', title:'Vance’s private collection', who:'Vance', her:'him', she:'he',
