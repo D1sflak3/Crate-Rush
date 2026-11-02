@@ -11889,11 +11889,14 @@ function bdoFace(o){
   else if (o.hair === 'buzz') f += '<path d="M-16 6 Q-16 -16 0 -17 Q16 -16 16 6 Q12 -6 0 -7 Q-12 -6 -16 6 Z" fill="' + hc + '" opacity=".75"/>';
   if (o.hair === 'afro') f += '<path d="M-17 4 Q-18 -14 0 -15 Q18 -14 17 4 Q10 -7 0 -7 Q-10 -7 -17 4 Z" fill="' + hc + '"/>';
   if (o.hair === 'blond') f += '<path d="M-16 6 L-15 -10 L-11 -14 L-8 -19 L-4 -15 L0 -21 L4 -15 L8 -19 L11 -14 L15 -10 L16 6 Q12 -5 0 -6 Q-12 -5 -16 6 Z" fill="' + (o.hl || '#e8c86a') + '"/>';
-  // the faux-hawk: short spiky sides with sideburns, a tall spiked ridge down the middle, bleached tips
-  if (o.hair === 'ney') f += '<path d="M-15.5 8 Q-16.5 -6 -14 -12 L-13.6 4 Z M15.5 8 Q16.5 -6 14 -12 L13.6 4 Z" fill="' + hc + '" opacity=".8"/><path d="M-15.6 6 L-15 17 L-13.4 17 L-13.6 6 Z M15.6 6 L15 17 L13.4 17 L13.6 6 Z" fill="' + hc + '"/>'
-    + '<path d="M-15.4 5 L-15.4 -3 L-15 -10 L-12 -9 L-11 -15 L-8 -13 L-6 -22 L-3 -16 L-1 -30 L2 -18 L4 -27 L6 -17 L9 -21 L10 -13 L13 -14 L12.5 -8 L15 -8 L15.4 -3 L15.4 5 L13.8 1.4 L11.6 -1 L9.6 0 L7.6 -2.6 L5 -1 L2.6 -3.2 L0 -1.4 L-2.6 -3.2 L-5 -1 L-7.6 -2.6 L-9.6 0 L-11.6 -1 L-13.8 1.4 Z" fill="' + hc + '"/>'
-    + '<path d="M-6 -22 L-5 -18 L-7 -18 Z M-1 -30 L0.2 -23 L-2.2 -23 Z M4 -27 L4.8 -21 L2.6 -21 Z M9 -21 L9.4 -17 L7.6 -17 Z M-11 -15 L-10.4 -12.4 L-11.8 -12.4 Z" fill="' + (o.hl || '#e8c27a') + '"/>'
-    + '<path d="M-4 -16 L-1 -25 M2 -16 L3.6 -23 M-8 -12 L-6 -18" stroke="' + (o.hl || '#e8c27a') + '" stroke-width=".8" opacity=".8"/>';
+  // the Santos faux-hawk: messy spiky fringe, short sides with sideburns, a tall tuft with bleached tips
+  if (o.hair === 'ney') f += '<path d="M-15.5 8 Q-16.5 -6 -14 -12 L-13.6 4 Z M15.5 8 Q16.5 -6 14 -12 L13.6 4 Z" fill="' + hc + '" opacity=".8"/><path d="M-15.6 5 L-15.1 15.5 L-14 15 L-13.7 5 Z M15.6 5 L15.1 15.5 L14 15 L13.7 5 Z" fill="' + hc + '" opacity=".85"/>'
+    + '<path d="M-15.5 4 L-16.5 -6 L-14.5 -5 L-15 -12 L-12 -10 L-11.5 -16 L-8.5 -14 L-8 -21 L-5.5 -18 L-6 -28 L-2.5 -21 L-1 -33 L1.6 -23 L4.5 -31 L5 -21 L8.5 -25 L8.6 -16 L12 -18 L11.8 -12 L15 -13 L14 -7 L16.5 -6 L15.5 5 L13.8 1.4 L11.6 -1 L9.6 0 L7.6 -2.6 L5 -1 L2.6 -3.2 L0 -1.4 L-2.6 -3.2 L-5 -1 L-7.6 -2.6 L-9.6 0 L-11.6 -1 L-13.8 1.4 L-15.5 5 Z" fill="' + hc + '"/>'
+    + '<defs><linearGradient id="neyTip" gradientUnits="userSpaceOnUse" x1="0" y1="-33" x2="0" y2="-15"><stop offset="0" stop-color="' + (o.hl || '#e6c78e') + '"/><stop offset=".45" stop-color="' + (o.hl || '#e6c78e') + '" stop-opacity=".85"/><stop offset="1" stop-color="' + (o.hl || '#e6c78e') + '" stop-opacity="0"/></linearGradient></defs>'
+    + '<path d="M-6 -28 L-2.5 -21 L-1 -33 L1.6 -23 L4.5 -31 L5 -21 L8.5 -25 L8.6 -15 Q2 -12 -5.4 -15 Z" fill="url(#neyTip)"/>'
+    + '<path d="M-8 -21 L-6.4 -17.8 L-8.6 -16 Z M12 -18 L10.6 -15 L9.4 -16.6 Z" fill="' + (o.hl || '#e6c78e') + '" opacity=".75"/>'
+    + '<path d="M-3 -17 L-1 -26 M1.5 -16 L3.6 -25 M5 -16 L7 -22 M-5 -14 L-4 -20 M-10 -9 L-9 -13 M10 -8 L11 -12" stroke="' + (o.hl || '#e6c78e') + '" stroke-width=".45" opacity=".55"/>'
+    + '<path d="M-1 -12 L0 -18 M3 -11 L4.6 -16 M-6 -10 L-5.4 -14" stroke="#000" stroke-width=".45" opacity=".2"/>';
   if (o.hair === 'curly') f += '<path d="M-16 6 Q-16 -10 0 -12 Q16 -10 16 6 Q12 -4 0 -5 Q-12 -4 -16 6 Z" fill="' + hc + '"/>' + [-11,-6,-1,4,9,13].map((x, i) => '<circle cx="' + x + '" cy="' + (-13 - (i % 2)*3) + '" r="4.2" fill="' + hc + '"/>').join('');
   if (o.hair === 'quiff') f += '<path d="M-16 6 Q-17 -12 -6 -16 Q2 -26 14 -20 Q18 -14 16 6 Q13 -5 4 -8 Q-8 -6 -16 6 Z" fill="' + hc + '"/><path d="M-16 6 Q-16 -2 -14 -6 M16 6 Q16 -2 14 -6" stroke="' + hc + '" stroke-width="2" opacity=".5"/>';
   if (o.hair === 'bald') f += '<ellipse cx="-6" cy="-9" rx="7" ry="3.6" fill="#fff" opacity=".22" transform="rotate(-18 -6 -9)"/>';
