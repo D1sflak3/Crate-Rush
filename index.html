@@ -3224,9 +3224,28 @@ body.dz-open .toast{z-index:95}
 .pr-flash circle{opacity:0}
 .gtc .pr-flash circle{animation:sfFlash 1.4s var(--d) steps(1) infinite}
 /* 1 */
-.pr-cone,.pr-disc,.pr-sil{opacity:0}
-.gtc.spot .pr-cone,.gtc.spot .pr-disc,.gtc.spot .pr-sil{opacity:1}
-.gtc.rimon .pr-sil{filter:drop-shadow(0 0 2px #ffe680) drop-shadow(0 0 10px rgba(255,210,63,.8));transition:filter .8s}
+.pr-cone,.pr-sil{opacity:0}
+.pr-sil{filter:brightness(0)}
+.gtc.spot .pr-cone,.gtc.spot .pr-sil{opacity:1}
+.gtc.t2 .pr-sil{filter:none;transition:filter .5s}
+.pr-wink,.pr-spark{opacity:0}
+.gtc.rimon .pr-wink{animation:prWink 1.6s steps(1) forwards}
+@keyframes prWink{0%{opacity:1}35%{opacity:0}}
+.pr-spark{transform-box:fill-box;transform-origin:center}
+.gtc.rimon .pr-spark{animation:prSpk .8s ease-out}
+@keyframes prSpk{0%{opacity:0;transform:scale(.2) rotate(0)}40%{opacity:1;transform:scale(1.4) rotate(90deg)}100%{opacity:0;transform:scale(.6) rotate(180deg)}}
+.pr-mir{transform-origin:270px 200px}
+.gtc[data-s="n2"] .pr-mir,.gtc[data-s="n2"] .pr-kid2{animation:prPoseA 1.8s ease-in-out infinite alternate}
+@keyframes prPoseA{to{transform:translateY(-4px) rotate(-2deg)}}
+.pr-cards g{opacity:0;transform:translateX(-20px)}
+.gtc.c2b .pr-cards g{opacity:1;transform:none;transition:all .35s calc(var(--i)*.3s) cubic-bezier(.2,1.6,.4,1)}
+.pr-npc{filter:saturate(.25) brightness(.8)}
+.pr-mates .pr-npc{animation:prNpc .45s var(--d) ease-in-out infinite alternate}
+@keyframes prNpc{to{transform:translateY(-6px)}}
+.pr-bowing .pr-npc{animation:prBowN 1.4s var(--d) ease-in-out infinite alternate}
+@keyframes prBowN{to{transform:translateY(6px)}}
+.pr-3 .pr-mates,.pr-6 .pr-mates,.pr-8 .pr-mates{opacity:0}
+.gtc.bow .pr-3 .pr-mates,.gtc.g1 .pr-6 .pr-mates,.gtc.last .pr-8 .pr-mates{opacity:1;transition:opacity .6s .3s}
 .pr-title{position:absolute;left:6vw;bottom:14vh;z-index:3;display:grid;justify-items:start;gap:8px;text-align:left;max-width:52vw}
 .pr-title small{font:700 12px var(--body);letter-spacing:.34em;text-transform:uppercase;color:#ffdf00;opacity:0}
 .pr-title p{margin:0;font:600 clamp(22px,3.8vw,38px)/1 var(--display);color:#d8d8e8;opacity:0;transform:translateY(10px)}
@@ -11285,6 +11304,9 @@ function princeCinematic(r){
     const go = n => { ov.dataset.s = n; }, add = c => ov.classList.add(c);
     const NEY = extra => bdoP('neymar', extra || {});
     const YOU = extra => Object.assign({skin:'#c9a07a', shade:'rgba(90,40,20,.18)', head:'round', hair:'buzz', hc:'#3a2a1c', brow:'flat', iris:'#3a2416', shirt:'#6a6f7a', trim:'#4a4f58', num:'YOU', numc:'#e8ebf0', mouth:'open'}, extra || {});
+    const NPCF = [['#c9a07a', 'buzz', '#2a1a10'], ['#8a5a3a', 'short', '#14100c'], ['#e0b08a', 'part', '#6a4a2a'], ['#a8754f', 'buzz', '#14100c'], ['#d9a37c', 'fade', '#3a2a1c']];
+    const npc = (x, y, sc, shirt, i, extra) => { const [sk, hair, hc] = NPCF[i % NPCF.length]; return '<g class="pr-npc" style="--d:-' + (i * .13).toFixed(2) + 's"><g transform="translate(' + x + ' ' + y + ') scale(' + sc + ')">' + bdoMan(0, 0, 1, Object.assign({skin:sk, shade:'rgba(90,40,20,.18)', head:i % 2 ? 'round' : 'oval', hair, hc, hl:'#8a7a5a', brow:'flat', iris:'#3a2416', shirt, trim:'#ddd', mouth:i % 2 ? 'open' : 'smile', arm:'up'}, extra || {})) + '</g>'
+      + '<g transform="translate(' + x + ' ' + (y - 34 * sc) + ')"><rect x="-13" y="-7" width="26" height="12" rx="6" fill="#2a2a32" stroke="#6a6a72" stroke-width=".8"/><text y="2.6" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="9" letter-spacing="1" fill="#9a9aa6">NPC</text></g></g>'; };
     const silhouette = (x, y, s, kit) => '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')">' + princePose(kit) + '</g>';
     const crowd = (n, y0, y1, cols) => { let s = ''; for (let i = 0; i < n; i++) s += '<rect class="' + (i % 6 ? '' : 'gt-bulb') + '" x="' + f1(R() * 400) + '" y="' + f1(y0 + R() * (y1 - y0)) + '" width="1.8" height="1.8" fill="' + cols[i % cols.length] + '" opacity=".6"/>'; return s; };
     const flashes = n => '<g class="pr-flash">' + Array.from({length: n}, () => '<circle style="--d:' + f1(R() * 1.8) + 's" cx="' + f1(R() * 400) + '" cy="' + f1(30 + R() * 90) + '" r="' + f1(1.4 + R() * 2.6) + '" fill="#fff"/>').join('') + '</g>';
@@ -11298,24 +11320,26 @@ function princeCinematic(r){
     const ball = cls => '<g class="' + cls + '"><circle r="7" fill="#f4f6fa" stroke="#111" stroke-width=".9"/><path d="M0 -3.3 L3.1 -1 L1.9 2.7 H-1.9 L-3.1 -1 Z" fill="#111"/></g>';
     /* 1. a spotlight */
     const s1 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + DEFS + '<rect width="400" height="260" fill="#030205"/>' + flashes(26)
-      + '<path class="pr-cone" d="M256 0 H304 L380 250 H180 Z" fill="url(#prSp)"/><ellipse class="pr-disc" cx="280" cy="244" rx="96" ry="12" fill="#ffd23f" opacity=".25"/>'
-      + '<g class="pr-sil">' + silhouette(280, 246, .84, {shirt:'#050505', skin:'#050505', sock:'#050505', shorts:'#050505', boot:'#050505', hair:'#050505'}) + '</g></svg>';
-    /* 2. the street */
-    let s2 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + DEFS + '<rect width="400" height="260" fill="#07060d"/>';
-    for (let x = 0; x < 400; x += 10) s2 += '<path d="M' + x + ' 30 L' + (x + 10) + ' 40 M' + (x + 10) + ' 30 L' + x + ' 40" stroke="#1c1a2a" stroke-width=".8"/>';
-    s2 += '<path d="M0 30 H400 M0 140 H400" stroke="#2a2840"/>';
-    for (let y = 40; y < 140; y += 10) for (let x = 0; x < 400; x += 10) s2 += '<path d="M' + x + ' ' + y + ' L' + (x + 10) + ' ' + (y + 10) + ' M' + (x + 10) + ' ' + y + ' L' + x + ' ' + (y + 10) + '" stroke="#16141f" stroke-width=".6"/>';
-    s2 += '<text class="pr-neon" x="300" y="64" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="24" fill="none" stroke="#ff3ea5" stroke-width="1.6">FUTEBOL</text>'
-      + '<rect y="140" width="400" height="120" fill="#22355a"/><path d="M40 260 L120 160 H280 L360 260" stroke="#e8f0ff" stroke-opacity=".4" fill="none"/><circle cx="200" cy="200" r="26" fill="none" stroke="#e8f0ff" stroke-opacity=".3"/>'
-      + '<path d="M60 0 V120" stroke="#2a2a3a" stroke-width="3"/><path d="M60 4 Q74 2 80 12" stroke="#2a2a3a" stroke-width="3" fill="none"/><path d="M80 12 L40 160 H140 Z" fill="url(#prGl)" opacity=".35"/>'
-      + [40, 80, 320, 356].map((x, i) => '<g><circle cx="' + x + '" cy="' + (150 - (i % 2) * 6) + '" r="6" fill="#0a0a12"/><path d="M' + (x - 8) + ' ' + (178 - (i % 2) * 6) + ' Q' + x + ' ' + (154 - (i % 2) * 6) + ' ' + (x + 8) + ' ' + (178 - (i % 2) * 6) + ' Z" fill="#0a0a12"/></g>').join('')
-      + '<g class="pr-kid"><g transform="translate(200 236) scale(.5)">' + princePose({shirt:'#ffdf00', shorts:'#002776', sock:'#ffffff', boot:'#111'}).replace(/<path d="M-28 -168 L-37 -183"[\s\S]*$/, '') + '</g></g>'
-      + ball('pr-jball') + '</svg>';
+      + '<path class="pr-cone" d="M256 0 H304 L380 260 H180 Z" fill="url(#prSp)"/>'
+      + '<g class="pr-sil"><g transform="translate(282 112) scale(1.45)">' + bdoMan(0, 0, 1, NEY({shirt:'#ffdf00', trim:'#009c3b', num:'10', numc:'#002776', chain:true})) + '</g>'
+      + '<g class="pr-wink"><path d="M286 126 Q292 121 298 126" stroke="#2a1810" stroke-width="2" fill="none"/><rect x="286.4" y="123" width="12" height="6" fill="#a8714a"/><path d="M286 126.5 Q292 130 298 126.5" stroke="#2a1810" stroke-width="2" fill="none"/></g>'
+      + '<g class="pr-spark"><path d="M308 96 l3 -9 l3 9 l9 3 l-9 3 l-3 9 l-3 -9 l-9 -3 Z" fill="#fff"/></g></g></svg>';
+    /* 2. a bedroom and a mirror */
+    let s2 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + DEFS + '<rect width="400" height="260" fill="#14101e"/>'
+      + Array.from({length: 7}, (_, i) => '<rect x="' + (i * 60 - 4) + '" y="0" width="30" height="200" fill="#191426"/>').join('')
+      + [[372, 40, 6, '#ffdf00'], [372, 120, -4, '#009c3b']].map(([x, y, r, c]) => '<g transform="rotate(' + r + ' ' + x + ' ' + (y + 36) + ')"><rect x="' + (x - 22) + '" y="' + y + '" width="44" height="62" fill="' + c + '" stroke="#f4f6fa" stroke-width="2"/><circle cx="' + x + '" cy="' + (y + 24) + '" r="11" fill="#fff" opacity=".85"/><path d="M' + (x - 5) + ' ' + (y + 24) + ' L' + x + ' ' + (y + 19) + ' L' + (x + 5) + ' ' + (y + 24) + ' L' + x + ' ' + (y + 29) + ' Z" fill="#111"/><text x="' + x + '" y="' + (y + 54) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="9" fill="#fff">CRAQUE</text></g>').join('')
+      + '<rect y="200" width="400" height="60" fill="#2a2030"/><path d="M0 200 H400" stroke="#3a2a40" stroke-width="2"/>'
+      + '<rect x="196" y="34" width="150" height="190" rx="70" fill="#0a0812" stroke="url(#prGd)" stroke-width="5"/><rect x="202" y="40" width="138" height="178" rx="64" fill="#1c2236"/>'
+      + '<path d="M214 60 L232 44 M224 70 L250 46" stroke="#fff" stroke-opacity=".2" stroke-width="4"/>'
+      + '<g class="pr-mir"><g transform="translate(270 112) scale(-.98 .98)">' + bdoMan(0, 0, 1, NEY({shirt:'#ffdf00', trim:'#009c3b', num:'10', numc:'#002776', beard:null, stud:false, hl:'#2a1a10', mouth:'grin', arm:'up'})) + '</g></g>'
+      + '<g class="pr-kid2"><g transform="translate(120 132) scale(1.05)">' + bdoMan(0, 0, 1, NEY({shirt:'#ffdf00', trim:'#009c3b', num:'10', numc:'#002776', beard:null, stud:false, hl:'#2a1a10', mouth:'grin', arm:'up'})) + '</g></g>'
+      + '<g class="pr-cards">' + ['10/10', 'PERFECT', 'AGAIN'].map((t, i) => '<g style="--i:' + i + '"><rect x="' + (20 + i * 58) + '" y="' + (22 + (i % 2) * 8) + '" width="54" height="22" rx="4" fill="#fff" transform="rotate(' + (i - 1) * 5 + ' ' + (47 + i * 58) + ' 33)"/><text x="' + (47 + i * 58) + '" y="' + (37 + (i % 2) * 8) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" fill="#111" transform="rotate(' + (i - 1) * 5 + ' ' + (47 + i * 58) + ' 33)">' + t + '</text></g>').join('') + '</g></svg>';
     /* 3. Vila Belmiro: the bow */
     let s3 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + DEFS + '<rect width="400" height="260" fill="#04050a"/>' + lamps + crowd(320, 30, 132, ['#f4f6fa', '#111', '#c9d2de', '#ffd23f'])
       + '<rect x="0" y="132" width="400" height="14" fill="#f4f6fa"/><text x="200" y="143" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="12" letter-spacing="8" fill="#111">SANTOS · VILA BELMIRO</text>'
       + '<rect y="146" width="400" height="114" fill="#1a6a32"/>' + [0, 1, 2].map(i => '<rect y="' + (146 + i * 40) + '" width="400" height="20" fill="#1e7a3a"/>').join('')
       + '<path d="M120 0 H280 L330 260 H70 Z" fill="url(#prSp)" opacity=".9"/>' + flashes(30)
+      + '<g class="pr-mates">' + [[70, 168, .8], [350, 172, .78], [118, 182, .72], [306, 186, .7]].map(([x, y, sc], i) => npc(x, y, sc, '#ffffff', i, {trim:'#111'})).join('') + '</g>'
       + '<g class="pr-bow">' + silhouette(214, 256, .98, {shirt:'#ffffff', shorts:'#ffffff', sock:'#ffffff', boot:'#ff8a5a', crest:true, num:'11', numc:'#111'}) + '</g>'
       + '<g class="pr-puskas"><rect x="20" y="40" width="120" height="44" rx="4" fill="#0a0a12" stroke="url(#prGd)" stroke-width="2"/><text x="80" y="58" text-anchor="middle" font-family="Teko, sans-serif" font-size="10" letter-spacing="3" fill="#ffd23f">FIFA PUSKÁS AWARD</text><text x="80" y="78" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="20" fill="#fff">2011</text></g></svg>';
     /* 4a. the nutmeg: your legs, the ball goes through them */
@@ -11343,10 +11367,12 @@ function princeCinematic(r){
     /* 6. the Remontada */
     const s6 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + DEFS + '<rect width="400" height="260" fill="#05040c"/>' + lamps + crowd(360, 30, 150, ['#a50044', '#004d98', '#ffd23f', '#fff'])
       + '<rect y="150" width="400" height="110" fill="#14532a"/><path d="M100 0 H300 L360 260 H40 Z" fill="url(#prSp)" opacity=".5"/>'
+      + '<g class="pr-mates">' + [[60, 170, .9], [140, 178, .86], [208, 172, .82], [380, 176, .84]].map(([x, y, sc], i) => npc(x, y, sc, 'barca', i + 1)).join('') + '</g>'
       + '<g class="pr-rem"><g transform="translate(300 142) scale(1.15)">' + bdoMan(0, 0, 1, NEY({shirt:'barca', num:'11', numc:'#ffd23f', trim:'#ffd23f', arm:'up'})) + '</g></g></svg>';
     /* 8. the Maracanã */
     const s8 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + DEFS + '<rect width="400" height="260" fill="#04060a"/>' + lamps + crowd(340, 30, 140, ['#ffdf00', '#009c3b', '#002776', '#fff'])
       + '<rect y="140" width="400" height="120" fill="#14532a"/>'
+      + '<g class="pr-mates">' + [[70, 150, .85], [130, 160, .8], [272, 160, .8], [334, 150, .85]].map(([x, y, sc], i) => npc(x, y, sc, '#ffdf00', i + 2, {trim:'#009c3b'})).join('') + '</g>'
       + '<g class="pr-oly"><g transform="translate(200 120) scale(1.2)">' + bdoMan(0, 0, 1, NEY({shirt:'#ffdf00', trim:'#009c3b', num:'10', numc:'#002776', tears:true, mouth:'grin'})) + '</g>'
       + '<g class="pr-medal"><path d="M186 160 L200 196 L214 160" stroke="#009c3b" stroke-width="5" fill="none"/><circle cx="200" cy="204" r="12" fill="url(#prGd)" stroke="#6a4300"/><text x="200" y="208" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="9" fill="#6a4300">2016</text></g></g></svg>';
     /* 9. his shadow, and you in it */
@@ -11354,13 +11380,14 @@ function princeCinematic(r){
       + Array.from({length: 70}, () => '<rect class="pr-phone" style="--d:' + f1(R() * 2) + 's" x="' + f1(R() * 400) + '" y="' + f1(40 + R() * 110) + '" width="3" height="5" rx=".6" fill="#cfe4ff"/>').join('')
       + '<path d="M168 0 H232 L300 186 H100 Z" fill="url(#prSp)"/><ellipse cx="200" cy="186" rx="70" ry="9" fill="url(#prGd)"/><rect x="138" y="186" width="124" height="14" fill="#3a2a0a"/><path d="M138 186 H262" stroke="url(#prGd)" stroke-width="2"/>'
       + '<path class="pr-shadow" d="M150 200 L250 200 L330 260 L70 260 Z" fill="#000" opacity=".85"/>'
-      + '<g class="pr-king">' + silhouette(206, 186, .66, {shirt:'#ffdf00', shorts:'#002776', sock:'#ffffff', boot:'#ff8a5a', num:'10', numc:'#002776'}) + '<path d="M188 52 L188 40 L194 46 L200 36 L206 46 L212 40 L212 52 Z" fill="url(#prGd)" transform="translate(4 8)"/></g>'
+      + '<g class="pr-king"><g transform="translate(200 92) scale(1.0)">' + bdoMan(0, 0, 1, NEY({shirt:'#ffdf00', trim:'#009c3b', num:'10', numc:'#002776', chain:true, arm:'up'})) + '<path d="M-15 -18 L-15 -30 L-8 -23 L0 -34 L8 -23 L15 -30 L15 -18 Z" fill="url(#prGd)" stroke="#6a4300" stroke-width=".8"/></g></g>'
+      + '<g class="pr-mates pr-bowing">' + [[40, 222, .5], [96, 230, .5], [304, 230, .5], [360, 222, .5]].map(([x, y, sc], i) => npc(x, y, sc, '#6a6f7a', i, {arm:null, mouth:'smile'})).join('') + '</g>'
       + '<g class="pr-tiny"><circle cx="200" cy="232" r="4" fill="#4a4f5a"/><path d="M195 248 Q200 234 205 248 Z" fill="#4a4f5a"/><text x="200" y="256" text-anchor="middle" font-family="Teko, sans-serif" font-size="6" letter-spacing="1" fill="#6a6f7a">YOU</text></g></svg>';
     const title = 'THE PRINCE'.split('').map((ch, i) => '<span style="--i:' + i + '">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>').join('');
     const COMMENTS = ['💀💀💀', 'bro got cooked', 'NEY IS DIFFERENT 🔥', 'who is the defender lmao', 'replay x100', 'he needs to retire', 'ankles: gone', 'OLÉ OLÉ OLÉ'];
     ov.innerHTML = '<canvas class="gt-cv"></canvas><div class="pr-flashbang"></div>'
       + '<section class="gt-s pr-1">' + s1 + '<div class="pr-title"><small>Mogi das Cruzes, Brazil · 1992</small><p>Some people play football.</p><b>He performs it.</b></div></section>'
-      + '<section class="gt-s pr-2">' + s2 + '<div class="gt-cap pr-cap"><small>Street football · São Paulo state</small><p>He never played to win.</p><p class="pr-p2">He played to be watched.</p></div></section>'
+      + '<section class="gt-s pr-2">' + s2 + '<div class="gt-cap pr-cap"><small>Before the stadiums</small><p>Some kids dream of scoring.</p><p class="pr-p2">He dreamed of the cameras.</p></div></section>'
       + '<section class="gt-s pr-3">' + s3 + '<div class="gt-cap pr-cap"><small>Santos · Vila Belmiro</small><p>The goal was never the point.</p><p class="pr-p2">This was.</p></div></section>'
       + '<section class="gt-s pr-4a">' + s4a + '<div class="pr-trick"><b>CANETA.</b><span>a nutmeg. through your legs.</span></div><div class="pr-ole">OLÉ!</div></section>'
       + '<section class="gt-s pr-4b">' + s4b + '<div class="pr-trick"><b>LAMBRETA.</b><span>the rainbow flick. over your head.</span></div><div class="pr-ole">OLÉ!</div></section>'
@@ -11371,7 +11398,7 @@ function princeCinematic(r){
         + '<div class="pr-comments">' + COMMENTS.map((c, i) => '<span style="--i:' + i + ';--x:' + (i % 2 ? 1 : -1) + '">' + c + '</span>').join('') + '</div>'
         + '<div class="gt-cap c pr-cap"><p>You went viral.</p><p class="pr-p2">Not for the right reasons.</p></div></section>'
       + '<section class="gt-s pr-6">' + s6 + '<div class="pr-board"><small>CAMP NOU · 8 MARCH 2017</small><div class="pr-score"><span>BARÇA</span><b id="prSc">3 – 1</b><span>PSG</span></div><div class="pr-min" id="prMin">87’</div><div class="pr-ev" id="prEv"></div></div>'
-        + '<div class="gt-cap pr-cap"><p>Three goals in the last eight minutes.</p><p class="pr-p2">He was in all of them.</p></div></section>'
+        + '<div class="gt-cap pr-cap"><p>Three goals in the last eight minutes.</p><p class="pr-p2">He was in all of them. The rest were extras.</p></div></section>'
       + '<section class="gt-s pr-7"><div class="pr-money"><small>BARCELONA → PARIS · 2017</small><b>€<span id="prEur">0</span></b><p>Still the most expensive transfer in history.</p></div><div class="pr-suit"><svg viewBox="-60 -40 120 140">' + bdoMan(0, 0, 1, NEY({suit:true, chain:true, mouth:'grin'})) + '</svg></div></section>'
       + '<section class="gt-s pr-8">' + s8 + '<div class="pr-pens"><div><span>BRA</span>' + '<i class="ok"></i>'.repeat(4) + '<i class="last"></i></div><div><span>GER</span>' + '<i class="ok"></i>'.repeat(4) + '<i class="miss"></i></div></div>'
         + '<div class="gt-cap pr-cap"><small>Maracanã · 20 August 2016 · Olympic final</small><p>The last penalty. For gold.</p><p class="pr-p2">Of course it was him.</p></div></section>'
@@ -11415,24 +11442,29 @@ function princeCinematic(r){
     ov.onclick = e => { if (e.target.closest('.gt-skip') || ov.classList.contains('ready')) finish(); };
     cine = {skip: finish}; musSync(); ac();
 
-    /* sound: an original samba-funk groove that never stops showing off */
+    /* sound: an original baile-funk banger at 140 bpm, an 808 that slides, airhorns, and a stadium that never shuts up */
     const flash = () => { const f = ov.querySelector('.pr-flashbang'); if (f) restart(f, 'on'); };
-    const cheer = (v, d) => { noise(d || 2.4, 1400, 500, v, 'bandpass'); noise((d || 2.4) * .8, 2600, 1200, v * .6, 'bandpass'); };
+    const cheer = (v, d) => { noise(d || 2.4, 1400, 500, v, 'bandpass'); noise((d || 2.4) * .8, 2600, 1200, v * .6, 'bandpass'); noise((d || 2.4) * .6, 600, 300, v * .5, 'bandpass'); };
     const stab = (fs, v, at) => fs.forEach(f => { tone(f, .22, 'sawtooth', v || .02, at); tone(f * 2, .18, 'square', (v || .02) * .4, at); });
     const shutter = () => { noise(.04, 5000, 3000, .08, 'highpass'); tone(2400, .02, 'square', .02); };
-    const PROG = [[164.81, 207.65, 246.94], [138.59, 164.81, 207.65], [110, 138.59, 164.81], [123.47, 155.56, 185]], BASS = [41.2, 34.65, 55, 61.74];
-    let step = 0, groove = 0;
+    const horn = at => [[0, .22], [.28, .22], [.56, .7]].forEach(([d, l]) => { tone(466, l, 'sawtooth', .14, (at || 0) + d); tone(470, l, 'square', .07, (at || 0) + d); tone(233, l, 'sawtooth', .09, (at || 0) + d); });
+    const BASS = [41.2, 41.2, 49, 36.71], HOOK = [659.25, 0, 587.33, 659.25, 0, 783.99, 659.25, 0, 587.33, 493.88, 0, 587.33, 0, 493.88, 440, 0];
+    let step = 0, groove = 0, crowdV = .03;
     const seq = setInterval(() => {
       const s16 = step % 16, bar = Math.floor(step / 16) % 4; step++;
       if (done || !groove) return;
       const v = groove;
-      if (s16 === 4 || s16 === 12) tone(58, .3, 'sine', .3 * v); else if (s16 === 0 || s16 === 8) tone(66, .22, 'sine', .16 * v);
-      if ([0, 3, 6, 8, 10, 13, 14].includes(s16)) noise(.03, 3200, 2000, .05 * v, 'bandpass');
-      noise(.02, 8000, 6000, (s16 % 2 ? .012 : .02) * v, 'highpass');
-      if ([0, 3, 8, 11].includes(s16)) tone(BASS[bar] * 2, .2, 'triangle', .07 * v);
-      if (groove > .5 && (s16 === 0 || s16 === 6 || s16 === 10)) stab(PROG[bar], .016 * v);
-    }, 125);
+      if ([0, 3, 8, 11, 14].includes(s16)) { sweep(150, 42, .2, 'sine', (s16 % 8 === 0 ? .55 : .35) * v); }
+      if (s16 === 4 || s16 === 12) { noise(.14, 1800, 1100, .16 * v, 'bandpass'); noise(.08, 6000, 4000, .08 * v, 'highpass'); }
+      if ([7, 10, 15].includes(s16)) noise(.04, 2600, 2000, .07 * v, 'bandpass');
+      noise(.02, 9000, 7000, (s16 % 2 ? .02 : .035) * v, 'highpass');
+      if (s16 === 6 || s16 === 14) noise(.12, 8000, 6000, .03 * v, 'highpass');
+      if (s16 === 0 || s16 === 10) { const r = BASS[bar]; tone(r, .5, 'sawtooth', .07 * v); sweep(r * 2, r, .45, 'sine', .22 * v); }
+      if (groove > .7) { const f = HOOK[s16]; if (f) { tone(f, .1, 'square', .022 * v); tone(f * 2, .08, 'sawtooth', .008 * v); } }
+    }, 107);
     timers.push(seq);
+    const crowdBed = setInterval(() => { if (done || crowdV <= 0) return; noise(1.4, 900 + Rr() * 400, 500, crowdV, 'bandpass'); noise(1.2, 2200, 1200, crowdV * .5, 'bandpass'); if (Rr() < .25) noise(.4, 3000, 2000, crowdV * .8, 'bandpass'); }, 600);
+    timers.push(crowdBed);
     const run = (at, notes, gap) => notes.forEach((f, i) => T(at + i * (gap || 70), () => { tone(f, .14, 'triangle', .04); tone(f * 2, .1, 'sine', .015); }));
     const UP = [659.25, 739.99, 830.61, 987.77, 1108.73, 1318.51];
 
@@ -11443,29 +11475,29 @@ function princeCinematic(r){
     T(3200, () => { add('t2'); groove = .4; run(0, UP); });
     T(4600, () => add('rimon'));
     // 2. the street
-    T(6600, () => { go('n2'); groove = .6; });
+    T(6600, () => { go('n2'); groove = .6; crowdV = 0; });
     T(7300, () => add('c2'));
     T(9300, () => add('c2b'));
     // 3. the bow at Vila Belmiro
-    T(12600, () => { go('n3'); groove = 0; cheer(.06, 3); });
-    T(13400, () => { add('bow'); boom(); flash(); cheer(.18, 4); for (let i = 0; i < 24; i++) setTimeout(() => { if (!done) shutter(); }, i * 90 + Rr() * 60); burst(80, W * .55, H * .4); });
+    T(12600, () => { go('n3'); groove = 0; crowdV = .05; cheer(.08, 3); });
+    T(13400, () => { add('bow'); boom(); flash(); cheer(.22, 4); horn(.1); crowdV = .09; for (let i = 0; i < 24; i++) setTimeout(() => { if (!done) shutter(); }, i * 90 + Rr() * 60); burst(80, W * .55, H * .4); });
     T(14400, () => { groove = 1; add('c3'); });
     T(16200, () => { add('pusk'); stab([329.63, 415.3, 493.88], .03); });
     T(18000, () => add('c3b'));
     // 4. three tricks, done to you
     T(21200, () => { go('n4a'); groove = .5; });
     T(21800, () => { add('nut'); sweep(900, 300, .5, 'sine', .04); });
-    T(22600, () => { add('trk'); boom(); cheer(.14, 2); });
+    T(22600, () => { add('trk'); boom(); cheer(.18, 2); crowdV = .08; });
     T(23200, () => add('ole'));
     T(25700, () => { go('n4b'); ov.classList.remove('trk', 'ole'); });
     T(26200, () => { add('flick'); sweep(300, 1400, .9, 'sine', .05); });
-    T(27200, () => { add('trk'); boom(); cheer(.14, 2); });
+    T(27200, () => { add('trk'); boom(); cheer(.18, 2); horn(); });
     T(27800, () => add('ole'));
     T(30200, () => { go('n4c'); ov.classList.remove('trk', 'ole'); });
     T(30500, () => add('steps'));
     for (let i = 0; i < 8; i++) T(30500 + i * 260, () => tone(i % 2 ? 330 : 247, .08, 'square', .03));
     T(32700, () => { add('fallen'); noise(.5, 400, 100, .14, 'lowpass'); tone(80, .4, 'sine', .25); });
-    T(33100, () => { add('trk'); cheer(.16, 2.4); });
+    T(33100, () => { add('trk'); cheer(.22, 2.4); horn(); });
     T(33600, () => add('ole'));
     // 5. you, viral
     T(35000, () => { go('n5'); groove = .7; });
@@ -11481,7 +11513,7 @@ function princeCinematic(r){
     const sc = (score, min, ev) => { const a = $('#prSc'), b = $('#prMin'), c = $('#prEv'); if (a) a.textContent = score; if (b) b.textContent = min; if (c) { c.textContent = ev; restart(c, 'pop'); } };
     T(42600, () => { sc('4 – 1', '88’', 'FREE KICK · NEYMAR'); add('g1'); boom(); cheer(.18, 2.4); burst(60, W * .5, H * .3); });
     T(44400, () => { sc('5 – 1', '90+1’', 'PENALTY · NEYMAR'); boom(); cheer(.2, 2.4); burst(80, W * .5, H * .3); });
-    T(46200, () => { sc('6 – 1', '90+5’', 'ASSIST · NEYMAR'); add('g3'); boom(); boom(); cheer(.26, 4); groove = 1; confetti = 3; PAL = ['#a50044', '#004d98', '#ffd23f', '#ffffff']; [.2, .5, .8].forEach((x, i) => setTimeout(() => { if (!done) burst(70, W * x, H * .25); }, i * 250)); });
+    T(46200, () => { sc('6 – 1', '90+5’', 'ASSIST · NEYMAR'); add('g3'); boom(); boom(); cheer(.3, 4); horn(.2); crowdV = .12; groove = 1; confetti = 3; PAL = ['#a50044', '#004d98', '#ffd23f', '#ffffff']; [.2, .5, .8].forEach((x, i) => setTimeout(() => { if (!done) burst(70, W * x, H * .25); }, i * 250)); });
     T(47200, () => add('c6'));
     T(48400, () => add('c6b'));
     // 7. 222 million
@@ -11493,23 +11525,23 @@ function princeCinematic(r){
     });
     T(53800, () => add('money2'));
     // 8. the Maracanã
-    T(56200, () => { go('n8'); coins = 0; parts = []; groove = 0; noise(4, 700, 300, .03, 'bandpass'); });
+    T(56200, () => { go('n8'); coins = 0; parts = []; groove = 0; crowdV = .02; noise(4, 700, 300, .03, 'bandpass'); });
     [56800, 57500, 58100].forEach((d, i) => T(d, () => { tone(52, .28, 'sine', .25 + i * .05); tone(46, .3, 'sine', .2, .2); }));
     T(57400, () => add('miss'));
-    T(58800, () => { add('last'); boom(); flash(); cheer(.28, 4.4); PAL = ['#ffdf00', '#009c3b', '#2a6aff', '#ffffff']; confetti = 3; groove = 1; [.3, .7].forEach((x, i) => setTimeout(() => { if (!done) burst(80, W * x, H * .3); }, i * 300)); });
+    T(58800, () => { add('last'); boom(); flash(); cheer(.32, 4.4); horn(.2); crowdV = .12; PAL = ['#ffdf00', '#009c3b', '#2a6aff', '#ffffff']; confetti = 3; groove = 1; [.3, .7].forEach((x, i) => setTimeout(() => { if (!done) burst(80, W * x, H * .3); }, i * 300)); });
     T(59400, () => add('c8'));
     T(60800, () => add('c8b'));
     // 9. the shadow
     T(63600, () => { go('n9'); confetti = 0; parts = []; groove = .8; });
-    T(64200, () => { add('lit'); boom(); flash(); });
+    T(64200, () => { add('lit'); boom(); flash(); crowdV = .1; horn(.1); });
     [65000, 65700, 66400, 67100, 67800, 68500].forEach((d, i) => T(d, () => { add('ch' + (i % 3)); noise(.3, 1200, 600, .12, 'bandpass'); tone(196, .25, 'sawtooth', .03); }));
     T(65400, () => add('stretch'));
     T(67400, () => add('c9'));
     T(69000, () => add('c9b'));
     // 10. The Prince
-    T(71800, () => { go('n10'); groove = 0; parts = []; tone(55, 1, 'sine', .3); sweep(120, 900, 1.4, 'sine', .04); });
+    T(71800, () => { go('n10'); groove = 0; parts = []; crowdV = .02; tone(55, 1, 'sine', .3); sweep(120, 900, 1.4, 'sine', .04); });
     T(72600, () => {
-      add('pland'); boom(); flash(); cheer(.14, 3); groove = 1;
+      add('pland'); boom(); flash(); cheer(.24, 3); horn(.15); crowdV = .1; groove = 1;
       stab([329.63, 415.3, 493.88], .03); setTimeout(() => { if (!done) stab([369.99, 466.16, 554.37], .03); }, 400); setTimeout(() => { if (!done) { stab([415.3, 493.88, 659.25], .04); run(0, UP.concat([1661.22, 1975.53]), 60); } }, 800);
       PAL = ['#ffdf00', '#009c3b', '#2a6aff', '#ffffff', '#ffd23f']; confetti = 4; setTimeout(() => { confetti = 1; }, 3000);
       [.2, .8, .35, .65, .5].forEach((x, i) => setTimeout(() => { if (!done) burst(70, W * x, H * (.15 + (i % 2) * .12)); }, 300 + i * 420));
@@ -11829,16 +11861,18 @@ function bdoFace(o){
   const mbH = o.head === 'mbappe', ex = mbH ? 18.6 : 16.5;
   f += '<ellipse cx="-' + ex + '" cy="14" rx="' + (mbH ? 4.4 : 3.6) + '" ry="' + (mbH ? 6.2 : 5.4) + '" fill="' + sk + '"/><ellipse cx="' + ex + '" cy="14" rx="' + (mbH ? 4.4 : 3.6) + '" ry="' + (mbH ? 6.2 : 5.4) + '" fill="' + sk + '"/>'
     + '<path d="M-' + (ex + .5) + ' 11 Q-' + (ex - 1.5) + ' 14 -' + (ex + .5) + ' 17 M' + (ex + .5) + ' 11 Q' + (ex - 1.5) + ' 14 ' + (ex + .5) + ' 17" stroke="' + sh + '" stroke-width="1.2" fill="none"/>';
-  if (o.stud) f += '<circle cx="-16.5" cy="19.2" r="1.3" fill="#fff" stroke="#bbb" stroke-width=".4"/>';
+  if (o.stud) f += '<circle cx="-16.5" cy="19.2" r="1.3" fill="#fff" stroke="#bbb" stroke-width=".4"/>' + (o.head === 'ney' ? '<circle cx="16.5" cy="19.2" r="1.3" fill="#fff" stroke="#bbb" stroke-width=".4"/><circle cx="-16.9" cy="18.8" r=".45" fill="#fff"/>' : '');
   // head
- const crH = o.head === 'cr7';
-  const jaw = crH ? 'M-16.5 6 Q-17 -16 0 -17 Q17 -16 16.5 6 Q16.8 16 14 24 L8.5 34 Q4.5 39.5 0 39.5 Q-4.5 39.5 -8.5 34 L-14 24 Q-16.8 16 -16.5 6 Z'
+ const crH = o.head === 'cr7', nyH = o.head === 'ney';
+ const jaw = nyH ? 'M-15 6 Q-16 -16 0 -17.5 Q16 -16 15 6 Q15 22 10.5 31 Q6 39 0 41 Q-6 39 -10.5 31 Q-15 22 -15 6 Z'
+    : crH ? 'M-16.5 6 Q-17 -16 0 -17 Q17 -16 16.5 6 Q16.8 16 14 24 L8.5 34 Q4.5 39.5 0 39.5 Q-4.5 39.5 -8.5 34 L-14 24 Q-16.8 16 -16.5 6 Z'
     : mbH ? 'M-18.5 8 Q-19.5 -15 0 -16 Q19.5 -15 18.5 8 Q18.5 29 0 36.5 Q-18.5 29 -18.5 8 Z'
     : o.head === 'round' ? 'M-16 8 Q-17 -16 0 -17 Q17 -16 16 8 Q16 32 0 39 Q-16 32 -16 8 Z'
     : o.head === 'long' ? 'M-15 8 Q-16 -17 0 -18 Q16 -17 15 8 Q14 34 0 42 Q-14 34 -15 8 Z'
     : 'M-16 8 Q-17 -16 0 -17 Q17 -16 16 8 Q15 31 0 40 Q-15 31 -16 8 Z';
   f += '<path d="' + jaw + '" fill="' + sk + '"/>'
-    + (crH ? '<path d="M10 -12 Q17 -6 16.5 6 Q16.8 16 14 24 L8.5 34 Q4.5 39.5 0 39.5 Q8 34 11 24 Q13 14 12 4 Q12 -4 10 -12 Z" fill="' + sh + '"/><path d="M-13.5 18 Q-11 24 -8 25 M13.5 18 Q11 24 8 25" stroke="' + sh + '" stroke-width="1.4" fill="none"/><path d="M-3 36.5 Q0 37.6 3 36.5" stroke="' + sh + '" stroke-width="1" fill="none"/>'
+    + (nyH ? '<path d="M10 -12 Q16 -6 15 6 Q15 22 10.5 31 Q6 39 0 41 Q8 33 10.5 22 Q12.5 12 12 2 Q12 -6 10 -12 Z" fill="' + sh + '"/><path d="M-12.5 17 Q-10 22 -7 22.5 M12.5 17 Q10 22 7 22.5" stroke="' + sh + '" stroke-width="1.3" fill="none"/>'
+      : crH ? '<path d="M10 -12 Q17 -6 16.5 6 Q16.8 16 14 24 L8.5 34 Q4.5 39.5 0 39.5 Q8 34 11 24 Q13 14 12 4 Q12 -4 10 -12 Z" fill="' + sh + '"/><path d="M-13.5 18 Q-11 24 -8 25 M13.5 18 Q11 24 8 25" stroke="' + sh + '" stroke-width="1.4" fill="none"/><path d="M-3 36.5 Q0 37.6 3 36.5" stroke="' + sh + '" stroke-width="1" fill="none"/>'
       : mbH ? '<path d="M11 -12 Q19.5 -6 18.5 8 Q18.5 29 0 36.5 Q14 28 14 10 Q14 -4 11 -12 Z" fill="' + sh + '"/><ellipse cx="-11" cy="21" rx="4.5" ry="3" fill="#7a4632" opacity=".25"/><ellipse cx="11" cy="21" rx="4.5" ry="3" fill="#7a4632" opacity=".25"/>'
       : '<path d="M9 -12 Q17 -6 16 8 Q15 31 0 40 Q12 30 12 10 Q12 -4 9 -12 Z" fill="' + sh + '"/>');
   // hair in front
@@ -11855,15 +11889,16 @@ function bdoFace(o){
   else if (o.hair === 'buzz') f += '<path d="M-16 6 Q-16 -16 0 -17 Q16 -16 16 6 Q12 -6 0 -7 Q-12 -6 -16 6 Z" fill="' + hc + '" opacity=".75"/>';
   if (o.hair === 'afro') f += '<path d="M-17 4 Q-18 -14 0 -15 Q18 -14 17 4 Q10 -7 0 -7 Q-10 -7 -17 4 Z" fill="' + hc + '"/>';
   if (o.hair === 'blond') f += '<path d="M-16 6 L-15 -10 L-11 -14 L-8 -19 L-4 -15 L0 -21 L4 -15 L8 -19 L11 -14 L15 -10 L16 6 Q12 -5 0 -6 Q-12 -5 -16 6 Z" fill="' + (o.hl || '#e8c86a') + '"/>';
-  if (o.hair === 'ney') f += '<path d="M-16.5 6 Q-17.5 -6 -14 -12 L-14.5 2 Z M16.5 6 Q17.5 -6 14 -12 L14.5 2 Z" fill="' + hc + '" opacity=".45"/><path d="M-14 -4 Q-15 -16 0 -18 Q15 -16 14 -4 Q8 -9 0 -9 Q-8 -9 -14 -4 Z" fill="' + hc + '"/>'
-    + [[-10, -15], [-5, -19], [0, -20], [5, -19], [10, -15], [-7, -14], [3, -15], [8, -12], [-2, -13]].map(([x, y], i) => '<circle cx="' + x + '" cy="' + y + '" r="' + (i < 5 ? 4 : 3.4) + '" fill="' + hc + '"/>').join('')
-    + [[-5, -22], [1, -23], [6, -21], [-9, -18]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="1.8" fill="' + (o.hl || '#e8c86a') + '"/>').join('');
+  if (o.hair === 'ney') f += '<path d="M-15.5 6 Q-16.5 -8 -13 -13 L-13.5 2 Z M15.5 6 Q16.5 -8 13 -13 L13.5 2 Z" fill="' + hc + '" opacity=".4"/><path d="M-14.6 -1 L-11 -6 L-12.6 -7" stroke="' + sk + '" stroke-width=".9" fill="none" opacity=".9"/>'
+    + '<path d="M-13 -6 Q-14 -17 0 -19 Q14 -17 13 -6 Q7 -10 0 -10 Q-7 -10 -13 -6 Z" fill="' + hc + '"/>'
+    + [[-10, -16], [-6, -20], [-1.5, -21.5], [3, -21], [7.5, -19], [11, -15], [-8, -13], [-3, -15], [2, -15.5], [7, -13]].map(([x, y]) => '<ellipse cx="' + x + '" cy="' + y + '" rx="3.1" ry="4.4" transform="rotate(' + (x * 2) + ' ' + x + ' ' + y + ')" fill="' + (o.hl || '#f3ead2') + '"/><ellipse cx="' + x + '" cy="' + (y + 2.6) + '" rx="2.2" ry="1.4" fill="' + hc + '" opacity=".55"/>').join('');
   if (o.hair === 'curly') f += '<path d="M-16 6 Q-16 -10 0 -12 Q16 -10 16 6 Q12 -4 0 -5 Q-12 -4 -16 6 Z" fill="' + hc + '"/>' + [-11,-6,-1,4,9,13].map((x, i) => '<circle cx="' + x + '" cy="' + (-13 - (i % 2)*3) + '" r="4.2" fill="' + hc + '"/>').join('');
   if (o.hair === 'quiff') f += '<path d="M-16 6 Q-17 -12 -6 -16 Q2 -26 14 -20 Q18 -14 16 6 Q13 -5 4 -8 Q-8 -6 -16 6 Z" fill="' + hc + '"/><path d="M-16 6 Q-16 -2 -14 -6 M16 6 Q16 -2 14 -6" stroke="' + hc + '" stroke-width="2" opacity=".5"/>';
   if (o.hair === 'bald') f += '<ellipse cx="-6" cy="-9" rx="7" ry="3.6" fill="#fff" opacity=".22" transform="rotate(-18 -6 -9)"/>';
   // facial hair
   if (o.beard === 'full') f += '<path d="M-16 12 Q-17 33 -7 41 Q0 45 7 41 Q17 33 16 12 Q15 24 10 28 Q5 26 0 27 Q-5 26 -10 28 Q-15 24 -16 12 Z" fill="' + hc + '"/><path d="M-8 28.5 Q0 25.5 8 28.5 Q4 27.8 0 28.2 Q-4 27.8 -8 28.5 Z" fill="' + hc + '" stroke="' + hc + '" stroke-width="2"/>';
   if (o.beard === 'goatee') f += '<path d="M-4 35 Q0 41 4 35 Q0 37 -4 35 Z" fill="' + hc + '"/><path d="M-6.5 28.6 Q0 26.8 6.5 28.6" stroke="' + hc + '" stroke-width="1.4" fill="none" opacity=".8"/>';
+  if (o.beard === 'ney') f += '<path d="M-6.5 27.2 Q0 25 6.5 27.2" stroke="' + hc + '" stroke-width="1.4" fill="none"/><path d="M-3.6 35.6 Q0 41.5 3.6 35.6 Q0 37.4 -3.6 35.6 Z" fill="' + hc + '"/><path d="M-14 18 Q-12 30 -6 36 M14 18 Q12 30 6 36" stroke="' + hc + '" stroke-width="1" fill="none" opacity=".45"/>';
   if (o.beard === 'stubble') f += '<path d="M-15 16 Q-15 33 0 40 Q15 33 15 16 Q12 28 0 30 Q-12 28 -15 16 Z" fill="' + hc + '" opacity=".3"/>';
   if (o.beard === 'short') f += '<path d="M-15 16 Q-16 34 0 41 Q16 34 15 16 Q12 27 6 29 Q0 27 -6 29 Q-12 27 -15 16 Z" fill="' + hc + '" opacity=".85"/>';
   // eyes
@@ -12085,7 +12120,7 @@ const BDO_PPL = {
   vini:{skin:'#563621', shade:'rgba(20,8,4,.3)', head:'long', hair:'curly', hc:'#0c0806', beard:'stubble', brow:'arch', nose:'wide', mouth:'smile'},
   kane:{skin:'#f1c9a8', shade:'rgba(140,70,40,.16)', head:'long', hair:'part', hc:'#8a6038', bc:'#6a4626', iris:'#4a6a8a', brow:'flat', mouth:'smile'},
   messi:{skin:'#ebb995', shade:'rgba(120,60,30,.16)', head:'oval', hair:'messi', hc:'#3b2615', beard:'full', brow:'flat', iris:'#5a3a1e', mouth:'smile'},
-  neymar:{skin:'#b47a52', shade:'rgba(70,30,10,.25)', head:'oval', hair:'ney', hc:'#14100c', hl:'#e8c86a', beard:'goatee', brow:'arch', iris:'#3a2416', mouth:'grin'},
+  neymar:{skin:'#a8714a', shade:'rgba(60,25,8,.26)', head:'ney', hair:'ney', hc:'#120d09', hl:'#f3ead2', beard:'ney', brow:'arch', eyes:'narrow', iris:'#2a1810', mouth:'grin', stud:true},
   cr7:{skin:'#d9a37c', shade:'rgba(110,50,25,.18)', head:'cr7', hair:'cr7', hc:'#1a110b', brow:'arch', iris:'#3a2416', mouth:'open'}
 };
 const bdoP = (who, extra) => Object.assign({}, BDO_PPL[who], extra || {});
