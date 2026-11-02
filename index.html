@@ -10248,6 +10248,19 @@ function goatCinematic(r){
       // the record scratch
       T(19400, () => { go('m1'); sweep(1600, 120, .4, 'sawtooth', .07); noise(.35, 4000, 300, .12, 'bandpass'); tone(60, .3, 'square', .08); });
       T(20500, () => { add('wrong'); tone(196, .5, 'triangle', .04); });
+      // the score: an original slow piano-and-strings piece in A minor, 8 bars at 72 bpm, under everything from Lusail to the reveal
+      const BEAT = 833, M0 = 21900;
+      const CH = [[110, 220, 261.63, 329.63], [87.31, 174.61, 220, 261.63], [130.81, 261.63, 329.63, 392], [98, 196, 246.94, 293.66],
+        [110, 220, 261.63, 329.63], [87.31, 174.61, 220, 261.63], [73.42, 146.83, 174.61, 220], [82.41, 164.81, 207.65, 246.94]];
+      const MEL = [[659.25, 2], [587.33, 1], [523.25, 1], [523.25, 2], [440, 2], [392, 1], [523.25, 1], [659.25, 2], [587.33, 3], [493.88, 1],
+        [523.25, 1], [493.88, 1], [440, 2], [440, 1], [523.25, 1], [698.46, 2], [659.25, 1], [587.33, 1], [523.25, 1], [440, 1], [415.3, 4]];
+      CH.forEach((c, bar) => {
+        const t0 = M0 + bar * 4 * BEAT;
+        T(t0, () => { tone(c[0], 3.6, 'sine', .05); c.slice(1).forEach(f => { tone(f, 3.4, 'triangle', .011); tone(f * 1.003, 3.4, 'sine', .009); }); });
+        const arp = [c[1], c[2], c[3], c[2] * 2, c[3], c[2], c[1] * 2, c[3]];
+        arp.forEach((f, i) => T(t0 + i * BEAT / 2, () => tone(f, .9, 'sine', .016)));
+      });
+      MEL.reduce((at, [f, d]) => { T(M0 + at * BEAT, () => { tone(f, d * BEAT / 1000 * 1.1, 'triangle', .026); tone(f / 2, d * BEAT / 1000, 'sine', .01); }); return at + d; }, 0);
       // Lusail, the other side
       T(21900, () => { go('m2'); confettiOn = true; noise(4, 900, 400, .03, 'bandpass'); tone(49, 4, 'sine', .05); });
       T(22200, () => add('walk'));
@@ -10271,7 +10284,7 @@ function goatCinematic(r){
       T(40400, () => { add('w2'); tone(98, .5, 'sine', .12); });
       // home, in the rain
       T(42200, () => { go('m6'); rainOn = true; noise(6, 900, 700, .05, 'lowpass'); });
-      T(45200, () => { add('forever'); trombone(0); noise(5, 900, 700, .05, 'lowpass'); });
+      T(45200, () => { add('forever'); noise(5, 900, 700, .05, 'lowpass'); });
       // the SFOT
       T(48600, () => { go('m7'); rainOn = false; parts = []; heart(.4); sweep(120, 900, 1.6, 'sine', .04); });
       T(49400, () => {
