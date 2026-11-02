@@ -3212,6 +3212,168 @@ body.dz-open .toast{z-index:95}
 @keyframes mlTap{50%{fill:#0c3a22}}
 .msi-ov{position:absolute;inset:0;z-index:6;display:grid;place-items:center;padding:16px;background:rgba(2,6,12,.7);overflow:auto;animation:fadeIn .25s}
 .msi-ov .vx{width:min(760px,100%);max-height:calc(100% - 8px);overflow:auto;margin:0;border-color:#75bde9;background:radial-gradient(circle at 20% 0%,rgba(117,189,233,.22),transparent 60%),#050b14;box-shadow:0 0 40px rgba(117,189,233,.25),0 30px 80px rgba(0,0,0,.6)}
+/* ---------- The Prince ---------- */
+.gtc[data-s="n1"] .pr-1,.gtc[data-s="n2"] .pr-2,.gtc[data-s="n3"] .pr-3,.gtc[data-s="n4a"] .pr-4a,.gtc[data-s="n4b"] .pr-4b,.gtc[data-s="n4c"] .pr-4c,.gtc[data-s="n5"] .pr-5,.gtc[data-s="n6"] .pr-6,.gtc[data-s="n7"] .pr-7,.gtc[data-s="n8"] .pr-8,.gtc[data-s="n9"] .pr-9,.gtc[data-s="n10"] .pr-10{opacity:1;visibility:visible;transition:opacity .6s}
+.prc{background:#000}
+.pr-flashbang{position:absolute;inset:0;z-index:6;pointer-events:none;background:#fffbe8;opacity:0}
+.pr-flashbang.on{animation:suFlash .6s ease-out}
+.pr-cap small{color:#ffdf00}
+.gtc[data-s="n2"] .pr-2 .gt-cap small,.gtc[data-s="n3"] .pr-3 .gt-cap small,.gtc[data-s="n8"] .pr-8 .gt-cap small{opacity:1;transform:none}
+.gtc.c2 .pr-2 .gt-cap p:first-of-type,.gtc.c2b .pr-2 .pr-p2,.gtc.c3 .pr-3 .gt-cap p:first-of-type,.gtc.c3b .pr-3 .pr-p2,.gtc.c5 .pr-5 .gt-cap p:first-of-type,.gtc.c5b .pr-5 .pr-p2,.gtc.c6 .pr-6 .gt-cap p:first-of-type,.gtc.c6b .pr-6 .pr-p2,.gtc.c8 .pr-8 .gt-cap p:first-of-type,.gtc.c8b .pr-8 .pr-p2,.gtc.c9 .pr-9 .gt-cap p:first-of-type,.gtc.c9b .pr-9 .pr-p2{opacity:1;transform:none}
+.pr-p2{color:#ffdf00;font-size:clamp(18px,3vw,28px)!important;margin-top:10px!important}
+.pr-flash circle{opacity:0}
+.gtc .pr-flash circle{animation:sfFlash 1.4s var(--d) steps(1) infinite}
+/* 1 */
+.pr-cone,.pr-disc,.pr-sil{opacity:0}
+.gtc.spot .pr-cone,.gtc.spot .pr-disc,.gtc.spot .pr-sil{opacity:1}
+.gtc.rimon .pr-sil{filter:drop-shadow(0 0 2px #ffe680) drop-shadow(0 0 10px rgba(255,210,63,.8));transition:filter .8s}
+.pr-title{position:absolute;left:6vw;bottom:14vh;z-index:3;display:grid;justify-items:start;gap:8px;text-align:left;max-width:52vw}
+.pr-title small{font:700 12px var(--body);letter-spacing:.34em;text-transform:uppercase;color:#ffdf00;opacity:0}
+.pr-title p{margin:0;font:600 clamp(22px,3.8vw,38px)/1 var(--display);color:#d8d8e8;opacity:0;transform:translateY(10px)}
+.pr-title b{font:700 clamp(44px,9vw,108px)/1 var(--display);letter-spacing:.04em;background:linear-gradient(180deg,#fff,#ffdf00 50%,#c98a0b);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 24px rgba(255,223,0,.5));opacity:0;transform:scale(1.6)}
+.gtc.t1 .pr-title small,.gtc.t1 .pr-title p{opacity:1;transform:none;transition:all .8s}
+.gtc.t2 .pr-title b{opacity:1;transform:none;transition:all .45s cubic-bezier(.2,1.6,.4,1)}
+/* 2 */
+.pr-neon{animation:prNeon 2.2s steps(1) infinite;filter:drop-shadow(0 0 6px #ff3ea5)}
+@keyframes prNeon{0%,70%,76%,100%{opacity:1}72%,78%{opacity:.2}}
+.pr-jball{transform:translate(204px,150px)}
+.gtc[data-s="n2"] .pr-jball{animation:prJug 2.4s ease-in-out infinite}
+@keyframes prJug{0%{transform:translate(206px,226px)}12%{transform:translate(204px,150px)}25%{transform:translate(200px,186px)}37%{transform:translate(216px,120px)}50%{transform:translate(198px,140px)}62%{transform:translate(184px,110px)}75%{transform:translate(200px,170px)}88%{transform:translate(204px,150px)}100%{transform:translate(206px,226px)}}
+/* 3 */
+.pr-bow{transform:translateY(30px);opacity:0}
+.gtc.bow .pr-bow{transform:none;opacity:1;transition:transform .5s cubic-bezier(.2,1.4,.4,1),opacity .2s}
+.pr-puskas{opacity:0;transform:translateX(-30px)}
+.gtc.pusk .pr-puskas{opacity:1;transform:none;transition:all .5s cubic-bezier(.2,1.4,.4,1)}
+/* 4 tricks */
+.pr-trick{position:absolute;left:0;right:0;top:7vh;z-index:3;display:grid;justify-items:center;gap:6px;text-align:center}
+.pr-trick b{font:700 clamp(54px,11vw,130px)/1 var(--display);letter-spacing:.04em;background:linear-gradient(180deg,#fff,#ffdf00 50%,#009c3b);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 0 #002776);opacity:0;transform:scale(2.4) rotate(-6deg)}
+.pr-trick span{font:700 clamp(14px,2.2vw,20px)/1 var(--body);letter-spacing:.22em;text-transform:uppercase;color:#e8ebf0;opacity:0}
+.gtc.trk [data-s] .pr-trick b{opacity:1}
+.gtc.trk .pr-4a .pr-trick b,.gtc.trk .pr-4b .pr-trick b,.gtc.trk .pr-4c .pr-trick b{opacity:1;transform:rotate(-3deg);transition:all .3s cubic-bezier(.2,1.7,.4,1)}
+.gtc.trk .pr-trick span{opacity:1;transition:opacity .4s .3s}
+.pr-ole{position:absolute;right:6vw;bottom:10vh;z-index:3;font:700 clamp(40px,7vw,84px)/1 var(--display);color:#ffdf00;text-shadow:0 0 20px rgba(255,223,0,.6),0 4px 0 #002776;opacity:0;transform:scale(.4) rotate(8deg)}
+.gtc.ole .pr-ole{opacity:1;transform:rotate(8deg);transition:all .35s cubic-bezier(.2,1.8,.4,1)}
+.pr-nball{transform:translate(200px,110px) scale(.5)}
+.gtc.nut .pr-nball{animation:prNut .8s cubic-bezier(.4,0,.8,.6) forwards}
+@keyframes prNut{to{transform:translate(200px,250px) scale(3.4)}}
+.pr-nboot{transform-box:fill-box;transform-origin:50% 0}
+.gtc.nut .pr-nboot{animation:prFlick .3s ease-out}
+@keyframes prFlick{50%{transform:rotate(-30deg)}}
+.gtc.trk .pr-legs{animation:prWob .4s ease-in-out 2}
+@keyframes prWob{50%{transform:translateX(-6px)}}
+.pr-arc{stroke-dasharray:520;stroke-dashoffset:520}
+.gtc.flick .pr-arc{stroke-dashoffset:0;transition:stroke-dashoffset .9s cubic-bezier(.3,0,.6,1)}
+.pr-rball{transform:translate(90px,250px)}
+.gtc.flick .pr-rball{animation:prRb .9s cubic-bezier(.3,0,.6,1) forwards}
+@keyframes prRb{0%{transform:translate(90px,250px)}25%{transform:translate(140px,90px)}50%{transform:translate(204px,30px) scale(1.2)}75%{transform:translate(268px,90px)}100%{transform:translate(320px,240px)}}
+.pr-you{transform-origin:200px 260px}
+.gtc.flick .pr-you{animation:prLook .9s ease-in-out forwards}
+@keyframes prLook{50%{transform:rotate(-5deg)}100%{transform:rotate(7deg) translateX(10px)}}
+.pr-peek{opacity:0;transform:translateY(40px)}
+.gtc.trk .pr-4b .pr-peek{opacity:1;transform:none;transition:all .5s}
+.gtc.steps .pr-step1{animation:prStep .52s ease-in-out infinite}
+.gtc.steps .pr-step2{animation:prStep .52s .26s ease-in-out infinite}
+@keyframes prStep{0%{transform:translate(-40px,0)}50%{transform:translate(40px,-8px)}100%{transform:translate(-40px,0)}}
+.pr-sway{transform-origin:200px 220px}
+.gtc.steps .pr-sway{animation:prSway .52s ease-in-out infinite}
+@keyframes prSway{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(10deg)}}
+.pr-fall{transform-origin:150px 240px}
+.gtc.fallen .pr-fall{transform:rotate(-80deg) translateY(30px);transition:transform .5s cubic-bezier(.6,0,.8,.4)}
+.gtc.fallen .pr-sway{animation:none}
+/* 5 viral */
+.pr-5{display:grid;place-items:center;background:radial-gradient(ellipse at 50% 45%,#141428,#000 72%)}
+.pr-phonebox{width:min(340px,60vw);aspect-ratio:9/18;border-radius:34px;padding:12px;background:#111;box-shadow:0 0 0 3px #2a2a34,0 30px 80px rgba(0,0,0,.7),0 0 60px rgba(255,62,165,.25);transform:translateY(40px) rotate(-4deg);opacity:0;margin-top:-6vh}
+.gtc[data-s="n5"] .pr-phonebox{transform:rotate(-4deg);opacity:1;transition:all .6s cubic-bezier(.2,1.3,.4,1)}
+.pr-screen{height:100%;border-radius:24px;overflow:hidden;background:#000;display:grid;align-content:start}
+.pr-vid{position:relative}.pr-vid svg{display:block;width:100%}
+.pr-bar{position:absolute;left:0;bottom:0;height:3px;width:0;background:#ff2a2a}
+.gtc.play .pr-bar{width:100%;transition:width 3.6s linear}
+.pr-meta{display:grid;gap:6px;padding:10px 12px;text-align:left}
+.pr-meta b{font:700 13px/1.25 var(--body);color:#fff}
+.pr-meta span{font:600 12px var(--mono);color:#9aa3b2}
+.pr-meta em{font-style:normal;color:#ffdf00}
+.pr-trend{justify-self:start;font:700 10px var(--body);font-style:normal;letter-spacing:.14em;padding:4px 8px;border-radius:999px;background:#ff2a2a;color:#fff}
+.pr-acts{display:flex;gap:12px;font:700 12px var(--body);color:#e8ebf0;padding:6px 0;border-top:1px solid #222;border-bottom:1px solid #222}
+.pr-rel{display:grid;gap:8px;padding-top:4px}.pr-rel div{display:flex;gap:8px;align-items:center}
+.pr-rel i{width:54px;height:32px;border-radius:6px;background:linear-gradient(135deg,#1a6a32,#0f3a1c)}.pr-rel span{font:600 11px/1.25 var(--body);color:#c9cfdb}
+.pr-comments{position:absolute;inset:0;z-index:3;pointer-events:none}
+.pr-comments span{position:absolute;left:calc(50% + var(--x) * (min(180px,30vw) + 70px));top:calc(10vh + var(--i) * 8vh);transform:translateX(-50%) scale(.6);opacity:0;padding:8px 12px;border-radius:14px;background:#fff;color:#111;font:700 clamp(13px,2vw,19px)/1 var(--body);white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.gtc.cm0 .pr-comments span:nth-child(1),.gtc.cm1 .pr-comments span:nth-child(2),.gtc.cm2 .pr-comments span:nth-child(3),.gtc.cm3 .pr-comments span:nth-child(4),.gtc.cm4 .pr-comments span:nth-child(5),.gtc.cm5 .pr-comments span:nth-child(6),.gtc.cm6 .pr-comments span:nth-child(7),.gtc.cm7 .pr-comments span:nth-child(8){opacity:1;transform:translateX(-50%);transition:all .3s cubic-bezier(.2,1.7,.4,1)}
+.pr-5 .gt-cap{bottom:5vh}
+/* 6 Remontada */
+.pr-board{position:absolute;left:0;right:0;top:6vh;z-index:3;display:grid;justify-items:center;gap:8px;text-align:center}
+.pr-board small{font:700 12px var(--body);letter-spacing:.34em;color:#ffd23f}
+.pr-score{display:flex;align-items:center;gap:18px;padding:10px 22px;border-radius:12px;background:rgba(0,0,0,.75);border:2px solid #ffd23f}
+.pr-score span{font:700 clamp(20px,3vw,30px)/1 var(--display);letter-spacing:.1em;color:#e8ebf0}
+.pr-score b{font:700 clamp(46px,8vw,92px)/1 var(--display);color:#ffd23f}
+.pr-min{font:700 clamp(18px,2.6vw,26px)/1 var(--display);color:#ff6a6a;letter-spacing:.1em}
+.pr-ev{font:700 clamp(16px,2.4vw,24px)/1 var(--display);letter-spacing:.16em;color:#fff;background:#a50044;padding:8px 14px;border-radius:999px;opacity:0}
+.pr-ev.pop{opacity:1;animation:prPop .5s cubic-bezier(.2,1.7,.4,1)}
+@keyframes prPop{from{transform:scale(1.8)}}
+.pr-rem{transform:translateX(120px);opacity:0}
+.gtc.g1 .pr-rem{transform:none;opacity:1;transition:all .6s cubic-bezier(.2,1.2,.4,1)}
+.gtc.g3 .pr-rem{animation:prHop .5s ease-in-out 4}
+@keyframes prHop{50%{transform:translateY(-10px)}}
+/* 7 the price */
+.pr-7{display:grid;place-items:center;background:radial-gradient(ellipse at 50% 50%,#2a2000,#000 70%)}
+.pr-money{position:relative;z-index:3;display:grid;justify-items:center;gap:10px;text-align:center}
+.pr-money small{font:700 12px var(--body);letter-spacing:.34em;color:#ffdf00;opacity:0}
+.pr-money b{font:700 clamp(54px,11vw,140px)/1 var(--display);background:linear-gradient(180deg,#fff6d0,#ffd23f 50%,#a86a00);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 0 #3a2400) drop-shadow(0 0 30px rgba(255,210,63,.5));opacity:0}
+.pr-money p{margin:0;font:600 clamp(20px,3.4vw,34px)/1 var(--display);color:#fff;opacity:0}
+.gtc.money .pr-money small,.gtc.money .pr-money b{opacity:1;transition:opacity .4s}
+.gtc.money2 .pr-money p{opacity:1;transition:opacity .8s}
+.pr-suit{position:absolute;right:4vw;bottom:0;width:min(260px,30vw);opacity:0;transform:translateY(40px)}
+.pr-suit svg{display:block;width:100%}
+.gtc.money .pr-suit{opacity:1;transform:none;transition:all .8s .4s}
+/* 8 Maracanã */
+.pr-pens{position:absolute;left:0;right:0;top:7vh;z-index:3;display:grid;justify-items:center;gap:8px}
+.pr-pens div{display:flex;align-items:center;gap:10px}
+.pr-pens span{width:54px;font:700 22px/1 var(--display);letter-spacing:.1em;color:#fff}
+.pr-pens i{width:20px;height:20px;border-radius:50%;border:2px solid #fff;background:transparent}
+.pr-pens i.ok{background:#39e58c;border-color:#39e58c}
+.gtc.miss .pr-pens i.miss{background:#ff4d5e;border-color:#ff4d5e;animation:prPop .4s cubic-bezier(.2,1.7,.4,1)}
+.pr-pens i.last{animation:prPulse .5s ease-in-out infinite alternate}
+@keyframes prPulse{to{box-shadow:0 0 14px #ffdf00;border-color:#ffdf00}}
+.gtc.last .pr-pens i.last{background:#ffdf00;border-color:#ffdf00;animation:prPop .5s cubic-bezier(.2,1.7,.4,1)}
+.pr-oly{opacity:.25;filter:grayscale(.6)}
+.gtc.last .pr-oly{opacity:1;filter:none;transition:all .6s}
+.pr-medal{opacity:0;transform:translateY(-30px)}
+.gtc.last .pr-medal{opacity:1;transform:none;transition:all .6s .4s cubic-bezier(.2,1.5,.4,1)}
+/* 9 the shadow */
+.pr-phone{opacity:.15}
+.gtc.lit .pr-phone{opacity:.9;animation:sfFlash 1.6s var(--d) steps(1) infinite}
+.pr-king{opacity:0}
+.gtc.lit .pr-king{opacity:1;transition:opacity .3s}
+.pr-shadow{transform-origin:200px 200px;transform:scaleY(.2);opacity:0}
+.gtc.stretch .pr-shadow{transform:none;opacity:.88;transition:all 1.6s cubic-bezier(.3,0,.2,1)}
+.pr-tiny{opacity:0}
+.gtc.stretch .pr-tiny{opacity:1;transition:opacity .8s 1s}
+.pr-chant{position:absolute;left:0;right:0;top:6vh;z-index:3;display:flex;justify-content:center;gap:3vw}
+.pr-chant span{font:700 clamp(36px,6.4vw,76px)/1 var(--display);color:#ffdf00;text-shadow:0 0 24px rgba(255,223,0,.6),0 4px 0 #002776;opacity:0;transform:scale(.6)}
+.gtc.ch0 .pr-chant span:nth-child(1),.gtc.ch1 .pr-chant span:nth-child(2),.gtc.ch2 .pr-chant span:nth-child(3){opacity:1;transform:none;transition:all .25s cubic-bezier(.2,1.7,.4,1)}
+.gtc.c9 .pr-chant{opacity:.3;transition:opacity .6s}
+/* 10 the reveal */
+.pr-10{display:grid;place-items:center;background:radial-gradient(ellipse at 50% 45%,#0a3a1a,#000 72%)}
+.pr-beam{position:absolute;left:50%;top:-20%;width:min(80vw,700px);height:140%;transform:translateX(-50%);background:linear-gradient(rgba(255,245,180,.55),rgba(255,223,0,.08) 70%,transparent);clip-path:polygon(44% 0,56% 0,100% 100%,0 100%);opacity:0}
+.gtc.pland .pr-beam{opacity:1;transition:opacity .6s}
+.pr-crown{width:min(90px,18vw);opacity:0;transform:translateY(-40px) rotate(-14deg)}
+.pr-crown svg{display:block;width:100%}
+.gtc.pland .pr-crown{opacity:1;transform:rotate(-6deg);transition:all .6s .7s cubic-bezier(.2,1.6,.4,1)}
+.pr-art{position:relative;width:min(660px,90vw);transform:translateX(-120vw) rotate(-30deg);filter:drop-shadow(0 0 22px rgba(255,230,60,.85)) drop-shadow(0 0 50px rgba(0,156,59,.5))}
+.pr-art img{display:block;width:100%;height:auto}
+.gtc.pland .pr-art{transform:none;transition:transform .7s cubic-bezier(.3,1.5,.5,1);animation:prSpin .9s .7s ease-out,gtFloat 3s 1.8s ease-in-out infinite alternate}
+@keyframes prSpin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+.gtc.pland .pr-foil{animation:gtFoil 2.2s .6s ease-in-out infinite}
+.pr-h2{margin:0;font:700 clamp(50px,10vw,120px)/1 var(--display);letter-spacing:.08em}
+.pr-rv .pr-h2 span{display:inline-block;opacity:0;transform:translateY(30px) scale(.5);background:linear-gradient(180deg,#ffffff,#ffdf00 40%,#009c3b 80%,#002776);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 0 #001a4a) drop-shadow(0 0 24px rgba(255,223,0,.5))}
+.gtc.pland .pr-rv .pr-h2 span{opacity:1;transform:none;transition:opacity .2s calc(.5s + var(--i)*60ms),transform .55s calc(.5s + var(--i)*60ms) cubic-bezier(.2,1.7,.4,1)}
+.pr-sub{font:700 13px var(--body);letter-spacing:.34em;padding:7px 14px;border-radius:999px;background:linear-gradient(90deg,#009c3b,#ffdf00 50%,#002776);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6);opacity:0}
+.prn-tag{font:700 clamp(18px,2.8vw,26px)/1 var(--display);letter-spacing:.2em;color:#ffdf00;opacity:0}
+.pr-val{color:#ffe29a}
+.gtc.pland .pr-sub{opacity:1;transition:opacity .5s 1.1s}
+.gtc.pland .prn-tag{opacity:1;transition:opacity .5s 1.3s}
+.gtc.pland .pr-val{opacity:1;transition:opacity .5s 1.5s}
+@media (prefers-reduced-motion: reduce){.pr-neon,.pr-jball,.pr-step1,.pr-step2,.pr-sway,.pr-rim,.pr-phone,.pr-flash circle{animation:none!important}}
 /* ---------- La Pulga ---------- */
 .gtc[data-s="p1"] .pl-1,.gtc[data-s="p2"] .pl-2,.gtc[data-s="p3"] .pl-3,.gtc[data-s="p4"] .pl-4,.gtc[data-s="p5"] .pl-5,.gtc[data-s="p6"] .pl-6,.gtc[data-s="p7"] .pl-7{opacity:1;visibility:visible;transition:opacity .7s}
 .plc.dark .su-5{filter:brightness(.15) saturate(.3);transition:filter .9s steps(6)}
@@ -3982,7 +4144,9 @@ const ITEMS = [
   {id:'x3', w:'rifle',     name:'The GOAT',       t:7, pat:'goat', pal:['#75bde9','#f4f7fb','#ffd23f'], m:7.6, ex:true},
   {id:'x4', w:'shotgun',   name:'The SFOT',       t:7, pat:'sfot', pal:['#0b1736','#1f4fd1','#e1262d','#c9d2de'], m:5.35, ex:true},
   {id:'x5', w:'sniper',    name:'The Sui',        t:7, pat:'sui', pal:['#070103','#da291c','#ffd23f','#046a38'], m:7.5, ex:true},
-  {id:'x6', w:'smg',       name:'La Pulga',       t:7, pat:'pulga', pal:['#004d98','#a50044','#ffd23f','#75bde9'], m:9310000 / 935000, ex:true}
+  {id:'x6', w:'smg',       name:'La Pulga',       t:7, pat:'pulga', pal:['#004d98','#a50044','#ffd23f','#75bde9'], m:9310000 / 935000, ex:true},
+  // Admin only for now: no way to earn it in the game yet
+  {id:'x7', w:'butterfly', name:'The Prince',     t:7, pat:'prince', pal:['#ffdf00','#009c3b','#002776','#ffd23f'], m:8800000 / 935000, ex:true}
 ];
 
 /* ---------- RNG helpers ---------- */
@@ -4078,6 +4242,20 @@ const PAT = {
     g.strokeStyle='rgba(255,210,63,.55)';g.lineWidth=.6;
     for(let x=96;x<150;x+=12){g.beginPath();g.moveTo(x,34);g.quadraticCurveTo(x+6,30,x+12,34);g.moveTo(x,46);g.quadraticCurveTo(x+6,50,x+12,46);g.stroke();}
     for(let i=0;i<24;i++){g.fillStyle=i%3?'#ffd23f':'#fff3c0';g.globalAlpha=.3+r()*.5;const x=52+r()*(W-52),y=r()*H,z=.4+r()*.9;g.fillRect(x,y,z,z);}g.globalAlpha=1;
+  },
+  /* The Prince: a canary-yellow blade with a green spine, a blue band of stars, a row of rhinestones
+     and a loud rainbow chroma flash. Built to be looked at. */
+  prince(g,W,H,p,r){
+    const lg=g.createLinearGradient(0,30,0,56);lg.addColorStop(0,'#fff7b0');lg.addColorStop(.4,p[0]);lg.addColorStop(1,'#c9a400');g.fillStyle=lg;g.fillRect(0,0,W,H);
+    g.fillStyle=p[1];g.fillRect(0,34,W,4.4);g.fillStyle='#ffd23f';g.fillRect(0,38.4,W,.8);
+    g.fillStyle=p[2];g.fillRect(0,46,W,5);g.fillStyle='#fff';for(let x=102;x<186;x+=7){g.beginPath();g.arc(x,48.5,.7,0,7);g.fill();}
+    g.save();g.globalCompositeOperation='screen';
+    for(let i=0;i<3;i++){const x=110+i*26+r()*8,w=9+r()*5,cg=g.createLinearGradient(x-w,0,x+w,0);
+      [['rgba(255,62,165,0)',0],['#ff3ea5',.2],['#ffd23f',.38],['#39ff88',.52],['#2fe3ff',.66],['#7a6aff',.82],['rgba(122,106,255,0)',1]].forEach(([c,o])=>cg.addColorStop(o,c));
+      g.globalAlpha=.4;g.fillStyle=cg;g.beginPath();g.moveTo(x-w+8,0);g.lineTo(x+w+8,0);g.lineTo(x+w-8,H);g.lineTo(x-w-8,H);g.closePath();g.fill();}
+    g.restore();
+    for(let x=104;x<180;x+=5.4){const gg=g.createRadialGradient(x-.3,41.6,.1,x,42,1.5);gg.addColorStop(0,'#fff');gg.addColorStop(.5,'#dff6ff');gg.addColorStop(1,'#7aa8c8');g.fillStyle=gg;g.beginPath();g.arc(x,42.2,1.3,0,7);g.fill();}
+    for(let i=0;i<14;i++){g.fillStyle='#fff';g.globalAlpha=.6+r()*.4;const x=98+r()*90,y=34+r()*16;g.fillRect(x-.2,y-1.2,.4,2.4);g.fillRect(x-1.2,y-.2,2.4,.4);}g.globalAlpha=1;
   },
   /* La Pulga: blaugrana stripes with gold pinstripes, a sky-blue and gold chroma sheen and a scatter of gold stars */
   pulga(g,W,H,p,r){
@@ -4233,6 +4411,21 @@ function pulgaParts(g){
   g.fillStyle = gold(0, 34, 0, 42); g.font = '600 6.4px Teko, sans-serif'; g.textAlign = 'center'; g.fillText('LA PULGA', 106, 40.6);
   g.restore();
 }
+/* The Prince's parts: gold handles set with emeralds and sapphires, a gold crown on the blade and NJR engraved. */
+function princeParts(g){
+  const gold = (x0, y0, x1, y1) => { const lg = g.createLinearGradient(x0, y0, x1, y1); lg.addColorStop(0, '#fff3c0'); lg.addColorStop(.35, '#ffd23f'); lg.addColorStop(.7, '#c98a0b'); lg.addColorStop(1, '#6a4300'); return lg; };
+  g.save(); g.lineJoin = 'round'; g.strokeStyle = 'rgba(40,20,0,.85)'; g.lineWidth = .7;
+  [[33, 41], [45, 53]].forEach(([y0, y1]) => {
+    g.fillStyle = gold(0, y0, 0, y1); g.beginPath(); g.roundRect(24, y0, 74, y1 - y0, 2); g.fill(); g.stroke();
+    g.fillStyle = '#14100a'; g.beginPath(); g.roundRect(34, y0 + 2, 54, y1 - y0 - 4, 1.5); g.fill();
+    [40, 52, 64, 76].forEach((x, i) => { g.fillStyle = i % 2 ? '#2a6aff' : '#18c46a'; g.shadowColor = g.fillStyle; g.shadowBlur = 3; g.beginPath(); g.moveTo(x, y0 + 2.2); g.lineTo(x + 2.2, y0 + 4); g.lineTo(x, y0 + 5.8); g.lineTo(x - 2.2, y0 + 4); g.closePath(); g.fill(); g.shadowBlur = 0; });
+  });
+  g.fillStyle = gold(18, 38, 24, 48); g.fillRect(18, 38, 6, 10); g.strokeRect(18, 38, 6, 10);
+  g.fillStyle = gold(104, 36, 116, 46); g.beginPath(); g.moveTo(104, 45); g.lineTo(104, 38.6); g.lineTo(106.6, 41); g.lineTo(108.6, 37.2); g.lineTo(110.6, 41); g.lineTo(113.2, 38.6); g.lineTo(113.2, 45); g.closePath(); g.fill(); g.stroke();
+  g.fillStyle = '#ff2a5a'; g.beginPath(); g.arc(108.6, 43, .9, 0, 7); g.fill();
+  g.fillStyle = '#002776'; g.font = '700 6px Teko, sans-serif'; g.textAlign = 'center'; g.fillText('NJR', 126, 45);
+  g.restore();
+}
 function requiemParts(g){
   const gold = (x0, y0, x1, y1) => { const lg = g.createLinearGradient(x0, y0, x1, y1); lg.addColorStop(0, '#fff3c0'); lg.addColorStop(.4, '#ffcf4a'); lg.addColorStop(.75, '#b8780a'); lg.addColorStop(1, '#6a4300'); return lg; };
   g.save(); g.lineCap = 'round';
@@ -4294,7 +4487,7 @@ function renderItem(it, fl, S){
   const g = c.getContext('2d'); g.scale(S,S);
   const P = paths(it.w), sh = SHAPES[it.w], r = seeded(hash(it.id)), bm = it.t >= 6;
   g.save();
-  g.shadowColor = it.pat === 'goat' ? 'rgba(255,214,90,.95)' : it.pat === 'sfot' ? 'rgba(170,205,255,.95)' : it.pat === 'sui' ? 'rgba(255,60,40,.9)' : it.pat === 'pulga' ? 'rgba(255,214,90,.95)' : bm ? (it.t === 7 ? 'rgba(255,122,217,.95)' : 'rgba(168,85,247,.9)') : 'rgba(0,0,0,.55)';
+  g.shadowColor = it.pat === 'goat' ? 'rgba(255,214,90,.95)' : it.pat === 'sfot' ? 'rgba(170,205,255,.95)' : it.pat === 'sui' ? 'rgba(255,60,40,.9)' : it.pat === 'pulga' ? 'rgba(255,214,90,.95)' : it.pat === 'prince' ? 'rgba(255,230,60,.95)' : bm ? (it.t === 7 ? 'rgba(255,122,217,.95)' : 'rgba(168,85,247,.9)') : 'rgba(0,0,0,.55)';
   g.shadowBlur = (bm ? 12 : 6) * S; g.shadowOffsetY = (bm ? 0 : 3) * S;
   g.fillStyle = '#000'; g.fill(P.all); g.restore();
   const lg = g.createLinearGradient(0,18,0,72);
@@ -4321,6 +4514,7 @@ function renderItem(it, fl, S){
   if (it.pat === 'sfot') sfotParts(g);
   if (it.pat === 'sui') suiParts(g);
   if (it.pat === 'pulga') pulgaParts(g);
+  if (it.pat === 'prince') princeParts(g);
   return c;
 }
 
@@ -10223,6 +10417,7 @@ function admAct(a, el){
   if (a === 'give' && admSel) {
     const fl = flOf(), x = BY[admSel], r = {uid: uid(), id: admSel, fl, v: priceOf(x, wearIdx(fl)), at: Date.now(), hk: [], src: 'admin'};
     admMark(); state.inv.unshift(r); if (x.t === 6) gotBM(x.id); save(); renderInv(); renderStats(); renderAdmin();
+    if (admSel === PRINCE_ID) { closeAdmin(); r.fl = .0001; r.v = priceOf(x, 0); save(); busy = true; lockRack(true); chromaCinematic(r).then(() => showReveal(r)); return; }
     glitchFx('item', x.name.toUpperCase() + ' SPAWNED'); return;
   }
   if (a === 'rig' && admSel) { admMark(); state.adminRig = {id: admSel, fl: flOf()}; save(); renderAdmin(); glitchFx('rig', 'NEXT CASE RIGGED'); return; }
@@ -11054,10 +11249,282 @@ function suiCinematic(r){
     T(42500, finish);
   });
 }
+/* ---------- The Prince: Neymar's film. Not a villain. Worse: a show-off, and you're the one being shown up. ----------
+   A spotlight, the street, the bow at Vila Belmiro, three tricks done to YOU, you going viral, the Remontada,
+   222 million, the last penalty at the Maracanã, and you, standing in his shadow. */
+const PRINCE_ID = 'x7';
+/* The bow from Vila Belmiro: head down, one arm curled over the top of it, the other behind the back, legs crossed.
+   Local units, feet at 0,0. k is the kit. */
+function princePose(k){
+  const sk = k.skin || '#b47a52', sh = k.shirt || '#ffffff', so = k.sock || '#ffffff', st = k.shorts || '#ffffff', bt = k.boot || '#ff8a5a', hc = k.hair || '#14100c', rim = k.rim || '';
+  const L = (d, c, w) => '<path d="' + d + '" stroke="' + c + '" stroke-width="' + w + '" stroke-linecap="round" stroke-linejoin="round" fill="none"/>';
+  let g = '<ellipse cx="2" cy="-1" rx="34" ry="5" fill="#000" opacity=".35"/>';
+  g += L('M28 -168 Q40 -150 40 -132 Q36 -124 26 -122', sh, 13) + L('M38 -146 Q42 -134 34 -124', sk, 9);
+  g += L('M-12 -80 L-11 -62', sk, 14) + L('M-11 -62 Q-2 -36 8 -10', so, 13) + '<ellipse cx="11" cy="-5" rx="14" ry="5.4" fill="' + bt + '"/>';
+  g += L('M14 -80 L14 -62', sk, 14) + L('M14 -62 Q6 -36 -6 -10', so, 13) + '<ellipse cx="-8" cy="-5" rx="14" ry="5.4" fill="' + bt + '"/>';
+  g += '<circle cx="-11" cy="-63" r="6.4" fill="' + sk + '"/><circle cx="14" cy="-63" r="6.4" fill="' + sk + '"/>';
+  g += '<path d="M-26 -122 H26 L29 -82 L5 -79 L1 -88 L-3 -79 L-28 -82 Z" fill="' + st + '"/>';
+  g += '<path d="M-30 -170 Q0 -178 30 -168 L27 -118 Q0 -112 -27 -118 Z" fill="' + sh + '"/><path d="M14 -168 Q24 -140 22 -118" stroke="#000" stroke-opacity=".08" stroke-width="10" fill="none"/>';
+  if (k.crest) g += '<path d="M-17 -156 H-7 V-148 Q-12 -143 -17 -148 Z" fill="#fff" stroke="#111" stroke-width="1.2"/><path d="M-15 -154 V-149 M-12 -154 V-148 M-9 -154 V-149" stroke="#111" stroke-width="1"/>';
+  if (k.num) g += '<text x="4" y="-132" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="20" fill="' + (k.numc || '#111') + '">' + k.num + '</text>';
+  g += '<path d="M-2 -168 Q2 -160 6 -168" stroke="' + sk + '" stroke-width="8"/>';
+  g += '<circle cx="2" cy="-176" r="15" fill="' + hc + '"/>' + [[-10, -184], [-4, -190], [4, -191], [11, -186], [14, -177], [-13, -175], [-6, -181], [6, -182]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="6.2" fill="' + hc + '"/>').join('');
+  g += '<path d="M-6 -166 Q2 -160 10 -166" stroke="' + sk + '" stroke-width="5" fill="none"/>';
+  g += L('M-28 -168 L-37 -183', sh, 13) + L('M-37 -183 Q-50 -206 -46 -222', sk, 10) + L('M-46 -222 Q-34 -244 -10 -240', sk, 9);
+  g += '<rect x="-20" y="-246" width="9" height="11" rx="2" fill="#fff" transform="rotate(-10 -15 -240)"/><path d="M-10 -240 Q2 -238 8 -230 Q4 -228 -2 -232 Q4 -226 2 -224 Q-6 -230 -10 -232 Z" fill="' + sk + '"/>';
+  if (rim) g = '<g stroke="' + rim + '" stroke-width="2.4" fill="none" opacity=".9">' + g.replace(/fill="[^"]*"/g, 'fill="none"').replace(/stroke="(?!none)[^"]*"/g, 'stroke="' + rim + '"') + '</g>';
+  return g;
+}
+function princeCinematic(r){
+  return new Promise(resolve => {
+    let ov = $('#prc');
+    if (!ov) { ov = document.createElement('div'); ov.id = 'prc'; ov.className = 'gtc prc'; ov.hidden = true; document.body.append(ov); }
+    const it = BY[r.id], timers = [], R = seeded(1992), Rr = Math.random, f1 = n => n.toFixed(1);
+    let done = false, raf = 0, cnt = 0;
+    const T = (ms, f) => timers.push(setTimeout(() => { if (done) return; try { f(); } catch (e) {} }, REDUCED ? Math.min(ms, 300) : ms));
+    const go = n => { ov.dataset.s = n; }, add = c => ov.classList.add(c);
+    const NEY = extra => bdoP('neymar', extra || {});
+    const YOU = extra => Object.assign({skin:'#c9a07a', shade:'rgba(90,40,20,.18)', head:'round', hair:'buzz', hc:'#3a2a1c', brow:'flat', iris:'#3a2416', shirt:'#6a6f7a', trim:'#4a4f58', num:'YOU', numc:'#e8ebf0', mouth:'open'}, extra || {});
+    const silhouette = (x, y, s, kit) => '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')">' + princePose(kit) + '</g>';
+    const crowd = (n, y0, y1, cols) => { let s = ''; for (let i = 0; i < n; i++) s += '<rect class="' + (i % 6 ? '' : 'gt-bulb') + '" x="' + f1(R() * 400) + '" y="' + f1(y0 + R() * (y1 - y0)) + '" width="1.8" height="1.8" fill="' + cols[i % cols.length] + '" opacity=".6"/>'; return s; };
+    const flashes = n => '<g class="pr-flash">' + Array.from({length: n}, () => '<circle style="--d:' + f1(R() * 1.8) + 's" cx="' + f1(R() * 400) + '" cy="' + f1(30 + R() * 90) + '" r="' + f1(1.4 + R() * 2.6) + '" fill="#fff"/>').join('') + '</g>';
+    const DEFS = '<defs>' + bdoDefs('pr') + '<radialGradient id="prSp" cx=".5" cy="0" r="1"><stop offset="0" stop-color="#fff6d0" stop-opacity=".75"/><stop offset=".6" stop-color="#ffd23f" stop-opacity=".12"/><stop offset="1" stop-color="#ffd23f" stop-opacity="0"/></radialGradient>'
+      + '<radialGradient id="prFl"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>'
+      + '<radialGradient id="prGl"><stop offset="0" stop-color="#ffe680" stop-opacity=".8"/><stop offset="1" stop-color="#ffe680" stop-opacity="0"/></radialGradient>'
+      + '<linearGradient id="prRb" x1="0" x2="1"><stop offset="0" stop-color="#ff3ea5"/><stop offset=".25" stop-color="#ffd23f"/><stop offset=".5" stop-color="#39ff88"/><stop offset=".75" stop-color="#2fe3ff"/><stop offset="1" stop-color="#7a6aff"/></linearGradient>'
+      + '<linearGradient id="prGd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6a4300"/><stop offset=".45" stop-color="#ffe9a0"/><stop offset=".7" stop-color="#ffd23f"/><stop offset="1" stop-color="#6a4300"/></linearGradient>'
+      + '<pattern id="prBc" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="10" fill="#004d98"/><rect width="5" height="10" fill="#a50044"/></pattern></defs>';
+    const lamps = '<circle cx="40" cy="14" r="46" fill="url(#prFl)" opacity=".45"/><rect x="25" y="8" width="30" height="12" rx="2" fill="#fff"/><circle cx="360" cy="14" r="46" fill="url(#prFl)" opacity=".45"/><rect x="345" y="8" width="30" height="12" rx="2" fill="#fff"/>';
+    const ball = cls => '<g class="' + cls + '"><circle r="7" fill="#f4f6fa" stroke="#111" stroke-width=".9"/><path d="M0 -3.3 L3.1 -1 L1.9 2.7 H-1.9 L-3.1 -1 Z" fill="#111"/></g>';
+    /* 1. a spotlight */
+    const s1 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + DEFS + '<rect width="400" height="260" fill="#030205"/>' + flashes(26)
+      + '<path class="pr-cone" d="M256 0 H304 L380 250 H180 Z" fill="url(#prSp)"/><ellipse class="pr-disc" cx="280" cy="244" rx="96" ry="12" fill="#ffd23f" opacity=".25"/>'
+      + '<g class="pr-sil">' + silhouette(280, 246, .84, {shirt:'#050505', skin:'#050505', sock:'#050505', shorts:'#050505', boot:'#050505', hair:'#050505'}) + '</g></svg>';
+    /* 2. the street */
+    let s2 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + DEFS + '<rect width="400" height="260" fill="#07060d"/>';
+    for (let x = 0; x < 400; x += 10) s2 += '<path d="M' + x + ' 30 L' + (x + 10) + ' 40 M' + (x + 10) + ' 30 L' + x + ' 40" stroke="#1c1a2a" stroke-width=".8"/>';
+    s2 += '<path d="M0 30 H400 M0 140 H400" stroke="#2a2840"/>';
+    for (let y = 40; y < 140; y += 10) for (let x = 0; x < 400; x += 10) s2 += '<path d="M' + x + ' ' + y + ' L' + (x + 10) + ' ' + (y + 10) + ' M' + (x + 10) + ' ' + y + ' L' + x + ' ' + (y + 10) + '" stroke="#16141f" stroke-width=".6"/>';
+    s2 += '<text class="pr-neon" x="300" y="64" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="24" fill="none" stroke="#ff3ea5" stroke-width="1.6">FUTEBOL</text>'
+      + '<rect y="140" width="400" height="120" fill="#22355a"/><path d="M40 260 L120 160 H280 L360 260" stroke="#e8f0ff" stroke-opacity=".4" fill="none"/><circle cx="200" cy="200" r="26" fill="none" stroke="#e8f0ff" stroke-opacity=".3"/>'
+      + '<path d="M60 0 V120" stroke="#2a2a3a" stroke-width="3"/><path d="M60 4 Q74 2 80 12" stroke="#2a2a3a" stroke-width="3" fill="none"/><path d="M80 12 L40 160 H140 Z" fill="url(#prGl)" opacity=".35"/>'
+      + [40, 80, 320, 356].map((x, i) => '<g><circle cx="' + x + '" cy="' + (150 - (i % 2) * 6) + '" r="6" fill="#0a0a12"/><path d="M' + (x - 8) + ' ' + (178 - (i % 2) * 6) + ' Q' + x + ' ' + (154 - (i % 2) * 6) + ' ' + (x + 8) + ' ' + (178 - (i % 2) * 6) + ' Z" fill="#0a0a12"/></g>').join('')
+      + '<g class="pr-kid"><g transform="translate(200 236) scale(.5)">' + princePose({shirt:'#ffdf00', shorts:'#002776', sock:'#ffffff', boot:'#111'}).replace(/<path d="M-28 -168 L-37 -183"[\s\S]*$/, '') + '</g></g>'
+      + ball('pr-jball') + '</svg>';
+    /* 3. Vila Belmiro: the bow */
+    let s3 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + DEFS + '<rect width="400" height="260" fill="#04050a"/>' + lamps + crowd(320, 30, 132, ['#f4f6fa', '#111', '#c9d2de', '#ffd23f'])
+      + '<rect x="0" y="132" width="400" height="14" fill="#f4f6fa"/><text x="200" y="143" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="12" letter-spacing="8" fill="#111">SANTOS · VILA BELMIRO</text>'
+      + '<rect y="146" width="400" height="114" fill="#1a6a32"/>' + [0, 1, 2].map(i => '<rect y="' + (146 + i * 40) + '" width="400" height="20" fill="#1e7a3a"/>').join('')
+      + '<path d="M120 0 H280 L330 260 H70 Z" fill="url(#prSp)" opacity=".9"/>' + flashes(30)
+      + '<g class="pr-bow">' + silhouette(214, 256, .98, {shirt:'#ffffff', shorts:'#ffffff', sock:'#ffffff', boot:'#ff8a5a', crest:true, num:'11', numc:'#111'}) + '</g>'
+      + '<g class="pr-puskas"><rect x="20" y="40" width="120" height="44" rx="4" fill="#0a0a12" stroke="url(#prGd)" stroke-width="2"/><text x="80" y="58" text-anchor="middle" font-family="Teko, sans-serif" font-size="10" letter-spacing="3" fill="#ffd23f">FIFA PUSKÁS AWARD</text><text x="80" y="78" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="20" fill="#fff">2011</text></g></svg>';
+    /* 4a. the nutmeg: your legs, the ball goes through them */
+    const s4a = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + DEFS + '<rect width="400" height="260" fill="#0a0c12"/>' + lamps + crowd(160, 24, 90, ['#ffdf00', '#009c3b', '#fff'])
+      + '<rect y="96" width="400" height="164" fill="#1a6a32"/>' + [0, 1, 2, 3].map(i => '<rect y="' + (96 + i * 42) + '" width="400" height="20" fill="#1e7a3a"/>').join('')
+      + '<g class="pr-nboot"><ellipse cx="200" cy="118" rx="12" ry="5" fill="#ff8a5a"/><path d="M194 118 L190 92" stroke="#ffdf00" stroke-width="8" stroke-linecap="round"/></g>'
+      + '<g class="pr-legs" transform="translate(0 30)"><path d="M118 0 H282 L270 70 H130 Z" fill="#555a66"/><text x="200" y="64" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="22" letter-spacing="4" fill="#e8ebf0">YOU</text>'
+      + '<path d="M150 66 Q138 150 112 240" stroke="#c9a07a" stroke-width="34" stroke-linecap="round" fill="none"/><path d="M250 66 Q262 150 288 240" stroke="#c9a07a" stroke-width="34" stroke-linecap="round" fill="none"/>'
+      + '<path d="M134 140 Q126 190 112 240" stroke="#7a808c" stroke-width="36" stroke-linecap="round" fill="none"/><path d="M266 140 Q274 190 288 240" stroke="#7a808c" stroke-width="36" stroke-linecap="round" fill="none"/>'
+      + '<ellipse cx="102" cy="248" rx="30" ry="12" fill="#111"/><ellipse cx="298" cy="248" rx="30" ry="12" fill="#111"/></g>'
+      + ball('pr-nball') + '</svg>';
+    /* 4b. the rainbow flick: over your head */
+    const s4b = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + DEFS + '<rect width="400" height="260" fill="#0a0c12"/>' + lamps + crowd(160, 24, 120, ['#ffdf00', '#009c3b', '#fff'])
+      + '<rect y="170" width="400" height="90" fill="#1a6a32"/>'
+      + '<path class="pr-arc" d="M90 250 Q200 -40 320 240" stroke="url(#prRb)" stroke-width="7" fill="none" stroke-linecap="round" opacity=".85"/>'
+      + '<g class="pr-you"><g transform="translate(200 128) scale(1.15)">' + bdoMan(0, 0, 1, YOU()) + '</g></g>'
+      + ball('pr-rball') + '<g class="pr-peek"><g transform="translate(60 196) scale(.8)">' + bdoMan(0, 0, 1, NEY({shirt:'#ffdf00', trim:'#009c3b', num:'10', numc:'#002776'})) + '</g></g></svg>';
+    /* 4c. the step-overs: you follow, you fall */
+    const s4c = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + DEFS + '<rect width="400" height="260" fill="#0a0c12"/>' + lamps + crowd(160, 24, 110, ['#ffdf00', '#009c3b', '#fff'])
+      + '<rect y="150" width="400" height="110" fill="#1a6a32"/>'
+      + '<g class="pr-fall"><g class="pr-sway"><g transform="translate(200 110) scale(1.1)">' + bdoMan(0, 0, 1, YOU({mouth:'open', brow:'thick'})) + '</g></g></g>'
+      + '<ellipse cx="200" cy="238" rx="60" ry="10" fill="#000" opacity=".3"/>' + '<g transform="translate(200 230)">' + ball('') + '</g>'
+      + '<g class="pr-step1"><ellipse cx="200" cy="232" rx="16" ry="6" fill="#ff8a5a"/><path d="M196 230 L192 196" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/></g>'
+      + '<g class="pr-step2"><ellipse cx="200" cy="232" rx="16" ry="6" fill="#ff8a5a"/><path d="M204 230 L208 196" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/></g></svg>';
+    /* 6. the Remontada */
+    const s6 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + DEFS + '<rect width="400" height="260" fill="#05040c"/>' + lamps + crowd(360, 30, 150, ['#a50044', '#004d98', '#ffd23f', '#fff'])
+      + '<rect y="150" width="400" height="110" fill="#14532a"/><path d="M100 0 H300 L360 260 H40 Z" fill="url(#prSp)" opacity=".5"/>'
+      + '<g class="pr-rem"><g transform="translate(300 142) scale(1.15)">' + bdoMan(0, 0, 1, NEY({shirt:'barca', num:'11', numc:'#ffd23f', trim:'#ffd23f', arm:'up'})) + '</g></g></svg>';
+    /* 8. the Maracanã */
+    const s8 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + DEFS + '<rect width="400" height="260" fill="#04060a"/>' + lamps + crowd(340, 30, 140, ['#ffdf00', '#009c3b', '#002776', '#fff'])
+      + '<rect y="140" width="400" height="120" fill="#14532a"/>'
+      + '<g class="pr-oly"><g transform="translate(200 120) scale(1.2)">' + bdoMan(0, 0, 1, NEY({shirt:'#ffdf00', trim:'#009c3b', num:'10', numc:'#002776', tears:true, mouth:'grin'})) + '</g>'
+      + '<g class="pr-medal"><path d="M186 160 L200 196 L214 160" stroke="#009c3b" stroke-width="5" fill="none"/><circle cx="200" cy="204" r="12" fill="url(#prGd)" stroke="#6a4300"/><text x="200" y="208" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="9" fill="#6a4300">2016</text></g></g></svg>';
+    /* 9. his shadow, and you in it */
+    const s9 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + DEFS + '<rect width="400" height="260" fill="#030205"/>'
+      + Array.from({length: 70}, () => '<rect class="pr-phone" style="--d:' + f1(R() * 2) + 's" x="' + f1(R() * 400) + '" y="' + f1(40 + R() * 110) + '" width="3" height="5" rx=".6" fill="#cfe4ff"/>').join('')
+      + '<path d="M168 0 H232 L300 186 H100 Z" fill="url(#prSp)"/><ellipse cx="200" cy="186" rx="70" ry="9" fill="url(#prGd)"/><rect x="138" y="186" width="124" height="14" fill="#3a2a0a"/><path d="M138 186 H262" stroke="url(#prGd)" stroke-width="2"/>'
+      + '<path class="pr-shadow" d="M150 200 L250 200 L330 260 L70 260 Z" fill="#000" opacity=".85"/>'
+      + '<g class="pr-king">' + silhouette(206, 186, .66, {shirt:'#ffdf00', shorts:'#002776', sock:'#ffffff', boot:'#ff8a5a', num:'10', numc:'#002776'}) + '<path d="M188 52 L188 40 L194 46 L200 36 L206 46 L212 40 L212 52 Z" fill="url(#prGd)" transform="translate(4 8)"/></g>'
+      + '<g class="pr-tiny"><circle cx="200" cy="232" r="4" fill="#4a4f5a"/><path d="M195 248 Q200 234 205 248 Z" fill="#4a4f5a"/><text x="200" y="256" text-anchor="middle" font-family="Teko, sans-serif" font-size="6" letter-spacing="1" fill="#6a6f7a">YOU</text></g></svg>';
+    const title = 'THE PRINCE'.split('').map((ch, i) => '<span style="--i:' + i + '">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>').join('');
+    const COMMENTS = ['💀💀💀', 'bro got cooked', 'NEY IS DIFFERENT 🔥', 'who is the defender lmao', 'replay x100', 'he needs to retire', 'ankles: gone', 'OLÉ OLÉ OLÉ'];
+    ov.innerHTML = '<canvas class="gt-cv"></canvas><div class="pr-flashbang"></div>'
+      + '<section class="gt-s pr-1">' + s1 + '<div class="pr-title"><small>Mogi das Cruzes, Brazil · 1992</small><p>Some people play football.</p><b>He performs it.</b></div></section>'
+      + '<section class="gt-s pr-2">' + s2 + '<div class="gt-cap pr-cap"><small>Street football · São Paulo state</small><p>He never played to win.</p><p class="pr-p2">He played to be watched.</p></div></section>'
+      + '<section class="gt-s pr-3">' + s3 + '<div class="gt-cap pr-cap"><small>Santos · Vila Belmiro</small><p>The goal was never the point.</p><p class="pr-p2">This was.</p></div></section>'
+      + '<section class="gt-s pr-4a">' + s4a + '<div class="pr-trick"><b>CANETA.</b><span>a nutmeg. through your legs.</span></div><div class="pr-ole">OLÉ!</div></section>'
+      + '<section class="gt-s pr-4b">' + s4b + '<div class="pr-trick"><b>LAMBRETA.</b><span>the rainbow flick. over your head.</span></div><div class="pr-ole">OLÉ!</div></section>'
+      + '<section class="gt-s pr-4c">' + s4c + '<div class="pr-trick"><b>PEDALADA.</b><span>step-overs. you fell over.</span></div><div class="pr-ole">OLÉÉÉ!</div></section>'
+      + '<section class="gt-s pr-5"><div class="pr-phonebox"><div class="pr-screen"><div class="pr-vid"><svg viewBox="0 0 200 120"><rect width="200" height="120" fill="#1a6a32"/><g transform="translate(100 66) rotate(-62) scale(.6)">' + bdoMan(0, 0, 1, YOU()) + '</g><circle cx="100" cy="60" r="16" fill="#000" opacity=".5"/><path d="M95 52 L108 60 L95 68 Z" fill="#fff"/></svg><i class="pr-bar"></i></div>'
+        + '<div class="pr-meta"><b>NEYMAR DESTROYS DEFENDER 😭😭</b><span><em id="prViews">0</em> views</span><i class="pr-trend">#1 ON TRENDING</i><div class="pr-acts"><span>❤ 9.8M</span><span>💬 412K</span><span>↗ Share</span></div>'
+        + '<div class="pr-rel">' + ['he did it AGAIN 😭', 'defender still looking for the ball', 'top 10 humiliations'].map(t => '<div><i></i><span>' + t + '</span></div>').join('') + '</div></div></div></div>'
+        + '<div class="pr-comments">' + COMMENTS.map((c, i) => '<span style="--i:' + i + ';--x:' + (i % 2 ? 1 : -1) + '">' + c + '</span>').join('') + '</div>'
+        + '<div class="gt-cap c pr-cap"><p>You went viral.</p><p class="pr-p2">Not for the right reasons.</p></div></section>'
+      + '<section class="gt-s pr-6">' + s6 + '<div class="pr-board"><small>CAMP NOU · 8 MARCH 2017</small><div class="pr-score"><span>BARÇA</span><b id="prSc">3 – 1</b><span>PSG</span></div><div class="pr-min" id="prMin">87’</div><div class="pr-ev" id="prEv"></div></div>'
+        + '<div class="gt-cap pr-cap"><p>Three goals in the last eight minutes.</p><p class="pr-p2">He was in all of them.</p></div></section>'
+      + '<section class="gt-s pr-7"><div class="pr-money"><small>BARCELONA → PARIS · 2017</small><b>€<span id="prEur">0</span></b><p>Still the most expensive transfer in history.</p></div><div class="pr-suit"><svg viewBox="-60 -40 120 140">' + bdoMan(0, 0, 1, NEY({suit:true, chain:true, mouth:'grin'})) + '</svg></div></section>'
+      + '<section class="gt-s pr-8">' + s8 + '<div class="pr-pens"><div><span>BRA</span>' + '<i class="ok"></i>'.repeat(4) + '<i class="last"></i></div><div><span>GER</span>' + '<i class="ok"></i>'.repeat(4) + '<i class="miss"></i></div></div>'
+        + '<div class="gt-cap pr-cap"><small>Maracanã · 20 August 2016 · Olympic final</small><p>The last penalty. For gold.</p><p class="pr-p2">Of course it was him.</p></div></section>'
+      + '<section class="gt-s pr-9">' + s9 + '<div class="pr-chant"><span>NEY!</span><span>NEY!</span><span>NEY!</span></div><div class="gt-cap c pr-cap"><p>They all came to see him.</p><p class="pr-p2">You’re standing in his shadow.</p></div></section>'
+      + '<section class="gt-s pr-10"><div class="pr-beam"></div><div class="su-rv pr-rv"><div class="pr-crown"><svg viewBox="0 0 60 36"><path d="M4 32 L4 10 L16 20 L30 2 L44 20 L56 10 L56 32 Z" fill="url(#prCr)" stroke="#6a4300" stroke-width="1.4"/><defs><linearGradient id="prCr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6a4300"/><stop offset=".45" stop-color="#ffe9a0"/><stop offset=".7" stop-color="#ffd23f"/><stop offset="1" stop-color="#6a4300"/></linearGradient></defs><circle cx="30" cy="22" r="3.4" fill="#009c3b"/><circle cx="16" cy="26" r="2.4" fill="#2a6aff"/><circle cx="44" cy="26" r="2.4" fill="#2a6aff"/></svg></div><div class="pr-art"><span class="gt-foil pr-foil"></span></div>'
+        + '<h2 class="pr-h2">' + title + '</h2><div class="pr-sub">CHROMA · ONE OF ONE</div><div class="prn-tag">Look at me.</div><div class="gt-val pr-val"><span class="coin"></span><span id="prVal">0</span></div><div class="gt-tap">tap to continue</div></div></section>'
+      + '<button class="pc-skip gt-skip">Skip ››</button>';
+    const src = artHi(it, wearIdx(r.fl)), art = ov.querySelector('.pr-art');
+    art.prepend(imgOf(src)); art.querySelector('.gt-foil').style.setProperty('--m', 'url("' + src + '")');
+    ov.className = 'gtc prc'; ov.hidden = false; go(0);
+
+    /* confetti, sparkles, coins */
+    const cv = ov.querySelector('.gt-cv'), g = cv.getContext('2d');
+    let W = 0, H = 0, parts = [], confetti = 0, coins = 0, PAL = ['#ffdf00', '#009c3b', '#2a6aff', '#ffffff', '#ffd23f'];
+    const size = () => { const d = Math.min(devicePixelRatio || 1, 1.5); W = innerWidth; H = innerHeight; cv.width = W * d; cv.height = H * d; g.setTransform(d, 0, 0, d, 0, 0); };
+    size(); addEventListener('resize', size);
+    const burst = (n, x, y, pal) => { for (let i = 0; i < n; i++) { const a = Rr() * Math.PI * 2, v = .2 + Rr() * .6; parts.push({x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - .3, c: (pal || PAL)[i % (pal || PAL).length], life: 800 + Rr() * 700, max: 1500, g: .0009, s: 2.4}); } };
+    let last = performance.now();
+    function frame(now){
+      if (done) return;
+      const dt = Math.min(50, now - last); last = now;
+      g.clearRect(0, 0, W, H);
+      for (let k = 0; k < confetti; k++) if (parts.length < 420) parts.push({x: Rr() * W, y: -10, vx: (Rr() - .5) * .1, vy: .08 + Rr() * .12, c: PAL[(k + parts.length) % PAL.length], life: 7000, max: 7000, g: .00002, s: 3 + Rr() * 3, rot: Rr() * 6});
+      for (let k = 0; k < coins; k++) if (parts.length < 420) parts.push({coin: true, x: Rr() * W, y: -16, vx: (Rr() - .5) * .05, vy: .2 + Rr() * .25, life: 6000, max: 6000, g: .0002, s: 7 + Rr() * 6, rot: Rr() * 6});
+      for (let i = parts.length - 1; i >= 0; i--) {
+        const p = parts[i]; p.life -= dt; p.vy += (p.g || 0) * dt; p.x += p.vx * dt; p.y += p.vy * dt;
+        if (p.life <= 0 || p.y > H + 30) { parts.splice(i, 1); continue; }
+        g.globalAlpha = Math.max(0, Math.min(1, p.life / p.max * 1.5));
+        if (p.coin) { const sx = Math.abs(Math.cos((now + i * 50) / 160)); g.fillStyle = '#ffd23f'; g.beginPath(); g.ellipse(p.x, p.y, p.s * sx + .5, p.s, 0, 0, 7); g.fill(); g.strokeStyle = '#a86a00'; g.lineWidth = 1; g.stroke(); }
+        else { g.fillStyle = p.c; g.save(); g.translate(p.x, p.y); g.rotate((p.rot || 0) + now / 300); g.fillRect(-p.s / 2, -p.s / 3, p.s, p.s * .66); g.restore(); }
+        g.globalAlpha = 1;
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    raf = requestAnimationFrame(frame);
+    const finish = () => {
+      if (done) return; done = true; timers.forEach(t => { clearTimeout(t); clearInterval(t); }); clearInterval(cnt); cancelAnimationFrame(raf); removeEventListener('resize', size);
+      ov.classList.add('out');
+      setTimeout(() => { ov.hidden = true; ov.className = 'gtc prc'; ov.innerHTML = ''; cine = null; musSync(); resolve(); }, 500);
+    };
+    ov.onclick = e => { if (e.target.closest('.gt-skip') || ov.classList.contains('ready')) finish(); };
+    cine = {skip: finish}; musSync(); ac();
+
+    /* sound: an original samba-funk groove that never stops showing off */
+    const flash = () => { const f = ov.querySelector('.pr-flashbang'); if (f) restart(f, 'on'); };
+    const cheer = (v, d) => { noise(d || 2.4, 1400, 500, v, 'bandpass'); noise((d || 2.4) * .8, 2600, 1200, v * .6, 'bandpass'); };
+    const stab = (fs, v, at) => fs.forEach(f => { tone(f, .22, 'sawtooth', v || .02, at); tone(f * 2, .18, 'square', (v || .02) * .4, at); });
+    const shutter = () => { noise(.04, 5000, 3000, .08, 'highpass'); tone(2400, .02, 'square', .02); };
+    const PROG = [[164.81, 207.65, 246.94], [138.59, 164.81, 207.65], [110, 138.59, 164.81], [123.47, 155.56, 185]], BASS = [41.2, 34.65, 55, 61.74];
+    let step = 0, groove = 0;
+    const seq = setInterval(() => {
+      const s16 = step % 16, bar = Math.floor(step / 16) % 4; step++;
+      if (done || !groove) return;
+      const v = groove;
+      if (s16 === 4 || s16 === 12) tone(58, .3, 'sine', .3 * v); else if (s16 === 0 || s16 === 8) tone(66, .22, 'sine', .16 * v);
+      if ([0, 3, 6, 8, 10, 13, 14].includes(s16)) noise(.03, 3200, 2000, .05 * v, 'bandpass');
+      noise(.02, 8000, 6000, (s16 % 2 ? .012 : .02) * v, 'highpass');
+      if ([0, 3, 8, 11].includes(s16)) tone(BASS[bar] * 2, .2, 'triangle', .07 * v);
+      if (groove > .5 && (s16 === 0 || s16 === 6 || s16 === 10)) stab(PROG[bar], .016 * v);
+    }, 125);
+    timers.push(seq);
+    const run = (at, notes, gap) => notes.forEach((f, i) => T(at + i * (gap || 70), () => { tone(f, .14, 'triangle', .04); tone(f * 2, .1, 'sine', .015); }));
+    const UP = [659.25, 739.99, 830.61, 987.77, 1108.73, 1318.51];
+
+    // 1. a spotlight
+    T(200, () => { go('n1'); });
+    T(700, () => { add('spot'); boom(); flash(); tone(55, 1.4, 'sine', .3); });
+    T(1300, () => { add('t1'); for (let i = 0; i < 14; i++) setTimeout(() => { if (!done) shutter(); }, i * 110 + Rr() * 80); });
+    T(3200, () => { add('t2'); groove = .4; run(0, UP); });
+    T(4600, () => add('rimon'));
+    // 2. the street
+    T(6600, () => { go('n2'); groove = .6; });
+    T(7300, () => add('c2'));
+    T(9300, () => add('c2b'));
+    // 3. the bow at Vila Belmiro
+    T(12600, () => { go('n3'); groove = 0; cheer(.06, 3); });
+    T(13400, () => { add('bow'); boom(); flash(); cheer(.18, 4); for (let i = 0; i < 24; i++) setTimeout(() => { if (!done) shutter(); }, i * 90 + Rr() * 60); burst(80, W * .55, H * .4); });
+    T(14400, () => { groove = 1; add('c3'); });
+    T(16200, () => { add('pusk'); stab([329.63, 415.3, 493.88], .03); });
+    T(18000, () => add('c3b'));
+    // 4. three tricks, done to you
+    T(21200, () => { go('n4a'); groove = .5; });
+    T(21800, () => { add('nut'); sweep(900, 300, .5, 'sine', .04); });
+    T(22600, () => { add('trk'); boom(); cheer(.14, 2); });
+    T(23200, () => add('ole'));
+    T(25700, () => { go('n4b'); ov.classList.remove('trk', 'ole'); });
+    T(26200, () => { add('flick'); sweep(300, 1400, .9, 'sine', .05); });
+    T(27200, () => { add('trk'); boom(); cheer(.14, 2); });
+    T(27800, () => add('ole'));
+    T(30200, () => { go('n4c'); ov.classList.remove('trk', 'ole'); });
+    T(30500, () => add('steps'));
+    for (let i = 0; i < 8; i++) T(30500 + i * 260, () => tone(i % 2 ? 330 : 247, .08, 'square', .03));
+    T(32700, () => { add('fallen'); noise(.5, 400, 100, .14, 'lowpass'); tone(80, .4, 'sine', .25); });
+    T(33100, () => { add('trk'); cheer(.16, 2.4); });
+    T(33600, () => add('ole'));
+    // 5. you, viral
+    T(35000, () => { go('n5'); groove = .7; });
+    T(35500, () => {
+      add('play'); const el = $('#prViews'), t0 = performance.now();
+      const iv = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 3600); if (el) el.textContent = fmt(Math.round(48302117 * (1 - Math.pow(1 - k, 2.4)))); if (k >= 1) clearInterval(iv); }, 40); timers.push(iv);
+    });
+    for (let i = 0; i < 8; i++) T(35900 + i * 380, () => { add('cm' + i); tone(880 + i * 60, .06, 'sine', .03); });
+    T(38600, () => add('c5'));
+    T(39600, () => add('c5b'));
+    // 6. the Remontada
+    T(41200, () => { go('n6'); groove = .5; cheer(.05, 4); });
+    const sc = (score, min, ev) => { const a = $('#prSc'), b = $('#prMin'), c = $('#prEv'); if (a) a.textContent = score; if (b) b.textContent = min; if (c) { c.textContent = ev; restart(c, 'pop'); } };
+    T(42600, () => { sc('4 – 1', '88’', 'FREE KICK · NEYMAR'); add('g1'); boom(); cheer(.18, 2.4); burst(60, W * .5, H * .3); });
+    T(44400, () => { sc('5 – 1', '90+1’', 'PENALTY · NEYMAR'); boom(); cheer(.2, 2.4); burst(80, W * .5, H * .3); });
+    T(46200, () => { sc('6 – 1', '90+5’', 'ASSIST · NEYMAR'); add('g3'); boom(); boom(); cheer(.26, 4); groove = 1; confetti = 3; PAL = ['#a50044', '#004d98', '#ffd23f', '#ffffff']; [.2, .5, .8].forEach((x, i) => setTimeout(() => { if (!done) burst(70, W * x, H * .25); }, i * 250)); });
+    T(47200, () => add('c6'));
+    T(48400, () => add('c6b'));
+    // 7. 222 million
+    T(50600, () => { go('n7'); confetti = 0; parts = []; coins = 2; groove = .6; });
+    T(51000, () => {
+      add('money'); const el = $('#prEur'), t0 = performance.now();
+      const iv = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 2600); if (el) el.textContent = fmt(Math.round(222000000 * (1 - Math.pow(1 - k, 3)))); if (k >= 1) { clearInterval(iv); kaching(); boom(); } }, 40); timers.push(iv);
+      for (let i = 0; i < 20; i++) setTimeout(() => { if (!done) tone(1568 + (i % 4) * 200, .05, 'triangle', .02); }, i * 120);
+    });
+    T(53800, () => add('money2'));
+    // 8. the Maracanã
+    T(56200, () => { go('n8'); coins = 0; parts = []; groove = 0; noise(4, 700, 300, .03, 'bandpass'); });
+    [56800, 57500, 58100].forEach((d, i) => T(d, () => { tone(52, .28, 'sine', .25 + i * .05); tone(46, .3, 'sine', .2, .2); }));
+    T(57400, () => add('miss'));
+    T(58800, () => { add('last'); boom(); flash(); cheer(.28, 4.4); PAL = ['#ffdf00', '#009c3b', '#2a6aff', '#ffffff']; confetti = 3; groove = 1; [.3, .7].forEach((x, i) => setTimeout(() => { if (!done) burst(80, W * x, H * .3); }, i * 300)); });
+    T(59400, () => add('c8'));
+    T(60800, () => add('c8b'));
+    // 9. the shadow
+    T(63600, () => { go('n9'); confetti = 0; parts = []; groove = .8; });
+    T(64200, () => { add('lit'); boom(); flash(); });
+    [65000, 65700, 66400, 67100, 67800, 68500].forEach((d, i) => T(d, () => { add('ch' + (i % 3)); noise(.3, 1200, 600, .12, 'bandpass'); tone(196, .25, 'sawtooth', .03); }));
+    T(65400, () => add('stretch'));
+    T(67400, () => add('c9'));
+    T(69000, () => add('c9b'));
+    // 10. The Prince
+    T(71800, () => { go('n10'); groove = 0; parts = []; tone(55, 1, 'sine', .3); sweep(120, 900, 1.4, 'sine', .04); });
+    T(72600, () => {
+      add('pland'); boom(); flash(); cheer(.14, 3); groove = 1;
+      stab([329.63, 415.3, 493.88], .03); setTimeout(() => { if (!done) stab([369.99, 466.16, 554.37], .03); }, 400); setTimeout(() => { if (!done) { stab([415.3, 493.88, 659.25], .04); run(0, UP.concat([1661.22, 1975.53]), 60); } }, 800);
+      PAL = ['#ffdf00', '#009c3b', '#2a6aff', '#ffffff', '#ffd23f']; confetti = 4; setTimeout(() => { confetti = 1; }, 3000);
+      [.2, .8, .35, .65, .5].forEach((x, i) => setTimeout(() => { if (!done) burst(70, W * x, H * (.15 + (i % 2) * .12)); }, 300 + i * 420));
+      const el = $('#prVal'), t0 = performance.now();
+      cnt = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 1800); if (el) el.textContent = fmt(Math.round(r.v * (1 - Math.pow(1 - k, 3)))); if (k >= 1) { clearInterval(cnt); kaching(); } }, 40);
+    });
+    T(74600, () => add('ready'));
+    T(84000, finish);
+  });
+}
 function chromaCinematic(r){
   if (r.id === 'x1') return requiemCinematic(r);
   if (r.id === 'x3' || r.id === SFOT_ID) return goatCinematic(r);
   if (r.id === SUI_ID || r.id === PULGA_ID) return suiCinematic(r);
+  if (r.id === PRINCE_ID) return princeCinematic(r);
   return new Promise(resolve => {
     const it = BY[r.id], ov = $('#chc'), timers = [];
     let done = false, raf = 0, cnt = 0;
@@ -11388,6 +11855,9 @@ function bdoFace(o){
   else if (o.hair === 'buzz') f += '<path d="M-16 6 Q-16 -16 0 -17 Q16 -16 16 6 Q12 -6 0 -7 Q-12 -6 -16 6 Z" fill="' + hc + '" opacity=".75"/>';
   if (o.hair === 'afro') f += '<path d="M-17 4 Q-18 -14 0 -15 Q18 -14 17 4 Q10 -7 0 -7 Q-10 -7 -17 4 Z" fill="' + hc + '"/>';
   if (o.hair === 'blond') f += '<path d="M-16 6 L-15 -10 L-11 -14 L-8 -19 L-4 -15 L0 -21 L4 -15 L8 -19 L11 -14 L15 -10 L16 6 Q12 -5 0 -6 Q-12 -5 -16 6 Z" fill="' + (o.hl || '#e8c86a') + '"/>';
+  if (o.hair === 'ney') f += '<path d="M-16.5 6 Q-17.5 -6 -14 -12 L-14.5 2 Z M16.5 6 Q17.5 -6 14 -12 L14.5 2 Z" fill="' + hc + '" opacity=".45"/><path d="M-14 -4 Q-15 -16 0 -18 Q15 -16 14 -4 Q8 -9 0 -9 Q-8 -9 -14 -4 Z" fill="' + hc + '"/>'
+    + [[-10, -15], [-5, -19], [0, -20], [5, -19], [10, -15], [-7, -14], [3, -15], [8, -12], [-2, -13]].map(([x, y], i) => '<circle cx="' + x + '" cy="' + y + '" r="' + (i < 5 ? 4 : 3.4) + '" fill="' + hc + '"/>').join('')
+    + [[-5, -22], [1, -23], [6, -21], [-9, -18]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="1.8" fill="' + (o.hl || '#e8c86a') + '"/>').join('');
   if (o.hair === 'curly') f += '<path d="M-16 6 Q-16 -10 0 -12 Q16 -10 16 6 Q12 -4 0 -5 Q-12 -4 -16 6 Z" fill="' + hc + '"/>' + [-11,-6,-1,4,9,13].map((x, i) => '<circle cx="' + x + '" cy="' + (-13 - (i % 2)*3) + '" r="4.2" fill="' + hc + '"/>').join('');
   if (o.hair === 'quiff') f += '<path d="M-16 6 Q-17 -12 -6 -16 Q2 -26 14 -20 Q18 -14 16 6 Q13 -5 4 -8 Q-8 -6 -16 6 Z" fill="' + hc + '"/><path d="M-16 6 Q-16 -2 -14 -6 M16 6 Q16 -2 14 -6" stroke="' + hc + '" stroke-width="2" opacity=".5"/>';
   if (o.hair === 'bald') f += '<ellipse cx="-6" cy="-9" rx="7" ry="3.6" fill="#fff" opacity=".22" transform="rotate(-18 -6 -9)"/>';
@@ -11457,7 +11927,7 @@ function bdoMan(x, y, s, o){
   if (o.chain) g += '<path d="M-12 53 Q0 72 12 53" stroke="#ffd23f" stroke-width="2.2" fill="none" stroke-dasharray="2.2 1.2"/><circle cx="0" cy="66" r="3.4" fill="#ffd23f" stroke="#a8650a" stroke-width=".8"/>';
   g += '<path d="M-6.5 40 H6.5 V54 Q0 57 -6.5 54 Z" fill="' + sk + '"/><path d="M-6.5 42 Q0 47 6.5 42 V46 Q0 50 -6.5 46 Z" fill="rgba(90,40,20,.22)"/>';
   g += bdoFace(o);
-  if (o.arm === 'up') g += '<path d="M24 62 Q36 40 34 16" stroke="' + (o.uniform ? '#3d4a2a' : o.hoodie ? '#17171c' : o.suit ? '#111318' : sh === 'stripes' ? '#7cc4ef' : sh) + '" stroke-width="10" stroke-linecap="round" fill="none"/><circle cx="34" cy="13" r="5.5" fill="' + sk + '"/>';
+  if (o.arm === 'up') g += '<path d="M24 62 Q36 40 34 16" stroke="' + (o.uniform ? '#3d4a2a' : o.hoodie ? '#17171c' : o.suit ? '#111318' : sh === 'stripes' ? '#7cc4ef' : sh === 'barca' ? '#a50044' : sh) + '" stroke-width="10" stroke-linecap="round" fill="none"/><circle cx="34" cy="13" r="5.5" fill="' + sk + '"/>';
   if (o.arm === 'point') g += '<path d="M24 62 Q46 52 62 44" stroke="#3d4a2a" stroke-width="10" stroke-linecap="round" fill="none"/><circle cx="64" cy="43" r="5" fill="' + sk + '"/><path d="M66 42 L76 39" stroke="' + sk + '" stroke-width="3" stroke-linecap="round"/>';
   if (o.arm === 'aim') g += '<path d="M20 60 Q34 66 48 64 M-18 62 Q12 76 44 68" stroke="#17171c" stroke-width="9" stroke-linecap="round" fill="none"/><circle cx="48" cy="65" r="4.6" fill="' + sk + '"/>';
   if (o.arm === 'card') g += '<path d="M-24 64 Q-36 58 -31 46" stroke="#111318" stroke-width="10" stroke-linecap="round" fill="none"/><g class="bd-env"><rect x="-46" y="26" width="26" height="17" rx="1.5" fill="#f2e6c4" stroke="#b8860b"/><path class="bd-flap" d="M-46 26 L-33 36 L-20 26" stroke="#b8860b" fill="#e9d9ad"/></g><circle cx="-31" cy="44" r="5" fill="' + sk + '"/>';
@@ -11615,6 +12085,7 @@ const BDO_PPL = {
   vini:{skin:'#563621', shade:'rgba(20,8,4,.3)', head:'long', hair:'curly', hc:'#0c0806', beard:'stubble', brow:'arch', nose:'wide', mouth:'smile'},
   kane:{skin:'#f1c9a8', shade:'rgba(140,70,40,.16)', head:'long', hair:'part', hc:'#8a6038', bc:'#6a4626', iris:'#4a6a8a', brow:'flat', mouth:'smile'},
   messi:{skin:'#ebb995', shade:'rgba(120,60,30,.16)', head:'oval', hair:'messi', hc:'#3b2615', beard:'full', brow:'flat', iris:'#5a3a1e', mouth:'smile'},
+  neymar:{skin:'#b47a52', shade:'rgba(70,30,10,.25)', head:'oval', hair:'ney', hc:'#14100c', hl:'#e8c86a', beard:'goatee', brow:'arch', iris:'#3a2416', mouth:'grin'},
   cr7:{skin:'#d9a37c', shade:'rgba(110,50,25,.18)', head:'cr7', hair:'cr7', hc:'#1a110b', brow:'arch', iris:'#3a2416', mouth:'open'}
 };
 const bdoP = (who, extra) => Object.assign({}, BDO_PPL[who], extra || {});
