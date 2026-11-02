@@ -3249,15 +3249,36 @@ body.dz-open .toast{z-index:95}
 .su-st b{font:700 clamp(54px,10vw,120px)/.9 var(--display);background:linear-gradient(180deg,#fff2c0,#ffd23f 45%,#c8102e);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 20px rgba(255,40,60,.5))}
 .su-st span{font:700 13px var(--body);letter-spacing:.28em;text-transform:uppercase;color:#ffb0b8}
 .gtc.st0 .su-st:nth-child(1),.gtc.st1 .su-st:nth-child(2),.gtc.st2 .su-st:nth-child(3),.gtc.st3 .su-st:nth-child(4){opacity:1;transform:none;filter:none;transition:all .3s cubic-bezier(.2,1.4,.4,1)}
-.su-bball{transform:translate(380px,30px);opacity:0}
-.gtc.cross .su-bball{opacity:1;transform:translate(236px,150px);transition:transform .8s cubic-bezier(.3,0,.7,1)}
-.gtc.kick .su-bball{transform:translate(44px,134px);transition:transform .36s cubic-bezier(.2,.7,.3,1)}
-.su-bk{transform-origin:232px 162px}
-.gtc.cross .su-bk{transform:translateY(-14px);transition:transform .6s}
-.gtc.kick .su-bk{transform:translateY(-34px) rotate(-200deg);transition:transform .35s cubic-bezier(.3,0,.6,1)}
-.gtc.net .su-bk{transform:translateY(0) rotate(-360deg);transition:transform .9s cubic-bezier(.3,.6,.4,1)}
-.su-gk{transform-origin:76px 196px}
-.gtc.net .su-gk{transform:translate(14px,8px) rotate(62deg);transition:transform .35s cubic-bezier(.3,0,.5,1)}
+/* the bicycle kick */
+.su-bball{transform:translate(430px,10px)}
+.gtc.cross .su-bball{animation:suCross .8s linear forwards}
+@keyframes suCross{0%{transform:translate(430px,10px)}50%{transform:translate(326px,4px)}100%{transform:translate(227px,66px)}}
+.gtc.shot .su-bball{animation:suShot .3s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes suShot{from{transform:translate(227px,66px)}to{transform:translate(32px,110px) scale(.85)}}
+.gtc.net .su-bball{animation:suDrop .6s cubic-bezier(.5,0,.8,.6) forwards}
+@keyframes suDrop{from{transform:translate(32px,110px) scale(.85)}to{transform:translate(40px,188px) scale(.85)}}
+.su-lift{transform:translate(250px,166px)}
+.gtc.jump .su-lift{transform:translate(250px,152px) rotate(-6deg);transition:transform .3s ease-out}
+.gtc.air .su-lift{transform:translate(250px,118px) rotate(-4deg);transition:transform .32s cubic-bezier(.2,.8,.3,1)}
+.gtc.fall .su-lift{transform:translate(242px,176px) rotate(4deg);transition:transform .5s cubic-bezier(.5,0,.8,.6)}
+.gtc.land2 .su-lift{transform:translate(240px,182px) rotate(0deg);transition:transform .2s}
+.su-pb,.su-pc{opacity:0}
+.gtc.air .su-pa{opacity:0}.gtc.air .su-pb{opacity:1}
+.gtc.fall .su-pb{opacity:0}.gtc.fall .su-pc{opacity:1}
+.su-shadow{transform-box:fill-box;transform-origin:center}
+.gtc.air .su-shadow{transform:scale(.6);opacity:.2;transition:all .3s}
+.gtc.fall .su-shadow{transform:none;opacity:.35;transition:all .5s}
+.su-swish,.su-hit{opacity:0}
+.gtc.air .su-swish{animation:suSwish .6s ease-out}
+@keyframes suSwish{0%{opacity:.9}100%{opacity:0}}
+.su-hit{transform-box:fill-box;transform-origin:center}
+.gtc.air .su-hit{animation:suHitA .6s ease-out}
+@keyframes suHitA{0%{opacity:1;transform:scale(.3)}100%{opacity:0;transform:scale(2.4)}}
+.gtc.freeze .su-5 svg{filter:contrast(1.35) saturate(1.5) brightness(1.1)}
+.gtc.freeze .su-5{animation:suZoom .55s ease-out}
+@keyframes suZoom{0%{transform:scale(1)}30%{transform:scale(1.06)}100%{transform:scale(1)}}
+.gtc.net .su-net{animation:suNet .5s ease-out}
+@keyframes suNet{40%{transform:translateX(-5px)}}
 .su-gl{opacity:0}
 .gtc.net .su-gl{opacity:1;animation:mpBig .5s cubic-bezier(.2,1.6,.4,1)}
 .gtc.clap .su-fan{animation:suClap .4s var(--d) ease-in-out infinite alternate}
@@ -3819,7 +3840,7 @@ const ITEMS = [
   {id:'x2', w:'karambit',  name:'Kingmaker',      t:7, pat:'doppler', pal:['#1a0030','#ff3ea5','#2fe3ff','#ffd23f'], m:2.6, ex:true},
   {id:'x3', w:'rifle',     name:'The GOAT',       t:7, pat:'goat', pal:['#75bde9','#f4f7fb','#ffd23f'], m:7.6, ex:true},
   {id:'x4', w:'shotgun',   name:'The SFOT',       t:7, pat:'sfot', pal:['#0b1736','#1f4fd1','#e1262d','#c9d2de'], m:5.35, ex:true},
-  {id:'x5', w:'sniper',    name:'The Sui',        t:7, pat:'sui', pal:['#070103','#c8102e','#ffd23f','#0a6a3a'], m:7.5, ex:true}
+  {id:'x5', w:'sniper',    name:'The Sui',        t:7, pat:'sui', pal:['#070103','#da291c','#ffd23f','#046a38'], m:7.5, ex:true}
 ];
 
 /* ---------- RNG helpers ---------- */
@@ -3902,19 +3923,24 @@ const PAT = {
     g.font='bold 9px Teko, sans-serif';g.fillStyle='#0b2a4a';g.textAlign='center';g.fillText('10',24,54);
     for(let i=0;i<40;i++){g.fillStyle=i%3?'#fff':p[2];g.globalAlpha=.4+r()*.6;const x=r()*W,y=r()*H,z=.5+r()*1.2;g.fillRect(x-z/2,y-z/2,z,z);}g.globalAlpha=1;
   },
-  /* The Sui: obsidian black split by crimson lightning, ember flecks and a hot red-gold chroma sheen */
+  /* The Sui: Portugal. Blue-and-white azulejo tiles on the stock, the flag's green and red across the body
+     (green to the hoist, red to the fly, 2:3), gold filigree and a warm red-gold chroma sheen */
   sui(g,W,H,p,r){
-    const lg=g.createLinearGradient(0,0,0,H);lg.addColorStop(0,'#1c0408');lg.addColorStop(.5,p[0]);lg.addColorStop(1,'#000');g.fillStyle=lg;g.fillRect(0,0,W,H);
-    for(let i=0;i<8;i++){const x=r()*W,y=r()*H,R=10+r()*24,rg=g.createRadialGradient(x,y,0,x,y,R);rg.addColorStop(0,'rgba(200,16,46,.28)');rg.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=rg;g.fillRect(0,0,W,H);}
+    g.fillStyle='#f4f1ea';g.fillRect(0,0,52,H);
+    for(let ty=0;ty<H;ty+=10)for(let tx=0;tx<52;tx+=10){g.strokeStyle='#1d4fa8';g.lineWidth=.6;g.strokeRect(tx+.3,ty+.3,9.4,9.4);
+      g.fillStyle='#1d4fa8';g.beginPath();g.moveTo(tx+5,ty+1.4);g.quadraticCurveTo(tx+6.4,ty+5,tx+5,ty+8.6);g.quadraticCurveTo(tx+3.6,ty+5,tx+5,ty+1.4);g.fill();
+      g.beginPath();g.moveTo(tx+1.4,ty+5);g.quadraticCurveTo(tx+5,ty+6.4,tx+8.6,ty+5);g.quadraticCurveTo(tx+5,ty+3.6,tx+1.4,ty+5);g.fill();
+      g.fillStyle='#f4f1ea';g.beginPath();g.arc(tx+5,ty+5,1.1,0,7);g.fill();[[0,0],[10,0],[0,10],[10,10]].forEach(([cx,cy])=>{g.fillStyle='#5a86d0';g.beginPath();g.arc(tx+cx,ty+cy,1.4,0,7);g.fill();});}
+    const gl=g.createLinearGradient(52,0,90,0);gl.addColorStop(0,'#03401f');gl.addColorStop(1,p[3]);g.fillStyle=gl;g.fillRect(52,0,38,H);
+    const rl=g.createLinearGradient(90,0,W,0);rl.addColorStop(0,'#e0202e');rl.addColorStop(1,'#8a0a16');g.fillStyle=rl;g.fillRect(90,0,W-90,H);
     g.save();g.globalCompositeOperation='screen';
-    for(let i=0;i<3;i++){const x=30+i*62+r()*16,w=12+r()*8,cg=g.createLinearGradient(x-w,0,x+w,0);
-      [['rgba(255,40,60,0)',0],['#ff2a3c',.25],['#ff8a2a',.45],['#ffd23f',.6],['#b02aff',.8],['rgba(176,42,255,0)',1]].forEach(([c,o])=>cg.addColorStop(o,c));
-      g.globalAlpha=.3;g.fillStyle=cg;g.beginPath();g.moveTo(x-w+12,0);g.lineTo(x+w+12,0);g.lineTo(x+w-12,H);g.lineTo(x-w-12,H);g.closePath();g.fill();}
+    for(let i=0;i<3;i++){const x=60+i*44+r()*12,w=10+r()*6,cg=g.createLinearGradient(x-w,0,x+w,0);
+      [['rgba(255,210,63,0)',0],['#ffd23f',.3],['#ff7a3a',.5],['#ffe9a0',.7],['rgba(255,233,160,0)',1]].forEach(([c,o])=>cg.addColorStop(o,c));
+      g.globalAlpha=.28;g.fillStyle=cg;g.beginPath();g.moveTo(x-w+10,0);g.lineTo(x+w+10,0);g.lineTo(x+w-10,H);g.lineTo(x-w-10,H);g.closePath();g.fill();}
     g.restore();
-    g.lineJoin='round';g.lineCap='round';
-    for(let k=0;k<5;k++){let x=r()*W,y=0;g.beginPath();g.moveTo(x,y);while(y<H){x+=(r()-.5)*14;y+=4+r()*7;g.lineTo(x,y);}
-      g.strokeStyle='rgba(255,40,60,.35)';g.lineWidth=2.6;g.shadowColor='#ff1a2e';g.shadowBlur=6;g.stroke();g.strokeStyle='#ffd0d6';g.lineWidth=.6;g.shadowBlur=0;g.stroke();}
-    for(let i=0;i<40;i++){g.fillStyle=i%3?'#ff6a2a':'#ffd23f';g.globalAlpha=.3+r()*.6;const x=r()*W,y=r()*H,z=.4+r()*1.1;g.fillRect(x,y,z,z);}g.globalAlpha=1;
+    g.strokeStyle='rgba(255,210,63,.55)';g.lineWidth=.6;
+    for(let x=96;x<150;x+=12){g.beginPath();g.moveTo(x,34);g.quadraticCurveTo(x+6,30,x+12,34);g.moveTo(x,46);g.quadraticCurveTo(x+6,50,x+12,46);g.stroke();}
+    for(let i=0;i<24;i++){g.fillStyle=i%3?'#ffd23f':'#fff3c0';g.globalAlpha=.3+r()*.5;const x=52+r()*(W-52),y=r()*H,z=.4+r()*.9;g.fillRect(x,y,z,z);}g.globalAlpha=1;
   },
   /* The SFOT: midnight navy like the shirt, a tricolour sash, a cold silver chroma sheen and rain */
   sfot(g,W,H,p,r){
@@ -4005,23 +4031,34 @@ function sfotParts(g){
   g.fillStyle = silver(0, 40, 0, 47); g.font = '600 6.6px Teko, sans-serif'; g.textAlign = 'center'; g.fillText('S.F.O.T', 130, 46.2);
   g.restore();
 }
-/* The Sui's parts: a gold scope with a red eye, a gold muzzle brake, five gold balls on the forend,
-   a gold 7 on the stock and SIUUU engraved on the receiver. */
+/* The Sui's parts: Portugal's arms where the green meets the red (a gold armillary sphere behind the red shield
+   with its white field and five blue escutcheons), a gold scope with a red lens, a gold muzzle brake,
+   five gold balls on the forend, a gold 7 on the tiles and SIUUU engraved in gold. */
 function suiParts(g){
   const gold = (x0, y0, x1, y1) => { const lg = g.createLinearGradient(x0, y0, x1, y1); lg.addColorStop(0, '#fff3c0'); lg.addColorStop(.35, '#ffd23f'); lg.addColorStop(.7, '#c98a0b'); lg.addColorStop(1, '#6a4300'); return lg; };
   g.save(); g.lineJoin = 'round'; g.strokeStyle = 'rgba(40,10,0,.85)'; g.lineWidth = .7;
   g.fillStyle = gold(0, 20, 0, 30); g.beginPath(); g.roundRect(64, 21, 46, 8, 3.5); g.fill(); g.stroke();
-  g.fillStyle = '#1a0606'; [[72, 22.4], [100, 22.4]].forEach(([x, y]) => g.fillRect(x, y, 2, 5.2));
+  g.fillStyle = '#046a38'; g.fillRect(72, 22.4, 2, 5.2); g.fillStyle = '#da291c'; g.fillRect(100, 22.4, 2, 5.2);
   const eye = g.createRadialGradient(117.6, 25, .3, 117.8, 25, 5); eye.addColorStop(0, '#ffe0e0'); eye.addColorStop(.3, '#ff2a2a'); eye.addColorStop(1, '#4a0006');
   g.fillStyle = gold(110, 17, 120, 33); g.beginPath(); g.moveTo(110, 21); g.lineTo(120, 17); g.lineTo(120, 33); g.lineTo(110, 29); g.closePath(); g.fill(); g.stroke();
-  g.shadowColor = '#ff1a1a'; g.shadowBlur = 6; g.fillStyle = eye; g.beginPath(); g.ellipse(118.4, 25, 1.9, 6.2, 0, 0, 7); g.fill(); g.shadowBlur = 0;
+  g.shadowColor = '#ff1a1a'; g.shadowBlur = 5; g.fillStyle = eye; g.beginPath(); g.ellipse(118.4, 25, 1.9, 6.2, 0, 0, 7); g.fill(); g.shadowBlur = 0;
   g.fillStyle = gold(0, 35, 0, 43); g.beginPath(); g.roundRect(184, 35, 12, 8, 1.5); g.fill(); g.stroke();
   g.fillStyle = '#1a0606'; [187, 190.5].forEach(x => g.fillRect(x, 36.4, 1.3, 5.2));
+  // the arms of Portugal, on the line between green and red
+  const cx = 90, cy = 39;
+  g.strokeStyle = gold(cx - 7, cy - 7, cx + 7, cy + 7); g.lineWidth = 1.1;
+  g.beginPath(); g.arc(cx, cy, 6.6, 0, 7); g.stroke();
+  g.beginPath(); g.ellipse(cx, cy, 6.6, 2.4, -.5, 0, 7); g.stroke(); g.beginPath(); g.ellipse(cx, cy, 6.6, 2.4, .5, 0, 7); g.stroke();
+  g.beginPath(); g.moveTo(cx - 6.6, cy); g.lineTo(cx + 6.6, cy); g.stroke();
+  g.fillStyle = '#da291c'; g.strokeStyle = gold(cx - 4, cy - 5, cx + 4, cy + 5); g.lineWidth = .9;
+  g.beginPath(); g.moveTo(cx - 3.8, cy - 4.4); g.lineTo(cx + 3.8, cy - 4.4); g.lineTo(cx + 3.8, cy + 1); g.quadraticCurveTo(cx + 3.8, cy + 4.6, cx, cy + 5.4); g.quadraticCurveTo(cx - 3.8, cy + 4.6, cx - 3.8, cy + 1); g.closePath(); g.fill(); g.stroke();
+  g.fillStyle = '#ffffff'; g.beginPath(); g.moveTo(cx - 2.5, cy - 3.2); g.lineTo(cx + 2.5, cy - 3.2); g.lineTo(cx + 2.5, cy + .8); g.quadraticCurveTo(cx + 2.5, cy + 3.2, cx, cy + 3.8); g.quadraticCurveTo(cx - 2.5, cy + 3.2, cx - 2.5, cy + .8); g.closePath(); g.fill();
+  g.fillStyle = '#1d3f9a'; [[0, -1.9], [-1.3, -.1], [0, -.1], [1.3, -.1], [0, 1.8]].forEach(([dx, dy]) => { g.fillRect(cx + dx - .45, cy + dy - .55, .9, 1.1); });
   g.shadowColor = '#ffb800'; g.shadowBlur = 3;
   [122, 128, 134, 140, 146].forEach(x => { const bg = g.createRadialGradient(x - .6, 38.4, .2, x, 39, 2.2); bg.addColorStop(0, '#fff8d0'); bg.addColorStop(.5, '#ffd23f'); bg.addColorStop(1, '#8a5a00'); g.fillStyle = bg; g.beginPath(); g.arc(x, 39, 2, 0, 7); g.fill(); });
   g.shadowBlur = 0;
-  g.fillStyle = gold(20, 40, 30, 58); g.font = 'bold 15px Teko, sans-serif'; g.textAlign = 'center'; g.fillText('7', 29, 51);
-  g.fillStyle = gold(0, 38, 0, 45); g.font = '600 6.4px Teko, sans-serif'; g.fillText('SIUUU', 84, 43.6);
+  g.fillStyle = gold(20, 40, 30, 58); g.strokeStyle = '#0d2a6a'; g.lineWidth = .6; g.font = 'bold 15px Teko, sans-serif'; g.textAlign = 'center'; g.strokeText('7', 29, 51); g.fillText('7', 29, 51);
+  g.fillStyle = gold(0, 38, 0, 45); g.font = '600 6.2px Teko, sans-serif'; g.fillText('SIUUU', 70, 44.6);
   g.restore();
 }
 function requiemParts(g){
@@ -4085,7 +4122,7 @@ function renderItem(it, fl, S){
   const g = c.getContext('2d'); g.scale(S,S);
   const P = paths(it.w), sh = SHAPES[it.w], r = seeded(hash(it.id)), bm = it.t >= 6;
   g.save();
-  g.shadowColor = it.pat === 'goat' ? 'rgba(255,214,90,.95)' : it.pat === 'sfot' ? 'rgba(170,205,255,.95)' : it.pat === 'sui' ? 'rgba(255,30,50,.95)' : bm ? (it.t === 7 ? 'rgba(255,122,217,.95)' : 'rgba(168,85,247,.9)') : 'rgba(0,0,0,.55)';
+  g.shadowColor = it.pat === 'goat' ? 'rgba(255,214,90,.95)' : it.pat === 'sfot' ? 'rgba(170,205,255,.95)' : it.pat === 'sui' ? 'rgba(255,60,40,.9)' : bm ? (it.t === 7 ? 'rgba(255,122,217,.95)' : 'rgba(168,85,247,.9)') : 'rgba(0,0,0,.55)';
   g.shadowBlur = (bm ? 12 : 6) * S; g.shadowOffsetY = (bm ? 0 : 3) * S;
   g.fillStyle = '#000'; g.fill(P.all); g.restore();
   const lg = g.createLinearGradient(0,18,0,72);
@@ -10504,19 +10541,43 @@ function suiCinematic(r){
     s2 += '<rect y="200" width="400" height="60" fill="#060304"/><g class="su-swing"><path d="M200 0 V46" stroke="#222" stroke-width="1.4"/><circle cx="200" cy="50" r="5" fill="#ff5a5a"/><path d="M200 50 L60 260 H340 Z" fill="url(#suBl)"/></g>'
       + Array.from({length: 12}, () => '<circle cx="' + f1(320 + R() * 50) + '" cy="' + f1(120 + R() * 60) + '" r="' + f1(2 + R() * 3) + '" fill="#2a1418"/>').join('')
       + kid(150, 200, 2.2, 'su-trainer') + '<circle class="su-wball" cx="176" cy="196" r="6" fill="#e8e8ec"/></svg>';
-    /* 5. Turin, the bicycle kick */
+    /* 5. Turin, the bicycle kick: side on, three poses (take-off, the scissor at full stretch, the landing) */
+    const SKN = '#d9a37c';
+    const limb = (a, b, w, c) => '<path d="M' + a[0] + ' ' + a[1] + ' L' + b[0] + ' ' + b[1] + '" stroke="' + c + '" stroke-width="' + w + '" stroke-linecap="round"/>';
+    const pose = (cls, j) => {
+      const dx = j.hd[0] - j.sh[0], dy = j.hd[1] - j.sh[1], L = Math.hypot(dx, dy) || 1, ux = dx / L, uy = dy / L;
+      return '<g class="' + cls + '">' + limb(j.sh, j.e2, 5, '#e9edf2') + limb(j.e2, j.h2, 4.2, SKN) + '<circle cx="' + j.h2[0] + '" cy="' + j.h2[1] + '" r="2.2" fill="' + SKN + '"/>'
+        + limb([0, 0], j.k2, 8, '#e9edf2') + limb(j.k2, j.f2, 6.2, '#f4f6fa') + '<circle cx="' + j.f2[0] + '" cy="' + j.f2[1] + '" r="3.3" fill="#111"/>'
+        + limb([0, 0], j.sh, 11.5, '#ffffff') + '<circle cx="0" cy="0" r="6.4" fill="#ffffff"/>'
+        + (j.num ? '<text x="' + (j.sh[0] / 2) + '" y="' + (j.sh[1] / 2 + 3) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="9" fill="#1a1a22" transform="rotate(' + j.num + ' ' + (j.sh[0] / 2) + ' ' + (j.sh[1] / 2) + ')">7</text>' : '')
+        + limb([0, 0], j.k1, 8, '#ffffff') + limb(j.k1, j.f1, 6.2, '#ffffff') + '<circle cx="' + j.f1[0] + '" cy="' + j.f1[1] + '" r="3.4" fill="#111"/>'
+        + limb(j.sh, j.e1, 5, '#ffffff') + limb(j.e1, j.h1, 4.2, SKN) + '<circle cx="' + j.h1[0] + '" cy="' + j.h1[1] + '" r="2.2" fill="' + SKN + '"/>'
+        + limb(j.sh, [j.sh[0] + ux * 4, j.sh[1] + uy * 4], 4, SKN)
+        + '<circle cx="' + f1(j.hd[0] + ux * 1.6) + '" cy="' + f1(j.hd[1] + uy * 1.6) + '" r="6.6" fill="#1a110b"/><circle cx="' + f1(j.hd[0] - ux * .8) + '" cy="' + f1(j.hd[1] - uy * .8) + '" r="6" fill="' + SKN + '"/></g>';
+    };
+    const PA = {sh:[-6, -28], hd:[-9, -39], k1:[5, 14], f1:[3, 30], k2:[13, -8], f2:[22, -18], e1:[-16, -34], h1:[-23, -42], e2:[4, -36], h2:[11, -43], num:-12};
+    const PB = {sh:[-27, 6], hd:[-37, 9], k1:[-6, -18], f1:[-15, -36], k2:[15, -3], f2:[29, 8], e1:[-28, 18], h1:[-35, 27], e2:[-16, 20], h2:[-9, 29]};
+    const PC = {sh:[-25, 8], hd:[-35, 4], k1:[11, -6], f1:[24, 2], k2:[12, 5], f2:[27, 13], e1:[-29, 19], h1:[-31, 30], e2:[-18, 20], h2:[-13, 31]};
     let s5 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><pattern id="suJv" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#f4f6fa"/><rect width="4" height="8" fill="#111"/></pattern>'
-      + '<radialGradient id="suFl5"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>'
+      + '<pattern id="suNt" width="7" height="7" patternUnits="userSpaceOnUse"><path d="M0 0 L7 7 M7 0 L0 7" stroke="#fff" stroke-opacity=".28" stroke-width=".6"/></pattern>'
+      + '<radialGradient id="suFl5"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>'
+      + '<radialGradient id="suHit"><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#ffd23f" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>'
+      + '<linearGradient id="suArc" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".8"/></linearGradient></defs>'
       + '<rect width="400" height="260" fill="#040507"/>';
-    [[40, 16], [360, 16]].forEach(([x, y]) => { s5 += '<circle cx="' + x + '" cy="' + y + '" r="40" fill="url(#suFl5)" opacity=".45"/><rect x="' + (x - 15) + '" y="' + (y - 6) + '" width="30" height="12" rx="2" fill="#fff"/>'; });
-    for (let row = 0; row < 4; row++) for (let x = 6 + (row % 2) * 6; x < 400; x += 12) s5 += '<g class="su-fan" style="--d:' + f1(R() * .5) + 's"><circle cx="' + x + '" cy="' + (52 + row * 16) + '" r="4" fill="' + ['#c9a07a', '#e0b08a', '#8a5a3a'][(x + row) % 3] + '"/><rect x="' + (x - 4) + '" y="' + (56 + row * 16) + '" width="8" height="8" fill="url(#suJv)"/></g>';
-    s5 += '<rect y="120" width="400" height="140" fill="#14532a"/>' + [0, 1, 2, 3].map(i => '<rect y="' + (120 + i * 36) + '" width="400" height="16" fill="#186232"/>').join('')
-      + '<g><rect x="34" y="124" width="70" height="66" fill="#000" opacity=".3"/><path d="M34 190 V124 H104 V190" stroke="#fff" stroke-width="3.4" fill="none"/>' + Array.from({length: 7}, (_, i) => '<path d="M' + (34 + i * 11.6) + ' 124 V190" stroke="#fff" stroke-opacity=".2"/>').join('') + '</g>'
-      + '<g class="su-gk"><circle cx="76" cy="150" r="6" fill="#c69472"/><path d="M68 158 H84 L82 182 H70 Z" fill="#2a2a32"/><path d="M68 160 L58 150 M84 160 L94 150" stroke="#2a2a32" stroke-width="4" stroke-linecap="round"/><path d="M72 182 L70 196 M80 182 L82 196" stroke="#1a1a20" stroke-width="4" stroke-linecap="round"/></g>'
-      + '<g class="su-bk"><g transform="translate(232 168)"><circle cx="0" cy="-40" r="7" fill="#d9a37c"/><path d="M-7 -40 Q-7 -50 0 -50 Q7 -50 7 -42 Q2 -46 -7 -40 Z" fill="#1a110b"/><path d="M-9 -31 Q0 -35 9 -31 L8 -6 H-8 Z" fill="#f4f6fa"/><path d="M-8 -28 L-18 -16 M8 -28 L18 -18" stroke="#f4f6fa" stroke-width="4.4" stroke-linecap="round"/>'
-      + '<path d="M-4 -6 L-8 14" stroke="#f4f6fa" stroke-width="5" stroke-linecap="round"/><path class="su-kleg" d="M4 -6 L10 14" stroke="#f4f6fa" stroke-width="5" stroke-linecap="round"/></g></g>'
-      + '<circle class="su-bball" cx="0" cy="0" r="4.4" fill="#f4f6fa" stroke="#111" stroke-width=".6"/>'
-      + '<text class="su-gl" x="250" y="96" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="40" letter-spacing="4" fill="#ffd23f">GOAL</text></svg>';
+    [[40, 14], [360, 14]].forEach(([x, y]) => { s5 += '<circle cx="' + x + '" cy="' + y + '" r="44" fill="url(#suFl5)" opacity=".45"/><rect x="' + (x - 15) + '" y="' + (y - 6) + '" width="30" height="12" rx="2" fill="#fff"/>'; });
+    for (let row = 0; row < 4; row++) for (let x = 6 + (row % 2) * 6; x < 400; x += 12) s5 += '<g class="su-fan" style="--d:' + f1(R() * .5) + 's"><circle cx="' + x + '" cy="' + (38 + row * 15) + '" r="4" fill="' + ['#c9a07a', '#e0b08a', '#8a5a3a'][(x + row) % 3] + '"/><rect x="' + (x - 4) + '" y="' + (42 + row * 15) + '" width="8" height="8" fill="url(#suJv)"/></g>';
+    s5 += '<rect y="100" width="400" height="160" fill="#14532a"/>' + [0, 1, 2, 3, 4].map(i => '<rect y="' + (100 + i * 32) + '" width="400" height="14" fill="#186232"/>').join('')
+      + '<path d="M0 214 H400" stroke="#fff" stroke-opacity=".25" stroke-width="1.4"/>'
+      + '<g class="su-net"><path d="M22 102 L8 116 V200 L22 196 Z" fill="url(#suNt)"/><rect x="22" y="102" width="92" height="94" fill="#000" opacity=".28"/><rect x="22" y="102" width="92" height="94" fill="url(#suNt)"/></g>'
+      + '<path d="M22 196 V102 H114 V196" stroke="#fff" stroke-width="4" fill="none" stroke-linejoin="round"/>'
+      + '<g class="su-gk"><circle cx="70" cy="142" r="6.4" fill="#d9b08c"/><path d="M64 140 Q70 133 76 140" fill="#3a3a3a"/><path d="M61 150 H79 L77 175 H63 Z" fill="#5a5f6a"/><path d="M61 152 L52 164 M79 152 L88 164" stroke="#5a5f6a" stroke-width="5" stroke-linecap="round"/>'
+      + '<circle cx="51" cy="166" r="3.4" fill="#d4ff3a"/><circle cx="89" cy="166" r="3.4" fill="#d4ff3a"/><path d="M66 175 L64 194 M74 175 L76 194" stroke="#2a2a30" stroke-width="5" stroke-linecap="round"/></g>'
+      + '<ellipse class="su-shadow" cx="250" cy="198" rx="26" ry="4" fill="#000" opacity=".35"/>'
+      + '<path class="su-swish" d="M222 110 Q206 62 236 52" stroke="url(#suArc)" stroke-width="6" fill="none" stroke-linecap="round"/>'
+      + '<g class="su-lift"><g transform="scale(1.5)">' + pose('su-pa', PA) + pose('su-pb', PB) + pose('su-pc', PC) + '</g></g>'
+      + '<circle class="su-hit" cx="227" cy="66" r="18" fill="url(#suHit)"/>'
+      + '<g class="su-bball"><circle r="5" fill="#f4f6fa" stroke="#111" stroke-width=".7"/><path d="M0 -2.4 L2.3 -.7 L1.4 2 H-1.4 L-2.3 -.7 Z" fill="#111"/></g>'
+      + '<text class="su-gl" x="250" y="84" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="44" letter-spacing="5" fill="#ffd23f">GOAL</text></svg>';
     /* 6. SIUUU */
     let s6 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs>' + bdoDefs('su6')
       + '<radialGradient id="suFl6"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>'
@@ -10623,9 +10684,13 @@ function suiCinematic(r){
     for (let i = 0; i < 4; i++) T(15000 + i * 650, () => { add('st' + i); boom(); tone(587.33 * [1, 1.19, 1.5, 2][i], .4, 'triangle', .035); });
     // 5. Turin
     T(18300, () => { go('u5'); embers = 0; parts = []; noise(3, 900, 400, .04, 'bandpass'); });
-    T(18700, () => { add('cross'); sweep(600, 300, .7, 'sine', .03); });
-    T(19500, () => { add('kick'); tone(140, .12, 'square', .1); noise(.1, 2000, 800, .15, 'bandpass'); });
-    T(19900, () => { add('net'); boom(); noise(2.2, 1400, 500, .12, 'bandpass'); });
+    T(18600, () => { add('cross'); sweep(700, 300, .8, 'sine', .03); });
+    T(19050, () => { add('jump'); noise(.2, 600, 200, .05, 'lowpass'); });
+    T(19400, () => { add('air'); add('freeze'); flash(); tone(140, .14, 'square', .12); noise(.12, 2600, 800, .18, 'bandpass'); tone(36, .8, 'sine', .25); });
+    T(19950, () => { ov.classList.remove('freeze'); add('shot'); sweep(1400, 400, .3, 'sawtooth', .04); });
+    T(20150, () => add('fall'));
+    T(20250, () => { add('net'); boom(); noise(2.2, 1400, 500, .12, 'bandpass'); });
+    T(20700, () => { add('land2'); noise(.25, 500, 120, .08, 'lowpass'); });
     T(21000, () => { add('clap'); for (let i = 0; i < 18; i++) setTimeout(() => { if (!done) noise(.05, 3000, 1600, .07, 'highpass'); }, i * 110 + Rr() * 60); });
     // 6. SIUUU
     T(23500, () => { go('u6'); heart(.3); });
@@ -10965,12 +11030,15 @@ function bdoFace(o){
     + '<path d="M-' + (ex + .5) + ' 11 Q-' + (ex - 1.5) + ' 14 -' + (ex + .5) + ' 17 M' + (ex + .5) + ' 11 Q' + (ex - 1.5) + ' 14 ' + (ex + .5) + ' 17" stroke="' + sh + '" stroke-width="1.2" fill="none"/>';
   if (o.stud) f += '<circle cx="-16.5" cy="19.2" r="1.3" fill="#fff" stroke="#bbb" stroke-width=".4"/>';
   // head
-  const jaw = mbH ? 'M-18.5 8 Q-19.5 -15 0 -16 Q19.5 -15 18.5 8 Q18.5 29 0 36.5 Q-18.5 29 -18.5 8 Z'
+ const crH = o.head === 'cr7';
+  const jaw = crH ? 'M-16.5 6 Q-17 -16 0 -17 Q17 -16 16.5 6 Q16.8 16 14 24 L8.5 34 Q4.5 39.5 0 39.5 Q-4.5 39.5 -8.5 34 L-14 24 Q-16.8 16 -16.5 6 Z'
+    : mbH ? 'M-18.5 8 Q-19.5 -15 0 -16 Q19.5 -15 18.5 8 Q18.5 29 0 36.5 Q-18.5 29 -18.5 8 Z'
     : o.head === 'round' ? 'M-16 8 Q-17 -16 0 -17 Q17 -16 16 8 Q16 32 0 39 Q-16 32 -16 8 Z'
     : o.head === 'long' ? 'M-15 8 Q-16 -17 0 -18 Q16 -17 15 8 Q14 34 0 42 Q-14 34 -15 8 Z'
     : 'M-16 8 Q-17 -16 0 -17 Q17 -16 16 8 Q15 31 0 40 Q-15 31 -16 8 Z';
   f += '<path d="' + jaw + '" fill="' + sk + '"/>'
-    + (mbH ? '<path d="M11 -12 Q19.5 -6 18.5 8 Q18.5 29 0 36.5 Q14 28 14 10 Q14 -4 11 -12 Z" fill="' + sh + '"/><ellipse cx="-11" cy="21" rx="4.5" ry="3" fill="#7a4632" opacity=".25"/><ellipse cx="11" cy="21" rx="4.5" ry="3" fill="#7a4632" opacity=".25"/>'
+    + (crH ? '<path d="M10 -12 Q17 -6 16.5 6 Q16.8 16 14 24 L8.5 34 Q4.5 39.5 0 39.5 Q8 34 11 24 Q13 14 12 4 Q12 -4 10 -12 Z" fill="' + sh + '"/><path d="M-13.5 18 Q-11 24 -8 25 M13.5 18 Q11 24 8 25" stroke="' + sh + '" stroke-width="1.4" fill="none"/><path d="M-3 36.5 Q0 37.6 3 36.5" stroke="' + sh + '" stroke-width="1" fill="none"/>'
+      : mbH ? '<path d="M11 -12 Q19.5 -6 18.5 8 Q18.5 29 0 36.5 Q14 28 14 10 Q14 -4 11 -12 Z" fill="' + sh + '"/><ellipse cx="-11" cy="21" rx="4.5" ry="3" fill="#7a4632" opacity=".25"/><ellipse cx="11" cy="21" rx="4.5" ry="3" fill="#7a4632" opacity=".25"/>'
       : '<path d="M9 -12 Q17 -6 16 8 Q15 31 0 40 Q12 30 12 10 Q12 -4 9 -12 Z" fill="' + sh + '"/>');
   // hair in front
   if (o.hair === 'messi') f += '<path d="M-17 8 Q-19 -16 0 -19 Q18 -18 17 6 Q14 -5 6 -8 Q-2 -3 -10 -8 Q-14 -3 -17 8 Z" fill="' + hc + '"/><path d="M-16.5 6 V18 M16.5 6 V18" stroke="' + hc + '" stroke-width="3"/>';
@@ -10978,7 +11046,11 @@ function bdoFace(o){
     + [[-9,-13],[-4,-16],[2,-17],[8,-15],[12,-11],[-12,-9],[-6,-11],[0,-12],[6,-11]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="4" fill="' + (o.hl || '#d8b25e') + '"/>').join('')
     + '<path d="M-14 -6 Q0 -10 14 -6" stroke="' + hc + '" stroke-width="1.6" fill="none" opacity=".6"/>';
   if (o.hair === 'part') f += '<path d="M-17 8 Q-18 -18 2 -19 Q18 -17 17 4 Q15 -8 6 -10 L-4 -10 Q-12 -6 -17 8 Z" fill="' + hc + '"/><path d="M-4 -19 Q-6 -14 -4 -10" stroke="' + sk + '" stroke-width="1.2" opacity=".6"/>';
-  if (o.hair === 'buzz' && mbH) f += '<path d="M-18.5 5 Q-19 -15 0 -16.5 Q19 -15 18.5 5 L16.5 3 Q15 -5 10 -6.5 L0 -7 L-10 -6.5 Q-15 -5 -16.5 3 Z" fill="' + hc + '" opacity=".85"/><path d="M-16.5 3 L-16 8 M16.5 3 L16 8" stroke="' + hc + '" stroke-width="1.6" opacity=".7"/>';
+  if (o.hair === 'cr7') f += '<path d="M-16.5 7 Q-17.5 -6 -14 -12 L-14.5 2 Z M16.5 7 Q17.5 -6 14 -12 L14.5 2 Z" fill="' + hc + '" opacity=".38"/>'
+    + '<path d="M-15 -2 Q-17 -14 -9 -19 Q-2 -25 6 -23 Q15 -21 16 -10 L15 -2 Q13 -9 7 -10 Q0 -10.5 -6 -9 Q-12 -8 -15 -2 Z" fill="' + hc + '"/>'
+    + '<path d="M-9 -19 Q-4 -27 4 -26 Q10 -26 14 -19 Q8 -23 2 -22.5 Q-4 -22.5 -9 -19 Z" fill="' + hc + '"/><path d="M-6 -21 Q0 -24 8 -21 M-8 -16 Q0 -20 10 -16 M-4 -12 Q3 -15 12 -12" stroke="#3a2a1c" stroke-width=".8" fill="none" opacity=".8"/>'
+    + '<path d="M-14.6 -3 L-9.5 -10" stroke="' + sk + '" stroke-width="1" opacity=".9"/>';
+  else if (o.hair === 'buzz' && mbH) f += '<path d="M-18.5 5 Q-19 -15 0 -16.5 Q19 -15 18.5 5 L16.5 3 Q15 -5 10 -6.5 L0 -7 L-10 -6.5 Q-15 -5 -16.5 3 Z" fill="' + hc + '" opacity=".85"/><path d="M-16.5 3 L-16 8 M16.5 3 L16 8" stroke="' + hc + '" stroke-width="1.6" opacity=".7"/>';
   else if (o.hair === 'buzz') f += '<path d="M-16 6 Q-16 -16 0 -17 Q16 -16 16 6 Q12 -6 0 -7 Q-12 -6 -16 6 Z" fill="' + hc + '" opacity=".75"/>';
   if (o.hair === 'afro') f += '<path d="M-17 4 Q-18 -14 0 -15 Q18 -14 17 4 Q10 -7 0 -7 Q-10 -7 -17 4 Z" fill="' + hc + '"/>';
   if (o.hair === 'blond') f += '<path d="M-16 6 L-15 -10 L-11 -14 L-8 -19 L-4 -15 L0 -21 L4 -15 L8 -19 L11 -14 L15 -10 L16 6 Q12 -5 0 -6 Q-12 -5 -16 6 Z" fill="' + (o.hl || '#e8c86a') + '"/>';
@@ -11207,7 +11279,7 @@ const BDO_PPL = {
   vini:{skin:'#563621', shade:'rgba(20,8,4,.3)', head:'long', hair:'curly', hc:'#0c0806', beard:'stubble', brow:'arch', nose:'wide', mouth:'smile'},
   kane:{skin:'#f1c9a8', shade:'rgba(140,70,40,.16)', head:'long', hair:'part', hc:'#8a6038', bc:'#6a4626', iris:'#4a6a8a', brow:'flat', mouth:'smile'},
   messi:{skin:'#ebb995', shade:'rgba(120,60,30,.16)', head:'oval', hair:'messi', hc:'#3b2615', beard:'full', brow:'flat', iris:'#5a3a1e', mouth:'smile'},
-  cr7:{skin:'#d9a37c', shade:'rgba(110,50,25,.18)', head:'long', hair:'quiff', hc:'#1a110b', brow:'arch', iris:'#3a2416', mouth:'open'}
+  cr7:{skin:'#d9a37c', shade:'rgba(110,50,25,.18)', head:'cr7', hair:'cr7', hc:'#1a110b', brow:'arch', iris:'#3a2416', mouth:'open'}
 };
 const bdoP = (who, extra) => Object.assign({}, BDO_PPL[who], extra || {});
 let bdoLent = null;
