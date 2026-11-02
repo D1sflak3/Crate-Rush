@@ -3923,15 +3923,10 @@ const PAT = {
     g.font='bold 9px Teko, sans-serif';g.fillStyle='#0b2a4a';g.textAlign='center';g.fillText('10',24,54);
     for(let i=0;i<40;i++){g.fillStyle=i%3?'#fff':p[2];g.globalAlpha=.4+r()*.6;const x=r()*W,y=r()*H,z=.5+r()*1.2;g.fillRect(x-z/2,y-z/2,z,z);}g.globalAlpha=1;
   },
-  /* The Sui: Portugal. Blue-and-white azulejo tiles on the stock, the flag's green and red across the body
+  /* The Sui: Portugal. The flag's green and red across the whole rifle
      (green to the hoist, red to the fly, 2:3), gold filigree and a warm red-gold chroma sheen */
   sui(g,W,H,p,r){
-    g.fillStyle='#f4f1ea';g.fillRect(0,0,52,H);
-    for(let ty=0;ty<H;ty+=10)for(let tx=0;tx<52;tx+=10){g.strokeStyle='#1d4fa8';g.lineWidth=.6;g.strokeRect(tx+.3,ty+.3,9.4,9.4);
-      g.fillStyle='#1d4fa8';g.beginPath();g.moveTo(tx+5,ty+1.4);g.quadraticCurveTo(tx+6.4,ty+5,tx+5,ty+8.6);g.quadraticCurveTo(tx+3.6,ty+5,tx+5,ty+1.4);g.fill();
-      g.beginPath();g.moveTo(tx+1.4,ty+5);g.quadraticCurveTo(tx+5,ty+6.4,tx+8.6,ty+5);g.quadraticCurveTo(tx+5,ty+3.6,tx+1.4,ty+5);g.fill();
-      g.fillStyle='#f4f1ea';g.beginPath();g.arc(tx+5,ty+5,1.1,0,7);g.fill();[[0,0],[10,0],[0,10],[10,10]].forEach(([cx,cy])=>{g.fillStyle='#5a86d0';g.beginPath();g.arc(tx+cx,ty+cy,1.4,0,7);g.fill();});}
-    const gl=g.createLinearGradient(52,0,90,0);gl.addColorStop(0,'#03401f');gl.addColorStop(1,p[3]);g.fillStyle=gl;g.fillRect(52,0,38,H);
+    const gl=g.createLinearGradient(0,0,90,0);gl.addColorStop(0,'#02331a');gl.addColorStop(1,p[3]);g.fillStyle=gl;g.fillRect(0,0,90,H);
     const rl=g.createLinearGradient(90,0,W,0);rl.addColorStop(0,'#e0202e');rl.addColorStop(1,'#8a0a16');g.fillStyle=rl;g.fillRect(90,0,W-90,H);
     g.save();g.globalCompositeOperation='screen';
     for(let i=0;i<3;i++){const x=60+i*44+r()*12,w=10+r()*6,cg=g.createLinearGradient(x-w,0,x+w,0);
@@ -4057,7 +4052,7 @@ function suiParts(g){
   g.shadowColor = '#ffb800'; g.shadowBlur = 3;
   [122, 128, 134, 140, 146].forEach(x => { const bg = g.createRadialGradient(x - .6, 38.4, .2, x, 39, 2.2); bg.addColorStop(0, '#fff8d0'); bg.addColorStop(.5, '#ffd23f'); bg.addColorStop(1, '#8a5a00'); g.fillStyle = bg; g.beginPath(); g.arc(x, 39, 2, 0, 7); g.fill(); });
   g.shadowBlur = 0;
-  g.fillStyle = gold(20, 40, 30, 58); g.strokeStyle = '#0d2a6a'; g.lineWidth = .6; g.font = 'bold 15px Teko, sans-serif'; g.textAlign = 'center'; g.strokeText('7', 29, 51); g.fillText('7', 29, 51);
+  g.textAlign = 'center';
   g.fillStyle = gold(0, 38, 0, 45); g.font = '600 6.2px Teko, sans-serif'; g.fillText('SIUUU', 70, 44.6);
   g.restore();
 }
