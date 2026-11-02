@@ -3213,56 +3213,75 @@ body.dz-open .toast{z-index:95}
 .msi-ov{position:absolute;inset:0;z-index:6;display:grid;place-items:center;padding:16px;background:rgba(2,6,12,.7);overflow:auto;animation:fadeIn .25s}
 .msi-ov .vx{width:min(760px,100%);max-height:calc(100% - 8px);overflow:auto;margin:0;border-color:#75bde9;background:radial-gradient(circle at 20% 0%,rgba(117,189,233,.22),transparent 60%),#050b14;box-shadow:0 0 40px rgba(117,189,233,.25),0 30px 80px rgba(0,0,0,.6)}
 /* ---------- La Pulga ---------- */
-.gtc[data-s="p1"] .pl-1,.gtc[data-s="p2"] .pl-2,.gtc[data-s="p3"] .pl-3,.gtc[data-s="p4"] .pl-4,.gtc[data-s="p5"] .pl-5,.gtc[data-s="p6"] .pl-6{opacity:1;visibility:visible;transition:opacity .7s}
+.gtc[data-s="p1"] .pl-1,.gtc[data-s="p2"] .pl-2,.gtc[data-s="p3"] .pl-3,.gtc[data-s="p4"] .pl-4,.gtc[data-s="p5"] .pl-5,.gtc[data-s="p6"] .pl-6,.gtc[data-s="p7"] .pl-7{opacity:1;visibility:visible;transition:opacity .7s}
 .plc.dark .su-5{filter:brightness(.15) saturate(.3);transition:filter .9s steps(6)}
-.pl-cap small{color:#75bde9}
-.gtc[data-s="p2"] .pl-2 .gt-cap small,.gtc[data-s="p3"] .pl-3 .gt-cap small{opacity:1;transform:none}
-.gtc.rcap .pl-2 .gt-cap p:first-of-type,.gtc.ron .pl-2 .pl-p2,.gtc.bcap .pl-3 .gt-cap p:first-of-type,.gtc.bcap .pl-3 .pl-p2{opacity:1;transform:none}
-.gtc.bcap .pl-3 .pl-p2{transition-delay:1.2s}
+.pl-cap small{color:#ffd23f}
+.gtc[data-s="p2"] .pl-2 .gt-cap small,.gtc[data-s="p3"] .pl-3 .gt-cap small,.gtc[data-s="p4"] .pl-4 .gt-cap small{opacity:1;transform:none}
+.gtc.rcap .pl-2 .gt-cap p:first-of-type,.gtc.ron .pl-2 .pl-p2,.gtc.gcap .pl-3 .gt-cap p:first-of-type,.gtc.gnet .pl-3 .pl-p2,.gtc.bcap .pl-4 .gt-cap p:first-of-type,.gtc.glare .pl-4 .pl-p2{opacity:1;transform:none}
 .pl-p2{color:#ffd23f;font-size:clamp(18px,3vw,28px)!important;margin-top:10px!important}
+.pl-eyes{opacity:0;mix-blend-mode:screen}
+/* 1. the tunnel */
 .pl-1{background:#010102}
-.pl-tw{opacity:.15}
-.pl-tl{opacity:0}
+.pl-tw{opacity:.15}.pl-tl{opacity:0}
 .gtc.tunnel .pl-tw{opacity:.9;transition:opacity .2s calc(var(--i)*.12s)}
 .gtc.tunnel .pl-tl{opacity:1;transition:opacity .1s calc(var(--i)*.12s)}
 .pl-who{opacity:0;transform-box:fill-box;transform-origin:center}
-.gtc.tunnel .pl-who{opacity:1;animation:plWho 2.2s 1s ease-in forwards;transition:opacity .6s 1.1s}
-@keyframes plWho{to{transform:scale(1.7)}}
-.pl-whisper{position:absolute;inset:auto 0 12vh 0;z-index:3;text-align:center;display:grid;gap:8px;justify-items:center}
+.gtc.tunnel .pl-who{opacity:1;animation:plWho 2.6s .8s ease-in forwards;transition:opacity .6s 1s}
+@keyframes plWho{to{transform:scale(2.2)}}
+.pl-weyes{opacity:0}
+.gtc.weyes .pl-weyes{opacity:1;animation:plBlink 2s ease-in-out infinite}
+@keyframes plBlink{0%,90%,100%{opacity:1}94%{opacity:0}}
+.pl-whisper{position:absolute;inset:auto 0 10vh 0;z-index:3;text-align:center;display:grid;gap:8px;justify-items:center}
 .pl-whisper p{margin:0;font:600 clamp(22px,3.8vw,38px)/1 var(--display);color:#9fb0c8;opacity:0;transform:translateY(10px)}
 .pl-whisper b{font:700 clamp(40px,8vw,92px)/1 var(--display);letter-spacing:.04em;color:#ffd23f;text-shadow:0 0 30px rgba(255,210,63,.5);opacity:0;transform:scale(1.5);filter:blur(8px)}
+.pl-whisper em{font:600 clamp(16px,2.4vw,22px)/1 var(--display);font-style:normal;letter-spacing:.14em;color:#c9a0a0;opacity:0}
 .gtc.w1 .pl-whisper p{opacity:1;transform:none;transition:all .9s}
 .gtc.w2 .pl-whisper b{opacity:1;transform:none;filter:none;transition:all .8s cubic-bezier(.2,1.2,.4,1)}
+.gtc.w3 .pl-whisper em{opacity:1;transition:opacity 1s}
+/* 2. Rome */
 .pl-sb2{opacity:0}
 .gtc.rnet .pl-sb1{opacity:0}.gtc.rnet .pl-sb2{opacity:1;transition:opacity .3s .4s}
-.pl-mj,.pl-dj{opacity:0}
-.gtc.rjump .pl-ms,.gtc.rjump .pl-ds{opacity:0}.gtc.rjump .pl-mj,.gtc.rjump .pl-dj{opacity:1}
-.gtc.rnet .pl-mj,.gtc.rnet .pl-dj{opacity:0}.gtc.rnet .pl-ms,.gtc.rnet .pl-ds{opacity:1}
-.pl-mes,.pl-def{transition:transform .5s cubic-bezier(.5,0,.8,.6)}
-.gtc.rjump .pl-mes{transform:translateY(-46px);transition:transform .32s cubic-bezier(.2,.8,.3,1)}
-.gtc.rjump .pl-def{transform:translateY(-20px);transition:transform .36s cubic-bezier(.2,.8,.3,1)}
-.gtc.rnet .pl-mes,.gtc.rnet .pl-def{transform:none}
-.gtc.rnet .pl-mes{animation:plCel 1.4s .5s ease-in-out}
-@keyframes plCel{0%,100%{transform:none}30%{transform:translateX(60px)}60%{transform:translateX(120px)}}
-.pl-ball{transform:translate(430px,10px)}
-.gtc.rcross .pl-ball{animation:plCross .8s linear forwards}
-@keyframes plCross{0%{transform:translate(430px,10px)}50%{transform:translate(296px,0)}100%{transform:translate(162px,62px)}}
-.gtc.rhead .pl-ball{animation:plLoop .75s cubic-bezier(.3,.1,.5,1) forwards}
-@keyframes plLoop{0%{transform:translate(162px,62px)}45%{transform:translate(104px,40px)}100%{transform:translate(48px,118px) scale(.85)}}
+.pl-cross{stroke-dashoffset:0;opacity:0}
+.gtc.rcross .pl-cross{opacity:.8;animation:plDash .9s linear}
+@keyframes plDash{from{stroke-dasharray:4 5;clip-path:inset(0 0 0 100%)}to{clip-path:inset(0 0 0 0)}}
+.pl-rise{transform:translateY(140px)}
+.gtc.rise .pl-rise{transform:translateY(-6px);transition:transform .6s cubic-bezier(.2,.9,.3,1.1)}
+.gtc.rnet .pl-rise{transform:translateY(10px);transition:transform .8s ease-out}
+.pl-defs{transform:translateY(16px);filter:brightness(.6)}
+.gtc.rise .pl-defs{transform:translateY(4px);transition:transform .6s .1s ease-out}
+.pl-ball{transform:translate(430px,30px)}
+.gtc.rcross .pl-ball{animation:plCross .9s linear forwards}
+@keyframes plCross{0%{transform:translate(430px,30px)}50%{transform:translate(300px,12px)}100%{transform:translate(200px,76px)}}
+.gtc.rhead .pl-ball{animation:plLoop .8s cubic-bezier(.3,.1,.5,1) forwards}
+@keyframes plLoop{0%{transform:translate(200px,76px)}45%{transform:translate(120px,46px)}100%{transform:translate(40px,108px) scale(.8)}}
 .gtc.rnet .pl-ball{animation:plDrop .6s cubic-bezier(.5,0,.8,.6) forwards}
-@keyframes plDrop{from{transform:translate(48px,118px) scale(.85)}to{transform:translate(54px,188px) scale(.85)}}
-.pl-gk{transform-origin:70px 194px}
-.gtc.rhead .pl-gk{transform:translateY(-12px) rotate(-8deg);transition:transform .5s .2s cubic-bezier(.3,0,.5,1)}
-.gtc.rnet .pl-gk{transform:rotate(-14deg);transition:transform .4s}
-.pl-hit{opacity:0;transform-box:fill-box;transform-origin:center}
-.gtc.rhead .pl-hit{animation:suHitA .6s ease-out}
+@keyframes plDrop{from{transform:translate(40px,108px) scale(.8)}to{transform:translate(48px,150px) scale(.8)}}
 .gtc.freeze .pl-2 svg{filter:contrast(1.3) saturate(1.5) brightness(1.1)}
 .gtc.freeze .pl-2{animation:suZoom .55s ease-out}
-.gtc.rnet .pl-net{animation:suNet .5s ease-out}
-.pl-gl{opacity:0}
-.gtc.rnet .pl-gl{opacity:1;animation:mpBig .5s cubic-bezier(.2,1.6,.4,1)}
-.pl-ron{opacity:0;transform:translateX(30px)}
-.gtc.ron .pl-ron{opacity:1;transform:none;transition:all 1.2s ease-out}
+.gtc.rnet .pl-goal{animation:suNet .5s ease-out}
+.pl-gl,.pl-gl3{opacity:0}
+.gtc.rnet .pl-gl,.gtc.gnet .pl-gl3{opacity:1;animation:mpBig .5s cubic-bezier(.2,1.6,.4,1)}
+.pl-2 svg{transition:transform .9s cubic-bezier(.3,0,.2,1)}
+.gtc.smirk .pl-2 svg{transform:scale(1.9);transform-origin:50% 42%}
+.gtc.smirk .pl-2 .pl-eyes{opacity:1;animation:plGlare 1.2s ease-in-out infinite alternate}
+@keyframes plGlare{to{opacity:.55}}
+.gtc.ron .pl-2 svg{transform:none}
+.pl-ron{opacity:0;transform:translateX(40px)}
+.gtc.ron .pl-ron{opacity:1;transform:none;transition:all 1s ease-out}
+/* 3. Getafe, from above */
+.pl-3{background:#030806;perspective:900px}
+.pl-3 svg{transform:rotateX(38deg) scale(1.15);transform-origin:50% 60%}
+.gtc.slalom .pl-3 svg{animation:plCam 3.6s ease-in-out forwards}
+@keyframes plCam{to{transform:rotateX(30deg) scale(1.3) translateX(-6%)}}
+.pl-trail{stroke-dasharray:520;stroke-dashoffset:520}
+.gtc.slalom .pl-trail{stroke-dashoffset:0;transition:stroke-dashoffset 3.3s cubic-bezier(.4,0,.6,1)}
+.pl-me{transform:translate(60px,210px)}
+.gtc.slalom .pl-me{transform:none}
+.gtc.slalom .pl-dfn{animation:plErase .5s var(--d) ease-out forwards}
+@keyframes plErase{0%{opacity:1}40%{opacity:1;filter:brightness(2)}100%{opacity:.18;filter:grayscale(1)}}
+.pl-dfn{transform-box:fill-box;transform-origin:center}
+/* 4. the Bernabéu */
+.pl-mute{filter:saturate(0) brightness(.7)}
 .pl-arms{transform-origin:200px 136px;transform:scaleY(.2) translateY(200px);opacity:0}
 .gtc.shirt .pl-arms{transform:none;opacity:1;transition:transform .6s cubic-bezier(.2,1.4,.4,1),opacity .2s}
 .pl-shirt{transform-box:fill-box;transform-origin:center}
@@ -3270,53 +3289,57 @@ body.dz-open .toast{z-index:95}
 @keyframes plWave{to{transform:rotate(-2deg) translateY(-2px)}}
 .pl-flash circle{opacity:0}
 .gtc.shirt .pl-flash circle{animation:sfFlash 1.1s var(--d) steps(1) infinite}
-.pl-4{display:grid;place-items:center;background:radial-gradient(ellipse at 50% 50%,#0b1f3a,#000 70%)}
+.gtc.glare .pl-4 .pl-eyes{opacity:1;animation:plGlare 1.2s ease-in-out infinite alternate}
+/* 5. the count */
+.pl-5{display:grid;place-items:center;background:radial-gradient(ellipse at 50% 50%,#1a0a18,#000 70%)}
 .pl-tally{display:grid;gap:2.4vh;width:min(720px,92vw)}
 .pl-hd,.pl-row{display:grid;grid-template-columns:1fr 1.4fr 1fr;align-items:center;text-align:center}
-.pl-hd span{font:700 clamp(28px,4.6vw,48px)/1 var(--display);letter-spacing:.1em;color:#ff6a6a}
-.pl-hd span.me{color:#75bde9}
+.pl-hd span{font:700 clamp(28px,4.6vw,48px)/1 var(--display);letter-spacing:.1em;color:#8a6a6a}
+.pl-hd span.me{color:#ffd23f}
 .pl-row{opacity:0;transform:translateY(16px);padding:10px 0;border-top:1px solid rgba(255,255,255,.1)}
-.pl-row span{font:700 13px var(--body);letter-spacing:.24em;text-transform:uppercase;color:#c9d4e8}
+.pl-row span{font:700 13px var(--body);letter-spacing:.24em;text-transform:uppercase;color:#c9b8c8}
 .pl-row b{font:700 clamp(46px,8vw,92px)/1 var(--display)}
-.pl-a{color:#ff8a8a}.pl-b{color:#ffd23f;text-shadow:0 0 24px rgba(255,210,63,.5)}
+.pl-a{color:#8a6a6a}.pl-b{color:#ffd23f;text-shadow:0 0 24px rgba(255,210,63,.5)}
 .gtc.tr0 .pl-row:nth-child(2),.gtc.tr1 .pl-row:nth-child(3),.gtc.tr2 .pl-row:nth-child(4){opacity:1;transform:none;transition:all .35s cubic-bezier(.2,1.4,.4,1)}
-.gtc.lead .pl-a{opacity:.4;transition:opacity .6s}
+.pl-keep{text-align:center;font:600 clamp(18px,2.8vw,26px)/1 var(--display);letter-spacing:.14em;color:#ffd23f;opacity:0;margin-top:1vh}
+.gtc.lead .pl-a{opacity:.25;filter:blur(1px);transition:all .6s}
 .gtc.lead .pl-b{animation:plPulse 1s ease-in-out infinite alternate}
+.gtc.lead .pl-keep{opacity:1;transition:opacity .8s .3s}
 @keyframes plPulse{to{transform:scale(1.08)}}
-.pl-runner{transform:translateX(-30px)}
-.gtc.run .pl-runner{animation:plRun 3.6s linear forwards}
-@keyframes plRun{to{transform:translateX(420px)}}
-.gtc.run .pl-bob{animation:plBob .28s ease-in-out infinite alternate}
-@keyframes plBob{to{transform:translateY(-3px)}}
-.gtc.run .pl-rball{animation:plDrib .28s ease-in-out infinite alternate}
-@keyframes plDrib{to{transform:translateX(6px)}}
-.gtc.run .pl-giant{animation:plFall .6s var(--d) cubic-bezier(.5,0,.8,.6) forwards}
-@keyframes plFall{to{transform:rotate(-82deg);opacity:.55}}
-.pl-name{position:absolute;left:0;right:0;top:12vh;z-index:3;display:grid;justify-items:center;gap:8px;text-align:center}
-.pl-name b{font:700 clamp(56px,11vw,140px)/1 var(--display);letter-spacing:.06em;background:linear-gradient(180deg,#fff,#75bde9 40%,#ffd23f);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 0 #0a1a3a);opacity:0;transform:scale(.6)}
-.pl-name span{font:700 clamp(16px,2.6vw,24px)/1 var(--display);letter-spacing:.16em;color:#ffd23f;opacity:0}
-.gtc.flea .pl-name b{opacity:1;transform:none;transition:all .5s cubic-bezier(.2,1.6,.4,1)}
-.gtc.flea .pl-name span{opacity:1;transition:opacity .6s .6s}
-.pl-6{display:grid;place-items:center;background:radial-gradient(ellipse at 50% 45%,#0f2a52,#000 72%)}
-.pl-beam{position:absolute;left:50%;top:-20%;width:min(80vw,700px);height:140%;transform:translateX(-50%);background:linear-gradient(rgba(255,240,200,.5),rgba(117,189,233,.06) 70%,transparent);clip-path:polygon(44% 0,56% 0,100% 100%,0 100%);opacity:0}
+/* 6. the throne */
+.pl-king{opacity:0;transform:translateY(20px)}
+.gtc.kglow .pl-king{opacity:1;transform:none;transition:all 1.2s ease-out}
+.gtc.kglow .pl-keyes{opacity:1;animation:plGlare 1.1s ease-in-out infinite alternate}
+.pl-ha{position:absolute;left:0;right:0;top:8vh;z-index:3;display:flex;justify-content:center;gap:4vw}
+.pl-ha span{font:700 clamp(40px,7vw,84px)/1 var(--display);color:#ffd23f;text-shadow:0 0 24px rgba(255,210,63,.6);opacity:0;transform:scale(1.8) rotate(-8deg)}
+.gtc.ha0 .pl-ha span:nth-child(1),.gtc.ha1 .pl-ha span:nth-child(2),.gtc.ha2 .pl-ha span:nth-child(3){opacity:1;transform:rotate(calc(var(--r,0) * 1deg));transition:all .25s cubic-bezier(.2,1.6,.4,1)}
+.gtc.riv1 .pl-ha{opacity:0;transition:opacity .5s}
+.pl-riv{position:absolute;left:0;right:0;top:9vh;z-index:3;display:grid;gap:10px;justify-items:center;text-align:center}
+.pl-riv p{margin:0;font:600 clamp(24px,4.2vw,42px)/1 var(--display);color:#e9dfe8;opacity:0;transform:translateY(10px)}
+.pl-riv b{font:700 clamp(36px,7vw,80px)/1 var(--display);color:#ffd23f;text-shadow:0 0 30px rgba(255,210,63,.5);opacity:0;transform:scale(1.4);filter:blur(6px)}
+.gtc.riv1 .pl-riv p{opacity:1;transform:none;transition:all .8s}
+.gtc.riv2 .pl-riv b{opacity:1;transform:none;filter:none;transition:all .6s cubic-bezier(.2,1.4,.4,1)}
+/* 7. the reveal */
+.pl-7{display:grid;place-items:center;background:radial-gradient(ellipse at 50% 45%,#2a0a24,#000 72%)}
+.pl-beam{position:absolute;left:50%;top:-20%;width:min(80vw,700px);height:140%;transform:translateX(-50%);background:linear-gradient(rgba(255,226,140,.5),rgba(165,0,68,.08) 70%,transparent);clip-path:polygon(44% 0,56% 0,100% 100%,0 100%);opacity:0}
 .gtc.pland .pl-beam{opacity:1;transition:opacity .6s}
 .pl-balls{display:flex;gap:8px;opacity:0;transform:translateY(-14px)}
 .pl-balls i{width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff8d0,#ffd23f 45%,#8a5a00);box-shadow:0 0 12px rgba(255,210,63,.6)}
 .gtc.pland .pl-balls{opacity:1;transform:none;transition:all .6s .7s cubic-bezier(.2,1.5,.4,1)}
-.pl-art{position:relative;width:min(660px,90vw);transform:translateY(-80vh) rotate(-10deg);filter:drop-shadow(0 0 22px rgba(255,214,90,.85)) drop-shadow(0 0 50px rgba(117,189,233,.6))}
+.pl-art{position:relative;width:min(660px,90vw);transform:translateY(-80vh) rotate(-10deg);filter:drop-shadow(0 0 22px rgba(255,214,90,.85)) drop-shadow(0 0 50px rgba(165,0,68,.5))}
 .pl-art img{display:block;width:100%;height:auto}
 .gtc.pland .pl-art{transform:none;transition:transform .5s cubic-bezier(.3,1.6,.5,1);animation:gtFloat 3s 1s ease-in-out infinite alternate}
 .gtc.pland .pl-foil{animation:gtFoil 2.6s .6s ease-in-out infinite}
 .pl-h2{margin:0;font:700 clamp(50px,10vw,120px)/1 var(--display);letter-spacing:.08em}
-.pl-rv .pl-h2 span{display:inline-block;opacity:0;transform:translateY(30px) scale(.5);background:linear-gradient(180deg,#ffffff,#75bde9 35%,#ffd23f 70%,#a86a00);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 0 #0a1a3a) drop-shadow(0 0 24px rgba(255,210,63,.5))}
+.pl-rv .pl-h2 span{display:inline-block;opacity:0;transform:translateY(30px) scale(.5);background:linear-gradient(180deg,#fff3c0,#ffd23f 40%,#a50044 80%,#3a0018);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 0 #1a0010) drop-shadow(0 0 24px rgba(255,210,63,.5))}
 .gtc.pland .pl-rv .pl-h2 span{opacity:1;transform:none;transition:opacity .2s calc(.5s + var(--i)*70ms),transform .55s calc(.5s + var(--i)*70ms) cubic-bezier(.2,1.7,.4,1)}
 .pl-sub{font:700 13px var(--body);letter-spacing:.34em;padding:7px 14px;border-radius:999px;background:linear-gradient(90deg,#004d98,#a50044 50%,#ffd23f);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.5);opacity:0}
-.pl-tag{font:700 clamp(18px,2.8vw,26px)/1 var(--display);letter-spacing:.2em;color:#75bde9;opacity:0}
+.pl-tag{font:700 clamp(16px,2.6vw,24px)/1 var(--display);letter-spacing:.18em;color:#ffd23f;opacity:0}
 .pl-val{color:#ffe29a}
 .gtc.pland .pl-sub{opacity:1;transition:opacity .5s 1.1s}
 .gtc.pland .pl-tag{opacity:1;transition:opacity .5s 1.3s}
 .gtc.pland .pl-val{opacity:1;transition:opacity .5s 1.5s}
-@media (prefers-reduced-motion: reduce){.pl-shirt,.pl-bob,.pl-rball,.pl-b{animation:none!important}}
+@media (prefers-reduced-motion: reduce){.pl-shirt,.pl-b,.pl-eyes,.pl-weyes{animation:none!important}}
 /* the case on Ronaldo's wall turns round */
 .cr-flipper{transform-box:fill-box;transform-origin:center}
 .cr-back{opacity:0}
@@ -10709,67 +10732,85 @@ function suiCinematic(r){
     const PA = {sh:[-6, -28], hd:[-9, -39], k1:[5, 14], f1:[3, 30], k2:[13, -8], f2:[22, -18], e1:[-16, -34], h1:[-23, -42], e2:[4, -36], h2:[11, -43], num:-12};
     const PB = {sh:[-27, 6], hd:[-37, 9], k1:[-6, -18], f1:[-15, -36], k2:[15, -3], f2:[29, 8], e1:[-28, 18], h1:[-35, 27], e2:[-16, 20], h2:[-9, 29]};
     const PC = {sh:[-25, 8], hd:[-35, 4], k1:[11, -6], f1:[24, 2], k2:[12, 5], f2:[27, 13], e1:[-29, 19], h1:[-31, 30], e2:[-18, 20], h2:[-13, 31]};
-    /* ---- La Pulga: the same film, until it isn't ---- */
+    /* ---- La Pulga: the same film, until it isn't. Then the other one, and he is no saint. ---- */
     const pulgaScenes = !pg ? '' : (() => {
-      const MS = {shirt:'url(#plBg)', sleeve:'#a50044', shorts:'#004d98', sock:'#004d98', skin:'#ebb995', hair:'#3b2615', num:'10', numc:'#ffd23f'};
-      const MU = {shirt:'#da291c', sleeve:'#da291c', shorts:'#f4f6fa', sock:'#111111', skin:'#e0b08a', hair:'#1a110b'};
-      const plDefs = '<pattern id="plBg" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="#004d98"/><rect width="3" height="6" fill="#a50044"/></pattern>';
-      const crowd = (n, y0, y1, cols) => { let s = ''; for (let i = 0; i < n; i++) s += '<rect class="' + (i % 7 ? '' : 'gt-bulb') + '" x="' + f1(R() * 400) + '" y="' + f1(y0 + R() * (y1 - y0)) + '" width="1.8" height="1.8" fill="' + cols[i % cols.length] + '" opacity=".6"/>'; return s; };
-      const lamps = '<circle cx="40" cy="14" r="44" fill="url(#suFl5)" opacity=".45"/><rect x="25" y="8" width="30" height="12" rx="2" fill="#fff"/><circle cx="360" cy="14" r="44" fill="url(#suFl5)" opacity=".45"/><rect x="345" y="8" width="30" height="12" rx="2" fill="#fff"/>';
-      // 1. the tunnel: someone else
+      const EV = extra => bdoP('messi', Object.assign({shirt:'barca', num:'10', numc:'#ffd23f', trim:'#ffd23f', mouth:'smirk', iris:'#ffb800'}, extra || {}));
+      const crowd = (n, y0, y1, cols) => { let s = ''; for (let i = 0; i < n; i++) s += '<rect class="' + (i % 7 ? '' : 'gt-bulb') + '" x="' + f1(R() * 400) + '" y="' + f1(y0 + R() * (y1 - y0)) + '" width="1.8" height="1.8" fill="' + cols[i % cols.length] + '" opacity=".55"/>'; return s; };
+      const lamps = '<circle cx="40" cy="14" r="44" fill="url(#plFl)" opacity=".4"/><rect x="25" y="8" width="30" height="12" rx="2" fill="#fff"/><circle cx="360" cy="14" r="44" fill="url(#plFl)" opacity=".4"/><rect x="345" y="8" width="30" height="12" rx="2" fill="#fff"/>';
+      const defs = k => '<defs>' + bdoDefs(k) + '<radialGradient id="plFl"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>'
+        + '<radialGradient id="plEy"><stop offset="0" stop-color="#ffe9a0" stop-opacity="1"/><stop offset=".4" stop-color="#ffb800" stop-opacity=".8"/><stop offset="1" stop-color="#ffb800" stop-opacity="0"/></radialGradient>'
+        + '<radialGradient id="plRim" cx=".5" cy=".6" r=".6"><stop offset="0" stop-color="#ffd23f" stop-opacity=".35"/><stop offset="1" stop-color="#ffd23f" stop-opacity="0"/></radialGradient>'
+        + '<linearGradient id="plGd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6a4300"/><stop offset=".45" stop-color="#ffe9a0"/><stop offset=".7" stop-color="#ffd23f"/><stop offset="1" stop-color="#6a4300"/></linearGradient></defs>';
+      const eyes = (x, y, s, cls) => '<g class="' + (cls || 'pl-eyes') + '"><circle cx="' + f1(x - 7 * s) + '" cy="' + f1(y + 11 * s) + '" r="' + f1(7 * s) + '" fill="url(#plEy)"/><circle cx="' + f1(x + 7 * s) + '" cy="' + f1(y + 11 * s) + '" r="' + f1(7 * s) + '" fill="url(#plEy)"/></g>';
+      // 1. the tunnel: someone else is waiting at the end of it
       let p1 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="plGl"><stop offset="0" stop-color="#ffd23f" stop-opacity=".9"/><stop offset="1" stop-color="#ffd23f" stop-opacity="0"/></radialGradient></defs><rect width="400" height="260" fill="#010102"/>';
-      for (let i = 0; i < 10; i++) { const k = i / 10, x = 190 * k, y = 118 * k, w = 400 - 380 * k, h = 260 - 236 * k; p1 += '<rect class="pl-tw" style="--i:' + (9 - i) + '" x="' + f1(x) + '" y="' + f1(y) + '" width="' + f1(w) + '" height="' + f1(h) + '" fill="none" stroke="#1c2433" stroke-width="' + f1(2.4 - k * 2) + '"/><rect class="pl-tl" style="--i:' + (9 - i) + '" x="' + f1(200 - w * .06) + '" y="' + f1(y + 2) + '" width="' + f1(w * .12) + '" height="' + f1(Math.max(1, h * .012)) + '" fill="#e8f0ff"/>'; }
-      p1 += '<g class="pl-who"><circle cx="200" cy="130" r="22" fill="url(#plGl)" opacity=".6"/><circle cx="200" cy="121" r="2.6" fill="#0a0a0a"/><path d="M197 124 H203 L202.4 133 H197.6 Z" fill="#0a0a0a"/><path d="M198 133 L197.4 139 M202 133 L202.6 139" stroke="#0a0a0a" stroke-width="1.3"/><text x="200" y="131" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="4.6" fill="#ffd23f">10</text></g></svg>';
-      // 2. Rome, 2009
-      const PMs = {sh:[0, -26], hd:[0, -37], k1:[-3, 14], f1:[-4, 29], k2:[4, 14], f2:[6, 29], e1:[-9, -14], h1:[-11, -2], e2:[9, -14], h2:[11, -2], num:0};
-      const PMj = {sh:[-3, -26], hd:[-8, -36], k1:[7, 9], f1:[16, 20], k2:[-1, 13], f2:[9, 24], e1:[-13, -21], h1:[-20, -17], e2:[9, -21], h2:[17, -15], num:-6};
-      const PDs = {sh:[0, -26], hd:[0, -37], k1:[-3, 14], f1:[-4, 29], k2:[4, 14], f2:[6, 29], e1:[-9, -14], h1:[-11, -2], e2:[9, -14], h2:[11, -2]};
-      const PDj = {sh:[-1, -26], hd:[-3, -37], k1:[4, 10], f1:[10, 22], k2:[-3, 12], f2:[2, 26], e1:[-11, -24], h1:[-15, -34], e2:[10, -22], h2:[14, -32]};
-      let p2 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs>' + bdoDefs('pl2') + plDefs
-        + '<pattern id="plNt" width="7" height="7" patternUnits="userSpaceOnUse"><path d="M0 0 L7 7 M7 0 L0 7" stroke="#fff" stroke-opacity=".28" stroke-width=".6"/></pattern>'
-        + '<radialGradient id="plHit"><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#ffd23f" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>'
-        + '<linearGradient id="plVg" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".85"/></linearGradient></defs>'
-        + '<rect width="400" height="260" fill="#04050a"/>' + lamps + crowd(300, 30, 96, ['#a50044', '#004d98', '#da291c', '#f4f6fa', '#ffd23f'])
+      for (let i = 0; i < 10; i++) { const k = i / 10, x = 190 * k, y = 118 * k, w = 400 - 380 * k, h = 260 - 236 * k; p1 += '<rect class="pl-tw" style="--i:' + (9 - i) + '" x="' + f1(x) + '" y="' + f1(y) + '" width="' + f1(w) + '" height="' + f1(h) + '" fill="none" stroke="#2a1c0c" stroke-width="' + f1(2.4 - k * 2) + '"/><rect class="pl-tl" style="--i:' + (9 - i) + '" x="' + f1(200 - w * .06) + '" y="' + f1(y + 2) + '" width="' + f1(w * .12) + '" height="' + f1(Math.max(1, h * .012)) + '" fill="#ffe2a0"/>'; }
+      p1 += '<g class="pl-who"><circle cx="200" cy="130" r="22" fill="url(#plGl)" opacity=".5"/><circle cx="200" cy="121" r="2.6" fill="#050505"/><path d="M197 124 H203 L202.4 133 H197.6 Z" fill="#050505"/><path d="M198 133 L197.4 139 M202 133 L202.6 139" stroke="#050505" stroke-width="1.3"/>'
+        + '<g class="pl-weyes"><circle cx="199.1" cy="120.6" r=".55" fill="#ffd23f"/><circle cx="200.9" cy="120.6" r=".55" fill="#ffd23f"/><circle cx="200" cy="120.6" r="3" fill="url(#plGl)"/></g></g></svg>';
+      // 2. Rome, 2009: he rises over all of them
+      let p2 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + defs('pl2')
+        + '<rect width="400" height="260" fill="#04050a"/>' + lamps + crowd(300, 30, 120, ['#a50044', '#004d98', '#da291c', '#f4f6fa', '#ffd23f'])
         + '<rect x="146" y="6" width="108" height="20" rx="3" fill="#000" stroke="#334"/><text class="pl-sb1" x="200" y="20.5" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" letter-spacing="1.5" fill="#ffd23f">BAR 1 – 0 MUN · 69’</text><text class="pl-sb2" x="200" y="20.5" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" letter-spacing="1.5" fill="#ffd23f">BAR 2 – 0 MUN · 70’</text>'
-        + '<rect y="100" width="400" height="160" fill="#14532a"/>' + [0, 1, 2, 3, 4].map(i => '<rect y="' + (100 + i * 32) + '" width="400" height="14" fill="#186232"/>').join('')
-        + '<g class="pl-net"><path d="M22 102 L8 116 V200 L22 196 Z" fill="url(#plNt)"/><rect x="22" y="102" width="92" height="94" fill="#000" opacity=".28"/><rect x="22" y="102" width="92" height="94" fill="url(#plNt)"/></g>'
-        + '<path d="M22 196 V102 H114 V196" stroke="#fff" stroke-width="4" fill="none" stroke-linejoin="round"/>'
-        + '<g class="pl-gk"><circle cx="70" cy="142" r="6.4" fill="#e6c3a3"/><path d="M64 140 Q70 133 76 140" fill="#8a7a6a"/><path d="M61 150 H79 L77 175 H63 Z" fill="#3c4a3a"/><path d="M61 152 L54 140 M79 152 L86 140" stroke="#3c4a3a" stroke-width="5" stroke-linecap="round"/>'
-        + '<circle cx="53" cy="138" r="3.4" fill="#f4f6fa"/><circle cx="87" cy="138" r="3.4" fill="#f4f6fa"/><path d="M66 175 L64 194 M74 175 L76 194" stroke="#2a2a30" stroke-width="5" stroke-linecap="round"/></g>'
-        + '<g class="pl-def"><g transform="translate(198 152) scale(1.45)">' + pose('pl-ds', PDs, MU) + pose('pl-dj', PDj, MU) + '</g></g>'
-        + '<g class="pl-mes"><g transform="translate(172 158) scale(1.25)">' + pose('pl-ms', PMs, MS) + pose('pl-mj', PMj, MS) + '</g></g>'
-        + '<circle class="pl-hit" cx="162" cy="64" r="16" fill="url(#plHit)"/>'
-        + '<g class="pl-ball"><circle r="5" fill="#f4f6fa" stroke="#111" stroke-width=".7"/><path d="M0 -2.4 L2.3 -.7 L1.4 2 H-1.4 L-2.3 -.7 Z" fill="#111"/></g>'
-        + '<text class="pl-gl" x="250" y="84" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="44" letter-spacing="5" fill="#ffd23f">GOAL</text>'
-        + '<g class="pl-ron"><rect x="250" y="100" width="150" height="160" fill="url(#plVg)"/>' + bdoMan(334, 152, .92, bdoP('cr7', {shirt:'#da291c', trim:'#ffffff', num:'7', numc:'#ffffff', mouth:'sad'})) + '</g></svg>';
-      // 3. the Bernabéu, 2017
-      let p3 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs>' + bdoDefs('pl3') + plDefs + '</defs><rect width="400" height="260" fill="#05060c"/>' + lamps;
-      for (let row = 0; row < 6; row++) for (let x = 4 + (row % 2) * 5; x < 400; x += 10) p3 += '<circle cx="' + x + '" cy="' + (34 + row * 12) + '" r="3.2" fill="' + ['#d9b08c', '#e6c3a3', '#a8754f'][(x + row) % 3] + '"/><rect x="' + (x - 3.6) + '" y="' + (37 + row * 12) + '" width="7.2" height="6" fill="' + (row % 3 ? '#f4f6fa' : '#e8e2f2') + '"/>';
-      p3 += '<g class="pl-flash">' + Array.from({length: 12}, () => '<circle style="--d:' + f1(R() * 1.6) + 's" cx="' + f1(10 + R() * 380) + '" cy="' + f1(34 + R() * 60) + '" r="' + f1(1.6 + R() * 2.4) + '" fill="#fff"/>').join('') + '</g>'
+        + '<g class="pl-goal"><rect x="16" y="96" width="78" height="62" fill="#000" opacity=".35"/>' + Array.from({length: 8}, (_, i) => '<path d="M' + (16 + i * 11) + ' 96 V158" stroke="#fff" stroke-opacity=".22"/>').join('') + Array.from({length: 6}, (_, i) => '<path d="M16 ' + (96 + i * 12) + ' H94" stroke="#fff" stroke-opacity=".22"/>').join('') + '<path d="M16 158 V96 H94 V158" stroke="#fff" stroke-width="3" fill="none"/></g>'
+        + '<rect y="158" width="400" height="102" fill="#103f20"/>'
+        + '<g class="pl-defs">' + [[250, 1.02], [310, .98]].map(([x, sc]) => '<g transform="translate(' + x + ' 122) scale(' + sc + ')">' + bdoMan(0, 0, 1, bdoP('cr7', {shirt:'#da291c', trim:'#ffffff', mouth:'open', head:'long', hair:'buzz', hc:'#2a1a10', skin:x > 300 ? '#a8754f' : '#e6c3a3', brow:'flat'})) + '</g>').join('') + '</g>'
+        + '<path class="pl-cross" d="M400 40 Q300 10 200 74" stroke="#ffd23f" stroke-width="2" stroke-dasharray="4 5" fill="none" opacity=".8"/>'
+        + '<g class="pl-rise"><ellipse cx="200" cy="200" rx="70" ry="80" fill="url(#plRim)"/><g transform="translate(200 100) scale(1.05)">' + bdoMan(0, 0, 1, EV({mouth:'open'})) + '</g>' + eyes(200, 100, 1.05) + '</g>'
+        + '<g class="pl-ball"><circle r="6" fill="#f4f6fa" stroke="#111" stroke-width=".8"/><path d="M0 -2.8 L2.7 -.8 L1.7 2.4 H-1.7 L-2.7 -.8 Z" fill="#111"/></g>'
+        + '<text class="pl-gl" x="120" y="70" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="40" letter-spacing="5" fill="#ffd23f">GOAL</text>'
+        + '<g class="pl-ron"><rect x="270" y="0" width="130" height="260" fill="#000" opacity=".55"/>' + bdoMan(336, 150, .92, bdoP('cr7', {shirt:'#da291c', trim:'#ffffff', num:'7', numc:'#ffffff', mouth:'sad', tears:true})) + '</g></svg>';
+      // 3. Getafe, 2007: the slalom, seen from above
+      const PATH = 'M60 210 C90 190 110 214 140 196 S180 150 214 168 S246 120 270 132 S300 96 318 108 S346 80 352 70';
+      const DFS = [[118, 206], [168, 172], [220, 150], [262, 124], [304, 110], [340, 84]];
+      let p3 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="plTr"><stop offset="0" stop-color="#ffd23f" stop-opacity=".95"/><stop offset="1" stop-color="#ffd23f" stop-opacity="0"/></radialGradient>'
+        + '<filter id="plGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>'
+        + '<rect width="400" height="260" fill="#030806"/><g class="pl-board"><rect x="10" y="10" width="380" height="240" fill="#0c3a1d" stroke="#e8f4e8" stroke-opacity=".5" stroke-width="1.4"/>'
+        + [0, 1, 2, 3, 4, 5, 6, 7].map(i => '<rect x="' + (10 + i * 47.5) + '" y="10" width="23.75" height="240" fill="#0f4423"/>').join('')
+        + '<path d="M200 10 V250" stroke="#e8f4e8" stroke-opacity=".5"/><circle cx="200" cy="130" r="30" fill="none" stroke="#e8f4e8" stroke-opacity=".5"/>'
+        + '<rect x="330" y="60" width="60" height="140" fill="none" stroke="#e8f4e8" stroke-opacity=".5"/><rect x="364" y="96" width="26" height="68" fill="none" stroke="#e8f4e8" stroke-opacity=".5"/><rect x="390" y="110" width="6" height="40" fill="none" stroke="#fff" stroke-width="1.6"/>'
+        + '<path class="pl-trail" d="' + PATH + ' L384 130" stroke="#ffd23f" stroke-width="3" fill="none" stroke-linecap="round" filter="url(#plGlow)"/>'
+        + DFS.map(([x, y], i) => '<g class="pl-dfn" style="--d:' + (.42 + i * .44).toFixed(2) + 's"><circle cx="' + x + '" cy="' + y + '" r="9" fill="#1c3f8a" stroke="#fff" stroke-width="1.2"/><text x="' + x + '" y="' + (y + 3.4) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="9" fill="#fff">' + (i + 1) + '</text></g>').join('')
+        + '<g class="pl-dfn pl-gkn" style="--d:2.9s"><circle cx="376" cy="122" r="9" fill="#2a2a2a" stroke="#d4ff3a" stroke-width="1.4"/><text x="376" y="125.4" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="8" fill="#d4ff3a">GK</text></g>'
+        + '<g class="pl-me"><circle r="14" fill="url(#plTr)"/><circle r="7.4" fill="#a50044" stroke="#ffd23f" stroke-width="2"/><text y="3" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="8" fill="#ffd23f">10</text>'
+        + '<animateMotion class="pl-mot" dur="3.3s" begin="indefinite" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines=".4 0 .6 1" path="' + PATH + ' L384 130"/></g>'
+        + '<text class="pl-gl3" x="200" y="60" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="44" letter-spacing="5" fill="#ffd23f">GOAL</text></g></svg>';
+      // 4. the Bernabéu, 2017: he shows them the name
+      let p4 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + defs('pl4') + '<pattern id="plBg" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="#004d98"/><rect width="3" height="6" fill="#a50044"/></pattern>'
+        + '<rect width="400" height="260" fill="#05060c"/>' + lamps + '<g class="pl-mute">';
+      for (let row = 0; row < 6; row++) for (let x = 4 + (row % 2) * 5; x < 400; x += 10) p4 += '<circle cx="' + x + '" cy="' + (34 + row * 12) + '" r="3.2" fill="#8a8a92"/><rect x="' + (x - 3.6) + '" y="' + (37 + row * 12) + '" width="7.2" height="6" fill="#c9c9d2"/>';
+      p4 += '</g><g class="pl-flash">' + Array.from({length: 14}, () => '<circle style="--d:' + f1(R() * 1.6) + 's" cx="' + f1(10 + R() * 380) + '" cy="' + f1(34 + R() * 60) + '" r="' + f1(1.6 + R() * 2.4) + '" fill="#fff"/>').join('') + '</g>'
         + '<rect x="146" y="6" width="108" height="20" rx="3" fill="#000" stroke="#334"/><text x="200" y="20.5" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" letter-spacing="1.5" fill="#ffd23f">RMA 2 – 3 BAR · 92’</text>'
-        + '<rect y="110" width="400" height="150" fill="#14532a"/>' + [0, 1, 2, 3].map(i => '<rect y="' + (110 + i * 36) + '" width="400" height="16" fill="#186232"/>').join('')
+        + '<rect y="110" width="400" height="150" fill="#0f3a1c"/><path d="M150 0 L60 260 H340 L250 0 Z" fill="url(#plRim)" opacity=".9"/>'
         + '<g class="pl-hold" transform="translate(0 14)"><path d="M186 206 L184 244 M214 206 L216 244" stroke="#ebb995" stroke-width="9" stroke-linecap="round"/><path d="M182 224 L181 246 M218 224 L219 246" stroke="#004d98" stroke-width="10" stroke-linecap="round"/>'
         + '<path d="M174 182 H226 L230 210 H170 Z" fill="#004d98"/><path d="M172 132 Q200 124 228 132 L226 184 H174 Z" fill="#141a2a"/>'
         + '<g class="pl-arms"><path d="M176 136 Q160 104 152 52 M224 136 Q240 104 248 52" stroke="#141a2a" stroke-width="10" stroke-linecap="round" fill="none"/><path d="M161 110 Q156 82 152 52 M239 110 Q244 82 248 52" stroke="#ebb995" stroke-width="8" stroke-linecap="round" fill="none"/>'
-        + '<g class="pl-shirt"><path d="M140 22 H260 L256 70 H144 Z" fill="url(#plBg)" stroke="#0a1a3a" stroke-width="1.4"/><text x="200" y="38" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" letter-spacing="3" fill="#ffd23f">MESSI</text><text x="200" y="66" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="30" fill="#ffd23f">10</text></g>'
+        + '<g class="pl-shirt"><path d="M140 22 H260 L256 70 H144 Z" fill="url(#plBg)" stroke="#ffd23f" stroke-width="1.4"/><text x="200" y="38" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" letter-spacing="3" fill="#ffd23f">MESSI</text><text x="200" y="66" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="30" fill="#ffd23f">10</text></g>'
         + '<circle cx="152" cy="50" r="5" fill="#ebb995"/><circle cx="248" cy="50" r="5" fill="#ebb995"/></g>'
-        + '<g transform="translate(200 84) scale(.92)">' + bdoFace(bdoP('messi', {mouth:'smile'})) + '</g><path d="M194 120 H206 V132 H194 Z" fill="#ebb995"/></g></svg>';
-      // 5. La Pulga: too small to catch
-      const PR = {sh:[3, -26], hd:[5, -37], k1:[9, 9], f1:[5, 25], k2:[-6, 12], f2:[-14, 21], e1:[-8, -16], h1:[-3, -7], e2:[11, -17], h2:[17, -23], num:8};
-      let p5 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs>' + plDefs + '<radialGradient id="suFl5"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><rect width="400" height="260" fill="#04050a"/>' + lamps + crowd(240, 30, 96, ['#a50044', '#004d98', '#f4f6fa', '#ffd23f'])
-        + '<rect y="100" width="400" height="160" fill="#14532a"/>' + [0, 1, 2, 3, 4].map(i => '<rect y="' + (100 + i * 32) + '" width="400" height="14" fill="#186232"/>').join('');
-      [80, 140, 200, 260, 320].forEach((x, i) => { p5 += '<g class="pl-giant" style="--d:' + (.35 + i * .62).toFixed(2) + 's;transform-origin:' + x + 'px 214px"><g transform="translate(' + x + ' 167) scale(1.6)">' + pose('', PDs, MU) + '</g></g>'; });
-      p5 += '<g class="pl-runner"><g class="pl-bob"><g transform="translate(0 196) scale(.95)">' + pose('', PR, MS) + '</g></g><g class="pl-rball"><circle cx="20" cy="221" r="3.6" fill="#f4f6fa" stroke="#111" stroke-width=".6"/></g></g></svg>';
+        + '<g transform="translate(200 84) scale(.92)">' + bdoFace(EV({mouth:'smirk'})) + '</g>' + eyes(200, 84, .92) + '<path d="M194 120 H206 V132 H194 Z" fill="#ebb995"/></g></svg>';
+      // 6. the throne of eight
+      let p6 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + defs('pl6')
+        + '<radialGradient id="plTh" cx=".5" cy=".4" r=".75"><stop offset="0" stop-color="#2a0a24"/><stop offset=".6" stop-color="#0a0410"/><stop offset="1" stop-color="#000"/></radialGradient>'
+        + '<rect width="400" height="260" fill="url(#plTh)"/>'
+        + [60, 340].map(x => '<g><path d="M' + (x - 26) + ' 160 V58 Q' + x + ' 20 ' + (x + 26) + ' 58 V160 Z" fill="#06030a" stroke="#3a1030" stroke-width="3"/><path d="M' + (x - 26) + ' 160 V58 Q' + x + ' 20 ' + (x + 26) + ' 58 V160 Z" fill="url(#plBgT)" opacity=".18"/></g>').join('')
+        + '<defs><pattern id="plBgT" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="10" fill="#004d98"/><rect width="5" height="10" fill="#a50044"/></pattern></defs>'
+        + [112, 288].map(x => '<g><rect x="' + (x - 3) + '" y="150" width="6" height="40" fill="#e8dcc0"/><ellipse class="cf-flame" cx="' + x + '" cy="146" rx="3" ry="6" fill="#ffb02e"/><circle cx="' + x + '" cy="146" r="16" fill="url(#plEy)" opacity=".35"/></g>').join('')
+        + '<path d="M140 214 V64 Q146 32 170 26 L200 6 L230 26 Q254 32 260 64 V214 Z" fill="url(#plGd)" stroke="#3a2400" stroke-width="2"/><path d="M152 206 V72 Q158 46 176 42 L200 24 L224 42 Q242 46 248 72 V206 Z" fill="url(#plBgT)"/>'
+        + Array.from({length: 8}, (_, i) => { const a = Math.PI * (1.08 + i * .12); return bdoBall(f1(200 + Math.cos(a) * 64), f1(70 + Math.sin(a) * 50 + 46), 7, 'pl6'); }).join('')
+        + '<g class="pl-king"><path d="M150 214 Q200 150 250 214 Z" fill="#7a0a2a"/><g transform="translate(200 104) scale(1.08)">' + bdoMan(0, 0, 1, EV({mouth:'smirk', chain:true}))
+        + '<path d="M-17 -20 L-17 -32 L-10 -25 L-4 -36 L0 -27 L4 -36 L10 -25 L17 -32 L17 -20 Z" fill="url(#plGd)" stroke="#3a2400" stroke-width=".8"/><circle cx="0" cy="-30" r="1.8" fill="#75bde9"/></g>' + eyes(200, 104, 1.08, 'pl-eyes pl-keyes') + '</g>'
+        + '<path d="M70 214 H330 L350 236 H50 Z" fill="#12030e" stroke="#5a0a30"/><path d="M50 236 H350 L370 260 H30 Z" fill="#0a0208" stroke="#5a0a30"/>'
+        + '<g class="pl-cr7"><rect x="282" y="222" width="44" height="14" rx="2" fill="#3a3a40" transform="rotate(-8 304 229)"/><text x="304" y="232.6" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="10" fill="#8a8a92" transform="rotate(-8 304 229)">CR7</text><path d="M296 222 L300 229 L297 236 M310 221 L307 228 L312 236" stroke="#000" stroke-width="1" fill="none" transform="rotate(-8 304 229)"/></g></svg>';
       const tally = [['5', 'Ballon d’Ors', '8'], ['18', 'El Clásico goals', '26'], ['0', 'World Cups', '1']];
       const ptitle = 'LA PULGA'.split('').map((ch, i) => '<span style="--i:' + i + '">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>').join('');
-      return '<section class="gt-s pl-1">' + p1 + '<div class="pl-whisper"><p>But there was always</p><b>someone else.</b></div></section>'
+      return '<section class="gt-s pl-1">' + p1 + '<div class="pl-whisper"><p>But there was always</p><b>someone else.</b><em>You thought he was the nice one.</em></div></section>'
         + '<section class="gt-s pl-2">' + p2 + '<div class="gt-cap pl-cap"><small>Rome · 27 May 2009 · Champions League final</small><p>The smallest man on the pitch. A header.</p><p class="pl-p2">He later called it his favourite goal.</p></div></section>'
-        + '<section class="gt-s pl-3">' + p3 + '<div class="gt-cap pl-cap"><small>Bernabéu · 23 April 2017 · 92nd minute</small><p>His 500th goal for Barcelona.</p><p class="pl-p2">He showed them the name on the back.</p></div></section>'
-        + '<section class="gt-s pl-4"><div class="pl-tally"><div class="pl-hd"><span>CR7</span><i></i><span class="me">LEO</span></div>'
-          + tally.map(([a, l, b], i) => '<div class="pl-row" style="--i:' + i + '"><b class="pl-a" data-n="' + a + '">0</b><span>' + l + '</span><b class="pl-b" data-n="' + b + '">0</b></div>').join('') + '</div></section>'
-        + '<section class="gt-s pl-5">' + p5 + '<div class="pl-name"><b>LA PULGA</b><span>The Flea. Too small to catch.</span></div></section>'
-        + '<section class="gt-s pl-6"><div class="pl-beam"></div><div class="su-rv pl-rv"><div class="pl-balls">' + '<i></i>'.repeat(8) + '</div><div class="pl-art"><span class="gt-foil pl-foil"></span></div>'
-          + '<h2 class="pl-h2">' + ptitle + '</h2><div class="pl-sub">CHROMA · ONE OF ONE</div><div class="pl-tag">The Flea.</div><div class="gt-val pl-val"><span class="coin"></span><span id="plVal">0</span></div><div class="gt-tap">tap to continue</div></div></section>';
+        + '<section class="gt-s pl-3">' + p3 + '<div class="gt-cap pl-cap"><small>Getafe · 18 April 2007</small><p>From his own half. Past all of them.</p><p class="pl-p2">Then the keeper.</p></div></section>'
+        + '<section class="gt-s pl-4">' + p4 + '<div class="gt-cap pl-cap"><small>Bernabéu · 23 April 2017 · 92nd minute</small><p>His 500th goal for Barcelona.</p><p class="pl-p2">He made sure they read the name.</p></div></section>'
+        + '<section class="gt-s pl-5"><div class="pl-tally"><div class="pl-hd"><span>CR7</span><i></i><span class="me">LEO</span></div>'
+          + tally.map(([a, l, b], i) => '<div class="pl-row" style="--i:' + i + '"><b class="pl-a" data-n="' + a + '">0</b><span>' + l + '</span><b class="pl-b" data-n="' + b + '">0</b></div>').join('') + '<div class="pl-keep">He keeps count.</div></div></section>'
+        + '<section class="gt-s pl-6">' + p6 + '<div class="pl-ha"><span>HA.</span><span>HA.</span><span>HA.</span></div><div class="pl-riv"><p>There is no rivalry.</p><b>There never was.</b></div></section>'
+        + '<section class="gt-s pl-7"><div class="pl-beam"></div><div class="su-rv pl-rv"><div class="pl-balls">' + '<i></i>'.repeat(8) + '</div><div class="pl-art"><span class="gt-foil pl-foil"></span></div>'
+          + '<h2 class="pl-h2">' + ptitle + '</h2><div class="pl-sub">CHROMA · ONE OF ONE</div><div class="pl-tag">Small. Untouchable. Eternal.</div><div class="gt-val pl-val"><span class="coin"></span><span id="plVal">0</span></div><div class="gt-tap">tap to continue</div></div></section>';
     })();
     let s5 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><pattern id="suJv" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#f4f6fa"/><rect width="4" height="8" fill="#111"/></pattern>'
       + '<pattern id="suNt" width="7" height="7" patternUnits="userSpaceOnUse"><path d="M0 0 L7 7 M7 0 L0 7" stroke="#fff" stroke-opacity=".28" stroke-width=".6"/></pattern>'
@@ -10838,7 +10879,7 @@ function suiCinematic(r){
     /* embers, rain and sparks */
     const cv = ov.querySelector('.gt-cv'), g = cv.getContext('2d');
     let W = 0, H = 0, parts = [], embers = 0, rain = false, confetti = false;
-    const PLC = ['#75bde9', '#ffffff', '#ffd23f', '#a50044', '#004d98'];
+    const PLC = ['#ffd23f', '#fff3c0', '#a50044', '#004d98', '#ffffff'];
     const size = () => { const d = Math.min(devicePixelRatio || 1, 1.5); W = innerWidth; H = innerHeight; cv.width = W * d; cv.height = H * d; g.setTransform(d, 0, 0, d, 0, 0); };
     size(); addEventListener('resize', size);
     const sparks = (n, x, y, pal) => { for (let i = 0; i < n; i++) { const a = Rr() * Math.PI * 2, v = .2 + Rr() * .6; parts.push({x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - .3, c: pal ? pal[i % pal.length] : Rr() < .5 ? '#ffd23f' : '#ff3a2a', life: 700 + Rr() * 700, max: 1400, g: .0009}); } };
@@ -10912,54 +10953,71 @@ function suiCinematic(r){
     if (pg) {
       const chord = (fs, dur, v, at) => fs.forEach(f => { tone(f, dur, 'triangle', v, at); tone(f / 2, dur, 'sine', v * .7, at); });
       const cheer = (v, d) => { noise(d || 2.4, 1400, 500, v, 'bandpass'); noise((d || 2.4) * .8, 2600, 1200, v * .6, 'bandpass'); };
-      const plSparks = (n, x, y) => sparks(n, x, y, ['#75bde9', '#ffffff', '#ffd23f', '#a50044', '#004d98']);
+      const plSparks = (n, x, y) => sparks(n, x, y, ['#ffd23f', '#fff3c0', '#a50044', '#004d98', '#ffffff']);
       const count = (el, to, ms) => { const t0 = performance.now(), iv = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / ms); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k >= 1) clearInterval(iv); }, 30); timers.push(iv); };
-      // the suspense: the lights die, a heartbeat, a tunnel
+      /* his theme: original, B minor, a harpsichord-ish ostinato over low strings, bells on top. Grand and cold. */
+      const PB = [[61.74, 123.47, 146.83, 185], [49, 98, 123.47, 146.83], [41.2, 82.41, 98, 123.47], [46.25, 92.5, 116.54, 138.59]];
+      for (let bar = 0; bar < 16; bar++) {
+        const t0 = 28000 + bar * 2000, c = PB[bar % 4];
+        if (t0 > 58000) break;
+        T(t0, () => { tone(c[0], 2.2, 'sawtooth', .02); tone(c[0] * 2, 2.2, 'triangle', .03); c.slice(1).forEach(f => tone(f, 2, 'sine', .012)); });
+        for (let e = 0; e < 8; e++) T(t0 + e * 250, () => tone(c[1 + (e % 3)] * (e > 3 ? 4 : 2), .14, 'square', .009));
+        if (bar % 2 === 0) T(t0, () => bell([739.99, 587.33, 493.88, 554.37][(bar / 2) % 4], .03));
+      }
+      // the suspense: the lights die, a heartbeat, a tunnel, and two gold eyes at the end of it
       T(22800, () => { add('dark'); embers = 0; parts = []; for (let i = 0; i < 6; i++) setTimeout(() => { if (!done) { tone(90, .06, 'square', .05); noise(.06, 400, 200, .08, 'lowpass'); } }, i * 140); sweep(400, 40, 1.4, 'sawtooth', .04); });
       T(23700, () => { go('p1'); noise(5, 300, 200, .03, 'lowpass'); });
       [24100, 25100, 25900, 26500, 27000, 27400].forEach((d, i) => T(d, () => heart(.24 + i * .04)));
       T(24300, () => { add('w1'); tone(880, 1.6, 'sine', .015); });
-      T(25600, () => { add('w2'); add('tunnel'); sweep(60, 220, 1.6, 'sine', .05); tone(1174.66, 2, 'sine', .012); });
-      // Rome, 2009: the header
+      T(25300, () => { add('w2'); add('tunnel'); sweep(60, 220, 1.6, 'sine', .05); tone(1174.66, 2, 'sine', .012); });
+      T(26500, () => { add('weyes'); tone(61.74, 1.6, 'sawtooth', .05); tone(65.41, 1.6, 'sawtooth', .04); flash(); });
+      T(26800, () => add('w3'));
+      // Rome, 2009
       T(28000, () => { go('p2'); cheer(.05, 4); });
-      const ROME = [[146.83, 185, 220], [110, 138.59, 164.81], [123.47, 146.83, 185], [98, 123.47, 146.83]];
-      ROME.forEach((c, i) => { T(28000 + i * 2000, () => { chord(c, 2.1, .016); }); for (let e = 0; e < 8; e++) T(28000 + i * 2000 + e * 250, () => tone(c[e % 3] * 2 * (e > 3 ? 2 : 1), .3, 'sine', .014)); });
-      T(28600, () => { add('rcross'); sweep(700, 300, .8, 'sine', .03); });
-      T(29100, () => { add('rjump'); noise(.2, 600, 200, .05, 'lowpass'); });
-      T(29400, () => { add('rhead'); add('freeze'); flash(); tone(220, .12, 'sine', .12); noise(.1, 2200, 900, .14, 'bandpass'); tone(36, .8, 'sine', .25); });
-      T(29950, () => ov.classList.remove('freeze'));
-      T(30200, () => { add('rnet'); boom(); cheer(.16, 3.2); chord([293.66, 369.99, 440, 587.33], 2.4, .03, 0); plSparks(70, W * .14, H * .45); });
-      T(31400, () => add('rcap'));
-      T(32600, () => { add('ron'); tone(146.83, 1.6, 'sine', .03); tone(174.61, 1.6, 'sine', .02, .3); });
+      T(28300, () => { add('rcross'); sweep(700, 300, .8, 'sine', .03); });
+      T(28600, () => { add('rise'); sweep(120, 600, .8, 'sawtooth', .04); });
+      T(29200, () => { add('rhead'); add('freeze'); flash(); tone(220, .12, 'sine', .12); noise(.1, 2200, 900, .14, 'bandpass'); tone(36, .8, 'sine', .25); });
+      T(29700, () => ov.classList.remove('freeze'));
+      T(30000, () => { add('rnet'); boom(); cheer(.16, 3); plSparks(70, W * .14, H * .4); });
+      T(31000, () => add('rcap'));
+      T(32000, () => { add('smirk'); tone(61.74, 1.4, 'sawtooth', .04); flash(); });
+      T(33200, () => { add('ron'); tone(146.83, 1.6, 'sine', .03); tone(174.61, 1.6, 'sine', .02, .3); });
+      // Getafe, 2007: the slalom
+      T(35800, () => { go('p3'); cheer(.04, 4); });
+      T(36300, () => { add('slalom'); const m = ov.querySelector('.pl-mot'); if (m && m.beginElement) m.beginElement(); });
+      for (let i = 0; i < 7; i++) T(36300 + 420 + i * 440, () => { tone(110 + i * 30, .14, 'square', .05); noise(.15, 1800, 600, .06, 'bandpass'); tone(587.33 * Math.pow(1.122, i), .1, 'sine', .03); });
+      T(39700, () => { add('gnet'); boom(); cheer(.18, 3); plSparks(90, W * .9, H * .48); });
+      T(40000, () => add('gcap'));
       // the Bernabéu, 2017
-      T(35600, () => { go('p3'); noise(2, 700, 400, .02, 'lowpass'); });
-      T(36200, () => { add('shirt'); chord([293.66, 369.99, 440, 659.25], 3.6, .022, 0); for (let i = 0; i < 10; i++) setTimeout(() => { if (!done) noise(.04, 4000, 2500, .05, 'highpass'); }, 300 + i * 260 + Rr() * 120); });
-      T(37600, () => add('bcap'));
-      // the tally
-      T(40800, () => go('p4'));
-      [0, 1, 2].forEach(i => T(41300 + i * 900, () => {
-        add('tr' + i); tone(55, .5, 'sine', .3); noise(.25, 500, 100, .12, 'lowpass'); tone([587.33, 659.25, 739.99][i], .5, 'triangle', .03);
+      T(42400, () => { go('p4'); noise(2, 700, 400, .02, 'lowpass'); });
+      T(42900, () => { add('shirt'); for (let i = 0; i < 10; i++) setTimeout(() => { if (!done) noise(.04, 4000, 2500, .05, 'highpass'); }, 300 + i * 260 + Rr() * 120); });
+      T(44000, () => add('bcap'));
+      T(45000, () => { add('glare'); tone(61.74, 1.2, 'sawtooth', .04); });
+      // the count
+      T(47200, () => go('p5'));
+      [0, 1, 2].forEach(i => T(47700 + i * 850, () => {
+        add('tr' + i); tone(55, .5, 'sine', .3); noise(.25, 500, 100, .12, 'lowpass');
         const row = ov.querySelectorAll('.pl-row')[i]; if (row) row.querySelectorAll('b').forEach(b => count(b, +b.dataset.n, 600));
       }));
-      T(44200, () => { add('lead'); chord([293.66, 369.99, 440], 1.4, .025, 0); });
-      // La Pulga
-      T(46000, () => go('p5'));
-      T(46300, () => { add('run'); });
-      [523.25, 587.33, 659.25, 739.99, 880, 739.99, 659.25, 587.33, 659.25, 739.99, 880, 987.77, 1174.66].forEach((f, i) => T(46400 + i * 280, () => { tone(f, .09, 'sine', .04); tone(f / 2, .06, 'triangle', .02); }));
-      [0, 1, 2, 3, 4].forEach(i => T(46650 + i * 620, () => { tone(110, .14, 'square', .05); noise(.18, 500, 150, .08, 'lowpass'); }));
-      T(47200, () => add('flea'));
+      T(50400, () => { add('lead'); tone(61.74, 1, 'sawtooth', .04); });
+      // the throne
+      T(52000, () => { go('p6'); embers = 2; tone(30.87, 3, 'sawtooth', .05); });
+      T(52600, () => { add('kglow'); flash(); });
+      [53400, 53900, 54400].forEach((d, i) => T(d, () => { add('ha' + i); tone([123.47, 110, 98][i], .35, 'sawtooth', .05); tone([246.94, 220, 196][i], .3, 'square', .02); }));
+      T(55200, () => add('riv1'));
+      T(56500, () => { add('riv2'); boom(); });
       // the reveal
-      T(50800, () => { go('p6'); heart(.42); sweep(120, 900, 1.6, 'sine', .04); });
-      T(51600, () => {
-        add('pland'); boom(); cheer(.14, 3);
-        chord([293.66, 369.99, 440, 587.33], 1.2, .03, 0); chord([392, 493.88, 587.33], 1.2, .03, 1.1); chord([440, 554.37, 659.25], 1.2, .03, 2.2); chord([587.33, 739.99, 880, 1174.66], 3.2, .035, 3.3);
+      T(58800, () => { go('p7'); embers = 0; parts = []; heart(.42); sweep(120, 900, 1.6, 'sine', .04); });
+      T(59600, () => {
+        add('pland'); boom(); cheer(.12, 3);
+        chord([246.94, 293.66, 369.99], 1.1, .03, 0); chord([196, 246.94, 293.66], 1.1, .03, 1); chord([185, 233.08, 277.18], 1.1, .03, 2); chord([246.94, 311.13, 369.99, 493.88], 3.4, .035, 3);
         confetti = true; setTimeout(() => { confetti = false; }, 3600);
         [.2, .8, .35, .65, .5].forEach((x, i) => setTimeout(() => { if (!done) { plSparks(70, W * x, H * (.15 + (i % 2) * .12)); noise(.4, 3000, 600, .05, 'highpass'); tone(70, .2, 'sine', .1); } }, 300 + i * 450));
         const el = $('#plVal'), t0 = performance.now();
         cnt = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 1800); if (el) el.textContent = fmt(Math.round(r.v * (1 - Math.pow(1 - k, 3)))); if (k >= 1) { clearInterval(cnt); kaching(); } }, 40);
       });
-      T(53200, () => add('ready'));
-      T(61000, finish);
+      T(61200, () => add('ready'));
+      T(69000, finish);
       return;
     }
     // 6. SIUUU
@@ -11350,6 +11408,7 @@ function bdoFace(o){
   if (o.mouth === 'gap') f += '<path d="M-11 29 Q0 41 11 29 Q0 32 -11 29 Z" fill="#5a1a14"/><path d="M-9.5 29.6 Q0 32.4 9.5 29.6 L9 32 Q0 34.6 -9 32 Z" fill="#fff"/><rect x="-.9" y="30.6" width="1.8" height="3.2" fill="#5a1a14"/><path d="M-7 31.2 V33.4 M-3.5 31.8 V34 M3.5 31.8 V34 M7 31.2 V33.4" stroke="#d8d0c4" stroke-width=".6"/>';
   else if (o.mouth === 'grin') f += '<path d="M-9 29 Q0 39 9 29 Q0 31.5 -9 29 Z" fill="#5a1a14"/><path d="M-8 29.5 Q0 32 8 29.5 L7.6 31.5 Q0 33.8 -7.6 31.5 Z" fill="#fff"/>';
   else if (o.mouth === 'open') f += '<ellipse cx="0" cy="31.5" rx="4.5" ry="3.6" fill="#5a1a14"/><path d="M-3.5 29.5 H3.5" stroke="#fff" stroke-width="1.4"/>';
+  else if (o.mouth === 'smirk') f += '<path d="M-6.5 31.4 Q0 33.6 7.2 28.4" stroke="#6a2a1e" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M5.6 28.2 Q7.6 27.6 8.4 28.8" stroke="#6a2a1e" stroke-width="1" fill="none"/>';
   else if (o.mouth === 'sad') f += '<path d="M-6 33.4 Q0 28.8 6 33.4" stroke="#4a1a12" stroke-width="1.8" fill="none" stroke-linecap="round"/>';
   else f += '<path d="M-6.5 30 Q0 34.4 6.5 30" stroke="#6a2a1e" stroke-width="1.7" fill="none" stroke-linecap="round"/>';
   if (o.lip !== false && o.mouth !== 'gap' && o.mouth !== 'grin') f += '<path d="M-3.5 33.6 Q0 34.8 3.5 33.6" stroke="' + sh + '" stroke-width="1" fill="none"/>';
@@ -11381,9 +11440,10 @@ function bdoMan(x, y, s, o){
       + '<path d="M-12 52 L-2 80 L-10 62 L-6 58 Z M12 52 L2 80 L10 62 L6 58 Z" fill="#23262e"/>';
   } else {
     const id = 'st' + Math.random().toString(36).slice(2, 7);
-    g += (sh === 'stripes' ? '<defs><pattern id="' + id + '" width="12" height="10" patternUnits="userSpaceOnUse"><rect width="12" height="10" fill="#f4f6fa"/><rect width="6" height="10" fill="#7cc4ef"/></pattern></defs>' : '')
+    g += (sh === 'barca' ? '<defs><pattern id="' + id + '" width="12" height="10" patternUnits="userSpaceOnUse"><rect width="12" height="10" fill="#004d98"/><rect width="6" height="10" fill="#a50044"/></pattern></defs>' : '')
+      + (sh === 'stripes' ? '<defs><pattern id="' + id + '" width="12" height="10" patternUnits="userSpaceOnUse"><rect width="12" height="10" fill="#f4f6fa"/><rect width="6" height="10" fill="#7cc4ef"/></pattern></defs>' : '')
       + (sh === 'disco' ? '<defs><pattern id="' + id + '" width="14" height="12" patternUnits="userSpaceOnUse"><rect width="14" height="12" fill="#5b1a8a"/><path d="M0 6 L3.5 2 L7 6 L10.5 2 L14 6" stroke="#ffd23f" stroke-width="1.4" fill="none"/><circle cx="3" cy="10" r="1.3" fill="#2fe3ff"/><circle cx="10" cy="10" r="1.3" fill="#ff3ea5"/></pattern></defs>' : '')
-      + '<path d="M-34 96 Q-34 58 -12 51 H12 Q34 58 34 96 Z" fill="' + (sh === 'stripes' || sh === 'disco' ? 'url(#' + id + ')' : sh) + '"/>'
+      + '<path d="M-34 96 Q-34 58 -12 51 H12 Q34 58 34 96 Z" fill="' + (sh === 'stripes' || sh === 'disco' || sh === 'barca' ? 'url(#' + id + ')' : sh) + '"/>'
       + '<path d="M20 56 Q34 62 34 96 H26 Q27 70 20 56 Z" fill="rgba(0,0,0,.14)"/>'
       + '<path d="M-9 51 L0 61 L9 51" fill="none" stroke="' + (o.trim || 'rgba(0,0,0,.25)') + '" stroke-width="3.2" stroke-linejoin="round"/>'
       + (o.num ? '<text x="0" y="88" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="24" fill="' + (o.numc || '#fff') + '">' + o.num + '</text>' : '');
