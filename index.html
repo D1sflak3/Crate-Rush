@@ -2324,6 +2324,19 @@ body{background:
 .v-ufo.s6 .fa-u2{transform:translate(200px,72px) scale(.24)}
 .v-ufo .fa-flag{opacity:0;transform:translateY(6px);transition:opacity .4s,transform .5s cubic-bezier(.2,1.6,.4,1)}
 .v-ufo.s7 .fa-flag{opacity:1;transform:none}
+.fa-pl{transform-box:fill-box;transform-origin:center}
+.fa-pl.tap{animation:faTap .3s cubic-bezier(.2,1.6,.4,1)}
+@keyframes faTap{50%{transform:scale(1.04)}}
+.fa-gold{opacity:0;transition:opacity 1.4s}
+.v-ufo.gold .fa-gold{opacity:1}
+.v-ufo.gold .fa-pl{filter:drop-shadow(0 0 18px rgba(255,210,63,.75))}
+.v-ufo.s8 .fa-gold{opacity:0;transition-duration:2s}
+.v-ufo.s8 .fa-pl{filter:none}
+.v-ufo.s8 .fa-u2{transform:translate(560px,-90px) scale(.08);transition:transform 2s cubic-bezier(.6,0,.9,.6)}
+.v-ufo.s8 .fa-flag{opacity:0;transition-duration:.3s}
+.vx-art.sf-q{display:grid;place-items:center;aspect-ratio:5/2;border-radius:12px;background:radial-gradient(circle at 50% 40%,rgba(255,210,63,.25),transparent 70%),#0a0a12;border:1px dashed rgba(255,210,63,.5)}
+.vx-art.sf-q b{font:700 clamp(64px,10vw,110px)/1 var(--display);color:#ffd23f;text-shadow:0 0 30px rgba(255,210,63,.6);animation:sfQ 2s ease-in-out infinite alternate}
+@keyframes sfQ{to{transform:scale(1.08) rotate(4deg)}}
 /* penalties against Messi */
 .v-pens .mp-kp{transform-origin:200px 196px;transition:transform .34s cubic-bezier(.2,.8,.3,1)}
 .v-pens .mp-hit{cursor:crosshair}
@@ -3008,6 +3021,95 @@ body.dz-open .toast{z-index:95}
 .gtc[data-s="5b"] .gt-s5b{opacity:1;visibility:visible;transition:opacity .4s}
 .gt-s5 .gt-cap{bottom:auto;top:8vh}
 .gtc[data-s="5"] .gt-s5 .gt-cap small,.gtc[data-s="5"] .gt-s5 .gt-cap p{opacity:1;transform:none}
+/* ---------- The SFOT ---------- */
+.gtc[data-s="m1"] .sf-m1,.gtc[data-s="m2"] .sf-m2,.gtc[data-s="m3"] .sf-m3,.gtc[data-s="m4"] .sf-m4,.gtc[data-s="m5"] .sf-m5,.gtc[data-s="m6"] .sf-m6,.gtc[data-s="m7"] .sf-m7{opacity:1;visibility:visible;transition:opacity .6s}
+.gtc[data-s="m1"] .sf-m1{transition:none}
+.sf-m1 .sf-frz{filter:grayscale(1) contrast(1.2) brightness(.7);transform:scale(1.04);animation:sfJit .12s steps(2) 6}
+@keyframes sfJit{50%{transform:scale(1.04) translate(-6px,3px)}}
+.sf-vhs{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 2px,transparent 2px 5px);mix-blend-mode:screen}
+.sf-wait{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;text-align:center;gap:6px}
+.sf-wait b{font:700 clamp(64px,14vw,160px)/.9 var(--display);letter-spacing:.06em;color:#fff;text-shadow:-5px 0 #ff2d55,5px 0 #2fe3ff;animation:sfWait .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes sfWait{from{transform:scale(1.6);opacity:0}}
+.sf-wait p{margin:0;font:600 clamp(24px,4.4vw,44px)/1 var(--display);color:#e1e8f4;opacity:0;transform:translateY(10px);transition:all .5s}
+.gtc.wrong .sf-wait p{opacity:1;transform:none}
+.sf-cap small{color:#9fb8e0}
+.gtc[data-s="m2"] .sf-m2 .gt-cap small,.gtc[data-s="m3"] .sf-m3 .gt-cap small,.gtc[data-s="m4"] .sf-m4 .gt-cap small,.gtc[data-s="m6"] .sf-m6 .gt-cap small{opacity:1;transform:none}
+.gtc[data-s="m2"] .sf-m2 .gt-cap p,.gtc[data-s="m3"] .sf-m3 .gt-cap p:first-of-type,.gtc[data-s="m4"] .sf-m4 .gt-cap p,.gtc[data-s="m6"] .sf-m6 .gt-cap p{opacity:1;transform:none}
+.sf-walk{transform:translateX(420px)}
+.gtc.walk .sf-walk{transform:translateX(150px);transition:transform 5s linear}
+.gtc.walk .sf-bob{animation:sfBob .55s ease-in-out infinite alternate}
+@keyframes sfBob{to{transform:translateY(3px)}}
+.sf-ar{animation:sfJump .5s var(--d,0s) ease-in-out infinite alternate}
+@keyframes sfJump{to{transform:translateY(-8px)}}
+.sf-chips{position:absolute;right:5vw;top:8vh;z-index:3;display:grid;gap:8px;justify-items:end}
+.sf-chips span{font:700 12px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;padding:8px 12px;border-radius:999px;background:rgba(8,12,26,.8);border:1px solid #2a3a62;color:#dfe6f0;opacity:0;transform:translateX(16px)}
+.gtc.chips .sf-chips span{opacity:1;transform:none;transition:all .5s cubic-bezier(.2,1.4,.4,1)}
+.gtc.chips .sf-chips span:nth-child(2){transition-delay:.5s;color:#ffd23f}
+.sf-p2{color:#ff8a8a}
+.gtc.kane .sf-m3 .gt-cap p:first-of-type{opacity:.35}
+.gtc.kane .sf-m3 .sf-p2{opacity:1;transform:none;transition-delay:.6s}
+.sf-spot{opacity:0;transition:opacity .4s}
+.gtc.kane .sf-spot{opacity:1}
+.sf-kane{opacity:.25;transition:opacity .5s}
+.gtc.kane .sf-kane{opacity:1}
+.sf-flash circle{opacity:0}
+.gtc.kane .sf-flash circle{animation:sfFlash .9s var(--d) steps(1) infinite}
+@keyframes sfFlash{0%{opacity:.95}12%{opacity:0}}
+.gtc.kane .sf-name{animation:sfName .6s cubic-bezier(.2,1.6,.4,1)}
+@keyframes sfName{from{opacity:0}}
+.sf-sit{transition:transform 1s;filter:brightness(.62) saturate(.8)}
+.sf-m2::after,.sf-m3::after,.sf-m4::after,.sf-m6::after{content:'';position:absolute;left:0;right:0;bottom:0;height:42%;z-index:2;pointer-events:none;background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.6))}
+.sf-m4 .gt-cap{left:auto;right:6vw;text-align:right}
+.sf-card .nw{white-space:nowrap}
+.gtc.kane .sf-sit{transform:translateY(6px)}
+.sf-low{transform:translateY(8px)}
+.gtc[data-s="m4"] .sf-low{transform:translateY(16px);transition:transform 3s ease-out}
+.sf-ucl{opacity:.5}
+.gtc.bay .sf-ucl{opacity:1;animation:sfLift 1s ease-in-out infinite alternate}
+@keyframes sfLift{from{transform:translate(316px,104px)}to{transform:translate(316px,94px)}}
+.sf-m5{display:grid;place-items:center;background:#000}
+.sf-card{position:absolute;max-width:min(620px,86vw);text-align:center;display:grid;gap:10px;justify-items:center;transition:opacity .6s,transform .6s}
+.sf-card small{font:700 13px/1 var(--body);letter-spacing:.34em;color:#9fb8e0}
+.sf-card p{margin:0;font:600 clamp(24px,4.2vw,42px)/1.12 var(--display);color:#e9eef6}
+.sf-card em{font:700 clamp(30px,6vw,64px)/1 var(--display);font-style:normal;letter-spacing:.04em;color:#ff5d6c;opacity:0;transform:scale(1.4)}
+.gtc.w1 .sf-c1 em,.gtc.w2 .sf-c2 em{opacity:1;transform:none;transition:all .35s cubic-bezier(.2,1.6,.4,1)}
+.sf-c2{opacity:0;transform:translateY(20px)}
+.gtc.m5b .sf-c1{opacity:0;transform:translateY(-20px)}
+.gtc.m5b .sf-c2{opacity:1;transform:none;transition-delay:.45s}
+.gtc.m5b .sf-c1{transition-duration:.35s}
+.sf-pud{transform-box:fill-box;transform-origin:center;animation:sfPud 1.6s var(--d) ease-out infinite}
+@keyframes sfPud{from{transform:scale(.2);opacity:1}to{transform:scale(1.6);opacity:0}}
+.sf-forever{position:absolute;left:0;right:0;top:12vh;text-align:center;z-index:3;font:700 clamp(40px,8vw,96px)/1 var(--display);letter-spacing:.06em;background:linear-gradient(180deg,#fff,#c9d2de 50%,#6a7484);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(170,205,255,.5));opacity:0;transform:translateY(-10px)}
+.gtc.forever .sf-forever{opacity:1;transform:none;transition:all 1.4s ease-out}
+.sf-m7{display:grid;place-items:center;background:radial-gradient(ellipse at 50% 40%,#101a36,#03050c 70%)}
+.sf-bands{position:absolute;inset:0;background:linear-gradient(90deg,#1f4fd1 0 33.3%,#f4f6fa 33.3% 66.6%,#e1262d 66.6%);opacity:0;-webkit-mask:radial-gradient(ellipse at 50% 45%,#000 10%,transparent 62%);mask:radial-gradient(ellipse at 50% 45%,#000 10%,transparent 62%)}
+.gtc.sland .sf-bands{opacity:.14;transition:opacity 1.2s}
+.sf-beam{position:absolute;left:50%;top:-20%;width:min(80vw,700px);height:140%;transform:translateX(-50%);background:linear-gradient(rgba(214,228,255,.5),rgba(214,228,255,.05) 70%,transparent);clip-path:polygon(44% 0,56% 0,100% 100%,0 100%)}
+
+.sf-medal{position:absolute;left:50%;top:44%;width:min(46vw,380px);aspect-ratio:1;transform:translate(-50%,-50%) scale(.6);border-radius:50%;opacity:0;display:grid;place-items:center;
+  background:radial-gradient(circle at 35% 30%,#fff,#d6dde8 35%,#8d98a8 70%,#4a5462);box-shadow:inset 0 0 0 10px rgba(255,255,255,.25),0 0 60px rgba(170,205,255,.35)}
+.sf-medal b{font:700 clamp(90px,18vw,200px)/1 var(--display);color:rgba(60,70,90,.35)}
+.sf-medal i{position:absolute;left:50%;bottom:96%;width:22%;height:70%;transform:translateX(-50%);background:linear-gradient(90deg,#1f4fd1 33%,#f4f6fa 33% 66%,#e1262d 66%)}
+.gtc.sland .sf-medal{opacity:.22;transform:translate(-50%,-50%) scale(1);transition:all 1.2s cubic-bezier(.2,1.2,.4,1)}
+.sf-rv{z-index:2}
+.sf-art{position:relative;width:min(640px,88vw);transform:translateY(60vh) rotate(6deg);filter:drop-shadow(0 0 22px rgba(170,205,255,.85)) drop-shadow(0 0 50px rgba(225,38,45,.35))}
+.sf-art img{display:block;width:100%;height:auto}
+.gtc.sland .sf-art{transform:none;transition:transform .6s cubic-bezier(.2,1.5,.4,1);animation:gtFloat 3s 1s ease-in-out infinite alternate}
+.gtc.sland .sf-foil{animation:gtFoil 2.6s .6s ease-in-out infinite}
+.sf-stars{display:flex;gap:10px;opacity:0;transform:translateY(-16px)}
+.sf-stars svg{width:28px;height:28px;fill:#ffd23f;filter:drop-shadow(0 0 8px rgba(255,210,63,.6))}
+.sf-gone svg{fill:none;stroke:#c9d2de;stroke-width:1.4;filter:none;opacity:.7}
+.gtc.sland .sf-stars{opacity:1;transform:none;transition:all .6s .5s cubic-bezier(.2,1.5,.4,1)}
+.sf-h2{margin:0;font:700 clamp(46px,9vw,108px)/1 var(--display);letter-spacing:.08em}
+.sf-rv .sf-h2 span{display:inline-block;opacity:0;transform:translateY(30px) scale(.5);background:linear-gradient(180deg,#ffffff,#c9d2de 50%,#6a7484);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 0 #1a2236) drop-shadow(0 0 24px rgba(170,205,255,.5))}
+.gtc.sland .sf-rv .sf-h2 span{opacity:1;transform:none;transition:opacity .2s calc(.4s + var(--i)*70ms),transform .55s calc(.4s + var(--i)*70ms) cubic-bezier(.2,1.7,.4,1)}
+.sf-sub{font:700 13px var(--body);letter-spacing:.34em;padding:7px 14px;border-radius:999px;background:linear-gradient(90deg,#1f4fd1,#f4f6fa,#e1262d);color:#0b1736;opacity:0}
+.sf-bk{font:600 clamp(16px,2.4vw,22px)/1 var(--display);letter-spacing:.12em;color:#9fb8e0;opacity:0}
+.sf-val{color:#e3e9f2;text-shadow:0 0 16px rgba(170,205,255,.5)}
+.gtc.sland .sf-sub{opacity:1;transition:opacity .5s 1s}
+.gtc.sland .sf-bk{opacity:1;transition:opacity .5s 1.3s}
+.gtc.sland .sf-val{opacity:1;transition:opacity .5s 1.5s}
+@media (prefers-reduced-motion: reduce){.sf-ar,.sf-pud,.sf-flash circle,.gtc.walk .sf-bob{animation:none!important}}
 .gt-kicker{transition:transform .7s ease-in}
 .gtc.runup .gt-kicker{transform:translate(26px,-16px) scale(.92)}
 .gt-kleg{transform-box:fill-box;transform-origin:0 0}
@@ -3607,7 +3709,8 @@ const ITEMS = [
   // One of one: only exists in Sable's hidden case. Never in a case, contract, reel or wish list.
   {id:'x1', w:'pistol',    name:'Velvet Requiem', t:7, pat:'requiem', pal:['#14020a','#c8143c','#ffd6e6'], m:2.8, ex:true},
   {id:'x2', w:'karambit',  name:'Kingmaker',      t:7, pat:'doppler', pal:['#1a0030','#ff3ea5','#2fe3ff','#ffd23f'], m:2.6, ex:true},
-  {id:'x3', w:'rifle',     name:'The GOAT',       t:7, pat:'goat', pal:['#75bde9','#f4f7fb','#ffd23f'], m:3.4, ex:true}
+  {id:'x3', w:'rifle',     name:'The GOAT',       t:7, pat:'goat', pal:['#75bde9','#f4f7fb','#ffd23f'], m:3.4, ex:true},
+  {id:'x4', w:'shotgun',   name:'The SFOT',       t:7, pat:'sfot', pal:['#0b1736','#1f4fd1','#e1262d','#c9d2de'], m:2.2, ex:true}
 ];
 
 /* ---------- RNG helpers ---------- */
@@ -3690,6 +3793,18 @@ const PAT = {
     g.font='bold 9px Teko, sans-serif';g.fillStyle='#0b2a4a';g.textAlign='center';g.fillText('10',24,54);
     for(let i=0;i<40;i++){g.fillStyle=i%3?'#fff':p[2];g.globalAlpha=.4+r()*.6;const x=r()*W,y=r()*H,z=.5+r()*1.2;g.fillRect(x-z/2,y-z/2,z,z);}g.globalAlpha=1;
   },
+  /* The SFOT: midnight navy like the shirt, a tricolour sash, a cold silver chroma sheen and rain */
+  sfot(g,W,H,p,r){
+    const lg=g.createLinearGradient(0,0,0,H);lg.addColorStop(0,'#1d2f66');lg.addColorStop(.5,p[0]);lg.addColorStop(1,'#050a1a');g.fillStyle=lg;g.fillRect(0,0,W,H);
+    g.save();g.translate(70,40);g.rotate(-.5);[[p[1],-15],['#f4f6fa',-5],[p[2],5]].forEach(([c,y])=>{g.fillStyle=c;g.fillRect(-150,y,300,10);});g.restore();
+    g.save();g.globalCompositeOperation='screen';
+    for(let i=0;i<4;i++){const x=20+i*48+r()*14,w=12+r()*8,cg=g.createLinearGradient(x-w,0,x+w,0);
+      [['rgba(200,215,240,0)',0],['#c9d2de',.25],['#9fd8ff',.45],['#b9a8ff',.62],['#ffffff',.78],['rgba(255,255,255,0)',1]].forEach(([c,o])=>cg.addColorStop(o,c));
+      g.globalAlpha=.36;g.fillStyle=cg;g.beginPath();g.moveTo(x-w+12,0);g.lineTo(x+w+12,0);g.lineTo(x+w-12,H);g.lineTo(x-w-12,H);g.closePath();g.fill();}
+    g.restore();
+    g.strokeStyle='rgba(200,222,255,.4)';g.lineWidth=.5;for(let i=0;i<70;i++){const x=r()*W,y=r()*H,l=3+r()*5;g.beginPath();g.moveTo(x,y);g.lineTo(x-1.4,y+l);g.stroke();}
+    for(let i=0;i<34;i++){g.fillStyle=i%4?'#e3e9f2':'#9fd8ff';g.globalAlpha=.3+r()*.6;const x=r()*W,y=r()*H,z=.4+r();g.fillRect(x,y,z,z);}g.globalAlpha=1;
+  },
   /* Velvet Requiem: crimson crushed velvet, a chroma sheen that shifts pink → gold → teal → violet across it,
      gold filigree vines, black lace roses and a scatter of rubies */
   requiem(g,W,H,p,r){
@@ -3742,6 +3857,29 @@ function goatParts(g){
   g.fillStyle = gold(0, 28, 0, 31); g.fillRect(54, 27.4, 46, 2.4);
   g.fillStyle = gold(88, 46, 110, 72); g.globalAlpha = .9; g.fill(new Path2D('M88 46 H101 L110 70 L96 73 Z')); g.globalAlpha = 1; g.stroke(new Path2D('M88 46 H101 L110 70 L96 73 Z'));
   g.fillStyle = '#75bde9'; g.font = 'bold 7px Teko, sans-serif'; g.textAlign = 'center'; g.fillText('G.O.A.T', 103, 62);
+  g.restore();
+}
+/* The SFOT's silver parts: a muzzle, a runner-up medal on a tricolour ribbon, two gold stars and one that got away,
+   a sapphire teardrop, and the name engraved on the pump. */
+function sfotParts(g){
+  const silver = (x0, y0, x1, y1) => { const lg = g.createLinearGradient(x0, y0, x1, y1); lg.addColorStop(0, '#ffffff'); lg.addColorStop(.35, '#d6dde8'); lg.addColorStop(.7, '#8d98a8'); lg.addColorStop(1, '#4a5462'); return lg; };
+  g.save(); g.lineJoin = 'round'; g.strokeStyle = 'rgba(15,20,35,.85)'; g.lineWidth = .7;
+  g.fillStyle = silver(0, 31, 0, 40); g.beginPath(); g.roundRect(181, 31.5, 11, 8, 1.5); g.fill(); g.stroke();
+  g.fillStyle = '#1a2030'; [184, 187.5].forEach(x => g.fillRect(x, 33, 1.2, 5));
+  g.fillStyle = silver(0, 39, 0, 46); g.beginPath(); g.roundRect(160, 39.4, 5, 6.2, 1); g.fill(); g.stroke();
+  const cx = 70, cy = 40.2;
+  [['#1f4fd1', -3], ['#f4f6fa', -1], ['#e1262d', 1]].forEach(([c, dx]) => { g.fillStyle = c; g.fillRect(cx + dx, 31.4, 2, 5); });
+  g.fillStyle = silver(cx - 5, cy - 5, cx + 5, cy + 5); g.beginPath(); g.arc(cx, cy, 4.9, 0, 7); g.fill(); g.stroke();
+  g.strokeStyle = 'rgba(80,90,110,.9)'; g.lineWidth = .5; g.beginPath(); g.arc(cx, cy, 3.7, 0, 7); g.stroke();
+  g.fillStyle = '#4e5868'; g.font = 'bold 6.4px Teko, sans-serif'; g.textAlign = 'center'; g.fillText('2', cx, cy + 2.3);
+  const star = (x, y, R) => { g.beginPath(); for (let k = 0; k < 10; k++) { const a = -Math.PI / 2 + k * Math.PI / 5, rr = k % 2 ? R * .45 : R; g.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); } g.closePath(); };
+  g.fillStyle = '#ffd23f'; g.shadowColor = '#ffb800'; g.shadowBlur = 3; star(21, 48.6, 2.8); g.fill(); star(28.5, 46.4, 2.8); g.fill(); g.shadowBlur = 0;
+  g.strokeStyle = '#dfe6f0'; g.lineWidth = .8; star(36, 44.2, 2.8); g.stroke(); g.beginPath(); g.moveTo(35.2, 42.2); g.lineTo(36.6, 44.4); g.lineTo(35.6, 46.2); g.stroke();
+  const tg = g.createRadialGradient(85, 39.4, .3, 85.4, 40.6, 3.2); tg.addColorStop(0, '#e6f6ff'); tg.addColorStop(.4, '#4aa8ff'); tg.addColorStop(1, '#0b2a6a');
+  g.fillStyle = silver(81, 35, 89, 45); g.beginPath(); g.moveTo(85.4, 34.6); g.quadraticCurveTo(89.4, 40.4, 85.4, 44.2); g.quadraticCurveTo(81.4, 40.4, 85.4, 34.6); g.fill();
+  g.fillStyle = tg; g.beginPath(); g.moveTo(85.4, 35.8); g.quadraticCurveTo(88.4, 40.4, 85.4, 43.2); g.quadraticCurveTo(82.4, 40.4, 85.4, 35.8); g.fill();
+  g.fillStyle = 'rgba(255,255,255,.85)'; g.fillRect(84.4, 38.4, .8, 1.6);
+  g.fillStyle = silver(0, 40, 0, 47); g.font = '600 6.6px Teko, sans-serif'; g.textAlign = 'center'; g.fillText('S.F.O.T', 130, 46.2);
   g.restore();
 }
 function requiemParts(g){
@@ -3805,7 +3943,7 @@ function renderItem(it, fl, S){
   const g = c.getContext('2d'); g.scale(S,S);
   const P = paths(it.w), sh = SHAPES[it.w], r = seeded(hash(it.id)), bm = it.t >= 6;
   g.save();
-  g.shadowColor = it.pat === 'goat' ? 'rgba(255,214,90,.95)' : bm ? (it.t === 7 ? 'rgba(255,122,217,.95)' : 'rgba(168,85,247,.9)') : 'rgba(0,0,0,.55)';
+  g.shadowColor = it.pat === 'goat' ? 'rgba(255,214,90,.95)' : it.pat === 'sfot' ? 'rgba(170,205,255,.95)' : bm ? (it.t === 7 ? 'rgba(255,122,217,.95)' : 'rgba(168,85,247,.9)') : 'rgba(0,0,0,.55)';
   g.shadowBlur = (bm ? 12 : 6) * S; g.shadowOffsetY = (bm ? 0 : 3) * S;
   g.fillStyle = '#000'; g.fill(P.all); g.restore();
   const lg = g.createLinearGradient(0,18,0,72);
@@ -3829,6 +3967,7 @@ function renderItem(it, fl, S){
   if (sh.rivets) sh.rivets.forEach(([x,y]) => { g.fillStyle = bm ? '#c084fc' : '#d9b45a'; g.beginPath(); g.arc(x,y,1.7,0,7); g.fill(); g.strokeStyle='rgba(0,0,0,.6)'; g.lineWidth=.5; g.stroke(); });
   if (it.pat === 'goat') goatParts(g);
   if (it.pat === 'requiem') requiemParts(g);
+  if (it.pat === 'sfot') sfotParts(g);
   return c;
 }
 
@@ -9842,8 +9981,85 @@ function requiemCinematic(r){
    6. 2026: one more final, at 39
    7. LIGHTS OUT: the stadium goes dark, one light at a time
    8. THE GOAT: the rifle descends into the last spotlight, sky blue and white behind it, three stars above */
+/* ---------- The SFOT: it starts as The GOAT's film, then cuts to the man on the other side of it ---------- */
+const SFOT_ID = 'x4';
+function sfotScenes(s5){
+  const R = seeded(2022), f1 = n => n.toFixed(1);
+  const mb = extra => bdoP('mbappe', Object.assign({shirt:'#16264f', num:'10', numc:'#f4f6fa', trim:'#e1262d', mouth:'sad', tears:true}, extra || {}));
+  const cup = (x, y, s) => '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')"><path d="M-10 0 H10 L8 -8 Q14 -22 12 -34 Q20 -48 10 -60 Q4 -66 0 -66 Q-4 -66 -10 -60 Q-20 -48 -12 -34 Q-14 -22 -8 -8 Z" fill="url(#sfCup)" stroke="#6a4300" stroke-width=".8"/><circle cx="0" cy="-54" r="9" fill="url(#sfCup)" stroke="#6a4300" stroke-width=".8"/><path d="M-3 -58 Q-1 -48 -6 -38" stroke="#fff" stroke-opacity=".7" stroke-width="2" fill="none"/><rect x="-11" y="-2" width="22" height="5" rx="1" fill="#1e7a3a"/></g>';
+  const cupDefs = '<linearGradient id="sfCup" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8a5a00"/><stop offset=".45" stop-color="#fff0b0"/><stop offset=".7" stop-color="#ffd23f"/><stop offset="1" stop-color="#7a4a00"/></linearGradient>';
+  const crowd = (n, y0, y1, cols) => { let s = ''; for (let i = 0; i < n; i++) s += '<rect class="' + (i % 7 ? '' : 'gt-bulb') + '" style="animation-delay:-' + f1(R() * 3) + 's" x="' + f1(R() * 400) + '" y="' + f1(y0 + R() * (y1 - y0)) + '" width="1.6" height="1.6" fill="' + cols[i % cols.length] + '" opacity=".6"/>'; return s; };
+  // 1. the freeze: his film, stopped
+  const m1 = s5.replace('<svg ', '<svg class="sf-frz" ');
+  // 2. Lusail, the other side
+  let m2 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs>' + bdoDefs('sf2') + cupDefs
+    + '<linearGradient id="sfSk2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#040916"/><stop offset="1" stop-color="#0d1c38"/></linearGradient>'
+    + '<pattern id="sfAr" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#f4f6fa"/><rect width="4" height="8" fill="#7cc4ef"/></pattern>'
+    + '<radialGradient id="sfPl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffe9a0" stop-opacity=".55"/><stop offset="1" stop-color="#ffe9a0" stop-opacity="0"/></radialGradient></defs>'
+    + '<rect width="400" height="260" fill="url(#sfSk2)"/><path d="M-20 140 Q200 60 420 140 V190 H-20 Z" fill="#081226"/>' + crowd(200, 92, 170, ['#7cc4ef', '#f4f6fa', '#3a5a8a', '#ffd23f'])
+    + '<rect y="182" width="400" height="78" fill="#0c3517"/><rect y="182" width="400" height="3" fill="#fff" opacity=".18"/>';
+  for (let i = 0; i < 9; i++) { const x = 20 + i * 24 + R() * 8; m2 += '<g class="sf-ar" style="--d:-' + f1(R() * .6) + 's"><g transform="translate(' + f1(x) + ' 182) scale(.42)"><path d="M-8 0 L-6 -26 M8 0 L6 -26" stroke="#0e1424" stroke-width="7" stroke-linecap="round"/><path d="M-15 -30 Q-16 -66 0 -70 Q16 -66 15 -30 Z" fill="url(#sfAr)"/><path d="M-13 -62 L-24 -92 M13 -62 L24 -92" stroke="#7cc4ef" stroke-width="7" stroke-linecap="round"/><circle cx="0" cy="-84" r="10" fill="#c48b62"/></g></g>'; }
+  m2 += '<g class="sf-walk"><g class="sf-bob"><g transform="translate(0 118) scale(1.12)">' + bdoMan(0, 0, 1, mb()) + '</g></g></g>'
+    + '<ellipse cx="300" cy="206" rx="70" ry="60" fill="url(#sfPl)"/><path d="M276 238 L282 176 H318 L324 238 Z" fill="#0b0d14"/><rect x="278" y="172" width="44" height="6" fill="#d4a017"/>' + cup(300, 172, 1.05)
+    + '<rect y="238" width="400" height="22" fill="#08240f"/></svg>';
+  // 3. the Ballon d'Or
+  let m3 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs>' + bdoDefs('sf3')
+    + '<linearGradient id="sfCu" x1="0" x2="1"><stop offset="0" stop-color="#5a3a06"/><stop offset=".5" stop-color="#c99a2a"/><stop offset="1" stop-color="#5a3a06"/></linearGradient>'
+    + '<radialGradient id="sfSp3" cx=".5" cy="0" r="1"><stop offset="0" stop-color="#fff4d0" stop-opacity=".5"/><stop offset="1" stop-color="#fff4d0" stop-opacity="0"/></radialGradient></defs>'
+    + '<rect width="400" height="260" fill="#0a0710"/>';
+  for (let x = 0; x < 70; x += 10) m3 += '<rect x="' + x + '" y="0" width="10" height="260" fill="url(#sfCu)" opacity=".8"/><rect x="' + (330 + x) + '" y="0" width="10" height="260" fill="url(#sfCu)" opacity=".8"/>';
+  m3 += '<rect x="112" y="16" width="176" height="62" rx="4" fill="#06040c" stroke="#d4a017" stroke-width="2"/><text x="200" y="34" text-anchor="middle" font-family="Teko, sans-serif" font-size="11" letter-spacing="4" fill="#d4a017">BALLON D’OR · 2026</text>'
+    + '<text class="sf-name" x="200" y="66" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="28" letter-spacing="3" fill="#fff4d0">…</text>'
+    + '<path class="sf-spot" d="M232 0 L180 230 H330 L278 0 Z" fill="url(#sfSp3)"/>'
+    + '<rect x="60" y="214" width="280" height="46" fill="#14101c"/><path d="M60 214 H340" stroke="#d4a017" stroke-width="2"/>'
+    + '<g class="sf-kane"><g transform="translate(258 116) scale(.92)">' + bdoMan(0, 0, 1, bdoP('kane', {suit:true, mouth:'grin', arm:'up'})) + '</g>' + bdoBall(290, 118, 12, 'sf3') + '</g>'
+    + '<g class="sf-flash">' + Array.from({length: 10}, (_, i) => '<circle style="--d:' + f1(R() * 1.4) + 's" cx="' + f1(80 + R() * 260) + '" cy="' + f1(150 + R() * 70) + '" r="' + f1(2 + R() * 3) + '" fill="#fff"/>').join('') + '</g>'
+    + '<g class="sf-sit"><g transform="translate(112 150) scale(.86)">' + bdoMan(0, 0, 1, mb({suit:true, num:null, tears:false})) + '</g></g>'
+    + '<rect x="0" y="236" width="400" height="24" fill="#08060c"/></svg>';
+  // 4. Lisbon, 2020: an empty stadium
+  let m4 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs>' + bdoDefs('sf4')
+    + '<radialGradient id="sfFl4"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>'
+    + '<linearGradient id="sfSil" x1="0" x2="1"><stop offset="0" stop-color="#8d98a8"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="#6a7484"/></linearGradient></defs>'
+    + '<rect width="400" height="260" fill="#04060c"/>';
+  for (let row = 0; row < 7; row++) for (let x = 4 + (row % 2) * 4; x < 400; x += 8) m4 += '<rect x="' + x + '" y="' + (40 + row * 11) + '" width="5" height="6" rx="1" fill="' + (row % 3 ? '#1b2a44' : '#22324f') + '"/>';
+  [[40, 18], [360, 18]].forEach(([x, y]) => { m4 += '<circle cx="' + x + '" cy="' + y + '" r="36" fill="url(#sfFl4)" opacity=".45"/><rect x="' + (x - 14) + '" y="' + (y - 6) + '" width="28" height="12" rx="2" fill="#fff"/>'; });
+  m4 += '<rect x="150" y="10" width="100" height="22" rx="3" fill="#000" stroke="#334" /><text x="200" y="26" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="14" letter-spacing="2" fill="#ffd23f">PSG 0 – 1 BAYERN</text>'
+    + '<rect y="118" width="400" height="142" fill="#15592a"/>' + [0, 1, 2, 3].map(i => '<rect y="' + (118 + i * 36) + '" width="400" height="16" fill="#1a6a33"/>').join('');
+  for (let i = 0; i < 7; i++) { const x = 250 + i * 18 + R() * 6; m4 += '<g class="sf-ar" style="--d:-' + f1(R() * .6) + 's"><g transform="translate(' + f1(x) + ' 150) scale(.36)"><path d="M-8 0 L-6 -26 M8 0 L6 -26" stroke="#f4f6fa" stroke-width="7" stroke-linecap="round"/><path d="M-15 -30 Q-16 -66 0 -70 Q16 -66 15 -30 Z" fill="#c8102e"/><path d="M-13 -62 L-24 -92 M13 -62 L24 -92" stroke="#c8102e" stroke-width="7" stroke-linecap="round"/><circle cx="0" cy="-84" r="10" fill="#e0b08a"/></g></g>'; }
+  m4 += '<g class="sf-ucl" transform="translate(316 104)"><path d="M-7 0 H7 L5 -14 Q12 -24 9 -34 Q0 -38 -9 -34 Q-12 -24 -5 -14 Z" fill="url(#sfSil)"/><path d="M-9 -32 Q-20 -36 -16 -22 Q-13 -16 -7 -18 M9 -32 Q20 -36 16 -22 Q13 -16 7 -18" stroke="url(#sfSil)" stroke-width="2.6" fill="none"/></g>';
+  const psg = mb({shirt:'#0e1d45', num:null, trim:'#da291c', tears:true});
+  m4 += '<g class="sf-low"><g transform="translate(120 136) scale(1.08)">' + bdoMan(0, 0, 1, psg) + '<path d="M-7 56 H7 V96 H-7 Z" fill="#da291c"/><path d="M-7 56 V96 M7 56 V96" stroke="#fff" stroke-width="1.6"/><text x="0" y="88" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="24" fill="#f4f6fa">7</text></g></g>'
+    + '<path d="M0 236 Q120 222 240 232 T400 230 V260 H0 Z" fill="#0f4a22"/></svg>';
+  // 6. home, in the rain
+  let m6 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs>' + bdoDefs('sf6')
+    + '<linearGradient id="sfN6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#05080f"/><stop offset="1" stop-color="#18223a"/></linearGradient>'
+    + '<linearGradient id="sfL6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe2ff" stop-opacity=".45"/><stop offset="1" stop-color="#cfe2ff" stop-opacity="0"/></linearGradient></defs>'
+    + '<rect width="400" height="260" fill="url(#sfN6)"/>';
+  for (let x = -10; x < 410; x += 30 + R() * 22) { const h = 40 + R() * 50; m6 += '<rect x="' + f1(x) + '" y="' + f1(190 - h) + '" width="' + f1(28 + R() * 18) + '" height="' + f1(h) + '" fill="#080c18"/>' + (R() < .5 ? '<rect x="' + f1(x + 7) + '" y="' + f1(198 - h) + '" width="5" height="6" fill="#9fb8e0" opacity=".35"/>' : ''); }
+  m6 += '<rect y="190" width="400" height="70" fill="#0d1220"/><path d="M0 190 H400" stroke="#1d2840" stroke-width="2"/>'
+    + '<path d="M172 54 L110 222 H240 Z" fill="url(#sfL6)"/><rect x="196" y="40" width="4" height="168" fill="#141a26"/><path d="M198 42 Q186 40 176 52" stroke="#141a26" stroke-width="4" fill="none"/><ellipse cx="174" cy="54" rx="9" ry="4" fill="#e6f0ff"/>'
+    + '<ellipse cx="170" cy="226" rx="56" ry="5" fill="#cfe2ff" opacity=".12"/>'
+    + '<g transform="translate(160 138) scale(.92)">' + bdoMan(0, 0, 1, mb({shirt:'#1c2236', num:null, trim:'#2a3350'}))
+    + '<path d="M-28 70 Q0 86 26 66" stroke="#1c2236" stroke-width="11" stroke-linecap="round" fill="none"/><path d="M28 74 Q2 88 -24 68" stroke="#232a40" stroke-width="11" stroke-linecap="round" fill="none"/></g>'
+    + '<rect x="96" y="214" width="132" height="8" rx="2" fill="#3a2a1c"/><path d="M104 222 V240 M220 222 V240" stroke="#2a1c12" stroke-width="5"/>'
+    + Array.from({length: 7}, (_, i) => '<ellipse class="sf-pud" style="--d:-' + f1(i * .4) + 's" cx="' + f1(30 + R() * 340) + '" cy="' + f1(232 + R() * 22) + '" rx="10" ry="2.2" fill="none" stroke="#9fb8e0" stroke-opacity=".5"/>').join('') + '</svg>';
+  const STAR = '<svg viewBox="-10 -10 20 20"><path d="M0 -9 L2.6 -2.8 L9 -2.8 L3.8 1.2 L5.6 7.8 L0 4 L-5.6 7.8 L-3.8 1.2 L-9 -2.8 L-2.6 -2.8 Z"/></svg>';
+  const title = 'THE SFOT'.split('').map((ch, i) => '<span style="--i:' + i + '">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>').join('');
+  return '<section class="gt-s sf-m1">' + m1 + '<div class="sf-vhs"></div><div class="sf-wait"><b>WAIT.</b><p>Wrong guy.</p></div></section>'
+    + '<section class="gt-s sf-m2">' + m2 + '<div class="gt-cap sf-cap"><small>Lusail · 18 December 2022 · the other side</small><p>A hat-trick in a World Cup final. He still lost.</p></div>'
+      + '<div class="sf-chips"><span>ARG 3–3 FRA · lost 4–2 on penalties</span><span>Only the second hat-trick ever in a World Cup final</span></div></section>'
+    + '<section class="gt-s sf-m3">' + m3 + '<div class="gt-cap sf-cap"><small>Ballon d’Or · 2026</small><p>He had the speech ready.</p><p class="sf-p2">Lost to Harry Kane.</p></div></section>'
+    + '<section class="gt-s sf-m4">' + m4 + '<div class="gt-cap sf-cap"><small>Lisbon · 23 August 2020 · Champions League final</small><p>An empty stadium. Empty hands.</p></div></section>'
+    + '<section class="gt-s sf-m5"><div class="sf-card sf-c1"><small>2024</small><p>He joined Real Madrid. They had just won the Champions League.</p><em>Without him.</em></div>'
+      + '<div class="sf-card sf-c2"><small>2025</small><p>PSG won their first Champions League. <span class="nw">5–0.</span></p><em>Without him.</em></div></section>'
+    + '<section class="gt-s sf-m6">' + m6 + '<div class="gt-cap sf-cap"><small>Bondy · where it started</small><p>Some nights the trophy goes to someone else.</p></div><div class="sf-forever">Silver. Forever.</div></section>'
+    + '<section class="gt-s sf-m7"><div class="sf-bands"></div><div class="sf-beam"></div><div class="sf-medal"><i></i><b>2</b></div>'
+      + '<div class="gt-rv sf-rv"><div class="sf-stars">' + STAR + STAR + '<span class="sf-gone">' + STAR + '</span></div><div class="sf-art"><span class="gt-foil sf-foil"></span></div>'
+      + '<h2 class="sf-h2">' + title + '</h2><div class="sf-sub">CHROMA · ONE OF ONE</div><div class="sf-bk">Second Forever. Of all Time.</div><div class="gt-val sf-val"><span class="coin"></span><span id="sfVal">0</span></div><div class="gt-tap sf-tap">tap to continue</div></div></section>';
+}
 function goatCinematic(r){
   return new Promise(resolve => {
+    const sf = r.id === SFOT_ID;
     let ov = $('#gtc');
     if (!ov) { ov = document.createElement('div'); ov.id = 'gtc'; ov.className = 'gtc'; ov.hidden = true; document.body.append(ov); }
     const it = BY[r.id], timers = [], R = Math.random;
@@ -9948,17 +10164,18 @@ function goatCinematic(r){
       + '<section class="gt-s gt-s8"><div class="gt-flag"></div><div class="gt-spot"></div><div class="gt-ten10">10</div>'
         + '<div class="gt-rv"><div class="gt-stars top">' + STAR + STAR + STAR + '</div><div class="gt-art"><span class="gt-foil"></span></div>'
         + '<h2>' + title + '</h2><div class="gt-sub">CHROMA · ONE OF ONE</div><div class="gt-val"><span class="coin"></span><span id="gtVal">0</span></div><div class="gt-tap">tap to continue</div></div></section>'
+      + (sf ? sfotScenes(s5) : '')
       + '<button class="pc-skip gt-skip">Skip ››</button>';
-    const src = artHi(it, wearIdx(r.fl)), art = ov.querySelector('.gt-art');
+    const src = artHi(it, wearIdx(r.fl)), art = ov.querySelector(sf ? '.sf-art' : '.gt-art');
     art.prepend(imgOf(src)); art.querySelector('.gt-foil').style.setProperty('--m', 'url("' + src + '")');
-    ov.className = 'gtc'; ov.hidden = false; go(0);
+    ov.className = 'gtc' + (sf ? ' sfc' : ''); ov.hidden = false; go(0);
 
     /* confetti, only while it's needed */
     const cv = ov.querySelector('.gt-cv'), g = cv.getContext('2d');
     let W = 0, H = 0, parts = [], confettiOn = false;
     const size = () => { const d = Math.min(devicePixelRatio || 1, 1.5); W = innerWidth; H = innerHeight; cv.width = W * d; cv.height = H * d; g.setTransform(d, 0, 0, d, 0, 0); };
     size(); addEventListener('resize', size);
-    const CC = ['#75bde9', '#ffffff', '#ffd23f', '#75bde9', '#ffffff'];
+    let CC = ['#75bde9', '#ffffff', '#ffd23f', '#75bde9', '#ffffff'], rainOn = false;
     const burst = (n, x, y, up) => { for (let i = 0; i < n; i++) parts.push({x: x == null ? R() * W : x, y: y == null ? -10 : y, vx: (R() - .5) * (up ? .9 : .12), vy: up ? -(.35 + R() * .6) : .05 + R() * .12, w: 4 + R() * 6, h: 6 + R() * 8, a: R() * 6, va: (R() - .5) * .02, c: CC[i % 5], life: 5000}); };
     const cannon = (n, left) => { for (let i = 0; i < n; i++) { const a = (left ? -Math.PI / 2 + .25 + R() * .55 : -Math.PI / 2 - .25 - R() * .55), v = .55 + R() * .6; parts.push({x: left ? 0 : W, y: H, vx: Math.cos(a) * v, vy: Math.sin(a) * v, w: 4 + R() * 6, h: 6 + R() * 8, a: R() * 6, va: (R() - .5) * .02, c: CC[i % 5], life: 5000}); } };
     let fwOn = false, fwLast = 0;
@@ -9969,9 +10186,12 @@ function goatCinematic(r){
       const dt = Math.min(50, now - last); last = now;
       g.clearRect(0, 0, W, H);
       if (confettiOn && parts.length < 420) burst(3);
+      if (rainOn && parts.length < 520) for (let k = 0; k < 5; k++) parts.push({rain: true, x: R() * (W + 120), y: -20 - R() * 40, vx: -.14, vy: 1 + R() * .5, life: 4000});
       if (fwOn && now - fwLast > 420) { fwLast = now; firework(W * (.12 + R() * .76), H * (.08 + R() * .3)); noise(.5, 3000, 500, .03, 'highpass'); tone(80 + R() * 40, .2, 'sine', .08); }
       for (let i = parts.length - 1; i >= 0; i--) {
-        const p = parts[i]; p.life -= dt; p.vy += .00028 * dt; p.vx *= .995; p.x += p.vx * dt; p.y += p.vy * dt; p.a += p.va * dt;
+        const p = parts[i]; p.life -= dt;
+        if (p.rain) { p.x += p.vx * dt; p.y += p.vy * dt; if (p.life <= 0 || p.y > H + 20) { parts.splice(i, 1); continue; } g.strokeStyle = 'rgba(190,215,255,.42)'; g.lineWidth = 1; g.beginPath(); g.moveTo(p.x, p.y); g.lineTo(p.x - 2.2, p.y + 15); g.stroke(); continue; }
+        p.vy += .00028 * dt; p.vx *= .995; p.x += p.vx * dt; p.y += p.vy * dt; p.a += p.va * dt;
         if (p.life <= 0 || p.y > H + 20) { parts.splice(i, 1); continue; }
         if (p.fw) { p.vy -= .00018 * dt; g.globalAlpha = Math.max(0, p.life / p.max); g.fillStyle = p.c; g.fillRect(p.x - 1.3, p.y - 1.3, 2.6, 2.6); g.globalAlpha = 1; continue; }
         g.save(); g.translate(p.x, p.y); g.rotate(p.a); g.scale(1, Math.abs(Math.cos(p.a * 1.7)) + .15); g.fillStyle = p.c; g.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); g.restore();
@@ -10022,6 +10242,48 @@ function goatCinematic(r){
     T(17600, () => { add('runup'); noise(.4, 600, 300, .03, 'lowpass'); });
     T(18300, () => { add('kick'); tone(140, .12, 'square', .1); noise(.08, 2000, 800, .15, 'bandpass'); sweep(900, 300, .3, 'sine', .04); });
     T(18650, () => { add('scored'); boom(); roar(.2, 3.4); tone(36, 1.4, 'sine', .3); });
+    if (sf) {
+      const name = t => { const n = ov.querySelector('.sf-name'); if (n) n.textContent = t; };
+      const trombone = at => [[293.66, .42], [277.18, .42], [261.63, .42], [246.94, 1.6]].reduce((t, [f, d]) => { tone(f, d, 'sawtooth', .026, t); tone(f * 1.008, d, 'triangle', .03, t); return t + d + .05; }, at || 0);
+      // the record scratch
+      T(19400, () => { go('m1'); sweep(1600, 120, .4, 'sawtooth', .07); noise(.35, 4000, 300, .12, 'bandpass'); tone(60, .3, 'square', .08); });
+      T(20500, () => { add('wrong'); tone(196, .5, 'triangle', .04); });
+      // Lusail, the other side
+      T(21900, () => { go('m2'); confettiOn = true; noise(4, 900, 400, .03, 'bandpass'); tone(49, 4, 'sine', .05); });
+      T(22200, () => add('walk'));
+      [22700, 23400, 24100, 24800, 25500].forEach(d => T(d, () => heart(.22)));
+      T(23800, () => { add('chips'); chord([220, 261.63, 329.63], 1.6, .025, 0); });
+      // the Ballon d'Or
+      T(27200, () => { go('m3'); confettiOn = false; parts = []; });
+      for (let i = 0; i < 20; i++) T(27400 + i * 70, () => noise(.05, 1800, 900, .05, 'bandpass'));
+      T(27700, () => name('MBAPPÉ?'));
+      T(28600, () => name('…'));
+      T(29100, () => { add('kane'); name('HARRY KANE'); boom(); noise(2.6, 3000, 1500, .06, 'highpass'); chord([392, 493.88, 587.33], 1.2, .03, 0); });
+      T(30300, () => tone(196, .8, 'sine', .035));
+      // Lisbon, 2020
+      T(32400, () => { go('m4'); [0, .45, .8].forEach((d, i) => tone(3100, i === 2 ? .9 : .26, 'sine', .04, d)); });
+      T(33600, () => { add('bay'); noise(1.8, 1200, 500, .03, 'bandpass'); });
+      [33200, 34200, 35200].forEach(d => T(d, () => heart(.2)));
+      // without him
+      T(36600, () => { go('m5'); tone(392, 1.4, 'sine', .03); tone(196, 1.4, 'triangle', .02); });
+      T(37700, () => { add('w1'); tone(98, .5, 'sine', .12); });
+      T(39300, () => { add('m5b'); tone(349.23, 1.4, 'sine', .03); tone(174.61, 1.4, 'triangle', .02); });
+      T(40400, () => { add('w2'); tone(98, .5, 'sine', .12); });
+      // home, in the rain
+      T(42200, () => { go('m6'); rainOn = true; noise(6, 900, 700, .05, 'lowpass'); });
+      T(45200, () => { add('forever'); trombone(0); noise(5, 900, 700, .05, 'lowpass'); });
+      // the SFOT
+      T(48600, () => { go('m7'); rainOn = false; parts = []; heart(.4); sweep(120, 900, 1.6, 'sine', .04); });
+      T(49400, () => {
+        add('sland'); boom(); chord([261.63, 311.13, 392, 466.16], 3, .035, 0);
+        CC = ['#dfe6f0', '#ffffff', '#9fd8ff', '#1f4fd1', '#e1262d']; confettiOn = true; setTimeout(() => { confettiOn = false; }, 2200);
+        const el = $('#sfVal'), t0 = performance.now();
+        cnt = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 1700); if (el) el.textContent = fmt(Math.round(r.v * (1 - Math.pow(1 - k, 3)))); if (k >= 1) { clearInterval(cnt); kaching(); } }, 40);
+      });
+      T(50600, () => add('ready'));
+      T(57000, finish);
+      return;
+    }
     // 5b. the trophy goes up
     T(19050, () => { go('5b'); fwOn = true; for (let i = 0; i < 10; i++) setTimeout(() => { if (!done) noise(.05, 3000, 1500, .11, 'highpass'); }, 300 + i * 260 + (i % 4 === 3 ? 120 : 0)); });
     T(19600, () => { add('lift'); sweep(160, 880, 1.3, 'sine', .04); chord([261.63, 329.63, 392], 1.2, .035, .2); chord([349.23, 440, 523.25], 1.2, .035, .7); });
@@ -10056,7 +10318,7 @@ function goatCinematic(r){
 
 function chromaCinematic(r){
   if (r.id === 'x1') return requiemCinematic(r);
-  if (r.id === 'x3') return goatCinematic(r);
+  if (r.id === 'x3' || r.id === SFOT_ID) return goatCinematic(r);
   return new Promise(resolve => {
     const it = BY[r.id], ov = $('#chc'), timers = [];
     let done = false, raf = 0, cnt = 0;
@@ -10402,6 +10664,7 @@ function bdoFace(o){
   if (o.mouth === 'gap') f += '<path d="M-11 29 Q0 41 11 29 Q0 32 -11 29 Z" fill="#5a1a14"/><path d="M-9.5 29.6 Q0 32.4 9.5 29.6 L9 32 Q0 34.6 -9 32 Z" fill="#fff"/><rect x="-.9" y="30.6" width="1.8" height="3.2" fill="#5a1a14"/><path d="M-7 31.2 V33.4 M-3.5 31.8 V34 M3.5 31.8 V34 M7 31.2 V33.4" stroke="#d8d0c4" stroke-width=".6"/>';
   else if (o.mouth === 'grin') f += '<path d="M-9 29 Q0 39 9 29 Q0 31.5 -9 29 Z" fill="#5a1a14"/><path d="M-8 29.5 Q0 32 8 29.5 L7.6 31.5 Q0 33.8 -7.6 31.5 Z" fill="#fff"/>';
   else if (o.mouth === 'open') f += '<ellipse cx="0" cy="31.5" rx="4.5" ry="3.6" fill="#5a1a14"/><path d="M-3.5 29.5 H3.5" stroke="#fff" stroke-width="1.4"/>';
+  else if (o.mouth === 'sad') f += '<path d="M-6 33.4 Q0 28.8 6 33.4" stroke="#4a1a12" stroke-width="1.8" fill="none" stroke-linecap="round"/>';
   else f += '<path d="M-6.5 30 Q0 34.4 6.5 30" stroke="#6a2a1e" stroke-width="1.7" fill="none" stroke-linecap="round"/>';
   if (o.lip !== false && o.mouth !== 'gap' && o.mouth !== 'grin') f += '<path d="M-3.5 33.6 Q0 34.8 3.5 33.6" stroke="' + sh + '" stroke-width="1" fill="none"/>';
   if (o.glasses === 'disco') f += '<defs><linearGradient id="dzg' + (o.gid || 'x') + '" x1="0" x2="1"><stop offset="0" stop-color="#ff3ea5"/><stop offset=".5" stop-color="#ffd23f"/><stop offset="1" stop-color="#2fe3ff"/></linearGradient></defs>'
@@ -11059,6 +11322,7 @@ function msiFlySVG(){
     + '<radialGradient id="faPl" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#ffffff"/><stop offset=".7" stop-color="#dfe4ea"/><stop offset="1" stop-color="#8f99a6"/></radialGradient>'
     + '<radialGradient id="faAt" cx=".5" cy=".5" r=".5"><stop offset=".78" stop-color="#7cc4ef" stop-opacity="0"/><stop offset=".86" stop-color="#7cc4ef" stop-opacity=".55"/><stop offset="1" stop-color="#7cc4ef" stop-opacity="0"/></radialGradient>'
     + '<clipPath id="faClip"><circle cx="0" cy="0" r="92"/></clipPath>'
+    + '<radialGradient id="faGold" cx=".36" cy=".3" r=".8"><stop offset="0" stop-color="#fff6c8"/><stop offset=".35" stop-color="#ffd23f"/><stop offset=".75" stop-color="#b8780a"/><stop offset="1" stop-color="#5a3a00"/></radialGradient>'
     + '<linearGradient id="faHull" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9e2ea"/><stop offset=".55" stop-color="#7f8b97"/><stop offset="1" stop-color="#3a434c"/></linearGradient></defs>';
   const ufo = '<g><ellipse cx="0" cy="-8" rx="17" ry="13" fill="#9affc8" fill-opacity=".55" stroke="#d8ffe8" stroke-width="1"/><ellipse cx="0" cy="2" rx="46" ry="11" fill="url(#faHull)"/><ellipse cx="0" cy="0" rx="46" ry="5" fill="#cfd8e0" opacity=".6"/>'
     + [-34, -17, 0, 17, 34].map((x, i) => '<circle class="fa-led" style="animation-delay:' + (i*.12) + 's" cx="' + x + '" cy="5" r="2.6" fill="#39ff88"/>').join('') + '<ellipse cx="0" cy="12" rx="16" ry="3.4" fill="#39ff88" opacity=".7"/></g>';
@@ -11075,10 +11339,12 @@ function msiFlySVG(){
   s += '<g class="fa-b"><rect width="400" height="260" fill="#04030c"/>';
   for (let i = 0; i < 110; i++) s += '<circle cx="' + (R()*400).toFixed(1) + '" cy="' + (R()*260).toFixed(1) + '" r="' + (.3 + R()*1).toFixed(2) + '" fill="#fff" opacity="' + (.25 + R()*.75).toFixed(2) + '"/>';
   s += '<circle cx="60" cy="50" r="10" fill="#ff7ad9" opacity=".5"/><circle cx="352" cy="214" r="6" fill="#7cc4ef" opacity=".6"/>'
-    + '<g transform="translate(200 172)"><circle r="112" fill="url(#faAt)"/><circle r="92" fill="url(#faPl)"/><g clip-path="url(#faClip)"><g class="fa-spin">';
+    + '<g class="fa-pl" data-msi="planet"><g transform="translate(200 172)"><circle r="112" fill="url(#faAt)"/><circle r="92" fill="url(#faPl)"/><g clip-path="url(#faClip)"><g class="fa-spin">';
   const pent = (x, y, r) => '<path d="' + Array.from({length: 5}, (_, i) => { const a = -Math.PI/2 + i*2*Math.PI/5; return (i ? 'L' : 'M') + (x + Math.cos(a)*r).toFixed(1) + ' ' + (y + Math.sin(a)*r).toFixed(1); }).join(' ') + ' Z" fill="#14161a"/>';
   [[0, 0, 26], [-62, -36, 22], [60, -40, 22], [-58, 52, 22], [62, 50, 22], [0, -86, 20], [0, 88, 20], [-104, 4, 20], [104, 6, 20], [-170, 0, 26], [170, 0, 26]].forEach(([x, y, r]) => { s += pent(x, y, r) + pent(x + 340, y, r); });
-  s += '</g></g><circle r="92" fill="none" stroke="#000" stroke-opacity=".25" stroke-width="10"/></g>'
+  s += '</g></g><g class="fa-gold"><circle r="92" fill="url(#faGold)"/>'
+    + [-60, -30, 0, 30, 60].map(y => '<path d="M' + (-Math.sqrt(92*92 - y*y)).toFixed(1) + ' ' + y + ' Q0 ' + (y + 14) + ' ' + Math.sqrt(92*92 - y*y).toFixed(1) + ' ' + y + '" stroke="#8a5a00" stroke-opacity=".45" stroke-width="2" fill="none"/>').join('')
+    + '<ellipse cx="-34" cy="-42" rx="22" ry="12" fill="#fffbe0" opacity=".55" transform="rotate(-30 -34 -42)"/></g><circle r="92" fill="none" stroke="#000" stroke-opacity=".25" stroke-width="10"/></g></g>'
     + '<g class="fa-u2">' + ufo + '</g><g class="fa-flag"><path d="M206 64 V44" stroke="#d9e2ea" stroke-width="1.6"/><path d="M206 44 H222 L218 49 L222 54 H206 Z" fill="#75bde9"/><text x="213" y="52.6" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="7" fill="#fff">10</text></g></g>';
   return s + '</svg>';
 }
@@ -11095,7 +11361,84 @@ async function msiFlyAway(first){
   if (!await T(1500, () => { st('s5'); say('Somewhere far away', 'Home. A planet that’s a football. Of course it is.'); [196, 246.94, 293.66, 392].forEach((f, i) => tone(f, 1.6, 'triangle', .035, i*.1)); })) return;
   if (!await T(1200, () => { st('s6'); noise(.5, 600, 200, .05); })) return;
   if (!await T(2000, () => { st('s7'); tone(784, .2, 'triangle', .04); })) return;
-  await T(1500, () => say('Messi’s lab', 'He’s gone. So is The GOAT.', '<button class="ghost" data-msi="leave">Leave</button>'));
+  await T(1500, () => { say('Messi’s lab', 'He’s gone. So is The GOAT.', '<button class="ghost" data-msi="leave">Leave</button>'); msiPlanetN = 0; msiPlanetOK = !P().sfot; });
+}
+/* ---- the secret: tap his planet three times and it turns into a Ballon d'Or that takes one blind offer ---- */
+let msiPlanetN = 0, msiPlanetOK = false, sfSel = new Set(), sfCr = 0;
+const sfotVal = () => priceOf(BY[SFOT_ID], 0);
+function msiPlanet(){
+  const el = msiEl(); if (!msiPlanetOK || P().sfot || msiView !== 'ufo' || el.querySelector('.msi-ov')) return;
+  const pl = el.querySelector('.fa-pl'); if (pl) restart(pl, 'tap');
+  msiPlanetN++; tone(330 + msiPlanetN * 140, .14, 'triangle', .045);
+  if (msiPlanetN < 3) return;
+  msiPlanetOK = false;
+  const sc = el.querySelector('.msi-scene'); if (sc) sc.classList.add('gold');
+  P().sfotAsk = Math.round(sfotVal() * (1 + Math.random() * .25)); save();
+  sweep(200, 1200, 1.4, 'sine', .05); [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, .8, 'triangle', .04, .3 + i * .12)); noise(1.2, 6000, 1500, .05, 'highpass');
+  msiPanel(msiSay('The planet', 'It turns to gold. A Ballon d’Or the size of a world. Something inside it is waiting for an offer.', '<button class="open-btn sm" data-msi="sfopen">Make an offer</button>'));
+  setTimeout(() => { if (msiView === 'ufo' && !P().sfot) sfOfferOpen(); }, 1700);
+}
+function sfOfferOpen(){
+  const el = msiEl(); if (!el || el.hidden || P().sfot || el.querySelector('.msi-ov')) return;
+  const have = new Set(state.inv.map(e => e.uid)); sfSel.forEach(u => { if (!have.has(u)) sfSel.delete(u); });
+  sfCr = Math.min(sfCr, state.bal);
+  const ov = document.createElement('div'); ov.className = 'msi-ov';
+  ov.innerHTML = '<div class="vx vx-msi vx-sf"><div class="vx-top"><span class="tag">THE GOLDEN PLANET · ONE OFFER</span><button class="icon-btn vx-x" data-msi="svclose" aria-label="Close">✕</button></div>'
+    + '<div class="vx-main"><div class="vx-art sf-q"><b>?</b></div><div class="vx-info"><div class="t">??? | ???</div>'
+    + '<div class="s">You don’t know what it is. It won’t tell you.</div><div class="s">Worth: <b>???</b></div></div></div>'
+    + '<div class="vx-build"><div class="lab">Credits</div><div class="vx-cr"><button class="ghost sm" data-msi="svcr" data-v="-100000">−100k</button><input id="sfCr" type="number" inputmode="numeric" min="0" step="1000" aria-label="Credits to offer" value="' + (sfCr || '') + '"><button class="ghost sm" data-msi="svcr" data-v="100000">+100k</button><button class="ghost sm" data-msi="svcr" data-v="1000000">+1M</button><button class="ghost sm" data-msi="svcr" data-v="all">All in</button></div>'
+    + '<div class="lab">Items <small>tap to add or take back</small></div><div class="vx-items" id="sfItems"></div>'
+    + '<div class="vx-sum"><span>Your offer</span><b id="sfSum">0 cr</b></div>'
+    + '<div class="vx-say"><b>???</b><span>One offer. If it isn’t enough, it’s gone.</span></div>'
+    + '<div class="vx-act"><button class="gold-btn" id="sfGo" data-msi="svoffer">Make the offer</button></div>'
+    + '<p class="vx-note">If it says no, you keep everything. But you don’t get another try.</p></div></div>';
+  el.append(ov);
+  const box = ov.querySelector('#sfItems'), list = state.inv.slice().sort((a, b) => b.v - a.v).slice(0, 150);
+  if (!list.length) box.innerHTML = '<div class="pr-empty" style="grid-column:1/-1">No items. Credits only, then.</div>';
+  list.forEach(e => {
+    const x = BY[e.id], b = document.createElement('button');
+    b.type = 'button'; b.className = 'vx-it' + (sfSel.has(e.uid) ? ' on' : ''); b.dataset.msi = 'svsel'; b.dataset.v = e.uid; b.style.setProperty('--tc', TIERS[x.t].color);
+    b.append(thumb(x, wearIdx(e.fl))); b.insertAdjacentHTML('beforeend', '<div class="nm">' + x.name + '</div><div class="vl">' + fmt(e.v) + ' cr</div>');
+    box.append(b);
+  });
+  ov.querySelector('#sfCr').oninput = ev => { sfCr = Math.max(0, Math.min(state.bal, Math.floor(+ev.target.value || 0))); sfSum(); };
+  pickSound(); sfSum();
+}
+function sfValue(){ return Math.min(sfCr, state.bal) + state.inv.filter(e => sfSel.has(e.uid)).reduce((a, e) => a + e.v, 0); }
+function sfSum(){ const s = $('#sfSum'); if (s) s.textContent = fmt(sfValue()) + ' cr'; const go = $('#sfGo'); if (go) go.disabled = sfValue() <= 0; }
+function sfOfferClose(){ const ov = msiEl() && msiEl().querySelector('.msi-ov'); if (ov) ov.remove(); }
+async function sfOffer(){
+  if (P().sfot) return;
+  const cr = Math.min(sfCr, state.bal), items = state.inv.filter(e => sfSel.has(e.uid)), tot = cr + items.reduce((a, e) => a + e.v, 0);
+  if (tot <= 0) return;
+  if (bagFree() + items.length < 1) { bagBlock(1); return; }
+  sfOfferClose(); sfSel.clear(); sfCr = 0;
+  const el = msiEl(), sc = el.querySelector('.msi-scene');
+  if (tot < P().sfotAsk) {
+    P().sfot = 'refused'; save();
+    msiPanel(msiSay('The planet', '…Nothing happens.'));
+    tone(160, .5, 'square', .04); tone(110, .7, 'square', .04, .3);
+    await wait(1800); if (msiView !== 'ufo' || el.hidden) return;
+    if (sc) sc.classList.add('s8'); sweep(300, 2400, 1.4, 'sawtooth', .05); noise(1.6, 200, 90, .06, 'lowpass');
+    msiPanel(msiSay('The planet', 'The gold drains away. The UFO lifts off and is gone. For real this time.'));
+    await wait(2600); if (msiView !== 'ufo' || el.hidden) return;
+    msiPanel(msiSay('Messi’s lab', 'Nobody’s home. Not even on the planet.', '<button class="ghost" data-msi="leave">Leave</button>'));
+    return;
+  }
+  const ids = new Set(items.map(e => e.uid));
+  state.inv = state.inv.filter(e => !ids.has(e.uid)); state.bal -= cr;
+  const r = {uid: uid(), id: SFOT_ID, fl: .0007, v: sfotVal(), at: Date.now(), hk: [], src: 'sfot', from: 'planet'};
+  state.inv.unshift(r); P().sfot = 'owned';
+  if (!state.best || r.v > state.best.v) state.best = {id: r.id, v: r.v};
+  save(); if (cr) setBal(-cr);
+  msiPanel(msiSay('The planet', 'The gold cracks open. Something cold and silver drops into your hands.'));
+  [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, 1.2, 'triangle', .05, i * .1)); noise(1, 5000, 800, .06, 'highpass');
+  await wait(1800);
+  closeMsi();
+  busy = true; lockRack(true);
+  $('#reveal').style.zIndex = '81';
+  await chromaCinematic(r);
+  showReveal(r);
 }
 /* ---- three penalties in a row, Messi in goal ---- */
 let mpAim = null;
@@ -11323,6 +11666,12 @@ document.addEventListener('click', e => {
   else if (a === 'lab') msiLab();
   else if (a === 'pens') msiPens();
   else if (a === 'shoot') mpShoot();
+  else if (a === 'planet') msiPlanet();
+  else if (a === 'sfopen') sfOfferOpen();
+  else if (a === 'svclose') sfOfferClose();
+  else if (a === 'svsel') { sfSel.has(v) ? sfSel.delete(v) : sfSel.add(v); b.classList.toggle('on', sfSel.has(v)); pickSound(); sfSum(); }
+  else if (a === 'svcr') { sfCr = v === 'all' ? state.bal : Math.max(0, Math.min(state.bal, sfCr + (+v))); const i = $('#sfCr'); if (i) i.value = sfCr; tone(900, .04, 'triangle', .04); sfSum(); }
+  else if (a === 'svoffer') arm(b, 'Tap again to offer ' + fmt(sfValue()) + ' cr', sfOffer);
   else if (a === 'door') msiLab();
   else if (a === 'shop') msiShop();
   else if (a === 'buy') msiBuy(+v);
