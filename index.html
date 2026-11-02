@@ -3709,8 +3709,8 @@ const ITEMS = [
   // One of one: only exists in Sable's hidden case. Never in a case, contract, reel or wish list.
   {id:'x1', w:'pistol',    name:'Velvet Requiem', t:7, pat:'requiem', pal:['#14020a','#c8143c','#ffd6e6'], m:2.8, ex:true},
   {id:'x2', w:'karambit',  name:'Kingmaker',      t:7, pat:'doppler', pal:['#1a0030','#ff3ea5','#2fe3ff','#ffd23f'], m:2.6, ex:true},
-  {id:'x3', w:'rifle',     name:'The GOAT',       t:7, pat:'goat', pal:['#75bde9','#f4f7fb','#ffd23f'], m:3.4, ex:true},
-  {id:'x4', w:'shotgun',   name:'The SFOT',       t:7, pat:'sfot', pal:['#0b1736','#1f4fd1','#e1262d','#c9d2de'], m:2.2, ex:true}
+  {id:'x3', w:'rifle',     name:'The GOAT',       t:7, pat:'goat', pal:['#75bde9','#f4f7fb','#ffd23f'], m:7.6, ex:true},
+  {id:'x4', w:'shotgun',   name:'The SFOT',       t:7, pat:'sfot', pal:['#0b1736','#1f4fd1','#e1262d','#c9d2de'], m:5.35, ex:true}
 ];
 
 /* ---------- RNG helpers ---------- */
@@ -7085,7 +7085,7 @@ function refuseItem(e){
 function startNeg(uidv){
   const m = room, e = state.inv.find(x => x.uid === uidv); if (!m || !e || !buys(m, e) || ownStock(m, e)) return;
   if (m.id === 'tobias' && isRequiem(e)) { tobiasGrab(e); return; }
-  if (m.id === 'tobias' && e.id === GOAT_ID) { if (state.penaldo) tobiasGoatDance(e); else tobiasGoat(e); return; }
+  if (m.id === 'tobias' && (e.id === GOAT_ID || e.id === SFOT_ID)) { if (state.penaldo) tobiasGoatDance(e); else tobiasGoat(e); return; }
   if (m.id === 'tobias' && e.id === VANCE_ID) { tobiasDance(e); return; }
   const exact = isExact(m, e), tg = tagged(e);
   closeOv(); calmRoom(false);
@@ -11697,8 +11697,9 @@ document.addEventListener('keydown', e => { const el = msiEl(); if (e.key === 'E
    penalty: score (about 80%, depending on where you aim) and they pull out a Messi shirt and accept the bluff.
    After use it needs PEN_CD case opens to recharge. */
 const PEN_CD = 10;
-const CR_OFFERS = [5000000, 7500000, 10000000, 12500000, 15000000];
-const CR_LINES = ['I want that rifle. 5,000,000. Cash. Today.', 'No? 7,500,000. I am being generous.', 'Ten million. TEN MILLION. Nobody says no to me.', '12,500,000. Please. I am asking nicely.', '15,000,000. Final. FINAL. …Siuuu?'];
+const CR_OFFERS = [5000000, 6250000, 7500000, 8750000, 10000000];
+const CR_LINES = ['I want that rifle. 5,000,000. Cash. Today.', 'No? 6,250,000. I am being generous.', '7,500,000. Nobody says no to me.', '8,750,000. Please. I am asking nicely.', 'Ten million. TEN. Final. FINAL. …Siuuu?'];
+const CR_SFOT = 15000000;
 let crN = 0;
 const penReady = () => !!state.penaldo && state.opened >= (state.penAt || 0);
 const penLeft = () => Math.max(0, (state.penAt || 0) - state.opened);
@@ -11714,7 +11715,7 @@ function penaldoSVG(x, y, s){
 /* Already been to Ronaldo's and got the bottle: Tobias doesn't dart you twice. He sends you to Dance instead. */
 async function tobiasGoatDance(e){
   const m = room; closeOv(); actBusy = true; renderLeft();
-  await sayRoom('…The GOAT. Again. Ronaldo already gave you his little bottle, I heard.', 'mad');
+  await sayRoom(e.id === SFOT_ID ? '…Another Chroma from the football people. Ronaldo already gave you his little bottle, I heard.' : '…The GOAT. Again. Ronaldo already gave you his little bottle, I heard.', 'mad');
   await wait(1100); if (room !== m) return (actBusy = false);
   await sayRoom('I’m not darting you twice. Take it to Dance. He’s been crying about that rifle for weeks.', '');
   await wait(1400); actBusy = false; if (room !== m) return;
@@ -11724,7 +11725,7 @@ async function tobiasGoatDance(e){
 }
 async function tobiasGoat(e){
   const m = room; closeOv(); actBusy = true; renderLeft();
-  await sayRoom('…Is that The GOAT? HIS rifle? Do you know what that thing is worth to the right man?', 'mad');
+  await sayRoom(e.id === SFOT_ID ? '…Is that the SFOT? Mbappé’s shotgun? I know a man in Madeira who would pay ANYTHING to laugh at it.' : '…Is that The GOAT? HIS rifle? Do you know what that thing is worth to the right man?', 'mad');
   await wait(1100); if (room !== m) return (actBusy = false);
   await sayRoom('Guards. Put our guest to sleep.', 'mad');
   await wait(500); if (room !== m) return (actBusy = false);
@@ -11847,19 +11848,20 @@ function crShow(kind, panel){
     + '<div class="crx-top"><div class="crx-brand"><small>' + (fan ? 'Behind the framed shirt' : 'Madeira') + '</small>' + (fan ? 'The secret room' : 'Ronaldo’s house') + '</div><div class="bal"><span class="coin"></span><span>' + fmt(state.bal) + '</span></div></div>'
     + '<div class="crx-hud" id="crPanel">' + panel + '</div>';
 }
-const crHas = () => state.inv.find(e => e.id === GOAT_ID);
+const crHas = () => state.inv.find(e => e.id === SFOT_ID) || state.inv.find(e => e.id === GOAT_ID);
 function crHouse(first){
-  const n = Math.min(crN, CR_OFFERS.length - 1), has = crHas();
-  crShow('house', '<div class="bdo-eyebrow">Cristiano Ronaldo</div><p class="bdo-line">' + (first ? first + ' ' : '') + (has ? CR_LINES[n] : 'You came back without the rifle? Then why are you in my house?') + '</p>'
-    + '<div class="bdo-row msi-acts">' + (has ? '<button class="open-btn sm" data-cr="sell">Sell it · ' + fmt(CR_OFFERS[n]) + '</button>' + (crN < CR_OFFERS.length - 1 ? '<button class="ghost" data-cr="no">No</button>' : '') : '') + '<button class="ghost" data-cr="home">Go home</button></div>'
+  const n = Math.min(crN, CR_OFFERS.length - 1), has = crHas(), sf = has && has.id === SFOT_ID;
+  const line = !has ? 'You came back without the rifle? Then why are you in my house?' : sf ? 'Is that… Mbappé’s shotgun? The SFOT? HAHAHA. ' + fmt(CR_SFOT) + '. Flat. I’ll hang it in my bathroom.' : CR_LINES[n];
+  crShow('house', '<div class="bdo-eyebrow">Cristiano Ronaldo</div><p class="bdo-line">' + (first ? first + ' ' : '') + line + '</p>'
+    + '<div class="bdo-row msi-acts">' + (has ? '<button class="open-btn sm" data-cr="sell">Sell it · ' + fmt(sf ? CR_SFOT : CR_OFFERS[n]) + '</button>' + (!sf && crN < CR_OFFERS.length - 1 ? '<button class="ghost" data-cr="no">No</button>' : '') : '') + '<button class="ghost" data-cr="home">Go home</button></div>'
     + '<p class="bdo-sub">' + (state.crDoor ? 'The panel behind the shirt is open. Go on in.' : 'Those gold letters on the glass look… pressable.') + '</p>');
   [392, 523.25].forEach((f, i) => tone(f, .2, 'triangle', .04, i*.08));
 }
 function crSell(){
   const e = crHas(); if (!e) return;
-  const amt = CR_OFFERS[Math.min(crN, CR_OFFERS.length - 1)];
+  const sf = e.id === SFOT_ID, amt = sf ? CR_SFOT : CR_OFFERS[Math.min(crN, CR_OFFERS.length - 1)];
   state.inv = state.inv.filter(x => x.uid !== e.uid); state.bal += amt; save(); setBal(amt); renderInv(); renderStats(); kaching();
-  crShow('house', '<div class="bdo-eyebrow ok">Sold</div><p class="bdo-line">“SIUUU! It’s mine!” He hugs the rifle like a trophy. ' + fmt(amt) + ' cr is yours.</p><div class="bdo-row"><button class="open-btn sm" data-cr="home">Go home</button></div>');
+  crShow('house', '<div class="bdo-eyebrow ok">Sold</div><p class="bdo-line">“SIUUU! It’s mine!” He hugs the ' + (sf ? 'shotgun' : 'rifle') + ' like a trophy. ' + fmt(amt) + ' cr is yours.</p><div class="bdo-row"><button class="open-btn sm" data-cr="home">Go home</button></div>');
   for (let i = 0; i < 4; i++) tone(523.25 + i*130, .25, 'triangle', .05, i*.09);
 }
 function crFan(){
@@ -12105,21 +12107,21 @@ function gadChips(){
    takes you to his private room to talk business. He buys Chroma only, and everything he buys goes on his Chroma
    shelf, where you can buy it back at DANCE_SHELF_X what he paid. He almost never falls for a bluff, except over
    The GOAT: then every bluff works, and he keeps piling Black Market pieces and cash onto his offer, sweating,
-   then crying, all the way to 50,000,000. Take it and he turns out his pockets: nothing left. Broke for good. */
+   then crying, all the way to 15,000,000. Take it and he turns out his pockets: nothing left. Broke for good. */
 const DANCE_X = 1.5, DANCE_BLUFF = .15, DANCE_SHELF_X = 2, DANCE_SHELF_N = 6;
 const DANCE_LADDER = [
-  {tot:6500000, add:1, line:'Okay, OKAY. Hold the music. Plus one of my babies from the back.', mood:''},
-  {tot:11000000, add:1, line:'Another buyer?! For THE GOAT? Bring out the purple one!', mood:''},
-  {tot:18000000, add:1, line:'You’re killing me. You’re KILLING me. Take this one too. Cash on top.', mood:'sweat'},
-  {tot:27000000, add:1, line:'That was my favourite. That was my FAVOURITE one.', mood:'sweat'},
-  {tot:38000000, add:1, line:'*sniff* Everything in the back room. Everything.', mood:'tear'},
-  {tot:50000000, add:0, line:'FIFTY. MILLION. That’s… *sob* that’s everything I’ve got, baby.', mood:'cry'}
+  {tot:11500000, add:1, line:'Okay, OKAY. Hold the music. Plus one of my babies from the back.', mood:''},
+  {tot:12250000, add:1, line:'Another buyer?! For THE GOAT? Bring out the purple one!', mood:''},
+  {tot:13000000, add:1, line:'You’re killing me. You’re KILLING me. Take this one too. Cash on top.', mood:'sweat'},
+  {tot:13750000, add:1, line:'That was my favourite. That was my FAVOURITE one.', mood:'sweat'},
+  {tot:14500000, add:0, line:'*sniff* Everything in the back room. Everything.', mood:'tear'},
+  {tot:15000000, add:0, line:'FIFTEEN. MILLION. That’s… *sob* that’s everything I’ve got, baby.', mood:'cry'}
 ];
 let dz = null, dzBeat = null;
 const DZ_COLS = ['#ff3ea5', '#ffd23f', '#39ff88', '#2fe3ff', '#7a6aff', '#ff8a3d'];
 const dzId = () => Math.random().toString(36).slice(2, 7);
 /* signed in: the shelf everyone shares (see Trading). Offline: this device's own shelf */
-const dzShelf = () => (online() && gShelf) ? gShelf : (P().dshelf || (P().dshelf = []));
+const dzShelf = () => P().dshelf || (P().dshelf = []);
 
 /* His face: long jaw, sideburns, a chevron moustache, a big grin with one gold tooth, and huge rainbow shades */
 function danceFace(id, mood){
@@ -12378,7 +12380,6 @@ function dzToPrivate(){
 }
 function dzBooth(line, loaded){
   const broke = P().danceBroke;
-  if (!loaded && online()) shelfLoad().then(() => { if (dz && !dz.e && !dzEl().hidden && dzEl().classList.contains('k-private')) dzBooth(line || dz.lastLine, true); });
   if (dz) { dz.lastLine = line; dz.e = null; }
   if (dz && !line) Object.assign(dz, {pile: [], stacks: 0, mood: broke ? 'cry' : ''});
   if (dz) dz.broke = broke;
@@ -12466,12 +12467,7 @@ async function dzDeal(){
   const {e, goat, offer, pile} = dz;
   if (!state.inv.find(x => x.uid === e.uid)) return;
   // signed in: it goes on the shelf everybody sees
-  let shared = false;
-  if (online()) {
-    dzPanel(dzSay('Hold on, baby, let me make room on the shelf…'));
-    try { const r = await tradeCall('shelf_put', {item_uid: e.uid, paid: offer}); shared = !r.skip; }
-    catch (err) { tone(150, .2, 'sawtooth', .05); dzNeg('Paperwork problem: ' + err.message); return; }
-  }
+  const shared = false;
   state.inv = state.inv.filter(x => x.uid !== e.uid);
   let items = [], cash = offer;
   if (pile.length && bagFree() >= pile.length) { items = pile.map(p => ({uid: uid(), id: p.id, fl: p.fl, v: p.v, at: Date.now(), hk: [], src: 'shop', from: 'dance'})); cash = offer - items.reduce((a, x) => a + x.v, 0); }
