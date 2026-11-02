@@ -11331,8 +11331,8 @@ function princeCinematic(r){
       + '<rect y="200" width="400" height="60" fill="#2a2030"/><path d="M0 200 H400" stroke="#3a2a40" stroke-width="2"/>'
       + '<rect x="196" y="34" width="150" height="190" rx="70" fill="#0a0812" stroke="url(#prGd)" stroke-width="5"/><rect x="202" y="40" width="138" height="178" rx="64" fill="#1c2236"/>'
       + '<path d="M214 60 L232 44 M224 70 L250 46" stroke="#fff" stroke-opacity=".2" stroke-width="4"/>'
-      + '<g class="pr-mir"><g transform="translate(270 112) scale(-.98 .98)">' + bdoMan(0, 0, 1, NEY({shirt:'#ffdf00', trim:'#009c3b', num:'10', numc:'#002776', beard:null, stud:false, hl:'#2a1a10', mouth:'shut', arm:'up'})) + '</g></g>'
-      + '<g class="pr-kid2"><g transform="translate(120 132) scale(1.05)">' + bdoMan(0, 0, 1, NEY({shirt:'#ffdf00', trim:'#009c3b', num:'10', numc:'#002776', beard:null, stud:false, hl:'#2a1a10', mouth:'shut', arm:'up'})) + '</g></g>'
+      + '<g class="pr-mir"><g transform="translate(270 112) scale(-.98 .98)">' + bdoMan(0, 0, 1, NEY({shirt:'#ffdf00', trim:'#009c3b', num:'10', numc:'#002776', beard:null, stud:false, hl:'#2a1a10', mouth:'pout', arm:'up'})) + '</g></g>'
+      + '<g class="pr-kid2"><g transform="translate(120 132) scale(1.05)">' + bdoMan(0, 0, 1, NEY({shirt:'#ffdf00', trim:'#009c3b', num:'10', numc:'#002776', beard:null, stud:false, hl:'#2a1a10', mouth:'pout', arm:'up'})) + '</g></g>'
       + '<g class="pr-cards">' + ['10/10', 'PERFECT', 'AGAIN'].map((t, i) => '<g style="--i:' + i + '"><rect x="' + (20 + i * 58) + '" y="' + (22 + (i % 2) * 8) + '" width="54" height="22" rx="4" fill="#fff" transform="rotate(' + (i - 1) * 5 + ' ' + (47 + i * 58) + ' 33)"/><text x="' + (47 + i * 58) + '" y="' + (37 + (i % 2) * 8) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" fill="#111" transform="rotate(' + (i - 1) * 5 + ' ' + (47 + i * 58) + ' 33)">' + t + '</text></g>').join('') + '</g></svg>';
     /* 3. Vila Belmiro: the bow */
     let s3 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + DEFS + '<rect width="400" height="260" fill="#04050a"/>' + lamps + crowd(320, 30, 132, ['#f4f6fa', '#111', '#c9d2de', '#ffd23f'])
@@ -11373,7 +11373,7 @@ function princeCinematic(r){
     const s8 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + DEFS + '<rect width="400" height="260" fill="#04060a"/>' + lamps + crowd(340, 30, 140, ['#ffdf00', '#009c3b', '#002776', '#fff'])
       + '<rect y="140" width="400" height="120" fill="#14532a"/>'
       + '<g class="pr-mates">' + [[70, 150, .85], [130, 160, .8], [272, 160, .8], [334, 150, .85]].map(([x, y, sc], i) => npc(x, y, sc, '#ffdf00', i + 2, {trim:'#009c3b'})).join('') + '</g>'
-      + '<g class="pr-oly"><g transform="translate(200 120) scale(1.2)">' + bdoMan(0, 0, 1, NEY({shirt:'#ffdf00', trim:'#009c3b', num:'10', numc:'#002776', tears:true, mouth:'shut'})) + '</g>'
+      + '<g class="pr-oly"><g transform="translate(200 120) scale(1.2)">' + bdoMan(0, 0, 1, NEY({shirt:'#ffdf00', trim:'#009c3b', num:'10', numc:'#002776', tears:true, mouth:'pout'})) + '</g>'
       + '<g class="pr-medal"><path d="M186 160 L200 196 L214 160" stroke="#009c3b" stroke-width="5" fill="none"/><circle cx="200" cy="204" r="12" fill="url(#prGd)" stroke="#6a4300"/><text x="200" y="208" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="9" fill="#6a4300">2016</text></g></g></svg>';
     /* 9. his shadow, and you in it */
     const s9 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + DEFS + '<rect width="400" height="260" fill="#030205"/>'
@@ -11399,7 +11399,7 @@ function princeCinematic(r){
         + '<div class="gt-cap c pr-cap"><p>You went viral.</p><p class="pr-p2">Not for the right reasons.</p></div></section>'
       + '<section class="gt-s pr-6">' + s6 + '<div class="pr-board"><small>CAMP NOU · 8 MARCH 2017</small><div class="pr-score"><span>BARÇA</span><b id="prSc">3 – 1</b><span>PSG</span></div><div class="pr-min" id="prMin">87’</div><div class="pr-ev" id="prEv"></div></div>'
         + '<div class="gt-cap pr-cap"><p>Three goals in the last eight minutes.</p><p class="pr-p2">He was in all of them. The rest were extras.</p></div></section>'
-      + '<section class="gt-s pr-7"><div class="pr-money"><small>BARCELONA → PARIS · 2017</small><b>€<span id="prEur">0</span></b><p>Still the most expensive transfer in history.</p></div><div class="pr-suit"><svg viewBox="-60 -40 120 140">' + bdoMan(0, 0, 1, NEY({suit:true, chain:true, mouth:'shut'})) + '</svg></div></section>'
+      + '<section class="gt-s pr-7"><div class="pr-money"><small>BARCELONA → PARIS · 2017</small><b>€<span id="prEur">0</span></b><p>Still the most expensive transfer in history.</p></div><div class="pr-suit"><svg viewBox="-60 -40 120 140">' + bdoMan(0, 0, 1, NEY({suit:true, chain:true, mouth:'pout'})) + '</svg></div></section>'
       + '<section class="gt-s pr-8">' + s8 + '<div class="pr-pens"><div><span>BRA</span>' + '<i class="ok"></i>'.repeat(4) + '<i class="last"></i></div><div><span>GER</span>' + '<i class="ok"></i>'.repeat(4) + '<i class="miss"></i></div></div>'
         + '<div class="gt-cap pr-cap"><small>Maracanã · 20 August 2016 · Olympic final</small><p>The last penalty. For gold.</p><p class="pr-p2">Of course it was him.</p></div></section>'
       + '<section class="gt-s pr-9">' + s9 + '<div class="pr-chant"><span>NEY!</span><span>NEY!</span><span>NEY!</span></div><div class="gt-cap c pr-cap"><p>They all came to see him.</p><p class="pr-p2">You’re standing in his shadow.</p></div></section>'
@@ -11871,7 +11871,7 @@ function bdoFace(o){
     : o.head === 'long' ? 'M-15 8 Q-16 -17 0 -18 Q16 -17 15 8 Q14 34 0 42 Q-14 34 -15 8 Z'
     : 'M-16 8 Q-17 -16 0 -17 Q17 -16 16 8 Q15 31 0 40 Q-15 31 -16 8 Z';
   f += '<path d="' + jaw + '" fill="' + sk + '"/>'
-    + (nyH ? '<path d="M10 -12 Q16 -6 15 6 Q15 22 10.5 31 Q6 39 0 41 Q8 33 10.5 22 Q12.5 12 12 2 Q12 -6 10 -12 Z" fill="' + sh + '"/><path d="M-12.5 17 Q-10 22 -7 22.5 M12.5 17 Q10 22 7 22.5" stroke="' + sh + '" stroke-width="1.3" fill="none"/>'
+    + (nyH ? '<path d="M10 -12 Q16 -6 15 6 Q15 22 10.5 31 Q6 39 0 41 Q8 33 10.5 22 Q12.5 12 12 2 Q12 -6 10 -12 Z" fill="' + sh + '"/><path d="M-13.5 15 Q-12 22 -9 27 M13.5 15 Q12 22 9 27" stroke="' + sh + '" stroke-width="1.6" fill="none" opacity=".3"/>'
       : crH ? '<path d="M10 -12 Q17 -6 16.5 6 Q16.8 16 14 24 L8.5 34 Q4.5 39.5 0 39.5 Q8 34 11 24 Q13 14 12 4 Q12 -4 10 -12 Z" fill="' + sh + '"/><path d="M-13.5 18 Q-11 24 -8 25 M13.5 18 Q11 24 8 25" stroke="' + sh + '" stroke-width="1.4" fill="none"/><path d="M-3 36.5 Q0 37.6 3 36.5" stroke="' + sh + '" stroke-width="1" fill="none"/>'
       : mbH ? '<path d="M11 -12 Q19.5 -6 18.5 8 Q18.5 29 0 36.5 Q14 28 14 10 Q14 -4 11 -12 Z" fill="' + sh + '"/><ellipse cx="-11" cy="21" rx="4.5" ry="3" fill="#7a4632" opacity=".25"/><ellipse cx="11" cy="21" rx="4.5" ry="3" fill="#7a4632" opacity=".25"/>'
       : '<path d="M9 -12 Q17 -6 16 8 Q15 31 0 40 Q12 30 12 10 Q12 -4 9 -12 Z" fill="' + sh + '"/>');
@@ -11890,10 +11890,14 @@ function bdoFace(o){
   if (o.hair === 'afro') f += '<path d="M-17 4 Q-18 -14 0 -15 Q18 -14 17 4 Q10 -7 0 -7 Q-10 -7 -17 4 Z" fill="' + hc + '"/>';
   if (o.hair === 'blond') f += '<path d="M-16 6 L-15 -10 L-11 -14 L-8 -19 L-4 -15 L0 -21 L4 -15 L8 -19 L11 -14 L15 -10 L16 6 Q12 -5 0 -6 Q-12 -5 -16 6 Z" fill="' + (o.hl || '#e8c86a') + '"/>';
   // the faux-hawk: short spiky sides with sideburns, a tall spiked ridge down the middle, bleached tips
-  if (o.hair === 'ney') f += '<path d="M-15.5 8 Q-16.5 -6 -14 -12 L-13.6 4 Z M15.5 8 Q16.5 -6 14 -12 L13.6 4 Z" fill="' + hc + '" opacity=".8"/><path d="M-15.6 6 L-15 17 L-13.4 17 L-13.6 6 Z M15.6 6 L15 17 L13.4 17 L13.6 6 Z" fill="' + hc + '"/>'
-    + '<path d="M-14.5 -2 L-15 -10 L-12 -9 L-11 -15 L-8 -13 L-6 -22 L-3 -16 L-1 -30 L2 -18 L4 -27 L6 -17 L9 -21 L10 -13 L13 -14 L12.5 -8 L15 -8 L14.5 -2 Q8 -8 0 -8 Q-8 -8 -14.5 -2 Z" fill="' + hc + '"/>'
-    + '<path d="M-6 -22 L-5 -18 L-7 -18 Z M-1 -30 L0.2 -23 L-2.2 -23 Z M4 -27 L4.8 -21 L2.6 -21 Z M9 -21 L9.4 -17 L7.6 -17 Z M-11 -15 L-10.4 -12.4 L-11.8 -12.4 Z" fill="' + (o.hl || '#e8c27a') + '"/>'
-    + '<path d="M-4 -16 L-1 -25 M2 -16 L3.6 -23 M-8 -12 L-6 -18" stroke="' + (o.hl || '#e8c27a') + '" stroke-width=".8" opacity=".8"/>';
+  // the Santos faux-hawk: messy spiky fringe, short sides with sideburns, a tall tuft with bleached tips
+  if (o.hair === 'ney') f += '<path d="M-15.5 8 Q-16.5 -6 -14 -12 L-13.6 4 Z M15.5 8 Q16.5 -6 14 -12 L13.6 4 Z" fill="' + hc + '" opacity=".8"/><path d="M-15.6 5 L-15.1 15.5 L-14 15 L-13.7 5 Z M15.6 5 L15.1 15.5 L14 15 L13.7 5 Z" fill="' + hc + '" opacity=".85"/>'
+    + '<path d="M-15.5 4 L-16.5 -6 L-14.5 -5 L-15 -12 L-12 -10 L-11.5 -16 L-8.5 -14 L-8 -21 L-5.5 -18 L-6 -28 L-2.5 -21 L-1 -33 L1.6 -23 L4.5 -31 L5 -21 L8.5 -25 L8.6 -16 L12 -18 L11.8 -12 L15 -13 L14 -7 L16.5 -6 L15.5 4 Q14 -4 10.5 -5.5 L8.6 -3 L7 -6.4 L3.4 -4.4 L1 -7 L-2 -4.6 L-4.6 -7 L-7.2 -4.2 L-9.6 -6.4 Q-13.6 -5 -15.5 4 Z" fill="' + hc + '"/>'
+    + '<defs><linearGradient id="neyTip" gradientUnits="userSpaceOnUse" x1="0" y1="-33" x2="0" y2="-15"><stop offset="0" stop-color="' + (o.hl || '#e6c78e') + '"/><stop offset=".45" stop-color="' + (o.hl || '#e6c78e') + '" stop-opacity=".85"/><stop offset="1" stop-color="' + (o.hl || '#e6c78e') + '" stop-opacity="0"/></linearGradient></defs>'
+    + '<path d="M-6 -28 L-2.5 -21 L-1 -33 L1.6 -23 L4.5 -31 L5 -21 L8.5 -25 L8.6 -15 Q2 -12 -5.4 -15 Z" fill="url(#neyTip)"/>'
+    + '<path d="M-8 -21 L-6.4 -17.8 L-8.6 -16 Z M12 -18 L10.6 -15 L9.4 -16.6 Z" fill="' + (o.hl || '#e6c78e') + '" opacity=".75"/>'
+    + '<path d="M-3 -17 L-1 -26 M1.5 -16 L3.6 -25 M5 -16 L7 -22 M-5 -14 L-4 -20 M-10 -9 L-9 -13 M10 -8 L11 -12" stroke="' + (o.hl || '#e6c78e') + '" stroke-width=".45" opacity=".55"/>'
+    + '<path d="M-1 -12 L0 -18 M3 -11 L4.6 -16 M-6 -10 L-5.4 -14" stroke="#000" stroke-width=".45" opacity=".2"/>';
   if (o.hair === 'curly') f += '<path d="M-16 6 Q-16 -10 0 -12 Q16 -10 16 6 Q12 -4 0 -5 Q-12 -4 -16 6 Z" fill="' + hc + '"/>' + [-11,-6,-1,4,9,13].map((x, i) => '<circle cx="' + x + '" cy="' + (-13 - (i % 2)*3) + '" r="4.2" fill="' + hc + '"/>').join('');
   if (o.hair === 'quiff') f += '<path d="M-16 6 Q-17 -12 -6 -16 Q2 -26 14 -20 Q18 -14 16 6 Q13 -5 4 -8 Q-8 -6 -16 6 Z" fill="' + hc + '"/><path d="M-16 6 Q-16 -2 -14 -6 M16 6 Q16 -2 14 -6" stroke="' + hc + '" stroke-width="2" opacity=".5"/>';
   if (o.hair === 'bald') f += '<ellipse cx="-6" cy="-9" rx="7" ry="3.6" fill="#fff" opacity=".22" transform="rotate(-18 -6 -9)"/>';
@@ -11902,31 +11906,45 @@ function bdoFace(o){
   if (o.beard === 'goatee') f += '<path d="M-4 35 Q0 41 4 35 Q0 37 -4 35 Z" fill="' + hc + '"/><path d="M-6.5 28.6 Q0 26.8 6.5 28.6" stroke="' + hc + '" stroke-width="1.4" fill="none" opacity=".8"/>';
   if (o.beard === 'ney') f += '<path d="M-6.5 27.2 Q0 25 6.5 27.2" stroke="' + hc + '" stroke-width="1.4" fill="none"/><path d="M-3.6 35.6 Q0 41.5 3.6 35.6 Q0 37.4 -3.6 35.6 Z" fill="' + hc + '"/><path d="M-14 18 Q-12 30 -6 36 M14 18 Q12 30 6 36" stroke="' + hc + '" stroke-width="1" fill="none" opacity=".45"/>';
   if (o.beard === 'stubble') f += '<path d="M-15 16 Q-15 33 0 40 Q15 33 15 16 Q12 28 0 30 Q-12 28 -15 16 Z" fill="' + hc + '" opacity=".3"/>';
+  if (o.beard === 'scruff') f += '<path d="M-8 32.5 Q0 42 8 32.5 Q0 34 -8 32.5 Z M-14.6 18 Q-14 30 -8 36 Q-12 29 -13.4 18 Z M14.6 18 Q14 30 8 36 Q12 29 13.4 18 Z" fill="' + hc + '" opacity=".2"/><path d="M-5.4 27.6 Q0 26.6 5.4 27.6" stroke="' + hc + '" stroke-width="1" fill="none" opacity=".1"/>';
   if (o.beard === 'short') f += '<path d="M-15 16 Q-16 34 0 41 Q16 34 15 16 Q12 27 6 29 Q0 27 -6 29 Q-12 27 -15 16 Z" fill="' + hc + '" opacity=".85"/>';
   // eyes
   const ey = 11, ew = o.eyes === 'narrow' ? 1.9 : 2.7;
-  [-7, 7].forEach(x => {
+  // heavy-lidded, half-closed stare
+  if (o.eyes === 'smolder') [-7, 7].forEach(x => {
+    const d = x < 0 ? 1 : -1;
+    f += '<path d="M' + (x - 4.4) + ' ' + (ey + .2) + ' Q' + x + ' ' + (ey - 3) + ' ' + (x + 4.4) + ' ' + (ey - .2) + ' Q' + x + ' ' + (ey + 2.6) + ' ' + (x - 4.4) + ' ' + (ey + .2) + ' Z" fill="#f4eee4"/>'
+      + '<circle cx="' + (x + .2 * d) + '" cy="' + (ey + .5) + '" r="2.1" fill="' + (o.iris || '#7b6a3e') + '"/><circle cx="' + (x + .2 * d) + '" cy="' + (ey + .5) + '" r=".95" fill="#120a06"/><circle cx="' + (x + .9) + '" cy="' + (ey + .1) + '" r=".5" fill="#fff"/>'
+      + '<path d="M' + (x - 4.8) + ' ' + (ey + .2) + ' Q' + x + ' ' + (ey - 2.7) + ' ' + (x + 4.8) + ' ' + (ey - .3) + ' L' + (x + 4.8) + ' ' + (ey - 4.2) + ' L' + (x - 4.8) + ' ' + (ey - 4.2) + ' Z" fill="' + sk + '"/>'
+      + '<path d="M' + (x - 4.8) + ' ' + (ey + .2) + ' Q' + x + ' ' + (ey - 2.7) + ' ' + (x + 4.8) + ' ' + (ey - .3) + '" stroke="#24150c" stroke-width="1.4" fill="none" stroke-linecap="round"/>'
+      + '<path d="M' + (x - 4) + ' ' + (ey - 2.4) + ' Q' + x + ' ' + (ey - 3.8) + ' ' + (x + 4) + ' ' + (ey - 2.6) + '" stroke="' + sh + '" stroke-width=".9" fill="none"/>'
+      + '<path d="M' + (x - 3.4) + ' ' + (ey + 2.2) + ' Q' + x + ' ' + (ey + 3.4) + ' ' + (x + 3.4) + ' ' + (ey + 2) + '" stroke="' + sh + '" stroke-width=".8" fill="none"/>';
+  });
+  else [-7, 7].forEach(x => {
     f += '<ellipse cx="' + x + '" cy="' + ey + '" rx="4.2" ry="' + ew + '" fill="#fbf7f0"/><circle cx="' + (x + .4) + '" cy="' + (ey + .2) + '" r="' + Math.min(2.1, ew) + '" fill="' + (o.iris || '#3a2416') + '"/>'
       + '<circle cx="' + (x + .4) + '" cy="' + (ey + .2) + '" r="1" fill="#0d0806"/><circle cx="' + (x + 1.2) + '" cy="' + (ey - .6) + '" r=".6" fill="#fff"/>'
       + '<path d="M' + (x - 4.4) + ' ' + (ey - .4) + ' Q' + x + ' ' + (ey - ew - 1.3) + ' ' + (x + 4.4) + ' ' + (ey - .4) + '" stroke="#2a1810" stroke-width="1" fill="none"/>';
   });
   // brows
   const bw = o.brow === 'thick' ? 2.6 : 1.8;
-  f += o.brow === 'arch' ? '<path d="M-11 5 Q-7 2.4 -3 4.6 M3 4.6 Q7 2.4 11 5" stroke="' + (o.bc || hc) + '" stroke-width="' + bw + '" fill="none" stroke-linecap="round"/>'
+  f += o.brow === 'low' ? '<path d="M-11.8 6.2 Q-7.5 4.2 -2.8 5.8 M2.8 5.8 Q7.5 4.2 11.8 6.2" stroke="' + (o.bc || hc) + '" stroke-width="2.3" fill="none" stroke-linecap="round"/>'
+    : o.brow === 'arch' ? '<path d="M-11 5 Q-7 2.4 -3 4.6 M3 4.6 Q7 2.4 11 5" stroke="' + (o.bc || hc) + '" stroke-width="' + bw + '" fill="none" stroke-linecap="round"/>'
     : '<path d="M-11 5 L-3 4.2 M3 4.2 L11 5" stroke="' + (o.bc || hc) + '" stroke-width="' + bw + '" fill="none" stroke-linecap="round"/>';
   // nose
   f += o.nose === 'wide' ? '<path d="M-1 13 Q-1.5 20 -5 23 Q-2 25.5 0 24.5 Q2 25.5 5 23 Q1.5 20 1 13" fill="' + sh + '" stroke="' + sh + '" stroke-width=".8"/>'
     : '<path d="M0.5 13 Q0 20 -3 23 Q0 25 3 23.3" stroke="' + sh + '" stroke-width="1.5" fill="none" stroke-linecap="round"/>';
-  if (o.tape) f += '<path d="M-5.2 16.6 Q0 15 5.2 16.6 L4.8 20.4 Q0 19 -4.8 20.4 Z" fill="#f6f2ea" stroke="#cfc6b4" stroke-width=".5"/>';
+  if (o.tape) f += '<path d="M-2.6 23.4 Q-1.6 24.6 -.4 24 M2.6 23.4 Q1.6 24.6 .4 24" stroke="' + sh + '" stroke-width="1" fill="none"/><path d="M-4.4 17 Q0 15.6 4.4 17 Q5.4 19.8 3.8 22.2 Q0 21.2 -3.8 22.2 Q-5.4 19.8 -4.4 17 Z" fill="#f3eee6" stroke="#d6cdbc" stroke-width=".5"/><ellipse cx="-1.4" cy="18.4" rx="1.8" ry=".7" fill="#fff" opacity=".7"/>';
+  if (o.mole) f += '<circle cx="-5.6" cy="21" r=".5" fill="#6a4630"/>';
   // mouth
   if (o.mouth === 'gap') f += '<path d="M-11 29 Q0 41 11 29 Q0 32 -11 29 Z" fill="#5a1a14"/><path d="M-9.5 29.6 Q0 32.4 9.5 29.6 L9 32 Q0 34.6 -9 32 Z" fill="#fff"/><rect x="-.9" y="30.6" width="1.8" height="3.2" fill="#5a1a14"/><path d="M-7 31.2 V33.4 M-3.5 31.8 V34 M3.5 31.8 V34 M7 31.2 V33.4" stroke="#d8d0c4" stroke-width=".6"/>';
   else if (o.mouth === 'grin') f += '<path d="M-9 29 Q0 39 9 29 Q0 31.5 -9 29 Z" fill="#5a1a14"/><path d="M-8 29.5 Q0 32 8 29.5 L7.6 31.5 Q0 33.8 -7.6 31.5 Z" fill="#fff"/>';
+  else if (o.mouth === 'pout') f += '<path d="M-6.8 30.2 Q-3.6 28 -1 28.9 Q0 29.4 1 28.9 Q3.6 28 6.8 30.2 Q0 30.9 -6.8 30.2 Z" fill="#a9644f"/><path d="M-6.4 30.4 Q0 31.2 6.4 30.4 Q4.6 34.6 0 34.8 Q-4.6 34.6 -6.4 30.4 Z" fill="#bd7862"/><path d="M-7 30.2 Q0 31.3 7 30.2" stroke="#5e2c20" stroke-width=".9" fill="none" stroke-linecap="round"/><ellipse cx=".4" cy="32.6" rx="2.2" ry=".7" fill="#fff" opacity=".22"/>';
   else if (o.mouth === 'shut') f += '<path d="M-7.5 30 Q0 33.6 7.5 29.6" stroke="#5a2418" stroke-width="1.7" fill="none" stroke-linecap="round"/><path d="M-4.5 32.6 Q0 34.4 4.5 32.6" stroke="' + (o.shade || 'rgba(0,0,0,.2)') + '" stroke-width="1.2" fill="none" stroke-linecap="round"/>';
   else if (o.mouth === 'open') f += '<ellipse cx="0" cy="31.5" rx="4.5" ry="3.6" fill="#5a1a14"/><path d="M-3.5 29.5 H3.5" stroke="#fff" stroke-width="1.4"/>';
   else if (o.mouth === 'smirk') f += '<path d="M-6.5 31.4 Q0 33.6 7.2 28.4" stroke="#6a2a1e" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M5.6 28.2 Q7.6 27.6 8.4 28.8" stroke="#6a2a1e" stroke-width="1" fill="none"/>';
   else if (o.mouth === 'sad') f += '<path d="M-6 33.4 Q0 28.8 6 33.4" stroke="#4a1a12" stroke-width="1.8" fill="none" stroke-linecap="round"/>';
   else f += '<path d="M-6.5 30 Q0 34.4 6.5 30" stroke="#6a2a1e" stroke-width="1.7" fill="none" stroke-linecap="round"/>';
-  if (o.lip !== false && o.mouth !== 'gap' && o.mouth !== 'grin') f += '<path d="M-3.5 33.6 Q0 34.8 3.5 33.6" stroke="' + sh + '" stroke-width="1" fill="none"/>';
+  if (o.lip !== false && o.mouth !== 'gap' && o.mouth !== 'grin' && o.mouth !== 'pout') f += '<path d="M-3.5 33.6 Q0 34.8 3.5 33.6" stroke="' + sh + '" stroke-width="1" fill="none"/>';
   if (o.glasses === 'disco') f += '<defs><linearGradient id="dzg' + (o.gid || 'x') + '" x1="0" x2="1"><stop offset="0" stop-color="#ff3ea5"/><stop offset=".5" stop-color="#ffd23f"/><stop offset="1" stop-color="#2fe3ff"/></linearGradient></defs>'
     + [-7.5, 7.5].map(x => '<circle cx="' + x + '" cy="11" r="6.2" fill="url(#dzg' + (o.gid || 'x') + ')" fill-opacity=".8" stroke="#ffd23f" stroke-width="1.4"/><ellipse cx="' + (x - 2) + '" cy="9" rx="2" ry="1.2" fill="#fff" opacity=".7"/>').join('') + '<path d="M-1.3 10 Q0 8.6 1.3 10" stroke="#ffd23f" stroke-width="1.2" fill="none"/><path d="M-13.7 10 L-16 9 M13.7 10 L16 9" stroke="#ffd23f" stroke-width="1.2"/>';
   if (o.tears) f += '<path class="bd-tear" d="M-8 15 Q-10 22 -8 26 Q-6 22 -8 15 Z M8 15 Q6 22 8 26 Q10 22 8 15 Z" fill="#7cc8ff" opacity=".9"/><path d="M-11 9 Q-7 6 -3 8 M3 8 Q7 6 11 9" stroke="#2a1810" stroke-width="1.4" fill="none"/>';
@@ -12124,7 +12142,7 @@ const BDO_PPL = {
   vini:{skin:'#563621', shade:'rgba(20,8,4,.3)', head:'long', hair:'curly', hc:'#0c0806', beard:'stubble', brow:'arch', nose:'wide', mouth:'smile'},
   kane:{skin:'#f1c9a8', shade:'rgba(140,70,40,.16)', head:'long', hair:'part', hc:'#8a6038', bc:'#6a4626', iris:'#4a6a8a', brow:'flat', mouth:'smile'},
   messi:{skin:'#ebb995', shade:'rgba(120,60,30,.16)', head:'oval', hair:'messi', hc:'#3b2615', beard:'full', brow:'flat', iris:'#5a3a1e', mouth:'smile'},
-  neymar:{skin:'#c99572', shade:'rgba(110,55,25,.2)', head:'ney', hair:'ney', hc:'#3a2616', hl:'#e8c27a', beard:'stubble', brow:'thick', eyes:'narrow', iris:'#5a4a2a', mouth:'shut', tape:true},
+  neymar:{skin:'#dcae8a', shade:'rgba(125,62,30,.2)', head:'ney', hair:'ney', hc:'#3b2a1c', hl:'#e6c78e', beard:'scruff', brow:'low', eyes:'smolder', iris:'#7b6a3e', mouth:'pout', tape:true, mole:true},
   cr7:{skin:'#d9a37c', shade:'rgba(110,50,25,.18)', head:'cr7', hair:'cr7', hc:'#1a110b', brow:'arch', iris:'#3a2416', mouth:'open'}
 };
 const bdoP = (who, extra) => Object.assign({}, BDO_PPL[who], extra || {});
