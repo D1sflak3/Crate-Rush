@@ -3271,14 +3271,13 @@ body.dz-open .toast{z-index:95}
 /* 3. Getafe, from above */
 .pl-3{background:#030806;perspective:900px}
 .pl-3 svg{transform:rotateX(38deg) scale(1.15);transform-origin:50% 60%}
-.gtc.slalom .pl-3 svg{animation:plCam 3.6s ease-in-out forwards}
-@keyframes plCam{to{transform:rotateX(30deg) scale(1.3) translateX(-6%)}}
+.pl-3 svg{will-change:transform;backface-visibility:hidden}
 .pl-trail{stroke-dasharray:520;stroke-dashoffset:520}
 .gtc.slalom .pl-trail{stroke-dashoffset:0;transition:stroke-dashoffset 3.3s cubic-bezier(.4,0,.6,1)}
 .pl-me{transform:translate(60px,210px)}
 .gtc.slalom .pl-me{transform:none}
 .gtc.slalom .pl-dfn{animation:plErase .5s var(--d) ease-out forwards}
-@keyframes plErase{0%{opacity:1}40%{opacity:1;filter:brightness(2)}100%{opacity:.18;filter:grayscale(1)}}
+@keyframes plErase{0%{opacity:1;transform:scale(1)}40%{opacity:1;transform:scale(1.35)}100%{opacity:.2;transform:scale(.8)}}
 .pl-dfn{transform-box:fill-box;transform-origin:center}
 /* 4. the Bernabéu */
 .pl-mute{filter:saturate(0) brightness(.7)}
@@ -10771,10 +10770,10 @@ function suiCinematic(r){
         + [0, 1, 2, 3, 4, 5, 6, 7].map(i => '<rect x="' + (10 + i * 47.5) + '" y="10" width="23.75" height="240" fill="#0f4423"/>').join('')
         + '<path d="M200 10 V250" stroke="#e8f4e8" stroke-opacity=".5"/><circle cx="200" cy="130" r="30" fill="none" stroke="#e8f4e8" stroke-opacity=".5"/>'
         + '<rect x="330" y="60" width="60" height="140" fill="none" stroke="#e8f4e8" stroke-opacity=".5"/><rect x="364" y="96" width="26" height="68" fill="none" stroke="#e8f4e8" stroke-opacity=".5"/><rect x="390" y="110" width="6" height="40" fill="none" stroke="#fff" stroke-width="1.6"/>'
-        + '<path class="pl-trail" d="' + PATH + ' L384 130" stroke="#ffd23f" stroke-width="3" fill="none" stroke-linecap="round" filter="url(#plGlow)"/>'
+        + '<path class="pl-trail pl-trailg" d="' + PATH + ' L384 130" stroke="#ffd23f" stroke-opacity=".28" stroke-width="9" fill="none" stroke-linecap="round"/><path class="pl-trail" d="' + PATH + ' L384 130" stroke="#ffe9a0" stroke-width="3" fill="none" stroke-linecap="round"/>'
         + DFS.map(([x, y], i) => '<g class="pl-dfn" style="--d:' + (.42 + i * .44).toFixed(2) + 's"><circle cx="' + x + '" cy="' + y + '" r="9" fill="#1c3f8a" stroke="#fff" stroke-width="1.2"/><text x="' + x + '" y="' + (y + 3.4) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="9" fill="#fff">' + (i + 1) + '</text></g>').join('')
         + '<g class="pl-dfn pl-gkn" style="--d:2.9s"><circle cx="376" cy="122" r="9" fill="#2a2a2a" stroke="#d4ff3a" stroke-width="1.4"/><text x="376" y="125.4" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="8" fill="#d4ff3a">GK</text></g>'
-        + '<g class="pl-me"><circle r="14" fill="url(#plTr)"/><circle r="7.4" fill="#a50044" stroke="#ffd23f" stroke-width="2"/><text y="3" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="8" fill="#ffd23f">10</text>'
+        + '<g class="pl-me"><circle r="13" fill="#ffd23f" opacity=".25"/><circle r="7.4" fill="#a50044" stroke="#ffd23f" stroke-width="2"/><text y="3" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="8" fill="#ffd23f">10</text>'
         + '<animateMotion class="pl-mot" dur="3.3s" begin="indefinite" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines=".4 0 .6 1" path="' + PATH + ' L384 130"/></g>'
         + '<text class="pl-gl3" x="200" y="60" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="44" letter-spacing="5" fill="#ffd23f">GOAL</text></g></svg>';
       // 4. the Bernabéu, 2017: he shows them the name
