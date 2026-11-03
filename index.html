@@ -3398,7 +3398,34 @@ body.dz-open .toast{z-index:95}
 .gtc.pland .pr-val{opacity:1;transition:opacity .5s 1.5s}
 @media (prefers-reduced-motion: reduce){.pr-neon,.pr-jball,.pr-step1,.pr-step2,.pr-sway,.pr-rim,.pr-phone,.pr-flash circle{animation:none!important}}
 /* ---------- La Pulga ---------- */
-.gtc[data-s="p1"] .pl-1,.gtc[data-s="p2"] .pl-2,.gtc[data-s="p3"] .pl-3,.gtc[data-s="p4"] .pl-4,.gtc[data-s="p5"] .pl-5,.gtc[data-s="p6"] .pl-6,.gtc[data-s="p7"] .pl-7{opacity:1;visibility:visible;transition:opacity .7s}
+.gtc[data-s="p1"] .pl-1,.gtc[data-s="p2"] .pl-2,.gtc[data-s="p3"] .pl-3,.gtc[data-s="p4"] .pl-4,.gtc[data-s="p5"] .pl-5,.gtc[data-s="p6"] .pl-6,.gtc[data-s="p7"] .pl-7,.gtc[data-s="p8"] .pl-8{opacity:1;visibility:visible;transition:opacity .7s}
+.pl-8{display:grid;place-items:center;background:#050506}
+.cm-wrap{width:min(96vw,calc(88vh * 400 / 525));display:flex;flex-direction:column;overflow:hidden}
+.cm-pan{position:relative;aspect-ratio:400/260;overflow:hidden;opacity:0}
+.cm-top{transform:translateX(-105%)}
+.cm-bot{transform:translateX(105%)}
+.cm-line{height:4px;background:linear-gradient(90deg,transparent,#c9ccd2 20%,#c9ccd2 80%,transparent);transform:scaleX(0);transition:transform .6s .1s}
+.cm-svg{display:block;width:100%;height:100%}
+.cm-l{opacity:0;transform-box:fill-box;transform-origin:50% 50%}
+.cm-champ{transform:translateX(-60px)}
+.cm-n,.cm-oser{transform:translateX(70px)}
+.cm-seven{opacity:1}
+.cm-glint{opacity:0;transform-box:fill-box;transform-origin:50% 50%}
+.gtc.cm1 .cm-top{opacity:1;transform:none;transition:transform .75s cubic-bezier(.16,1,.3,1),opacity .3s}
+.gtc.cm1 .cm-msg{animation:cmZoom 7s ease-out both;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes cmZoom{from{transform:scale(1.08)}to{transform:scale(1)}}
+.gtc.cm2 .cm-champ{opacity:1;transform:none;transition:opacity .35s calc(var(--i)*70ms),transform .55s calc(var(--i)*70ms) cubic-bezier(.16,1,.3,1)}
+.gtc.cm2 .cm-n{opacity:1;transform:none;transition:opacity .35s .42s,transform .55s .42s cubic-bezier(.16,1,.3,1)}
+.gtc.cm2 .cm-glint{animation:cmGlint 1.6s .6s ease-in-out 2}
+@keyframes cmGlint{0%,100%{opacity:0;transform:scale(.3) rotate(0)}50%{opacity:1;transform:scale(1.2) rotate(45deg)}}
+.gtc.cm3 .cm-line{transform:none}
+.gtc.cm3 .cm-bot{opacity:1;transform:none;transition:transform .75s cubic-bezier(.16,1,.3,1),opacity .3s}
+.gtc.cm3 .cm-ron{animation:cmSink 6s ease-out both;transform-box:fill-box;transform-origin:50% 50%}
+@keyframes cmSink{from{transform:scale(1.06)}to{transform:scale(1)}}
+.gtc.cm4 .cm-oser{opacity:1;transform:none;transition:opacity .35s calc(var(--i)*80ms),transform .55s calc(var(--i)*80ms) cubic-bezier(.16,1,.3,1)}
+.gtc.cm5 .cm-wrap{animation:cmOut .7s ease-in both}
+@keyframes cmOut{to{opacity:0;transform:scale(.96)}}
+@media (prefers-reduced-motion: reduce){.cm-top,.cm-bot,.cm-l{transform:none!important}}
 .plc.dark .su-5{filter:brightness(.15) saturate(.3);transition:filter .9s steps(6)}
 .pl-cap small{color:#ffd23f}
 .gtc[data-s="p2"] .pl-2 .gt-cap small,.gtc[data-s="p3"] .pl-3 .gt-cap small,.gtc[data-s="p4"] .pl-4 .gt-cap small{opacity:1;transform:none}
@@ -11118,6 +11145,65 @@ function suiCinematic(r){
         + '<g class="pl-cr7"><rect x="282" y="222" width="44" height="14" rx="2" fill="#3a3a40" transform="rotate(-8 304 229)"/><text x="304" y="232.6" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="10" fill="#8a8a92" transform="rotate(-8 304 229)">CR7</text><path d="M296 222 L300 229 L297 236 M310 221 L307 228 L312 236" stroke="#000" stroke-width="1" fill="none" transform="rotate(-8 304 229)"/></g></svg>';
       const tally = [['5', 'Ballon d’Ors', '8'], ['18', 'El Clásico goals', '26'], ['0', 'World Cups', '1']];
       const ptitle = 'LA PULGA'.split('').map((ch, i) => '<span style="--i:' + i + '">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>').join('');
+      /* 8. the last word: two panels slide in, one from each side. Original cartoon, the game's own style. */
+      const CMF = 'font-family="Cinzel, Georgia, serif" font-weight="700"';
+      const silver = '<linearGradient id="cmSv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#d9dce2"/><stop offset="1" stop-color="#8d929c"/></linearGradient>';
+      const SK = '#c99068', TAT = 'rgba(30,22,18,.55)';
+      const letters = (txt, x0, y, sz, cls, step) => txt.split('').map((ch, i) => '<text class="' + cls + '" style="--i:' + i + '" x="' + (x0 + i * step) + '" y="' + y + '" font-size="' + sz + '" ' + CMF + ' fill="url(#cmSv)" stroke="rgba(0,0,0,.45)" stroke-width=".6" filter="url(#cmSh)">' + ch + '</text>').join('');
+      // top: the champion, from behind, arms up, the trophy in his left hand
+      const top = '<svg class="cm-svg" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs>' + silver
+        + '<radialGradient id="cmSpot" cx=".5" cy=".18" r=".75"><stop offset="0" stop-color="#5a5a62"/><stop offset=".45" stop-color="#1c1c22"/><stop offset="1" stop-color="#030304"/></radialGradient>'
+        + '<linearGradient id="cmGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff2b8"/><stop offset=".45" stop-color="#e8b53a"/><stop offset="1" stop-color="#7a5208"/></linearGradient>'
+        + '<filter id="cmSh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity=".8"/></filter>'
+        + '<clipPath id="cmTorso"><path d="M146 172 Q150 160 170 156 L230 156 Q250 160 254 172 L250 262 L150 262 Z"/></clipPath></defs>'
+        + '<rect width="400" height="260" fill="url(#cmSpot)"/>'
+        + '<g class="cm-msg">'
+        // arms
+        + '<path d="M156 170 L128 112 L110 44" stroke="' + SK + '" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" fill="none"/>'
+        + '<path d="M244 170 L274 108 L286 52" stroke="' + SK + '" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" fill="none"/>'
+        + '<path d="M272 112 L284 58 M266 124 L280 90 M276 96 L270 120" stroke="' + TAT + '" stroke-width="5" stroke-linecap="round"/>'
+        + '<path d="M101 44 L104 22 M108 40 L110 16 M115 41 L117 19 M121 46 L125 28 M100 50 L92 40" stroke="' + SK + '" stroke-width="5.5" stroke-linecap="round"/>'
+        + '<rect x="136" y="128" width="20" height="12" rx="2" fill="#2f6fd0" transform="rotate(-28 146 134)"/>'
+        // the trophy
+        + '<g class="cm-cup"><path d="M278 56 Q272 40 282 26 L292 26 Q302 40 294 56 Z" fill="url(#cmGold)"/><circle cx="287" cy="14" r="12" fill="url(#cmGold)"/><path d="M277 12 Q287 6 297 13 M276 18 Q287 24 298 17" stroke="#8a6010" stroke-width="1.2" fill="none"/><rect x="278" y="54" width="18" height="8" rx="2" fill="#2a8a4a"/><path d="M280 60 L294 60" stroke="#e8b53a" stroke-width="2"/><circle cx="281" cy="9" r="3" fill="#fff" opacity=".7"/></g>'
+        + '<path d="M281 58 Q286 66 292 58" fill="' + SK + '"/>'
+        // body
+        + '<path d="M146 172 Q150 160 170 156 L230 156 Q250 160 254 172 L250 262 L150 262 Z" fill="#f4f7fb"/>'
+        + '<g clip-path="url(#cmTorso)">' + [158, 182, 206, 230].map(x => '<rect x="' + x + '" y="150" width="12" height="120" fill="#75bde9"/>').join('') + '</g>'
+        + '<path d="M146 172 Q140 164 150 158 L170 156 L160 178 Z M254 172 Q260 164 250 158 L230 156 L240 178 Z" fill="#e8edf3"/>'
+        + '<rect x="176" y="146" width="48" height="14" rx="4" fill="' + SK + '"/>'
+        + '<ellipse cx="200" cy="128" rx="21" ry="23" fill="#2a1a10"/><path d="M180 124 Q200 108 220 124" stroke="#3d2818" stroke-width="3" fill="none"/>'
+        + '<ellipse cx="179" cy="132" rx="3.5" ry="6" fill="' + SK + '"/><ellipse cx="221" cy="132" rx="3.5" ry="6" fill="' + SK + '"/>'
+        + '<text x="200" y="182" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="14" letter-spacing="1.5" fill="#101820">MESSI</text>'
+        + '<text x="200" y="240" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="66" fill="#101820" stroke="#f4f7fb" stroke-width="1">10</text>'
+        + '</g>'
+        + letters('CHAMP', 6, 238, 50, 'cm-l cm-champ', 32) + '<text class="cm-l cm-n" x="236" y="238" font-size="50" ' + CMF + ' fill="url(#cmSv)" stroke="rgba(0,0,0,.45)" stroke-width=".6" filter="url(#cmSh)">N</text>'
+        + '<g class="cm-glint"><path d="M287 -2 L289 10 L301 12 L289 14 L287 26 L285 14 L273 12 L285 10 Z" fill="#fff"/></g>'
+        + '</svg>';
+      // bottom: the loser, seen from above, face down in the grass, the 7 upside down
+      let grass = '';
+      for (let i = 0; i < 14; i++) grass += '<rect x="' + (i * 30) + '" y="0" width="15" height="260" fill="#2a4a1e" opacity=".55"/>';
+      for (let i = 0; i < 160; i++) grass += '<rect x="' + f1(R() * 400) + '" y="' + f1(R() * 260) + '" width="1" height="' + f1(2 + R() * 3) + '" fill="' + (i % 2 ? '#4a7a32' : '#1c3412') + '"/>';
+      const bot = '<svg class="cm-svg" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><rect width="400" height="260" fill="#33572a"/>' + grass
+        + '<rect width="400" height="260" fill="url(#cmVig)"/><defs><radialGradient id="cmVig" cx=".5" cy=".5" r=".75"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></radialGradient></defs>'
+        + '<g class="cm-ron">'
+        // legs folded under, at the top
+        + '<path d="M168 -6 L162 40 M232 -6 L238 40" stroke="#f1f3f6" stroke-width="20" stroke-linecap="round"/><path d="M152 30 Q200 18 248 30 L246 66 Q200 74 154 66 Z" fill="#f4f6f9"/>'
+        // the back, hunched, shoulders at the bottom
+        + '<path d="M150 62 Q200 52 250 62 Q276 110 274 168 Q240 186 200 186 Q160 186 126 168 Q124 110 150 62 Z" fill="#f4f6f9"/>'
+        + '<path d="M168 80 Q172 120 160 150 M236 86 Q228 120 242 156 M200 70 V170" stroke="#d3d8df" stroke-width="2.4" fill="none"/>'
+        + '<ellipse cx="226" cy="84" rx="16" ry="7" fill="#9a8a68" opacity=".35"/><ellipse cx="176" cy="150" rx="10" ry="5" fill="#9a8a68" opacity=".3"/>'
+        + '<text x="200" y="80" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" letter-spacing="1.5" fill="#1a1a22" transform="rotate(180 200 76)">RONALDO</text>'
+        + '<path d="M176 174 L200 160 L224 174 L216 178 L200 168 L184 178 Z" fill="#111"/>'
+        // arms down to the head, hands clasped behind it
+        + '<path d="M132 160 L128 206 L188 236" stroke="#f4f6f9" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M268 160 L272 206 L212 236" stroke="#f4f6f9" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" fill="none"/>'
+        + '<path d="M129 196 L128 206 L188 236 M271 196 L272 206 L212 236" stroke="#d9a37c" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>'
+        + '<ellipse cx="200" cy="216" rx="19" ry="21" fill="#1a110b"/><circle cx="194" cy="238" r="7" fill="#d9a37c"/><circle cx="206" cy="238" r="7" fill="#d9a37c"/>'
+        + '</g>'
+        + '<text class="cm-seven" x="170" y="122" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="74" fill="#14141c" transform="rotate(180 168 98)">7</text>'
+        + '<defs><filter id="cmSh2" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity=".8"/></filter></defs>'
+        + letters('OSER', 192, 124, 50, 'cm-l cm-oser', 34).replace(/url\(#cmSh\)/g, 'url(#cmSh2)')
+        + '</svg>';
       return '<section class="gt-s pl-1">' + p1 + '<div class="pl-whisper"><p>But there was always</p><b>someone else.</b><em>You thought he was the nice one.</em></div></section>'
         + '<section class="gt-s pl-2">' + p2 + '<div class="gt-cap pl-cap"><small>Rome · 27 May 2009 · Champions League final</small><p>The smallest man on the pitch. A header.</p><p class="pl-p2">He later called it his favourite goal.</p></div></section>'
         + '<section class="gt-s pl-3">' + p3 + '<div class="gt-cap pl-cap"><small>Getafe · 18 April 2007</small><p>From his own half. Past all of them.</p><p class="pl-p2">Then the keeper.</p></div></section>'
@@ -11125,6 +11211,7 @@ function suiCinematic(r){
         + '<section class="gt-s pl-5"><div class="pl-tally"><div class="pl-hd"><span>CR7</span><i></i><span class="me">LEO</span></div>'
           + tally.map(([a, l, b], i) => '<div class="pl-row" style="--i:' + i + '"><b class="pl-a" data-n="' + a + '">0</b><span>' + l + '</span><b class="pl-b" data-n="' + b + '">0</b></div>').join('') + '<div class="pl-keep">He keeps count.</div></div></section>'
         + '<section class="gt-s pl-6">' + p6 + '<div class="pl-ha"><span>CAMERA</span><span>WO</span><span>WO</span></div><div class="pl-riv"><p>There is no rivalry.</p><b>There never was.</b></div></section>'
+        + '<section class="gt-s pl-8"><div class="cm-wrap"><div class="cm-pan cm-top">' + top + '</div><div class="cm-line"></div><div class="cm-pan cm-bot">' + bot + '</div></div></section>'
         + '<section class="gt-s pl-7"><div class="pl-beam"></div><div class="su-rv pl-rv"><div class="pl-balls">' + '<i></i>'.repeat(8) + '</div><div class="pl-art"><span class="gt-foil pl-foil"></span></div>'
           + '<h2 class="pl-h2">' + ptitle + '</h2><div class="pl-sub">CHROMA · ONE OF ONE</div><div class="pl-tag">Small. Untouchable. Eternal.</div><div class="gt-val pl-val"><span class="coin"></span><span id="plVal">0</span></div><div class="gt-tap">tap to continue</div></div></section>';
     })();
@@ -11273,9 +11360,9 @@ function suiCinematic(r){
       const count = (el, to, ms) => { const t0 = performance.now(), iv = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / ms); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k >= 1) clearInterval(iv); }, 30); timers.push(iv); };
       /* his theme: original, B minor, a harpsichord-ish ostinato over low strings, bells on top. Grand and cold. */
       const PB = [[61.74, 123.47, 146.83, 185], [49, 98, 123.47, 146.83], [41.2, 82.41, 98, 123.47], [46.25, 92.5, 116.54, 138.59]];
-      for (let bar = 0; bar < 16; bar++) {
+      for (let bar = 0; bar < 20; bar++) {
         const t0 = 28000 + bar * 2000, c = PB[bar % 4];
-        if (t0 > 58000) break;
+        if (t0 > 64000) break;
         T(t0, () => { tone(c[0], 2.2, 'sawtooth', .02); tone(c[0] * 2, 2.2, 'triangle', .03); c.slice(1).forEach(f => tone(f, 2, 'sine', .012)); });
         for (let e = 0; e < 8; e++) T(t0 + e * 250, () => tone(c[1 + (e % 3)] * (e > 3 ? 4 : 2), .14, 'square', .009));
         if (bar % 2 === 0) T(t0, () => bell([739.99, 587.33, 493.88, 554.37][(bar / 2) % 4], .03));
@@ -11322,9 +11409,17 @@ function suiCinematic(r){
       [53400, 53900, 54400].forEach((d, i) => T(d, () => { add('ha' + i); tone([123.47, 110, 98][i], .35, 'sawtooth', .05); tone([246.94, 220, 196][i], .3, 'square', .02); }));
       T(55200, () => add('riv1'));
       T(56500, () => { add('riv2'); boom(); });
+      // the last word: CHAMP10N slides in from the left, then 7OSER from the right
+      T(58800, () => { go('p8'); embers = 0; parts = []; });
+      T(59000, () => { add('cm1'); sweep(300, 1400, .45, 'sawtooth', .03); noise(.5, 3000, 800, .06, 'highpass'); });
+      T(59800, () => { add('cm2'); chord([246.94, 311.13, 369.99], 1.6, .03, 0); for (let i = 0; i < 6; i++) setTimeout(() => { if (!done) tone(1200 + i * 120, .06, 'sine', .02); }, i * 70); });
+      T(60600, () => { cheer(.08, 2.4); plSparks(40, W * .7, H * .15); });
+      T(62200, () => { add('cm3'); sweep(1400, 300, .45, 'sawtooth', .03); noise(.5, 3000, 800, .06, 'highpass'); });
+      T(63000, () => { add('cm4'); tone(98, 1.2, 'sawtooth', .04); tone(92.5, 1.2, 'sawtooth', .03, .5); tone(87.31, 1.8, 'sawtooth', .035, 1); });
+      T(65200, () => add('cm5'));
       // the reveal
-      T(58800, () => { go('p7'); embers = 0; parts = []; heart(.42); sweep(120, 900, 1.6, 'sine', .04); });
-      T(59600, () => {
+      T(65800, () => { go('p7'); embers = 0; parts = []; heart(.42); sweep(120, 900, 1.6, 'sine', .04); });
+      T(66600, () => {
         add('pland'); boom(); cheer(.12, 3);
         chord([246.94, 293.66, 369.99], 1.1, .03, 0); chord([196, 246.94, 293.66], 1.1, .03, 1); chord([185, 233.08, 277.18], 1.1, .03, 2); chord([246.94, 311.13, 369.99, 493.88], 3.4, .035, 3);
         confetti = true; setTimeout(() => { confetti = false; }, 3600);
@@ -11332,8 +11427,8 @@ function suiCinematic(r){
         const el = $('#plVal'), t0 = performance.now();
         cnt = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 1800); if (el) el.textContent = fmt(Math.round(r.v * (1 - Math.pow(1 - k, 3)))); if (k >= 1) { clearInterval(cnt); kaching(); } }, 40);
       });
-      T(61200, () => add('ready'));
-      T(69000, finish);
+      T(68200, () => add('ready'));
+      T(76000, finish);
       return;
     }
     // 6. SIUUU
