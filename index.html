@@ -11156,7 +11156,7 @@ function suiCinematic(r){
         const arm = (side, up) => { const x = 24 * side; return up
           ? L('M' + x + ' 56 L' + (x + 12 * side) + ' 26', sl, 15) + L('M' + (x + 12 * side) + ' 26 L' + (x + 8 * side) + ' -6', sk, 11) + '<circle cx="' + (x + 8 * side) + '" cy="-9" r="6.5" fill="' + sk + '"/>'
           : L('M' + x + ' 56 L' + (x + 8 * side) + ' 84', sl, 15) + L('M' + (x + 8 * side) + ' 84 L' + (x + 9 * side) + ' 110', sk, 11) + '<circle cx="' + (x + 9 * side) + '" cy="114" r="6.5" fill="' + sk + '"/>'; };
-        g += arm(-1, keep) + arm(1, air || keep);
+        g += arm(-1, keep) + arm(1, keep);
         // the torso: a plain rectangle, stripes for Barça
         g += '<rect x="-24" y="48" width="48" height="70" rx="5" fill="' + sh + '"/>';
         if (o.stripes) g += [-18, -6, 6, 18].map(x => '<rect x="' + (x - 3.5) + '" y="48" width="7" height="70" fill="' + o.stripes + '"/>').join('');
