@@ -11845,26 +11845,32 @@ function princeCinematic(r){
       + '<pattern id="prK9" width="20" height="10" patternUnits="userSpaceOnUse" x="4"><rect width="20" height="10" fill="' + BL9 + '"/><rect width="10" height="10" fill="' + RD9 + '"/></pattern></defs>'
       + '<rect width="400" height="260" fill="url(#prG9)"/>' + Array.from({length: 8}, (_, i) => '<rect x="' + (i * 56) + '" width="28" height="260" fill="#000" opacity=".05"/>').join('')
       + '<path d="M0 64 Q200 58 400 62" stroke="#fff" stroke-opacity=".75" stroke-width="3" fill="none"/>'
-      + '<g class="pr-kneel"><ellipse cx="206" cy="246" rx="70" ry="7" fill="#000" opacity=".22"/>'
-        // seen from the front, kneeling: only the shorts reach the grass, boot tips peek out behind
-        + '<path d="M228 238 Q244 230 262 238 Q252 246 232 244 Z" fill="#ff6a3a"/><path d="M166 240 Q152 232 140 240 Q150 247 164 245 Z" fill="#ff6a3a"/>'
-        + '<path d="M168 168 H232 L238 240 Q200 248 162 240 Z" fill="' + BL9 + '"/><path d="M200 214 V244" stroke="#0e1640" stroke-width="2"/><path d="M228 172 L233 238" stroke="' + RD9 + '" stroke-width="3"/>'
-        // body leaning forward, stripes
-        + '<path d="M170 100 Q200 90 230 100 L234 174 H166 Z" fill="url(#prK9)"/><path d="M170 100 Q200 90 230 100" stroke="#0e1640" stroke-width="2" fill="none"/>'
-        // arms up to the face
-        + L9('M176 108 L166 142', BL9, 15) + L9('M224 108 L234 142', BL9, 15) + L9('M168 140 L186 92', NSK, 10) + L9('M232 140 L214 92', NSK, 10)
-        + '<rect x="225" y="122" width="11" height="7" rx="2" fill="#2a6ad8" transform="rotate(-64 230 126)"/>'
-        // head bowed, faux-hawk, a plain white headband, hands over the face
-        + '<rect x="192" y="80" width="16" height="16" fill="#b88560"/><ellipse cx="200" cy="66" rx="18" ry="20" fill="' + NSK + '"/>'
-        + '<path d="M184 56 L182 44 L188 46 L189 36 L194 40 L197 28 L201 38 L206 30 L207 40 L213 36 L212 46 L218 44 L216 56 Q200 50 184 56 Z" fill="#3a2616"/><path d="M196 32 L198 40 M204 33 L203 41" stroke="#e8c27a" stroke-width="1.6"/>'
-        + '<path d="M182 56 Q200 50 218 56 L218 63 Q200 57 182 63 Z" fill="#f6f6f6"/><path d="M216 58 Q226 66 222 84" stroke="#f6f6f6" stroke-width="4" fill="none"/>'
-        + [-1, 1].map(d => { const x = 200 + d * 1.2;
-            // palm, four fingers reaching up to the brow, a thumb along the jaw
-            return '<path d="M' + x + ' 90 Q' + (x + d * 12) + ' 92 ' + (x + d * 15) + ' 82 L' + (x + d * 16) + ' 66 Q' + (x + d * 16) + ' 62 ' + (x + d * 13) + ' 63 L' + (x + d * 12) + ' 67 L' + (x + d * 11.6) + ' 62 Q' + (x + d * 10.6) + ' 59 ' + (x + d * 8.6) + ' 61 L' + (x + d * 8.2) + ' 65 L' + (x + d * 7.4) + ' 60.6 Q' + (x + d * 6.2) + ' 58 ' + (x + d * 4.2) + ' 60.4 L' + (x + d * 4) + ' 65 L' + (x + d * 3) + ' 62 Q' + (x + d * 1.6) + ' 60 ' + x + ' 62.4 Z" fill="' + NSK + '" stroke="#9a6644" stroke-width=".7" stroke-linejoin="round"/>'
-              + '<path d="M' + (x + d * 4.1) + ' 65 L' + (x + d * 4.8) + ' 80 M' + (x + d * 8.2) + ' 65 L' + (x + d * 8.8) + ' 80 M' + (x + d * 12) + ' 67 L' + (x + d * 12.4) + ' 80" stroke="#9a6644" stroke-width=".6" fill="none"/>'
-              + '<path d="M' + (x + d * 15) + ' 82 Q' + (x + d * 19) + ' 86 ' + (x + d * 18) + ' 92" stroke="' + NSK + '" stroke-width="4" stroke-linecap="round" fill="none"/>'
-              + '<path d="M' + (x + d * 3) + ' 70 Q' + (x + d * 6) + ' 68 ' + (x + d * 9) + ' 70" stroke="#fff" stroke-opacity=".25" stroke-width=".8" fill="none"/>'; }).join('')
-        + '<path d="M191 92 Q200 96 209 92" stroke="#7a4a2a" stroke-width="1" fill="none" opacity=".6"/>'
+      // side-on: kneeling on one knee, the other leg folded back, head bowed into both hands
+      + '<g class="pr-kneel"><ellipse cx="214" cy="246" rx="74" ry="7" fill="#000" opacity=".22"/>'
+        // lower leg folded back along the grass, boot sole up at the back
+        + L9('M186 234 L254 238', BL9, 15) + L9('M232 237 L246 238', RD9, 13) + '<path d="M252 230 Q276 226 284 236 Q280 246 254 246 Z" fill="#ff6a3a"/><path d="M256 232 Q274 229 281 236" stroke="#d8d8d8" stroke-width="2" fill="none"/>'
+        // the kneeling leg: shorts nearly to the knee, a bit of knee on the grass
+        + '<ellipse cx="184" cy="234" rx="10" ry="8" fill="' + NSK + '"/>'
+        + '<path d="M184 172 H214 Q220 196 210 228 L176 230 Q174 200 184 172 Z" fill="' + BL9 + '"/><path d="M208 176 Q214 200 207 228" stroke="' + RD9 + '" stroke-width="3" fill="none"/>'
+        // far arm, behind the body, up to the face
+        + L9('M190 120 L174 146', '#141f5c', 14) + L9('M174 146 L156 100', '#a87250', 10)
+        // body: side-on, stripes, leaning a little forward
+        + '<path d="M180 120 Q190 108 206 112 Q218 120 216 150 L214 182 H184 Q176 150 180 120 Z" fill="url(#prK9)"/>'
+        + '<path d="M206 112 Q218 120 216 150 L214 182" stroke="#0e1640" stroke-width="1.6" fill="none"/>'
+        // neck and the bowed head
+        + L9('M188 112 L180 102', '#b88560', 11)
+        + '<ellipse cx="172" cy="92" rx="15" ry="17" fill="' + NSK + '" transform="rotate(-24 172 92)"/>'
+        + '<ellipse cx="181" cy="95" rx="3" ry="4.6" fill="' + NSK + '" stroke="#a87250" stroke-width=".7" transform="rotate(-24 181 95)"/>'
+        // hair: dark, short at the back, a messy crest over the top falling forward
+        + '<path d="M160 80 Q164 70 176 70 Q188 72 190 84 Q190 94 186 102 Q184 92 180 88 Q172 82 160 80 Z" fill="#2e1e10"/>'
+        + '<path d="M158 82 L152 76 L160 74 L156 66 L166 70 L166 60 L174 68 L178 60 L182 70 L190 66 L188 76 Z" fill="#3a2616"/><path d="M164 66 L168 72 M174 63 L176 70" stroke="#e8c27a" stroke-width="1.4"/>'
+        // a plain white headband round the forehead, the tail hanging behind
+        + '<path d="M156 84 Q172 76 189 82 L190 88 Q173 82 157 90 Z" fill="#f6f6f6"/><path d="M188 86 Q196 96 192 112 Q190 120 194 128" stroke="#f6f6f6" stroke-width="4" fill="none" stroke-linecap="round"/>'
+        // near arm: short blue sleeve, forearm up, hand pressed over the face
+        + L9('M200 122 L192 142', BL9, 15) + L9('M190 144 L168 104', NSK, 10)
+        + '<rect x="170" y="110" width="11" height="7" rx="2" fill="#2a6ad8" transform="rotate(-62 175 113)"/>'
+        + '<path d="M168 106 Q158 106 154 98 L152 86 Q152 82 155 82 L157 86 L156 80 Q157 77 160 78 L161 84 L161 79 Q163 76 165 78 L165 85 L166 81 Q168 79 170 81 L171 92 Q174 100 168 106 Z" fill="' + NSK + '" stroke="#9a6644" stroke-width=".7" stroke-linejoin="round"/>'
+        + '<path d="M157 86 L158 98 M161 84 L162 98 M165 85 L166 98" stroke="#9a6644" stroke-width=".6"/>'
       + '</g></svg>';
     // 9c. lifting the cup: confetti, flashes, his face against the silver
     const s9c = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="prSp9" cx=".5" cy=".3" r=".7"><stop offset="0" stop-color="#2a3a6a"/><stop offset="1" stop-color="#05070f"/></radialGradient>' + bdoDefs('n9c') + '</defs>'
