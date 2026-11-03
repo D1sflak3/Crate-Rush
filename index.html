@@ -11846,30 +11846,43 @@ function princeCinematic(r){
       + '<rect width="400" height="260" fill="url(#prG9)"/>' + Array.from({length: 8}, (_, i) => '<rect x="' + (i * 56) + '" width="28" height="260" fill="#000" opacity=".05"/>').join('')
       + '<path d="M0 64 Q200 58 400 62" stroke="#fff" stroke-opacity=".75" stroke-width="3" fill="none"/>'
       + '<g class="pr-kneel"><ellipse cx="206" cy="246" rx="70" ry="7" fill="#000" opacity=".22"/>'
-        // lower legs folded back, boots behind
-        + L9('M188 238 L238 244', BL9, 14) + L9('M214 236 L262 240', BL9, 14) + '<ellipse cx="244" cy="243" rx="12" ry="6" fill="#ff6a3a"/><ellipse cx="268" cy="239" rx="12" ry="6" fill="#ff6a3a"/>'
-        // thighs up from the knees, shorts
-        + L9('M188 238 L182 196', NSK, 17) + L9('M214 236 L214 196', NSK, 17) + '<path d="M168 168 H230 L232 204 L200 208 L166 204 Z" fill="' + BL9 + '"/><path d="M226 172 V204" stroke="' + RD9 + '" stroke-width="3"/>'
+        // seen from the front, kneeling: only the shorts reach the grass, boot tips peek out behind
+        + '<path d="M228 238 Q244 230 262 238 Q252 246 232 244 Z" fill="#ff6a3a"/><path d="M166 240 Q152 232 140 240 Q150 247 164 245 Z" fill="#ff6a3a"/>'
+        + '<path d="M168 168 H232 L238 240 Q200 248 162 240 Z" fill="' + BL9 + '"/><path d="M200 214 V244" stroke="#0e1640" stroke-width="2"/><path d="M228 172 L233 238" stroke="' + RD9 + '" stroke-width="3"/>'
         // body leaning forward, stripes
         + '<path d="M170 100 Q200 90 230 100 L234 174 H166 Z" fill="url(#prK9)"/><path d="M170 100 Q200 90 230 100" stroke="#0e1640" stroke-width="2" fill="none"/>'
         // arms up to the face
-        + L9('M176 108 L168 148 L190 108', BL9, 14) + L9('M224 108 L232 148 L210 108', BL9, 14) + L9('M171 140 L188 108 M229 140 L212 108', NSK, 10)
-        + '<rect x="227" y="138" width="10" height="7" rx="2" fill="#2a6ad8" transform="rotate(-20 232 141)"/>'
+        + L9('M176 108 L166 142', BL9, 15) + L9('M224 108 L234 142', BL9, 15) + L9('M168 140 L186 92', NSK, 10) + L9('M232 140 L214 92', NSK, 10)
+        + '<rect x="225" y="122" width="11" height="7" rx="2" fill="#2a6ad8" transform="rotate(-64 230 126)"/>'
         // head bowed, faux-hawk, a plain white headband, hands over the face
         + '<rect x="192" y="80" width="16" height="16" fill="#b88560"/><ellipse cx="200" cy="66" rx="18" ry="20" fill="' + NSK + '"/>'
         + '<path d="M184 56 L182 44 L188 46 L189 36 L194 40 L197 28 L201 38 L206 30 L207 40 L213 36 L212 46 L218 44 L216 56 Q200 50 184 56 Z" fill="#3a2616"/><path d="M196 32 L198 40 M204 33 L203 41" stroke="#e8c27a" stroke-width="1.6"/>'
         + '<path d="M182 56 Q200 50 218 56 L218 63 Q200 57 182 63 Z" fill="#f6f6f6"/><path d="M216 58 Q226 66 222 84" stroke="#f6f6f6" stroke-width="4" fill="none"/>'
-        + '<ellipse cx="192" cy="76" rx="9" ry="12" fill="' + NSK + '" stroke="#a87250" stroke-width=".8"/><ellipse cx="208" cy="76" rx="9" ry="12" fill="' + NSK + '" stroke="#a87250" stroke-width=".8"/>'
-        + '<path d="M186 70 V84 M190 67 V86 M194 67 V86 M206 67 V86 M210 67 V86 M214 70 V84" stroke="#a87250" stroke-width=".7"/>'
+        + [-1, 1].map(d => { const x = 200 + d * 1.2;
+            // palm, four fingers reaching up to the brow, a thumb along the jaw
+            return '<path d="M' + x + ' 90 Q' + (x + d * 12) + ' 92 ' + (x + d * 15) + ' 82 L' + (x + d * 16) + ' 66 Q' + (x + d * 16) + ' 62 ' + (x + d * 13) + ' 63 L' + (x + d * 12) + ' 67 L' + (x + d * 11.6) + ' 62 Q' + (x + d * 10.6) + ' 59 ' + (x + d * 8.6) + ' 61 L' + (x + d * 8.2) + ' 65 L' + (x + d * 7.4) + ' 60.6 Q' + (x + d * 6.2) + ' 58 ' + (x + d * 4.2) + ' 60.4 L' + (x + d * 4) + ' 65 L' + (x + d * 3) + ' 62 Q' + (x + d * 1.6) + ' 60 ' + x + ' 62.4 Z" fill="' + NSK + '" stroke="#9a6644" stroke-width=".7" stroke-linejoin="round"/>'
+              + '<path d="M' + (x + d * 4.1) + ' 65 L' + (x + d * 4.8) + ' 80 M' + (x + d * 8.2) + ' 65 L' + (x + d * 8.8) + ' 80 M' + (x + d * 12) + ' 67 L' + (x + d * 12.4) + ' 80" stroke="#9a6644" stroke-width=".6" fill="none"/>'
+              + '<path d="M' + (x + d * 15) + ' 82 Q' + (x + d * 19) + ' 86 ' + (x + d * 18) + ' 92" stroke="' + NSK + '" stroke-width="4" stroke-linecap="round" fill="none"/>'
+              + '<path d="M' + (x + d * 3) + ' 70 Q' + (x + d * 6) + ' 68 ' + (x + d * 9) + ' 70" stroke="#fff" stroke-opacity=".25" stroke-width=".8" fill="none"/>'; }).join('')
+        + '<path d="M191 92 Q200 96 209 92" stroke="#7a4a2a" stroke-width="1" fill="none" opacity=".6"/>'
       + '</g></svg>';
     // 9c. lifting the cup: confetti, flashes, his face against the silver
     const s9c = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="prSp9" cx=".5" cy=".3" r=".7"><stop offset="0" stop-color="#2a3a6a"/><stop offset="1" stop-color="#05070f"/></radialGradient>' + bdoDefs('n9c') + '</defs>'
-      + '<rect width="400" height="260" fill="url(#prSp9)"/>'
-      + '<path d="M20 30 Q200 4 380 30 L376 64 Q200 40 24 64 Z" fill="#1e4ea8"/><text x="200" y="52" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="30" letter-spacing="8" fill="#ffffff">WINNERS</text>'
+      + '<radialGradient id="prFl9"><stop offset="0" stop-color="#fff" stop-opacity="1"/><stop offset=".25" stop-color="#eef4ff" stop-opacity=".7"/><stop offset="1" stop-color="#eef4ff" stop-opacity="0"/></radialGradient>'
+      + '<linearGradient id="prBm9" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>'
+      + '<rect width="400" height="260" fill="#060912"/>'
+      + Array.from({length: 7}, (_, r) => Array.from({length: 46}, (_, c) => { const x = c * 9 + (r % 2) * 4.5 + R() * 2, y = 70 + r * 22 + R() * 3;
+          return '<circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="3.6" fill="' + ['#2a2f3e', '#3a3448', '#1e2433'][(r + c) % 3] + '"/><rect x="' + f1(x - 4.4) + '" y="' + f1(y + 3) + '" width="8.8" height="8" rx="2" fill="' + ['#1e4ea8', '#a50044', '#2a2f3e', '#ffd23f', '#e8e8f0'][Math.floor(R() * 5)] + '" opacity=".75"/>'
+            + (R() < .22 ? '<path d="M' + f1(x - 3) + ' ' + f1(y + 2) + ' L' + f1(x - 6) + ' ' + f1(y - 9) + ' M' + f1(x + 3) + ' ' + f1(y + 2) + ' L' + f1(x + 6) + ' ' + f1(y - 9) + '" stroke="#3a3448" stroke-width="2.4" stroke-linecap="round"/>' : ''); }).join('')).join('')
+      + '<rect y="60" width="400" height="200" fill="#060912" opacity=".35"/>'
+      + [40, 140, 260, 360].map(x => '<path d="M' + (x - 10) + ' 14 L' + (x * .5 + 100 - 40) + ' 260 H' + (x * .5 + 100 + 40) + ' L' + (x + 10) + ' 14 Z" fill="url(#prBm9)" opacity=".5"/><circle cx="' + x + '" cy="14" r="46" fill="url(#prFl9)"/><rect x="' + (x - 18) + '" y="8" width="36" height="12" rx="2" fill="#fff"/>').join('')
+      + '<ellipse cx="250" cy="150" rx="160" ry="120" fill="#fff" opacity=".08"/>'
       + Array.from({length: 60}, () => '<rect x="' + f1(R() * 400) + '" y="' + f1(R() * 260) + '" width="4" height="2.4" fill="' + ['#ffd23f', '#1e4ea8', '#a50044', '#ffffff'][Math.floor(R() * 4)] + '" transform="rotate(' + f1(R() * 180) + ' 200 130)" opacity=".85"/>').join('')
       + '<g class="pr-cup9"><g transform="translate(276 132) scale(1.25)">' + bdoMan(0, 0, 1, NEY({shirt:'barca', trim:'#ffd23f', mouth:'closed'}))
         + '<path d="M-15.8 -1 Q0 -4 15.8 -1 L15.6 3.4 Q0 .6 -15.6 3.4 Z" fill="#f6f6f6" stroke="#d8d8d8" stroke-width=".4"/></g>'
-        + '<g class="pr-lift9">' + goldCup(222, 196, 1.9, 'n9c', true) + '<circle cx="214" cy="186" r="7" fill="' + NSK + '"/><circle cx="240" cy="182" r="7" fill="' + NSK + '"/></g></g>'
+        + '<g class="pr-lift9">' + L9('M246 214 L222 196 L214 186', '#1a2a7a', 15) + L9('M222 196 L214 186', NSK, 11)
+          + L9('M306 214 L290 194 L240 182', '#a50044', 15) + L9('M290 194 L240 182', NSK, 11)
+          + goldCup(222, 196, 1.9, 'n9c', true) + '<circle cx="213" cy="185" r="7.4" fill="' + NSK + '"/><circle cx="240" cy="182" r="7.4" fill="' + NSK + '"/></g></g>'
       + '</svg>';
     const title = 'THE PRINCE'.split('').map((ch, i) => '<span style="--i:' + i + '">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>').join('');
     const COMMENTS = ['💀💀💀', 'bro got cooked', 'NEY IS DIFFERENT 🔥', 'who is the defender lmao', 'replay x100', 'he needs to retire', 'ankles: gone', 'OLÉ OLÉ OLÉ'];
