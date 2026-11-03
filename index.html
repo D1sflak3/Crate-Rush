@@ -11327,8 +11327,23 @@ function suiCinematic(r){
         // him, from behind
         + '<g transform="translate(200 40) scale(.78)">' + mback + '</g>'
         // the other one: face down on the grass in front of him
-        + '<g class="ky-down" transform="translate(300 232) rotate(90) scale(.4)">' + fig(Object.assign(cr({mouth:'sad', tears:true}), {shirt:'#c8102e', trim:'#0a6a3a', shorts:'#ffffff', sock:'#c8102e', num:'7', numc:'#ffffff'}), 'stand', false) + '</g>'
-        + '<ellipse cx="304" cy="250" rx="52" ry="5" fill="#000" opacity=".25"/>'
+        // the other one: face down in the grass in a plain white kit, hands clamped on his head
+        + (() => { const SK = '#d9a37c', W = '#f4f5f8', Wd = '#d8dce3', L = (d, c, w) => '<path d="' + d + '" stroke="' + c + '" stroke-width="' + w + '" stroke-linecap="round" stroke-linejoin="round" fill="none"/>';
+            return '<g class="ky-down"><ellipse cx="318" cy="250" rx="96" ry="6" fill="#000" opacity=".28"/>'
+              // far arm, behind
+              + L('M266 228 L258 204 L244 216', Wd, 11) + L('M258 204 L244 216', '#c48e66', 9)
+              // legs
+              + L('M338 238 L372 240', W, 17) + L('M372 240 L404 238', W, 13) + L('M336 230 L370 230', Wd, 15) + L('M370 230 L402 226', Wd, 12)
+              + '<ellipse cx="408" cy="236" rx="6" ry="9" fill="#111"/><ellipse cx="406" cy="224" rx="5" ry="8" fill="#111"/>'
+              // shorts and the white shirt, flat on his front
+              + '<path d="M318 222 H344 Q350 232 344 246 H318 Z" fill="' + W + '"/>'
+              + '<path d="M252 226 Q256 216 270 214 L318 216 Q326 218 324 232 L322 246 L258 248 Q248 240 252 226 Z" fill="' + W + '"/><path d="M262 246 Q292 242 322 246" stroke="' + Wd + '" stroke-width="4" fill="none"/>'
+              + '<text x="292" y="226" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="12" fill="#c9cdd6" transform="rotate(-4 292 222)">7</text>'
+              // head down in the grass
+              + '<ellipse cx="238" cy="236" rx="14" ry="12" fill="' + SK + '"/><path d="M225 234 Q224 220 238 219 Q252 220 252 234 Q246 228 238 228 Q230 228 225 234 Z" fill="#1a110b"/><ellipse cx="246" cy="236" rx="2.6" ry="4" fill="' + SK + '"/>'
+              // near arm: elbow up, hand clamped on the back of his head
+              + L('M272 222 L262 198', W, 12) + L('M262 198 L240 222', SK, 10) + '<ellipse cx="238" cy="224" rx="8" ry="6" fill="' + SK + '"/><path d="M232 222 H244 M233 226 H243" stroke="#b47e5a" stroke-width=".8"/>'
+              + '</g>'; })()
         + '</g></svg>';
       const tally = [['5', 'Ballon d’Ors', '8'], ['18', 'El Clásico goals', '26'], ['0', 'World Cups', '1']];
       const ptitle = 'LA PULGA'.split('').map((ch, i) => '<span style="--i:' + i + '">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>').join('');
