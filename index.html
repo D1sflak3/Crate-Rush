@@ -3441,8 +3441,8 @@ body.dz-open .toast{z-index:95}
 .gtc.tunnel .pl-who{opacity:1;animation:plWho 2.6s .8s ease-in forwards;transition:opacity .6s 1s}
 @keyframes plWho{to{transform:scale(2.2)}}
 .pl-weyes{opacity:0}
-.pl-1 .pl-pic{transform:scale(1.18);transform-box:view-box;transform-origin:200px 130px;transition:transform 5s ease-out}
-.gtc.tunnel .pl-1 .pl-pic{transform:scale(1)}
+.gt-s>img.pl-picimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.18);will-change:transform;transition:transform 5s ease-out}
+.gtc.tunnel .gt-s>img.pl-picimg{transform:scale(1)}
 .gtc.weyes .pl-weyes{opacity:1;animation:plBlink 2s ease-in-out infinite}
 @keyframes plBlink{0%,90%,100%{opacity:1}94%{opacity:0}}
 .pl-whisper{position:absolute;inset:auto 0 10vh 0;z-index:3;text-align:center;display:grid;gap:8px;justify-items:center}
@@ -3476,7 +3476,8 @@ body.dz-open .toast{z-index:95}
 .pl-gl,.pl-gl3{opacity:0}
 .gtc.rnet .pl-gl,.gtc.gnet .pl-gl3{opacity:1;animation:mpBig .5s cubic-bezier(.2,1.6,.4,1)}
 .pl-2 svg{transition:transform .9s cubic-bezier(.3,0,.2,1)}
-.hx-cam{transform-box:view-box;transform-origin:200px 140px;transition:transform 1s cubic-bezier(.3,0,.2,1)}
+.hx-camd,.ky-camd{position:absolute;inset:0;will-change:transform;transform-origin:50% 54%;transition:transform 1s cubic-bezier(.3,0,.2,1)}
+.hx-camd>svg,.ky-camd>svg,.gt-s>svg.hx-hud{position:absolute;inset:0;width:100%;height:100%;display:block}
 .hx-mes,.hx-def,.hx-gk{transform-box:view-box}
 .hx-air{opacity:0}
 .gtc.rise .hx-stand{opacity:0}.gtc.rise .hx-air{opacity:1}
@@ -3486,12 +3487,12 @@ body.dz-open .toast{z-index:95}
 .gtc.rnet .hx-mes{transform:none;transition:transform .7s .35s cubic-bezier(.5,0,.8,1)}
 .gtc.rnet .hx-def{transform:none;transition:transform .4s ease-in}
 .gtc.rnet .hx-gk{transform:translate(-8px,6px) rotate(-30deg);transform-origin:214px 120px;transition:transform .35s ease-out}
-.gtc.rhead .hx-cam{transform:scale(1.7);transform-origin:200px 128px}
-.gtc.rnet .hx-cam{transform:none}
+.gtc.rhead .hx-camd{transform:scale(1.7);transform-origin:50% 49%}
+.gtc.rnet .hx-camd{transform:none}
 .hx-hface{opacity:0}
-.gtc.smirk .hx-cam{transform:scale(3.4);transform-origin:200px 158px}
+.gtc.smirk .hx-camd{transform:scale(3.4);transform-origin:50% 61%}
 .gtc.smirk .pl-2 .hx-stand .pl-eyes,.gtc.smirk .hx-stand .pl-eyes{opacity:1;animation:plGlare 1.2s ease-in-out infinite alternate}
-.gtc.ron .hx-cam{transform:scale(3.2);transform-origin:352px 116px;transition:transform 1.4s cubic-bezier(.4,0,.2,1),transform-origin 1.4s}
+.gtc.ron .hx-camd{transform:scale(3.2);transform-origin:88% 45%;transition:transform 1.4s cubic-bezier(.4,0,.2,1),transform-origin 1.4s}
 .hx-tape{opacity:0}
 .gtc.hxtape .hx-tape{opacity:1;animation:hxTape .5s ease-out}
 .gtc.rnet .hx-tape{opacity:0;transition:opacity .3s}
@@ -3551,8 +3552,9 @@ body.dz-open .toast{z-index:95}
 @keyframes plPulse{to{transform:scale(1.08)}}
 /* 6. the throne */
 .pl-king{opacity:0;transform:translateY(20px)}
-.ky-cam{transform-box:view-box;transform-origin:200px 58px;transform:scale(2.4)}
-.gtc.kglow .ky-cam{transform:scale(1);transition:transform 3.2s cubic-bezier(.45,0,.15,1)}
+.ky-camd{transform-origin:50% 22%;transform:scale(2.4)}
+.ky-camd>img.ky-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.gtc.kglow .ky-camd{transform:scale(1);transition:transform 3.2s cubic-bezier(.45,0,.15,1)}
 .gtc.kglow .pl-king{opacity:1;transform:none;transition:all 1.2s ease-out}
 .gtc.kglow .pl-keyes{opacity:1;animation:plGlare 1.1s ease-in-out infinite alternate}
 .pl-ha{position:absolute;left:0;right:0;top:8vh;z-index:3;display:flex;justify-content:center;gap:2.4vw}
@@ -11103,6 +11105,7 @@ function suiCinematic(r){
     const PB = {sh:[-27, 6], hd:[-37, 9], k1:[-6, -18], f1:[-15, -36], k2:[15, -3], f2:[29, 8], e1:[-28, 18], h1:[-35, 27], e2:[-16, 20], h2:[-9, 29]};
     const PC = {sh:[-25, 8], hd:[-35, 4], k1:[11, -6], f1:[24, 2], k2:[12, 5], f2:[27, 13], e1:[-29, 19], h1:[-31, 30], e2:[-18, 20], h2:[-13, 31]};
     /* ---- La Pulga: the same film, until it isn't. Then the other one, and he is no saint. ---- */
+    const svgImg = (svg, cls) => '<img class="' + cls + '" alt="" src="data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ')) + '">';
     const pulgaScenes = !pg ? '' : (() => {
       const EV = extra => bdoP('messi', Object.assign({shirt:'barca', num:'10', numc:'#ffd23f', trim:'#ffd23f', mouth:'smirk', iris:'#ffb800'}, extra || {}));
       const crowd = (n, y0, y1, cols) => { let s = ''; for (let i = 0; i < n; i++) s += '<rect class="' + (i % 7 ? '' : 'gt-bulb') + '" x="' + f1(R() * 400) + '" y="' + f1(y0 + R() * (y1 - y0)) + '" width="1.8" height="1.8" fill="' + cols[i % cols.length] + '" opacity=".55"/>'; return s; };
@@ -11118,7 +11121,7 @@ function suiCinematic(r){
       let p1 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="plGl"><stop offset="0" stop-color="#ffd23f" stop-opacity=".9"/><stop offset="1" stop-color="#ffd23f" stop-opacity="0"/></radialGradient>'
         + '<radialGradient id="plFlood" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".3" stop-color="#dfe8ff" stop-opacity=".5"/><stop offset="1" stop-color="#dfe8ff" stop-opacity="0"/></radialGradient></defs>'
         + '<filter id="plPicB" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="2.4"/></filter>'
-        + '<rect width="400" height="260" fill="#010102"/><g class="pl-pic" filter="url(#plPicB)">'
+        + '<rect width="400" height="260" fill="#010102"/><g filter="url(#plPicB)">'
         // the stands and roof, a scoreboard, a floodlight blazing on the right
         + '<path d="M0 150 Q200 112 400 150 V176 Q200 140 0 176 Z" fill="#0c0e16"/>' + Array.from({length: 70}, () => '<circle cx="' + f1(R() * 400) + '" cy="' + f1(146 + R() * 26) + '" r="' + f1(.5 + R()) + '" fill="#cfd6ff" opacity="' + f1(.2 + R() * .5) + '"/>').join('')
         + '<path d="M250 120 L400 78 V96 L262 132 Z" fill="#1a1d28"/><ellipse cx="352" cy="128" rx="70" ry="40" fill="url(#plFlood)"/>'
@@ -11135,6 +11138,7 @@ function suiCinematic(r){
         + '<path d="M330 214 L400 196 V226 L344 240 Z" fill="#7a1a2a"/><path d="M338 220 L398 205" stroke="#1a3a8a" stroke-width="5"/>'
         + '</g>'
         + '</svg>';
+      p1 = svgImg(p1, 'pl-picimg');
       /* 2. Rome, 2009: from just outside the box, looking in at the goal. He has his back to us. He goes up absurdly high,
          the camera rushes in to measure it, the ball loops in, and when he lands he turns his head round to look at you. */
       // a full player: square torso, arms, shorts, legs. Head at 0,0 (bdoFace), feet at y≈222.
@@ -11167,13 +11171,13 @@ function suiCinematic(r){
       const P = (x, y, sc, o, mode, back, cls) => '<g' + (cls ? ' class="' + cls + '"' : '') + ' transform="translate(' + x + ' ' + y + ') scale(' + sc + ')">' + fig(o, mode, back) + '</g>';
       const RK = o => bdoP('cr7', Object.assign({shirt:'#da291c', trim:'#ffffff', shorts:'#ffffff', sock:'#111111', mouth:'open', brow:'flat'}, o || {}));
       const MK = o => Object.assign(EV(o || {}), {shirt:'#004d98', stripes:'#a50044', shorts:'#004d98', sock:'#004d98'});
-      let p2 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + defs('pl2')
-        + '<linearGradient id="hxPitch" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c3519"/><stop offset="1" stop-color="#18602c"/></linearGradient>'
-        + '<rect width="400" height="260" fill="#04050a"/><g class="hx-cam">' + lamps + crowd(380, 26, 92, ['#a50044', '#004d98', '#da291c', '#f4f6fa', '#ffd23f'])
+      // the stands, pitch and box lines never move on their own: bake them into one image under the live layer
+      const hxBg = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="hxPitch" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c3519"/><stop offset="1" stop-color="#18602c"/></linearGradient><radialGradient id="plFl"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>'
+        + '<rect width="400" height="260" fill="#04050a"/>' + lamps + crowd(380, 26, 92, ['#a50044', '#004d98', '#da291c', '#f4f6fa', '#ffd23f']).replace(/class="gt-bulb" /g, '')
         + '<rect y="92" width="400" height="168" fill="url(#hxPitch)"/>' + Array.from({length: 6}, (_, i) => '<rect y="' + (92 + i * 28) + '" width="400" height="14" fill="#000" opacity=".07"/>').join('')
-        // the box, in perspective: goal line at the back, the 18-yard line at the front edge of the frame
         + '<path d="M0 124 H400" stroke="#fff" stroke-opacity=".45"/><path d="M58 124 L-20 250 M342 124 L420 250 M-20 250 H420" stroke="#fff" stroke-opacity=".45" fill="none"/>'
-        + '<path d="M128 124 L110 156 H290 L272 124" stroke="#fff" stroke-opacity=".4" fill="none"/><circle cx="200" cy="190" r="1.6" fill="#fff" opacity=".6"/>'
+        + '<path d="M128 124 L110 156 H290 L272 124" stroke="#fff" stroke-opacity=".4" fill="none"/><circle cx="200" cy="190" r="1.6" fill="#fff" opacity=".6"/></svg>';
+      let p2 = '<div class="hx-camd">' + svgImg(hxBg, 'ky-bg') + '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + defs('pl2') + '<g class="hx-cam">'
         // the goal
         + '<g class="pl-goal"><rect x="146" y="82" width="108" height="42" fill="#000" opacity=".35"/>' + Array.from({length: 10}, (_, i) => '<path d="M' + (146 + i * 12) + ' 82 V124" stroke="#fff" stroke-opacity=".2"/>').join('') + Array.from({length: 4}, (_, i) => '<path d="M146 ' + (82 + i * 11) + ' H254" stroke="#fff" stroke-opacity=".2"/>').join('') + '<path d="M146 124 V82 H254 V124" stroke="#fff" stroke-width="2.6" fill="none"/></g>'
         // the keeper
@@ -11189,7 +11193,7 @@ function suiCinematic(r){
           + '<path d="M176 117 H200" stroke="#ffd23f" stroke-width=".8" stroke-dasharray="2 2"/><path d="M176 198 H200" stroke="#ffd23f" stroke-width=".8" stroke-dasharray="2 2"/>'
           + '<rect x="144" y="150" width="28" height="15" rx="2" fill="#000" stroke="#ffd23f" stroke-width=".8"/><text x="158" y="161.5" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="12" fill="#ffd23f">9 FT</text></g>'
         + '<g class="hx-ball"><circle r="3" fill="#f4f6fa" stroke="#111" stroke-width=".5"/><path d="M0 -1.4 L1.35 -.4 L.85 1.2 H-.85 L-1.35 -.4 Z" fill="#111"/></g>'
-        + '</g>'
+        + '</g></svg></div><svg class="hx-hud" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">'
         + '<rect x="146" y="6" width="108" height="20" rx="3" fill="#000" stroke="#334"/><text class="pl-sb1" x="200" y="20.5" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" letter-spacing="1.5" fill="#ffd23f">BAR 1 – 0 MUN · 69’</text><text class="pl-sb2" x="200" y="20.5" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" letter-spacing="1.5" fill="#ffd23f">BAR 2 – 0 MUN · 70’</text>'
         + '<text class="pl-gl" x="200" y="64" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="40" letter-spacing="5" fill="#ffd23f">GOAL</text></svg>';
       // 3. Getafe, 2007: the slalom, seen from above
@@ -11305,7 +11309,7 @@ function suiCinematic(r){
         // the back: thin blue and red stripes, his name and number
         g += '<rect x="-26" y="48" width="52" height="76" rx="6" fill="' + BL + '"/>' + [-18, -10, -2, 6, 14].map(x => '<rect x="' + x + '" y="62" width="4" height="62" fill="' + RD + '"/>').join('');
         g += '<path d="M-26 52 Q0 44 26 52 L26 62 Q0 56 -26 62 Z" fill="' + BL + '"/><rect x="-3" y="44" width="6" height="12" fill="#ffd23f"/><path d="M-1.6 44 V56 M1.6 44 V56" stroke="#c8102e" stroke-width="1"/>';
-        g += '<text x="0" y="78" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="15" letter-spacing="1.6" fill="#ffd23f">MESSI</text><text x="0" y="118" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="44" fill="#ffd23f" stroke="#a3123c" stroke-width=".8">10</text>';
+        const tx = '<text x="0" y="78" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="15" letter-spacing="1.6" fill="#ffd23f">MESSI</text><text x="0" y="118" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="44" fill="#ffd23f" stroke="#a3123c" stroke-width=".8">10</text>';
         // neck and the back of his head: faded sides, textured top
         g += '<rect x="-8" y="34" width="16" height="16" fill="#d49e78"/>';
         g += '<ellipse cx="-17" cy="16" rx="4" ry="6.5" fill="' + SK + '"/><ellipse cx="17" cy="16" rx="4" ry="6.5" fill="' + SK + '"/><ellipse cx="0" cy="12" rx="17" ry="22" fill="' + SK + '"/>';
@@ -11314,18 +11318,15 @@ function suiCinematic(r){
         g += '<path d="M-17.5 24 Q-20 8 -18 -2 L-14 -2 Q-15 10 -13 26 Z M17.5 24 Q20 8 18 -2 L14 -2 Q15 10 13 26 Z" fill="#6a5040" opacity=".7"/><path d="M-12 28 Q0 33 12 28 Q8 31.5 0 32 Q-8 31.5 -12 28 Z" fill="#7a5a46" opacity=".8"/>';
         g += '<path d="M-14 4 Q-16 -10 -10 -18 Q-2 -28 8 -26 Q16 -22 16 -10 Q16 -1 14 4 Q8 -4 0 -4 Q-8 -4 -14 4 Z" fill="#20140a"/>';
         g += '<path d="M-8 -20 L-6 -30 M-2 -22 L1 -32 M4 -22 L8 -31 M10 -18 L14 -26 M-12 -14 L-14 -22" stroke="#2a1a0e" stroke-width="3" stroke-linecap="round"/><path d="M-10 -8 Q0 -16 12 -8 M-12 0 Q0 -8 14 0" stroke="#4a3020" stroke-width="1.2" fill="none"/>';
-        return g;
+        return [g, tx];
       })();
-      let p6 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + defs('pl6')
-        + '<filter id="plB6" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="2.2"/></filter>'
-        + '<rect width="400" height="260" fill="#0a0c14"/><g class="ky-cam">'
-        // the stands behind him, out of focus: ad boards, then the crowd
-        + '<g filter="url(#plB6)"><rect y="0" width="400" height="34" fill="#141826"/><rect x="0" y="34" width="250" height="24" fill="#b3122c"/><rect x="250" y="34" width="150" height="24" fill="#2a8ad4"/>'
-          + '<rect y="58" width="400" height="150" fill="#1c1a24"/>' + Array.from({length: 260}, () => '<circle cx="' + f1(R() * 400) + '" cy="' + f1(62 + R() * 140) + '" r="' + f1(2 + R() * 2.6) + '" fill="' + ['#3a3448', '#5a5068', '#7a2a3a', '#2a3a6a', '#8a8094'][Math.floor(R() * 5)] + '"/>').join('') + '</g>'
+      const kyBg = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><filter id="kyB" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="2"/></filter><rect width="400" height="260" fill="#0a0c14"/><g filter="url(#kyB)"><rect y="0" width="400" height="34" fill="#141826"/><rect x="0" y="34" width="250" height="24" fill="#b3122c"/><rect x="250" y="34" width="150" height="24" fill="#2a8ad4"/>'
+          + '<rect y="58" width="400" height="150" fill="#1c1a24"/>' + Array.from({length: 260}, () => '<circle cx="' + f1(R() * 400) + '" cy="' + f1(62 + R() * 140) + '" r="' + f1(2 + R() * 2.6) + '" fill="' + ['#3a3448', '#5a5068', '#7a2a3a', '#2a3a6a', '#8a8094'][Math.floor(R() * 5)] + '"/>').join('') + '</g></svg>';
+      const kyFg = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + defs('pl6')
         // the pitch
         + '<rect y="196" width="400" height="64" fill="#1f6a34"/>' + Array.from({length: 5}, (_, i) => '<rect x="' + (i * 80) + '" y="196" width="40" height="64" fill="#000" opacity=".07"/>').join('')
         // him, from behind
-        + '<g transform="translate(200 40) scale(.78)">' + mback + '</g>'
+        + '<g transform="translate(200 40) scale(.78)">' + mback[0] + '</g>'
         // the other one: face down on the grass in front of him
         // the other one: face down in the grass in a plain white kit, hands clamped on his head
         + (() => { const SK = '#d9a37c', W = '#f4f5f8', Wd = '#d8dce3', L = (d, c, w) => '<path d="' + d + '" stroke="' + c + '" stroke-width="' + w + '" stroke-linecap="round" stroke-linejoin="round" fill="none"/>';
@@ -11347,7 +11348,10 @@ function suiCinematic(r){
               // near arm: elbow up, hand clamped on the back of his head
               + L('M272 222 L262 198', W, 12) + L('M262 198 L240 222', SK, 10) + '<ellipse cx="238" cy="224" rx="8" ry="6" fill="' + SK + '"/><path d="M232 222 H244 M233 226 H243" stroke="#b47e5a" stroke-width=".8"/>'
               + '</g>'; })()
-        + '</g></svg>';
+        + '</svg>';
+      // baked into images so the long pull-back is just one cheap zoom; only his name and number stay live text
+      let p6 = '<div class="ky-camd">' + svgImg(kyBg, 'ky-bg') + svgImg(kyFg, 'ky-bg')
+        + '<svg class="ky-tx" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><g transform="translate(200 40) scale(.78)">' + mback[1] + '</g></svg></div>';
       // career numbers, CR7 first then Leo (sources: messivsronaldo.app, Nov 2026; beIN / MLS for trophies, Sep 2026)
       const tally = [['5', 'Ballon d’Ors', '8'], ['37', 'Trophies', '48'], ['261', 'Assists', '428'], ['801', 'Non-penalty goals', '822'], ['65', 'Free-kick goals', '76'],
         ['4', 'Golden Shoes', '6'], ['231', 'Man of the Match awards', '466'], ['3', 'Pichichi trophies', '8'], ['1963', 'Successful dribbles', '4108'], ['72', 'Long-range goals (not free kicks)', '109']];
@@ -11494,6 +11498,7 @@ function suiCinematic(r){
     const src = artHi(it, wearIdx(r.fl)), art = ov.querySelector(pg ? '.pl-art' : '.su-art');
     art.prepend(imgOf(src)); art.querySelector('.gt-foil').style.setProperty('--m', 'url("' + src + '")');
     ov.className = 'gtc suc' + (pg ? ' plc' : ''); ov.hidden = false; go(0);
+    ov.querySelectorAll('img').forEach(im => { if (im.decode) im.decode().catch(() => {}); });
 
     /* embers, rain and sparks */
     const cv = ov.querySelector('.gt-cv'), g = cv.getContext('2d');
@@ -11515,8 +11520,9 @@ function suiCinematic(r){
         if (p.life <= 0 || p.y > H + 30 || p.y < -30) { parts.splice(i, 1); continue; }
         if (p.rain) { g.strokeStyle = 'rgba(255,170,180,.32)'; g.lineWidth = 1; g.beginPath(); g.moveTo(p.x, p.y); g.lineTo(p.x - 3, p.y + 16); g.stroke(); continue; }
         p.vy += (p.g || 0) * dt; p.vx += Math.sin((now + i * 97) / 400) * .0006 * dt;
-        g.globalAlpha = Math.max(0, Math.min(1, p.life / p.max * 1.4)); g.fillStyle = p.c; g.shadowColor = p.c; g.shadowBlur = 6;
-        const z = p.s || 2.2; g.fillRect(p.x - z / 2, p.y - z / 2, z, z); g.shadowBlur = 0; g.globalAlpha = 1;
+        const al = Math.max(0, Math.min(1, p.life / p.max * 1.4)), z = p.s || 2.2; g.fillStyle = p.c;
+        g.globalAlpha = al * .25; g.fillRect(p.x - z * 1.5, p.y - z * 1.5, z * 3, z * 3);
+        g.globalAlpha = al; g.fillRect(p.x - z / 2, p.y - z / 2, z, z); g.globalAlpha = 1;
       }
       raf = requestAnimationFrame(frame);
     }
