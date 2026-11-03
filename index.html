@@ -3123,17 +3123,21 @@ body.dz-open .toast{z-index:95}
 .gtc.sland .sf-bk{opacity:1;transition:opacity .5s 1.3s}
 .gtc.sland .sf-val{opacity:1;transition:opacity .5s 1.5s}
 @media (prefers-reduced-motion: reduce){.sf-ar,.sf-pud,.sf-flash circle,.gtc.walk .sf-bob{animation:none!important}}
-.gt-kicker{transition:transform .7s ease-in}
-.gtc.runup .gt-kicker{transform:translate(26px,-16px) scale(.92)}
-.gt-kleg{transform-box:fill-box;transform-origin:0 0}
-.gtc.kick .gt-kleg{transform:rotate(-55deg);transition:transform .12s ease-out}
-.gt-pball{transition:transform .34s cubic-bezier(.2,.6,.3,1)}
-.gtc.kick .gt-pball{transform:translate(46px,-128px) scale(.42)}
-.gt-pball{transform-box:fill-box;transform-origin:50% 50%}
-.gt-kp{transform-box:fill-box;transform-origin:50% 100%;transition:transform .45s cubic-bezier(.3,.6,.4,1)}
-.gtc.runup .gt-kp{animation:gtKp .3s ease-in-out infinite alternate}
-@keyframes gtKp{to{transform:translateX(-3px)}}
-.gtc.kick .gt-kp{animation:none;transform:translate(-44px,8px) rotate(-72deg)}
+.gt-s5>img.gt-p5bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.gt-s5>svg{transform-origin:50% 55%;transition:transform 2.2s cubic-bezier(.4,0,.2,1)}
+.gtc[data-s="5"] .gt-s5>svg{transform:scale(1.12)}
+.gtc.runup .gt-s5>svg{transform:scale(1.02);transition:transform .9s ease-in}
+.gtc.scored .gt-s5>svg{transform:scale(1.18);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.gt-kicker{transform-box:view-box;transform-origin:135px 262px;transition:transform .7s ease-in}
+.gtc.runup .gt-kicker{transform:translate(40px,-18px) scale(.8)}
+.gt-kleg{transform-box:view-box;transform-origin:148px 236px}
+.gtc.kick .gt-kleg{transform:translate(4px,-14px) rotate(-18deg);transition:transform .12s ease-out}
+.gt-pball{transform-box:fill-box;transform-origin:50% 50%;transition:transform .32s cubic-bezier(.15,.6,.3,1)}
+.gtc.kick .gt-pball{transform:translate(-50px,-118px) scale(.42)}
+.gt-kp{transform-box:view-box;transform-origin:200px 160px;transition:transform .42s cubic-bezier(.3,.6,.4,1)}
+.gtc.runup .gt-kp{animation:gtKp .28s ease-in-out infinite alternate}
+@keyframes gtKp{from{transform:translateY(0)}to{transform:translateY(-4px)}}
+.gtc.kick .gt-kp{animation:none;transform:translate(46px,6px) rotate(64deg)}
 .gt-pnet{transform-box:fill-box;transform-origin:50% 0}
 .gtc.scored .gt-pnet{animation:gtNet2 .45s ease-out}
 @keyframes gtNet2{40%{transform:scale(1.04,1.12)}}
@@ -3226,7 +3230,7 @@ body.dz-open .toast{z-index:95}
 .msi-ov{position:absolute;inset:0;z-index:6;display:grid;place-items:center;padding:16px;background:rgba(2,6,12,.7);overflow:auto;animation:fadeIn .25s}
 .msi-ov .vx{width:min(760px,100%);max-height:calc(100% - 8px);overflow:auto;margin:0;border-color:#75bde9;background:radial-gradient(circle at 20% 0%,rgba(117,189,233,.22),transparent 60%),#050b14;box-shadow:0 0 40px rgba(117,189,233,.25),0 30px 80px rgba(0,0,0,.6)}
 /* ---------- The Prince ---------- */
-.gtc[data-s="n1"] .pr-1,.gtc[data-s="n2"] .pr-2,.gtc[data-s="n3"] .pr-3,.gtc[data-s="n4a"] .pr-4a,.gtc[data-s="n4b"] .pr-4b,.gtc[data-s="n4c"] .pr-4c,.gtc[data-s="n5"] .pr-5,.gtc[data-s="n6"] .pr-6,.gtc[data-s="n7"] .pr-7,.gtc[data-s="n8"] .pr-8,.gtc[data-s="n9"] .pr-9,.gtc[data-s="n10"] .pr-10{opacity:1;visibility:visible;transition:opacity .6s}
+.gtc[data-s="n1"] .pr-1,.gtc[data-s="n2"] .pr-2,.gtc[data-s="n3"] .pr-3,.gtc[data-s="n4a"] .pr-4a,.gtc[data-s="n4b"] .pr-4b,.gtc[data-s="n4c"] .pr-4c,.gtc[data-s="n5"] .pr-5,.gtc[data-s="n6"] .pr-6,.gtc[data-s="n7"] .pr-7,.gtc[data-s="n8"] .pr-8,.gtc[data-s="n9"] .pr-9,.gtc[data-s="n9b"] .pr-9b,.gtc[data-s="n9c"] .pr-9c,.gtc[data-s="n10"] .pr-10{opacity:1;visibility:visible;transition:opacity .6s}
 .prc{background:#000}
 .pr-flashbang{position:absolute;inset:0;z-index:6;pointer-events:none;background:#fffbe8;opacity:0}
 .pr-flashbang.on{animation:suFlash .6s ease-out}
@@ -3384,6 +3388,14 @@ body.dz-open .toast{z-index:95}
 .pr-chant span{font:700 clamp(36px,6.4vw,76px)/1 var(--display);color:#ffdf00;text-shadow:0 0 24px rgba(255,223,0,.6),0 4px 0 #002776;opacity:0;transform:scale(.6)}
 .gtc.ch0 .pr-chant span:nth-child(1),.gtc.ch1 .pr-chant span:nth-child(2),.gtc.ch2 .pr-chant span:nth-child(3){opacity:1;transform:none;transition:all .25s cubic-bezier(.2,1.7,.4,1)}
 .gtc.c9 .pr-chant{opacity:.3;transition:opacity .6s}
+.gtc[data-s="n9b"] .pr-9b .gt-cap small{opacity:1;transform:none}
+.gtc.c9d .pr-9b .gt-cap p:first-of-type,.gtc.c9e .pr-9b .pr-p2,.gtc.c9f .pr-9c .gt-cap p:first-of-type{opacity:1;transform:none}
+.pr-kneel{transform-box:view-box;transform-origin:200px 240px;animation:prSob 1.1s ease-in-out infinite alternate}
+@keyframes prSob{to{transform:translateY(2px) scale(1,.99)}}
+.pr-9b>svg{transform:scale(1.12);transform-origin:50% 40%;transition:transform 4s ease-out}
+.gtc[data-s="n9b"] .pr-9b>svg{transform:scale(1)}
+.pr-lift9{transform-box:view-box;transform-origin:222px 196px;transform:translateY(60px);opacity:.0}
+.gtc.lift9 .pr-lift9{transform:none;opacity:1;transition:transform .9s cubic-bezier(.2,1.3,.4,1),opacity .3s}
 /* 10 the reveal */
 .pr-10{display:grid;place-items:center;background:radial-gradient(ellipse at 50% 45%,#0a3a1a,#000 72%)}
 .pr-beam{position:absolute;left:50%;top:-20%;width:min(80vw,700px);height:140%;transform:translateX(-50%);background:linear-gradient(rgba(255,245,180,.55),rgba(255,223,0,.08) 70%,transparent);clip-path:polygon(44% 0,56% 0,100% 100%,0 100%);opacity:0}
@@ -10839,21 +10851,35 @@ function goatCinematic(r){
       + '<text class="gt-goaltxt" x="200" y="100" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="58" letter-spacing="6" fill="#ffd23f">GOAL</text></svg>';
     /* -- 5. Lusail -- */
     /* -- 5a. the last kick -- */
-    let s5 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="gtF5"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>'
-      + '<linearGradient id="gtP5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b6a2f"/><stop offset="1" stop-color="#0c3517"/></linearGradient>'
-      + '<pattern id="gtSt5" width="14" height="10" patternUnits="userSpaceOnUse"><rect width="14" height="10" fill="#f4f6fa"/><rect width="7" height="10" fill="#7cc4ef"/></pattern></defs>'
-      + '<rect width="400" height="260" fill="#03060e"/><rect y="18" width="400" height="80" fill="#0a1020"/>';
-    for (let i = 0; i < 220; i++) s5 += '<rect class="' + (i % 7 ? '' : 'gt-bulb') + '" style="animation-delay:-' + f1(R() * 3) + 's" x="' + f1(R() * 400) + '" y="' + f1(22 + R() * 72) + '" width="1.6" height="1.6" fill="' + ['#7cc4ef', '#f4f6fa', '#3a5a8a', '#fff'][i % 4] + '" opacity=".6"/>';
-    [[50, 12], [350, 12]].forEach(([x, y]) => { s5 += '<circle cx="' + x + '" cy="' + y + '" r="40" fill="url(#gtF5)" opacity=".45"/><rect x="' + (x - 16) + '" y="' + (y - 6) + '" width="32" height="12" rx="2" fill="#fff"/>'; });
-    s5 += '<rect y="96" width="400" height="164" fill="url(#gtP5)"/>' + [0, 1, 2, 3, 4].map(i => '<rect y="' + (96 + i * 34) + '" width="400" height="' + (12 + i * 4) + '" fill="#fff" opacity=".03"/>').join('')
-      + '<path d="M30 260 L118 128 H282 L370 260" stroke="#fff" stroke-opacity=".35" stroke-width="1.6" fill="none"/><path d="M120 128 H280" stroke="#fff" stroke-opacity=".5" stroke-width="1.6"/>'
-      + '<g class="gt-pnet"><rect x="142" y="70" width="116" height="58" fill="#000" opacity=".35"/>' + Array.from({length: 12}, (_, i) => '<path d="M' + (142 + i * 10.5) + ' 70 V128" stroke="#fff" stroke-opacity=".22" stroke-width=".7"/>').join('') + Array.from({length: 6}, (_, i) => '<path d="M142 ' + (70 + i * 11.6) + ' H258" stroke="#fff" stroke-opacity=".22" stroke-width=".7"/>').join('') + '</g>'
-      + '<path d="M142 128 V70 H258 V128" stroke="#fff" stroke-width="3.4" fill="none"/>'
-      + '<g class="gt-kp"><path d="M192 128 L194 112 M208 128 L206 112" stroke="#1d1d24" stroke-width="5" stroke-linecap="round"/><path d="M190 112 Q200 108 210 112 L209 96 Q200 92 191 96 Z" fill="#2b2f3a"/><path d="M191 98 L178 88 M209 98 L222 88" stroke="#2b2f3a" stroke-width="5" stroke-linecap="round"/><circle cx="177" cy="87" r="3.4" fill="#d4ff3a"/><circle cx="223" cy="87" r="3.4" fill="#d4ff3a"/><circle cx="200" cy="88" r="5.6" fill="#c69472"/></g>'
-      + '<g class="gt-pball"><ellipse cx="200" cy="214" rx="9" ry="2.6" fill="#000" opacity=".4"/><circle cx="200" cy="208" r="7" fill="#f4f6fa"/><path d="M200 204 L203 206.4 L202 210 H198 L197 206.4 Z" fill="#14161c"/></g>'
-      + '<g class="gt-kicker"><path d="M128 260 L132 226 M156 260 L152 226" stroke="#0e1424" stroke-width="10" stroke-linecap="round"/><path class="gt-kleg" d="M152 226 L160 252" stroke="#0e1424" stroke-width="10" stroke-linecap="round"/>'
-      + '<rect x="122" y="214" width="40" height="16" rx="4" fill="#0e1424"/><path d="M120 216 Q118 176 142 170 Q166 176 164 216 Z" fill="url(#gtSt5)"/><path d="M120 184 L110 210 M164 184 L174 210" stroke="#7cc4ef" stroke-width="9" stroke-linecap="round"/>'
-      + '<rect x="137" y="160" width="10" height="10" fill="#b98a64"/><circle cx="142" cy="152" r="12" fill="#2a1c12"/></g></svg>';
+    // over the taker's shoulder: the stands a blur, the keeper bouncing on his line, one kick for the World Cup
+    const s5bg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><filter id="b5" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="2.6"/></filter><radialGradient id="f5"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><linearGradient id="p5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e7a36"/><stop offset="1" stop-color="#0e4a1e"/></linearGradient></defs>'
+      + '<rect width="400" height="260" fill="#05080f"/><g filter="url(#b5)"><rect y="0" width="400" height="128" fill="#121a2c"/>'
+      + Array.from({length: 520}, (_, i) => '<circle cx="' + f1(R() * 400) + '" cy="' + f1(8 + R() * 112) + '" r="' + f1(1.6 + R() * 2.2) + '" fill="' + ['#7cc4ef', '#f4f6fa', '#3a5a8a', '#2a3550', '#1e3a7a', '#ffffff'][i % 6] + '" opacity="' + f1(.35 + R() * .5) + '"/>').join('')
+      + [40, 130, 270, 360].map(x => '<circle cx="' + x + '" cy="6" r="30" fill="url(#f5)" opacity=".55"/>').join('')
+      + '<rect y="116" width="400" height="12" fill="#7a1a2a"/><rect x="200" y="116" width="200" height="12" fill="#1e3a7a"/></g>'
+      + '<rect y="128" width="400" height="132" fill="url(#p5)"/>' + Array.from({length: 5}, (_, i) => '<rect y="' + (128 + i * 28) + '" width="400" height="14" fill="#fff" opacity=".035"/>').join('')
+      + '<path d="M0 162 H400" stroke="#fff" stroke-opacity=".55" stroke-width="1.4"/><path d="M96 162 L60 196 H340 L304 162" stroke="#fff" stroke-opacity=".45" stroke-width="1.2" fill="none"/>'
+      + '<circle cx="200" cy="224" r="1.8" fill="#fff" opacity=".8"/></svg>';
+    const L5 = (d, c, w) => '<path d="' + d + '" stroke="' + c + '" stroke-width="' + w + '" stroke-linecap="round" stroke-linejoin="round" fill="none"/>';
+    let s5 = '<img class="gt-p5bg" alt="" src="data:image/svg+xml;charset=utf-8,' + encodeURIComponent(s5bg) + '">'
+      + '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><pattern id="gtSt5" width="16" height="10" patternUnits="userSpaceOnUse" x="6"><rect width="16" height="10" fill="#f4f6fa"/><rect width="8" height="10" fill="#7cc4ef"/></pattern></defs>'
+      // the goal and net
+      + '<g class="gt-pnet"><path d="M132 162 V92 L144 82 H256 L268 92 V162" fill="#000" fill-opacity=".3"/>' + Array.from({length: 14}, (_, i) => '<path d="M' + (136 + i * 9.4) + ' 84 V162" stroke="#fff" stroke-opacity=".2" stroke-width=".7"/>').join('') + Array.from({length: 7}, (_, i) => '<path d="M134 ' + (90 + i * 10.4) + ' H266" stroke="#fff" stroke-opacity=".2" stroke-width=".7"/>').join('') + '</g>'
+      + '<path d="M132 162 V92 H268 V162" stroke="#fff" stroke-width="3.6" fill="none"/>'
+      // the keeper, arms wide, bouncing on his line
+      + '<g class="gt-kp">' + L5('M194 160 L196 138 M206 160 L204 138', '#1c1f28', 6) + '<path d="M190 140 H210 L211 116 Q200 110 189 116 Z" fill="#2b2f3a"/>' + L5('M190 118 L174 110 L164 116 M210 118 L226 110 L236 116', '#2b2f3a', 6)
+        + '<circle cx="163" cy="117" r="3.6" fill="#d4ff3a"/><circle cx="237" cy="117" r="3.6" fill="#d4ff3a"/><rect x="196" y="104" width="8" height="8" fill="#c69472"/><circle cx="200" cy="100" r="7" fill="#c69472"/><path d="M193 98 Q200 90 207 98 Q200 95 193 98 Z" fill="#3a2a1c"/></g>'
+      // the ball on the spot
+      + '<g class="gt-pball"><ellipse cx="200" cy="228" rx="8" ry="2.4" fill="#000" opacity=".45"/><circle cx="200" cy="222" r="6.4" fill="#f4f6fa"/><path d="M200 218.6 L202.8 220.6 L201.8 224 H198.2 L197.2 220.6 Z" fill="#14161c"/></g>'
+      // the taker, from behind: stripes, dark shorts, head down
+      + '<g class="gt-kicker"><g class="gt-kstand">'
+        + L5('M118 262 L122 236', '#d9a37c', 15) + L5('M150 262 L148 236', '#d9a37c', 15) + '<g class="gt-kleg">' + L5('M148 236 L150 262', '#d9a37c', 15) + '</g>'
+        + '<path d="M106 214 H162 L164 242 L136 244 L108 242 Z" fill="#111a2e"/>'
+        + L5('M108 158 L96 192 L94 218', '#f4f6fa', 15) + L5('M96 196 L94 218', '#d9a37c', 11) + L5('M162 158 L174 192 L176 218', '#f4f6fa', 15) + L5('M174 196 L176 218', '#d9a37c', 11)
+        + '<rect x="104" y="150" width="62" height="70" rx="7" fill="url(#gtSt5)"/><path d="M120 152 Q135 146 150 152" stroke="#0b2a4a" stroke-width="3" fill="none"/>'
+        + '<rect x="128" y="132" width="14" height="20" fill="#c99470"/><ellipse cx="135" cy="122" rx="17" ry="20" fill="#d9a37c"/><path d="M118 126 Q116 100 135 100 Q154 100 152 126 Q150 136 135 138 Q120 136 118 126 Z" fill="#1e140c"/>'
+        + '<ellipse cx="118" cy="124" rx="3.4" ry="6" fill="#d9a37c"/><ellipse cx="152" cy="124" rx="3.4" ry="6" fill="#d9a37c"/><path d="M124 108 Q135 104 146 108 M122 118 Q135 113 148 118" stroke="#3a2618" stroke-width="1.4" fill="none"/>'
+      + '</g></g></svg>';
     /* -- 5b. on the stage, the trophy goes up -- */
     const k5 = 'gtw';
     let s5b = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs>' + bdoDefs(k5)
@@ -10897,7 +10923,7 @@ function goatCinematic(r){
         + '<div class="gt-cap c"><small>Age 13</small><p>His first contract was written on a napkin.</p></div></section>'
       + '<section class="gt-s gt-s3">' + s3 + '<div class="gt-stats"><div class="gt-st" data-n="672"><b>0</b><span>goals for Barcelona</span></div><div class="gt-st"><b>91</b><span>goals in one year · 2012</span></div><div class="gt-st"><b>4</b><span>Champions Leagues</span></div></div></section>'
       + '<section class="gt-s gt-s4"><div class="gt-eight">8</div><div class="gt-balls">' + [2009, 2010, 2011, 2012, 2015, 2019, 2021, 2023].map((y, i) => '<div class="gt-bdo" style="--i:' + i + '"><i></i><small>' + y + '</small></div>').join('') + '</div><div class="gt-cap c"><small>Ballon d’Or</small><p>Eight. Nobody else has more than five.</p></div></section>'
-      + '<section class="gt-s gt-s5">' + s5 + '<div class="gt-cap"><small>Lusail · 18 December 2022 · World Cup final</small><p>3–3 after extra time. One kick left.</p></div><div class="gt-white"></div></section>'
+      + '<section class="gt-s gt-s5">' + s5 + '<div class="gt-cap"><small>Lusail · 18 December 2022 · World Cup final</small><p>3–3 after extra time. One kick left.</p><p class="gt-p2">Montiel steps up.</p></div><div class="gt-white"></div></section>'
       + '<section class="gt-s gt-s5b">' + s5b + '<div class="gt-stars gt-wstars">' + STAR + STAR + STAR + '</div><div class="gt-champ2"><h3>ARGENTINA</h3><p>CHAMPIONS OF THE WORLD</p><small>3–3 · won 4–2 on penalties · Messi scored twice</small></div></section>'
       + '<section class="gt-s gt-s6"><div class="gt-cap c big"><small>2026</small><p>At 39, he took them to one more World Cup final.</p><p class="gt-p2">By then, the World Cup’s all-time top scorer.</p></div></section>'
       + '<section class="gt-s gt-s7"><div class="gt-lights">' + lights + '</div><div class="gt-cap c big"><p>There will never be another.</p></div></section>'
@@ -11812,6 +11838,39 @@ function princeCinematic(r){
       + '<g class="pr-king"><g transform="translate(200 92) scale(1.0)">' + bdoMan(0, 0, 1, NEY({shirt:'#ffdf00', trim:'#009c3b', num:'10', numc:'#002776', chain:true, arm:'up'})) + '<path d="M-15 -18 L-15 -30 L-8 -23 L0 -34 L8 -23 L15 -30 L15 -18 Z" fill="url(#prGd)" stroke="#6a4300" stroke-width=".8"/></g></g>'
       + '<g class="pr-mates pr-bowing">' + [[40, 222, .5], [96, 230, .5], [304, 230, .5], [360, 222, .5]].map(([x, y, sc], i) => npc(x, y, sc, '#6a6f7a', i, {arm:null, mouth:'smile'})).join('') + '</g>'
       + '<g class="pr-tiny"><circle cx="200" cy="232" r="4" fill="#4a4f5a"/><path d="M195 248 Q200 234 205 248 Z" fill="#4a4f5a"/><text x="200" y="256" text-anchor="middle" font-family="Teko, sans-serif" font-size="6" letter-spacing="1" fill="#6a6f7a">YOU</text></g></svg>';
+    // 9b. on his knees in the grass, hands over his face, crying
+    const L9 = (d, c, w) => '<path d="' + d + '" stroke="' + c + '" stroke-width="' + w + '" stroke-linecap="round" stroke-linejoin="round" fill="none"/>';
+    const NSK = '#c99572', BL9 = '#1a2a7a', RD9 = '#b0105a';
+    const s9b = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="prG9" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3aa83a"/><stop offset="1" stop-color="#1e7a26"/></linearGradient>'
+      + '<pattern id="prK9" width="20" height="10" patternUnits="userSpaceOnUse" x="4"><rect width="20" height="10" fill="' + BL9 + '"/><rect width="10" height="10" fill="' + RD9 + '"/></pattern></defs>'
+      + '<rect width="400" height="260" fill="url(#prG9)"/>' + Array.from({length: 8}, (_, i) => '<rect x="' + (i * 56) + '" width="28" height="260" fill="#000" opacity=".05"/>').join('')
+      + '<path d="M0 64 Q200 58 400 62" stroke="#fff" stroke-opacity=".75" stroke-width="3" fill="none"/>'
+      + '<g class="pr-kneel"><ellipse cx="206" cy="246" rx="70" ry="7" fill="#000" opacity=".22"/>'
+        // lower legs folded back, boots behind
+        + L9('M188 238 L238 244', BL9, 14) + L9('M214 236 L262 240', BL9, 14) + '<ellipse cx="244" cy="243" rx="12" ry="6" fill="#ff6a3a"/><ellipse cx="268" cy="239" rx="12" ry="6" fill="#ff6a3a"/>'
+        // thighs up from the knees, shorts
+        + L9('M188 238 L182 196', NSK, 17) + L9('M214 236 L214 196', NSK, 17) + '<path d="M168 168 H230 L232 204 L200 208 L166 204 Z" fill="' + BL9 + '"/><path d="M226 172 V204" stroke="' + RD9 + '" stroke-width="3"/>'
+        // body leaning forward, stripes
+        + '<path d="M170 100 Q200 90 230 100 L234 174 H166 Z" fill="url(#prK9)"/><path d="M170 100 Q200 90 230 100" stroke="#0e1640" stroke-width="2" fill="none"/>'
+        // arms up to the face
+        + L9('M176 108 L168 148 L190 108', BL9, 14) + L9('M224 108 L232 148 L210 108', BL9, 14) + L9('M171 140 L188 108 M229 140 L212 108', NSK, 10)
+        + '<rect x="227" y="138" width="10" height="7" rx="2" fill="#2a6ad8" transform="rotate(-20 232 141)"/>'
+        // head bowed, faux-hawk, a plain white headband, hands over the face
+        + '<rect x="192" y="80" width="16" height="16" fill="#b88560"/><ellipse cx="200" cy="66" rx="18" ry="20" fill="' + NSK + '"/>'
+        + '<path d="M184 56 L182 44 L188 46 L189 36 L194 40 L197 28 L201 38 L206 30 L207 40 L213 36 L212 46 L218 44 L216 56 Q200 50 184 56 Z" fill="#3a2616"/><path d="M196 32 L198 40 M204 33 L203 41" stroke="#e8c27a" stroke-width="1.6"/>'
+        + '<path d="M182 56 Q200 50 218 56 L218 63 Q200 57 182 63 Z" fill="#f6f6f6"/><path d="M216 58 Q226 66 222 84" stroke="#f6f6f6" stroke-width="4" fill="none"/>'
+        + '<ellipse cx="192" cy="76" rx="9" ry="12" fill="' + NSK + '" stroke="#a87250" stroke-width=".8"/><ellipse cx="208" cy="76" rx="9" ry="12" fill="' + NSK + '" stroke="#a87250" stroke-width=".8"/>'
+        + '<path d="M186 70 V84 M190 67 V86 M194 67 V86 M206 67 V86 M210 67 V86 M214 70 V84" stroke="#a87250" stroke-width=".7"/>'
+      + '</g></svg>';
+    // 9c. lifting the cup: confetti, flashes, his face against the silver
+    const s9c = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="prSp9" cx=".5" cy=".3" r=".7"><stop offset="0" stop-color="#2a3a6a"/><stop offset="1" stop-color="#05070f"/></radialGradient>' + bdoDefs('n9c') + '</defs>'
+      + '<rect width="400" height="260" fill="url(#prSp9)"/>'
+      + '<path d="M20 30 Q200 4 380 30 L376 64 Q200 40 24 64 Z" fill="#1e4ea8"/><text x="200" y="52" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="30" letter-spacing="8" fill="#ffffff">WINNERS</text>'
+      + Array.from({length: 60}, () => '<rect x="' + f1(R() * 400) + '" y="' + f1(R() * 260) + '" width="4" height="2.4" fill="' + ['#ffd23f', '#1e4ea8', '#a50044', '#ffffff'][Math.floor(R() * 4)] + '" transform="rotate(' + f1(R() * 180) + ' 200 130)" opacity=".85"/>').join('')
+      + '<g class="pr-cup9"><g transform="translate(276 132) scale(1.25)">' + bdoMan(0, 0, 1, NEY({shirt:'barca', trim:'#ffd23f', mouth:'closed'}))
+        + '<path d="M-15.8 -1 Q0 -4 15.8 -1 L15.6 3.4 Q0 .6 -15.6 3.4 Z" fill="#f6f6f6" stroke="#d8d8d8" stroke-width=".4"/></g>'
+        + '<g class="pr-lift9">' + goldCup(222, 196, 1.9, 'n9c', true) + '<circle cx="214" cy="186" r="7" fill="' + NSK + '"/><circle cx="240" cy="182" r="7" fill="' + NSK + '"/></g></g>'
+      + '</svg>';
     const title = 'THE PRINCE'.split('').map((ch, i) => '<span style="--i:' + i + '">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>').join('');
     const COMMENTS = ['💀💀💀', 'bro got cooked', 'NEY IS DIFFERENT 🔥', 'who is the defender lmao', 'replay x100', 'he needs to retire', 'ankles: gone', 'OLÉ OLÉ OLÉ'];
     ov.innerHTML = '<canvas class="gt-cv"></canvas><div class="pr-flashbang"></div>'
@@ -11832,6 +11891,8 @@ function princeCinematic(r){
       + '<section class="gt-s pr-8">' + s8 + '<div class="pr-pens"><div><span>BRA</span>' + '<i class="ok"></i>'.repeat(4) + '<i class="last"></i></div><div><span>GER</span>' + '<i class="ok"></i>'.repeat(4) + '<i class="miss"></i></div></div>'
         + '<div class="gt-cap pr-cap"><small>Maracanã · 20 August 2016 · Olympic final</small><p>The last penalty. For gold.</p><p class="pr-p2">Of course it was him.</p></div></section>'
       + '<section class="gt-s pr-9">' + s9 + '<div class="pr-chant"><span>NEY!</span><span>NEY!</span><span>NEY!</span></div><div class="gt-cap c pr-cap"><p>They all came to see him.</p><p class="pr-p2">You’re standing in his shadow.</p></div></section>'
+      + '<section class="gt-s pr-9b">' + s9b + '<div class="gt-cap c pr-cap"><small>Berlin · 6 June 2015 · Champions League final</small><p>The last goal of the final was his.</p><p class="pr-p2">Then the tears.</p></div></section>'
+      + '<section class="gt-s pr-9c">' + s9c + '<div class="gt-cap c pr-cap"><p>Champions of Europe.</p></div></section>'
       + '<section class="gt-s pr-10"><div class="pr-beam"></div><div class="su-rv pr-rv"><div class="pr-crown"><svg viewBox="0 0 60 36"><path d="M4 32 L4 10 L16 20 L30 2 L44 20 L56 10 L56 32 Z" fill="url(#prCr)" stroke="#6a4300" stroke-width="1.4"/><defs><linearGradient id="prCr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6a4300"/><stop offset=".45" stop-color="#ffe9a0"/><stop offset=".7" stop-color="#ffd23f"/><stop offset="1" stop-color="#6a4300"/></linearGradient></defs><circle cx="30" cy="22" r="3.4" fill="#009c3b"/><circle cx="16" cy="26" r="2.4" fill="#2a6aff"/><circle cx="44" cy="26" r="2.4" fill="#2a6aff"/></svg></div><div class="pr-art"><span class="gt-foil pr-foil"></span></div>'
         + '<h2 class="pr-h2">' + title + '</h2><div class="pr-sub">CHROMA · ONE OF ONE</div><div class="prn-tag">Look at me.</div><div class="gt-val pr-val"><span class="coin"></span><span id="prVal">0</span></div><div class="gt-tap">tap to continue</div></div></section>'
       + '<button class="pc-skip gt-skip">Skip ››</button>';
@@ -11967,9 +12028,17 @@ function princeCinematic(r){
     T(65400, () => add('stretch'));
     T(67400, () => add('c9'));
     T(69000, () => add('c9b'));
+    // 9b. on his knees
+    T(71800, () => { go('n9b'); groove = 0; confetti = 0; parts = []; crowdV = .04; tone(98, 2.4, 'sine', .04); tone(146.83, 2.4, 'triangle', .02); });
+    T(72800, () => add('c9d'));
+    T(74400, () => { add('c9e'); tone(73.42, 1.6, 'sine', .05); });
+    // 9c. the cup goes up
+    T(76200, () => { go('n9c'); crowdV = .12; cheer(.2, 3); groove = .8; PAL = ['#ffd23f', '#1e4ea8', '#a50044', '#ffffff']; confetti = 3; });
+    T(76700, () => { add('lift9'); boom(); flash(); horn(.12); stab([392, 493.88, 587.33], .035); });
+    T(77600, () => add('c9f'));
     // 10. The Prince
-    T(71800, () => { go('n10'); groove = 0; parts = []; crowdV = .02; tone(55, 1, 'sine', .3); sweep(120, 900, 1.4, 'sine', .04); });
-    T(72600, () => {
+    T(80200, () => { go('n10'); groove = 0; parts = []; crowdV = .02; tone(55, 1, 'sine', .3); sweep(120, 900, 1.4, 'sine', .04); });
+    T(81000, () => {
       add('pland'); boom(); flash(); cheer(.24, 3); horn(.15); crowdV = .1; groove = 1;
       stab([329.63, 415.3, 493.88], .03); setTimeout(() => { if (!done) stab([369.99, 466.16, 554.37], .03); }, 400); setTimeout(() => { if (!done) { stab([415.3, 493.88, 659.25], .04); run(0, UP.concat([1661.22, 1975.53]), 60); } }, 800);
       PAL = ['#ffdf00', '#009c3b', '#2a6aff', '#ffffff', '#ffd23f']; confetti = 4; setTimeout(() => { confetti = 1; }, 3000);
@@ -11977,8 +12046,8 @@ function princeCinematic(r){
       const el = $('#prVal'), t0 = performance.now();
       cnt = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 1800); if (el) el.textContent = fmt(Math.round(r.v * (1 - Math.pow(1 - k, 3)))); if (k >= 1) { clearInterval(cnt); kaching(); } }, 40);
     });
-    T(74600, () => add('ready'));
-    T(84000, finish);
+    T(83000, () => add('ready'));
+    T(92400, finish);
   });
 }
 function chromaCinematic(r){
@@ -12421,11 +12490,12 @@ function bdoMan(x, y, s, o){
   return g + '</g>';
 }
 /* An original gold trophy. Base sits at 0, the ball on top reaches about -66. k keeps gradient ids apart. */
-function goldCup(x, y, s, k){
+function goldCup(x, y, s, k, silver){
   k = 'gc' + (k || '');
-  const G = '<defs><linearGradient id="' + k + 'g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5a3800"/><stop offset=".22" stop-color="#c8900e"/><stop offset=".42" stop-color="#fff2b0"/><stop offset=".55" stop-color="#ffd23f"/><stop offset=".78" stop-color="#a86e06"/><stop offset="1" stop-color="#4a2e00"/></linearGradient>'
+  const C = silver ? ['#3a4048', '#8a96a4', '#ffffff', '#d8e0ea', '#76828f', '#2a3038'] : ['#5a3800', '#c8900e', '#fff2b0', '#ffd23f', '#a86e06', '#4a2e00'];
+  const G = '<defs><linearGradient id="' + k + 'g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="' + C[0] + '"/><stop offset=".22" stop-color="' + C[1] + '"/><stop offset=".42" stop-color="' + C[2] + '"/><stop offset=".55" stop-color="' + C[3] + '"/><stop offset=".78" stop-color="' + C[4] + '"/><stop offset="1" stop-color="' + C[5] + '"/></linearGradient>'
     + '<linearGradient id="' + k + 'd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2016"/><stop offset="1" stop-color="#0c0906"/></linearGradient></defs>';
-  const GD = 'url(#' + k + 'g)', ED = '#5a3a00';
+  const GD = 'url(#' + k + 'g)', ED = silver ? '#2a3038' : '#5a3a00';
   return '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')">' + G
     // base: two dark steps with gold bands and a blank plate
     + '<path d="M-15 0 H15 L13.5 -6 H-13.5 Z" fill="url(#' + k + 'd)" stroke="' + ED + '" stroke-width=".6"/><rect x="-13.5" y="-6.8" width="27" height="1.6" fill="' + GD + '"/>'
