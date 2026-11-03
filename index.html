@@ -3482,27 +3482,28 @@ body.dz-open .toast{z-index:95}
 .hx-air{opacity:0}
 .gtc.rise .hx-stand{opacity:0}.gtc.rise .hx-air{opacity:1}
 .gtc.rnet .hx-stand{opacity:1;transition:opacity 0s 1s}.gtc.rnet .hx-air{opacity:0;transition:opacity 0s 1s}
-.gtc.rise .hx-mes{transform:translateY(-78px);transition:transform .55s cubic-bezier(.15,.9,.3,1)}
+.gtc.rise .hx-mes{transform:translateY(-28px);transition:transform .55s cubic-bezier(.15,.9,.3,1)}
 .gtc.rise .hx-def{transform:translateY(-12px);transition:transform .45s .08s cubic-bezier(.2,.9,.3,1)}
 .gtc.rnet .hx-mes{transform:none;transition:transform .7s .35s cubic-bezier(.5,0,.8,1)}
 .gtc.rnet .hx-def{transform:none;transition:transform .4s ease-in}
 .gtc.rnet .hx-gk{transform:translate(-6px,8px) rotate(-40deg);transform-origin:372px 210px;transition:transform .35s ease-out}
-.gtc.rhead .hx-camd{transform:scale(3.4);transform-origin:62% 35%;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
-.gtc.rnet .hx-camd{transform:none}
+.hx-camd{transform:scale(1.4);transform-origin:66% 62%}
+.gtc.rhead .hx-camd{transform:scale(3.4);transform-origin:61% 54%;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.gtc.rnet .hx-camd{transform:scale(1.4);transform-origin:66% 62%}
 .hx-hface{opacity:0}
 .gtc.smirk .hx-camd{transform:scale(2.6);transform-origin:58% 66%}
 .gtc.smirk .pl-2 .hx-stand .pl-eyes,.gtc.smirk .hx-stand .pl-eyes{opacity:1;animation:plGlare 1.2s ease-in-out infinite alternate}
-.gtc.ron .hx-camd{transform:none;transition:transform 1.4s cubic-bezier(.4,0,.2,1)}
+.gtc.ron .hx-camd{transform:scale(1.4);transform-origin:66% 62%;transition:transform 1.4s cubic-bezier(.4,0,.2,1)}
 .hx-tape{opacity:0}
 .gtc.hxtape .hx-tape{opacity:1;animation:hxTape .5s ease-out}
 .gtc.rnet .hx-tape{opacity:0;transition:opacity .3s}
 @keyframes hxTape{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
-.hx-ball{transform:translate(-20px,40px)}
+.hx-ball{transform:translate(60px,70px)}
 .gtc.rcross .hx-ball{animation:hxCross .85s cubic-bezier(.3,.1,.6,1) forwards}
-@keyframes hxCross{0%{transform:translate(-20px,40px)}55%{transform:translate(120px,30px)}100%{transform:translate(240px,87px)}}
-.gtc.rhead .hx-ball{transform:translate(240px,87px);animation:none}
+@keyframes hxCross{0%{transform:translate(60px,70px)}55%{transform:translate(150px,64px)}100%{transform:translate(242px,138px)}}
+.gtc.rhead .hx-ball{transform:translate(242px,138px);animation:none}
 .gtc.rnet .hx-ball{animation:hxNet .7s cubic-bezier(.3,0,.7,1) forwards}
-@keyframes hxNet{0%{transform:translate(240px,87px)}40%{transform:translate(290px,96px)}100%{transform:translate(380px,196px)}}
+@keyframes hxNet{0%{transform:translate(242px,138px)}40%{transform:translate(300px,128px)}100%{transform:translate(380px,196px)}}
 .hx-far{filter:brightness(.85)}
 .gtc.smirk .pl-2 svg{transform:none}
 .gtc.smirk .pl-2 .pl-eyes{opacity:1;animation:plGlare 1.2s ease-in-out infinite alternate}
@@ -11185,7 +11186,7 @@ function suiCinematic(r){
         // a couple of players further off
         + P(168, 198, .1, MK({}), 'stand') + P(300, 196, .1, RK({shirt:'#f4f5f8', shorts:'#f4f5f8', sock:'#f4f5f8', trim:'#c8102e'}), 'stand')
         // the defender: white kit, watching it go over him
-        + '<g class="hx-def">' + P(118, 172, .21, RK({shirt:'#f4f5f8', shorts:'#f4f5f8', sock:'#f4f5f8', trim:'#c8102e', skin:'#d8b08c', head:'long', hair:'buzz', hc:'#2a1a10', mouth:'open'})) + '</g>'
+        + '<g class="hx-def">' + P(160, 172, .21, RK({shirt:'#f4f5f8', shorts:'#f4f5f8', sock:'#f4f5f8', trim:'#c8102e', skin:'#d8b08c', head:'long', hair:'buzz', hc:'#2a1a10', mouth:'open'})) + '</g>'
         // him, from behind and to the side, going up
         + '<g class="hx-mes"><g class="hx-stand">' + P(232, 172, .21, MK({mouth:'smirk'}), 'stand', true) + '</g><g class="hx-air"><g transform="rotate(10 232 210)">' + P(232, 172, .21, MK({mouth:'open'}), 'jump', true) + '</g></g></g>'
         + '<g class="hx-ball"><circle r="4" fill="#f4f6fa" stroke="#111" stroke-width=".6"/><path d="M0 -1.9 L1.8 -.5 L1.1 1.6 H-1.1 L-1.8 -.5 Z" fill="#111"/></g>'
