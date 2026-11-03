@@ -3441,13 +3441,13 @@ body.dz-open .toast{z-index:95}
 .gtc.tunnel .pl-who{opacity:1;animation:plWho 2.6s .8s ease-in forwards;transition:opacity .6s 1s}
 @keyframes plWho{to{transform:scale(2.2)}}
 .pl-weyes{opacity:0}
-.pl-1 .pl-pic{filter:blur(9px) brightness(.6);transform:scale(1.18);transform-box:view-box;transform-origin:200px 130px;transition:filter 2.8s ease-out,transform 5s ease-out}
-.gtc.tunnel .pl-1 .pl-pic{filter:blur(5px) brightness(.95);transform:scale(1)}
+.pl-1 .pl-pic{filter:blur(4px) brightness(.7);transform:scale(1.18);transform-box:view-box;transform-origin:200px 130px;transition:filter 2.8s ease-out,transform 5s ease-out}
+.gtc.tunnel .pl-1 .pl-pic{filter:blur(2.2px) brightness(1);transform:scale(1)}
 .gtc.weyes .pl-weyes{opacity:1;animation:plBlink 2s ease-in-out infinite}
 @keyframes plBlink{0%,90%,100%{opacity:1}94%{opacity:0}}
 .pl-whisper{position:absolute;inset:auto 0 10vh 0;z-index:3;text-align:center;display:grid;gap:8px;justify-items:center}
 .pl-whisper p{margin:0;font:600 clamp(22px,3.8vw,38px)/1 var(--display);color:#9fb0c8;opacity:0;transform:translateY(10px)}
-.pl-whisper b{font:700 clamp(40px,8vw,92px)/1 var(--display);letter-spacing:.04em;color:#ffd23f;text-shadow:0 0 30px rgba(255,210,63,.5);opacity:0;transform:scale(1.5);filter:blur(8px)}
+.pl-whisper b{font:700 clamp(40px,8vw,92px)/1 var(--display);letter-spacing:.04em;color:#ffffff;text-shadow:0 0 30px rgba(255,255,255,.35);opacity:0;transform:scale(1.5);filter:blur(8px)}
 .pl-whisper em{font:600 clamp(16px,2.4vw,22px)/1 var(--display);font-style:normal;letter-spacing:.14em;color:#c9a0a0;opacity:0}
 .gtc.w1 .pl-whisper p{opacity:1;transform:none;transition:all .9s}
 .gtc.w2 .pl-whisper b{opacity:1;transform:none;filter:none;transition:all .8s cubic-bezier(.2,1.2,.4,1)}
@@ -11124,16 +11124,15 @@ function suiCinematic(r){
         // the one held up: dark kit, one fist high with a shirt hanging from it
         + '<path d="M184 128 H216 L220 196 H180 Z" fill="#16245e"/><circle cx="200" cy="114" r="11" fill="#2a1c12"/><path d="M190 118 Q200 132 210 118 Q206 128 200 130 Q194 128 190 118 Z" fill="#1c120a"/>'
         + '<path d="M186 132 L172 102 L170 66" stroke="#16245e" stroke-width="10" stroke-linecap="round" fill="none"/><circle cx="170" cy="62" r="5.5" fill="#8a6a54"/>'
-        + '<path d="M164 62 L182 60 L184 114 L176 120 L168 116 Z" fill="#23307a"/><path d="M170 64 L172 116 M178 62 L180 118" stroke="#8a1a3a" stroke-width="3.4"/>'
-        + '<path d="M214 134 L222 162 L220 188" stroke="#16245e" stroke-width="9" stroke-linecap="round" fill="none"/><path d="M216 150 L224 152" stroke="#ffb020" stroke-width="3"/>'
+        + '<path d="M162 62 L184 60 L186 116 L176 122 L166 118 Z" fill="#1f56d6"/><path d="M168 63 L169 119 M180 61 L182 119" stroke="#d4142e" stroke-width="5"/>'
+        + '<path d="M214 134 L222 162 L220 188" stroke="#16245e" stroke-width="9" stroke-linecap="round" fill="none"/>'
         // the crowd under him, arms reaching up
         + Array.from({length: 16}, (_, i) => { const x0 = 20 + i * 24 + R() * 10, y0 = 262, x1 = 200 + (x0 - 200) * (.32 + R() * .25), y1 = 168 + R() * 30;
             return '<path d="M' + f1(x0) + ' ' + y0 + ' Q' + f1((x0 + x1) / 2 + (R() - .5) * 30) + ' ' + f1((y0 + y1) / 2) + ' ' + f1(x1) + ' ' + f1(y1) + '" stroke="#5a4236" stroke-width="' + f1(6 + R() * 4) + '" stroke-linecap="round" fill="none"/><circle cx="' + f1(x1) + '" cy="' + f1(y1 - 3) + '" r="4.6" fill="#7a5a48"/>'; }).join('')
         + Array.from({length: 9}, (_, i) => '<ellipse cx="' + f1(10 + i * 48 + R() * 14) + '" cy="' + f1(236 + R() * 22) + '" rx="' + f1(20 + R() * 10) + '" ry="' + f1(16 + R() * 8) + '" fill="#0a0806"/>').join('')
         + '<path d="M330 214 L400 196 V226 L344 240 Z" fill="#7a1a2a"/><path d="M338 220 L398 205" stroke="#1a3a8a" stroke-width="5"/>'
         + '</g>'
-        // eyes: the only thing you can make out
-        + '<g class="pl-weyes"><circle cx="196" cy="113" r="1" fill="#ffd23f"/><circle cx="204" cy="113" r="1" fill="#ffd23f"/><circle cx="200" cy="113" r="7" fill="url(#plGl)"/></g></svg>';
+        + '</svg>';
       /* 2. Rome, 2009: from just outside the box, looking in at the goal. He has his back to us. He goes up absurdly high,
          the camera rushes in to measure it, the ball loops in, and when he lands he turns his head round to look at you. */
       // a full player: square torso, arms, shorts, legs. Head at 0,0 (bdoFace), feet at y≈222.
