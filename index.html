@@ -11391,10 +11391,13 @@ function suiCinematic(r){
         + '<path d="M188 140 L188 158 Q200 162 212 158 L212 140 Z" fill="' + SK + '"/><path d="M188 152 Q200 157 212 152" stroke="rgba(90,40,20,.25)" stroke-width="2" fill="none"/>'
         + '<ellipse cx="176" cy="130" rx="4.5" ry="7" fill="' + SK + '"/><ellipse cx="224" cy="130" rx="4.5" ry="7" fill="' + SK + '"/>'
         + '<ellipse cx="200" cy="127" rx="23" ry="26" fill="' + SK + '"/>'
-        + '<path d="M177 132 Q174 100 200 99 Q226 100 223 132 Q221 140 214 142 Q200 139 186 142 Q179 140 177 132 Z" fill="#2a1a10"/>'
+        + '<path d="M176 133 Q172 116 176 106 Q178 98 185 96 Q188 90 195 92 Q200 87 206 91 Q213 89 216 95 Q224 98 225 108 Q228 120 224 133 Q221 140 214 142 Q200 139 186 142 Q179 140 176 133 Z" fill="#2a1a10"/>'
+        + [[184, 101, 7], [194, 96, 7.5], [205, 96, 7.5], [215, 101, 7], [179, 112, 6], [221, 112, 6], [190, 108, 6.5], [210, 108, 6.5], [200, 104, 6]].map(([x, y, r]) => '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="#33200f"/><path d="M' + (x - r * .6) + ' ' + (y - r * .2) + ' Q' + x + ' ' + (y - r * .9) + ' ' + (x + r * .6) + ' ' + (y - r * .3) + '" stroke="#5e3c20" stroke-width="1.2" fill="none" stroke-linecap="round"/>').join('')
+        + '<path d="M182 120 Q186 112 184 104 M190 124 Q194 114 191 104 M200 124 Q202 114 199 102 M210 124 Q207 114 210 104 M218 120 Q215 112 217 104 M186 130 Q190 124 188 118 M213 130 Q210 124 212 118" stroke="#4a2e16" stroke-width="1.1" fill="none" stroke-linecap="round"/>'
+        + '<path d="M188 92 L187 87 M197 89 L198 84 M206 89 L208 85 M214 93 L217 89" stroke="#2a1a10" stroke-width="2" stroke-linecap="round"/>'
         + '<path d="M181 140 Q200 136 219 140 Q214 147 200 146 Q186 147 181 140 Z" fill="#2a1a10" opacity=".45"/>'
         + '<path d="M177 136 Q178 148 184 152 M223 136 Q222 148 216 152" stroke="#2a1a10" stroke-width="3" fill="none" opacity=".7" stroke-linecap="round"/>'
-        + '<path d="M186 108 Q200 102 214 108 M182 120 Q200 114 218 120" stroke="#3d2818" stroke-width="2.4" fill="none"/>'
+
         + '<text x="200" y="182" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="14" letter-spacing="1.5" fill="#101820">MESSI</text>'
         + '<text x="200" y="240" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="66" fill="#101820" stroke="#f4f7fb" stroke-width="1">10</text>'
         + '</g>'
@@ -11414,20 +11417,20 @@ function suiCinematic(r){
         + '<path d="M150 62 Q200 52 250 62 Q276 110 274 168 Q240 186 200 186 Q160 186 126 168 Q124 110 150 62 Z" fill="#f4f6f9"/>'
         + '<path d="M168 80 Q172 120 160 150 M236 86 Q228 120 242 156 M200 70 V170" stroke="#d3d8df" stroke-width="2.4" fill="none"/>'
         + '<ellipse cx="226" cy="84" rx="16" ry="7" fill="#9a8a68" opacity=".35"/><ellipse cx="176" cy="150" rx="10" ry="5" fill="#9a8a68" opacity=".3"/>'
-        + '<text x="200" y="80" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" letter-spacing="1.5" fill="#1a1a22" transform="rotate(180 200 76)">RONALDO</text>'
+        + '<text x="200" y="66" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" letter-spacing="1.5" fill="#1a1a22" transform="rotate(180 200 62)">RONALDO</text>'
         + '<path d="M176 174 L200 160 L224 174 L216 178 L200 168 L184 178 Z" fill="#111"/>'
         // arms down to the head, hands clasped behind it
         + '<path d="M144 172 L148 206 M256 172 L252 206" stroke="#d9a37c" stroke-width="22" stroke-linecap="round"/><path d="M148 206 L184 230 M252 206 L216 230" stroke="#d9a37c" stroke-width="19" stroke-linecap="round"/>'
         + '<path d="M128 158 Q140 152 160 162 L156 192 L134 190 Z M272 158 Q260 152 240 162 L244 192 L266 190 Z" fill="#f4f6f9"/>'
         + '<path d="M188 176 L187 200 Q200 205 213 200 L212 176 Z" fill="#c8916a"/>'
-        + '<ellipse cx="200" cy="222" rx="25" ry="27" fill="#d9a37c"/><path d="M176 222 Q174 196 200 195 Q226 196 224 222 Q224 240 212 247 Q200 251 188 247 Q176 240 176 222 Z" fill="#1a110b"/>'
-        + '<path d="M184 210 Q200 204 216 210 M182 226 Q200 220 218 226" stroke="#2e2016" stroke-width="2" fill="none"/>'
+        + '<ellipse cx="200" cy="222" rx="25" ry="27" fill="#d9a37c"/><path d="M176 226 Q174 196 200 195 Q226 196 224 226 Q212 222 200 222 Q188 222 176 226 Z" fill="#1a110b"/>'
+        + '<path d="M184 206 Q200 200 216 206 M180 216 Q200 210 220 216" stroke="#2e2016" stroke-width="2" fill="none"/>'
         + '<ellipse cx="174" cy="224" rx="4" ry="7" fill="#d9a37c"/><ellipse cx="226" cy="224" rx="4" ry="7" fill="#d9a37c"/>'
-        + '<rect x="184" y="224" width="32" height="15" rx="7" fill="#d9a37c"/><path d="M190 225 V237 M195 224.5 V238 M200 224.5 V238 M205 224.5 V238 M210 225 V237" stroke="#b47e5a" stroke-width="1" fill="none"/>'
+        + '<rect x="180" y="221" width="40" height="20" rx="9" fill="#d9a37c"/><path d="M187 223 V239 M193.5 222 V240 M200 222 V240 M206.5 222 V240 M213 223 V239" stroke="#b47e5a" stroke-width="1.1" fill="none"/>'
         + '</g>'
-        + '<text class="cm-seven" x="170" y="122" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="74" fill="#14141c" transform="rotate(180 168 98)">7</text>'
+        + '<text class="cm-seven" x="200" y="126" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="74" fill="#14141c" transform="rotate(180 200 102)">7</text>'
         + '<defs><filter id="cmSh2" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity=".8"/></filter></defs>'
-        + letters('OSER', 192, 124, 50, 'cm-l cm-oser', 34).replace(/url\(#cmSh\)/g, 'url(#cmSh2)')
+        + letters('OSER', 222, 128, 50, 'cm-l cm-oser', 34).replace(/url\(#cmSh\)/g, 'url(#cmSh2)')
         + '</svg>';
       return '<section class="gt-s pl-1">' + p1 + '<div class="pl-whisper"><p>But there was always</p><b>someone else.</b><em>You thought he was the nice one.</em></div></section>'
         + '<section class="gt-s pl-2">' + p2 + '<div class="gt-cap pl-cap"><small>Rome · 27 May 2009 · Champions League final</small><p>Five foot seven. A header.</p></div></section>'
