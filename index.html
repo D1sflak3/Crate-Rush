@@ -3482,27 +3482,27 @@ body.dz-open .toast{z-index:95}
 .hx-air{opacity:0}
 .gtc.rise .hx-stand{opacity:0}.gtc.rise .hx-air{opacity:1}
 .gtc.rnet .hx-stand{opacity:1;transition:opacity 0s 1s}.gtc.rnet .hx-air{opacity:0;transition:opacity 0s 1s}
-.gtc.rise .hx-mes{transform:translateY(-81px);transition:transform .55s cubic-bezier(.15,.9,.3,1)}
+.gtc.rise .hx-mes{transform:translateY(-78px);transition:transform .55s cubic-bezier(.15,.9,.3,1)}
 .gtc.rise .hx-def{transform:translateY(-12px);transition:transform .45s .08s cubic-bezier(.2,.9,.3,1)}
 .gtc.rnet .hx-mes{transform:none;transition:transform .7s .35s cubic-bezier(.5,0,.8,1)}
 .gtc.rnet .hx-def{transform:none;transition:transform .4s ease-in}
-.gtc.rnet .hx-gk{transform:translate(-8px,6px) rotate(-30deg);transform-origin:214px 120px;transition:transform .35s ease-out}
-.gtc.rhead .hx-camd{transform:scale(1.7);transform-origin:50% 49%}
+.gtc.rnet .hx-gk{transform:translate(-6px,8px) rotate(-40deg);transform-origin:372px 210px;transition:transform .35s ease-out}
+.gtc.rhead .hx-camd{transform:scale(3.4);transform-origin:62% 35%;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 .gtc.rnet .hx-camd{transform:none}
 .hx-hface{opacity:0}
-.gtc.smirk .hx-camd{transform:scale(3.4);transform-origin:50% 61%}
+.gtc.smirk .hx-camd{transform:scale(2.6);transform-origin:58% 66%}
 .gtc.smirk .pl-2 .hx-stand .pl-eyes,.gtc.smirk .hx-stand .pl-eyes{opacity:1;animation:plGlare 1.2s ease-in-out infinite alternate}
-.gtc.ron .hx-camd{transform:scale(3.2);transform-origin:88% 45%;transition:transform 1.4s cubic-bezier(.4,0,.2,1),transform-origin 1.4s}
+.gtc.ron .hx-camd{transform:none;transition:transform 1.4s cubic-bezier(.4,0,.2,1)}
 .hx-tape{opacity:0}
 .gtc.hxtape .hx-tape{opacity:1;animation:hxTape .5s ease-out}
 .gtc.rnet .hx-tape{opacity:0;transition:opacity .3s}
 @keyframes hxTape{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
-.hx-ball{transform:translate(420px,60px)}
+.hx-ball{transform:translate(-20px,40px)}
 .gtc.rcross .hx-ball{animation:hxCross .85s cubic-bezier(.3,.1,.6,1) forwards}
-@keyframes hxCross{0%{transform:translate(420px,60px)}55%{transform:translate(300px,40px)}100%{transform:translate(200px,73px)}}
-.gtc.rhead .hx-ball{transform:translate(200px,73px);animation:none}
-.gtc.rnet .hx-ball{animation:hxNet .5s cubic-bezier(.3,0,.7,1) forwards}
-@keyframes hxNet{0%{transform:translate(200px,73px) scale(1)}50%{transform:translate(214px,62px) scale(.85)}100%{transform:translate(228px,96px) scale(.7)}}
+@keyframes hxCross{0%{transform:translate(-20px,40px)}55%{transform:translate(120px,30px)}100%{transform:translate(240px,87px)}}
+.gtc.rhead .hx-ball{transform:translate(240px,87px);animation:none}
+.gtc.rnet .hx-ball{animation:hxNet .7s cubic-bezier(.3,0,.7,1) forwards}
+@keyframes hxNet{0%{transform:translate(240px,87px)}40%{transform:translate(290px,96px)}100%{transform:translate(380px,196px)}}
 .hx-far{filter:brightness(.85)}
 .gtc.smirk .pl-2 svg{transform:none}
 .gtc.smirk .pl-2 .pl-eyes{opacity:1;animation:plGlare 1.2s ease-in-out infinite alternate}
@@ -11163,7 +11163,7 @@ function suiCinematic(r){
         else { g += '<path d="M-10 48 L0 58 L10 48" stroke="' + (o.trim || '#ffffff') + '" stroke-width="3" fill="none"/>'; if (o.num) g += '<text x="10" y="80" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="18" fill="' + (o.numc || '#fff') + '">' + o.num + '</text>'; }
         g += '<rect x="-7" y="36" width="14" height="14" fill="' + sk + '"/>';
         // head: the face, or the back of it
-        if (back) g += '<g class="hx-hback"><ellipse cx="-18" cy="14" rx="4" ry="6" fill="' + sk + '"/><ellipse cx="18" cy="14" rx="4" ry="6" fill="' + sk + '"/><ellipse cx="0" cy="8" rx="18" ry="24" fill="' + sk + '"/><path d="M-18.5 20 Q-21 -18 0 -19 Q21 -18 18.5 20 Q14 30 0 31 Q-14 30 -18.5 20 Z" fill="' + (o.hc || '#3a2414') + '"/><path d="M-12 -10 Q0 -16 12 -10 M-14 2 Q0 -4 14 2 M-12 14 Q0 9 12 14" stroke="#5a3a20" stroke-width="1.6" fill="none"/><path d="M-19 16 Q-20 26 -14 32 M19 16 Q20 26 14 32" stroke="#4e3018" stroke-width="3" fill="none" stroke-linecap="round"/></g>'
+        if (back) g += '<g class="hx-hback"><ellipse cx="-18" cy="14" rx="4" ry="6" fill="' + sk + '"/><ellipse cx="18" cy="14" rx="4" ry="6" fill="' + sk + '"/><ellipse cx="0" cy="8" rx="18" ry="24" fill="' + sk + '"/><path d="M-18.5 20 Q-21 -18 0 -19 Q21 -18 18.5 20 Q14 30 0 31 Q-14 30 -18.5 20 Z" fill="' + (o.hc || '#3a2414') + '"/><path d="M-12 -10 Q0 -16 12 -10 M-14 2 Q0 -4 14 2 M-12 14 Q0 9 12 14" stroke="#5a3a20" stroke-width="1.6" fill="none"/></g>'
 ;
         else g += bdoFace(o);
         return g;
@@ -11171,28 +11171,24 @@ function suiCinematic(r){
       const P = (x, y, sc, o, mode, back, cls) => '<g' + (cls ? ' class="' + cls + '"' : '') + ' transform="translate(' + x + ' ' + y + ') scale(' + sc + ')">' + fig(o, mode, back) + '</g>';
       const RK = o => bdoP('cr7', Object.assign({shirt:'#da291c', trim:'#ffffff', shorts:'#ffffff', sock:'#111111', mouth:'open', brow:'flat'}, o || {}));
       const MK = o => Object.assign(EV(o || {}), {shirt:'#004d98', stripes:'#a50044', shorts:'#004d98', sock:'#004d98'});
-      // the stands, pitch and box lines never move on their own: bake them into one image under the live layer
-      const hxBg = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="hxPitch" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c3519"/><stop offset="1" stop-color="#18602c"/></linearGradient><radialGradient id="plFl"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>'
-        + '<rect width="400" height="260" fill="#04050a"/>' + lamps + crowd(380, 26, 92, ['#a50044', '#004d98', '#da291c', '#f4f6fa', '#ffd23f']).replace(/class="gt-bulb" /g, '')
-        + '<rect y="92" width="400" height="168" fill="url(#hxPitch)"/>' + Array.from({length: 6}, (_, i) => '<rect y="' + (92 + i * 28) + '" width="400" height="14" fill="#000" opacity=".07"/>').join('')
-        + '<path d="M0 124 H400" stroke="#fff" stroke-opacity=".45"/><path d="M58 124 L-20 250 M342 124 L420 250 M-20 250 H420" stroke="#fff" stroke-opacity=".45" fill="none"/>'
-        + '<path d="M128 124 L110 156 H290 L272 124" stroke="#fff" stroke-opacity=".4" fill="none"/><circle cx="200" cy="190" r="1.6" fill="#fff" opacity=".6"/></svg>';
+      // side-on from the edge of the box: the stands fill the back, the goal is off to the right. Baked, it never moves.
+      const hxBg = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="hxPitch" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a5a2c"/><stop offset="1" stop-color="#2a7a3c"/></linearGradient><radialGradient id="plFl"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>'
+        + '<rect width="400" height="260" fill="#0a0810"/>' + crowd(900, 0, 180, ['#5a2030', '#7a3040', '#3a2a40', '#c9c0c8', '#8a2a3a', '#2a2438']).replace(/class="gt-bulb" /g, '')
+        + Array.from({length: 9}, (_, i) => '<circle cx="' + (40 + i * 42) + '" cy="' + (16 + (i % 3) * 3) + '" r="2.2" fill="#fff" opacity=".9"/><circle cx="' + (40 + i * 42) + '" cy="' + (16 + (i % 3) * 3) + '" r="10" fill="url(#plFl)" opacity=".35"/>').join('')
+        + '<rect y="96" width="400" height="12" fill="#5a1a26" opacity=".7"/><rect y="166" width="400" height="16" fill="#3a1820" opacity=".8"/>'
+        + '<rect y="180" width="400" height="80" fill="url(#hxPitch)"/>' + Array.from({length: 6}, (_, i) => '<path d="M' + (i * 80 - 40) + ' 180 L' + (i * 80 - 10) + ' 260 H' + (i * 80 + 30) + ' L' + (i * 80) + ' 180 Z" fill="#000" opacity=".06"/>').join('')
+        + '<path d="M0 248 Q200 240 400 246" stroke="#fff" stroke-opacity=".5" stroke-width="1.4" fill="none"/></svg>';
       let p2 = '<div class="hx-camd">' + svgImg(hxBg, 'ky-bg') + '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + defs('pl2') + '<g class="hx-cam">'
-        // the goal
-        + '<g class="pl-goal"><rect x="146" y="82" width="108" height="42" fill="#000" opacity=".35"/>' + Array.from({length: 10}, (_, i) => '<path d="M' + (146 + i * 12) + ' 82 V124" stroke="#fff" stroke-opacity=".2"/>').join('') + Array.from({length: 4}, (_, i) => '<path d="M146 ' + (82 + i * 11) + ' H254" stroke="#fff" stroke-opacity=".2"/>').join('') + '<path d="M146 124 V82 H254 V124" stroke="#fff" stroke-width="2.6" fill="none"/></g>'
-        // the keeper
-        + '<g class="hx-gk">' + P(214, 96, .11, RK({shirt:'#2a2a2a', trim:'#ffd23f', shorts:'#2a2a2a', sock:'#2a2a2a', skin:'#e6c3a3', hair:'buzz', hc:'#6a4a2a', mouth:'open'}), 'dive') + '</g>'
-        // far off on the edge of the box: their star and his teammates, just standing there
-        + '<g class="hx-far">' + P(318, 110, .1, RK({})) + P(334, 111, .1, RK({skin:'#a8754f', head:'long', hair:'buzz', hc:'#120c08'})) + P(366, 110, .1, RK({skin:'#e6c3a3', hair:'buzz', hc:'#6a4a2a'})) + P(380, 111, .1, RK({skin:'#c99272', hair:'curly', hc:'#1e130c'})) + P(350, 109, .105, RK({num:'7', numc:'#fff', mouth:'sad'})) + '</g>'
-        // the defender who went up with him
-        + '<g class="hx-def">' + P(244, 150, .18, RK({skin:'#d8b08c', head:'long', hair:'buzz', hc:'#2a1a10'})) + '</g>'
-        // him, back to us
-        + '<g class="hx-mes"><g class="hx-stand">' + P(200, 154, .2, MK({mouth:'smirk'}), 'stand', true) + '</g><g class="hx-air">' + P(200, 154, .2, MK({mouth:'open'}), 'jump', true) + '</g></g>'
-        // the tape: 9 ft for a 5 ft 7 man, ground to boots
-        + '<g class="hx-tape"><path d="M176 198 V117" stroke="#ffd23f" stroke-width="1.4"/>' + Array.from({length: 10}, (_, i) => '<path d="M' + (i % 3 ? 173 : 171) + ' ' + f1(198 - i * 9) + ' H176" stroke="#ffd23f" stroke-width=".8"/>').join('')
-          + '<path d="M176 117 H200" stroke="#ffd23f" stroke-width=".8" stroke-dasharray="2 2"/><path d="M176 198 H200" stroke="#ffd23f" stroke-width=".8" stroke-dasharray="2 2"/>'
-          + '<rect x="144" y="150" width="28" height="15" rx="2" fill="#000" stroke="#ffd23f" stroke-width=".8"/><text x="158" y="161.5" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="12" fill="#ffd23f">9 FT</text></g>'
-        + '<g class="hx-ball"><circle r="3" fill="#f4f6fa" stroke="#111" stroke-width=".5"/><path d="M0 -1.4 L1.35 -.4 L.85 1.2 H-.85 L-1.35 -.4 Z" fill="#111"/></g>'
+        // the goal, side-on at the right edge
+        + '<g class="pl-goal"><path d="M352 168 L398 160 V214 L352 222 Z" fill="#000" opacity=".25"/>' + Array.from({length: 6}, (_, i) => '<path d="M' + (352 + i * 9) + ' ' + (168 - i * 1.6) + ' V' + (222 - i * 1.6) + '" stroke="#fff" stroke-opacity=".25"/>').join('') + '<path d="M352 222 V168 L398 160" stroke="#fff" stroke-width="2.4" fill="none"/></g>'
+        + '<g class="hx-gk">' + P(372, 182, .14, RK({shirt:'#2a2a2a', trim:'#ffd23f', shorts:'#2a2a2a', sock:'#2a2a2a', skin:'#e6c3a3', hair:'buzz', hc:'#6a4a2a', mouth:'open'}), 'dive') + '</g>'
+        // a couple of players further off
+        + P(168, 198, .1, MK({}), 'stand') + P(300, 196, .1, RK({shirt:'#f4f5f8', shorts:'#f4f5f8', sock:'#f4f5f8', trim:'#c8102e'}), 'stand')
+        // the defender: white kit, watching it go over him
+        + '<g class="hx-def">' + P(118, 172, .21, RK({shirt:'#f4f5f8', shorts:'#f4f5f8', sock:'#f4f5f8', trim:'#c8102e', skin:'#d8b08c', head:'long', hair:'buzz', hc:'#2a1a10', mouth:'open'})) + '</g>'
+        // him, from behind and to the side, going up
+        + '<g class="hx-mes"><g class="hx-stand">' + P(232, 172, .21, MK({mouth:'smirk'}), 'stand', true) + '</g><g class="hx-air"><g transform="rotate(10 232 210)">' + P(232, 172, .21, MK({mouth:'open'}), 'jump', true) + '</g></g></g>'
+        + '<g class="hx-ball"><circle r="4" fill="#f4f6fa" stroke="#111" stroke-width=".6"/><path d="M0 -1.9 L1.8 -.5 L1.1 1.6 H-1.1 L-1.8 -.5 Z" fill="#111"/></g>'
         + '</g></svg></div><svg class="hx-hud" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">'
         + '<rect x="146" y="6" width="108" height="20" rx="3" fill="#000" stroke="#334"/><text class="pl-sb1" x="200" y="20.5" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" letter-spacing="1.5" fill="#ffd23f">BAR 1 – 0 MUN · 69’</text><text class="pl-sb2" x="200" y="20.5" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" letter-spacing="1.5" fill="#ffd23f">BAR 2 – 0 MUN · 70’</text>'
         + '<text class="pl-gl" x="200" y="64" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="40" letter-spacing="5" fill="#ffd23f">GOAL</text></svg>';
@@ -11425,7 +11421,7 @@ function suiCinematic(r){
         + letters('OSER', 192, 124, 50, 'cm-l cm-oser', 34).replace(/url\(#cmSh\)/g, 'url(#cmSh2)')
         + '</svg>';
       return '<section class="gt-s pl-1">' + p1 + '<div class="pl-whisper"><p>But there was always</p><b>someone else.</b><em>You thought he was the nice one.</em></div></section>'
-        + '<section class="gt-s pl-2">' + p2 + '<div class="gt-cap pl-cap"><small>Rome · 27 May 2009 · Champions League final</small><p>Five foot seven. A header.</p><p class="pl-p2">The rest of them just stood and watched.</p></div></section>'
+        + '<section class="gt-s pl-2">' + p2 + '<div class="gt-cap pl-cap"><small>Rome · 27 May 2009 · Champions League final</small><p>Five foot seven. A header.</p></div></section>'
         + '<section class="gt-s pl-3">' + p3 + '<div class="gt-cap pl-cap"><small>Getafe · 18 April 2007</small><p>From his own half. Past all of them.</p><p class="pl-p2">Then the keeper.</p></div></section>'
         + '<section class="gt-s pl-4">' + p4 + '<div class="gt-cap pl-cap"><small>Bernabéu · 23 April 2017 · 92nd minute</small><p>His 500th goal for Barcelona.</p><p class="pl-p2">He made sure they read the name.</p></div></section>'
         + '<section class="gt-s pl-5"><div class="pl-tally"><div class="pl-hd"><span>CR7</span><i></i><span class="me">LEO</span></div>'
@@ -11602,7 +11598,6 @@ function suiCinematic(r){
       T(28000, () => { go('p2'); cheer(.05, 4); });
       T(28300, () => { add('rcross'); sweep(700, 300, .8, 'sine', .03); });
       T(28600, () => { add('rise'); sweep(120, 600, .8, 'sawtooth', .04); });
-      T(29450, () => { add('hxtape'); tone(880, .12, 'square', .03); tone(1320, .2, 'sine', .03, .12); });
       T(29200, () => { add('rhead'); add('freeze'); flash(); tone(220, .12, 'sine', .12); noise(.1, 2200, 900, .14, 'bandpass'); tone(36, .8, 'sine', .25); });
       T(29700, () => ov.classList.remove('freeze'));
       T(30000, () => { add('rnet'); boom(); cheer(.16, 3); plSparks(70, W * .14, H * .4); });
