@@ -11155,15 +11155,22 @@ function suiCinematic(r){
         + '<path d="M-18 9.6 Q-16.5 10.6 -15.5 9.6" stroke="#b07a56" stroke-width=".9" fill="none"/>'
         // the shadow over his upper face: the light is behind him
         + '<g clip-path="url(#plHd)"><rect x="-30" y="-30" width="60" height="44" fill="url(#plShd)"/></g>'
-        // hair: soft volume on top, a proper fringe of tapered locks swept forward over the forehead, sideburn to the ear
-        + '<path d="M-14 -7 Q-19 -15 -15 -22 Q-9 -30 2 -30 Q13 -31 19 -23 Q24 -14 22 -2 Q21 8 13 14 Q17 4 15 -3 Q13 -9 7 -10 L5 -3 Q3 3 4 8 L1 8 Q0 1 1 -6 Q-5 -9 -10 -7 Z" fill="#2e1c0d"/>'
-        + '<path d="M-4 -21 Q-13 -19 -19 -7 Q-15 -11 -10 -13 Z" fill="#3e2611"/>'
-        + '<path d="M0 -22 Q-9 -16 -14 -2 Q-9 -9 -3 -13 Z" fill="#4a2e15"/>'
-        + '<path d="M5 -22 Q-3 -14 -7 -3 Q-1 -10 5 -13 Z" fill="#3e2611"/>'
-        + '<path d="M10 -21 Q4 -15 1 -7 Q6 -12 11 -14 Z" fill="#4a2e15"/>'
-        + '<path d="M-6 -19 Q-12 -14 -15 -7 M-1 -19 Q-7 -12 -10 -4 M4 -19 Q-1 -12 -3 -5 M12 -24 Q17 -16 18 -6 M15 -26 Q21 -18 21 -8" stroke="#6e4826" stroke-width="1" fill="none" stroke-linecap="round"/>'
-        + '<path d="M-10 -25 Q2 -31 14 -25" stroke="#7a5230" stroke-width="1.8" fill="none" opacity=".75" stroke-linecap="round"/>'
-        + '<path d="M2 -30 Q13 -31 19 -23 Q24 -14 22 -2 Q21 8 13 14" stroke="#ffe0b0" stroke-width="1.3" fill="none" opacity=".6"/>'
+        // hair: big textured volume, clumps stacked on top, a fringe of tapered locks falling forward
+        + '<path d="M-14 -7 Q-21 -16 -16 -25 Q-10 -35 2 -36 Q15 -37 21 -27 Q26 -16 23 -2 Q21 8 13 14 Q17 4 15 -3 Q13 -9 7 -10 L5 -3 Q3 3 4 8 L1 8 Q0 1 1 -6 Q-5 -9 -10 -7 Z" fill="#26170a"/>'
+        // clumps: each a darker base with a lit top edge
+        + [[-12, -26, 9, -20], [-3, -32, 10, -14], [8, -32, 10, 10], [16, -24, 8, 35], [19, -12, 6, 70], [-16, -18, 7, -40]].map(([x, y, r, rot]) =>
+            '<g transform="translate(' + x + ' ' + y + ') rotate(' + rot + ')"><path d="M' + (-r) + ' 3 Q' + (-r * .8) + ' ' + (-r * .9) + ' 0 ' + (-r) + ' Q' + (r * .9) + ' ' + (-r * .8) + ' ' + r + ' 2 Q0 ' + (r * .45) + ' ' + (-r) + ' 3 Z" fill="#3a2410"/>'
+            + '<path d="M' + (-r * .7) + ' ' + (-r * .45) + ' Q0 ' + (-r * 1.05) + ' ' + (r * .7) + ' ' + (-r * .5) + '" stroke="#7d5530" stroke-width="1.3" fill="none" stroke-linecap="round"/></g>').join('')
+        // fringe locks falling forward over the forehead
+        + '<path d="M-3 -24 Q-14 -21 -20 -7 Q-15 -12 -9 -14 Z" fill="#3e2611"/>'
+        + '<path d="M1 -25 Q-9 -18 -15 -2 Q-9 -10 -2 -14 Z" fill="#4c2f15"/>'
+        + '<path d="M6 -25 Q-3 -16 -8 -3 Q-1 -11 6 -14 Z" fill="#3e2611"/>'
+        + '<path d="M11 -24 Q4 -17 1 -7 Q6 -13 12 -15 Z" fill="#4c2f15"/>'
+        // strand texture
+        + '<path d="M-6 -21 Q-13 -15 -17 -7 M-1 -21 Q-8 -13 -11 -4 M4 -21 Q-2 -13 -4 -5 M9 -20 Q5 -14 3 -8 M-11 -29 Q-4 -34 4 -33 M6 -34 Q14 -33 18 -27 M14 -28 Q20 -20 21 -10 M17 -18 Q21 -10 20 -2 M-15 -22 Q-12 -27 -7 -29" stroke="#6e4826" stroke-width=".9" fill="none" stroke-linecap="round"/>'
+        + '<path d="M-8 -31 L-9 -35 M0 -35 L1 -39 M8 -35 L10 -38 M15 -31 L18 -34" stroke="#26170a" stroke-width="1.8" stroke-linecap="round"/>'
+        + '<path d="M-9 -30 Q3 -37 15 -31" stroke="#9a6c3c" stroke-width="1.6" fill="none" opacity=".7" stroke-linecap="round"/>'
+        + '<path d="M2 -36 Q15 -37 21 -27 Q26 -16 23 -2 Q21 8 13 14" stroke="#ffe0b0" stroke-width="1.3" fill="none" opacity=".6"/>'
 
         + '</g>'
         // both arms up, the shirt between them
