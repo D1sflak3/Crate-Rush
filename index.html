@@ -3535,15 +3535,15 @@ body.dz-open .toast{z-index:95}
 .gtc.glare .pl-4 .pl-eyes{opacity:1;animation:plGlare 1.2s ease-in-out infinite alternate}
 /* 5. the count */
 .pl-5{display:grid;place-items:center;background:radial-gradient(ellipse at 50% 50%,#1a0a18,#000 70%)}
-.pl-tally{display:grid;gap:2.4vh;width:min(720px,92vw)}
+.pl-tally{display:grid;gap:.6vh;width:min(720px,94vw)}
 .pl-hd,.pl-row{display:grid;grid-template-columns:1fr 1.4fr 1fr;align-items:center;text-align:center}
-.pl-hd span{font:700 clamp(28px,4.6vw,48px)/1 var(--display);letter-spacing:.1em;color:#8a6a6a}
+.pl-hd span{font:700 clamp(24px,5vh,46px)/1 var(--display);letter-spacing:.1em;color:#8a6a6a}
 .pl-hd span.me{color:#ffd23f}
-.pl-row{opacity:0;transform:translateY(16px);padding:10px 0;border-top:1px solid rgba(255,255,255,.1)}
-.pl-row span{font:700 13px var(--body);letter-spacing:.24em;text-transform:uppercase;color:#c9b8c8}
-.pl-row b{font:700 clamp(46px,8vw,92px)/1 var(--display)}
+.pl-row{opacity:0;transform:translateY(16px);padding:.5vh 0;border-top:1px solid rgba(255,255,255,.1)}
+.pl-row span{font:700 clamp(9px,1.4vw,13px)/1.2 var(--body);letter-spacing:.18em;text-transform:uppercase;color:#c9b8c8}
+.pl-row b{font:700 clamp(24px,5.4vh,52px)/1 var(--display)}
 .pl-a{color:#8a6a6a}.pl-b{color:#ffd23f;text-shadow:0 0 24px rgba(255,210,63,.5)}
-.gtc.tr0 .pl-row:nth-child(2),.gtc.tr1 .pl-row:nth-child(3),.gtc.tr2 .pl-row:nth-child(4){opacity:1;transform:none;transition:all .35s cubic-bezier(.2,1.4,.4,1)}
+.gtc.tr0 .pl-row:nth-child(2),.gtc.tr1 .pl-row:nth-child(3),.gtc.tr2 .pl-row:nth-child(4),.gtc.tr3 .pl-row:nth-child(5),.gtc.tr4 .pl-row:nth-child(6),.gtc.tr5 .pl-row:nth-child(7),.gtc.tr6 .pl-row:nth-child(8),.gtc.tr7 .pl-row:nth-child(9),.gtc.tr8 .pl-row:nth-child(10),.gtc.tr9 .pl-row:nth-child(11){opacity:1;transform:none;transition:all .35s cubic-bezier(.2,1.4,.4,1)}
 .pl-keep{text-align:center;font:600 clamp(18px,2.8vw,26px)/1 var(--display);letter-spacing:.14em;color:#ffd23f;opacity:0;margin-top:1vh}
 .gtc.lead .pl-a{opacity:.25;filter:blur(1px);transition:all .6s}
 .gtc.lead .pl-b{animation:plPulse 1s ease-in-out infinite alternate}
@@ -11348,7 +11348,9 @@ function suiCinematic(r){
               + L('M272 222 L262 198', W, 12) + L('M262 198 L240 222', SK, 10) + '<ellipse cx="238" cy="224" rx="8" ry="6" fill="' + SK + '"/><path d="M232 222 H244 M233 226 H243" stroke="#b47e5a" stroke-width=".8"/>'
               + '</g>'; })()
         + '</g></svg>';
-      const tally = [['5', 'Ballon d’Ors', '8'], ['18', 'El Clásico goals', '26'], ['0', 'World Cups', '1']];
+      // career numbers, CR7 first then Leo (sources: messivsronaldo.app, Nov 2026; beIN / MLS for trophies, Sep 2026)
+      const tally = [['5', 'Ballon d’Ors', '8'], ['37', 'Trophies', '48'], ['261', 'Assists', '428'], ['801', 'Non-penalty goals', '822'], ['65', 'Free-kick goals', '76'],
+        ['4', 'Golden Shoes', '6'], ['231', 'Man of the Match awards', '466'], ['3', 'Pichichi trophies', '8'], ['1963', 'Successful dribbles', '4108'], ['72', 'Long-range goals (not free kicks)', '109']];
       const ptitle = 'LA PULGA'.split('').map((ch, i) => '<span style="--i:' + i + '">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>').join('');
       /* 8. the last word: two panels slide in, one from each side. Original cartoon, the game's own style. */
       const CMF = 'font-family="Cinzel, Georgia, serif" font-weight="700"';
@@ -11575,9 +11577,9 @@ function suiCinematic(r){
       const count = (el, to, ms) => { const t0 = performance.now(), iv = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / ms); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k >= 1) clearInterval(iv); }, 30); timers.push(iv); };
       /* his theme: original, B minor, a harpsichord-ish ostinato over low strings, bells on top. Grand and cold. */
       const PB = [[61.74, 123.47, 146.83, 185], [49, 98, 123.47, 146.83], [41.2, 82.41, 98, 123.47], [46.25, 92.5, 116.54, 138.59]];
-      for (let bar = 0; bar < 20; bar++) {
+      for (let bar = 0; bar < 22; bar++) {
         const t0 = 28000 + bar * 2000, c = PB[bar % 4];
-        if (t0 > 64000) break;
+        if (t0 > 67200) break;
         T(t0, () => { tone(c[0], 2.2, 'sawtooth', .02 * MV); tone(c[0] * 2, 2.2, 'triangle', .03 * MV); c.slice(1).forEach(f => tone(f, 2, 'sine', .012 * MV)); });
         for (let e = 0; e < 8; e++) T(t0 + e * 250, () => tone(c[1 + (e % 3)] * (e > 3 ? 4 : 2), .14, 'square', .009 * MV));
         if (bar % 2 === 0) T(t0, () => bell([739.99, 587.33, 493.88, 554.37][(bar / 2) % 4], .03 * MV));
@@ -11614,27 +11616,27 @@ function suiCinematic(r){
       T(45000, () => { add('glare'); tone(61.74, 1.2, 'sawtooth', .04); });
       // the count
       T(47200, () => go('p5'));
-      [0, 1, 2].forEach(i => T(47700 + i * 850, () => {
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(i => T(47700 + i * 560, () => {
         add('tr' + i); tone(55, .5, 'sine', .3); noise(.25, 500, 100, .12, 'lowpass');
         const row = ov.querySelectorAll('.pl-row')[i]; if (row) row.querySelectorAll('b').forEach(b => count(b, +b.dataset.n, 600));
       }));
-      T(50400, () => { add('lead'); tone(61.74, 1, 'sawtooth', .04); });
+      T(53500, () => { add('lead'); tone(61.74, 1, 'sawtooth', .04); });
       // the throne
-      T(52000, () => { go('p6'); embers = 2; tone(30.87, 3, 'sawtooth', .05); });
-      T(52600, () => { add('kglow'); flash(); });
-      T(55200, () => add('riv1'));
-      T(56500, () => { add('riv2'); boom(); });
+      T(55200, () => { go('p6'); embers = 2; tone(30.87, 3, 'sawtooth', .05); });
+      T(55800, () => { add('kglow'); flash(); });
+      T(58400, () => add('riv1'));
+      T(59700, () => { add('riv2'); boom(); });
       // the last word: CHAMP10N slides in from the left, then 7OSER from the right
-      T(58800, () => { go('p8'); embers = 0; parts = []; });
-      T(59000, () => { add('cm1'); sweep(300, 1400, .45, 'sawtooth', .03); noise(.5, 3000, 800, .06, 'highpass'); });
-      T(59800, () => { add('cm2'); chord([246.94, 311.13, 369.99], 1.6, .03, 0); for (let i = 0; i < 6; i++) setTimeout(() => { if (!done) tone(1200 + i * 120, .06, 'sine', .02); }, i * 70); });
-      T(60600, () => { cheer(.08, 2.4); plSparks(40, W * .7, H * .15); });
-      T(62200, () => { add('cm3'); sweep(1400, 300, .45, 'sawtooth', .03); noise(.5, 3000, 800, .06, 'highpass'); });
-      T(63000, () => { add('cm4'); tone(98, 1.2, 'sawtooth', .04); tone(92.5, 1.2, 'sawtooth', .03, .5); tone(87.31, 1.8, 'sawtooth', .035, 1); });
-      T(65200, () => add('cm5'));
+      T(62000, () => { go('p8'); embers = 0; parts = []; });
+      T(62200, () => { add('cm1'); sweep(300, 1400, .45, 'sawtooth', .03); noise(.5, 3000, 800, .06, 'highpass'); });
+      T(63000, () => { add('cm2'); chord([246.94, 311.13, 369.99], 1.6, .03, 0); for (let i = 0; i < 6; i++) setTimeout(() => { if (!done) tone(1200 + i * 120, .06, 'sine', .02); }, i * 70); });
+      T(63800, () => { cheer(.08, 2.4); plSparks(40, W * .7, H * .15); });
+      T(65400, () => { add('cm3'); sweep(1400, 300, .45, 'sawtooth', .03); noise(.5, 3000, 800, .06, 'highpass'); });
+      T(66200, () => { add('cm4'); tone(98, 1.2, 'sawtooth', .04); tone(92.5, 1.2, 'sawtooth', .03, .5); tone(87.31, 1.8, 'sawtooth', .035, 1); });
+      T(68400, () => add('cm5'));
       // the reveal
-      T(65800, () => { go('p7'); embers = 0; parts = []; heart(.42); sweep(120, 900, 1.6, 'sine', .04); });
-      T(66600, () => {
+      T(69000, () => { go('p7'); embers = 0; parts = []; heart(.42); sweep(120, 900, 1.6, 'sine', .04); });
+      T(69800, () => {
         add('pland'); boom(); cheer(.12, 3);
         chord([246.94, 293.66, 369.99], 1.1, .03, 0); chord([196, 246.94, 293.66], 1.1, .03, 1); chord([185, 233.08, 277.18], 1.1, .03, 2); chord([246.94, 311.13, 369.99, 493.88], 3.4, .035, 3);
         confetti = true; setTimeout(() => { confetti = false; }, 3600);
@@ -11642,8 +11644,8 @@ function suiCinematic(r){
         const el = $('#plVal'), t0 = performance.now();
         cnt = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 1800); if (el) el.textContent = fmt(Math.round(r.v * (1 - Math.pow(1 - k, 3)))); if (k >= 1) { clearInterval(cnt); kaching(); } }, 40);
       });
-      T(68200, () => add('ready'));
-      T(76000, finish);
+      T(71400, () => add('ready'));
+      T(79200, finish);
       return;
     }
     // 6. SIUUU
