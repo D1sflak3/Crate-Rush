@@ -2269,9 +2269,11 @@ body{background:
 
 /* ---------- Messi's place ---------- */
 .msi-btn{color:#7cc4ef;border-color:#1f4a6a;background:#06121e}
-.icon-btn.intro-btn{width:auto;padding:0 11px 0 9px;border-radius:999px;display:flex;align-items:center;gap:5px;color:#8fe6a6;border-color:#245a36}
-.intro-btn svg{width:18px;height:18px}
-.intro-btn span{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.08em;line-height:1;padding-top:2px}
+.ic-intro{display:inline-flex;align-items:center;gap:5px;height:30px;padding:0 11px 0 9px;margin-right:auto;border-radius:999px;border:1px solid #245a36;background:#08160e;color:#8fe6a6;cursor:pointer}
+.ic-intro:hover{background:#0e2416}
+.ic-intro svg{width:16px;height:16px}
+.ic-intro span{font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:.08em;line-height:1;padding-top:2px}
+.icard.wide .ifoot{gap:10px}
 .msi-btn span{font-family:var(--display);font-weight:700;font-size:18px;line-height:1;padding-top:3px}
 .msi{z-index:86;background:radial-gradient(900px 500px at 50% 25%,rgba(124,196,239,.14),transparent 70%),rgba(4,8,14,.99)}
 .msi .bdo-scene{border-color:rgba(124,196,239,.45);box-shadow:0 0 0 4px #050a12,0 0 0 5px rgba(201,165,74,.3),var(--sh-modal)}
@@ -3768,7 +3770,6 @@ body.dz-open .toast{z-index:95}
       <button class="icon-btn yard-btn" id="yardBtn" hidden aria-label="Go to the Scrapyard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3M6 6l2.1 2.1M15.9 15.9 18 18M6 18l2.1-2.1M15.9 8.1 18 6"/></svg></button>
       <button class="icon-btn msi-btn" id="msiBtn" hidden aria-label="Go to Messi’s place"><span>10</span></button>
       <button class="icon-btn adm-btn" id="admBtn" hidden aria-label="Admin panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7l5 5-5 5M12 18h7"/></svg></button>
-      <button class="icon-btn intro-btn" id="introBtn" aria-label="Play the intro again"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.6 4.6 12 1.8l2.4 2.8M12 1.8v3.6"/><path d="M14.6 6.2 18.4 12.8"/><path d="M20.6 10.6l.6 3.6-3.4-.8"/><path d="M19.4 15.6H11.8"/><path d="M8.2 13.4 6 16.2l2.4 2.6"/><path d="M6 16.2l3.8-6.6"/><path d="M5 10.4 2.8 13.6"/><path d="M2.8 13.6 5.2 17.8h2.6"/></svg><span>INTRO</span></button>
       <button class="icon-btn" id="muteBtn" aria-label="Mute sound"></button>
       <button class="icon-btn" id="lbBtn" aria-label="Leaderboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 20h8"/></svg></button>
       <button class="icon-btn tr-btn" id="trBtn" hidden aria-label="Trades"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg><b id="trBadge" hidden></b></button>
@@ -5377,12 +5378,20 @@ function scanCase(){
   selectCase();
 }
 
+const INTRO_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.6 4.6 12 1.8l2.4 2.8M12 1.8v3.6"/><path d="M14.6 6.2 18.4 12.8"/><path d="M20.6 10.6l.6 3.6-3.4-.8"/><path d="M19.4 15.6H11.8"/><path d="M8.2 13.4 6 16.2l2.4 2.6"/><path d="M6 16.2l3.8-6.6"/><path d="M5 10.4 2.8 13.6"/><path d="M2.8 13.6 5.2 17.8h2.6"/></svg>';
+async function replayIntro(uid){
+  const e = state.inv.find(x => x.uid === uid); if (!e || BY[e.id].t !== 7) return;
+  if (busy || current || cine || pc || mi || presOpen || shopOpen || deskOpen) { toast('Finish what you’re doing first'); return; }
+  ac(); busy = true; lockRack(true); renderOpen();
+  try { await chromaCinematic(Object.assign({}, e, {uid: 'replay-' + e.uid})); }
+  finally { busy = false; lockRack(false); renderOpen(); renderInv(); }
+}
 function invCard(e, isNew){
   const it = BY[e.id], t = it.t, wi = wearIdx(e.fl), d = document.createElement('div');
   d.className = 'icard' + tierClass(t) + (t === 7 ? ' wide' : '') + (isNew ? ' new' : '');
   d.style.setProperty('--tc', TIERS[t].color);
   d.append(thumb(it, wi));
-  d.insertAdjacentHTML('beforeend', '<div class="wt">' + (t === 6 ? 'Black Market · ' : t === 7 ? 'Chroma · 1 of 1 · ' : '') + WNAME[it.w] + '</div><div class="nm">' + it.name + '</div><div class="sub">' + WEARS[wi].n + ' · ' + e.fl.toFixed(4) + '</div><div class="ifoot"><span class="iv"><span class="coin"></span>' + fmt(e.v) + '</span><button class="sell" data-uid="' + e.uid + '">' + (H().spoof > 0 && t < 5 ? 'Sell ×2' : 'Sell') + '</button></div>');
+  d.insertAdjacentHTML('beforeend', '<div class="wt">' + (t === 6 ? 'Black Market · ' : t === 7 ? 'Chroma · 1 of 1 · ' : '') + WNAME[it.w] + '</div><div class="nm">' + it.name + '</div><div class="sub">' + WEARS[wi].n + ' · ' + e.fl.toFixed(4) + '</div><div class="ifoot">' + (t === 7 ? '<button class="intro-btn ic-intro" data-uid="' + e.uid + '" aria-label="Replay the ' + it.name + ' intro">' + INTRO_ICON + '<span>INTRO</span></button>' : '') + '<span class="iv"><span class="coin"></span>' + fmt(e.v) + '</span><button class="sell" data-uid="' + e.uid + '">' + (H().spoof > 0 && t < 5 ? 'Sell ×2' : 'Sell') + '</button></div>');
   return d;
 }
 function renderInv(newUid){
@@ -6551,6 +6560,7 @@ function arm(btn, label, run){
   armTimers.set(btn, setTimeout(() => { btn.classList.remove('armed'); btn.textContent = old; }, 2600));
 }
 $('#inv').addEventListener('click', e => {
+  const ib = e.target.closest('.ic-intro'); if (ib) { replayIntro(ib.dataset.uid); return; }
   const b = e.target.closest('.sell'); if (!b) return;
   const entry = state.inv.find(x => x.uid === b.dataset.uid); if (!entry) return;
   const doSell = () => { const got = payout(entry); state.inv = state.inv.filter(x => x.uid !== entry.uid); state.bal += got; save(); setBal(got); renderInv(); renderOpen(); };
@@ -15038,7 +15048,6 @@ addEventListener('resize', () => { if (!room) return; if (shopSel != null) camSc
 WIDE_MQ.addEventListener && WIDE_MQ.addEventListener('change', () => { if (room) { if (shopSel != null) camScene(shopBox(room, shopSel)); else restView(); } });
 $('#pci').addEventListener('click', e => { if (e.target.closest('button')) return; if (pc && pc.tap) pc.tap(); });
 $('#pcSkip').onclick = () => { if (pc) pc.skipAll(); };
-$('#introBtn').onclick = () => { if (pc || mi || presOpen || shopOpen || deskOpen || busy || current || cine || !$('#ret').hidden) { toast('Finish what you’re doing first'); return; } prestigeIntro(true); };
 $('#mi').addEventListener('click', e => { if (e.target.closest('button')) return; const gl = e.target.closest('.j-gl'); if (gl) { glitchClick(+gl.dataset.gl, gl); return; } if (mi) mi.tap(); });
 $('#admBtn').onclick = openAdmin;
 $('#admX').onclick = closeAdmin;
