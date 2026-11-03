@@ -11862,11 +11862,14 @@ function princeCinematic(r){
         + '<g transform="rotate(-26 184 104)"><ellipse cx="172" cy="92" rx="15" ry="17" fill="' + NSK + '" transform="rotate(-24 172 92)"/>'
         + '<ellipse cx="181" cy="95" rx="3" ry="4.6" fill="' + NSK + '" stroke="#a87250" stroke-width=".7" transform="rotate(-24 181 95)"/>'
         // hair: dark, short at the back, a messy crest over the top falling forward
-        + '<path d="M158 84 Q158 68 172 66 Q190 66 192 84 Q192 96 186 104 Q184 92 180 88 Q170 82 158 84 Z" fill="#26170a"/>'
-        + [[160, 74, 7], [168, 68, 8], [178, 66, 8], [187, 72, 7], [190, 81, 6], [173, 74, 6], [183, 77, 5.5]].map(([x, y, r]) => '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="#33200f"/><path d="M' + (x - r * .65) + ' ' + (y - r * .15) + ' Q' + x + ' ' + (y - r) + ' ' + (x + r * .65) + ' ' + (y - r * .3) + '" stroke="#5e3c20" stroke-width="1.1" fill="none" stroke-linecap="round"/>').join('')
-        + '<path d="M160 66 Q158 60 162 58 M170 60 Q170 54 174 53 M180 60 Q182 55 186 56" stroke="#2e1d0e" stroke-width="3.4" fill="none" stroke-linecap="round"/>'
-        + '<path d="M163 64 Q166 68 166 72 M172 58 Q174 62 174 67 M182 60 Q182 64 181 68" stroke="#d8b06a" stroke-width="1.2" fill="none" stroke-linecap="round" opacity=".85"/>'
-        + '<path d="M164 78 Q170 72 178 74 M168 84 Q176 78 186 82 M178 70 Q184 68 189 74" stroke="#4a2e16" stroke-width="1" fill="none" stroke-linecap="round"/>'
+        // the faux-hawk, side-on: short spiky sides, a tall spiked crest down the middle, bleached tips
+        + '<path d="M158 86 Q157 72 168 70 Q184 68 191 80 Q193 92 187 104 Q185 94 180 90 Q170 84 158 86 Z" fill="#2e1e10"/>'
+        + '<path d="M159 82 L155 78 L161 77 M164 76 L161 71 L167 72 M185 76 L190 72 L190 79 M189 84 L195 82 L192 88 M190 92 L195 93 L190 97" stroke="#2e1e10" stroke-width="2.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>'
+        + '<path d="M162 74 L160 62 L166 68 L167 54 L172 64 L175 48 L178 62 L183 52 L183 64 L189 58 L187 70 L193 68 L188 76 Q176 70 162 74 Z" fill="#3a2616"/>'
+        + '<path d="M167 54 L168 61 L171 60 Z M175 48 L175.6 57 L178.4 56 Z M183 52 L182.4 59 L184.6 59.6 Z M160 62 L162 67 L164 66 Z M189 58 L187.4 64 L189.4 64 Z" fill="#e6c78e"/>'
+        + '<path d="M169 66 L174 52 M174 66 L176 54 M178 66 L182 56 M166 70 L163 64 M183 68 L188 62" stroke="#e6c78e" stroke-width=".9" stroke-linecap="round" opacity=".8"/>'
+        + '<path d="M166 72 L170 60 M180 70 L182 60" stroke="#1e1208" stroke-width=".8" stroke-linecap="round" opacity=".6"/>'
+        + '<path d="M160 82 L161 78 M163 84 L164 79 M186 86 L188 82 M187 94 L190 91" stroke="#4a3220" stroke-width=".8" stroke-linecap="round"/>'
         // a plain white headband round the forehead, the tail hanging behind
         + '<path d="M156 84 Q172 76 189 82 L190 88 Q173 82 157 90 Z" fill="#f6f6f6"/><path d="M188 86 Q196 96 192 112 Q190 120 194 128" stroke="#f6f6f6" stroke-width="4" fill="none" stroke-linecap="round"/></g>'
         // near arm: short blue sleeve, forearm up, hand pressed over the face
