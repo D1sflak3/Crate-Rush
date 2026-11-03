@@ -10490,7 +10490,7 @@ function admRemoteHTML(){
 }
 async function admRemote(a, el){
   const flOf = () => { const W = WEARS[admWear]; return +(W.lo + Math.random()*(W.hi - W.lo - .0001)).toFixed(4); };
-  if (a === 'players') { const {data} = await sb.rpc('leaderboard2', {lim: 100}); admPlayers = data || []; renderAdmin(); return; }
+  if (a === 'players') { const {data} = await sb.rpc('leaderboard2', {lim: 200}); admPlayers = data || []; renderAdmin(); return; }
   if (a === 'tgt') { admTgt = admPlayers.find(p => p.uid === el.dataset.v); admCard = null; admBag.clear(); renderAdmin(); const {data} = await sb.rpc('player_card', {target: admTgt.uid}); if (admTgt && data && data.uid === admTgt.uid) { admCard = data; renderAdmin(); } return; }
   if (a === 'rign') { admRigN = +el.dataset.v; pickSound(); renderAdmin(); return; }
   if (!admTgt) return;
@@ -15164,7 +15164,7 @@ async function openLb(){
   $('#lbName').hidden = !!state.name; if (!state.name) $('#lbIn').value = '';
   $('#lbBody').innerHTML = '<p class="lb-empty">Loading…</p>';
   await cloudPush();
-  const {data, error} = await sb.rpc('leaderboard2', {lim: 100});
+  const {data, error} = await sb.rpc('leaderboard2', {lim: 200});
   if (error) { $('#lbBody').innerHTML = '<p class="lb-empty">Couldn’t load the leaderboard. Try again in a moment.</p>'; return; }
   let prev = 0;
   $('#lbBody').innerHTML = data.length ? data.map(r => { const gap = r.rank > prev + 1; prev = r.rank;
