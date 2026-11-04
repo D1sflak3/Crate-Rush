@@ -11765,23 +11765,21 @@ function princePose(k){
   g += '<path d="M-31 -176 Q0 -186 31 -176 L28 -120 Q0 -114 -28 -120 Z" fill="' + sh + '"/>';
   g += '<path d="M16 -176 Q26 -150 22 -120" stroke="' + SHD + '" stroke-width="9" fill="none"/><path d="M-22 -150 Q-2 -142 18 -148" stroke="' + SHD + '" stroke-width="1.4" fill="none"/>';
   if (k.num) g += '<text x="2" y="-132" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="18" fill="' + (k.numc || '#111') + '">' + k.num + '</text>';
-  // the head, tipped forward: forehead toward us, eyes shut, angular jaw, fluffy faux-hawk
-  const sd = 'rgba(70,35,15,.28)', ink = '#2a1608';
+  // the head, bowed right down: chin tucked into the collar, mostly crown and hair toward us, the face squashed short underneath
+  const sd = 'rgba(70,35,15,.3)', ink = '#2a1608';
   g += '<defs><linearGradient id="prBowTuft" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="' + hc + '"/><stop offset=".55" stop-color="#5e3c20"/><stop offset=".82" stop-color="#b8915a"/><stop offset="1" stop-color="#ecd29a"/></linearGradient></defs>';
-  g += '<path d="M-5 -158 L-6 -146 H6 L5 -158 Z" fill="' + sk + '"/><path d="M-6 -150 Q0 -146 6 -150" stroke="' + sd + '" stroke-width="2" fill="none"/>';
-  g += '<ellipse cx="-13.4" cy="-167" rx="2.8" ry="4.6" fill="' + sk + '"/><ellipse cx="13.4" cy="-167" rx="2.8" ry="4.6" fill="' + sk + '"/><path d="M-13.6 -169 Q-15 -167 -13.6 -164 M13.6 -169 Q15 -167 13.6 -164" stroke="' + sd + '" stroke-width="1" fill="none"/>';
-  g += '<path d="M-13 -178 Q-13.6 -163 -9 -156 L-3.5 -151.5 Q0 -150.4 3.5 -151.5 L9 -156 Q13.6 -163 13 -178 Q12 -188 0 -189 Q-12 -188 -13 -178 Z" fill="' + sk + '"/>';
-  g += '<path d="M8 -186 Q13 -176 12.6 -164 Q11 -158 8.6 -155.6 L10 -160 Q11.4 -172 8 -186 Z" fill="' + sd + '"/>';
-  g += '<path d="M-5.6 -153.4 Q-3 -150.6 0 -150.4 Q3 -150.6 5.6 -153.4 Q3 -152 0 -151.8 Q-3 -152 -5.6 -153.4 Z" fill="' + ink + '" opacity=".55"/>';
-  g += '<path d="M-10 -172.6 L-3 -171.4 M3 -171.4 L10 -172.6" stroke="' + ink + '" stroke-width="2.1" stroke-linecap="round"/>';
-  g += '<path d="M-9.2 -167.6 Q-6.2 -165.8 -3.2 -167.4 M3.2 -167.4 Q6.2 -165.8 9.2 -167.6" stroke="' + ink + '" stroke-width="1.4" stroke-linecap="round" fill="none"/>';
-  g += '<path d="M-8.6 -169.4 Q-6.2 -170.4 -3.6 -169.4 M3.6 -169.4 Q6.2 -170.4 8.6 -169.4" stroke="' + sd + '" stroke-width="1" fill="none"/>';
-  g += '<path d="M0.4 -170 L-1.2 -161 Q0.4 -159.4 2.6 -160.8" stroke="' + sd + '" stroke-width="1.5" stroke-linecap="round" fill="none"/>';
-  g += '<path d="M-3.4 -155.8 Q0 -154.8 3.4 -155.8" stroke="' + ink + '" stroke-opacity=".7" stroke-width="1.2" stroke-linecap="round" fill="none"/>';
-  g += '<path d="M-13.4 -174 Q-14.6 -189 0 -191 Q14.6 -189 13.4 -174 Q12 -180 9 -182 Q0 -184.6 -9 -182 Q-12 -180 -13.4 -174 Z" fill="' + hc + '"/>';
-  g += '<path d="M-13.4 -174 Q-13.2 -179 -11 -181 L-11.6 -175 Z M13.4 -174 Q13.2 -179 11 -181 L11.6 -175 Z" fill="' + hc + '" opacity=".45"/>';
-  g += [[-8, -190, -22, 11, 4.6], [-4, -193, -10, 13, 5.2], [0, -195, 0, 14, 5.6], [4.4, -194, 10, 13, 5.2], [8.4, -190, 22, 11, 4.6], [-2, -191, -4, 10, 4.4], [2.4, -191, 6, 10, 4.4]].map(([x, y, a, h, w]) => '<path transform="rotate(' + a + ' ' + x + ' ' + (y + h) + ')" d="M' + (x - w) + ' ' + (y + h) + ' C' + (x - w * 1.1) + ' ' + (y + h * .45) + ' ' + (x - w * .5) + ' ' + (y + h * .1) + ' ' + x + ' ' + y + ' C' + (x + w * .6) + ' ' + (y + h * .15) + ' ' + (x + w * 1.1) + ' ' + (y + h * .5) + ' ' + (x + w) + ' ' + (y + h) + ' Z" fill="url(#prBowTuft)"/>').join('');
-  g += '<path d="M-6 -192 Q-4 -186 -5 -182 M-1 -194 Q0 -188 -1 -183 M4 -193 Q4 -187 3 -182 M8 -189 Q7 -185 6 -182" stroke="' + ink + '" stroke-opacity=".35" stroke-width=".8" fill="none"/>';
+  g += '<ellipse cx="-13.6" cy="-172" rx="2.6" ry="4" fill="' + sk + '"/><ellipse cx="13.6" cy="-172" rx="2.6" ry="4" fill="' + sk + '"/>';
+  g += '<path d="M-13.6 -180 L-13.4 -176 Q-13.6 -163 -8.6 -157 Q0 -153.4 8.6 -157 Q13.6 -163 13.4 -176 L13.6 -180 Z" fill="' + sk + '"/>';
+  g += '<path d="M8.6 -176 Q12.6 -168 10.8 -160 Q10 -158 8.6 -157 Q10.6 -166 8.6 -176 Z" fill="' + sd + '"/>';
+  g += '<path d="M-12 -173.4 Q0 -170.6 12 -173.4 L12 -171.6 Q0 -168.8 -12 -171.6 Z" fill="' + sd + '"/>';
+  g += '<path d="M-9.6 -167.6 L-3 -166.8 M3 -166.8 L9.6 -167.6" stroke="' + ink + '" stroke-width="2" stroke-linecap="round"/>';
+  g += '<path d="M-8.8 -163.6 Q-6 -162.2 -3.2 -163.4 M3.2 -163.4 Q6 -162.2 8.8 -163.6" stroke="' + ink + '" stroke-width="1.3" stroke-linecap="round" fill="none"/>';
+  g += '<path d="M0.6 -165.4 L-0.8 -159.6 Q0.6 -158.4 2.4 -159.4" stroke="' + sd + '" stroke-width="1.5" stroke-linecap="round" fill="none"/>';
+  g += '<path d="M-14 -158.6 Q0 -150 14 -158.6 L15 -150 H-15 Z" fill="' + sh + '"/><path d="M-12.4 -157.4 Q0 -150.6 12.4 -157.4" stroke="' + SHD + '" stroke-width="2.2" fill="none"/>';
+  g += '<path d="M-15 -170 Q-18 -191 0 -193 Q18 -191 15 -170 Q12 -175.4 8 -175.8 Q0 -177 -8 -175.8 Q-12 -175.4 -14.8 -170 Z" fill="' + hc + '"/>';
+  g += [[-12, -186, -48, 9, 4.6], [-8, -192, -30, 10, 5], [-3, -195, -12, 10, 5.4], [2.6, -195, 10, 10, 5.4], [7.6, -192, 28, 10, 5], [11.6, -186, 46, 9, 4.6], [-5, -189, -18, 8, 4.8], [0, -191, 0, 9, 5], [5, -189, 18, 8, 4.8], [-0.4, -186, 4, 7, 4.4]].map(([x, y, a, h, w]) => '<path transform="rotate(' + a + ' ' + x + ' ' + (y + h) + ')" d="M' + (x - w) + ' ' + (y + h) + ' C' + (x - w * 1.1) + ' ' + (y + h * .45) + ' ' + (x - w * .5) + ' ' + (y + h * .1) + ' ' + x + ' ' + y + ' C' + (x + w * .6) + ' ' + (y + h * .15) + ' ' + (x + w * 1.1) + ' ' + (y + h * .5) + ' ' + (x + w) + ' ' + (y + h) + ' Z" fill="url(#prBowTuft)"/>').join('');
+  g += '<path d="M-8 -190 Q-6 -185 -7 -180 M-3 -193 Q-2 -187 -3 -180 M2 -193 Q2 -187 1.6 -180 M6.6 -190 Q6 -185 5 -180" stroke="' + ink + '" stroke-opacity=".35" stroke-width=".8" fill="none"/>';
+  g += '<path d="M-14.8 -170 Q-14.4 -176 -11.6 -178.6 L-12.4 -172 Z M14.8 -170 Q14.4 -176 11.6 -178.6 L12.4 -172 Z" fill="' + hc + '" opacity=".5"/>';
   // the raised arm: straight up from the shoulder, the forearm folded back over the top of his head, a white wristband
   g += L('M-28 -174 L-36 -200', sh, 13) + L('M-36 -198 L-38 -226', sk, 10) + L('M-38 -226 Q-28 -240 -10 -236', sk, 9);
   g += '<rect x="-32" y="-242" width="10" height="9" rx="2" fill="#fff" transform="rotate(14 -27 -237)"/>';
