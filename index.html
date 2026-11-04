@@ -3619,6 +3619,12 @@ body.dz-open .toast{z-index:95}
 @keyframes rzDrift{from{transform:translateX(-18px)}to{transform:translateX(18px)}}
 .rz-bolt{opacity:0}
 .rzc.bolt1 .rz-bolt:not(.b2),.rzc.bolt2 .rz-bolt.b2{opacity:1}
+.rz-giant .rg-flarec,.rz-giant .rg-crumbs,.rz-gun .rg-up{display:none}
+.rz-giant .rg-hotheart{opacity:.5}
+.rz-giant .rg-glow{animation:rgFlick 1.4s steps(4) infinite}
+.rz-giant .rg-blaze path{transform-box:fill-box;transform-origin:50% 100%;animation:rgBl .32s var(--d) ease-in-out infinite alternate}
+.rz-1 .rz-giant .rg-eye{opacity:0;transition:opacity .4s}
+.rzc.eyes .rz-1 .rz-giant .rg-eye{opacity:1}
 .rz-eye{opacity:0;transition:opacity .4s}
 .rzc.eyes .rz-eye{opacity:1}
 .rz-chest{transform-box:fill-box;transform-origin:center;animation:rzPulse 1.1s ease-in-out infinite alternate}
@@ -9535,6 +9541,84 @@ const yCar = (x, y, w, h, c) => '<rect x="' + x + '" y="' + y + '" width="' + w 
   + '<circle cx="' + f1(x + w*.3) + '" cy="' + f1(y + h*.75) + '" r="' + f1(h*.16) + '" fill="#b5541c" opacity=".6"/>';
 const yGround = (y, c) => '<rect x="0" y="' + y + '" width="400" height="' + (260 - y) + '" fill="' + (c || '#1c120b') + '"/><path d="M0 ' + y + ' H400" stroke="#2c1d12" stroke-width="2"/>';
 
+/* Rustagard's body in his own 400x260 box (sat with his hips at 200,170): legs, stack, arms, plate, the chest grate and
+   Lead Heart, shoulders, the Rust Bucket head. Used in his room and in the Rusted9000 cinematic. */
+const rgDefs = k => '<linearGradient id="rgb' + k + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b8642e"/><stop offset=".5" stop-color="#8a4420"/><stop offset="1" stop-color="#4a220e"/></linearGradient>'
+  + '<linearGradient id="rgh' + k + '" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4a220e"/><stop offset=".3" stop-color="#b8642e"/><stop offset=".55" stop-color="#9a4c22"/><stop offset="1" stop-color="#3a1a0a"/></linearGradient>'
+  + '<linearGradient id="rga' + k + '" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5a2c12"/><stop offset=".5" stop-color="#a0542a"/><stop offset="1" stop-color="#4a220e"/></linearGradient>'
+  + '<radialGradient id="rgf' + k + '"><stop offset="0" stop-color="#ffe2a0"/><stop offset=".45" stop-color="#ff8a1a"/><stop offset="1" stop-color="#ff4a00" stop-opacity="0"/></radialGradient>'
+  + '<linearGradient id="rgl' + k + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a7aeb5"/><stop offset=".55" stop-color="#6d747b"/><stop offset="1" stop-color="#3f454b"/></linearGradient>';
+function rgBody(k){
+  const rv = (x, y, r) => '<circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + (r || 1.6) + '" fill="#d98a4a" stroke="#2a1206" stroke-width=".6"/>';
+  let s = '';
+      /* him. Legs first, sat with his knees up */
+      s += '<g class="rg">';
+      s += '<path d="M176 166 L136 178" stroke="url(#rga' + k + ')" stroke-width="28" stroke-linecap="round"/><path d="M136 178 L122 214" stroke="#7a3a18" stroke-width="22" stroke-linecap="round"/>'
+        + '<path d="M224 166 L264 178" stroke="url(#rga' + k + ')" stroke-width="28" stroke-linecap="round"/><path d="M264 178 L278 214" stroke="#6a3216" stroke-width="22" stroke-linecap="round"/>'
+        + '<path d="M128 194 L118 210 M272 194 L282 210" stroke="#3d1d0c" stroke-width="2" opacity=".6"/>'
+        + '<path d="M98 212 H136 L142 226 H94 Z" fill="#5a2c12" stroke="#2a1206" stroke-width="1.4"/><path d="M98 220 H140" stroke="#2a1206" stroke-width="1"/>'
+        + '<path d="M264 212 H302 L306 226 H258 Z" fill="#4a240e" stroke="#2a1206" stroke-width="1.4"/><path d="M262 220 H304" stroke="#2a1206" stroke-width="1"/>'
+        + '<circle cx="136" cy="178" r="13" fill="#8a4420" stroke="#3d1d0c" stroke-width="2"/><circle cx="264" cy="178" r="13" fill="#7a3a18" stroke="#3d1d0c" stroke-width="2"/>'
+        + rv(132, 174) + rv(140, 182) + rv(260, 174) + rv(268, 182);
+      /* exhaust stack behind his shoulder, and the steam off it */
+      s += '<rect x="118" y="46" width="12" height="50" fill="#3a2a22" stroke="#1a0f08" stroke-width="1.2"/><rect x="115" y="42" width="18" height="6" rx="1" fill="#4a3a30"/><path d="M118 62 H130 M118 78 H130" stroke="#5a2c12" stroke-width="2"/>'
+        + '<g class="rg-steam">' + [0, 1, 2].map(i => '<circle style="--d:' + (i * .9) + 's" cx="124" cy="38" r="' + (5 + i) + '" fill="#8a8a8a" opacity="0"/>').join('') + '</g>';
+      /* his left arm, resting: the hand on his knee */
+      s += '<path d="M130 102 L106 142" stroke="url(#rga' + k + ')" stroke-width="20" stroke-linecap="round"/><path d="M106 142 L126 168" stroke="#6a3216" stroke-width="17" stroke-linecap="round"/>'
+        + '<circle cx="106" cy="142" r="10" fill="#7a3a18" stroke="#3d1d0c" stroke-width="1.6"/>'
+        + '<path d="M120 164 Q130 160 140 166 L144 176 Q136 172 132 178 Q126 172 120 176 Z" fill="#5a2c12" stroke="#2a1206" stroke-width="1.2"/>';
+      /* the body: riveted plate, patched with the Rusty Metal Sheet across the belly */
+      s += '<path d="M126 90 Q200 76 274 90 L262 170 Q200 182 138 170 Z" fill="url(#rgb' + k + ')" stroke="#2a1206" stroke-width="2"/>'
+        + '<path d="M200 82 V112 M200 140 V176 M132 130 Q200 140 268 130" stroke="#3d1d0c" stroke-width="1.6" fill="none" opacity=".8"/>'
+        + [146, 162, 238, 254].map(x => rv(x, 132 + Math.abs(x - 200) * .02)).join('') + [94, 104, 150, 160].map(y => rv(200, y)).join('')
+        + '<circle cx="150" cy="104" r="7" fill="#c8733a" opacity=".35"/><circle cx="252" cy="152" r="9" fill="#3d1d0c" opacity=".4"/><circle cx="146" cy="156" r="5" fill="#d98a4a" opacity=".3"/>'
+        + '<path d="M142 102 l6 14 M256 98 l-4 16" stroke="#3d1d0c" stroke-width="1.2" opacity=".6"/>'
+        + '<g transform="rotate(-4 200 160)"><rect x="160" y="146" width="80" height="26" rx="2" fill="#7a5a44" stroke="#2a1206" stroke-width="1.4"/>'
+        + [0, 1, 2, 3, 4, 5, 6].map(i => '<path d="M' + (166 + i * 11) + ' 147 V171" stroke="#4a3626" stroke-width="2"/>').join('')
+        + '<circle cx="178" cy="160" r="6" fill="#b5541c" opacity=".7"/><circle cx="224" cy="154" r="4" fill="#c8733a" opacity=".6"/>'
+        + rv(163, 149) + rv(237, 149) + rv(163, 169) + rv(237, 169) + '</g>';
+      /* the chest grate: the Lead Heart inside it, the furnace behind it */
+      s += '<circle cx="200" cy="118" r="25" fill="#140804" stroke="#3d1d0c" stroke-width="5"/>'
+        + '<circle class="rg-glow" cx="200" cy="118" r="23" fill="url(#rgf' + k + ')"/>'
+        + '<path class="rg-heart" d="M200 134 C186 126 180 116 186 110 C190 106 196 107 200 112 C204 107 210 106 214 110 C220 116 214 126 200 134 Z" fill="url(#rgl' + k + ')" stroke="#2a2e33" stroke-width="1.2"/>'
+        + '<path class="rg-hotheart" d="M200 134 C186 126 180 116 186 110 C190 106 196 107 200 112 C204 107 210 106 214 110 C220 116 214 126 200 134 Z" fill="#ff5a0a"/>'
+        + '<path d="M200 113 V132 M190 112 Q187 116 190 120" stroke="#3f454b" stroke-width=".9" fill="none"/><rect x="196" y="100" width="3" height="9" fill="#6d747b"/><rect x="202" y="102" width="3" height="7" fill="#6d747b"/>'
+        + '<path d="M184 100 V136 M192 96 V140 M200 94 V142 M208 96 V140 M216 100 V136" stroke="#2a1206" stroke-width="2.4" opacity=".85"/>'
+        + Array.from({length: 10}, (_, i) => rv(200 + Math.cos(i / 10 * Math.PI * 2) * 25, 118 + Math.sin(i / 10 * Math.PI * 2) * 25, 1.4)).join('');
+      s += '<g class="rg-blaze">' + Array.from({length: 10}, (_, i) => { const a = i / 10 * Math.PI * 2, x = 200 + Math.cos(a) * 27, y = 118 + Math.sin(a) * 27, h = 9 + (i % 3) * 4;
+          return '<path style="--d:' + (i * .07).toFixed(2) + 's" transform="rotate(' + (a * 180 / Math.PI + 90).toFixed(1) + ' ' + x.toFixed(1) + ' ' + y.toFixed(1) + ')" d="M' + (x - 4).toFixed(1) + ' ' + y.toFixed(1) + ' Q' + (x - 3).toFixed(1) + ' ' + (y - h * .6).toFixed(1) + ' ' + x.toFixed(1) + ' ' + (y - h).toFixed(1) + ' Q' + (x + 3).toFixed(1) + ' ' + (y - h * .6).toFixed(1) + ' ' + (x + 4).toFixed(1) + ' ' + y.toFixed(1) + ' Z" fill="' + (i % 2 ? '#ffb030' : '#ff5a0a') + '"/>'; }).join('') + '</g>'
+        + '<circle class="rg-flarec" cx="200" cy="118" r="30" fill="url(#rgf' + k + ')"/>';
+      /* shoulders */
+      s += '<ellipse cx="128" cy="96" rx="27" ry="20" fill="#8a4420" stroke="#2a1206" stroke-width="2"/><path d="M106 100 Q128 82 150 100" stroke="#c8733a" stroke-width="2" fill="none" opacity=".5"/>'
+        + '<ellipse cx="272" cy="96" rx="27" ry="20" fill="#7a3a18" stroke="#2a1206" stroke-width="2"/><path d="M250 100 Q272 82 294 100" stroke="#c8733a" stroke-width="2" fill="none" opacity=".4"/>'
+        + rv(112, 98) + rv(128, 86) + rv(144, 98) + rv(256, 98) + rv(272, 86) + rv(288, 98);
+      /* neck, then the head: the Rust Bucket, upside down, its handle up like a crest, a jaw hung under the rim */
+      s += '<rect x="186" y="78" width="28" height="16" fill="#2a1206"/><path d="M186 82 H214 M186 86 H214 M186 90 H214" stroke="#5a2c12" stroke-width="1.4"/>';
+      s += '<g class="rg-head">'
+        + '<path d="M166 58 Q200 -8 234 58" stroke="#7d7a72" stroke-width="3.4" fill="none"/><circle cx="166" cy="58" r="3" fill="#5d5a54"/><circle cx="234" cy="58" r="3" fill="#5d5a54"/>'
+        + '<rect x="180" y="72" width="40" height="18" rx="3" fill="#0b0604"/>'
+        + '<g class="rg-jaw"><path d="M178 72 H222 L218 92 Q200 96 182 92 Z" fill="#6a3216" stroke="#2a1206" stroke-width="1.4"/>'
+        + '<path d="M184 74 l3 -5 l3 5 l3 -5 l3 5 l3 -5 l3 5 l3 -5 l3 5 l3 -5 l3 5 l3 -5 l2 4" fill="#d9cfb8" stroke="#2a1206" stroke-width=".6"/>' + rv(186, 86) + rv(214, 86) + '</g>'
+        + '<path d="M172 28 L228 28 L236 74 L164 74 Z" fill="url(#rgh' + k + ')" stroke="#2a1206" stroke-width="2"/>'
+        + '<ellipse cx="200" cy="28" rx="28" ry="4.6" fill="#3a1a0a" stroke="#2a1206" stroke-width="1.4"/>'
+        + '<path d="M170 42 H230 M167 62 H233" stroke="#3d1d0c" stroke-width="2.4" opacity=".75"/>'
+        + '<rect x="161" y="70" width="78" height="8" rx="2" fill="#7a3a18" stroke="#2a1206" stroke-width="1.4"/>'
+        + '<path d="M168 80 l6 -3 l4 6 l6 -5 l6 4 l5 -4 l6 5 l6 -4 l5 4 l6 -5 l4 4 l6 -3" stroke="#d9cfb8" stroke-width="2.2" fill="none" stroke-linejoin="round"/>'
+        + '<circle cx="222" cy="36" r="2.4" fill="#0b0604"/><circle cx="178" cy="66" r="1.8" fill="#0b0604"/><circle cx="214" cy="68" r="3" fill="#c8733a" opacity=".5"/><path d="M226 30 Q230 46 228 60" stroke="#d98a4a" stroke-width="1.2" opacity=".4" fill="none"/>'
+        + '<rect x="176" y="45" width="48" height="15" rx="6" fill="#0b0604" stroke="#2a1206" stroke-width="1.2"/>'
+        + '<g class="rg-eye"><circle cx="188" cy="52.5" r="5" fill="#ffb000"/><circle cx="212" cy="52.5" r="5" fill="#ffb000"/><circle cx="188" cy="52.5" r="2" fill="#fff4c0"/><circle cx="212" cy="52.5" r="2" fill="#fff4c0"/></g>'
+        + '<path d="M178 44 L196 47 M222 44 L204 47" stroke="#2a1206" stroke-width="2.4" stroke-linecap="round"/>'
+        + '</g>';
+      /* crumbs that fall out of his mouth when he chews */
+      s += '<g class="rg-crumbs">' + [[-6, '#5a2c14'], [2, '#c0262d'], [8, '#6a6a60'], [-2, '#3a2a1e'], [12, '#b5541c']].map(([dx, c], i) => '<rect class="rg-crumb" style="--d:' + (i * .07).toFixed(2) + 's" x="' + (200 + dx) + '" y="90" width="3" height="3" fill="' + c + '"/>').join('') + '</g>';
+      /* the right arm: scoops a fistful off the mountain, takes it up to his mouth, goes back for more */
+      s += '<g class="rg-up"><path d="M272 100 L300 140" stroke="url(#rga' + k + ')" stroke-width="20" stroke-linecap="round"/>' + rv(282, 112) + rv(292, 126)
+        + '<g class="rg-fore"><path d="M300 140 L292 180" stroke="#7a3a18" stroke-width="17" stroke-linecap="round"/>'
+        + '<g class="rg-junk"><rect x="282" y="184" width="10" height="13" rx="2" fill="#c0262d" transform="rotate(-18 287 190)"/><rect x="282" y="184" width="10" height="3" fill="#ccc" transform="rotate(-18 287 190)"/><path d="M292 190 q8 -4 12 4 q-2 8 -10 6 Z" fill="#141210"/><rect x="286" y="194" width="12" height="4" fill="#6a6a60" transform="rotate(20 292 196)"/></g>'
+        + '<path d="M282 178 Q292 172 302 180 L306 192 Q300 188 296 196 L292 188 L288 198 Q284 190 280 194 Z" fill="#5a2c12" stroke="#2a1206" stroke-width="1.2"/>'
+        + '<circle cx="300" cy="140" r="10" fill="#8a4420" stroke="#3d1d0c" stroke-width="1.6"/>' + rv(300, 140, 2) + '</g></g>';
+  return s + '</g>';
+}
 const YARD_SC = {
   ma:{end:'ma-set', cap:'Got thrown out of the Prestige before most of them were born.',
     svg:k => {
@@ -9739,75 +9823,10 @@ const YARD_SC = {
       s += '<g class="rg-cans">' + [[152, 170, '#c0262d', '-56px', '46px', '-420deg'], [238, 168, '#2a6aff', '64px', '52px', '380deg'], [176, 166, '#39a85a', '-30px', '70px', '-300deg']].map(([x, y, c, dx, dy, r]) =>
         '<g class="rg-can" style="--dx:' + dx + ';--dy:' + dy + ';--r:' + r + '"><rect x="' + (x - 4) + '" y="' + (y - 6) + '" width="8" height="11" rx="1.5" fill="' + c + '"/><rect x="' + (x - 4) + '" y="' + (y - 6) + '" width="8" height="2" fill="#ccc"/></g>').join('') + '</g>';
 
-      /* him. Legs first, sat with his knees up */
-      s += '<g class="rg">';
-      s += '<path d="M176 166 L136 178" stroke="url(#rga' + k + ')" stroke-width="28" stroke-linecap="round"/><path d="M136 178 L122 214" stroke="#7a3a18" stroke-width="22" stroke-linecap="round"/>'
-        + '<path d="M224 166 L264 178" stroke="url(#rga' + k + ')" stroke-width="28" stroke-linecap="round"/><path d="M264 178 L278 214" stroke="#6a3216" stroke-width="22" stroke-linecap="round"/>'
-        + '<path d="M128 194 L118 210 M272 194 L282 210" stroke="#3d1d0c" stroke-width="2" opacity=".6"/>'
-        + '<path d="M98 212 H136 L142 226 H94 Z" fill="#5a2c12" stroke="#2a1206" stroke-width="1.4"/><path d="M98 220 H140" stroke="#2a1206" stroke-width="1"/>'
-        + '<path d="M264 212 H302 L306 226 H258 Z" fill="#4a240e" stroke="#2a1206" stroke-width="1.4"/><path d="M262 220 H304" stroke="#2a1206" stroke-width="1"/>'
-        + '<circle cx="136" cy="178" r="13" fill="#8a4420" stroke="#3d1d0c" stroke-width="2"/><circle cx="264" cy="178" r="13" fill="#7a3a18" stroke="#3d1d0c" stroke-width="2"/>'
-        + rv(132, 174) + rv(140, 182) + rv(260, 174) + rv(268, 182);
-      /* exhaust stack behind his shoulder, and the steam off it */
-      s += '<rect x="118" y="46" width="12" height="50" fill="#3a2a22" stroke="#1a0f08" stroke-width="1.2"/><rect x="115" y="42" width="18" height="6" rx="1" fill="#4a3a30"/><path d="M118 62 H130 M118 78 H130" stroke="#5a2c12" stroke-width="2"/>'
-        + '<g class="rg-steam">' + [0, 1, 2].map(i => '<circle style="--d:' + (i * .9) + 's" cx="124" cy="38" r="' + (5 + i) + '" fill="#8a8a8a" opacity="0"/>').join('') + '</g>';
-      /* his left arm, resting: the hand on his knee */
-      s += '<path d="M130 102 L106 142" stroke="url(#rga' + k + ')" stroke-width="20" stroke-linecap="round"/><path d="M106 142 L126 168" stroke="#6a3216" stroke-width="17" stroke-linecap="round"/>'
-        + '<circle cx="106" cy="142" r="10" fill="#7a3a18" stroke="#3d1d0c" stroke-width="1.6"/>'
-        + '<path d="M120 164 Q130 160 140 166 L144 176 Q136 172 132 178 Q126 172 120 176 Z" fill="#5a2c12" stroke="#2a1206" stroke-width="1.2"/>';
-      /* the body: riveted plate, patched with the Rusty Metal Sheet across the belly */
-      s += '<path d="M126 90 Q200 76 274 90 L262 170 Q200 182 138 170 Z" fill="url(#rgb' + k + ')" stroke="#2a1206" stroke-width="2"/>'
-        + '<path d="M200 82 V112 M200 140 V176 M132 130 Q200 140 268 130" stroke="#3d1d0c" stroke-width="1.6" fill="none" opacity=".8"/>'
-        + [146, 162, 238, 254].map(x => rv(x, 132 + Math.abs(x - 200) * .02)).join('') + [94, 104, 150, 160].map(y => rv(200, y)).join('')
-        + '<circle cx="150" cy="104" r="7" fill="#c8733a" opacity=".35"/><circle cx="252" cy="152" r="9" fill="#3d1d0c" opacity=".4"/><circle cx="146" cy="156" r="5" fill="#d98a4a" opacity=".3"/>'
-        + '<path d="M142 102 l6 14 M256 98 l-4 16" stroke="#3d1d0c" stroke-width="1.2" opacity=".6"/>'
-        + '<g transform="rotate(-4 200 160)"><rect x="160" y="146" width="80" height="26" rx="2" fill="#7a5a44" stroke="#2a1206" stroke-width="1.4"/>'
-        + [0, 1, 2, 3, 4, 5, 6].map(i => '<path d="M' + (166 + i * 11) + ' 147 V171" stroke="#4a3626" stroke-width="2"/>').join('')
-        + '<circle cx="178" cy="160" r="6" fill="#b5541c" opacity=".7"/><circle cx="224" cy="154" r="4" fill="#c8733a" opacity=".6"/>'
-        + rv(163, 149) + rv(237, 149) + rv(163, 169) + rv(237, 169) + '</g>';
-      /* the chest grate: the Lead Heart inside it, the furnace behind it */
-      s += '<circle cx="200" cy="118" r="25" fill="#140804" stroke="#3d1d0c" stroke-width="5"/>'
-        + '<circle class="rg-glow" cx="200" cy="118" r="23" fill="url(#rgf' + k + ')"/>'
-        + '<path class="rg-heart" d="M200 134 C186 126 180 116 186 110 C190 106 196 107 200 112 C204 107 210 106 214 110 C220 116 214 126 200 134 Z" fill="url(#rgl' + k + ')" stroke="#2a2e33" stroke-width="1.2"/>'
-        + '<path class="rg-hotheart" d="M200 134 C186 126 180 116 186 110 C190 106 196 107 200 112 C204 107 210 106 214 110 C220 116 214 126 200 134 Z" fill="#ff5a0a"/>'
-        + '<path d="M200 113 V132 M190 112 Q187 116 190 120" stroke="#3f454b" stroke-width=".9" fill="none"/><rect x="196" y="100" width="3" height="9" fill="#6d747b"/><rect x="202" y="102" width="3" height="7" fill="#6d747b"/>'
-        + '<path d="M184 100 V136 M192 96 V140 M200 94 V142 M208 96 V140 M216 100 V136" stroke="#2a1206" stroke-width="2.4" opacity=".85"/>'
-        + Array.from({length: 10}, (_, i) => rv(200 + Math.cos(i / 10 * Math.PI * 2) * 25, 118 + Math.sin(i / 10 * Math.PI * 2) * 25, 1.4)).join('');
-      s += '<g class="rg-blaze">' + Array.from({length: 10}, (_, i) => { const a = i / 10 * Math.PI * 2, x = 200 + Math.cos(a) * 27, y = 118 + Math.sin(a) * 27, h = 9 + (i % 3) * 4;
-          return '<path style="--d:' + (i * .07).toFixed(2) + 's" transform="rotate(' + (a * 180 / Math.PI + 90).toFixed(1) + ' ' + x.toFixed(1) + ' ' + y.toFixed(1) + ')" d="M' + (x - 4).toFixed(1) + ' ' + y.toFixed(1) + ' Q' + (x - 3).toFixed(1) + ' ' + (y - h * .6).toFixed(1) + ' ' + x.toFixed(1) + ' ' + (y - h).toFixed(1) + ' Q' + (x + 3).toFixed(1) + ' ' + (y - h * .6).toFixed(1) + ' ' + (x + 4).toFixed(1) + ' ' + y.toFixed(1) + ' Z" fill="' + (i % 2 ? '#ffb030' : '#ff5a0a') + '"/>'; }).join('') + '</g>'
-        + '<circle class="rg-flarec" cx="200" cy="118" r="30" fill="url(#rgf' + k + ')"/>';
-      /* shoulders */
-      s += '<ellipse cx="128" cy="96" rx="27" ry="20" fill="#8a4420" stroke="#2a1206" stroke-width="2"/><path d="M106 100 Q128 82 150 100" stroke="#c8733a" stroke-width="2" fill="none" opacity=".5"/>'
-        + '<ellipse cx="272" cy="96" rx="27" ry="20" fill="#7a3a18" stroke="#2a1206" stroke-width="2"/><path d="M250 100 Q272 82 294 100" stroke="#c8733a" stroke-width="2" fill="none" opacity=".4"/>'
-        + rv(112, 98) + rv(128, 86) + rv(144, 98) + rv(256, 98) + rv(272, 86) + rv(288, 98);
-      /* neck, then the head: the Rust Bucket, upside down, its handle up like a crest, a jaw hung under the rim */
-      s += '<rect x="186" y="78" width="28" height="16" fill="#2a1206"/><path d="M186 82 H214 M186 86 H214 M186 90 H214" stroke="#5a2c12" stroke-width="1.4"/>';
-      s += '<g class="rg-head">'
-        + '<path d="M166 58 Q200 -8 234 58" stroke="#7d7a72" stroke-width="3.4" fill="none"/><circle cx="166" cy="58" r="3" fill="#5d5a54"/><circle cx="234" cy="58" r="3" fill="#5d5a54"/>'
-        + '<rect x="180" y="72" width="40" height="18" rx="3" fill="#0b0604"/>'
-        + '<g class="rg-jaw"><path d="M178 72 H222 L218 92 Q200 96 182 92 Z" fill="#6a3216" stroke="#2a1206" stroke-width="1.4"/>'
-        + '<path d="M184 74 l3 -5 l3 5 l3 -5 l3 5 l3 -5 l3 5 l3 -5 l3 5 l3 -5 l3 5 l3 -5 l2 4" fill="#d9cfb8" stroke="#2a1206" stroke-width=".6"/>' + rv(186, 86) + rv(214, 86) + '</g>'
-        + '<path d="M172 28 L228 28 L236 74 L164 74 Z" fill="url(#rgh' + k + ')" stroke="#2a1206" stroke-width="2"/>'
-        + '<ellipse cx="200" cy="28" rx="28" ry="4.6" fill="#3a1a0a" stroke="#2a1206" stroke-width="1.4"/>'
-        + '<path d="M170 42 H230 M167 62 H233" stroke="#3d1d0c" stroke-width="2.4" opacity=".75"/>'
-        + '<rect x="161" y="70" width="78" height="8" rx="2" fill="#7a3a18" stroke="#2a1206" stroke-width="1.4"/>'
-        + '<path d="M168 80 l6 -3 l4 6 l6 -5 l6 4 l5 -4 l6 5 l6 -4 l5 4 l6 -5 l4 4 l6 -3" stroke="#d9cfb8" stroke-width="2.2" fill="none" stroke-linejoin="round"/>'
-        + '<circle cx="222" cy="36" r="2.4" fill="#0b0604"/><circle cx="178" cy="66" r="1.8" fill="#0b0604"/><circle cx="214" cy="68" r="3" fill="#c8733a" opacity=".5"/><path d="M226 30 Q230 46 228 60" stroke="#d98a4a" stroke-width="1.2" opacity=".4" fill="none"/>'
-        + '<rect x="176" y="45" width="48" height="15" rx="6" fill="#0b0604" stroke="#2a1206" stroke-width="1.2"/>'
-        + '<g class="rg-eye"><circle cx="188" cy="52.5" r="5" fill="#ffb000"/><circle cx="212" cy="52.5" r="5" fill="#ffb000"/><circle cx="188" cy="52.5" r="2" fill="#fff4c0"/><circle cx="212" cy="52.5" r="2" fill="#fff4c0"/></g>'
-        + '<path d="M178 44 L196 47 M222 44 L204 47" stroke="#2a1206" stroke-width="2.4" stroke-linecap="round"/>'
-        + '</g>';
-      /* crumbs that fall out of his mouth when he chews */
-      s += '<g class="rg-crumbs">' + [[-6, '#5a2c14'], [2, '#c0262d'], [8, '#6a6a60'], [-2, '#3a2a1e'], [12, '#b5541c']].map(([dx, c], i) => '<rect class="rg-crumb" style="--d:' + (i * .07).toFixed(2) + 's" x="' + (200 + dx) + '" y="90" width="3" height="3" fill="' + c + '"/>').join('') + '</g>';
-      /* the right arm: scoops a fistful off the mountain, takes it up to his mouth, goes back for more */
-      s += '<g class="rg-up"><path d="M272 100 L300 140" stroke="url(#rga' + k + ')" stroke-width="20" stroke-linecap="round"/>' + rv(282, 112) + rv(292, 126)
-        + '<g class="rg-fore"><path d="M300 140 L292 180" stroke="#7a3a18" stroke-width="17" stroke-linecap="round"/>'
-        + '<g class="rg-junk"><rect x="282" y="184" width="10" height="13" rx="2" fill="#c0262d" transform="rotate(-18 287 190)"/><rect x="282" y="184" width="10" height="3" fill="#ccc" transform="rotate(-18 287 190)"/><path d="M292 190 q8 -4 12 4 q-2 8 -10 6 Z" fill="#141210"/><rect x="286" y="194" width="12" height="4" fill="#6a6a60" transform="rotate(20 292 196)"/></g>'
-        + '<path d="M282 178 Q292 172 302 180 L306 192 Q300 188 296 196 L292 188 L288 198 Q284 190 280 194 Z" fill="#5a2c12" stroke="#2a1206" stroke-width="1.2"/>'
-        + '<circle cx="300" cy="140" r="10" fill="#8a4420" stroke="#3d1d0c" stroke-width="1.6"/>' + rv(300, 140, 2) + '</g></g>';
+      s += rgBody(k);
       /* the furnace lights the junk around him */
       s += '<ellipse class="rg-light" cx="200" cy="150" rx="150" ry="90" fill="url(#rgw' + k + ')"/>';
-      s += '</g></g>';
+      s += '</g>';
       /* night over everything, then his eyes over the night so they're the first thing you see */
       s += '</svg>' + rgPileFront() + yFire(26, 262, k) + '<rect class="rg-night" width="400" height="260" fill="#04050b"/>'
         + '<svg x="76" y="44.6" width="248" height="161.2" viewBox="0 0 400 260" overflow="visible">' + '<g class="rg-head rg-eyes2"><g class="rg-eye"><circle cx="188" cy="52.5" r="8" fill="#ffb000" filter="url(#rge' + k + ')" opacity=".9"/><circle cx="212" cy="52.5" r="8" fill="#ffb000" filter="url(#rge' + k + ')" opacity=".9"/><circle cx="188" cy="52.5" r="3" fill="#fff4c0"/><circle cx="212" cy="52.5" r="3" fill="#fff4c0"/></g></g>' + '</svg>' + vigRect(k);
@@ -13060,7 +13079,7 @@ function rustedCinematic(r){
     const go = n => { ov.dataset.s = n; }, add = c => ov.classList.add(c), rm = c => ov.classList.remove(c);
     const SV = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">';
     const RIFLE = SHAPES.rifle.skin + ' ' + SHAPES.rifle.dark;
-    const DEFS = '<defs><linearGradient id="rzSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#03050b"/><stop offset=".7" stop-color="#140e0a"/><stop offset="1" stop-color="#241408"/></linearGradient>'
+    const DEFS = '<defs>' + rgDefs('z') + '<linearGradient id="rzSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#03050b"/><stop offset=".7" stop-color="#140e0a"/><stop offset="1" stop-color="#241408"/></linearGradient>'
       + '<radialGradient id="rzFire"><stop offset="0" stop-color="#fff6c8"/><stop offset=".35" stop-color="#ffb030"/><stop offset=".7" stop-color="#ff5a0a"/><stop offset="1" stop-color="#ff3a00" stop-opacity="0"/></radialGradient>'
       + '<radialGradient id="rzGl"><stop offset="0" stop-color="#ff9a3a" stop-opacity=".75"/><stop offset="1" stop-color="#ff5a00" stop-opacity="0"/></radialGradient>'
       + '<linearGradient id="rzHot" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff4a00"/><stop offset=".45" stop-color="#ffd27a"/><stop offset=".7" stop-color="#fff6d0"/><stop offset="1" stop-color="#ff7a1a"/></linearGradient>'
@@ -13070,21 +13089,16 @@ function rustedCinematic(r){
       + '<linearGradient id="rzRust" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b8642e"/><stop offset=".5" stop-color="#7a3a18"/><stop offset="1" stop-color="#3a1a0a"/></linearGradient>'
       + '<linearGradient id="rzBrass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8c27a"/><stop offset=".5" stop-color="#a87a3a"/><stop offset="1" stop-color="#5a3a14"/></linearGradient></defs>';
     const clouds = cls => '<g class="' + cls + '">' + Array.from({length: 11}, (_, i) => '<ellipse cx="' + f1(i * 40 - 10 + R() * 20) + '" cy="' + f1(14 + R() * 40) + '" rx="' + f1(40 + R() * 40) + '" ry="' + f1(16 + R() * 14) + '" fill="' + (i % 2 ? '#0c0f18' : '#141824') + '"/>').join('') + '</g>';
-    /* Rustagard as a silhouette on his mountain: dark shapes, two eyes, a glowing chest */
-    const giant = (x, y, s, arm) => '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')"><ellipse cx="0" cy="-40" rx="80" ry="60" fill="url(#rzGl)" opacity=".55"/>'
-      + '<path d="M-60 0 L-50 -60 Q0 -72 50 -60 L60 0 Z" fill="#2a160a" stroke="#ff8a2a" stroke-opacity=".35" stroke-width="1.6"/><circle cx="-56" cy="-62" r="17" fill="#2a160a" stroke="#ff8a2a" stroke-opacity=".3" stroke-width="1.4"/><circle cx="56" cy="-62" r="17" fill="#2a160a" stroke="#ff8a2a" stroke-opacity=".3" stroke-width="1.4"/>'
-      + '<path d="M-18 -112 H18 L23 -76 H-23 Z" fill="#3a1e0c" stroke="#ff8a2a" stroke-opacity=".35" stroke-width="1.4"/><path d="M-22 -96 Q0 -150 22 -96" stroke="#5a4a3a" stroke-width="3" fill="none"/>'
-      + '<circle class="rz-eye" cx="-8" cy="-92" r="3.4" fill="#ffb000"/><circle class="rz-eye" cx="8" cy="-92" r="3.4" fill="#ffb000"/>'
-      + '<circle class="rz-chest" cx="0" cy="-40" r="13" fill="url(#rzFire)"/>'
-      + '<path d="M-56 -60 L-76 -24 L-62 -4" stroke="#2a160a" stroke-width="14" stroke-linecap="round" fill="none"/>'
-      + (arm || '<path d="M56 -60 L76 -24 L62 -4" stroke="#2a160a" stroke-width="14" stroke-linecap="round" fill="none"/>') + '</g>';
+    /* Rustagard himself, the same rusted-metal giant as in his room, in his own box: seat at (x, y), scale sc.
+       arm: replace his eating arm with another one (the shot). */
+    const giant = (x, y, sc, arm) => '<svg class="rz-giant' + (arm ? ' rz-gun' : '') + '" x="' + f1(x - 200 * sc) + '" y="' + f1(y - 170 * sc) + '" width="' + f1(400 * sc) + '" height="' + f1(260 * sc) + '" viewBox="0 0 400 260" overflow="visible"><ellipse cx="200" cy="130" rx="190" ry="120" fill="url(#rzGl)" opacity=".45"/>' + rgBody('z') + (arm || '') + '</svg>';
     const mound = '<path d="M-20 262 Q60 196 140 176 Q200 160 260 176 Q340 196 420 262 Z" fill="#0a0705"/>'
       + Array.from({length: 40}, () => { const x = R() * 400, y = 185 + R() * 75; return '<rect x="' + f1(x) + '" y="' + f1(y) + '" width="' + f1(4 + R() * 10) + '" height="' + f1(3 + R() * 6) + '" fill="' + ['#140e0a', '#1a120c', '#0e0a08'][Math.floor(R() * 3)] + '" transform="rotate(' + f1(R() * 60 - 30) + ' ' + f1(x) + ' ' + f1(y) + ')"/>'; }).join('');
 
     /* 1. the storm */
     const s1 = SV + DEFS + '<rect width="400" height="260" fill="url(#rzSky)"/>' + clouds('rz-clouds')
       + '<path d="M0 200 Q40 180 80 190 Q130 170 170 186 Q230 172 280 188 Q330 176 400 192 V260 H0 Z" fill="#0c0907"/>'
-      + mound + giant(200, 176, .9)
+      + mound + giant(200, 168, .52)
       + '<g class="rz-bolt"><path d="M286 0 L270 44 L282 46 L262 92 L276 94 L252 140" stroke="#cfe0ff" stroke-width="7" stroke-opacity=".25" fill="none"/><path d="M286 0 L270 44 L282 46 L262 92 L276 94 L252 140" stroke="#f4f8ff" stroke-width="2.4" fill="none"/></g>'
       + '<g class="rz-bolt b2"><path d="M96 0 L106 30 L96 34 L112 70" stroke="#cfe0ff" stroke-width="6" stroke-opacity=".25" fill="none"/><path d="M96 0 L106 30 L96 34 L112 70" stroke="#f4f8ff" stroke-width="2" fill="none"/></g></svg>';
 
@@ -13117,7 +13131,7 @@ function rustedCinematic(r){
       + '<g class="rz-car"><g transform="translate(312 108)">' + yCar(0, 0, 48, 22, '#6a2a1a') + '</g></g></g></g>'
       + '<g class="rz-crush"><rect x="300" y="208" width="80" height="40" fill="#2a2a2a" stroke="#0e0e0e" stroke-width="2"/><path d="M300 214 H380" stroke="#ffd23f" stroke-width="4" stroke-dasharray="8 8"/>'
       + '<rect class="rz-jl" x="300" y="176" width="10" height="34" fill="#4a4f54"/><rect class="rz-jr" x="370" y="176" width="10" height="34" fill="#4a4f54"/></g>'
-      + giant(40, 214, .55) + '</svg>';
+      + giant(46, 204, .3) + '</svg>';
 
     /* 4. the forge */
     const junk = [['<circle r="11" fill="none" stroke="#a87a3a" stroke-width="5" stroke-dasharray="4 3"/><circle r="5" fill="#5a3a14"/>', '-260px', '-140px', '-540deg'],
@@ -13162,13 +13176,14 @@ function rustedCinematic(r){
       + '<text class="rz-9000" x="200" y="160" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="120" letter-spacing="6" fill="#ff8a1a" stroke="#3a1206" stroke-width="3">9000</text></svg>';
 
     /* 7. the shot */
-    const gunArm = '<g transform="translate(56 -60)"><g class="rz-aim"><path d="M0 0 L22 -26 L30 -54" stroke="#2a160a" stroke-width="14" stroke-linecap="round" fill="none"/><path d="M0 0 L22 -26 L30 -54" stroke="#ff8a2a" stroke-opacity=".3" stroke-width="1.4" fill="none"/>'
-      + '<g transform="translate(30 -56) rotate(-38) scale(.55) translate(-96 -46)"><path d="' + RIFLE + '" fill="#6a3014" stroke="#ff9a3a" stroke-width="2.4"/>'
-      + '<g class="rz-beam"><rect x="190" y="18" width="900" height="40" fill="url(#rzBeam)"/><rect x="190" y="33" width="900" height="10" fill="#fff6d0"/></g><circle class="rz-muz" cx="196" cy="38" r="20" fill="url(#rzFire)"/></g></g></g>';
+    const gunArm = '<g transform="translate(272 100)"><g class="rz-aim"><path d="M0 0 L30 -38" stroke="url(#rgaz)" stroke-width="20" stroke-linecap="round"/><path d="M30 -38 L44 -82" stroke="#7a3a18" stroke-width="17" stroke-linecap="round"/><circle cx="30" cy="-38" r="10" fill="#8a4420" stroke="#3d1d0c" stroke-width="1.6"/>'
+      + '<g transform="translate(46 -88) rotate(-38) scale(.95) translate(-96 -46)"><path d="' + RIFLE + '" fill="#7a3a18" stroke="#ffb070" stroke-width="2"/><path d="M56 32 H96 V42 H56 Z" fill="#ff8a1a" opacity=".8"/>'
+      + '<g class="rz-beam"><rect x="190" y="14" width="900" height="48" fill="url(#rzBeam)"/><rect x="190" y="32" width="900" height="12" fill="#fff6d0"/></g><circle class="rz-muz" cx="196" cy="38" r="24" fill="url(#rzFire)"/></g>'
+      + '<path d="M36 -90 Q48 -100 58 -88 L60 -76 Q52 -82 48 -72 L44 -82 L40 -70 Q34 -80 30 -76 Z" fill="#5a2c12" stroke="#2a1206" stroke-width="1.2"/></g></g>';
     const s7 = SV + DEFS + '<rect width="400" height="260" fill="url(#rzSky)"/><circle class="rz-moon" cx="300" cy="40" r="20" fill="#efe2bf"/>'
       + '<g class="rz-cl-l">' + Array.from({length: 6}, (_, i) => '<ellipse cx="' + f1(i * 36) + '" cy="' + f1(20 + R() * 40) + '" rx="' + f1(50 + R() * 30) + '" ry="' + f1(18 + R() * 12) + '" fill="' + (i % 2 ? '#0c0f18' : '#151a26') + '"/>').join('') + '</g>'
       + '<g class="rz-cl-r">' + Array.from({length: 6}, (_, i) => '<ellipse cx="' + f1(220 + i * 36) + '" cy="' + f1(20 + R() * 40) + '" rx="' + f1(50 + R() * 30) + '" ry="' + f1(18 + R() * 12) + '" fill="' + (i % 2 ? '#0c0f18' : '#151a26') + '"/>').join('') + '</g>'
-      + mound + giant(160, 222, .86, gunArm) + '</svg>';
+      + mound + giant(170, 196, .62, gunArm) + '</svg>';
 
     const title = it.name.split('').map((ch, i) => '<span style="--i:' + i + '">' + (ch === ' ' ? '&nbsp;' : escH(ch)) + '</span>').join('');
     const gear = (n, r0, r1) => '<svg viewBox="-110 -110 220 220" aria-hidden="true"><path d="' + Array.from({length: n * 2}, (_, i) => { const a = i / (n * 2) * Math.PI * 2, rr = i % 2 ? r0 : r1, b = a + Math.PI / (n * 2); return (i ? 'L' : 'M') + f1(Math.cos(a) * rr) + ' ' + f1(Math.sin(a) * rr) + ' L' + f1(Math.cos(b) * rr) + ' ' + f1(Math.sin(b) * rr); }).join(' ') + ' Z" fill="#2a160a" stroke="#4a240e" stroke-width="3"/><circle r="' + (r0 * .4) + '" fill="#120804"/></svg>';
