@@ -3477,7 +3477,9 @@ body.dz-open .toast{z-index:95}
 .ms-rusta.rg-fire .rg-glow,.ms-rusta.rg-on .rg-glow{opacity:1;animation:rgFlick 1.4s steps(4) infinite}
 .ms-rusta.rg-fire .rg-light,.ms-rusta.rg-on .rg-light{opacity:.5}
 @keyframes rgFlick{0%{opacity:1}25%{opacity:.72}50%{opacity:.95}75%{opacity:.8}}
-.ms-rusta.rg-rumble .rg-all{animation:rgRumble .1s steps(2) infinite}
+.ms-rusta.rg-rumble .rg-all,.ms-rusta.rg-rumble .rg-pile{animation:rgRumble .1s steps(2) infinite}
+.ms-rusta .rg-fly{transform-box:view-box;transform-origin:var(--ox) var(--oy);animation:rgFly var(--t) linear infinite;animation-delay:var(--dl)}
+@keyframes rgFly{to{transform:rotate(360deg)}}
 @keyframes rgRumble{0%{transform:translate(-1.6px,1px)}100%{transform:translate(1.6px,-1px)}}
 .ms-rusta .rg-can{transform-box:fill-box;transform-origin:center}
 .ms-rusta.rg-cans .rg-can{animation:rgRoll 1.5s cubic-bezier(.4,0,.8,.6) forwards}
@@ -9400,28 +9402,17 @@ const YARD_SC = {
         + '<linearGradient id="rga' + k + '" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5a2c12"/><stop offset=".5" stop-color="#a0542a"/><stop offset="1" stop-color="#4a220e"/></linearGradient>'
         + '<radialGradient id="rgf' + k + '"><stop offset="0" stop-color="#ffe2a0"/><stop offset=".45" stop-color="#ff8a1a"/><stop offset="1" stop-color="#ff4a00" stop-opacity="0"/></radialGradient>'
         + '<radialGradient id="rgw' + k + '"><stop offset="0" stop-color="#ff8a2a" stop-opacity=".5"/><stop offset="1" stop-color="#ff6a00" stop-opacity="0"/></radialGradient>'
+        + '<linearGradient id="rgp' + k + '" gradientUnits="userSpaceOnUse" x1="0" y1="150" x2="0" y2="264"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".55" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></linearGradient>'
         + '<linearGradient id="rgl' + k + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a7aeb5"/><stop offset=".55" stop-color="#6d747b"/><stop offset="1" stop-color="#3f454b"/></linearGradient>'
         + '</defs>'
         + '<rect width="400" height="260" fill="url(#ys' + k + ')"/>' + yStars(R, 64) + yMoon(336, 32)
         + yPiles(R, 174, '#120c09', 9) + yPiles(R, 196, '#1a110c', 7) + yGround(228);
       const rv = (x, y, r) => '<circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + (r || 1.6) + '" fill="#d98a4a" stroke="#2a1206" stroke-width=".6"/>';
-      /* He's drawn in his own 400x260 box, scaled down so there's night sky over his head: the nested viewport keeps
-         every transform-origin in his own coordinates. Everything in the box shakes when he wakes. */
-      s += '<svg x="44" y="52" width="312" height="202.8" viewBox="0 0 400 260" overflow="visible"><g class="rg-all">';
-      s += '<path d="M-90 300 Q-10 236 74 206 Q104 188 134 180 Q164 168 200 170 Q240 168 268 180 Q300 190 330 208 Q410 236 490 300 Z" fill="#2a1d14"/>'
-        + '<path d="M-40 300 Q50 236 108 212 Q150 198 200 198 Q252 198 294 212 Q350 236 440 300 Z" fill="#33241a"/>';
-      /* the mountain is made of things: bags, cans, tyres, a fridge, a telly, pipe */
-      const JK = ['#3a2a1e', '#4a3626', '#1b1b1b', '#5a2c14', '#2e3a44', '#6a6a60', '#7a2a1a', '#41503a'];
-      for (let i = 0; i < 90; i++) {
-        const x = -30 + R() * 460, y = top(x) + 4 + R() * Math.max(4, 286 - top(x) - 4), c = JK[i % JK.length], w = 4 + R() * 10, h = 3 + R() * 7, a = (R() * 60 - 30).toFixed(0);
-        s += i % 3 ? '<rect x="' + f1(x) + '" y="' + f1(y) + '" width="' + f1(w) + '" height="' + f1(h) + '" rx="1" fill="' + c + '" transform="rotate(' + a + ' ' + f1(x) + ' ' + f1(y) + ')"/>'
-                   : '<ellipse cx="' + f1(x) + '" cy="' + f1(y) + '" rx="' + f1(w * .7) + '" ry="' + f1(h * .7) + '" fill="#141210"/><path d="M' + f1(x - w * .4) + ' ' + f1(y - h * .3) + ' q' + f1(w * .3) + ' -2 ' + f1(w * .5) + ' 0" stroke="#3a3a3a" stroke-width=".8" fill="none"/>';
-      }
-      s += '<ellipse cx="84" cy="216" rx="15" ry="6" fill="#151515" stroke="#2c2c2c" stroke-width="2"/><ellipse cx="84" cy="216" rx="6" ry="2.4" fill="#2a1d14"/>'
-        + '<ellipse cx="322" cy="220" rx="16" ry="6" fill="#151515" stroke="#2c2c2c" stroke-width="2"/><ellipse cx="322" cy="220" rx="6" ry="2.4" fill="#2a1d14"/>'
-        + '<g transform="rotate(-12 336 196)"><rect x="322" y="176" width="26" height="40" rx="3" fill="#c9c4b4" stroke="#5a5448" stroke-width="1.2"/><path d="M322 190 H348" stroke="#5a5448"/><rect x="342" y="180" width="2" height="7" fill="#5a5448"/><circle cx="330" cy="206" r="3" fill="#b5541c" opacity=".6"/></g>'
-        + '<g transform="rotate(10 64 196)"><rect x="50" y="188" width="28" height="22" rx="2" fill="#2a2a2a" stroke="#111"/><rect x="54" y="191" width="20" height="15" fill="#3a4a4a"/><path d="M56 193 L72 204" stroke="#6a7a7a" stroke-width=".8"/></g>'
-        + '<path d="M100 236 L150 222" stroke="#5a5f64" stroke-width="5" stroke-linecap="round"/><path d="M250 224 L300 240" stroke="#4a4f54" stroke-width="4" stroke-linecap="round"/>';
+      /* the garbage pile: a whole mountain of it, filling the bottom of the frame, him sat on the summit */
+      s += rgPile(R, k);
+      /* He's drawn in his own 400x260 box, scaled down onto the summit: the nested viewport keeps every
+         transform-origin in his own coordinates. Everything in the box shakes when he wakes. */
+      s += '<svg x="76" y="44.6" width="248" height="161.2" viewBox="0 0 400 260" overflow="visible"><g class="rg-all">';
       /* the cans on top: they roll off when he wakes up */
       s += '<g class="rg-cans">' + [[152, 170, '#c0262d', '-56px', '46px', '-420deg'], [238, 168, '#2a6aff', '64px', '52px', '380deg'], [176, 166, '#39a85a', '-30px', '70px', '-300deg']].map(([x, y, c, dx, dy, r]) =>
         '<g class="rg-can" style="--dx:' + dx + ';--dy:' + dy + ';--r:' + r + '"><rect x="' + (x - 4) + '" y="' + (y - 6) + '" width="8" height="11" rx="1.5" fill="' + c + '"/><rect x="' + (x - 4) + '" y="' + (y - 6) + '" width="8" height="2" fill="#ccc"/></g>').join('') + '</g>';
@@ -9492,9 +9483,8 @@ const YARD_SC = {
       s += '<ellipse class="rg-light" cx="200" cy="150" rx="150" ry="90" fill="url(#rgw' + k + ')"/>';
       s += '</g></g>';
       /* night over everything, then his eyes over the night so they're the first thing you see */
-      s += '<rect class="rg-night" x="-200" y="-200" width="800" height="700" fill="#04050b"/>'
-        + '<g class="rg-head rg-eyes2"><g class="rg-eye"><circle cx="188" cy="52.5" r="8" fill="#ffb000" filter="url(#rge' + k + ')" opacity=".9"/><circle cx="212" cy="52.5" r="8" fill="#ffb000" filter="url(#rge' + k + ')" opacity=".9"/><circle cx="188" cy="52.5" r="3" fill="#fff4c0"/><circle cx="212" cy="52.5" r="3" fill="#fff4c0"/></g></g>'
-        + '</svg>' + yFire(26, 262, k) + vigRect(k);
+      s += '</svg>' + rgPileFront() + yFire(26, 262, k) + '<rect class="rg-night" width="400" height="260" fill="#04050b"/>'
+        + '<svg x="76" y="44.6" width="248" height="161.2" viewBox="0 0 400 260" overflow="visible">' + '<g class="rg-head rg-eyes2"><g class="rg-eye"><circle cx="188" cy="52.5" r="8" fill="#ffb000" filter="url(#rge' + k + ')" opacity=".9"/><circle cx="212" cy="52.5" r="8" fill="#ffb000" filter="url(#rge' + k + ')" opacity=".9"/><circle cx="188" cy="52.5" r="3" fill="#fff4c0"/><circle cx="212" cy="52.5" r="3" fill="#fff4c0"/></g></g>' + '</svg>' + vigRect(k);
       return s + '</svg>';
     },
     intro: async S => {
@@ -9961,6 +9951,54 @@ function aucAct(a){
   if (a === 'keep') { toast(ctl.kind === 'pres' ? 'You keep it. Six very offended people watch you take the elevator down.' : 'You keep it. Four very angry people watch you leave.'); closeAuction(); }
 }
 
+
+/* Rustagard's garbage mountain: a lumpy silhouette, then ~200 pieces of rubbish stacked back to front (things lower
+   down are nearer, so bigger), a shade that darkens the base, a few flies, and the furnace light on the summit. */
+const rgCy = x => 148 + 92 * Math.pow(Math.min(1, Math.abs(x - 200) / 240), 1.9) + 4 * Math.sin(x / 13) + 2.5 * Math.sin(x / 5.3);
+const RG_BAG = ['#16181b', '#1f3a26', '#555a61', '#1d2e4a', '#16181b', '#2a2d31'];
+const RG_CAN = ['#c0262d', '#2a6aff', '#39a85a', '#ffd23f', '#c9cfd6', '#ff7a1a'];
+const RG_CAR = ['#46566a', '#6a2a1a', '#3a4a3a', '#7a6a40', '#5a3a5a'];
+function rgJunk(x, y, r1, r2, r3, r4){
+  const sf = .74 + Math.max(0, y - 145) / 115 * .8, a = (r2 * 56 - 28).toFixed(0);
+  const T = b => '<g transform="translate(' + f1(x) + ' ' + f1(y) + ') rotate(' + a + ') scale(' + sf.toFixed(2) + ')">' + b + '</g>';
+  const pick = A => A[Math.floor(r3 * A.length) % A.length];
+  if (r1 < .30) { const c = pick(RG_BAG); return T('<path d="M-13 0 Q-17 -12 -8 -17 Q-3 -19.5 -1.6 -21 H1.6 Q3 -19.5 8 -17 Q17 -12 13 0 Q0 4.5 -13 0 Z" fill="' + c + '" stroke="#07080a" stroke-width=".7"/><path d="M-1.6 -21 Q-6 -27 -1 -25.5 Q0 -23 0 -21.5 Q0 -23 1 -25.5 Q6 -27 1.6 -21" fill="' + c + '" stroke="#07080a" stroke-width=".6"/><path d="M-4 -17 Q0 -15 4 -17" stroke="#000" stroke-opacity=".45" stroke-width=".8" fill="none"/><path d="M-7 -11 Q-5 -14 -1 -14" stroke="#fff" stroke-opacity=".2" stroke-width="1.4" fill="none"/><path d="M3 -6 l3 4" stroke="#000" stroke-opacity=".4"/>'); }
+  if (r1 < .40) return r4 < .5 ? T('<ellipse rx="12" ry="5" fill="#131313" stroke="#2b2b2b" stroke-width="2.6"/><ellipse rx="5" ry="2" fill="#070707"/>') : T('<circle cy="-9" r="9.5" fill="#131313" stroke="#2c2c2c" stroke-width="3.2"/><circle cy="-9" r="3.6" fill="#3a3a3a"/><path d="M-6 -15 l2 2 M5 -16 l-1 3" stroke="#222"/>');
+  if (r1 < .52) return T('<rect x="-10" y="-13" width="20" height="13" fill="#8a6a42" stroke="#3e2c18" stroke-width=".8"/><path d="M-10 -13 L-6 -17 H14 L10 -13 Z M10 -13 L14 -17 V-4 L10 0 Z" fill="#6e5232" stroke="#3e2c18" stroke-width=".6"/><path d="M-10 -8 H10" stroke="#c9b48a" stroke-width="2"/><path d="M-6 -12 L-1 -3" stroke="#3e2c18" stroke-width=".6" opacity=".6"/>');
+  if (r1 < .63) { const c = pick(RG_CAN); return T('<rect x="-2.6" y="-7" width="5.2" height="7" rx="1" fill="' + c + '"/><rect x="-2.6" y="-7" width="5.2" height="1.5" fill="#d6d6d6"/><path d="M-1 -5 V-1" stroke="#fff" stroke-opacity=".35"/>'); }
+  if (r1 < .69) return T('<path d="M-2.2 0 V-7 Q-2.2 -9 -1 -10 V-13 H1 V-10 Q2.2 -9 2.2 -7 V0 Z" fill="' + (r4 < .5 ? '#2e6b3a' : '#7a4a1a') + '" fill-opacity=".9"/><path d="M-1 -7 V-2" stroke="#fff" stroke-opacity=".35"/>');
+  if (r1 < .75) return T('<rect x="-17" y="-2" width="34" height="4" fill="#6a4a2a" stroke="#2e1e10" stroke-width=".6"/><path d="M-12 -2 V2 M6 -2 V2" stroke="#2e1e10" stroke-width=".5"/><circle cx="-4" cy="0" r=".8" fill="#888"/>');
+  if (r1 < .80) return T('<rect x="-19" y="-2.6" width="38" height="5.2" rx="2.6" fill="#6a6f74" stroke="#33383d" stroke-width=".6"/><path d="M-17 -1 H17" stroke="#9aa0a6" stroke-opacity=".5"/><circle cx="8" cy="0" r="2" fill="#b5541c" opacity=".6"/>');
+  if (r1 < .835) return T(yCar(-24, -16, 48, 16, pick(RG_CAR)));
+  if (r1 < .865) return r4 < .5
+    ? T('<rect x="-9" y="-22" width="18" height="22" rx="1.5" fill="#cfcabb" stroke="#5a5448" stroke-width=".8"/><path d="M-9 -13 H9" stroke="#5a5448" stroke-width=".7"/><rect x="5" y="-20" width="1.6" height="4" fill="#5a5448"/><circle cx="-3" cy="-6" r="2.6" fill="#b5541c" opacity=".55"/>')
+    : T('<rect x="-10" y="-20" width="20" height="20" rx="1.5" fill="#d6d2c6" stroke="#5a5448" stroke-width=".8"/><circle cy="-9" r="6" fill="#34464a" stroke="#8a8478" stroke-width="1.6"/><rect x="-8" y="-18.5" width="8" height="2.4" fill="#8a8478"/>');
+  if (r1 < .895) return T('<rect x="-11" y="-15" width="22" height="15" rx="2" fill="#262626" stroke="#0e0e0e"/><rect x="-8.5" y="-12.5" width="14" height="10" fill="#33464a"/><path d="M-6 -11 L4 -4" stroke="#6a7a7a" stroke-width=".7"/><path d="M-4 -15 L-8 -21 M4 -15 L8 -21" stroke="#777" stroke-width=".8"/>');
+  if (r1 < .92) return T('<rect x="-7" y="-17" width="14" height="17" rx="2" fill="#8a3a14" stroke="#3a1a0a"/><path d="M-7 -12 H7 M-7 -5 H7" stroke="#5a2a0a" stroke-width="1.3"/><ellipse cy="-17" rx="7" ry="1.6" fill="#3a1a0a"/>');
+  if (r1 < .94) return T('<rect x="-22" y="-7" width="44" height="9" rx="3" fill="#b8b0a0" stroke="#6a6458" stroke-width=".7"/><path d="M-15 -7 V2 M-6 -7 V2 M3 -7 V2 M12 -7 V2" stroke="#8a8478" stroke-width=".6"/><ellipse cx="-8" cy="-2.5" rx="4" ry="2.4" fill="#8a6a3a" opacity=".45"/><path d="M10 -6 l4 5" stroke="#6a6458" stroke-width=".8"/>');
+  if (r1 < .955) return T('<path d="M-11 -13 H11 L9 -4 H-9 Z" fill="none" stroke="#8a9096" stroke-width="1.3"/><path d="M-8 -11 V-6 M-4 -12 V-5 M0 -12 V-5 M4 -12 V-5 M8 -11 V-6 M-10 -9 H10" stroke="#8a9096" stroke-width=".6"/><path d="M11 -13 L14 -17" stroke="#8a9096" stroke-width="1.3"/><circle cx="-6" cy="-1" r="1.8" fill="#222"/><circle cx="6" cy="-1" r="1.8" fill="#222"/>');
+  if (r1 < .97) return T('<path d="M-12 -12 V0 M-12 -6 H8 V0 M8 -6 V-16 M-12 -6 L-10 -16" stroke="#5a3a20" stroke-width="2.2" fill="none" stroke-linecap="round"/>');
+  return T('<rect x="-6" y="-4" width="12" height="7" fill="#d8d2c0" fill-opacity=".85"/><path d="M-4 -2 H4 M-4 0 H3" stroke="#6a6458" stroke-width=".5"/>');
+}
+function rgPile(R, k){
+  let d = 'M-24 272';
+  for (let x = -24; x <= 424; x += 6) d += ' L' + x + ' ' + f1(rgCy(x) + R() * 5 - 2.5);
+  d += ' L424 272 Z';
+  const L = [];
+  for (let i = 0; i < 300; i++) { const x = -26 + R() * 452, y0 = rgCy(x) + 1, y = y0 + Math.pow(R(), 1.5) * (274 - y0); L.push([x, y, R(), R(), R(), R()]); }
+  for (let i = 0; i < 70; i++) { const x = -26 + R() * 452; L.push([x, rgCy(x) + 2 + R() * 6, R(), R(), R(), R()]); }
+  L.sort((a, b) => a[1] - b[1]);
+  return '<g class="rg-pile"><path d="' + d + '" fill="#1a120c" stroke="#3a2a1e" stroke-width="2"/>' + L.map(j => rgJunk(...j)).join('')
+    + '<path d="' + d + '" fill="url(#rgp' + k + ')"/>'
+    + '<ellipse class="rg-light" cx="200" cy="168" rx="175" ry="72" fill="url(#rgw' + k + ')"/>'
+    + '<g class="rg-flies">' + [[92, 176, 7, 3.1], [118, 190, 5, 2.2], [300, 182, 8, 2.8], [330, 200, 6, 3.6], [64, 214, 9, 2.6], [356, 226, 7, 3.3], [210, 214, 6, 2.4]].map(([x, y, r, t], i) =>
+        '<circle class="rg-fly" style="--ox:' + x + 'px;--oy:' + y + 'px;--t:' + t + 's;--dl:-' + (i * .37).toFixed(2) + 's" cx="' + (x + r) + '" cy="' + y + '" r=".9" fill="#111"/>').join('') + '</g></g>';
+}
+/* in front of his feet, so he's sat in it rather than on top of a drawing of it */
+function rgPileFront(){
+  const F = [[146, 194, .05, .3, .1, .2], [256, 196, .36, .7, .4, .7], [202, 200, .45, .5, .3, .4], [118, 204, .12, .8, .6, .3], [288, 202, .2, .2, .9, .6], [176, 206, .6, .4, .2, .5], [232, 208, .25, .6, .5, .5]];
+  return '<g class="rg-pile">' + F.map(j => rgJunk(...j)).join('') + '</g>';
+}
 
 /* ---------- Rustagard ----------
    Once you've bought the Contraption, Socket wants three parts for something bigger. They aren't weapons and they
