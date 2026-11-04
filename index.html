@@ -4625,10 +4625,11 @@ const MIN_COST = Math.min(...CASES.map(c => c.cost));
 /* Case #LG1: on Brick's wall shelf. Every pull is Legendary (never the Rusty Knife). */
 const LG1 = {id:'lg1', name:'Case #LG1', tag:'Every pull is Legendary', cost:5500, cls:'k-lg', mark:'LG1', glow:'#ff4d4d'};
 const LG_IDS = () => ITEMS.filter(it => it.t === 4 && !it.ex && it.id !== 's12');
-const pkCase = st => st && st.pk === 'lg1' ? LG1 : PK1;
+const pkCase = st => st && st.pk === 'rc' ? RC : st && st.pk === 'lg1' ? LG1 : PK1;
 /* Ma Rust's Rusty Case: sold in her room once Rustagard's heart has burned a million */
-const RC = {id:'rusty', name:'Rusty Case', tag:'Rusty legendaries · one Chroma', cost:15000, f:1, cls:'k-rusty', mark:'RC', glow:'#ff8a2a'};
+const RC = {id:'rusty', name:'Rusty Case', tag:'Rusty legendaries · one Chroma', cost:15000, f:1, cls:'k-rusty', mark:'RC', glow:'#ff8a2a', items:['r1', 'r2', 'r3', 'r4', 'r5', 'x8']};
 const RC_IDS = ['r1', 'r2', 'r3', 'r4', 'r5'];
+RC.w = [0, 0, 0, 0, 99.5, 0, 0, .5]; RC.pools = [RC_IDS, RC_IDS, RC_IDS, RC_IDS, RC_IDS, [], [], ['x8']];
 const PK1 = {id:'pk1', name:'Case #PK1', tag:'Every pull is contraband', cost:110000, cls:'k-pk', mark:'PK1', glow:'#a855f7'};
 const ITEM_CASE = {};
 CASES.forEach(c => c.items.forEach(id => { ITEM_CASE[id] = c; }));
@@ -5602,7 +5603,7 @@ function effWeights(c){
   let w = c.w.slice(); const applied = [];
   const tot = w.reduce((a, b) => a + b, 0);
   if (H().magnet > 0 && w[5] > 0 && w[5] < tot) { w[5] *= 20; applied.push('magnet'); }
-  if (H().overwrite > 0 && c.id !== 'c4') {
+  if (H().overwrite > 0 && c.id !== 'c4' && c.id !== 'rusty') {
     const s = [0,0,0,0,0,0]; w.forEach((x, t) => { s[Math.min(5, t + 1)] += x; }); w = s; applied.push('overwrite');
   }
   return {w, applied};
@@ -6811,7 +6812,8 @@ function closeReveal(sell){
   busy = false; lockRack(false);
   if (presOpen && room) { syncVaultScene(); renderRoomBody(); }
   setMode('crate'); selectCase(); renderInv(); renderStats();
-  if (state.pendingReturn && !r.preview) dealerReturns();
+  if (rcBack && !r.preview) { rcBack = false; setTimeout(() => { if (!busy && !presOpen) { openYard(); setTimeout(() => { if (presOpen && !room) openRoom('ma'); }, 700); } }, 600); }
+  else if (state.pendingReturn && !r.preview) dealerReturns();
   else if (!r.preview && state.gold > 0 && !state.pres.seen) setTimeout(prestigeIntro, 350);
   else if (!r.preview && Y().knife && !Y().seen) setTimeout(yardIntro, 350);
   else if (!r.preview && !presOpen && socketCallDue()) setTimeout(socketCall, 900);
@@ -6824,8 +6826,8 @@ function gotBM(id){
 }
 
 /* ---------- Open flow ---------- */
-async function openCase(){
-  const c = CASES[sel], free = isFree(c), coil = !free && G().coil > 0, cost = coil ? Math.round(c.cost / 2) : c.cost;
+async function openCase(cx){
+  const c = cx || CASES[sel], free = !cx && isFree(c), coil = !cx && !free && G().coil > 0, cost = coil ? Math.round(c.cost / 2) : c.cost;
   if (busy || (!free && state.bal < cost)) return;
   if (bagBlock(1)) return;
   ac(); busy = true; lockRack(true);
@@ -6847,6 +6849,7 @@ async function openCase(){
     }
     rp = rpRoll();
   }
+  if (c.id === 'rusty') { r.src = 'rc'; r.from = 'ma'; }
   consume(r.hk); state.opened++;
   const near = prankNext('near') ? prankUse('near') : null;
   save(); if (!free) setBal(-cost); renderOpen(); renderTrade(); renderHacks();
@@ -6908,7 +6911,7 @@ async function openCase(){
 }
 
 /* ---------- Events ---------- */
-$('#openBtn').onclick = openCase;
+$('#openBtn').onclick = () => openCase();
 $('#pvX').onclick = closePreview;
 $('#pv').addEventListener('click', e => { if (e.target.id === 'pv') closePreview(); });
 $('#keepBtn').onclick = () => closeReveal(false);
@@ -8125,6 +8128,16 @@ function renderLeft(anim){
   if (machSel && m.id === 'socket') { Lp.innerHTML = machLeft(B, lock); Cx.innerHTML = machCtx(); return; }
   if (shopSel != null && shopStock(m)[shopSel] && shopStock(m)[shopSel].pk) {
     const n = shopStock(m).length, PC = pkCase(shopStock(m)[shopSel]), lg = PC === LG1, afford = state.bal >= PC.cost;
+    if (PC === RC) {
+      left = B('buy', afford ? 'Buy it and open it' : 'Can’t afford it', 'gold', lock, fmt(RC.cost) + ' cr')
+        + B('rcprev', 'Preview what’s inside', '', lock)
+        + '<div class="rl-row">' + B('zprev', '‹ Prev', 'sm', lock) + B('znext', 'Next ›', 'sm', lock) + '</div>'
+        + B('unzoom', 'Back', 'ghost', lock);
+      ctx = '<div class="rmc rmc-shop" style="--tc:#ff8a2a"><div class="lab">' + m.name + '’s scrap rack · ' + (shopSel + 1) + ' of ' + n + '</div>'
+        + '<div class="t">Rusty Case</div><div class="ps-meta"><span class="ps-tier">Rusty legendaries</span><span>1 Chroma · Rusted9000</span></div>'
+        + '<div class="rmc-price"><span class="coin"></span>' + fmt(RC.cost) + '</div><div class="rmc-sub">Opens on the main floor like any case · the Chroma is 1 in 200</div></div>';
+      Lp.innerHTML = left; Cx.innerHTML = ctx; return;
+    }
     if (lg) {
       left = B('buy', afford ? 'Buy it and open it' : 'Can’t afford it', 'gold', lock, fmt(PC.cost) + ' cr')
         + B('lgprev', 'Preview what’s inside', '', lock)
@@ -8189,7 +8202,6 @@ function renderLeft(anim){
       + (SHOPS[m.id] ? B('shop', 'Shop · ' + SHOPS[m.id].hint, '', lock) : '')
       + (m.id === 'tobias' ? B('pk1', 'Case #PK1 · on his shelf', 'pk', lock, fmt(PK1.cost) + ' cr') : '')
       + (m.id === 'socket' ? (gadEnsure(), Y().gReady ? B('gad', 'Socket’s gadget', '', lock, GADGETS[Y().gReady].n + ' · ' + fmt(GADGETS[Y().gReady].price)) : Y().gReq ? B('gad', 'Socket needs parts', '', lock, 'makes: ' + GADGETS[Y().gReq.gad].n) : '') : '')
-      + (m.id === 'ma' && Y().ms1 ? B('rcase', 'Rusty Case · buy and open', 'gold', lock, fmt(RC.cost) + ' cr') + B('rcprev', 'What’s in the Rusty Case', '', lock) : '')
       + (m.id === 'tinny' ? B('bags', 'Backpacks', '', lock, bagLvl() < BAGS.length - 1 ? 'next: ' + BAGS[bagLvl() + 1].cap + ' slots' : 'biggest one') : '')
       + (m.id === 'tinny' ? B('peek', 'Ask what’s in the next crate', '', lock || pk > 0, pk ? 'in ' + pk + ' open' + (pk === 1 ? '' : 's') : 'Scrapyard · free') : '')
       + (jobOf(m) ? B('job', 'Job · ' + jobOf(m).t, 'jobb', lock, jobDone(m) ? 'next in ' + jobLeft() + ' opens' : starTxt(jobOf(m).d) + (jobOf(m).d > JOB_ONCE ? ' · once' : '')) : '')
@@ -8206,7 +8218,7 @@ function renderLeft(anim){
       art = thumb(BY[KNIFE_ID], hk ? wearIdx(hk.fl) : 4);
     }
     if (m.id === 'rusta') ctx += '<div class="rmc rg-meter-card">' + rgMeter(0) + '</div>';
-    if (m.id === 'ma' && Y().ms1) ctx += '<div class="rmc rmc-shop" style="--tc:#ff8a2a"><div class="lab">Her old case · unlocked</div><div class="t">Rusty Case</div><div class="ps-meta"><span class="ps-tier">Rusty legendaries</span><span>1 Chroma: Rusted9000</span></div><div class="rmc-price"><span class="coin"></span>' + fmt(RC.cost) + '</div></div>';
+    if (m.id === 'ma' && Y().ms1) ctx += '<div class="rmc rmc-shop" style="--tc:#ff8a2a"><div class="lab">Her old case · unlocked</div><div class="t">Rusty Case</div><div class="ps-meta"><span class="ps-tier">Rusty legendaries</span><span>1 Chroma: Rusted9000</span></div><div class="rmc-price"><span class="coin"></span>' + fmt(RC.cost) + '</div><div class="rmc-sub">On the bottom of her scrap rack · Shop to buy it</div></div>';
   }
   Lp.innerHTML = left; Cx.innerHTML = ctx;
   const slot = Cx.querySelector('.rmc-art'); if (slot && art) slot.append(art);
@@ -8812,7 +8824,7 @@ const SHOPS = {
 /* The Rejects' shops: rust from every case, never better than Worn */
 Object.assign(SHOPS, {
   ma:{hint:'Scrap rack', tag:'paper', group:[16, 52, 144, 112],
-    slots:[{x:26, y:58, w:100, h:40, tag:[143, 80]}, {x:26, y:88, w:100, h:40, tag:[143, 110]}, {x:26, y:118, w:100, h:40, tag:[143, 140]}],
+    slots:[{x:26, y:58, w:100, h:40, tag:[143, 80]}, {x:26, y:88, w:100, h:40, tag:[143, 110]}, {x:26, y:118, w:100, h:40, tag:[143, 140]}, {x:112, y:188, w:38, h:26, tag:[100, 192], own:[56, 150, 120, 80]}],
     lines:['Pulled that one out of a Buick.', 'Older than you. Shoots straighter, too.', 'Rust is just character.'],
     open:"The rack's for sale. Rust and all.", buy:"Don't you dare clean it.", broke:"Rust ain't free, kid."},
   tinny:{hint:'Fridge-door shelf', tag:'paper', group:[262, 46, 132, 128],
@@ -8837,7 +8849,7 @@ function yardStock(m){
   return pool.slice(0, 3).map((it, i) => {
     const W = WEARS[R() < .7 ? 4 : 3], fl = +(W.lo + R() * (W.hi - W.lo - .0001)).toFixed(4), v = marketValue(it, fl), key = m.id + ':' + ep + ':' + i;
     return {i, id: it.id, fl, v, price: Math.max(10, Math.round(v * SHOP_X / 10) * 10), key, sold: !!P().sold[key]};
-  });
+  }).concat(m.id === 'ma' && Y().ms1 ? [{i: 3, pk: 'rc', id: null, price: RC.cost, key: 'rc', sold: false}] : []);
 }
 const SHELF_X = 3, SHELF_N = 5;   // slot 0 always holds a Case #PK1; the other five hold what you sold him
 function shelfAdd(e, paid){
@@ -8898,6 +8910,21 @@ function lgCrateSVG(s){
     + '<text x="' + cx + '" y="' + (y + 19.6) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="7" fill="#ffd0d0">LG1</text>';
   return g;
 }
+/* Ma's Rusty Case on a plank across the legs of her scrap rack: a rust-red crate, hazard band, riveted, "RC" plate */
+function rcCrateSVG(s){
+  const cx = s.x + s.w/2, w = 38, x = cx - w/2, y = s.y;
+  let g = '<rect x="22" y="' + (y + 24) + '" width="132" height="4.5" rx="1" fill="#5a3a20" stroke="#2a1408" stroke-width=".6"/><path d="M30 ' + (y + 24) + ' l8 -6 M146 ' + (y + 24) + ' l-8 -6" stroke="#3a1a0a" stroke-width="1.4"/>'
+    + '<ellipse cx="' + cx + '" cy="' + (y + 23.5) + '" rx="22" ry="2.4" fill="#000" opacity=".5"/>'
+    + '<rect x="' + x + '" y="' + (y + 5) + '" width="' + w + '" height="19" rx="2" fill="#8a4420" stroke="#2a1206" stroke-width=".7"/>'
+    + '<rect x="' + x + '" y="' + (y + 19) + '" width="' + w + '" height="5" rx="1.5" fill="#5a2c12"/><rect x="' + x + '" y="' + (y + 9) + '" width="' + w + '" height="3.6" fill="#1a0a04"/>';
+  for (let i = 0; i < 10; i++) g += '<path d="M' + (x + 1 + i*4) + ' ' + (y + 12.6) + ' l2 -3.6 h1.8 l-2 3.6 z" fill="#c8733a"/>';
+  g += '<rect x="' + (x - 1) + '" y="' + (y - 1) + '" width="' + (w + 2) + '" height="6.5" rx="1.6" fill="#a4501c" stroke="#2a1206" stroke-width=".6"/><rect x="' + (x - 1) + '" y="' + (y - 1) + '" width="' + (w + 2) + '" height="1.4" rx=".7" fill="#ffb070" opacity=".5"/>'
+    + '<circle cx="' + (x + 7) + '" cy="' + (y + 15) + '" r="2.6" fill="#5a2c12" opacity=".8"/><circle cx="' + (x + w - 6) + '" cy="' + (y + 8) + '" r="1.8" fill="#5fa078" opacity=".55"/>'
+    + '<rect x="' + (cx - 8) + '" y="' + (y + 13.2) + '" width="16" height="7.6" rx="1" fill="#1a0a04" stroke="#ff8a2a" stroke-width=".4"/>'
+    + '<text x="' + cx + '" y="' + (y + 19.2) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="7" fill="#ffd0a0">RC</text>'
+    + [[x + 1.8, y + 7], [x + w - 1.8, y + 7], [x + 1.8, y + 22], [x + w - 1.8, y + 22]].map(([a, b]) => '<circle cx="' + a + '" cy="' + b + '" r=".8" fill="#d9a070"/>').join('');
+  return g;
+}
 /* Case #PK1 as it sits on Tobias's shelf: a small purple crate centred in its slot */
 function pkCrateSVG(s, lg){
   const cx = s.x + s.w/2, w = 34, x = cx - w/2, y = s.y + 1;
@@ -8919,7 +8946,7 @@ function slotSVG(m, k, i){
   if (st.pk) {
     const cx = s.x + s.w/2, cy = s.y + s.h/2;
     return '<g class="hot pk" data-slot="' + i + '"><ellipse class="hl" cx="' + cx + '" cy="' + cy + '" rx="26" ry="16" style="fill:var(--mc)" filter="url(#hb' + k + ')"/>'
-      + '<g class="fl">' + pkCrateSVG(s, st.pk === 'lg1') + '</g>' + tagSVG(cfg.tag, s.tag, st)
+      + '<g class="fl">' + (st.pk === 'rc' ? rcCrateSVG(s) : pkCrateSVG(s, st.pk === 'lg1')) + '</g>' + tagSVG(cfg.tag, s.tag, st)
       + '<rect class="hit" x="' + s.x + '" y="' + s.y + '" width="' + s.w + '" height="' + s.h + '" fill="#000" fill-opacity="0"/></g>';
   }
   const it = BY[st.id];
@@ -10597,6 +10624,26 @@ async function rgMilestone(){
    Opens in Ma's room once Rustagard's heart has burned a million. Every pull is one of its own rusty legendaries,
    except one pull in two hundred: the Rusted9000. */
 const RC_CHROMA = .005;
+let rcBack = false;
+async function openRCShelf(){
+  const m = room; if (!m || m.id !== 'ma' || !Y().ms1 || actBusy || vaultBusy || mi || busy || captive) return;
+  if (state.bal < RC.cost) { sayRoom('Fifteen grand, kid. You’re short. Go dig.', 'mad'); tone(150, .22, 'sawtooth', .05); return; }
+  if (bagBlock(1)) return;
+  actBusy = true; renderLeft();
+  await sayRoom('Take it out front. Open it proper.', 'happy');
+  await wait(500);
+  actBusy = false; if (shopSel != null) unzoomShop();
+  rcBack = true; closePres();
+  await wait(REDUCED ? 100 : 520);
+  const st = $('#stage'); st.classList.remove('gold'); st.style.setProperty('--glowc', RC.glow);
+  $('#stStencil').textContent = RC.name; $('#stName').textContent = RC.name; $('#stTag').textContent = RC.tag; $('#stCost').textContent = fmt(RC.cost);
+  const cz = $('#crateZone'); cz.classList.remove('xray'); cz.innerHTML = crateHTML(RC, true);
+  $('#odds').innerHTML = RC.w.map((x, t) => x > 0 ? '<span class="chip" style="--tc:' + TIERS[t].color + '"><i></i>' + TIERS[t].name + ' <b>' + pctText(x) + '</b></span>' : '').join('');
+  renderContents(RC, RC.w, 100);
+  setMode('crate');
+  await wait(REDUCED ? 100 : 650);
+  openCase(RC);
+}
 async function openRC(){
   const m = room; if (!m || m.id !== 'ma' || !Y().ms1 || actBusy || vaultBusy || mi || busy || captive) return;
   if (state.bal < RC.cost) { sayRoom('Fifteen grand, kid. You’re short. Go dig.', 'mad'); tone(150, .22, 'sawtooth', .05); return; }
@@ -15847,7 +15894,8 @@ function selectSlot(i){
   renderLeft();
   camScene(shopBox(m, i));
   const st = shopStock(m)[i];
-  if (st && st.pk === 'lg1') { if (first) whoosh(); else pickSound(); sayRoom('That red one? Legendaries. Only legendaries. ' + fmt(LG1.cost) + '. Don’t drop it.'); }
+  if (st && st.pk === 'rc') { if (first) whoosh(); else pickSound(); sayRoom('My old case. Rusty legendaries, every one. And one in two hundred… well. ' + fmt(RC.cost) + '.'); }
+  else if (st && st.pk === 'lg1') { if (first) whoosh(); else pickSound(); sayRoom('That red one? Legendaries. Only legendaries. ' + fmt(LG1.cost) + '. Don’t drop it.'); }
   else if (st && st.pk) { if (first) whoosh(); else pickSound(); sayRoom(first ? 'My own case. A hundred and ten grand, and every pull is hot.' : pickOne(PK_LINES)); }
   else if (first) { whoosh(); sayRoom(SHOPS[m.id].open); }
   else { pickSound(); sayRoom(SHOPS[m.id].lines[i % SHOPS[m.id].lines.length]); }
@@ -15872,7 +15920,7 @@ function unzoomShop(){
 }
 function shopAct(act, btn){
   if (!room || vaultBusy || actBusy || mi || !SHOPS[room.id]) return;
-  const cfg = SHOPS[room.id], n = cfg.shelf ? shopStock(room).length : cfg.slots.length;
+  const cfg = SHOPS[room.id], n = (cfg.shelf || room.yard) ? shopStock(room).length : cfg.slots.length;
   if (!n) { if (act === 'shop') { sayRoom(cfg.empty); pickSound(); } return; }
   if (act === 'shop') { const st = shopStock(room), i = st.findIndex(x => !x.sold); selectSlot(i < 0 ? 0 : i); }
   else if (act === 'zprev' && shopSel != null) selectSlot((shopSel + n - 1) % n);
@@ -15883,6 +15931,7 @@ function shopAct(act, btn){
 function renderShopCard(){ renderLeft(); }
 function buySlot(){
   const m = room, st = shopStock(m)[shopSel]; if (!st || st.sold) return;
+  if (st.pk === 'rc') { openRCShelf(); return; }
   if (st.pk === 'lg1') { openLG1(); return; }
   if (st.pk) { openPK1(); return; }
   if (bagBlock(1)) return;
