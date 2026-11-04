@@ -11998,35 +11998,40 @@ function princeCinematic(r){
     ov.onclick = e => { if (e.target.closest('.gt-skip') || ov.classList.contains('ready')) finish(); };
     cine = {skip: finish}; musSync(); ac();
 
-    /* sound: an original baile-funk banger at 140 bpm, an 808 that slides, airhorns, and a stadium that never shuts up */
+    /* sound: an original samba-soul score at 96 bpm: surdo, tamborim, agogô, ganzá, a Rhodes-style pad and a nylon-string pluck lead; apito whistles, surdo hits and a singing crowd for the effects */
     const flash = () => { const f = ov.querySelector('.pr-flashbang'); if (f) restart(f, 'on'); };
-    const cheer = (v, d) => { noise(d || 2.4, 1400, 500, v, 'bandpass'); noise((d || 2.4) * .8, 2600, 1200, v * .6, 'bandpass'); noise((d || 2.4) * .6, 600, 300, v * .5, 'bandpass'); };
-    const stab = (fs, v, at) => fs.forEach(f => { tone(f, .22, 'sawtooth', v || .02, at); tone(f * 2, .18, 'square', (v || .02) * .4, at); });
-    const shutter = () => { noise(.04, 5000, 3000, .08, 'highpass'); tone(2400, .02, 'square', .02); };
-    const horn = at => [[0, .22], [.28, .22], [.56, .7]].forEach(([d, l]) => { tone(466, l, 'sawtooth', .14, (at || 0) + d); tone(470, l, 'square', .07, (at || 0) + d); tone(233, l, 'sawtooth', .09, (at || 0) + d); });
-    const BASS = [41.2, 41.2, 49, 36.71], HOOK = [659.25, 0, 587.33, 659.25, 0, 783.99, 659.25, 0, 587.33, 493.88, 0, 587.33, 0, 493.88, 440, 0];
+    const thud = () => { sweep(110, 38, .5, 'sine', .5); noise(.3, 420, 110, .14, 'lowpass'); tone(1174.66, .9, 'sine', .018, .05); };
+    const chime = () => { tone(1318.51, .5, 'sine', .05); tone(1975.53, .7, 'sine', .04, .07); tone(2637.02, .6, 'sine', .02, .14); };
+    const roar = (v, d) => { d = d || 2.4; noise(d, 500, 1500, v, 'bandpass'); noise(d * .7, 1800, 900, v * .5, 'bandpass'); [0, .32, .64].forEach(t => setTimeout(() => { if (!done) noise(.07, 1700, 1400, v * .6, 'bandpass'); }, t * 1000)); };
+    const stab = (fs, v, at) => fs.forEach((f, k) => { tone(f, .9, 'sine', (v || .02) * .9, (at || 0) + k * .025); tone(f * 2, .5, 'triangle', (v || .02) * .25, (at || 0) + k * .025); });
+    const shutter = () => { tone(3400, .015, 'sine', .03); noise(.03, 9000, 7000, .05, 'highpass'); };
+    const whistle = at => [[0, .09], [.14, .09], [.28, .32]].forEach(([d, l]) => { tone(2650, l, 'square', .025, (at || 0) + d); tone(2710, l, 'sine', .04, (at || 0) + d); });
+    const CH = [[146.83, 174.61, 220, 261.63, 329.63], [196, 246.94, 329.63, 349.23], [130.81, 164.81, 196, 246.94], [220, 277.18, 329.63, 392]];
+    const ROOT = [73.42, 98, 65.41, 55], LEAD = [587.33, 0, 698.46, 0, 880, 783.99, 0, 698.46, 587.33, 0, 523.25, 587.33, 0, 440, 0, 0];
     let step = 0, groove = 0, crowdV = .03;
     const seq = setInterval(() => {
       const s16 = step % 16, bar = Math.floor(step / 16) % 4; step++;
       if (done || !groove) return;
       const v = groove;
-      if ([0, 3, 8, 11, 14].includes(s16)) { sweep(150, 42, .2, 'sine', (s16 % 8 === 0 ? .55 : .35) * v); }
-      if (s16 === 4 || s16 === 12) { noise(.14, 1800, 1100, .16 * v, 'bandpass'); noise(.08, 6000, 4000, .08 * v, 'highpass'); }
-      if ([7, 10, 15].includes(s16)) noise(.04, 2600, 2000, .07 * v, 'bandpass');
-      noise(.02, 9000, 7000, (s16 % 2 ? .02 : .035) * v, 'highpass');
-      if (s16 === 6 || s16 === 14) noise(.12, 8000, 6000, .03 * v, 'highpass');
-      if (s16 === 0 || s16 === 10) { const r = BASS[bar]; tone(r, .5, 'sawtooth', .07 * v); sweep(r * 2, r, .45, 'sine', .22 * v); }
-      if (groove > .7) { const f = HOOK[s16]; if (f) { tone(f, .1, 'square', .022 * v); tone(f * 2, .08, 'sawtooth', .008 * v); } }
-    }, 107);
+      if (s16 === 0) { sweep(92, 62, .28, 'sine', .22 * v); CH[bar].forEach(f => tone(f, 1.5, 'sine', .011 * v)); }
+      if (s16 === 8) sweep(84, 46, .5, 'sine', .5 * v);
+      if (v > .6 && (s16 === 12 || s16 === 14)) sweep(120, 80, .2, 'sine', .14 * v);
+      if ([0, 2, 5, 7, 9, 12, 14].includes(s16)) { tone(1760, .03, 'square', .01 * v); noise(.02, 5200, 4200, .03 * v, 'highpass'); }
+      noise(.03, 7000, 6000, (s16 % 4 === 2 ? .035 : .015) * v, 'highpass');
+      if ([0, 2, 4, 7, 8, 10, 12, 15].includes(s16)) tone(s16 % 4 === 0 ? 987.77 : 739.99, .08, 'triangle', .018 * v);
+      if ([0, 6, 8, 14].includes(s16)) tone(ROOT[bar] * (s16 === 6 ? 1.5 : 1), .3, 'triangle', .12 * v);
+      if (v > .5 && (s16 === 4 || s16 === 12)) noise(.06, 1500, 1200, .07 * v, 'bandpass');
+      if (v > .7) { const f = LEAD[s16] * (bar === 3 ? 1.122 : 1); if (f) { tone(f, .16, 'triangle', .03 * v); tone(f * 2, .08, 'sine', .008 * v); } }
+    }, 156);
     timers.push(seq);
-    const crowdBed = setInterval(() => { if (done || crowdV <= 0) return; noise(1.4, 900 + Rr() * 400, 500, crowdV, 'bandpass'); noise(1.2, 2200, 1200, crowdV * .5, 'bandpass'); if (Rr() < .25) noise(.4, 3000, 2000, crowdV * .8, 'bandpass'); }, 600);
+    const crowdBed = setInterval(() => { if (done || crowdV <= 0) return; noise(1.4, 380 + Rr() * 200, 260, crowdV, 'lowpass'); noise(1.2, 1300, 1700, crowdV * .4, 'bandpass'); if (Rr() < .3) [0, .2, .4].forEach(t => setTimeout(() => { if (!done) noise(.06, 1600, 1300, crowdV * .9, 'bandpass'); }, t * 1000)); }, 600);
     timers.push(crowdBed);
-    const run = (at, notes, gap) => notes.forEach((f, i) => T(at + i * (gap || 70), () => { tone(f, .14, 'triangle', .04); tone(f * 2, .1, 'sine', .015); }));
-    const UP = [659.25, 739.99, 830.61, 987.77, 1108.73, 1318.51];
+    const run = (at, notes, gap) => notes.forEach((f, i) => T(at + i * (gap || 70), () => { tone(f, .3, 'sine', .035); tone(f * 1.5, .2, 'triangle', .008); }));
+    const UP = [293.66, 349.23, 392, 440, 523.25, 587.33, 698.46, 880];
 
     // 1. a spotlight
     T(200, () => { go('n1'); });
-    T(700, () => { add('spot'); boom(); flash(); tone(55, 1.4, 'sine', .3); });
+    T(700, () => { add('spot'); thud(); flash(); sweep(60, 30, 1.6, 'sine', .3); tone(587.33, 2, 'sine', .015); });
     T(1300, () => { add('t1'); for (let i = 0; i < 14; i++) setTimeout(() => { if (!done) shutter(); }, i * 110 + Rr() * 80); });
     T(3200, () => { add('t2'); groove = .4; run(0, UP); });
     T(4600, () => add('rimon'));
@@ -12035,20 +12040,20 @@ function princeCinematic(r){
     T(7300, () => add('c2'));
     T(9300, () => add('c2b'));
     // 3. the bow at Vila Belmiro
-    T(12600, () => { go('n3'); groove = 0; crowdV = .05; cheer(.08, 3); });
-    T(13400, () => { add('bow'); boom(); flash(); cheer(.22, 4); horn(.1); crowdV = .09; for (let i = 0; i < 24; i++) setTimeout(() => { if (!done) shutter(); }, i * 90 + Rr() * 60); burst(80, W * .55, H * .4); });
+    T(12600, () => { go('n3'); groove = 0; crowdV = .05; roar(.08, 3); });
+    T(13400, () => { add('bow'); thud(); flash(); roar(.22, 4); whistle(.1); crowdV = .09; for (let i = 0; i < 24; i++) setTimeout(() => { if (!done) shutter(); }, i * 90 + Rr() * 60); burst(80, W * .55, H * .4); });
     T(14400, () => { groove = 1; add('c3'); });
     T(16200, () => { add('pusk'); stab([329.63, 415.3, 493.88], .03); });
     T(18000, () => add('c3b'));
     // 4. Pacaembu, the Libertadores final
     T(21200, () => { go('n4a'); groove = .5; crowdV = .08; });
     T(21700, () => add('l4a'));
-    T(22200, () => { add('lrun'); noise(.8, 900, 400, .04, 'bandpass'); });
-    T(23400, () => { add('lshot'); tone(140, .12, 'square', .1); noise(.1, 2200, 900, .14, 'bandpass'); });
-    T(23800, () => { add('lgoal'); boom(); flash(); cheer(.24, 3.4); horn(.12); crowdV = .14; groove = 1; burst(90, W * .85, H * .4); });
+    T(22200, () => { add('lrun'); [0, .2, .4, .6].forEach(d => tone(90, .06, 'sine', .08, d)); });
+    T(23400, () => { add('lshot'); sweep(180, 60, .12, 'triangle', .25); noise(.08, 3000, 600, .1, 'bandpass'); });
+    T(23800, () => { add('lgoal'); thud(); flash(); roar(.24, 3.4); whistle(.12); crowdV = .14; groove = 1; burst(90, W * .85, H * .4); });
     T(25000, () => add('l4b'));
-    T(28200, () => { go('n4b'); crowdV = .12; cheer(.18, 4); });
-    T(28600, () => { add('lchamp'); boom(); flash(); horn(.15); stab([392, 493.88, 587.33], .035); PAL = ['#ffffff', '#111111', '#ffd23f']; confetti = 3; setTimeout(() => { confetti = 1; }, 3000); });
+    T(28200, () => { go('n4b'); crowdV = .12; roar(.18, 4); });
+    T(28600, () => { add('lchamp'); thud(); flash(); whistle(.15); stab([392, 493.88, 587.33], .035); PAL = ['#ffffff', '#111111', '#ffd23f']; confetti = 3; setTimeout(() => { confetti = 1; }, 3000); });
     T(29600, () => add('l4c'));
     T(31400, () => add('l4d'));
     T(34400, () => { confetti = 0; });
@@ -12058,56 +12063,56 @@ function princeCinematic(r){
       add('play'); const el = $('#prViews'), t0 = performance.now();
       const iv = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 3600); if (el) el.textContent = fmt(Math.round(48302117 * (1 - Math.pow(1 - k, 2.4)))); if (k >= 1) clearInterval(iv); }, 40); timers.push(iv);
     });
-    for (let i = 0; i < 8; i++) T(35900 + i * 380, () => { add('cm' + i); tone(880 + i * 60, .06, 'sine', .03); });
+    for (let i = 0; i < 8; i++) T(35900 + i * 380, () => { add('cm' + i); tone(1320 - i * 40, .05, 'triangle', .03); tone(1980 - i * 60, .04, 'sine', .015, .04); });
     T(38600, () => add('c5'));
     T(39600, () => add('c5b'));
     // 6. the Remontada
-    T(41200, () => { go('n6'); groove = .5; cheer(.05, 4); });
+    T(41200, () => { go('n6'); groove = .5; roar(.05, 4); });
     const sc = (score, min, ev) => { const a = $('#prSc'), b = $('#prMin'), c = $('#prEv'); if (a) a.textContent = score; if (b) b.textContent = min; if (c) { c.textContent = ev; restart(c, 'pop'); } };
-    T(42600, () => { sc('4 – 1', '88’', 'FREE KICK · NEYMAR'); add('g1'); boom(); cheer(.18, 2.4); burst(60, W * .5, H * .3); });
-    T(44400, () => { sc('5 – 1', '90+1’', 'PENALTY · NEYMAR'); boom(); cheer(.2, 2.4); burst(80, W * .5, H * .3); });
-    T(46200, () => { sc('6 – 1', '90+5’', 'ASSIST · NEYMAR'); add('g3'); boom(); boom(); cheer(.3, 4); horn(.2); crowdV = .12; groove = 1; confetti = 3; PAL = ['#a50044', '#004d98', '#ffd23f', '#ffffff']; [.2, .5, .8].forEach((x, i) => setTimeout(() => { if (!done) burst(70, W * x, H * .25); }, i * 250)); });
+    T(42600, () => { sc('4 – 1', '88’', 'FREE KICK · NEYMAR'); add('g1'); thud(); roar(.18, 2.4); burst(60, W * .5, H * .3); });
+    T(44400, () => { sc('5 – 1', '90+1’', 'PENALTY · NEYMAR'); thud(); roar(.2, 2.4); burst(80, W * .5, H * .3); });
+    T(46200, () => { sc('6 – 1', '90+5’', 'ASSIST · NEYMAR'); add('g3'); thud(); thud(); roar(.3, 4); whistle(.2); crowdV = .12; groove = 1; confetti = 3; PAL = ['#a50044', '#004d98', '#ffd23f', '#ffffff']; [.2, .5, .8].forEach((x, i) => setTimeout(() => { if (!done) burst(70, W * x, H * .25); }, i * 250)); });
     T(47200, () => add('c6'));
     T(48400, () => add('c6b'));
     // 7. 222 million
     T(50600, () => { go('n7'); confetti = 0; parts = []; coins = 2; groove = .6; });
     T(51000, () => {
       add('money'); const el = $('#prEur'), t0 = performance.now();
-      const iv = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 2600); if (el) el.textContent = fmt(Math.round(222000000 * (1 - Math.pow(1 - k, 3)))); if (k >= 1) { clearInterval(iv); kaching(); boom(); } }, 40); timers.push(iv);
-      for (let i = 0; i < 20; i++) setTimeout(() => { if (!done) tone(1568 + (i % 4) * 200, .05, 'triangle', .02); }, i * 120);
+      const iv = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 2600); if (el) el.textContent = fmt(Math.round(222000000 * (1 - Math.pow(1 - k, 3)))); if (k >= 1) { clearInterval(iv); chime(); thud(); } }, 40); timers.push(iv);
+      for (let i = 0; i < 20; i++) setTimeout(() => { if (!done) tone(2093 + (i % 3) * 220, .04, 'sine', .02); }, i * 120);
     });
     T(53800, () => add('money2'));
     // 8. the Maracanã
-    T(56200, () => { go('n8'); coins = 0; parts = []; groove = 0; crowdV = .02; noise(4, 700, 300, .03, 'bandpass'); });
-    [56800, 57500, 58100].forEach((d, i) => T(d, () => { tone(52, .28, 'sine', .25 + i * .05); tone(46, .3, 'sine', .2, .2); }));
+    T(56200, () => { go('n8'); coins = 0; parts = []; groove = 0; crowdV = .02; noise(4, 300, 900, .03, 'lowpass'); });
+    [56800, 57500, 58100].forEach((d, i) => T(d, () => { tone(65, .18, 'triangle', .22 + i * .04); tone(58, .2, 'triangle', .16, .18); }));
     T(57400, () => add('miss'));
-    T(58800, () => { add('last'); boom(); flash(); cheer(.32, 4.4); horn(.2); crowdV = .12; PAL = ['#ffdf00', '#009c3b', '#2a6aff', '#ffffff']; confetti = 3; groove = 1; [.3, .7].forEach((x, i) => setTimeout(() => { if (!done) burst(80, W * x, H * .3); }, i * 300)); });
+    T(58800, () => { add('last'); thud(); flash(); roar(.32, 4.4); whistle(.2); crowdV = .12; PAL = ['#ffdf00', '#009c3b', '#2a6aff', '#ffffff']; confetti = 3; groove = 1; [.3, .7].forEach((x, i) => setTimeout(() => { if (!done) burst(80, W * x, H * .3); }, i * 300)); });
     T(59400, () => add('c8'));
     T(60800, () => add('c8b'));
     // 9. the shadow
     T(63600, () => { go('n9'); confetti = 0; parts = []; groove = .8; });
-    T(64200, () => { add('lit'); boom(); flash(); crowdV = .1; horn(.1); });
-    [65000, 65700, 66400, 67100, 67800, 68500].forEach((d, i) => T(d, () => { add('ch' + (i % 3)); noise(.3, 1200, 600, .12, 'bandpass'); tone(196, .25, 'sawtooth', .03); }));
+    T(64200, () => { add('lit'); thud(); flash(); crowdV = .1; whistle(.1); });
+    [65000, 65700, 66400, 67100, 67800, 68500].forEach((d, i) => T(d, () => { add('ch' + (i % 3)); noise(.08, 1600, 1300, .1, 'bandpass'); tone(293.66, .3, 'triangle', .03); }));
     T(65400, () => add('stretch'));
     T(67400, () => add('c9'));
     T(69000, () => add('c9b'));
     // 9b. on his knees
-    T(71800, () => { go('n9b'); groove = 0; confetti = 0; parts = []; crowdV = .04; tone(98, 2.4, 'sine', .04); tone(146.83, 2.4, 'triangle', .02); });
+    T(71800, () => { go('n9b'); groove = 0; confetti = 0; parts = []; crowdV = .04; [146.83, 174.61, 220].forEach(f => tone(f, 3, 'sine', .025)); });
     T(72800, () => add('c9d'));
-    T(74400, () => { add('c9e'); tone(73.42, 1.6, 'sine', .05); });
+    T(74400, () => { add('c9e'); tone(110, 2, 'sine', .03); tone(130.81, 2, 'sine', .02); });
     // 9c. the cup goes up
-    T(76200, () => { go('n9c'); crowdV = .12; cheer(.2, 3); groove = .8; PAL = ['#ffd23f', '#1e4ea8', '#a50044', '#ffffff']; confetti = 3; });
-    T(76700, () => { add('lift9'); boom(); flash(); horn(.12); stab([392, 493.88, 587.33], .035); });
+    T(76200, () => { go('n9c'); crowdV = .12; roar(.2, 3); groove = .8; PAL = ['#ffd23f', '#1e4ea8', '#a50044', '#ffffff']; confetti = 3; });
+    T(76700, () => { add('lift9'); thud(); flash(); whistle(.12); stab([392, 493.88, 587.33], .035); });
     T(77600, () => add('c9f'));
     // 10. The Prince
-    T(80200, () => { go('n10'); groove = 0; parts = []; crowdV = .02; tone(55, 1, 'sine', .3); sweep(120, 900, 1.4, 'sine', .04); });
+    T(80200, () => { go('n10'); groove = 0; parts = []; crowdV = .02; noise(1.4, 300, 6000, .06, 'bandpass'); sweep(60, 30, 1, 'sine', .3); });
     T(81000, () => {
-      add('pland'); boom(); flash(); cheer(.24, 3); horn(.15); crowdV = .1; groove = 1;
-      stab([329.63, 415.3, 493.88], .03); setTimeout(() => { if (!done) stab([369.99, 466.16, 554.37], .03); }, 400); setTimeout(() => { if (!done) { stab([415.3, 493.88, 659.25], .04); run(0, UP.concat([1661.22, 1975.53]), 60); } }, 800);
+      add('pland'); thud(); flash(); roar(.24, 3); whistle(.15); crowdV = .1; groove = 1;
+      stab([329.63, 415.3, 493.88], .03); setTimeout(() => { if (!done) stab([369.99, 466.16, 554.37], .03); }, 400); setTimeout(() => { if (!done) { stab([415.3, 493.88, 659.25], .04); run(0, UP.concat([1046.5, 1174.66]), 60); } }, 800);
       PAL = ['#ffdf00', '#009c3b', '#2a6aff', '#ffffff', '#ffd23f']; confetti = 4; setTimeout(() => { confetti = 1; }, 3000);
       [.2, .8, .35, .65, .5].forEach((x, i) => setTimeout(() => { if (!done) burst(70, W * x, H * (.15 + (i % 2) * .12)); }, 300 + i * 420));
       const el = $('#prVal'), t0 = performance.now();
-      cnt = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 1800); if (el) el.textContent = fmt(Math.round(r.v * (1 - Math.pow(1 - k, 3)))); if (k >= 1) { clearInterval(cnt); kaching(); } }, 40);
+      cnt = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 1800); if (el) el.textContent = fmt(Math.round(r.v * (1 - Math.pow(1 - k, 3)))); if (k >= 1) { clearInterval(cnt); chime(); } }, 40);
     });
     T(83000, () => add('ready'));
     T(92400, finish);
