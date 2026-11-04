@@ -3569,6 +3569,19 @@ body.dz-open .toast{z-index:95}
 .sc-no span{background:radial-gradient(circle at 40% 35%,#ff6a5a,#a01a10)}
 .sc-btn:active span{transform:translateY(3px);box-shadow:inset 0 3px 0 rgba(255,255,255,.3),inset 0 -3px 6px rgba(0,0,0,.45),0 1px 0 #1a0c04}
 @media (prefers-reduced-motion: reduce){.scall *{animation:none!important}}
+/* the Rust Shop */
+.rs-coin{display:inline-block;width:16px;height:16px;border-radius:4px;vertical-align:-3px;background:radial-gradient(circle at 30% 30%,#ffb070,#a4501c 55%,#3a1606);box-shadow:inset 0 0 0 1px #2a1206}
+.rs-bal{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 14px;border-radius:var(--r-md);border:1px solid #7a3a18;background:radial-gradient(90% 120% at 0% 50%,rgba(255,138,42,.2),transparent 70%),var(--panel)}
+.rs-bal b{font-family:var(--display);font-size:28px;line-height:1;color:#ffd0a0}.rs-bal small{color:var(--muted)}
+.rs-grid{display:grid;gap:10px;margin-top:12px}
+.rs-it{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px;border-radius:var(--r-md);border:1px solid var(--line-strong);background:var(--panel)}
+.rs-art svg{width:72px;height:58px;display:block}
+.rs-txt b{font-family:var(--display);font-weight:700;font-size:22px;line-height:1}
+.rs-txt p{margin:3px 0;font-size:13px;color:#cdbfa8}.rs-txt small{font-size:12px;color:#ffb070;font-weight:700}
+.rs-souls{display:flex;gap:4px;margin-top:6px}.rs-souls i{width:12px;height:16px;clip-path:polygon(50% 0,100% 30%,80% 100%,20% 100%,0 30%);background:#3a2a30}.rs-souls i.on{background:linear-gradient(#ffe2a0,#ff8a1a)}
+.rs-unlock{width:100%;background:linear-gradient(120deg,#ff7a1a,#ffd27a 50%,#ff7a1a)!important}
+.rg-rust{font-size:13px;font-weight:700;color:#ffb070}
+@media (max-width:520px){.rs-it{grid-template-columns:auto 1fr}.rs-it .gold-btn{grid-column:1/-1}}
 /* ---------- Rustagard's heart, feeding, Ma's Rusty Case ---------- */
 .ms-rusta .rg-glow{transform-box:fill-box;transform-origin:center;transform:scale(calc(1 + var(--burn,0) * .7))}
 .ms-rusta .rg-hotheart{opacity:calc(var(--burn,0) * .65)}
@@ -4627,7 +4640,7 @@ const LG1 = {id:'lg1', name:'Case #LG1', tag:'Every pull is Legendary', cost:550
 const LG_IDS = () => ITEMS.filter(it => it.t === 4 && !it.ex && it.id !== 's12');
 const pkCase = st => st && st.pk === 'rc' ? RC : st && st.pk === 'lg1' ? LG1 : PK1;
 /* Ma Rust's Rusty Case: sold in her room once Rustagard's heart has burned a million */
-const RC = {id:'rusty', name:'Rusty Case', tag:'Rusty legendaries · one Chroma', cost:15000, f:1, cls:'k-rusty', mark:'RC', glow:'#ff8a2a', items:['r1', 'r2', 'r3', 'r4', 'r5', 'x8']};
+const RC = {id:'rusty', name:'Rusty Case', tag:'Rusty legendaries · one Chroma', cost:30000, f:1, cls:'k-rusty', mark:'RC', glow:'#ff8a2a', items:['r1', 'r2', 'r3', 'r4', 'r5', 'x8']};
 const RC_IDS = ['r1', 'r2', 'r3', 'r4', 'r5'];
 RC.w = [0, 0, 0, 0, 99.5, 0, 0, .5]; RC.pools = [RC_IDS, RC_IDS, RC_IDS, RC_IDS, RC_IDS, [], [], ['x8']];
 const PK1 = {id:'pk1', name:'Case #PK1', tag:'Every pull is contraband', cost:110000, cls:'k-pk', mark:'PK1', glow:'#a855f7'};
@@ -5690,7 +5703,7 @@ const EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-w
 function previewGroups(c){
   if (c.id === 'pk1') return {groups: [{t: 6, pct: 100, ids: BM_IDS}], hacked: []};
   if (c.id === 'lg1') return {groups: [{t: 4, pct: 100, ids: LG_IDS().map(i => i.id)}], hacked: []};
-  if (c.id === 'rusty') return {groups: [{t: 7, pct: RC_CHROMA * 100, ids: [RUSTED_ID]}, {t: 4, pct: 100 - RC_CHROMA * 100, ids: RC_IDS}], hacked: []};
+  if (c.id === 'rusty') { rcSync(); return {groups: [{t: 7, pct: rcChance() * 100, ids: [RUSTED_ID]}, {t: 4, pct: 100 - rcChance() * 100, ids: RC_IDS}], hacked: []}; }
   const {w, applied} = effWeights(c), tot = w.reduce((a, b) => a + b, 0), groups = [];
   for (let t = 5; t >= 0; t--) if (w[t] > 0) groups.push({t, pct: w[t] / tot * 100, ids: c.pools[t]});
   return {groups, hacked: applied};
@@ -8135,7 +8148,7 @@ function renderLeft(anim){
         + B('unzoom', 'Back', 'ghost', lock);
       ctx = '<div class="rmc rmc-shop" style="--tc:#ff8a2a"><div class="lab">' + m.name + '’s scrap rack · ' + (shopSel + 1) + ' of ' + n + '</div>'
         + '<div class="t">Rusty Case</div><div class="ps-meta"><span class="ps-tier">Rusty legendaries</span><span>1 Chroma · Rusted9000</span></div>'
-        + '<div class="rmc-price"><span class="coin"></span>' + fmt(RC.cost) + '</div><div class="rmc-sub">Opens on the main floor like any case · the Chroma is 1 in 200</div></div>';
+        + '<div class="rmc-price"><span class="coin"></span>' + fmt(RC.cost) + '</div><div class="rmc-sub">Opens on the main floor like any case · Rusted9000 odds ' + pctText(rcChance() * 100) + (Y().charms ? ' (' + Y().charms + ' Rusty Charm' + (Y().charms === 1 ? '' : 's') + ')' : '') + '</div></div>';
       Lp.innerHTML = left; Cx.innerHTML = ctx; return;
     }
     if (lg) {
@@ -8196,7 +8209,7 @@ function renderLeft(anim){
   } else {
     const w = wantOf(m), have = state.inv.some(e => isExact(m, e)), n = state.inv.length;
     const pk = m.id === 'tinny' ? peekLeft() : 0;
-    left = (m.id === 'rusta' ? B('feed', 'Feed his heart', 'gold', lock || !state.inv.some(rgEdible), fmtK(Y().burn || 0) + ' burned') : '')
+    left = (m.id === 'rusta' ? B('feed', 'Feed his heart', 'gold', lock || !state.inv.some(rgEdible), fmtK(Y().burn || 0) + ' burned') + (Y().ms1 ? B('rshop', 'Rust Shop', '', lock, fmt(rustBal()) + ' rust') : '') : '')
       + B('sell', m.outsider ? 'Sell contraband' : m.id === 'rusta' ? 'Sell him rust' : m.yard ? 'Sell rust' : 'Sell something', m.id === 'rusta' ? '' : 'gold', lock || !n, n ? n + (n === 1 ? ' item' : ' items') : 'bag empty')
       + (m.id === 'socket' && rpQuest() ? B('rusta', 'The big project', '', lock, rpCount() + ' of 3 parts') : '')
       + (SHOPS[m.id] ? B('shop', 'Shop · ' + SHOPS[m.id].hint, '', lock) : '')
@@ -8237,6 +8250,7 @@ function renderOv(){
   const head = (small, big) => '<div class="ov-top"><div class="ov-h"><small>' + small + '</small><b>' + big + '</b></div><div class="bal"><span class="coin"></span><span class="ov-bal">' + fmt(state.bal) + '</span></div><button class="icon-btn ov-x" data-a="ovclose" aria-label="Close">✕</button></div>';
   if (ovMode === 'jobrun') return;
   if (ovMode === 'gad') { ov.innerHTML = head('Socket’s workbench', Y().gReady ? 'Fresh off the bench' : 'She needs parts') + '<div class="ov-body">' + gadPanel() + '</div>'; gadFill(); return; }
+  if (ovMode === 'rshop') { ov.innerHTML = head('Rust Shop', 'Rustagard’s fuel') + '<div class="ov-body">' + rsPanel() + '</div>'; return; }
   if (ovMode === 'feed') { ov.innerHTML = head('Rustagard’s heart', 'Feed it') + '<div class="ov-body">' + rgFeedPanel() + '</div>'; rgFill(); return; }
   if (ovMode === 'rusta') { ov.innerHTML = head('Socket’s big project', rpCount() === 3 ? 'All three parts' : 'She needs three parts') + '<div class="ov-body">' + rpPanel() + '</div>'; return; }
   if (ovMode === 'bags') { ov.innerHTML = head('Tinny’s backpacks', 'More room for your stuff') + '<div class="ov-body">' + bagsPanel() + '</div>'; return; }
@@ -10564,7 +10578,8 @@ function rgMeter(add){
   return '<div class="rg-meter' + (done ? ' done' : '') + '"><div class="lab">His heart · milestone 1</div>'
     + '<div class="rg-num"><b>' + fmt(b) + '</b><span> / ' + fmt(RG_MS1) + ' burned</span>' + (add ? '<em>+' + fmt(add) + '</em>' : '') + '</div>'
     + '<div class="rg-bar"><i style="width:' + (p * 100).toFixed(1) + '%"></i>' + (add ? '<u style="left:' + (p * 100).toFixed(1) + '%;width:' + ((q - p) * 100).toFixed(1) + '%"></u>' : '') + '</div>'
-    + '<div class="rg-ms">' + (done ? '✓ Reached · Ma Rust sells you her <b>Rusty Case</b>' : 'At 1,000,000 · Ma Rust sells you her <b>Rusty Case</b>') + '</div></div>';
+    + '<div class="rg-rust"><span class="rs-coin"></span>' + fmt(rustBal()) + ' rust</div>'
+    + '<div class="rg-ms">' + (done ? '✓ Reached · the <b>Rust Shop</b> is open and Ma Rust sells you her <b>Rusty Case</b>' : 'At 1,000,000 · the <b>Rust Shop</b> opens and Ma Rust sells you her <b>Rusty Case</b>') + '</div></div>';
 }
 function rgFeedPanel(){
   const list = state.inv.filter(rgEdible).sort((a, b) => b.v - a.v);
@@ -10574,7 +10589,7 @@ function rgFeedPanel(){
         return '<button type="button" class="rg-it' + (rgSel.has(e.uid) ? ' on' : '') + '" data-a="rgpick" data-uid="' + e.uid + '" style="--tc:' + TIERS[it.t].color + '"><i></i><b>' + it.name + '</b><small>' + TIERS[it.t].name + ' · ' + WEARS[wi].n + '</small><span>burns ' + fmt(e.v) + '</span></button>'; }).join('') + '</div>'
       : '<p class="jb-note">Nothing in your bag he can eat.</p>')
     + '<div class="gd-acts rg-acts" id="rgActs">' + rgActs() + '</div>'
-    + '<p class="jb-note">He eats it and you don’t get paid: it burns in his heart, and the heat runs the whole yard. The more it’s worth, the hotter it burns. Chromas are off the menu.</p>';
+    + '<p class="jb-note">He eats it and you don’t get paid: it burns in his heart, and every ' + fmt(RG_RUST) + ' credits you feed him makes 1 rust for the Rust Shop. The more it’s worth, the hotter it burns. Chromas are off the menu.</p>';
 }
 const rgSelSum = () => state.inv.filter(e => rgSel.has(e.uid)).reduce((a, e) => a + e.v, 0);
 const rgActs = () => { const n = rgSel.size, t = rgSelSum(); return '<button class="gold-btn" data-a="rgfeed"' + (n ? '' : ' disabled') + '>' + (n ? 'Feed him ' + n + ' · +' + fmt(t) : 'Pick what to feed him') + '</button><button class="ghost" data-a="ovclose">Not now</button>'; };
@@ -10598,7 +10613,8 @@ async function rgFeed(){
   rgChew(); noise(1.4, 200, 1400, .14, 'bandpass'); tone(48, 1.1, 'sine', .3); setTimeout(() => sweep(70, 260, .9, 'sawtooth', .04), 300);
   await sayRoom(total < 5000 ? '*crunch* SMALL SNACK. MORE.' : total < 50000 ? '*CRUNCH* GOOD. THE HEART IS WARM.' : total < 250000 ? '*CRUNCH CRUNCH* HOT. VERY HOT.' : '*CRUNCH* AAAHH. THE HEART SINGS.', 'happy');
   actBusy = false;
-  rgBurn(total);
+  const r0 = rustBal(); Y().fed = rgFed() + Math.round(total); rgBurn(total); const got = rustBal() - r0;
+  if (got > 0) toast('+' + fmt(got) + ' rust');
 }
 function rgBurn(v){
   const before = Y().burn || 0; Y().burn = before + Math.round(v); save();
@@ -10614,10 +10630,73 @@ async function rgMilestone(){
   shakeStage(); boom(); flash('#ff8a2a'); sweep(60, 420, 1.8, 'sawtooth', .06); noise(2, 200, 1600, .16, 'bandpass');
   await sayRoom('THE HEART… IS… BURNING.', 'happy'); await wait(900);
   await sayRoom('FUEL GOES DOWN THE PIPES. TO MA’S CRANE. FIRST TIME IN FORTY YEARS.', 'happy'); await wait(900);
-  await sayRoom('MA SAYS: COME SEE HER. SHE HAS A CASE FOR YOU.', 'happy');
+  await sayRoom('MA SAYS: COME SEE HER. SHE HAS A CASE FOR YOU.', 'happy'); await wait(700);
+  await sayRoom('AND THE RUST I MAKE IS YOURS NOW. SPEND IT, SMALL ONE.', 'happy');
   actBusy = false; renderLeft();
   [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, .7, 'triangle', .05, i * .12));
-  toast('Milestone 1 · Ma Rust will sell you her Rusty Case');
+  toast('Milestone 1 · the Rust Shop is open, and Ma Rust will sell you her Rusty Case');
+  if (room === m) openOv('rshop');
+}
+
+/* ---------- The Rust Shop ----------
+   Rustagard's heart turns what you feed him into rust: one rust for every 10,000 credits fed. Once his heart has
+   burned a million, the Rust Shop opens in his room (and the milestone sends you straight there).
+   Rusty Charm · 50 rust: +10% luck on Ma's Rusty Case, so the Rusted9000 comes up 10% more often per charm.
+   Soul Stone · 10 rust: collect ten and they unlock the Rusted9000 itself. */
+const RG_RUST = 10000, RS_CHARM = 50, RS_SOUL = 10, RS_SOULS = 10;
+/* only feeding makes rust (selling him rust still heats the heart for the milestone) */
+const rgFed = () => Y().fed != null ? Y().fed : (Y().burn || 0);
+const rustBal = () => Math.max(0, Math.floor(rgFed() / RG_RUST) - (Y().rspent || 0));
+const rcChance = () => RC_CHROMA * (1 + .1 * (Y().charms || 0));
+function rcSync(){ const c = rcChance() * 100; RC.w[7] = c; RC.w[4] = 100 - c; }
+function rsCharmSVG(){ return '<svg viewBox="0 0 80 64" aria-hidden="true"><path d="M40 2 Q30 10 32 18" stroke="#8a8f96" stroke-width="1.6" fill="none" stroke-dasharray="3 2"/>'
+  + '<path d="M22 22 Q22 56 40 58 Q58 56 58 22 L50 22 Q50 48 40 48 Q30 48 30 22 Z" fill="#a4501c" stroke="#3a1a0a" stroke-width="1.6"/>'
+  + [[25, 30], [26, 42], [33, 53], [47, 53], [54, 42], [55, 30]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="1.8" fill="#2a1206"/>').join('')
+  + '<circle cx="28" cy="38" r="3" fill="#5fa078" opacity=".6"/><circle cx="52" cy="46" r="3.4" fill="#c8733a" opacity=".7"/><path d="M24 26 Q26 44 34 52" stroke="#ffb070" stroke-width="1.2" opacity=".5" fill="none"/>'
+  + '<circle cx="40" cy="20" r="5" fill="#ffd27a" stroke="#a87a3a" stroke-width="1.4"/><circle cx="40" cy="20" r="2" fill="#ff8a1a"/></svg>'; }
+function rsSoulSVG(lit){ return '<svg viewBox="0 0 80 64" aria-hidden="true"><path d="M40 4 L56 22 L50 56 L30 56 L24 22 Z" fill="#1a1016" stroke="#4a2a3a" stroke-width="1.6"/>'
+  + '<path d="M40 4 L46 24 L40 56 M24 22 L46 24 L56 22" stroke="#3a2030" stroke-width="1" fill="none"/>'
+  + '<ellipse cx="40" cy="32" rx="9" ry="12" fill="' + (lit ? '#ff8a1a' : '#5a3a2a') + '" opacity=".8"/><path d="M36 38 Q40 22 44 38 Q40 34 36 38 Z" fill="' + (lit ? '#ffe2a0' : '#8a6a5a') + '"/>'
+  + '<path d="M30 14 L36 10" stroke="#fff" stroke-opacity=".4" stroke-width="1.4"/></svg>'; }
+function rsPanel(){
+  const r = rustBal(), ch = Y().charms || 0, so = Y().souls || 0, done = !!Y().r9k;
+  return '<div class="rs-bal"><span class="rs-coin"></span><b>' + fmt(r) + '</b> rust <small>· 1 rust for every ' + fmt(RG_RUST) + ' credits you feed him</small></div>'
+    + '<div class="rs-grid">'
+    + '<div class="rs-it"><div class="rs-art">' + rsCharmSVG() + '</div><div class="rs-txt"><b>Rusty Charm</b><p>+10% luck on Ma’s Rusty Case. Every charm makes the Rusted9000 come up 10% more often.</p><small>You have ' + ch + ' · Rusted9000 odds ' + pctText(rcChance() * 100) + '</small></div>'
+      + '<button class="gold-btn" data-a="rsbuy" data-k="charm"' + (r >= RS_CHARM ? '' : ' disabled') + '>' + RS_CHARM + ' rust</button></div>'
+    + '<div class="rs-it"><div class="rs-art">' + rsSoulSVG(true) + '</div><div class="rs-txt"><b>Soul Stone</b><p>A little of his fire, set in stone. Ten of them unlock the Rusted9000.</p><small>' + so + ' of ' + RS_SOULS + '</small>'
+      + '<div class="rs-souls">' + Array.from({length: RS_SOULS}, (_, i) => '<i class="' + (i < so ? 'on' : '') + '"></i>').join('') + '</div></div>'
+      + '<button class="gold-btn" data-a="rsbuy" data-k="soul"' + (r >= RS_SOUL && so < RS_SOULS ? '' : ' disabled') + '>' + RS_SOUL + ' rust</button></div>'
+    + '</div>'
+    + (so >= RS_SOULS ? '<div class="gd-acts"><button class="gold-btn rs-unlock" data-a="rsunlock">Unlock the Rusted9000 · 10 Soul Stones</button></div>' : '')
+    + (done ? '<p class="jb-note">You’ve unlocked a Rusted9000 with Soul Stones before. Ten more will unlock another.</p>' : '')
+    + '<p class="jb-note">Feed him more to make more rust: every ' + fmt(RG_RUST) + ' credits you feed him is 1 rust. Selling him rust warms his heart but makes no rust.</p>';
+}
+function rsBuy(k){
+  const r = rustBal(), cost = k === 'charm' ? RS_CHARM : RS_SOUL;
+  if (r < cost || (k === 'soul' && (Y().souls || 0) >= RS_SOULS)) { tone(150, .2, 'sawtooth', .05); return; }
+  Y().rspent = (Y().rspent || 0) + cost;
+  if (k === 'charm') Y().charms = (Y().charms || 0) + 1; else Y().souls = (Y().souls || 0) + 1;
+  save(); renderOv(); renderLeft();
+  [523.25, 783.99, 1046.5].forEach((f, i) => tone(f, .4, 'triangle', .05, i * .08)); noise(.3, 900, 200, .08, 'lowpass');
+  if (room && room.id === 'rusta') sayRoom(k === 'charm' ? 'LUCKY RUST. WEAR IT. MA’S CASE WILL LIKE YOU MORE.' : (Y().souls >= RS_SOULS ? 'TEN SOULS. ENOUGH TO WAKE THE RIFLE.' : 'A SOUL STONE. ' + Y().souls + ' OF TEN.'), 'happy');
+}
+async function rsUnlock(){
+  if ((Y().souls || 0) < RS_SOULS || busy || actBusy) return;
+  if (bagBlock(1)) return;
+  Y().souls -= RS_SOULS; Y().r9k = (Y().r9k || 0) + 1;
+  const W = WEARS[pickW(WEAR_W)], fl = +(W.lo + Math.random() * (W.hi - W.lo)).toFixed(4), it = BY[RUSTED_ID];
+  const r = {uid: uid(), id: it.id, fl, v: priceOf(it, wearIdx(fl)), at: Date.now(), hk: [], src: 'souls', from: 'rusta'};
+  state.inv.unshift(r);
+  { const fd = state.found || (state.found = []); if (!fd.includes(r.id)) fd.push(r.id); }
+  if (!state.best || r.v > state.best.v) state.best = {id: r.id, v: r.v};
+  save(); closeOv(); renderLeft();
+  await sayRoom('TEN SOULS. ONE RIFLE. STAND BACK, SMALL ONE.', 'happy');
+  await wait(600);
+  busy = true; lockRack(true);
+  $('#reveal').style.zIndex = '81';
+  await chromaCinematic(r);
+  showReveal(r);
 }
 
 /* ---------- Ma Rust's Rusty Case ----------
@@ -10627,7 +10706,7 @@ const RC_CHROMA = .005;
 let rcBack = false;
 async function openRCShelf(){
   const m = room; if (!m || m.id !== 'ma' || !Y().ms1 || actBusy || vaultBusy || mi || busy || captive) return;
-  if (state.bal < RC.cost) { sayRoom('Fifteen grand, kid. You’re short. Go dig.', 'mad'); tone(150, .22, 'sawtooth', .05); return; }
+  if (state.bal < RC.cost) { sayRoom('Thirty grand, kid. You’re short. Go dig.', 'mad'); tone(150, .22, 'sawtooth', .05); return; }
   if (bagBlock(1)) return;
   actBusy = true; renderLeft();
   await sayRoom('Take it out front. Open it proper.', 'happy');
@@ -10637,6 +10716,7 @@ async function openRCShelf(){
   await wait(REDUCED ? 100 : 520);
   const st = $('#stage'); st.classList.remove('gold'); st.style.setProperty('--glowc', RC.glow);
   $('#stStencil').textContent = RC.name; $('#stName').textContent = RC.name; $('#stTag').textContent = RC.tag; $('#stCost').textContent = fmt(RC.cost);
+  rcSync();
   const cz = $('#crateZone'); cz.classList.remove('xray'); cz.innerHTML = crateHTML(RC, true);
   $('#odds').innerHTML = RC.w.map((x, t) => x > 0 ? '<span class="chip" style="--tc:' + TIERS[t].color + '"><i></i>' + TIERS[t].name + ' <b>' + pctText(x) + '</b></span>' : '').join('');
   renderContents(RC, RC.w, 100);
@@ -10646,11 +10726,11 @@ async function openRCShelf(){
 }
 async function openRC(){
   const m = room; if (!m || m.id !== 'ma' || !Y().ms1 || actBusy || vaultBusy || mi || busy || captive) return;
-  if (state.bal < RC.cost) { sayRoom('Fifteen grand, kid. You’re short. Go dig.', 'mad'); tone(150, .22, 'sawtooth', .05); return; }
+  if (state.bal < RC.cost) { sayRoom('Thirty grand, kid. You’re short. Go dig.', 'mad'); tone(150, .22, 'sawtooth', .05); return; }
   if (bagBlock(1)) return;
   actBusy = true; closeOv(); if (shopSel != null) unzoomShop(); renderLeft();
   state.bal -= RC.cost; state.spent += RC.cost; state.opened++;
-  const ch = Math.random() < RC_CHROMA, it = ch ? BY[RUSTED_ID] : pickOne(RC_IDS.map(id => BY[id])), W = WEARS[pickW(WEAR_W)], fl = +(W.lo + Math.random() * (W.hi - W.lo)).toFixed(4);
+  const ch = Math.random() < rcChance(), it = ch ? BY[RUSTED_ID] : pickOne(RC_IDS.map(id => BY[id])), W = WEARS[pickW(WEAR_W)], fl = +(W.lo + Math.random() * (W.hi - W.lo)).toFixed(4);
   const r = {uid: uid(), id: it.id, fl, v: priceOf(it, wearIdx(fl)), at: Date.now(), hk: [], src: 'rc', from: 'ma'};
   state.inv.unshift(r);
   { const fd = state.found || (state.found = []); if (!fd.includes(r.id)) fd.push(r.id); }
@@ -15894,7 +15974,7 @@ function selectSlot(i){
   renderLeft();
   camScene(shopBox(m, i));
   const st = shopStock(m)[i];
-  if (st && st.pk === 'rc') { if (first) whoosh(); else pickSound(); sayRoom('My old case. Rusty legendaries, every one. And one in two hundred… well. ' + fmt(RC.cost) + '.'); }
+  if (st && st.pk === 'rc') { if (first) whoosh(); else pickSound(); sayRoom('My old case. Rusty legendaries, every one. And the odd one in a couple hundred… well. ' + fmt(RC.cost) + '.'); }
   else if (st && st.pk === 'lg1') { if (first) whoosh(); else pickSound(); sayRoom('That red one? Legendaries. Only legendaries. ' + fmt(LG1.cost) + '. Don’t drop it.'); }
   else if (st && st.pk) { if (first) whoosh(); else pickSound(); sayRoom(first ? 'My own case. A hundred and ten grand, and every pull is hot.' : pickOne(PK_LINES)); }
   else if (first) { whoosh(); sayRoom(SHOPS[m.id].open); }
@@ -16461,6 +16541,9 @@ $('#prRoom').addEventListener('click', e => {
   if (a && a.dataset.a === 'rgive') { if (!a.disabled) rpGive(); return; }
   if (a && a.dataset.a === 'feed') { if (!a.disabled) { rgSel = new Set(); openOv('feed'); sayRoom('FEED ME. EXPENSIVE THINGS BURN HOTTER.', 'happy'); } return; }
   if (a && a.dataset.a === 'rgpick') { rgPick(a); return; }
+  if (a && a.dataset.a === 'rshop') { if (!a.disabled) { openOv('rshop'); sayRoom('MY RUST. YOUR SHOP.', 'happy'); } return; }
+  if (a && a.dataset.a === 'rsbuy') { if (!a.disabled) rsBuy(a.dataset.k); return; }
+  if (a && a.dataset.a === 'rsunlock') { if (!a.disabled) rsUnlock(); return; }
   if (a && a.dataset.a === 'rgfeed') { if (!a.disabled) rgFeed(); return; }
   if (a && a.dataset.a === 'rcase') { if (!a.disabled) openRC(); return; }
   if (a && a.dataset.a === 'rcprev') { if (!a.disabled) openPreview(RC); return; }
