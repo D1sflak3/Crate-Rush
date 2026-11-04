@@ -3466,6 +3466,66 @@ body.dz-open .toast{z-index:95}
 .gtc.cm5 .cm-wrap{animation:cmOut .7s ease-in both}
 @keyframes cmOut{to{opacity:0;transform:scale(.96)}}
 @media (prefers-reduced-motion: reduce){.cm-top,.cm-bot,.cm-l{transform:none!important}}
+/* ---------- Rustagard ---------- */
+.ms-rusta .rg-head{transform-box:view-box;transform-origin:200px 92px;transform:translateY(12px) rotate(10deg);transition:transform 1.8s cubic-bezier(.3,1.25,.5,1)}
+.ms-rusta.rg-wake .rg-head,.ms-rusta.rg-on .rg-head{transform:none}
+.ms-rusta .rg-eye{opacity:0;transition:opacity .3s}
+.ms-rusta.rg-eyes .rg-eye,.ms-rusta.rg-on .rg-eye{opacity:1}
+.ms-rusta .rg-night{opacity:.62;transition:opacity 1.4s}
+.ms-rusta.rg-fire .rg-night,.ms-rusta.rg-on .rg-night{opacity:0}
+.ms-rusta .rg-glow,.ms-rusta .rg-light{opacity:0;transition:opacity 1s}
+.ms-rusta.rg-fire .rg-glow,.ms-rusta.rg-on .rg-glow{opacity:1;animation:rgFlick 1.4s steps(4) infinite}
+.ms-rusta.rg-fire .rg-light,.ms-rusta.rg-on .rg-light{opacity:.5}
+@keyframes rgFlick{0%{opacity:1}25%{opacity:.72}50%{opacity:.95}75%{opacity:.8}}
+.ms-rusta.rg-rumble .rg-all{animation:rgRumble .1s steps(2) infinite}
+@keyframes rgRumble{0%{transform:translate(-1.6px,1px)}100%{transform:translate(1.6px,-1px)}}
+.ms-rusta .rg-can{transform-box:fill-box;transform-origin:center}
+.ms-rusta.rg-cans .rg-can{animation:rgRoll 1.5s cubic-bezier(.4,0,.8,.6) forwards}
+@keyframes rgRoll{to{transform:translate(var(--dx),var(--dy)) rotate(var(--r));opacity:0}}
+.ms-rusta .rg-up{transform-box:view-box;transform-origin:272px 100px}
+.ms-rusta .rg-fore{transform-box:view-box;transform-origin:300px 140px}
+.ms-rusta .rg-steam circle{transform-box:fill-box;transform-origin:center}
+.ms-rusta.rg-on .rg-up{animation:rgUp 5.2s ease-in-out infinite}
+.ms-rusta.rg-on .rg-fore{animation:rgFore 5.2s ease-in-out infinite}
+.ms-rusta.rg-on .rg-jaw{animation:rgJaw 5.2s linear infinite}
+.ms-rusta.rg-on .rg-junk{animation:rgJunk 5.2s linear infinite}
+.ms-rusta.rg-on .rg-crumb{animation:rgCrumb 5.2s linear infinite;animation-delay:var(--d)}
+.ms-rusta.rg-on .rg-head .rg-eye{transform-box:fill-box;transform-origin:center;animation:rgSquint 5.2s linear infinite}
+.ms-rusta.rg-on .rg-steam circle{animation:rgSteam 2.7s ease-out infinite;animation-delay:var(--d)}
+@keyframes rgUp{0%,24%{transform:rotate(0)}40%,62%{transform:rotate(104deg)}78%{transform:rotate(0)}88%{transform:rotate(-8deg)}100%{transform:rotate(0)}}
+@keyframes rgFore{0%,24%{transform:rotate(0)}40%,62%{transform:rotate(35deg)}78%{transform:rotate(0)}88%{transform:rotate(16deg)}100%{transform:rotate(0)}}
+@keyframes rgJaw{0%,36%{transform:none}42%{transform:translateY(14px)}47%{transform:none}52%{transform:translateY(8px)}57%{transform:none}62%{transform:translateY(7px)}67%,100%{transform:none}}
+@keyframes rgJunk{0%,44%{opacity:1}47%,86%{opacity:0}90%,100%{opacity:1}}
+@keyframes rgCrumb{0%,46%{opacity:0;transform:none}48%{opacity:1;transform:none}72%,100%{opacity:0;transform:translateY(64px)}}
+@keyframes rgSquint{0%,44%{transform:none}48%,66%{transform:scaleY(.35)}70%,100%{transform:none}}
+@keyframes rgSteam{0%{opacity:0;transform:none}20%{opacity:.5}100%{opacity:0;transform:translate(10px,-34px) scale(2.4)}}
+.pr-mem.pr-rusta{border-color:#7a3a18;background:radial-gradient(circle at 12% 50%,rgba(255,138,42,.3),transparent 55%),linear-gradient(135deg,#1e0f07,#0a0503)}
+.pr-mem.pr-rusta .wn{margin-top:8px}
+.rp-meta{color:#ff8a2a;font-weight:700}
+.rp-parts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.rp-part{display:grid;justify-items:center;gap:3px;padding:10px 8px 12px;border-radius:var(--r-md);border:1px dashed var(--line-strong);background:var(--panel);text-align:center}
+.rp-part.ok{border-style:solid;border-color:var(--pc);background:radial-gradient(80% 70% at 50% 30%,color-mix(in srgb,var(--pc) 22%,transparent),transparent 70%),var(--panel)}
+.rp-part:not(.ok) .rp-art{filter:grayscale(1) brightness(.55)}
+.rp-art svg{width:72px;height:58px;display:block}
+.rp-part b{font-family:var(--display);font-weight:600;font-size:18px;line-height:1.05}
+.rp-part small{color:var(--muted);font-size:12px}
+.rp-part span{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--muted)}
+.rp-part.ok span{color:var(--good)}
+.rp-card{border-color:#7a3a18;background:radial-gradient(80% 90% at 15% 50%,rgba(255,138,42,.18),transparent 70%),var(--panel)}
+.rp-card .lab{color:#ff8a2a}
+.rp-pv svg{width:100%;height:auto;max-height:70px;display:block}
+.bt-part .bt-pa svg{width:64px;height:52px;display:block;margin:0 auto}
+.part-pop{position:fixed;left:50%;top:max(74px,calc(env(safe-area-inset-top,0px) + 74px));z-index:95;display:flex;align-items:center;gap:14px;padding:12px 20px 12px 12px;max-width:min(440px,calc(100vw - 32px));border-radius:16px;border:2px solid var(--pc);background:radial-gradient(90% 120% at 0% 50%,color-mix(in srgb,var(--pc) 30%,transparent),transparent 65%),#120a06;box-shadow:0 18px 50px rgba(0,0,0,.6),0 0 40px color-mix(in srgb,var(--pc) 30%,transparent);color:#f4e8d6;opacity:0;transform:translate(-50%,-24px) scale(.96);transition:opacity .35s,transform .45s cubic-bezier(.2,1.4,.4,1);pointer-events:none}
+.part-pop.on{opacity:1;transform:translate(-50%,0) scale(1)}
+.pp-art{flex:none;width:84px;height:68px;display:grid;place-items:center;border-radius:12px;background:rgba(0,0,0,.4)}
+.pp-art svg{width:76px;height:60px}
+.pp-txt{display:grid;gap:1px}
+.pp-txt small{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--pc)}
+.pp-txt b{font-family:var(--display);font-weight:700;font-size:26px;line-height:1}
+.pp-txt span{font-size:13px;color:#cdbfa8}
+.pp-txt i{font-style:normal;font-size:12px;font-weight:700;color:#ffd23f}
+@media (max-width:520px){.rp-parts{grid-template-columns:1fr}.rp-part{grid-template-columns:auto 1fr;justify-items:start;text-align:left;column-gap:10px}.rp-part .rp-art{grid-row:1/4}}
+@media (prefers-reduced-motion: reduce){.ms-rusta *{animation:none!important}}
 /* once La Pulga has moved on to its own scenes, the shared SFOT scenes are switched off and the page underneath stops animating */
 .gtc.plc.plon>.su-1,.gtc.plc.plon>.su-2,.gtc.plc.plon>.su-3,.gtc.plc.plon>.su-4,.gtc.plc.plon>.su-5,.gtc.plc.plon>.su-6,.gtc.plc.plon>.su-7,.gtc.plc.plon>.su-8{display:none}
 body.cine-cover>:not(.gtc),body.cine-cover>:not(.gtc) *{animation-play-state:paused!important}
@@ -4146,6 +4206,7 @@ body.cine-cover>:not(.gtc),body.cine-cover>:not(.gtc) *{animation-play-state:pau
 </div>
 
 <div class="toast" id="toast" hidden></div>
+<div class="part-pop" id="partPop" hidden></div>
 <div class="sr" aria-live="polite" id="live"></div>
 
 <script>
@@ -4951,6 +5012,15 @@ const THEMES = {
     {i:'anvil', v:.03, l:1, n:'. . D5 . . . . . . . D5 . . . A5 .'},
     {i:'hat', v:.04, l:2, n:'x . x . x . x . x . x . x . x .'}
   ]},
+  /* Rustagard: slow and enormous. A hydraulic stomp, a sub you feel in your teeth, a bell somewhere in the dump */
+  rusta:{bpm:72, steps:16, rev:.35, dist:.2, vol:1, tracks:[
+    {i:'slam', v:.24, n:'x . . . . . . . . . x . . . . .'},
+    {i:'sub', v:.11, n:'D1 - - - - - - - . . D1 - - - - - | F1 - - - - - - - . . C1 - - - - -'},
+    {i:'chug', v:.04, l:1, n:'D2,A2 . . . . . . . . . D2,A2 . . . . . | F2,C3 . . . . . . . . . C2,G2 . . . . .'},
+    {i:'snare', v:.1, l:1, n:'. . . . . . . . x . . . . . . .'},
+    {i:'anvil', v:.03, l:2, n:'. . . . . . D5 . . . . . . . . . | . . . . . . F5 . . . . . . . E5 .'},
+    {i:'bell', v:.02, l:3, n:'A4 . . . . . . . . . . . . . . . | . . . . . . . . D5 . . . . . . .'}
+  ]},
   /* The Prestige lobby: a bossa nova in the elevator */
   lobby:{bpm:100, steps:16, rev:.3, tracks:[
     {i:'rhodes', v:.04, n:bossa('A3,C4,E4') + ' ' + bossa('F3,A3,C4') + ' ' + bossa('F3,Bb3,D4') + ' ' + bossa('E3,Bb3,D4')},
@@ -5335,6 +5405,13 @@ function openPreview(c){
     });
     body.append(grid);
   });
+  if (c.id === 'scrap' && rpQuest()) {
+    body.insertAdjacentHTML('beforeend', '<div class="pv-grp" style="--tc:#ff8a2a"><span>Socket’s parts · not weapons · only while she’s asking</span><b>' + rpCount() + '/3</b></div>');
+    const grid = document.createElement('div'); grid.className = 'pv-grid';
+    RPARTS.forEach(p => { const ok = rpHave(p.id), d = document.createElement('div'); d.className = 'pv-it rp-pv' + (ok ? ' got' : ' miss'); d.style.setProperty('--tc', p.col);
+      d.innerHTML = rpSVG(p.id) + '<span class="pv-st">' + (ok ? '✓ Got it' : 'Not yet') + '</span><div class="wt">Part</div><div class="nm">' + p.n + '</div><div class="pv-ch">' + p.p + '%</div>'; grid.append(d); });
+    body.append(grid);
+  }
   el.hidden = false; restart(el, 'pv'); el.querySelector('.pv-card').scrollTop = 0;
   pickSound();
   setTimeout(() => $('#pvX').focus({preventScroll:true}), 30);
@@ -5437,7 +5514,8 @@ function renderInv(newUid){
   const sum = state.inv.reduce((a, e) => a + e.v, 0);
   $('#invEmpty').hidden = state.inv.length > 0;
   const full = bagFree() < 1;
-  $('#invMeta').innerHTML = '<span class="bagc' + (full ? ' full' : '') + '"><b>' + bagUsed() + ' / ' + bagCap() + '</b> slots · ' + BAGS[bagLvl()].n + '</span>' + (state.inv.length ? ' · worth ' + fmt(sum) + ' cr' : '');
+  $('#invMeta').innerHTML = '<span class="bagc' + (full ? ' full' : '') + '"><b>' + bagUsed() + ' / ' + bagCap() + '</b> slots · ' + BAGS[bagLvl()].n + '</span>' + (state.inv.length ? ' · worth ' + fmt(sum) + ' cr' : '')
+    + (rpQuest() ? ' · <span class="rp-meta">Socket’s parts <b>' + rpCount() + '/3</b></span>' : '');
   const reg = state.inv.filter(e => BY[e.id].t < 5);
   const sa = $('#sellAll'); sa.hidden = reg.length === 0; sa.classList.remove('armed');
   sa.textContent = 'Sell regular items · ' + fmt(reg.reduce((a, e) => a + e.v, 0)) + (H().spoof > 0 ? ' (×2 on ' + Math.min(H().spoof, reg.length) + ')' : '');
@@ -6439,7 +6517,7 @@ async function openCase(){
   if (bagBlock(1)) return;
   ac(); busy = true; lockRack(true);
   if (free) H().keydupe--; else { state.bal -= cost; state.spent += cost; if (coil) G().coil--; }
-  let r = state.xrayRolls[c.id] || (c.id === 'scrap' ? Y().tip : null);
+  let r = state.xrayRolls[c.id] || (c.id === 'scrap' ? Y().tip : null), rp = null;
   if (r) { delete state.xrayRolls[c.id]; if (c.id === 'scrap') Y().tip = null; r.uid = uid(); r.at = Date.now(); } else r = roll(c);
   if (G().magnet > 0) { G().magnet--; for (let i = 0; i < 60 && BY[r.id].t === 0; i++) r = roll(c); }
   if (state.adminRig && BY[state.adminRig.id]) {
@@ -6454,6 +6532,7 @@ async function openCase(){
       const fl = +(.55 + Math.random()*.4).toFixed(4);
       r = {uid: uid(), id: KNIFE_ID, fl, v: priceOf(BY[KNIFE_ID], wearIdx(fl)), at: Date.now(), hk: r.hk || []};
     }
+    rp = rpRoll();
   }
   consume(r.hk); state.opened++;
   const near = prankNext('near') ? prankUse('near') : null;
@@ -6512,6 +6591,7 @@ async function openCase(){
     await wait(REDUCED ? 60 : 380);
     revealSound(it.t); showReveal(r);
   }
+  if (rp) setTimeout(() => partPop(rp), REDUCED ? 100 : 750);
 }
 
 /* ---------- Events ---------- */
@@ -7194,9 +7274,9 @@ MEMBERS.push({id:'tobias', name:'Tobias', role:'The Contraband King', col:'#a855
 /* ---------- The Rejects ----------
    Four people the Prestige threw out, living in the Scrapyard. They only buy rust: anything out of a
    Scrapyard case, or anything Scarred. The more worn a piece is, the more they pay (Mint gets haggled down).
-   They open up once you've pulled the Rusty Knife, which comes out of your twelfth Scrapyard case. */
+   They open up once you've pulled the Rusty Knife, which comes out of your fifth Scrapyard case. */
 const RUST_X = [.8, .9, 1, 1.2, 1.4];
-const KNIFE_ID = 's12', KNIFE_X = 5, YARD_N = 12, PEEK_EVERY = 10;
+const KNIFE_ID = 's12', KNIFE_X = 5, YARD_N = 5, PEEK_EVERY = 10;
 const Y = () => state.yard;
 const fromYard = it => !!ITEM_CASE[it.id] && ITEM_CASE[it.id].id === 'scrap';
 const rustyE = e => BY[e.id].t < 6 && (fromYard(BY[e.id]) || wearIdx(e.fl) === 4);
@@ -7237,7 +7317,16 @@ MEMBERS.push(
     shiny:"Too clean. Nothing for me to fix."})
 );
 const YARD = MEMBERS.filter(m => m.yard);
-const YARD_SPECIAL = {ma:'Wants her knife back', tinny:'Peeks inside crates', deacon:'Can’t be lied to', socket:'Rust counts double'};
+/* Rustagard: Socket's giant. Yard rules (rust only), but anything out of a Scrapyard case is his favourite. */
+MEMBERS.push({id:'rusta', name:'Rustagard', role:'The Scrap Colossus', col:'#ff8a2a', pitch:58, mult:2.2, pat:2, yard:true, special:true,
+  fav: it => fromYard(it) && it.id !== KNIFE_ID, favName:'Anything from the Scrapyard', one:'piece of Scrapyard scrap', many:'Scrapyard scrap',
+  say:{hi:"*CRUNCH* SMALL ONE. YOU BRING RUST? SCRAPYARD SCRAP PAYS BEST.", none:"EMPTY HANDS. I CANNOT EAT EMPTY HANDS.",
+       open:"{o}. GOOD RUST. CRUNCHY.", plain:"NOT FROM THE YARD. STILL RUST. {o}.", exact:"THAT ONE. I DREAMED OF THAT ONE. {o}.",
+       pushOk:"HRRMM. FINE. {o}.", pushNo:"NO. {o}. DO NOT ANNOY THE GIANT.",
+       bluffOk:"ANOTHER BUYER? WHO IS BIGGER THAN ME? …{o}.", bluffNo:"NOBODY ELSE EATS RUST. GO AWAY BEFORE I EAT YOU.",
+       deal:"*CRUNCH* DELICIOUS.", brief:"SOCKET HID MONEY IN MY CHEST. TAKE IT. IT DOES NOT TASTE GOOD.", thanks:"COME BACK HUNGRY. I AM ALWAYS HUNGRY.",
+       cool:"Rustagard is asleep on the garbage mountain. Don't wake him.", shiny:"TOO SHINY. SHINY HURTS MY TEETH. TAKE IT UP THE HILL."}});
+const YARD_SPECIAL = {ma:'Wants her knife back', tinny:'Peeks inside crates', deacon:'Can’t be lied to', socket:'Rust counts double', rusta:'Eats it on the spot'};
 const BM_REFUSE = {
   vance:"Black Market? Not in my building. Tobias handles that kind of filth.",
   brick:"Whoa whoa whoa. That's HOT. Boss'd kill me. Take it to Tobias.",
@@ -7276,7 +7365,7 @@ function offerFor(m, e){
   const o = e.v * (isFav(m, e) ? m.mult : inMood(m, e) ? MOOD_X : 1) * (isExact(m, e) ? EXACT_BONUS : 1);
   return Math.round(m.yard ? o * rustOf(m, e) : o);
 }
-const blip = m => tone(m.pitch * (.88 + Math.random()*.3), .045, 'square', .016);
+const blip = m => m.id === 'rusta' ? (tone(m.pitch * (.9 + Math.random()*.2), .07, 'sawtooth', .03), tone(m.pitch * 3, .03, 'square', .01)) : tone(m.pitch * (.88 + Math.random()*.3), .045, 'square', .016);
 
 /* Portraits: head and shoulders in a 100x110 box */
 const FACE = {
@@ -7290,9 +7379,19 @@ const FACE = {
   ma:{skin:'#c08a62', sk2:'#9e6c48', coat:'#4a2e1a'},
   tinny:{skin:'#e2ad80', sk2:'#c48d62', coat:'#3d5a8a'},
   deacon:{skin:'#7a5238', sk2:'#5e3e28', coat:'#16161a'},
-  socket:{skin:'#a8724e', sk2:'#875a3a', coat:'#2f4a4a'}
+  socket:{skin:'#a8724e', sk2:'#875a3a', coat:'#2f4a4a'},
+  rusta:{skin:'#9a4c22', sk2:'#7a3a18', coat:'#6a3216'}
 };
+/* Rustagard's head is the Rust Bucket, upside down, with its handle up like a crest */
+const rustaFace = () => '<path d="M2 110 Q6 76 50 72 Q94 76 98 110 Z" fill="#7a3a18" stroke="#2a1206" stroke-width="1.4"/><circle cx="50" cy="100" r="9" fill="#140804" stroke="#3d1d0c" stroke-width="2"/><circle cx="50" cy="100" r="7" fill="#ff8a1a" opacity=".75"/><path d="M45 92 V108 M50 91 V109 M55 92 V108" stroke="#2a1206" stroke-width="1.4"/>'
+  + '<rect x="40" y="62" width="20" height="12" fill="#2a1206"/><path d="M24 34 Q50 -4 76 34" stroke="#8a867e" stroke-width="2.6" fill="none"/>'
+  + '<path d="M32 20 L68 20 L74 60 L26 60 Z" fill="#9a4c22" stroke="#2a1206" stroke-width="1.6"/><path d="M32 20 L40 20 L40 60 L26 60 Z" fill="#c8733a" opacity=".35"/><path d="M62 20 L68 20 L74 60 L64 60 Z" fill="#3a1a0a" opacity=".4"/>'
+  + '<ellipse cx="50" cy="20" rx="18" ry="3.2" fill="#3a1a0a"/><path d="M30 30 H70 M28 50 H72" stroke="#5a2c12" stroke-width="1.8"/>'
+  + '<rect x="35" y="35" width="30" height="10" rx="4" fill="#0b0604"/><circle cx="43" cy="40" r="3.6" fill="#ffb000"/><circle cx="57" cy="40" r="3.6" fill="#ffb000"/><circle cx="43" cy="40" r="1.4" fill="#fff4c0"/><circle cx="57" cy="40" r="1.4" fill="#fff4c0"/>'
+  + '<rect x="23" y="58" width="54" height="6" rx="1.5" fill="#7a3a18" stroke="#2a1206"/><path d="M36 64 H64 L61 72 H39 Z" fill="#6a3216" stroke="#2a1206"/><path d="M30 64 l4 4 l4 -4 l4 4 l4 -4 l4 4 l4 -4 l4 4 l4 -4 l4 4 l4 -4 l4 4" stroke="#d9cfb8" stroke-width="1.4" fill="none"/>'
+  + '<circle cx="64" cy="27" r="1.8" fill="#140804"/><circle cx="34" cy="54" r="2.4" fill="#c8733a" opacity=".5"/>';
 function face(id){
+  if (id === 'rusta') return rustaFace();
   const F = FACE[id], sk = F.skin;
   const shoulders = id === 'brick' ? '<path d="M0 110 Q2 74 50 70 Q98 74 100 110 Z" fill="' + F.coat + '"/>' : '<path d="M6 110 Q10 79 50 75 Q90 79 94 110 Z" fill="' + F.coat + '"/>';
   const neck = id === 'brick' ? '<path d="M39 58 H61 V78 Q50 84 39 78 Z" fill="' + F.sk2 + '"/>' : '<path d="M42 60 H58 V78 Q50 82 42 78 Z" fill="' + F.sk2 + '"/>';
@@ -7647,6 +7746,7 @@ function openRoom(id){
   { const svg = sceneEl().querySelector(':scope > svg'); svg.style.transition = 'none'; restView(); void svg.getBoundingClientRect(); svg.style.transition = ''; }
   tone(220, .12, 'triangle', .08); tone(330, .12, 'triangle', .06, .08);
   if (held) { P().met[m.id] = true; save(); resumeCell(); return; }
+  if (id === 'rusta') rgRoomSfx();
   if (!P().met[m.id]) { P().met[m.id] = true; save(); playIntro(m); }
   else greet(m);
   mus.hold = null; musSync();
@@ -7766,7 +7866,8 @@ function renderLeft(anim){
   } else {
     const w = wantOf(m), have = state.inv.some(e => isExact(m, e)), n = state.inv.length;
     const pk = m.id === 'tinny' ? peekLeft() : 0;
-    left = B('sell', m.outsider ? 'Sell contraband' : m.yard ? 'Sell rust' : 'Sell something', 'gold', lock || !n, n ? n + (n === 1 ? ' item' : ' items') : 'bag empty')
+    left = B('sell', m.outsider ? 'Sell contraband' : m.id === 'rusta' ? 'Feed him rust' : m.yard ? 'Sell rust' : 'Sell something', 'gold', lock || !n, n ? n + (n === 1 ? ' item' : ' items') : 'bag empty')
+      + (m.id === 'socket' && rpQuest() ? B('rusta', 'The big project', '', lock, rpCount() + ' of 3 parts') : '')
       + (SHOPS[m.id] ? B('shop', 'Shop · ' + SHOPS[m.id].hint, '', lock) : '')
       + (m.id === 'tobias' ? B('pk1', 'Case #PK1 · on his shelf', 'pk', lock, fmt(PK1.cost) + ' cr') : '')
       + (m.id === 'socket' ? (gadEnsure(), Y().gReady ? B('gad', 'Socket’s gadget', '', lock, GADGETS[Y().gReady].n + ' · ' + fmt(GADGETS[Y().gReady].price)) : Y().gReq ? B('gad', 'Socket needs parts', '', lock, 'makes: ' + GADGETS[Y().gReq.gad].n) : '') : '')
@@ -7776,7 +7877,7 @@ function renderLeft(anim){
       + B('leave', 'Leave', 'ghost', lock);
     ctx = '<div class="rmc rmc-want' + (have ? ' have' : '') + '"><div class="lab">' + (have ? '★ You have it' : 'On the list') + '</div><span class="rmc-art"></span>'
       + '<div class="t">' + WNAME[w.w] + ' | ' + w.name + '</div><div class="rmc-sub">Bring this exact one: ' + BRIEF_X + '× market in a briefcase</div>'
-      + '<div class="rmc-rule">' + (m.yard ? 'Pays <b>' + m.mult + '×</b> for ' + m.many + ' · any other rust at market · ' + (m.id === 'socket' ? 'wear counts double' : 'worn pays more, Mint pays less') : m.outsider ? 'Pays <b>' + m.mult + '×</b> for Black Market · won’t touch anything else' : 'Pays <b>' + m.mult + '×</b> for ' + m.many + ' · market for the rest · no contraband') + '</div></div>';
+      + '<div class="rmc-rule">' + (m.id === 'rusta' ? 'Pays <b>' + m.mult + '×</b> for anything out of the Scrapyard · Scarred pieces from anywhere at market · worn pays more' : m.yard ? 'Pays <b>' + m.mult + '×</b> for ' + m.many + ' · any other rust at market · ' + (m.id === 'socket' ? 'wear counts double' : 'worn pays more, Mint pays less') : m.outsider ? 'Pays <b>' + m.mult + '×</b> for Black Market · won’t touch anything else' : 'Pays <b>' + m.mult + '×</b> for ' + m.many + ' · market for the rest · no contraband') + '</div></div>';
     art = thumb(w, 0);
     if (m.id === 'ma' && !Y().home) {
       const hk = state.inv.find(e => e.id === KNIFE_ID);
@@ -7803,6 +7904,7 @@ function renderOv(){
   const head = (small, big) => '<div class="ov-top"><div class="ov-h"><small>' + small + '</small><b>' + big + '</b></div><div class="bal"><span class="coin"></span><span class="ov-bal">' + fmt(state.bal) + '</span></div><button class="icon-btn ov-x" data-a="ovclose" aria-label="Close">✕</button></div>';
   if (ovMode === 'jobrun') return;
   if (ovMode === 'gad') { ov.innerHTML = head('Socket’s workbench', Y().gReady ? 'Fresh off the bench' : 'She needs parts') + '<div class="ov-body">' + gadPanel() + '</div>'; gadFill(); return; }
+  if (ovMode === 'rusta') { ov.innerHTML = head('Socket’s big project', rpCount() === 3 ? 'All three parts' : 'She needs three parts') + '<div class="ov-body">' + rpPanel() + '</div>'; return; }
   if (ovMode === 'bags') { ov.innerHTML = head('Tinny’s backpacks', 'More room for your stuff') + '<div class="ov-body">' + bagsPanel() + '</div>'; return; }
   if (ovMode === 'job') {
     const j = jobOf(m);
@@ -9287,7 +9389,155 @@ const YARD_SC = {
       await S.say("Pistols. Rusted, seized, busted, I don't care. The worse it looks, the more I pay.");
     }},
 
-  /* The cutscene: your twelfth Scrapyard case gave up the Rusty Knife, and the yard noticed */
+  /* Rustagard: Socket's giant, sat on top of the garbage mountain, eating it. His head is the Rust Bucket, his hide is
+     the Rusty Metal Sheet and the Lead Heart sits behind a grate in his chest. Room state: awake and chewing. */
+  rusta:{end:'rg-on', cap:'Built from a bucket, a sheet of rust and a heart of lead. Has never once been full.',
+    svg:k => {
+      const R = seeded(4471), top = x => 170 + Math.pow((x - 200) / 160, 2) * 56;
+      let s = SVG0 + '<defs>' + vigDef(k) + yardDefs(k) + glowDef('rgg' + k, 5) + glowDef('rge' + k, 2.4)
+        + '<linearGradient id="rgb' + k + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b8642e"/><stop offset=".5" stop-color="#8a4420"/><stop offset="1" stop-color="#4a220e"/></linearGradient>'
+        + '<linearGradient id="rgh' + k + '" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4a220e"/><stop offset=".3" stop-color="#b8642e"/><stop offset=".55" stop-color="#9a4c22"/><stop offset="1" stop-color="#3a1a0a"/></linearGradient>'
+        + '<linearGradient id="rga' + k + '" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5a2c12"/><stop offset=".5" stop-color="#a0542a"/><stop offset="1" stop-color="#4a220e"/></linearGradient>'
+        + '<radialGradient id="rgf' + k + '"><stop offset="0" stop-color="#ffe2a0"/><stop offset=".45" stop-color="#ff8a1a"/><stop offset="1" stop-color="#ff4a00" stop-opacity="0"/></radialGradient>'
+        + '<radialGradient id="rgw' + k + '"><stop offset="0" stop-color="#ff8a2a" stop-opacity=".5"/><stop offset="1" stop-color="#ff6a00" stop-opacity="0"/></radialGradient>'
+        + '<linearGradient id="rgl' + k + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a7aeb5"/><stop offset=".55" stop-color="#6d747b"/><stop offset="1" stop-color="#3f454b"/></linearGradient>'
+        + '</defs>'
+        + '<rect width="400" height="260" fill="url(#ys' + k + ')"/>' + yStars(R, 64) + yMoon(336, 32)
+        + yPiles(R, 174, '#120c09', 9) + yPiles(R, 196, '#1a110c', 7) + yGround(228);
+      const rv = (x, y, r) => '<circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + (r || 1.6) + '" fill="#d98a4a" stroke="#2a1206" stroke-width=".6"/>';
+      /* He's drawn in his own 400x260 box, scaled down so there's night sky over his head: the nested viewport keeps
+         every transform-origin in his own coordinates. Everything in the box shakes when he wakes. */
+      s += '<svg x="44" y="52" width="312" height="202.8" viewBox="0 0 400 260" overflow="visible"><g class="rg-all">';
+      s += '<path d="M-90 300 Q-10 236 74 206 Q104 188 134 180 Q164 168 200 170 Q240 168 268 180 Q300 190 330 208 Q410 236 490 300 Z" fill="#2a1d14"/>'
+        + '<path d="M-40 300 Q50 236 108 212 Q150 198 200 198 Q252 198 294 212 Q350 236 440 300 Z" fill="#33241a"/>';
+      /* the mountain is made of things: bags, cans, tyres, a fridge, a telly, pipe */
+      const JK = ['#3a2a1e', '#4a3626', '#1b1b1b', '#5a2c14', '#2e3a44', '#6a6a60', '#7a2a1a', '#41503a'];
+      for (let i = 0; i < 90; i++) {
+        const x = -30 + R() * 460, y = top(x) + 4 + R() * Math.max(4, 286 - top(x) - 4), c = JK[i % JK.length], w = 4 + R() * 10, h = 3 + R() * 7, a = (R() * 60 - 30).toFixed(0);
+        s += i % 3 ? '<rect x="' + f1(x) + '" y="' + f1(y) + '" width="' + f1(w) + '" height="' + f1(h) + '" rx="1" fill="' + c + '" transform="rotate(' + a + ' ' + f1(x) + ' ' + f1(y) + ')"/>'
+                   : '<ellipse cx="' + f1(x) + '" cy="' + f1(y) + '" rx="' + f1(w * .7) + '" ry="' + f1(h * .7) + '" fill="#141210"/><path d="M' + f1(x - w * .4) + ' ' + f1(y - h * .3) + ' q' + f1(w * .3) + ' -2 ' + f1(w * .5) + ' 0" stroke="#3a3a3a" stroke-width=".8" fill="none"/>';
+      }
+      s += '<ellipse cx="84" cy="216" rx="15" ry="6" fill="#151515" stroke="#2c2c2c" stroke-width="2"/><ellipse cx="84" cy="216" rx="6" ry="2.4" fill="#2a1d14"/>'
+        + '<ellipse cx="322" cy="220" rx="16" ry="6" fill="#151515" stroke="#2c2c2c" stroke-width="2"/><ellipse cx="322" cy="220" rx="6" ry="2.4" fill="#2a1d14"/>'
+        + '<g transform="rotate(-12 336 196)"><rect x="322" y="176" width="26" height="40" rx="3" fill="#c9c4b4" stroke="#5a5448" stroke-width="1.2"/><path d="M322 190 H348" stroke="#5a5448"/><rect x="342" y="180" width="2" height="7" fill="#5a5448"/><circle cx="330" cy="206" r="3" fill="#b5541c" opacity=".6"/></g>'
+        + '<g transform="rotate(10 64 196)"><rect x="50" y="188" width="28" height="22" rx="2" fill="#2a2a2a" stroke="#111"/><rect x="54" y="191" width="20" height="15" fill="#3a4a4a"/><path d="M56 193 L72 204" stroke="#6a7a7a" stroke-width=".8"/></g>'
+        + '<path d="M100 236 L150 222" stroke="#5a5f64" stroke-width="5" stroke-linecap="round"/><path d="M250 224 L300 240" stroke="#4a4f54" stroke-width="4" stroke-linecap="round"/>';
+      /* the cans on top: they roll off when he wakes up */
+      s += '<g class="rg-cans">' + [[152, 170, '#c0262d', '-56px', '46px', '-420deg'], [238, 168, '#2a6aff', '64px', '52px', '380deg'], [176, 166, '#39a85a', '-30px', '70px', '-300deg']].map(([x, y, c, dx, dy, r]) =>
+        '<g class="rg-can" style="--dx:' + dx + ';--dy:' + dy + ';--r:' + r + '"><rect x="' + (x - 4) + '" y="' + (y - 6) + '" width="8" height="11" rx="1.5" fill="' + c + '"/><rect x="' + (x - 4) + '" y="' + (y - 6) + '" width="8" height="2" fill="#ccc"/></g>').join('') + '</g>';
+
+      /* him. Legs first, sat with his knees up */
+      s += '<g class="rg">';
+      s += '<path d="M176 166 L136 178" stroke="url(#rga' + k + ')" stroke-width="28" stroke-linecap="round"/><path d="M136 178 L122 214" stroke="#7a3a18" stroke-width="22" stroke-linecap="round"/>'
+        + '<path d="M224 166 L264 178" stroke="url(#rga' + k + ')" stroke-width="28" stroke-linecap="round"/><path d="M264 178 L278 214" stroke="#6a3216" stroke-width="22" stroke-linecap="round"/>'
+        + '<path d="M128 194 L118 210 M272 194 L282 210" stroke="#3d1d0c" stroke-width="2" opacity=".6"/>'
+        + '<path d="M98 212 H136 L142 226 H94 Z" fill="#5a2c12" stroke="#2a1206" stroke-width="1.4"/><path d="M98 220 H140" stroke="#2a1206" stroke-width="1"/>'
+        + '<path d="M264 212 H302 L306 226 H258 Z" fill="#4a240e" stroke="#2a1206" stroke-width="1.4"/><path d="M262 220 H304" stroke="#2a1206" stroke-width="1"/>'
+        + '<circle cx="136" cy="178" r="13" fill="#8a4420" stroke="#3d1d0c" stroke-width="2"/><circle cx="264" cy="178" r="13" fill="#7a3a18" stroke="#3d1d0c" stroke-width="2"/>'
+        + rv(132, 174) + rv(140, 182) + rv(260, 174) + rv(268, 182);
+      /* exhaust stack behind his shoulder, and the steam off it */
+      s += '<rect x="118" y="46" width="12" height="50" fill="#3a2a22" stroke="#1a0f08" stroke-width="1.2"/><rect x="115" y="42" width="18" height="6" rx="1" fill="#4a3a30"/><path d="M118 62 H130 M118 78 H130" stroke="#5a2c12" stroke-width="2"/>'
+        + '<g class="rg-steam">' + [0, 1, 2].map(i => '<circle style="--d:' + (i * .9) + 's" cx="124" cy="38" r="' + (5 + i) + '" fill="#8a8a8a" opacity="0"/>').join('') + '</g>';
+      /* his left arm, resting: the hand on his knee */
+      s += '<path d="M130 102 L106 142" stroke="url(#rga' + k + ')" stroke-width="20" stroke-linecap="round"/><path d="M106 142 L126 168" stroke="#6a3216" stroke-width="17" stroke-linecap="round"/>'
+        + '<circle cx="106" cy="142" r="10" fill="#7a3a18" stroke="#3d1d0c" stroke-width="1.6"/>'
+        + '<path d="M120 164 Q130 160 140 166 L144 176 Q136 172 132 178 Q126 172 120 176 Z" fill="#5a2c12" stroke="#2a1206" stroke-width="1.2"/>';
+      /* the body: riveted plate, patched with the Rusty Metal Sheet across the belly */
+      s += '<path d="M126 90 Q200 76 274 90 L262 170 Q200 182 138 170 Z" fill="url(#rgb' + k + ')" stroke="#2a1206" stroke-width="2"/>'
+        + '<path d="M200 82 V112 M200 140 V176 M132 130 Q200 140 268 130" stroke="#3d1d0c" stroke-width="1.6" fill="none" opacity=".8"/>'
+        + [146, 162, 238, 254].map(x => rv(x, 132 + Math.abs(x - 200) * .02)).join('') + [94, 104, 150, 160].map(y => rv(200, y)).join('')
+        + '<circle cx="150" cy="104" r="7" fill="#c8733a" opacity=".35"/><circle cx="252" cy="152" r="9" fill="#3d1d0c" opacity=".4"/><circle cx="146" cy="156" r="5" fill="#d98a4a" opacity=".3"/>'
+        + '<path d="M142 102 l6 14 M256 98 l-4 16" stroke="#3d1d0c" stroke-width="1.2" opacity=".6"/>'
+        + '<g transform="rotate(-4 200 160)"><rect x="160" y="146" width="80" height="26" rx="2" fill="#7a5a44" stroke="#2a1206" stroke-width="1.4"/>'
+        + [0, 1, 2, 3, 4, 5, 6].map(i => '<path d="M' + (166 + i * 11) + ' 147 V171" stroke="#4a3626" stroke-width="2"/>').join('')
+        + '<circle cx="178" cy="160" r="6" fill="#b5541c" opacity=".7"/><circle cx="224" cy="154" r="4" fill="#c8733a" opacity=".6"/>'
+        + rv(163, 149) + rv(237, 149) + rv(163, 169) + rv(237, 169) + '</g>';
+      /* the chest grate: the Lead Heart inside it, the furnace behind it */
+      s += '<circle cx="200" cy="118" r="25" fill="#140804" stroke="#3d1d0c" stroke-width="5"/>'
+        + '<circle class="rg-glow" cx="200" cy="118" r="23" fill="url(#rgf' + k + ')"/>'
+        + '<path class="rg-heart" d="M200 134 C186 126 180 116 186 110 C190 106 196 107 200 112 C204 107 210 106 214 110 C220 116 214 126 200 134 Z" fill="url(#rgl' + k + ')" stroke="#2a2e33" stroke-width="1.2"/>'
+        + '<path d="M200 113 V132 M190 112 Q187 116 190 120" stroke="#3f454b" stroke-width=".9" fill="none"/><rect x="196" y="100" width="3" height="9" fill="#6d747b"/><rect x="202" y="102" width="3" height="7" fill="#6d747b"/>'
+        + '<path d="M184 100 V136 M192 96 V140 M200 94 V142 M208 96 V140 M216 100 V136" stroke="#2a1206" stroke-width="2.4" opacity=".85"/>'
+        + Array.from({length: 10}, (_, i) => rv(200 + Math.cos(i / 10 * Math.PI * 2) * 25, 118 + Math.sin(i / 10 * Math.PI * 2) * 25, 1.4)).join('');
+      /* shoulders */
+      s += '<ellipse cx="128" cy="96" rx="27" ry="20" fill="#8a4420" stroke="#2a1206" stroke-width="2"/><path d="M106 100 Q128 82 150 100" stroke="#c8733a" stroke-width="2" fill="none" opacity=".5"/>'
+        + '<ellipse cx="272" cy="96" rx="27" ry="20" fill="#7a3a18" stroke="#2a1206" stroke-width="2"/><path d="M250 100 Q272 82 294 100" stroke="#c8733a" stroke-width="2" fill="none" opacity=".4"/>'
+        + rv(112, 98) + rv(128, 86) + rv(144, 98) + rv(256, 98) + rv(272, 86) + rv(288, 98);
+      /* neck, then the head: the Rust Bucket, upside down, its handle up like a crest, a jaw hung under the rim */
+      s += '<rect x="186" y="78" width="28" height="16" fill="#2a1206"/><path d="M186 82 H214 M186 86 H214 M186 90 H214" stroke="#5a2c12" stroke-width="1.4"/>';
+      s += '<g class="rg-head">'
+        + '<path d="M166 58 Q200 -8 234 58" stroke="#7d7a72" stroke-width="3.4" fill="none"/><circle cx="166" cy="58" r="3" fill="#5d5a54"/><circle cx="234" cy="58" r="3" fill="#5d5a54"/>'
+        + '<rect x="180" y="72" width="40" height="18" rx="3" fill="#0b0604"/>'
+        + '<g class="rg-jaw"><path d="M178 72 H222 L218 92 Q200 96 182 92 Z" fill="#6a3216" stroke="#2a1206" stroke-width="1.4"/>'
+        + '<path d="M184 74 l3 -5 l3 5 l3 -5 l3 5 l3 -5 l3 5 l3 -5 l3 5 l3 -5 l3 5 l3 -5 l2 4" fill="#d9cfb8" stroke="#2a1206" stroke-width=".6"/>' + rv(186, 86) + rv(214, 86) + '</g>'
+        + '<path d="M172 28 L228 28 L236 74 L164 74 Z" fill="url(#rgh' + k + ')" stroke="#2a1206" stroke-width="2"/>'
+        + '<ellipse cx="200" cy="28" rx="28" ry="4.6" fill="#3a1a0a" stroke="#2a1206" stroke-width="1.4"/>'
+        + '<path d="M170 42 H230 M167 62 H233" stroke="#3d1d0c" stroke-width="2.4" opacity=".75"/>'
+        + '<rect x="161" y="70" width="78" height="8" rx="2" fill="#7a3a18" stroke="#2a1206" stroke-width="1.4"/>'
+        + '<path d="M168 80 l6 -3 l4 6 l6 -5 l6 4 l5 -4 l6 5 l6 -4 l5 4 l6 -5 l4 4 l6 -3" stroke="#d9cfb8" stroke-width="2.2" fill="none" stroke-linejoin="round"/>'
+        + '<circle cx="222" cy="36" r="2.4" fill="#0b0604"/><circle cx="178" cy="66" r="1.8" fill="#0b0604"/><circle cx="214" cy="68" r="3" fill="#c8733a" opacity=".5"/><path d="M226 30 Q230 46 228 60" stroke="#d98a4a" stroke-width="1.2" opacity=".4" fill="none"/>'
+        + '<rect x="176" y="45" width="48" height="15" rx="6" fill="#0b0604" stroke="#2a1206" stroke-width="1.2"/>'
+        + '<g class="rg-eye"><circle cx="188" cy="52.5" r="5" fill="#ffb000"/><circle cx="212" cy="52.5" r="5" fill="#ffb000"/><circle cx="188" cy="52.5" r="2" fill="#fff4c0"/><circle cx="212" cy="52.5" r="2" fill="#fff4c0"/></g>'
+        + '<path d="M178 44 L196 47 M222 44 L204 47" stroke="#2a1206" stroke-width="2.4" stroke-linecap="round"/>'
+        + '</g>';
+      /* crumbs that fall out of his mouth when he chews */
+      s += '<g class="rg-crumbs">' + [[-6, '#5a2c14'], [2, '#c0262d'], [8, '#6a6a60'], [-2, '#3a2a1e'], [12, '#b5541c']].map(([dx, c], i) => '<rect class="rg-crumb" style="--d:' + (i * .07).toFixed(2) + 's" x="' + (200 + dx) + '" y="90" width="3" height="3" fill="' + c + '"/>').join('') + '</g>';
+      /* the right arm: scoops a fistful off the mountain, takes it up to his mouth, goes back for more */
+      s += '<g class="rg-up"><path d="M272 100 L300 140" stroke="url(#rga' + k + ')" stroke-width="20" stroke-linecap="round"/>' + rv(282, 112) + rv(292, 126)
+        + '<g class="rg-fore"><path d="M300 140 L292 180" stroke="#7a3a18" stroke-width="17" stroke-linecap="round"/>'
+        + '<g class="rg-junk"><rect x="282" y="184" width="10" height="13" rx="2" fill="#c0262d" transform="rotate(-18 287 190)"/><rect x="282" y="184" width="10" height="3" fill="#ccc" transform="rotate(-18 287 190)"/><path d="M292 190 q8 -4 12 4 q-2 8 -10 6 Z" fill="#141210"/><rect x="286" y="194" width="12" height="4" fill="#6a6a60" transform="rotate(20 292 196)"/></g>'
+        + '<path d="M282 178 Q292 172 302 180 L306 192 Q300 188 296 196 L292 188 L288 198 Q284 190 280 194 Z" fill="#5a2c12" stroke="#2a1206" stroke-width="1.2"/>'
+        + '<circle cx="300" cy="140" r="10" fill="#8a4420" stroke="#3d1d0c" stroke-width="1.6"/>' + rv(300, 140, 2) + '</g></g>';
+      /* the furnace lights the junk around him */
+      s += '<ellipse class="rg-light" cx="200" cy="150" rx="150" ry="90" fill="url(#rgw' + k + ')"/>';
+      s += '</g></g>';
+      /* night over everything, then his eyes over the night so they're the first thing you see */
+      s += '<rect class="rg-night" x="-200" y="-200" width="800" height="700" fill="#04050b"/>'
+        + '<g class="rg-head rg-eyes2"><g class="rg-eye"><circle cx="188" cy="52.5" r="8" fill="#ffb000" filter="url(#rge' + k + ')" opacity=".9"/><circle cx="212" cy="52.5" r="8" fill="#ffb000" filter="url(#rge' + k + ')" opacity=".9"/><circle cx="188" cy="52.5" r="3" fill="#fff4c0"/><circle cx="212" cy="52.5" r="3" fill="#fff4c0"/></g></g>'
+        + '</svg>' + yFire(26, 262, k) + vigRect(k);
+      return s + '</svg>';
+    },
+    intro: async S => {
+      const K = MBY.socket;
+      S.fx(() => noise(3.5, 380, 180, .035, 'lowpass'));
+      S.loop(() => noise(.08, 1800, 600, .02, 'bandpass'), 340);
+      await S.W(1500);
+      /* the mountain moves */
+      S.on('rg-rumble'); S.shake();
+      const rum = S.loop(() => { tone(36 + Math.random() * 14, .3, 'sawtooth', .05); noise(.3, 320, 80, .12, 'lowpass'); }, 240);
+      await S.W(1900);
+      S.unloop(rum); S.off('rg-rumble'); S.on('rg-cans');
+      S.fx(() => [0, .25, .5, .8, 1.1].forEach((d, i) => { tone(900 - i * 90, .06, 'square', .03, d); noise(.06, 3000, 1200, .05, 'bandpass'); }));
+      await S.W(1300);
+      await S.say("Okay. Nobody panic. That's normal. Probably.", K);
+      /* two eyes in the dark */
+      S.on('rg-eyes');
+      S.fx(() => { sweep(55, 220, 1.4, 'sawtooth', .05); tone(880, .08, 'sine', .05, .3); tone(880, .08, 'sine', .05, .55); });
+      await S.W(1600);
+      /* the head comes up off his chest */
+      S.on('rg-wake');
+      S.fx(() => { sweep(180, 520, 1.2, 'square', .02); [0, .3, .6, .9].forEach(d => noise(.08, 2600, 900, .05, 'bandpass')); });
+      await S.W(1800);
+      /* the furnace catches */
+      S.on('rg-fire'); S.shake();
+      S.fx(() => { noise(1.4, 200, 1400, .16, 'bandpass'); tone(48, 1.4, 'sine', .35); noise(1.2, 900, 120, .2, 'lowpass'); });
+      await S.W(1400);
+      await S.say("RUSTAGARD. ONLINE.");
+      /* and the first thing he does is eat */
+      S.on('rg-on');
+      S.at(2440, () => S.loop(rgChew, 5200));
+      await S.W(900);
+      await S.say("A BUCKET FOR A HEAD. A SHEET OF RUST FOR A HIDE. A HEART MADE OF LEAD.");
+      await S.say("IT IS HEAVY. I LIKE HEAVY.");
+      await S.say("Took me all night. Don't touch the heart. It's still warm.", K);
+      await S.say("THE PRESTIGE THROW AWAY WHAT THEY DO NOT WANT. UP THE HILL, DOWN TO HERE. ALL OF IT.");
+      await S.say("I AM WHAT THEY DID NOT WANT. SO NOW I EAT IT.");
+      await S.card();
+      await S.say("YOU. SMALL ONE. BRING ME RUST. ANYTHING FROM THE SCRAPYARD, I PAY MORE THAN ANYBODY.");
+      await S.say("He means it. He's got my whole savings in his chest. Don't ask.", K);
+    }},
+
+  /* The cutscene: your fifth Scrapyard case gave up the Rusty Knife, and the yard noticed */
   yardc:{end:'', cap:'',
     svg:k => {
       const R = seeded(911);
@@ -9314,13 +9564,13 @@ const YARD_SC = {
       S.on('yc-ti');
       const steps = S.loop(() => noise(.05, 900, 300, .08, 'lowpass'), 150);
       await S.W(700); S.unloop(steps);
-      await S.say("MA! MA! Somebody opened twelve Scrapyard crates!", T);
+      await S.say("MA! MA! Somebody opened five Scrapyard crates!", T);
       S.on('yc-ma'); await S.W(400);
-      await S.say("Twelve. And?", M);
+      await S.say("Five. And?", M);
       S.on('yc-knife'); S.fx(() => { [659.25, 830.6, 987.8, 1318.5].forEach((f, i) => tone(f, 1.6, 'sine', .03, i*.12)); });
       await S.say("AND THEY GOT THE RUSTY KNIFE!", T);
       S.on('yc-de'); await S.W(300);
-      await S.say("Twelve crates deep. The rust provides.", D);
+      await S.say("Five crates deep. The rust provides.", D);
       S.on('yc-so'); await S.W(300);
       await S.say("Up the hill they'd laugh at it. Brick calls our stuff “shitty commons”.", K);
       await S.say("The Prestige threw every one of us out. Too old. Too loud. Too rusty.", M);
@@ -9367,6 +9617,15 @@ function renderYardLobby(){
     b.querySelector('.wn').prepend(thumb(w, kn ? 4 : 0));
     grid.append(b);
   });
+  if (Y().rusta) {
+    const m = MBY.rusta, cl = coolLeft(m), w = wantOf(m), have = state.inv.some(e => isExact(m, e)), rust = state.inv.filter(e => buys(m, e)).length, b = document.createElement('button');
+    b.type = 'button'; b.className = 'pr-mem pr-tob pr-rusta' + (cl ? ' cool' : ''); b.dataset.m = 'rusta'; b.style.setProperty('--mc', m.col);
+    b.innerHTML = '<div class="pf">' + portrait('rusta') + '</div><div class="tb-txt"><div class="rl">Top of the garbage mountain</div><div class="nm">Rustagard</div><div class="by">Socket’s giant. Eats rust while you talk. Pays <b style="color:var(--mc)">' + m.mult + '×</b> for anything out of the Scrapyard, and takes Scarred pieces from anywhere.</div>'
+      + (w ? '<div class="wn' + (have ? ' have' : '') + '"><span><b>' + (have ? '★ You have it' : 'Wants') + '</b><br>' + w.name + '</span></div>' : '')
+      + '<div class="ct' + (cl ? '' : rust ? '' : ' zero') + '">' + (cl ? 'Asleep · ' + cl + ' more open' + (cl === 1 ? '' : 's') : rust ? rust + ' rusty piece' + (rust === 1 ? '' : 's') + ' in your bag' : 'No rust in your bag') + '</div></div>';
+    if (w) b.querySelector('.wn').prepend(thumb(w, 0));
+    grid.append(b);
+  }
 }
 /* Tinny sneaks a look in the next Scrapyard crate: he tells you its tier, and that's what you'll get */
 const peekLeft = () => Y().peek == null ? 0 : Math.max(0, PEEK_EVERY - (state.opened - Y().peek));
@@ -9702,6 +9961,104 @@ function aucAct(a){
   if (a === 'keep') { toast(ctl.kind === 'pres' ? 'You keep it. Six very offended people watch you take the elevator down.' : 'You keep it. Four very angry people watch you leave.'); closeAuction(); }
 }
 
+
+/* ---------- Rustagard ----------
+   Once you've bought the Contraption, Socket wants three parts for something bigger. They aren't weapons and they
+   don't take bag space: they only turn up in Scrapyard crates (Contraption runs too), and only once she's asked:
+   Rust Bucket 4%, Rusty Metal Sheet 2%, Lead Heart 1%. Bring her all three and she builds Rustagard, a giant who sits
+   on the garbage mountain, eats rust, and pays more for Scrapyard scrap than anyone in the yard. */
+const RPARTS = [
+  {id:'bucket', n:'Rust Bucket', p:4, col:'#c8733a', line:'Holes in the bottom. Perfect for a head.'},
+  {id:'sheet', n:'Rusty Metal Sheet', p:2, col:'#a87a5a', line:'Corrugated, riveted, peeling. A hide for something big.'},
+  {id:'heart', n:'Lead Heart', p:1, col:'#9aa1a8', line:'Heavy as a car battery. Nothing can break it.'}
+];
+const RP_BY = {}; RPARTS.forEach(p => { RP_BY[p.id] = p; });
+const rpQuest = () => !!Y().builds && !Y().rusta;
+const rpHave = id => !!(Y().parts || {})[id];
+const rpCount = () => RPARTS.filter(p => rpHave(p.id)).length;
+/* One roll per Scrapyard crate. Rarest first, and never a part you already have. */
+function rpRoll(){
+  if (!rpQuest()) return null;
+  const x = Math.random() * 100;
+  const p = x < 1 ? RP_BY.heart : x < 3 ? RP_BY.sheet : x < 7 ? RP_BY.bucket : null;
+  if (!p || rpHave(p.id)) return null;
+  (Y().parts || (Y().parts = {}))[p.id] = 1; save();
+  return p.id;
+}
+function rpSVG(id){
+  const S = b => '<svg viewBox="0 0 80 64" aria-hidden="true">' + b + '</svg>';
+  if (id === 'bucket') return S('<path d="M18 16 Q40 -10 62 16" stroke="#8a8f96" stroke-width="2.4" fill="none"/>'
+    + '<path d="M16 18 L64 18 L57 58 L23 58 Z" fill="#9a4c22" stroke="#3a1a0a" stroke-width="1.6"/><path d="M16 18 L28 18 L31 58 L23 58 Z" fill="#c8733a" opacity=".45"/><path d="M52 18 L64 18 L57 58 L50 58 Z" fill="#3a1a0a" opacity=".35"/>'
+    + '<ellipse cx="40" cy="18" rx="24" ry="5" fill="#2a1206" stroke="#c8733a" stroke-width="1.6"/><path d="M19 32 H61 M21 46 H59" stroke="#5a2c12" stroke-width="2"/>'
+    + '<circle cx="46" cy="40" r="2.4" fill="#140804"/><circle cx="30" cy="50" r="1.6" fill="#140804"/><path d="M36 22 Q38 34 35 44 M44 23 Q45 30 44 36" stroke="#e0904a" stroke-width="1" opacity=".55" fill="none"/>');
+  if (id === 'sheet') return S('<path d="M8 22 L66 10 L74 44 L14 56 Z" fill="#7a5a44" stroke="#2a1206" stroke-width="1.6"/>'
+    + [0, 1, 2, 3, 4, 5].map(i => '<path d="M' + (16 + i * 10) + ' ' + (20 - i * 2) + ' L' + (21 + i * 10) + ' ' + (54 - i * 2) + '" stroke="#4a3626" stroke-width="2.4"/>').join('')
+    + '<circle cx="30" cy="34" r="7" fill="#b5541c" opacity=".7"/><circle cx="56" cy="28" r="5" fill="#c8733a" opacity=".6"/><circle cx="48" cy="44" r="3" fill="#3a1a0a" opacity=".7"/>'
+    + '<path d="M66 10 L74 44 L68 30 Z" fill="#c9b8a4" opacity=".5"/>'
+    + [[12, 24], [62, 14], [70, 42], [18, 52]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="1.8" fill="#d98a4a" stroke="#2a1206" stroke-width=".6"/>').join(''));
+  return S('<rect x="34" y="4" width="5" height="12" rx="1" fill="#6d747b" stroke="#2a2e33"/><rect x="42" y="6" width="5" height="10" rx="1" fill="#5d646b" stroke="#2a2e33"/>'
+    + '<path d="M40 60 C14 44 8 26 20 16 C28 10 36 13 40 22 C44 13 52 10 60 16 C72 26 66 44 40 60 Z" fill="#7d848b" stroke="#2a2e33" stroke-width="1.6"/>'
+    + '<path d="M24 22 Q20 30 26 38" stroke="#c9ced3" stroke-width="2" fill="none" opacity=".55"/><path d="M40 24 V56" stroke="#4c5258" stroke-width="1.2"/>'
+    + '<circle cx="31" cy="30" r="1.8" fill="#4c5258"/><circle cx="50" cy="30" r="1.8" fill="#4c5258"/><circle cx="40" cy="46" r="1.8" fill="#4c5258"/>'
+    + '<path d="M54 22 Q60 28 58 36" stroke="#3f454b" stroke-width="1" fill="none" opacity=".6"/>');
+}
+/* "Also in the crate": slides up over the reveal and goes away on its own */
+let rpTimer = null;
+function partPop(id){
+  const p = RP_BY[id], el = $('#partPop'); if (!p || !el) return;
+  const n = Y().rusta ? 3 : rpCount();
+  el.style.setProperty('--pc', p.col);
+  el.innerHTML = '<div class="pp-art">' + rpSVG(id) + '</div><div class="pp-txt"><small>Also in the crate · not a weapon</small><b>' + p.n + '</b><span>' + p.p + '% · one of Socket’s three parts</span><i>' + n + ' of 3 found' + (n === 3 ? ' · take them to Socket' : '') + '</i></div>';
+  el.hidden = false; el.classList.remove('on'); void el.offsetWidth; el.classList.add('on');
+  [659.25, 880, 1318.5].forEach((f, i) => tone(f, .5, 'triangle', .05, i * .1)); noise(.3, 1200, 300, .08, 'lowpass');
+  clearTimeout(rpTimer); rpTimer = setTimeout(() => { el.classList.remove('on'); rpTimer = setTimeout(() => { el.hidden = true; }, 400); }, 5200);
+  renderInv();
+}
+function rpPanel(){
+  const n = rpCount(), all = n === 3;
+  return '<div class="gd-card rp-card"><div class="gd-art"><svg viewBox="0 0 80 64" aria-hidden="true"><path d="M20 62 Q40 40 60 62 Z" fill="#33241a"/><path d="M28 60 L30 34 Q40 30 50 34 L52 60 Z" fill="#7a3a18"/><path d="M33 14 H47 L49 30 H31 Z" fill="#9a4c22"/><path d="M31 14 Q40 2 49 14" stroke="#7d7a72" stroke-width="1.6" fill="none"/><circle cx="37" cy="22" r="1.8" fill="#ffb000"/><circle cx="43" cy="22" r="1.8" fill="#ffb000"/><circle cx="40" cy="42" r="5" fill="#ff8a1a" opacity=".7"/></svg></div>'
+    + '<div><div class="lab">She wants to build</div><b>Something big</b><p>Bigger than the garage. Bigger than the crane.</p><small>“Bring me the three parts and stand well back.”</small></div></div>'
+    + '<div class="rp-parts">' + RPARTS.map(p => { const ok = rpHave(p.id); return '<div class="rp-part' + (ok ? ' ok' : '') + '" style="--pc:' + p.col + '"><div class="rp-art">' + rpSVG(p.id) + '</div><b>' + p.n + '</b><small>' + p.p + '% from a Scrapyard crate</small><span>' + (ok ? '✓ Found' : 'Not yet') + '</span></div>'; }).join('') + '</div>'
+    + '<div class="gd-acts"><button class="gold-btn" data-a="rgive"' + (all ? '' : ' disabled') + '>' + (all ? 'Hand them over' : n + ' of 3 parts') + '</button><button class="ghost" data-a="ovclose">Not now</button></div>'
+    + '<p class="jb-note">They aren’t weapons and they don’t take bag space. They only turn up in Scrapyard crates, Contraption runs included.</p>';
+}
+async function rpGive(){
+  const m = room; if (!m || m.id !== 'socket' || !rpQuest() || rpCount() < 3 || actBusy) return;
+  Y().parts = {}; Y().rusta = true; save(); renderInv();
+  closeOv(); actBusy = true; renderLeft();
+  const sc = sceneEl(); if (sc) sc.classList.add('sk-weld');
+  const hiss = setInterval(() => { noise(.12, 5200, 2600, .05, 'bandpass'); if (Math.random() < .5) tone(2400 + Math.random()*1800, .02, 'square', .01); if (Math.random() < .3) tone(110 + Math.random()*90, .08, 'square', .04); }, 110);
+  await sayRoom('A bucket for a head. A sheet for a hide. And a heart made of lead, so nothing up the hill can ever break it.', 'happy');
+  await wait(1500);
+  await sayRoom('Stand back. Further. FURTHER.', 'mad');
+  await wait(900);
+  clearInterval(hiss); if (sc) sc.classList.remove('sk-weld');
+  boom(); flash('#ff8a3d'); shakeStage();
+  [0, .2, .45].forEach(d => { tone(50 + Math.random()*30, .5, 'sawtooth', .07, d); noise(.4, 900, 100, .2, 'lowpass'); });
+  await wait(1600);
+  await sayRoom('…He walked straight out through the wall. Toward the dump. Go say hi. He’s hungry.', 'happy');
+  await wait(1700);
+  actBusy = false;
+  if (room !== m) return;
+  leaveRoom(); openRoom('rusta');
+}
+/* His chewing, in his room: the crunch lands when the CSS loop has his jaw shut on it */
+function rgChew(){
+  if (state.muted) return;
+  [0, 520, 1040].forEach((d, i) => setTimeout(() => {
+    noise(.16, 1600 - i * 250, 280, i ? .09 : .16, 'bandpass'); noise(.06, 5000, 2000, .04, 'highpass');
+    tone(64 + Math.random() * 30, .14, 'square', i ? .03 : .06);
+  }, d));
+}
+let rgIv = null, rgTo = null;
+function rgRoomSfx(){
+  clearTimeout(rgTo); clearInterval(rgIv);
+  rgTo = setTimeout(() => {
+    const go = () => { if (!room || room.id !== 'rusta') { clearInterval(rgIv); return; } if (!mi) rgChew(); };
+    go(); rgIv = setInterval(go, 5200);
+  }, 2440);
+}
+
 /* ---------- Socket's Contraption ----------
    A clanking machine in the back of her garage. Buy it and the home screen gets an "Open 10" button: ten cases
    of the selected kind in one go, for ten times the price. It runs until a Gold or Black Market piece comes out of
@@ -9755,6 +10112,7 @@ function machBuy(){
   sayRoom(Y().builds > 1 ? "Built you a new one. Same deal: the second it coughs up Gold, it's scrap again." : "It's yours. There's an 'Open 10' button on the main floor now. Try not to stand too close.", 'happy');
   toast('Socket’s Contraption: “Open 10” is on the main floor');
   renderLeft();
+  if (Y().builds === 1 && !Y().rusta) setTimeout(() => { if (room && room.id === 'socket' && !actBusy) sayRoom("One more thing. I've got a bigger project. I need a Rust Bucket, a Rusty Metal Sheet and a Lead Heart. They only turn up in Scrapyard crates. Rare ones.", 'happy'); }, 4200);
 }
 function machLeft(B, lock){
   const own = !!Y().machine;
@@ -9790,6 +10148,7 @@ async function runBatch(){
   const got = [];
   for (let i = 0; i < MACH_N; i++) { const r = roll(c); consume(r.hk); got.push(r); }
   state.opened += MACH_N; if (c.id === 'scrap') Y().scrapN = (Y().scrapN || 0) + MACH_N;
+  const rps = c.id === 'scrap' ? got.map(() => rpRoll()).filter(Boolean) : [];
   let broke = false;
   got.forEach(r => {
     const it = BY[r.id]; state.inv.unshift(r);
@@ -9820,6 +10179,14 @@ async function runBatch(){
     await W(it.t >= 5 ? 700 : 170);
   }
   clearInterval(rattle);
+  for (const id of rps) {
+    const p = RP_BY[id], d = document.createElement('div');
+    d.className = 'bt-card big bt-part'; d.style.setProperty('--tc', p.col);
+    d.innerHTML = '<div class="bt-pa">' + rpSVG(id) + '</div><span class="nm">' + p.n + '</span><span class="sub">Not a weapon · ' + p.p + '%</span><span class="v">Socket’s part</span>';
+    $('#btGrid').append(d); [659.25, 880, 1318.5].forEach((f, i) => tone(f, .5, 'triangle', .05, i * .1));
+    await W(700);
+  }
+  if (rps.length) setTimeout(() => partPop(rps[rps.length - 1]), 300);
   el.classList.remove('run');
   const total = got.reduce((a, r) => a + r.v, 0), low = got.filter(r => BY[r.id].t < 5);
   if (broke) {
@@ -15205,6 +15572,8 @@ $('#prRoom').addEventListener('click', e => {
   if (a && a.dataset.a === 'bdo') { if (!a.disabled) bdoAsk(); return; }
   if (a && a.dataset.a === 'gad') { if (!a.disabled) { openOv('gad'); if (!Y().gReady && Y().gReq) sayRoom('I need parts. ' + Y().gReq.parts.map(partText).join(', and ') + '. Bring ’em and I’ll build you something.'); } return; }
   if (a && a.dataset.a === 'ggive') { if (!a.disabled) gadGive(); return; }
+  if (a && a.dataset.a === 'rusta') { if (!a.disabled) { openOv('rusta'); sayRoom(rpCount() === 3 ? 'You found all three? Give ’em here. Give ’em HERE.' : 'Three parts. Bucket, sheet, heart. They’re in Scrapyard crates if you open enough of them.', 'happy'); } return; }
+  if (a && a.dataset.a === 'rgive') { if (!a.disabled) rpGive(); return; }
   if (a && a.dataset.a === 'gbuy') { if (!a.disabled) gadBuy(); return; }
   if (a && a.dataset.a === 'bags') { if (!a.disabled) { openOv('bags'); sayRoom('Backpacks! I got ’em from… places. Good places.'); } return; }
   if (a && a.dataset.a === 'bagbuy') { if (!a.disabled) bagBuy(+a.dataset.v); return; }
