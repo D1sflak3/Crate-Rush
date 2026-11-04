@@ -3466,6 +3466,42 @@ body.dz-open .toast{z-index:95}
 .gtc.cm5 .cm-wrap{animation:cmOut .7s ease-in both}
 @keyframes cmOut{to{opacity:0;transform:scale(.96)}}
 @media (prefers-reduced-motion: reduce){.cm-top,.cm-bot,.cm-l{transform:none!important}}
+/* Socket's phone call */
+.scall{position:fixed;inset:0;z-index:92;display:grid;place-items:center;padding:16px;background:radial-gradient(circle at 50% 40%,rgba(95,209,194,.14),rgba(0,0,0,.82) 70%);animation:fadeIn .3s}
+.sc-phone{position:relative;width:min(340px,100%);height:min(640px,calc(100dvh - 32px));display:flex;flex-direction:column;border-radius:40px;padding:22px 18px 20px;background:linear-gradient(180deg,#14201f,#070b0b);box-shadow:0 0 0 3px #2a3133,0 0 0 9px #0b0d0e,0 40px 90px rgba(0,0,0,.7);color:#e9f2ef;overflow:hidden}
+.sc-phone::before{content:"";position:absolute;top:10px;left:50%;width:84px;height:22px;border-radius:12px;background:#000;transform:translateX(-50%)}
+.sc-phone.buzz{animation:scBuzz .5s}
+@keyframes scBuzz{0%,100%{transform:none}10%,30%,50%,70%{transform:translateX(-3px) rotate(-.6deg)}20%,40%,60%,80%{transform:translateX(3px) rotate(.6deg)}}
+.sc-top{display:grid;justify-items:center;gap:2px;margin-top:26px;text-align:center}
+.sc-top small{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8fb9b2;font-weight:700}
+.sc-top b{font-family:var(--display);font-weight:700;font-size:38px;line-height:1;margin-top:6px}
+.sc-top span{font-size:13px;color:#8fa09d}
+.sc-pf{position:relative;width:104px;height:104px;margin-top:14px;border-radius:50%;background:#1d2a28;display:grid;place-items:center;overflow:visible}
+.sc-pf svg{position:relative;z-index:1;width:96px;height:96px;border-radius:50%;background:#2f4a4a;clip-path:circle(50%)}
+.sc-pf i{position:absolute;inset:0;border-radius:50%;border:2px solid #5fd1c2;opacity:0}
+.scall.ring .sc-pf i{animation:scPulse 2.2s ease-out infinite}.scall.ring .sc-pf i+i{animation-delay:.6s}
+@keyframes scPulse{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.7);opacity:0}}
+.scall.live .sc-pf{width:64px;height:64px;margin-top:8px}.scall.live .sc-pf svg{width:60px;height:60px}.scall.live .sc-top b{font-size:28px}
+.sc-mid{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:14px 2px 8px;scrollbar-width:none}
+.sc-say{align-self:flex-start;max-width:92%;padding:9px 13px;border-radius:16px 16px 16px 4px;background:#1f3432;border:1px solid #2f4a4a;font-size:14px;line-height:1.35;animation:scIn .25s ease-out}
+@keyframes scIn{from{opacity:0;transform:translateY(6px)}}
+.sc-quest{margin-top:6px;padding:12px;border-radius:16px;border:1px solid #ff8a2a;background:radial-gradient(90% 80% at 50% 0%,rgba(255,138,42,.2),transparent 70%),#140c07;display:grid;gap:6px;animation:scIn .35s ease-out}
+.sc-quest small{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#ff8a2a}
+.sc-quest b{font-family:var(--display);font-weight:700;font-size:24px;line-height:1}
+.sc-quest p{margin:0;font-size:13px;color:#cdbfa8}
+.sc-parts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.sc-parts div{display:grid;justify-items:center;padding:6px 4px;border-radius:10px;background:rgba(0,0,0,.35);border:1px solid color-mix(in srgb,var(--pc) 50%,transparent);text-align:center}
+.sc-parts svg{width:52px;height:42px}.sc-parts span{font-size:11px;font-weight:700;line-height:1.1}.sc-parts i{font-style:normal;font-size:11px;color:var(--pc);font-weight:700}
+.sc-quest .gold-btn{justify-self:stretch;margin-top:4px}
+.sc-acts{display:flex;justify-content:space-around;padding-top:8px}
+.sc-btn{display:grid;justify-items:center;gap:6px;background:none;border:0;color:#cfdad7;font:600 12px var(--body);cursor:pointer}
+.sc-btn span{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;color:#fff}
+.sc-btn svg{width:28px;height:28px}
+.sc-yes span{background:#22c55e;box-shadow:0 0 0 6px rgba(34,197,94,.18)}
+.scall.ring .sc-yes span{animation:scJig 1.1s ease-in-out infinite}
+@keyframes scJig{0%,100%{transform:none}15%{transform:rotate(-14deg)}30%{transform:rotate(12deg)}45%{transform:none}}
+.sc-no span{background:#ef4444}.sc-no svg{transform:rotate(135deg)}
+@media (prefers-reduced-motion: reduce){.scall *{animation:none!important}}
 /* ---------- Rustagard ---------- */
 .ms-rusta .rg-head{transform-box:view-box;transform-origin:200px 92px;transform:translateY(12px) rotate(10deg);transition:transform 1.8s cubic-bezier(.3,1.25,.5,1)}
 .ms-rusta.rg-wake .rg-head,.ms-rusta.rg-on .rg-head{transform:none}
@@ -4209,6 +4245,7 @@ body.cine-cover>:not(.gtc),body.cine-cover>:not(.gtc) *{animation-play-state:pau
 
 <div class="toast" id="toast" hidden></div>
 <div class="part-pop" id="partPop" hidden></div>
+<div class="scall" id="scall" hidden></div>
 <div class="sr" aria-live="polite" id="live"></div>
 
 <script>
@@ -6504,6 +6541,7 @@ function closeReveal(sell){
   if (state.pendingReturn && !r.preview) dealerReturns();
   else if (!r.preview && state.gold > 0 && !state.pres.seen) setTimeout(prestigeIntro, 350);
   else if (!r.preview && Y().knife && !Y().seen) setTimeout(yardIntro, 350);
+  else if (!r.preview && !presOpen && socketCallDue()) setTimeout(socketCall, 900);
 }
 /* Contraband taken while his laptop is breached is how he finds out */
 function gotBM(id){
@@ -7691,6 +7729,7 @@ function enterCrew(kind){
 }
 function closePres(){
   if (captive) { cellNo(); return; }
+  if (socketCallDue()) setTimeout(socketCall, 1400);
   if (mi) mi.skipAll();
   closeOv(); presOpen = false; room = null; neg = null; shopSel = null; sayTok++;
   $('#pres').classList.remove('in-room'); $('#prRoom').hidden = true; $('#prRoom').innerHTML = '';
@@ -10011,7 +10050,7 @@ const RPARTS = [
   {id:'heart', n:'Lead Heart', p:1, col:'#9aa1a8', line:'Heavy as a car battery. Nothing can break it.'}
 ];
 const RP_BY = {}; RPARTS.forEach(p => { RP_BY[p.id] = p; });
-const rpQuest = () => !!Y().builds && !Y().rusta;
+const rpQuest = () => !!Y().rcall && !Y().rusta;
 const rpHave = id => !!(Y().parts || {})[id];
 const rpCount = () => RPARTS.filter(p => rpHave(p.id)).length;
 /* One roll per Scrapyard crate. Rarest first, and never a part you already have. */
@@ -10097,6 +10136,86 @@ function rgRoomSfx(){
   }, 2440);
 }
 
+/* Socket calls you. After you've bought the Contraption, the next time you're back on the main floor your phone
+   rings: pick up and she hands you the side quest (the three parts). Decline and she tries again a few opens later. */
+const socketCallDue = () => !!Y().builds && !Y().rusta && !Y().rcall && state.opened >= (Y().rcallAt || 0);
+let scall = null;
+const SC_LINES = [
+  "Hey. It's Socket. That Contraption still in one piece?",
+  "Good. Listen. I'm building something big. Bigger than the garage. Bigger than Ma's crane.",
+  "I need three parts I can't get myself. A Rust Bucket. A Rusty Metal Sheet. And a Lead Heart.",
+  "They turn up in Scrapyard crates. The bucket's easy-ish. The heart, maybe one crate in a hundred.",
+  "Bring all three to the garage. And don't tell Ma. She'll want to name it."
+];
+const PHONE_I = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" fill="currentColor"/></svg>';
+function socketCall(){
+  const el = $('#scall');
+  if (!el || scall || !socketCallDue() || busy || presOpen || mi || pc || cine || batch || !$('#reveal').hidden) return;
+  ac(); busy = true; lockRack(true);
+  scall = {fast: false, done: false, t0: 0, timers: []};
+  el.innerHTML = '<div class="sc-phone"><div class="sc-top"><small id="scState">Incoming call</small><div class="sc-pf"><i></i><i></i>' + portrait('socket') + '</div><b>Socket</b><span>The Mechanic · the Scrapyard</span></div>'
+    + '<div class="sc-mid" id="scMid"></div>'
+    + '<div class="sc-acts" id="scActs"><button type="button" class="sc-btn sc-no" data-a="no"><span>' + PHONE_I + '</span><small>Decline</small></button><button type="button" class="sc-btn sc-yes" data-a="yes"><span>' + PHONE_I + '</span><small>Accept</small></button></div></div>';
+  el.hidden = false; el.className = 'scall ring';
+  const ring = () => { if (!scall || el.classList.contains('live')) return; [0, .22].forEach(d => { tone(880, .18, 'sine', .05, d); tone(1108.7, .18, 'sine', .04, d); }); restart(el.querySelector('.sc-phone'), 'buzz'); };
+  ring(); scall.ring = setInterval(ring, 2200);
+}
+async function scAnswer(){
+  const el = $('#scall'), c = scall; if (!c || el.classList.contains('live')) return;
+  clearInterval(c.ring); el.className = 'scall live';
+  tone(1318.5, .08, 'sine', .05); tone(1760, .1, 'sine', .04, .08);
+  $('#scActs').innerHTML = '<button type="button" class="sc-btn sc-no" data-a="hang"><span>' + PHONE_I + '</span><small>Hang up</small></button>';
+  c.t0 = Date.now();
+  c.clock = setInterval(() => { const t = Math.floor((Date.now() - c.t0) / 1000), x = $('#scState'); if (x) x.textContent = 'On call · ' + Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0'); }, 250);
+  c.shop = setInterval(() => { if (Math.random() < .45) { noise(.08, 2800, 900, .025, 'bandpass'); tone(160 + Math.random() * 120, .05, 'square', .012); } }, 700);
+  const mid = $('#scMid'), S = MBY.socket;
+  await wait(REDUCED ? 100 : 700);
+  for (const line of SC_LINES) {
+    if (scall !== c) return;
+    const b = document.createElement('div'); b.className = 'sc-say'; mid.append(b); mid.scrollTop = mid.scrollHeight;
+    c.fast = false;
+    for (let i = 1; i <= line.length; i++) {
+      if (scall !== c) return;
+      if (c.fast) i = line.length;
+      b.textContent = line.slice(0, i);
+      if (i % 3 === 0 && /\S/.test(line[i - 1])) blip(S);
+      if (i < line.length) await wait(REDUCED ? 0 : /[.,!?]/.test(line[i - 1]) ? 90 : 22);
+    }
+    mid.scrollTop = mid.scrollHeight;
+    await wait(REDUCED ? 200 : Math.max(900, line.length * 22));
+  }
+  if (scall !== c) return;
+  const q = document.createElement('div'); q.className = 'sc-quest';
+  q.innerHTML = '<small>Side quest</small><b>Socket’s big project</b><p>Find all three in Scrapyard crates and take them to her garage.</p>'
+    + '<div class="sc-parts">' + RPARTS.map(p => '<div style="--pc:' + p.col + '">' + rpSVG(p.id) + '<span>' + p.n + '</span><i>' + p.p + '%</i></div>').join('') + '</div>'
+    + '<button type="button" class="gold-btn" data-a="ok">Got it</button>';
+  mid.append(q); mid.scrollTop = mid.scrollHeight;
+  [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, .6, 'triangle', .05, i * .1));
+  c.done = true;
+}
+function scEnd(took){
+  const el = $('#scall'), c = scall; if (!c) return;
+  c.timers.forEach(clearTimeout); clearInterval(c.ring); clearInterval(c.clock); clearInterval(c.shop);
+  scall = null; el.hidden = true; el.className = 'scall'; el.innerHTML = '';
+  busy = false; lockRack(false);
+  [0, .12, .24].forEach(d => tone(480, .1, 'sine', .04, d));
+  if (took) {
+    Y().rcall = true; save(); renderInv();
+    toast('Side quest · Socket’s big project: find 3 parts in Scrapyard crates');
+  } else {
+    Y().rcallAt = state.opened + 3; save();
+    toast('Missed call · Socket. She’ll try again.');
+  }
+}
+$('#scall').addEventListener('click', e => {
+  const a = e.target.closest('[data-a]');
+  if (!a) { if (scall) scall.fast = true; return; }
+  if (a.dataset.a === 'yes') scAnswer();
+  else if (a.dataset.a === 'no') scEnd(false);
+  else if (a.dataset.a === 'ok') scEnd(true);
+  else if (a.dataset.a === 'hang') scEnd(!!(scall && scall.done));
+});
+
 /* ---------- Socket's Contraption ----------
    A clanking machine in the back of her garage. Buy it and the home screen gets an "Open 10" button: ten cases
    of the selected kind in one go, for ten times the price. It runs until a Gold or Black Market piece comes out of
@@ -10150,7 +10269,7 @@ function machBuy(){
   sayRoom(Y().builds > 1 ? "Built you a new one. Same deal: the second it coughs up Gold, it's scrap again." : "It's yours. There's an 'Open 10' button on the main floor now. Try not to stand too close.", 'happy');
   toast('Socket’s Contraption: “Open 10” is on the main floor');
   renderLeft();
-  if (Y().builds === 1 && !Y().rusta) setTimeout(() => { if (room && room.id === 'socket' && !actBusy) sayRoom("One more thing. I've got a bigger project. I need a Rust Bucket, a Rusty Metal Sheet and a Lead Heart. They only turn up in Scrapyard crates. Rare ones.", 'happy'); }, 4200);
+  if (Y().builds === 1 && !Y().rcall) setTimeout(() => { if (room && room.id === 'socket' && !actBusy) sayRoom("Oh, and keep your phone on. I might have another job for you.", 'happy'); }, 4200);
 }
 function machLeft(B, lock){
   const own = !!Y().machine;
@@ -10250,6 +10369,7 @@ function closeBatch(sell){
   selectCase(); renderInv(); renderStats(); renderOpen();
   if (state.pendingReturn) dealerReturns();
   else if (state.gold > 0 && !state.pres.seen) setTimeout(prestigeIntro, 350);
+  else if (socketCallDue()) setTimeout(socketCall, 900);
 }
 
 /* ---------- Jobs ----------
