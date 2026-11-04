@@ -3541,6 +3541,148 @@ body.dz-open .toast{z-index:95}
 .sc-no span{background:radial-gradient(circle at 40% 35%,#ff6a5a,#a01a10)}
 .sc-btn:active span{transform:translateY(3px);box-shadow:inset 0 3px 0 rgba(255,255,255,.3),inset 0 -3px 6px rgba(0,0,0,.45),0 1px 0 #1a0c04}
 @media (prefers-reduced-motion: reduce){.scall *{animation:none!important}}
+/* ---------- Rustagard's heart, feeding, Ma's Rusty Case ---------- */
+.ms-rusta .rg-glow{transform-box:fill-box;transform-origin:center;transform:scale(calc(1 + var(--burn,0) * .7))}
+.ms-rusta .rg-hotheart{opacity:calc(var(--burn,0) * .65)}
+.ms-rusta .rg-blaze{opacity:calc(var(--burn,0) * 1.2)}
+.ms-rusta .rg-blaze path{transform-box:fill-box;transform-origin:50% 100%;animation:rgBl .32s var(--d) ease-in-out infinite alternate}
+@keyframes rgBl{to{transform:scaleY(.55) scaleX(.85)}}
+.ms-rusta .rg-flarec{opacity:0;transform-box:fill-box;transform-origin:center}
+.rg-flare .rg-flarec{animation:rgFlareA 1s ease-out}
+@keyframes rgFlareA{0%{opacity:1;transform:scale(.5)}100%{opacity:0;transform:scale(2.6)}}
+.rg-meter{display:grid;gap:6px}
+.rg-meter .lab{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#ff8a2a}
+.rg-num{display:flex;align-items:baseline;gap:4px;flex-wrap:wrap}
+.rg-num b{font-family:var(--display);font-weight:700;font-size:26px;line-height:1;color:#ffd0a0}
+.rg-num span{color:var(--muted);font-size:13px}
+.rg-num em{font-style:normal;font-weight:800;color:#ff8a2a;margin-left:6px}
+.rg-bar{position:relative;height:12px;border-radius:999px;background:#1a0c06;box-shadow:inset 0 0 0 1px #4a240e;overflow:hidden}
+.rg-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:linear-gradient(90deg,#7a2a0a,#ff5a0a 60%,#ffd27a);box-shadow:0 0 12px rgba(255,120,30,.6)}
+.rg-bar u{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(-45deg,rgba(255,210,122,.7) 0 4px,rgba(255,138,42,.35) 4px 8px)}
+.rg-meter.done .rg-bar i{width:100%!important}
+.rg-ms{font-size:12px;color:#cdbfa8}.rg-ms b{color:#ffb070}
+.rg-meter.done .rg-ms{color:var(--good)}
+.rmc.rg-meter-card{margin-top:10px;border-color:#7a3a18}
+.rg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:12px}
+.rg-it{display:grid;gap:2px;padding:8px;border-radius:var(--r-md);border:1px solid var(--line-strong);background:var(--panel);color:var(--text);text-align:left;cursor:pointer;font:inherit}
+.rg-it i{display:block;height:46px}.rg-it i img{width:100%;height:100%;object-fit:contain}
+.rg-it b{font-family:var(--display);font-weight:600;font-size:16px;line-height:1.05}
+.rg-it small{font-size:11px;color:var(--tc);font-weight:700}
+.rg-it span{font-size:12px;color:#ffb070;font-weight:700}
+.rg-it.on{border-color:#ff8a2a;background:radial-gradient(90% 80% at 50% 0%,rgba(255,138,42,.24),transparent 70%),var(--panel);box-shadow:0 0 0 2px rgba(255,138,42,.35)}
+.rg-acts{position:sticky;bottom:0;padding:10px 0;background:linear-gradient(transparent,var(--bg) 30%)}
+.k-rusty{--c1:#8a4a20;--c2:#3a1a08;--l1:#c8733a;--band:repeating-linear-gradient(-45deg,#c8733a 0 6px,#2a1206 6px 12px);--plate:#2a1206;--mark:#ffb070;--glow:#ff8a2a}
+.k-rusty .c-body::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 22% 30%,rgba(90,40,12,.7) 0 9%,transparent 10%),radial-gradient(circle at 76% 64%,rgba(200,115,58,.6) 0 11%,transparent 12%),radial-gradient(circle at 60% 20%,rgba(95,160,120,.35) 0 6%,transparent 7%);pointer-events:none}
+/* the Rusted9000 cinematic */
+.rzc{background:#050302}
+.rzc.shake{animation:quake .55s}
+.gtc[data-s="z1"] .rz-1,.gtc[data-s="z2"] .rz-2,.gtc[data-s="z3"] .rz-3,.gtc[data-s="z4"] .rz-4,.gtc[data-s="z5"] .rz-5,.gtc[data-s="z6"] .rz-6,.gtc[data-s="z7"] .rz-7,.gtc[data-s="z8"] .rz-8{opacity:1;visibility:visible;transition:opacity .7s}
+.gtc[data-s="z1"] .rz-1 .gt-cap small,.gtc[data-s="z2"] .rz-2 .gt-cap small,.gtc[data-s="z3"] .rz-3 .gt-cap small,.gtc[data-s="z4"] .rz-4 .gt-cap small,.gtc[data-s="z6"] .rz-6 .gt-cap small{opacity:1;transform:none}
+.rzc.c1 .rz-1 .gt-cap p:first-of-type,.rzc.c1b .rz-1 .rz-p2,.rzc.c2 .rz-2 .gt-cap p:first-of-type,.rzc.c2b .rz-2 .rz-p2,.rzc.c3 .rz-3 .gt-cap p:first-of-type,.rzc.c3b .rz-3 .rz-p2,.rzc.c4 .rz-4 .gt-cap p:first-of-type,.rzc.c4b .rz-4 .rz-p2,.rzc.c6 .rz-6 .gt-cap p:first-of-type,.rzc.c6b .rz-6 .rz-p2,.rzc.c7 .rz-7 .gt-cap p:first-of-type,.rzc.c7b .rz-7 .rz-p2{opacity:1;transform:none;transition-delay:0s}
+.rz-cap small{color:#ff9a3a}
+.rz-cap p{text-shadow:0 2px 0 #000,0 0 18px rgba(0,0,0,.8)}
+.rz-cap .rz-p2{font-size:clamp(18px,3vw,28px);color:#ff9a3a;margin-top:12px}
+.rz-flash,.rz-white{position:absolute;inset:0;z-index:6;pointer-events:none;opacity:0}
+.rz-flash.on{animation:rzFlash .55s ease-out}
+@keyframes rzFlash{0%{opacity:.9}100%{opacity:0}}
+.rz-white{background:#fff;transition:opacity .9s}
+.rzc.white .rz-white{opacity:1}
+.rz-clouds{animation:rzDrift 12s linear infinite alternate}
+@keyframes rzDrift{from{transform:translateX(-18px)}to{transform:translateX(18px)}}
+.rz-bolt{opacity:0}
+.rzc.bolt1 .rz-bolt:not(.b2),.rzc.bolt2 .rz-bolt.b2{opacity:1}
+.rz-eye{opacity:0;transition:opacity .4s}
+.rzc.eyes .rz-eye{opacity:1}
+.rz-chest{transform-box:fill-box;transform-origin:center;animation:rzPulse 1.1s ease-in-out infinite alternate}
+@keyframes rzPulse{from{opacity:.6;transform:scale(.9)}to{opacity:1;transform:scale(1.15)}}
+.rz-hglow{transform-box:fill-box;transform-origin:center;animation:rzPulse .9s ease-in-out infinite alternate}
+.rz-fl{transform-box:fill-box;transform-origin:50% 100%;animation:rzFlick .34s var(--d) ease-in-out infinite alternate}
+@keyframes rzFlick{from{transform:scaleY(.7) scaleX(.9)}to{transform:scaleY(1.15)}}
+.rz-fls{transform-box:view-box;transform-origin:200px 130px;transition:transform 1s}
+.rzc.roar .rz-fls{transform:scale(1.3)}
+.rz-core{animation:rzCore .2s steps(2) infinite}
+@keyframes rzCore{to{opacity:.82}}
+.rz-flow{animation:rzFlow .7s linear infinite}
+@keyframes rzFlow{to{stroke-dashoffset:-76}}
+.rz-beat{transform-box:view-box;transform-origin:200px 150px}
+.rz-beat.pump{animation:rzPump .28s ease-out}
+@keyframes rzPump{0%{transform:scale(1.1)}100%{transform:none}}
+.rz-hot{opacity:.12;transition:opacity 1s}
+.rzc.roar .rz-hot{opacity:.6;animation:rzHotA .5s ease-in-out infinite alternate}
+@keyframes rzHotA{to{opacity:.35}}
+.rz-boom{transform-box:view-box;transform-origin:124px 183px;transform:rotate(-26deg)}
+.rzc.swing .rz-boom{transform:none;transition:transform 2.3s cubic-bezier(.4,0,.3,1)}
+.rz-mag{transform-box:view-box;transform-origin:336px 58px}
+.rzc.swing .rz-mag{animation:rzSway .7s ease-in-out 4 alternate}
+@keyframes rzSway{from{transform:rotate(7deg)}to{transform:rotate(-7deg)}}
+.rz-car{transform-box:fill-box;transform-origin:50% 100%}
+.rzc.drop .rz-car{transform:translate(4px,78px);transition:transform .6s cubic-bezier(.5,0,1,.6)}
+.rzc.crunch .rz-car{transform:translate(4px,78px) scaleY(.35);transition:transform .14s}
+.rz-jl,.rz-jr{transition:transform .14s}
+.rzc.crunch .rz-jl{transform:translateX(24px)}.rzc.crunch .rz-jr{transform:translateX(-24px)}
+.rz-magl{animation:rzCore .3s steps(2) infinite}
+.rz-cab{animation:rzCore 1.4s steps(2) infinite}
+.rz-furn{animation:rzCore .18s steps(2) infinite}
+.rz-fglow{transform-box:fill-box;transform-origin:center;animation:rzPulse 1.3s ease-in-out infinite alternate}
+.rz-j{opacity:0;transform-box:fill-box;transform-origin:center}
+.rzc.junk .rz-j{animation:rzJunk 1s var(--d) cubic-bezier(.5,0,.9,.5) both}
+@keyframes rzJunk{0%{opacity:1;transform:translate(var(--x),var(--y)) rotate(var(--r))}85%{opacity:1;transform:none}100%{opacity:0;transform:scale(.3)}}
+.rz-rif{opacity:.3;transition:opacity 1.2s}
+.rzc.hot .rz-rif{opacity:1;animation:rzRif .3s ease-in-out infinite alternate}
+@keyframes rzRif{to{opacity:.82}}
+.rz-ham{transform-box:view-box;transform-origin:86px 150px;transform:rotate(-58deg)}
+.rzc.hammer .rz-ham{animation:rzHam .6s infinite}
+@keyframes rzHam{0%{transform:rotate(-58deg)}55%{transform:rotate(-64deg)}62%{transform:rotate(2deg)}76%{transform:rotate(0)}100%{transform:rotate(-58deg)}}
+.rz-bell{transform-box:fill-box;transform-origin:100% 50%;animation:rzBell .8s ease-in-out infinite alternate}
+@keyframes rzBell{to{transform:scaleX(.7)}}
+.rz-dip{transform:translateY(-130px)}
+.rzc.dip .rz-dip{transform:translateY(92px);transition:transform .8s cubic-bezier(.5,0,.8,.4)}
+.rz-steam circle{opacity:0;transform-box:fill-box;transform-origin:center}
+.rzc.steam .rz-steam circle{animation:rzSteam 2.4s var(--d) ease-out forwards}
+@keyframes rzSteam{0%{opacity:0;transform:scale(.2)}20%{opacity:1}100%{opacity:.9;transform:translate(var(--x),var(--y)) scale(3.4)}}
+.rz-needle{transform-box:view-box;transform-origin:200px 130px;transform:rotate(-120deg)}
+.rzc.needle .rz-needle{animation:rzNeedle 3.4s cubic-bezier(.5,0,.2,1) forwards}
+@keyframes rzNeedle{0%{transform:rotate(-120deg)}70%{transform:rotate(100deg)}80%{transform:rotate(90deg)}92%{transform:rotate(126deg)}100%{transform:rotate(132deg)}}
+.rzc.crack .rz-needle{animation:rzWob .1s steps(2) infinite}
+@keyframes rzWob{from{transform:rotate(130deg)}to{transform:rotate(142deg)}}
+.rzc.needle .rz-gauge{animation:rzBuzz .09s steps(2) infinite}
+@keyframes rzBuzz{from{transform:translate(-1px,.6px)}to{transform:translate(1px,-.6px)}}
+.rz-crack,.rz-jets{opacity:0}
+.rzc.crack .rz-crack{opacity:1}
+.rzc.crack .rz-jets{opacity:1;animation:rzCore .12s steps(2) infinite}
+.rz-9000{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(3) rotate(-8deg)}
+.rzc.stamp .rz-9000{opacity:1;transform:rotate(-8deg);transition:transform .25s cubic-bezier(.3,1.6,.5,1),opacity .1s}
+.rz-aim{transform:rotate(68deg);transition:transform 1.1s cubic-bezier(.3,1.3,.5,1)}
+.rzc.aim .rz-aim{transform:none}
+.rz-beam{opacity:0;transform-box:fill-box;transform-origin:0 50%;transform:scaleX(0)}
+.rzc.fire .rz-beam{opacity:1;transform:scaleX(1);transition:transform .35s cubic-bezier(.2,.9,.3,1);animation:rzCore .08s steps(2) infinite}
+.rzc.part .rz-beam{opacity:0;transition:opacity 1.6s 1.4s,transform .35s}
+.rz-muz{opacity:0;transform-box:fill-box;transform-origin:center}
+.rzc.fire .rz-muz{animation:rzMuz .6s ease-out}
+@keyframes rzMuz{0%{opacity:1;transform:scale(.4)}100%{opacity:0;transform:scale(3.4)}}
+.rz-cl-l,.rz-cl-r{transition:transform 2.4s cubic-bezier(.3,0,.2,1)}
+.rzc.part .rz-cl-l{transform:translateX(-180px)}.rzc.part .rz-cl-r{transform:translateX(180px)}
+.rz-8{display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,#5a2a10,#140804 60%,#050302)}
+.rz-gears i{position:absolute;opacity:.5}
+.rz-gears svg{width:100%;height:100%;display:block}
+.rz-gears .g1{width:min(60vw,520px);aspect-ratio:1;left:-14vw;top:-18vh;animation:rzSpin 18s linear infinite}
+.rz-gears .g2{width:min(36vw,320px);aspect-ratio:1;right:-6vw;top:8vh;animation:rzSpin 12s linear infinite reverse}
+.rz-gears .g3{width:min(44vw,380px);aspect-ratio:1;right:18vw;bottom:-24vh;animation:rzSpin 15s linear infinite}
+@keyframes rzSpin{to{transform:rotate(360deg)}}
+.rz-rv{position:relative;z-index:2;display:grid;justify-items:center;gap:10px;text-align:center;padding:16px}
+.rz-art{position:relative;width:min(640px,88vw);transform:translateY(-110vh) rotate(-14deg);filter:drop-shadow(0 0 22px rgba(255,138,42,.85)) drop-shadow(0 0 50px rgba(181,84,28,.6))}
+.rz-art img{display:block;width:100%;height:auto}
+.rzc.slam .rz-art{transform:none;transition:transform .45s cubic-bezier(.3,1.4,.5,1);animation:gtFloat 3s 1.4s ease-in-out infinite alternate}
+.rzc.slam .gt-foil{animation:gtFoil 2.6s .9s ease-in-out infinite}
+.rz-h2{margin:0;font:700 clamp(44px,9vw,108px)/1 var(--display);letter-spacing:.06em}
+.rz-h2 span{display:inline-block;opacity:0;transform:scale(2.6) rotate(-6deg);background:linear-gradient(180deg,#ffe2b0,#ff9a3a 42%,#a4501c 70%,#3a1606);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 0 #1a0802) drop-shadow(0 0 22px rgba(255,138,42,.55))}
+.rzc.slam .rz-h2 span{opacity:1;transform:none;transition:opacity .08s calc(.5s + var(--i) * 85ms),transform .3s calc(.5s + var(--i) * 85ms) cubic-bezier(.3,1.6,.5,1)}
+.rz-sub{font:700 13px var(--body);letter-spacing:.34em;padding:7px 14px;border-radius:999px;background:linear-gradient(90deg,#3a1606,#ff8a2a 50%,#3a1606);color:#fff;text-shadow:0 1px 2px #000;opacity:0}
+.rz-tag{font:600 clamp(16px,2.4vw,22px) var(--display);color:#ffb070;opacity:0}
+.rz-val{color:#ffd0a0}
+.rzc.slam .rz-sub{opacity:1;transition:opacity .5s 1.6s}.rzc.slam .rz-tag{opacity:1;transition:opacity .5s 2s}.rzc.slam .rz-val{opacity:1;transition:opacity .5s 1.3s}
+@media (prefers-reduced-motion: reduce){.rzc *{animation:none!important}}
+
 /* ---------- Rustagard ---------- */
 .ms-rusta .rg-head{transform-box:view-box;transform-origin:200px 92px;transform:translateY(12px) rotate(10deg);transition:transform 1.8s cubic-bezier(.3,1.25,.5,1)}
 .ms-rusta.rg-wake .rg-head,.ms-rusta.rg-on .rg-head{transform:none}
@@ -4416,7 +4558,14 @@ const ITEMS = [
   {id:'x5', w:'sniper',    name:'The Sui',        t:7, pat:'sui', pal:['#070103','#da291c','#ffd23f','#046a38'], m:7.5, ex:true},
   {id:'x6', w:'smg',       name:'La Pulga',       t:7, pat:'pulga', pal:['#004d98','#a50044','#ffd23f','#75bde9'], m:9310000 / 935000, ex:true},
   // Admin only for now: no way to earn it in the game yet
-  {id:'x7', w:'butterfly', name:'The Prince',     t:7, pat:'prince', pal:['#ffdf00','#009c3b','#002776','#ffd23f'], m:8800000 / 935000, ex:true}
+  {id:'x7', w:'butterfly', name:'The Prince',     t:7, pat:'prince', pal:['#ffdf00','#009c3b','#002776','#ffd23f'], m:8800000 / 935000, ex:true},
+  // Ma Rust's Rusty Case: its own rusty legendaries and one Chroma. Nowhere else.
+  {id:'r1', w:'rifle',   name:'Iron Lung',   t:4, pat:'marble',  pal:['#2a1408','#a4501c','#e8a060'], m:1.25, ex:true},
+  {id:'r2', w:'sniper',  name:'Corroder',    t:4, pat:'tiger',   pal:['#b5541c','#1e0e06'], m:1.35, ex:true},
+  {id:'r3', w:'shotgun', name:'Tetanus',     t:4, pat:'hex',     pal:['#2a1a10','#c8733a','#ffb070'], m:1.15, ex:true},
+  {id:'r4', w:'smg',     name:'Scrapheart',  t:4, pat:'circuit', pal:['#1a0e08','#ff8a2a','#b5541c'], m:1.2, ex:true},
+  {id:'r5', w:'pistol',  name:'Oxide Queen', t:4, pat:'flame',   pal:['#2a0a04','#b5541c','#ffcf7a'], m:1.1, ex:true},
+  {id:'x8', w:'rifle',   name:'Rusted9000',  t:7, pat:'rusted',  pal:['#3a1606','#a4501c','#ff8a2a','#5fa078'], m:2.4, ex:true}
 ];
 
 /* ---------- RNG helpers ---------- */
@@ -4443,9 +4592,13 @@ const MIN_COST = Math.min(...CASES.map(c => c.cost));
 const LG1 = {id:'lg1', name:'Case #LG1', tag:'Every pull is Legendary', cost:5500, cls:'k-lg', mark:'LG1', glow:'#ff4d4d'};
 const LG_IDS = () => ITEMS.filter(it => it.t === 4 && !it.ex && it.id !== 's12');
 const pkCase = st => st && st.pk === 'lg1' ? LG1 : PK1;
+/* Ma Rust's Rusty Case: sold in her room once Rustagard's heart has burned a million */
+const RC = {id:'rusty', name:'Rusty Case', tag:'Rusty legendaries · one Chroma', cost:15000, f:1, cls:'k-rusty', mark:'RC', glow:'#ff8a2a'};
+const RC_IDS = ['r1', 'r2', 'r3', 'r4', 'r5'];
 const PK1 = {id:'pk1', name:'Case #PK1', tag:'Every pull is contraband', cost:110000, cls:'k-pk', mark:'PK1', glow:'#a855f7'};
 const ITEM_CASE = {};
 CASES.forEach(c => c.items.forEach(id => { ITEM_CASE[id] = c; }));
+RC_IDS.forEach(id => { ITEM_CASE[id] = RC; });
 
 /* Trade-up rules: inputs needed per tier, and chance the Black Market hijacks the contract */
 const TNEED = [10, 10, 10, 10, 5, 0, 1];
@@ -4487,6 +4640,21 @@ const PAT = {
       for(let k=0;k<6;k++){const a=k/6*Math.PI*2;g.beginPath();g.moveTo(cx+Math.cos(a)*R*.7,cy+Math.sin(a)*R*.7);g.lineTo(cx+Math.cos(a+Math.PI*2/3)*R*.7,cy+Math.sin(a+Math.PI*2/3)*R*.7);g.stroke();}}
     for(let row=4;row<H;row+=11){for(let x=2+r()*6;x<W;x+=9+r()*5){if(r()<.45)continue;g.beginPath();g.moveTo(x,row);for(let s=0;s<3;s++)g.lineTo(x+Math.floor(r()*3)*2.5,row+Math.floor(r()*3)*3);g.stroke();}}
     g.shadowBlur=0;
+  },
+  /* The Rusted9000: plate steel eaten through with rust, green patina in the seams, molten cracks glowing through,
+     and an oil-slick chroma sheen over all of it */
+  rusted(g,W,H,p,r){
+    const bg=g.createLinearGradient(0,0,W,H);bg.addColorStop(0,'#5a2a10');bg.addColorStop(.45,'#8a4018');bg.addColorStop(1,'#2a1006');g.fillStyle=bg;g.fillRect(0,0,W,H);
+    for(let i=0;i<70;i++){const x=r()*W,y=r()*H,R=3+r()*14,c=['rgba(200,115,58,','rgba(150,64,22,','rgba(70,30,10,','rgba(224,144,74,'][i%4],rg=g.createRadialGradient(x,y,0,x,y,R);rg.addColorStop(0,c+(.5+r()*.4)+')');rg.addColorStop(1,c+'0)');g.fillStyle=rg;g.fillRect(x-R,y-R,R*2,R*2);}
+    for(let i=0;i<9;i++){g.strokeStyle='rgba(95,160,120,'+(.25+r()*.25)+')';g.lineWidth=.6+r()*1.4;g.beginPath();let x=r()*W,y=r()*H*.4;g.moveTo(x,y);for(let k=0;k<5;k++){x+=r()*4-2;y+=4+r()*6;g.lineTo(x,y);}g.stroke();}
+    for(let i=0;i<160;i++){g.fillStyle='rgba(20,8,2,'+(.35+r()*.4)+')';g.beginPath();g.arc(r()*W,r()*H,.3+r()*1.1,0,7);g.fill();}
+    g.strokeStyle='rgba(30,12,4,.75)';g.lineWidth=1;[52,86,124,160].forEach(x=>{g.beginPath();g.moveTo(x,0);g.lineTo(x+2,H);g.stroke();});
+    g.fillStyle='#d9a070';[52,86,124,160].forEach(x=>[28,44].forEach(y=>{g.beginPath();g.arc(x+3,y,1.1,0,7);g.fill();}));
+    g.save();g.shadowColor='#ff8a1a';g.shadowBlur=5;g.lineJoin='round';
+    [[44,36,6],[96,40,7],[132,34,5],[18,50,5],[70,30,4]].forEach(([x,y,n])=>{g.strokeStyle='#ffd27a';g.lineWidth=1.1;g.beginPath();g.moveTo(x,y);let cx=x,cy=y;for(let k=0;k<n;k++){cx+=3+r()*4;cy+=r()*6-3;g.lineTo(cx,cy);}g.stroke();g.strokeStyle='rgba(255,90,20,.6)';g.lineWidth=2.6;g.stroke();});
+    g.restore();
+    const sh=g.createLinearGradient(0,0,W,H*.6);sh.addColorStop(0,'rgba(255,62,165,0)');sh.addColorStop(.32,'rgba(255,62,165,.18)');sh.addColorStop(.42,'rgba(47,227,255,.22)');sh.addColorStop(.52,'rgba(57,255,136,.18)');sh.addColorStop(.62,'rgba(255,210,63,.2)');sh.addColorStop(.74,'rgba(122,106,255,0)');
+    g.globalCompositeOperation='screen';g.fillStyle=sh;g.fillRect(0,0,W,H);g.globalCompositeOperation='source-over';
   },
   goat(g,W,H,p,r){
     for(let x=0;x<W;x+=10){g.fillStyle=(x/10)%2?p[1]:p[0];g.fillRect(x,0,10,H);}
@@ -4594,6 +4762,36 @@ const PAT = {
 };
 
 /* The GOAT gets real gold parts on top of the rifle: a scope, a muzzle brake, rails and trim. */
+/* The Rusted9000's parts: a furnace vent on the receiver glowing through its slats, a pressure gauge pinned in the
+   red, a bolted exhaust on top, a little Lead Heart on the magazine and 9000 stencilled on the stock. */
+function rustedParts(g){
+  const steel = (x0, y0, x1, y1) => { const lg = g.createLinearGradient(x0, y0, x1, y1); lg.addColorStop(0, '#c9b8a4'); lg.addColorStop(.4, '#8a7a6a'); lg.addColorStop(1, '#3a2a1e'); return lg; };
+  g.save(); g.lineJoin = 'round'; g.strokeStyle = 'rgba(25,10,2,.85)'; g.lineWidth = .7;
+  // furnace vent
+  g.fillStyle = '#1a0a04'; g.beginPath(); g.roundRect(56, 32.5, 40, 10, 2); g.fill(); g.stroke();
+  const fire = g.createLinearGradient(0, 33, 0, 42); fire.addColorStop(0, '#fff2b0'); fire.addColorStop(.5, '#ff8a1a'); fire.addColorStop(1, '#a02a04');
+  g.shadowColor = '#ff7a1a'; g.shadowBlur = 6; g.fillStyle = fire;
+  for (let x = 59; x < 94; x += 5) { g.beginPath(); g.roundRect(x, 34.5, 2.6, 6, 1); g.fill(); }
+  g.shadowBlur = 0;
+  // exhaust stack, bolted on top
+  g.fillStyle = steel(0, 18, 0, 30); g.beginPath(); g.roundRect(100, 19, 9, 11, 1.5); g.fill(); g.stroke();
+  g.fillStyle = '#2a1a10'; g.beginPath(); g.ellipse(104.5, 19.4, 4.5, 1.4, 0, 0, 7); g.fill();
+  g.fillStyle = 'rgba(180,180,180,.35)'; [[106, 14, 2.6], [109, 10, 3.2], [113, 6, 3.8]].forEach(([x, y, R]) => { g.beginPath(); g.arc(x, y, R, 0, 7); g.fill(); });
+  // pressure gauge pinned in the red
+  g.fillStyle = steel(118, 32, 128, 44); g.beginPath(); g.arc(124, 38, 5.6, 0, 7); g.fill(); g.stroke();
+  g.fillStyle = '#efe3c8'; g.beginPath(); g.arc(124, 38, 4.2, 0, 7); g.fill();
+  g.strokeStyle = '#c0262d'; g.lineWidth = 1.2; g.beginPath(); g.arc(124, 38, 3.4, -.4, .9); g.stroke();
+  g.strokeStyle = '#1a0a04'; g.lineWidth = .9; g.beginPath(); g.moveTo(124, 38); g.lineTo(127.4, 39.6); g.stroke();
+  // rivet line along the barrel
+  g.fillStyle = '#d9a070'; for (let x = 134; x < 150; x += 4) { g.beginPath(); g.arc(x, 38, .9, 0, 7); g.fill(); }
+  // the Lead Heart on the magazine
+  g.fillStyle = steel(94, 54, 104, 64); g.strokeStyle = '#2a2e33'; g.lineWidth = .6;
+  g.beginPath(); g.moveTo(99, 64); g.bezierCurveTo(93, 60, 92, 56, 95, 54.4); g.bezierCurveTo(97, 53.4, 98.6, 54.2, 99, 55.6); g.bezierCurveTo(99.4, 54.2, 101, 53.4, 103, 54.4); g.bezierCurveTo(106, 56, 105, 60, 99, 64); g.fill(); g.stroke();
+  // 9000 stencilled on the stock
+  g.fillStyle = 'rgba(255,200,140,.85)'; g.font = '700 9px Teko, sans-serif'; g.textAlign = 'center'; g.fillText('9000', 24, 54.5);
+  g.strokeStyle = 'rgba(30,12,4,.6)'; g.lineWidth = .5; g.beginPath(); g.moveTo(16, 50.4); g.lineTo(32, 50.4); g.stroke();
+  g.restore();
+}
 function goatParts(g){
   const gold = (x0, y0, x1, y1) => { const lg = g.createLinearGradient(x0, y0, x1, y1); lg.addColorStop(0, '#fff3c0'); lg.addColorStop(.35, '#ffd23f'); lg.addColorStop(.7, '#c98a0b'); lg.addColorStop(1, '#7a5200'); return lg; };
   g.save(); g.lineJoin = 'round';
@@ -4760,7 +4958,7 @@ function renderItem(it, fl, S){
   const g = c.getContext('2d'); g.scale(S,S);
   const P = paths(it.w), sh = SHAPES[it.w], r = seeded(hash(it.id)), bm = it.t >= 6;
   g.save();
-  g.shadowColor = it.pat === 'goat' ? 'rgba(255,214,90,.95)' : it.pat === 'sfot' ? 'rgba(170,205,255,.95)' : it.pat === 'sui' ? 'rgba(255,60,40,.9)' : it.pat === 'pulga' ? 'rgba(255,214,90,.95)' : it.pat === 'prince' ? 'rgba(255,230,60,.95)' : bm ? (it.t === 7 ? 'rgba(255,122,217,.95)' : 'rgba(168,85,247,.9)') : 'rgba(0,0,0,.55)';
+  g.shadowColor = it.pat === 'rusted' ? 'rgba(255,128,40,.95)' : it.pat === 'goat' ? 'rgba(255,214,90,.95)' : it.pat === 'sfot' ? 'rgba(170,205,255,.95)' : it.pat === 'sui' ? 'rgba(255,60,40,.9)' : it.pat === 'pulga' ? 'rgba(255,214,90,.95)' : it.pat === 'prince' ? 'rgba(255,230,60,.95)' : bm ? (it.t === 7 ? 'rgba(255,122,217,.95)' : 'rgba(168,85,247,.9)') : 'rgba(0,0,0,.55)';
   g.shadowBlur = (bm ? 12 : 6) * S; g.shadowOffsetY = (bm ? 0 : 3) * S;
   g.fillStyle = '#000'; g.fill(P.all); g.restore();
   const lg = g.createLinearGradient(0,18,0,72);
@@ -4788,6 +4986,7 @@ function renderItem(it, fl, S){
   if (it.pat === 'sui') suiParts(g);
   if (it.pat === 'pulga') pulgaParts(g);
   if (it.pat === 'prince') princeParts(g);
+  if (it.pat === 'rusted') rustedParts(g);
   return c;
 }
 
@@ -5456,6 +5655,7 @@ const EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-w
 function previewGroups(c){
   if (c.id === 'pk1') return {groups: [{t: 6, pct: 100, ids: BM_IDS}], hacked: []};
   if (c.id === 'lg1') return {groups: [{t: 4, pct: 100, ids: LG_IDS().map(i => i.id)}], hacked: []};
+  if (c.id === 'rusty') return {groups: [{t: 7, pct: RC_CHROMA * 100, ids: [RUSTED_ID]}, {t: 4, pct: 100 - RC_CHROMA * 100, ids: RC_IDS}], hacked: []};
   const {w, applied} = effWeights(c), tot = w.reduce((a, b) => a + b, 0), groups = [];
   for (let t = 5; t >= 0; t--) if (w[t] > 0) groups.push({t, pct: w[t] / tot * 100, ids: c.pools[t]});
   return {groups, hacked: applied};
@@ -7357,7 +7557,7 @@ MEMBERS.push({id:'tobias', name:'Tobias', role:'The Contraband King', col:'#a855
 const RUST_X = [.8, .9, 1, 1.2, 1.4];
 const KNIFE_ID = 's12', KNIFE_X = 5, YARD_N = 5, PEEK_EVERY = 10;
 const Y = () => state.yard;
-const fromYard = it => !!ITEM_CASE[it.id] && ITEM_CASE[it.id].id === 'scrap';
+const fromYard = it => !!ITEM_CASE[it.id] && (ITEM_CASE[it.id].id === 'scrap' || ITEM_CASE[it.id].id === 'rusty');
 const rustyE = e => BY[e.id].t < 6 && (fromYard(BY[e.id]) || wearIdx(e.fl) === 4);
 const rustOf = (m, e) => { const r = RUST_X[wearIdx(e.fl)]; return m.id === 'socket' ? 1 + (r - 1) * 2 : r; };
 const knifeHome = (m, e) => m.id === 'ma' && e.id === KNIFE_ID && !Y().home;
@@ -7434,7 +7634,7 @@ const inMood = (m, e) => !isFav(m, e) && hash(e.uid + m.id) % 5 === 0;   // stab
 /* Anything bought in a Prestige shop (or out of Sable's case) is "stock": every member pays market for it,
    haggling tops out at TAG_CAP, and it can never be an exact wish-list match. No buy-low, sell-high loops. */
 const TAG_CAP = 1.5;
-const tagged = e => e.src === 'shop' || e.src === 'vault' || e.src === 'pk1' || e.src === 'lg1';
+const tagged = e => e.src === 'shop' || e.src === 'vault' || e.src === 'pk1' || e.src === 'lg1' || e.src === 'rc';
 /* You can't sell someone back what you bought off their shelf, out of their case, or out of their hidden case. */
 const ownStock = (m, e) => !!m && tagged(e) && e.from === m.id;
 const isExact = (m, e) => !tagged(e) && e.id === P().wants[m.id];
@@ -7826,12 +8026,15 @@ function openRoom(id){
   { const svg = sceneEl().querySelector(':scope > svg'); svg.style.transition = 'none'; restView(); void svg.getBoundingClientRect(); svg.style.transition = ''; }
   tone(220, .12, 'triangle', .08); tone(330, .12, 'triangle', .06, .08);
   if (held) { P().met[m.id] = true; save(); resumeCell(); return; }
-  if (id === 'rusta') rgRoomSfx();
+  if (id === 'rusta') { rgRoomSfx(); rgHeat(); }
   if (!P().met[m.id]) { P().met[m.id] = true; save(); playIntro(m); }
   else greet(m);
   mus.hold = null; musSync();
 }
-function greet(m){ if (room === m) sayRoom(state.inv.length ? m.say.hi : m.say.none); }
+function greet(m){
+  if (room === m && m.id === 'ma' && Y().ms1 && !Y().rcSeen) { Y().rcSeen = true; save(); sayRoom('Your big friend’s fuel got my crane running again. So I opened the old case. Rusty legendaries, kid. And one thing I don’t talk about.', 'happy'); return; }
+  if (room === m) sayRoom(state.inv.length ? m.say.hi : m.say.none);
+}
 function playIntro(m){ unzoomShop(); $('#prSay').textContent = ''; sayTok++; memberIntro(m).then(() => greet(m)); }
 function leaveRoom(){
   { const bsx = $('#prRoom .bs'); if (bsx) bsx.remove(); $('#prRoom').classList.remove('bs-tilt'); }
@@ -7946,11 +8149,13 @@ function renderLeft(anim){
   } else {
     const w = wantOf(m), have = state.inv.some(e => isExact(m, e)), n = state.inv.length;
     const pk = m.id === 'tinny' ? peekLeft() : 0;
-    left = B('sell', m.outsider ? 'Sell contraband' : m.id === 'rusta' ? 'Feed him rust' : m.yard ? 'Sell rust' : 'Sell something', 'gold', lock || !n, n ? n + (n === 1 ? ' item' : ' items') : 'bag empty')
+    left = (m.id === 'rusta' ? B('feed', 'Feed his heart', 'gold', lock || !state.inv.some(rgEdible), fmtK(Y().burn || 0) + ' burned') : '')
+      + B('sell', m.outsider ? 'Sell contraband' : m.id === 'rusta' ? 'Sell him rust' : m.yard ? 'Sell rust' : 'Sell something', m.id === 'rusta' ? '' : 'gold', lock || !n, n ? n + (n === 1 ? ' item' : ' items') : 'bag empty')
       + (m.id === 'socket' && rpQuest() ? B('rusta', 'The big project', '', lock, rpCount() + ' of 3 parts') : '')
       + (SHOPS[m.id] ? B('shop', 'Shop · ' + SHOPS[m.id].hint, '', lock) : '')
       + (m.id === 'tobias' ? B('pk1', 'Case #PK1 · on his shelf', 'pk', lock, fmt(PK1.cost) + ' cr') : '')
       + (m.id === 'socket' ? (gadEnsure(), Y().gReady ? B('gad', 'Socket’s gadget', '', lock, GADGETS[Y().gReady].n + ' · ' + fmt(GADGETS[Y().gReady].price)) : Y().gReq ? B('gad', 'Socket needs parts', '', lock, 'makes: ' + GADGETS[Y().gReq.gad].n) : '') : '')
+      + (m.id === 'ma' && Y().ms1 ? B('rcase', 'Rusty Case · buy and open', 'gold', lock, fmt(RC.cost) + ' cr') + B('rcprev', 'What’s in the Rusty Case', '', lock) : '')
       + (m.id === 'tinny' ? B('bags', 'Backpacks', '', lock, bagLvl() < BAGS.length - 1 ? 'next: ' + BAGS[bagLvl() + 1].cap + ' slots' : 'biggest one') : '')
       + (m.id === 'tinny' ? B('peek', 'Ask what’s in the next crate', '', lock || pk > 0, pk ? 'in ' + pk + ' open' + (pk === 1 ? '' : 's') : 'Scrapyard · free') : '')
       + (jobOf(m) ? B('job', 'Job · ' + jobOf(m).t, 'jobb', lock, jobDone(m) ? 'next in ' + jobLeft() + ' opens' : starTxt(jobOf(m).d) + (jobOf(m).d > JOB_ONCE ? ' · once' : '')) : '')
@@ -7966,6 +8171,8 @@ function renderLeft(anim){
         + '<div class="rmc-rule">Also pays <b>' + m.mult + '×</b> for ' + m.many + ' · any other rust at market · worn pays more</div></div>';
       art = thumb(BY[KNIFE_ID], hk ? wearIdx(hk.fl) : 4);
     }
+    if (m.id === 'rusta') ctx += '<div class="rmc rg-meter-card">' + rgMeter(0) + '</div>';
+    if (m.id === 'ma' && Y().ms1) ctx += '<div class="rmc rmc-shop" style="--tc:#ff8a2a"><div class="lab">Her old case · unlocked</div><div class="t">Rusty Case</div><div class="ps-meta"><span class="ps-tier">Rusty legendaries</span><span>1 Chroma: Rusted9000</span></div><div class="rmc-price"><span class="coin"></span>' + fmt(RC.cost) + '</div></div>';
   }
   Lp.innerHTML = left; Cx.innerHTML = ctx;
   const slot = Cx.querySelector('.rmc-art'); if (slot && art) slot.append(art);
@@ -7984,6 +8191,7 @@ function renderOv(){
   const head = (small, big) => '<div class="ov-top"><div class="ov-h"><small>' + small + '</small><b>' + big + '</b></div><div class="bal"><span class="coin"></span><span class="ov-bal">' + fmt(state.bal) + '</span></div><button class="icon-btn ov-x" data-a="ovclose" aria-label="Close">✕</button></div>';
   if (ovMode === 'jobrun') return;
   if (ovMode === 'gad') { ov.innerHTML = head('Socket’s workbench', Y().gReady ? 'Fresh off the bench' : 'She needs parts') + '<div class="ov-body">' + gadPanel() + '</div>'; gadFill(); return; }
+  if (ovMode === 'feed') { ov.innerHTML = head('Rustagard’s heart', 'Feed it') + '<div class="ov-body">' + rgFeedPanel() + '</div>'; rgFill(); return; }
   if (ovMode === 'rusta') { ov.innerHTML = head('Socket’s big project', rpCount() === 3 ? 'All three parts' : 'She needs three parts') + '<div class="ov-body">' + rpPanel() + '</div>'; return; }
   if (ovMode === 'bags') { ov.innerHTML = head('Tinny’s backpacks', 'More room for your stuff') + '<div class="ov-body">' + bagsPanel() + '</div>'; return; }
   if (ovMode === 'job') {
@@ -8113,6 +8321,7 @@ function closeDeal(){
   state.bal += amt; lg.deals = (lg.deals || 0) + 1; lg.earned = (lg.earned || 0) + amt; if (brief) lg.briefs = (lg.briefs || 0) + 1;
   if (m.id === 'vance') P().vanceTook = (P().vanceTook || 0) + amt;
   if (kn) Y().home = true;
+  if (m.id === 'rusta') setTimeout(() => rgBurn(e.v), 700);
   const shelved = SHOPS[m.id] && SHOPS[m.id].shelf;
   if (shelved) shelfAdd(e, amt);
   if (exact) newWant(m);
@@ -9532,9 +9741,13 @@ const YARD_SC = {
       s += '<circle cx="200" cy="118" r="25" fill="#140804" stroke="#3d1d0c" stroke-width="5"/>'
         + '<circle class="rg-glow" cx="200" cy="118" r="23" fill="url(#rgf' + k + ')"/>'
         + '<path class="rg-heart" d="M200 134 C186 126 180 116 186 110 C190 106 196 107 200 112 C204 107 210 106 214 110 C220 116 214 126 200 134 Z" fill="url(#rgl' + k + ')" stroke="#2a2e33" stroke-width="1.2"/>'
+        + '<path class="rg-hotheart" d="M200 134 C186 126 180 116 186 110 C190 106 196 107 200 112 C204 107 210 106 214 110 C220 116 214 126 200 134 Z" fill="#ff5a0a"/>'
         + '<path d="M200 113 V132 M190 112 Q187 116 190 120" stroke="#3f454b" stroke-width=".9" fill="none"/><rect x="196" y="100" width="3" height="9" fill="#6d747b"/><rect x="202" y="102" width="3" height="7" fill="#6d747b"/>'
         + '<path d="M184 100 V136 M192 96 V140 M200 94 V142 M208 96 V140 M216 100 V136" stroke="#2a1206" stroke-width="2.4" opacity=".85"/>'
         + Array.from({length: 10}, (_, i) => rv(200 + Math.cos(i / 10 * Math.PI * 2) * 25, 118 + Math.sin(i / 10 * Math.PI * 2) * 25, 1.4)).join('');
+      s += '<g class="rg-blaze">' + Array.from({length: 10}, (_, i) => { const a = i / 10 * Math.PI * 2, x = 200 + Math.cos(a) * 27, y = 118 + Math.sin(a) * 27, h = 9 + (i % 3) * 4;
+          return '<path style="--d:' + (i * .07).toFixed(2) + 's" transform="rotate(' + (a * 180 / Math.PI + 90).toFixed(1) + ' ' + x.toFixed(1) + ' ' + y.toFixed(1) + ')" d="M' + (x - 4).toFixed(1) + ' ' + y.toFixed(1) + ' Q' + (x - 3).toFixed(1) + ' ' + (y - h * .6).toFixed(1) + ' ' + x.toFixed(1) + ' ' + (y - h).toFixed(1) + ' Q' + (x + 3).toFixed(1) + ' ' + (y - h * .6).toFixed(1) + ' ' + (x + 4).toFixed(1) + ' ' + y.toFixed(1) + ' Z" fill="' + (i % 2 ? '#ffb030' : '#ff5a0a') + '"/>'; }).join('') + '</g>'
+        + '<circle class="rg-flarec" cx="200" cy="118" r="30" fill="url(#rgf' + k + ')"/>';
       /* shoulders */
       s += '<ellipse cx="128" cy="96" rx="27" ry="20" fill="#8a4420" stroke="#2a1206" stroke-width="2"/><path d="M106 100 Q128 82 150 100" stroke="#c8733a" stroke-width="2" fill="none" opacity=".5"/>'
         + '<ellipse cx="272" cy="96" rx="27" ry="20" fill="#7a3a18" stroke="#2a1206" stroke-width="2"/><path d="M250 100 Q272 82 294 100" stroke="#c8733a" stroke-width="2" fill="none" opacity=".4"/>'
@@ -10264,6 +10477,108 @@ $('#scall').addEventListener('click', e => {
   else if (a.dataset.a === 'ok') scEnd(true);
   else if (a.dataset.a === 'hang') scEnd(!!(scall && scall.done));
 });
+
+/* ---------- Rustagard's heart ----------
+   Feed him things and they burn in his Lead Heart: the more an item is worth, the hotter it burns. The heat is
+   fuel for the whole yard. Selling him rust burns too. At a million burned (milestone 1) the fuel reaches Ma's
+   crane, and Ma opens up her Rusty Case: rusty legendaries only, and one Chroma, the Rusted9000. */
+const RG_MS1 = 1000000;
+const rgEdible = e => !!BY[e.id] && BY[e.id].t < 7;
+let rgSel = new Set();
+function rgMeter(add){
+  const b = Y().burn || 0, done = !!Y().ms1, p = Math.min(1, b / RG_MS1), q = Math.min(1, (b + (add || 0)) / RG_MS1);
+  return '<div class="rg-meter' + (done ? ' done' : '') + '"><div class="lab">His heart · milestone 1</div>'
+    + '<div class="rg-num"><b>' + fmt(b) + '</b><span> / ' + fmt(RG_MS1) + ' burned</span>' + (add ? '<em>+' + fmt(add) + '</em>' : '') + '</div>'
+    + '<div class="rg-bar"><i style="width:' + (p * 100).toFixed(1) + '%"></i>' + (add ? '<u style="left:' + (p * 100).toFixed(1) + '%;width:' + ((q - p) * 100).toFixed(1) + '%"></u>' : '') + '</div>'
+    + '<div class="rg-ms">' + (done ? '✓ Reached · Ma Rust sells you her <b>Rusty Case</b>' : 'At 1,000,000 · Ma Rust sells you her <b>Rusty Case</b>') + '</div></div>';
+}
+function rgFeedPanel(){
+  const list = state.inv.filter(rgEdible).sort((a, b) => b.v - a.v);
+  rgSel = new Set([...rgSel].filter(u => list.some(e => e.uid === u)));
+  return '<div id="rgMeterBox">' + rgMeter(rgSelSum()) + '</div>'
+    + (list.length ? '<div class="rg-grid">' + list.map(e => { const it = BY[e.id], wi = wearIdx(e.fl);
+        return '<button type="button" class="rg-it' + (rgSel.has(e.uid) ? ' on' : '') + '" data-a="rgpick" data-uid="' + e.uid + '" style="--tc:' + TIERS[it.t].color + '"><i></i><b>' + it.name + '</b><small>' + TIERS[it.t].name + ' · ' + WEARS[wi].n + '</small><span>burns ' + fmt(e.v) + '</span></button>'; }).join('') + '</div>'
+      : '<p class="jb-note">Nothing in your bag he can eat.</p>')
+    + '<div class="gd-acts rg-acts" id="rgActs">' + rgActs() + '</div>'
+    + '<p class="jb-note">He eats it and you don’t get paid: it burns in his heart, and the heat runs the whole yard. The more it’s worth, the hotter it burns. Chromas are off the menu.</p>';
+}
+const rgSelSum = () => state.inv.filter(e => rgSel.has(e.uid)).reduce((a, e) => a + e.v, 0);
+const rgActs = () => { const n = rgSel.size, t = rgSelSum(); return '<button class="gold-btn" data-a="rgfeed"' + (n ? '' : ' disabled') + '>' + (n ? 'Feed him ' + n + ' · +' + fmt(t) : 'Pick what to feed him') + '</button><button class="ghost" data-a="ovclose">Not now</button>'; };
+function rgFill(){ document.querySelectorAll('#prOv .rg-it').forEach(s => { const e = state.inv.find(x => x.uid === s.dataset.uid); if (e) s.querySelector('i').append(thumb(BY[e.id], wearIdx(e.fl))); }); }
+function rgPick(b){
+  const u = b.dataset.uid; if (rgSel.has(u)) rgSel.delete(u); else rgSel.add(u);
+  b.classList.toggle('on', rgSel.has(u)); tone(rgSel.has(u) ? 660 : 440, .05, 'triangle', .04);
+  const mb = $('#rgMeterBox'), ac2 = $('#rgActs'); if (mb) mb.innerHTML = rgMeter(rgSelSum()); if (ac2) ac2.innerHTML = rgActs();
+}
+function rgHeat(){
+  const sc = room && room.id === 'rusta' ? sceneEl() : null;
+  if (sc) sc.style.setProperty('--burn', Math.min(1, (Y().burn || 0) / RG_MS1).toFixed(3));
+}
+async function rgFeed(){
+  const m = room; if (!m || m.id !== 'rusta' || actBusy) return;
+  const items = state.inv.filter(e => rgSel.has(e.uid) && rgEdible(e)); if (!items.length) return;
+  const total = items.reduce((a, e) => a + e.v, 0), ids = new Set(items.map(e => e.uid));
+  state.inv = state.inv.filter(e => !ids.has(e.uid)); rgSel = new Set(); save(); renderInv(); renderStats(); renderOpen();
+  closeOv(); actBusy = true; renderLeft();
+  const sc = sceneEl(); if (sc) restart(sc, 'rg-flare');
+  rgChew(); noise(1.4, 200, 1400, .14, 'bandpass'); tone(48, 1.1, 'sine', .3); setTimeout(() => sweep(70, 260, .9, 'sawtooth', .04), 300);
+  await sayRoom(total < 5000 ? '*crunch* SMALL SNACK. MORE.' : total < 50000 ? '*CRUNCH* GOOD. THE HEART IS WARM.' : total < 250000 ? '*CRUNCH CRUNCH* HOT. VERY HOT.' : '*CRUNCH* AAAHH. THE HEART SINGS.', 'happy');
+  actBusy = false;
+  rgBurn(total);
+}
+function rgBurn(v){
+  const before = Y().burn || 0; Y().burn = before + Math.round(v); save();
+  rgHeat();
+  if (!Y().ms1 && Y().burn >= RG_MS1) { Y().ms1 = true; save(); rgMilestone(); return; }
+  if (room && room.id === 'rusta') renderLeft();
+}
+async function rgMilestone(){
+  const m = room;
+  if (!m || m.id !== 'rusta') { toast('Milestone 1 · Ma Rust will sell you her Rusty Case'); return; }
+  actBusy = true; renderLeft();
+  const sc = sceneEl(); if (sc) restart(sc, 'rg-flare');
+  shakeStage(); boom(); flash('#ff8a2a'); sweep(60, 420, 1.8, 'sawtooth', .06); noise(2, 200, 1600, .16, 'bandpass');
+  await sayRoom('THE HEART… IS… BURNING.', 'happy'); await wait(900);
+  await sayRoom('FUEL GOES DOWN THE PIPES. TO MA’S CRANE. FIRST TIME IN FORTY YEARS.', 'happy'); await wait(900);
+  await sayRoom('MA SAYS: COME SEE HER. SHE HAS A CASE FOR YOU.', 'happy');
+  actBusy = false; renderLeft();
+  [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, .7, 'triangle', .05, i * .12));
+  toast('Milestone 1 · Ma Rust will sell you her Rusty Case');
+}
+
+/* ---------- Ma Rust's Rusty Case ----------
+   Opens in Ma's room once Rustagard's heart has burned a million. Every pull is one of its own rusty legendaries,
+   except one pull in two hundred: the Rusted9000. */
+const RC_CHROMA = .005;
+async function openRC(){
+  const m = room; if (!m || m.id !== 'ma' || !Y().ms1 || actBusy || vaultBusy || mi || busy || captive) return;
+  if (state.bal < RC.cost) { sayRoom('Fifteen grand, kid. You’re short. Go dig.', 'mad'); tone(150, .22, 'sawtooth', .05); return; }
+  if (bagBlock(1)) return;
+  actBusy = true; closeOv(); if (shopSel != null) unzoomShop(); renderLeft();
+  state.bal -= RC.cost; state.spent += RC.cost; state.opened++;
+  const ch = Math.random() < RC_CHROMA, it = ch ? BY[RUSTED_ID] : pickOne(RC_IDS.map(id => BY[id])), W = WEARS[pickW(WEAR_W)], fl = +(W.lo + Math.random() * (W.hi - W.lo)).toFixed(4);
+  const r = {uid: uid(), id: it.id, fl, v: priceOf(it, wearIdx(fl)), at: Date.now(), hk: [], src: 'rc', from: 'ma'};
+  state.inv.unshift(r);
+  { const fd = state.found || (state.found = []); if (!fd.includes(r.id)) fd.push(r.id); }
+  if (!state.best || r.v > state.best.v) state.best = {id: r.id, v: r.v};
+  save(); setBal(-RC.cost); prBal();
+  sayRoom(ch ? 'Kid. Kid, put it down. Slowly.' : pickOne(['Careful. Some of it’s older than you.', 'Rust never sleeps. Neither does that case.', 'Don’t cut yourself. Tetanus is real.']));
+  const R0 = $('#prRoom'), d = document.createElement('div');
+  d.className = 'pk-drop rc'; d.innerHTML = '<div class="pk-fall">' + crateHTML(RC, true) + '</div><div class="pk-lab">MA’S RUSTY CASE</div>';
+  R0.append(d);
+  await wait(40); d.classList.add('in'); whoosh();
+  await wait(REDUCED ? 100 : 520); tone(55, .4, 'sine', .4); noise(.3, 900, 100, .2, 'lowpass'); shakeStage(); [0, .1, .22].forEach(t => tone(140 + t * 300, .12, 'square', .04, t));
+  await wait(REDUCED ? 100 : 800);
+  const cr = d.querySelector('.crate'); clunk(); if (cr && !REDUCED) cr.classList.add('opening');
+  await wait(REDUCED ? 100 : 420); whoosh(); await wait(REDUCED ? 60 : 640);
+  d.remove(); actBusy = false;
+  if (room !== m) return;
+  renderLeft();
+  busy = true; lockRack(true);
+  $('#reveal').style.zIndex = '81';
+  if (ch) await chromaCinematic(r);
+  showReveal(r);
+}
 
 /* ---------- Socket's Contraption ----------
    A clanking machine in the back of her garage. Buy it and the home screen gets an "Open 10" button: ten cases
@@ -12701,7 +13016,278 @@ function princeCinematic(r){
     T(92400, finish);
   });
 }
+/* ---------- Rusted9000 cinematic ----------
+   A storm over the Scrapyard. Rustagard's heart burning a million credits of rust; the fuel runs down the pipes and
+   Ma's crane moves for the first time in forty years; the Rejects forge a rifle out of everything the Prestige threw
+   away; it's quenched in a barrel of oil; the pressure gauge goes past nine thousand and breaks; Rustagard fires it
+   into the sky and it rains rust. Then the reveal. About fifty seconds, an industrial score and a lot of sparks. */
+const RUSTED_ID = 'x8';
+function rustedCinematic(r){
+  return new Promise(resolve => {
+    let ov = $('#rzc');
+    if (!ov) { ov = document.createElement('div'); ov.id = 'rzc'; ov.className = 'gtc rzc'; ov.hidden = true; document.body.append(ov); }
+    const it = BY[r.id], timers = [], R = seeded(9000), Rr = Math.random, f1 = n => n.toFixed(1);
+    let done = false, raf = 0, cnt = 0;
+    const T = (ms, f) => timers.push(setTimeout(() => { if (done) return; try { f(); } catch (e) {} }, REDUCED ? Math.min(ms, 300) : ms));
+    const go = n => { ov.dataset.s = n; }, add = c => ov.classList.add(c), rm = c => ov.classList.remove(c);
+    const SV = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">';
+    const RIFLE = SHAPES.rifle.skin + ' ' + SHAPES.rifle.dark;
+    const DEFS = '<defs><linearGradient id="rzSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#03050b"/><stop offset=".7" stop-color="#140e0a"/><stop offset="1" stop-color="#241408"/></linearGradient>'
+      + '<radialGradient id="rzFire"><stop offset="0" stop-color="#fff6c8"/><stop offset=".35" stop-color="#ffb030"/><stop offset=".7" stop-color="#ff5a0a"/><stop offset="1" stop-color="#ff3a00" stop-opacity="0"/></radialGradient>'
+      + '<radialGradient id="rzGl"><stop offset="0" stop-color="#ff9a3a" stop-opacity=".75"/><stop offset="1" stop-color="#ff5a00" stop-opacity="0"/></radialGradient>'
+      + '<linearGradient id="rzHot" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff4a00"/><stop offset=".45" stop-color="#ffd27a"/><stop offset=".7" stop-color="#fff6d0"/><stop offset="1" stop-color="#ff7a1a"/></linearGradient>'
+      + '<linearGradient id="rzBeam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff6d0"/><stop offset=".3" stop-color="#ffb030"/><stop offset=".8" stop-color="#ff5a0a" stop-opacity=".6"/><stop offset="1" stop-color="#b5541c" stop-opacity="0"/></linearGradient>'
+      + '<radialGradient id="rzSt"><stop offset="0" stop-color="#ffffff" stop-opacity=".95"/><stop offset=".6" stop-color="#e8ecef" stop-opacity=".55"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>'
+      + '<linearGradient id="rzLead" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c3c9cf"/><stop offset=".55" stop-color="#7d848b"/><stop offset="1" stop-color="#3f454b"/></linearGradient>'
+      + '<linearGradient id="rzRust" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b8642e"/><stop offset=".5" stop-color="#7a3a18"/><stop offset="1" stop-color="#3a1a0a"/></linearGradient>'
+      + '<linearGradient id="rzBrass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8c27a"/><stop offset=".5" stop-color="#a87a3a"/><stop offset="1" stop-color="#5a3a14"/></linearGradient></defs>';
+    const clouds = cls => '<g class="' + cls + '">' + Array.from({length: 11}, (_, i) => '<ellipse cx="' + f1(i * 40 - 10 + R() * 20) + '" cy="' + f1(14 + R() * 40) + '" rx="' + f1(40 + R() * 40) + '" ry="' + f1(16 + R() * 14) + '" fill="' + (i % 2 ? '#0c0f18' : '#141824') + '"/>').join('') + '</g>';
+    /* Rustagard as a silhouette on his mountain: dark shapes, two eyes, a glowing chest */
+    const giant = (x, y, s, arm) => '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')"><ellipse cx="0" cy="-40" rx="80" ry="60" fill="url(#rzGl)" opacity=".55"/>'
+      + '<path d="M-60 0 L-50 -60 Q0 -72 50 -60 L60 0 Z" fill="#2a160a" stroke="#ff8a2a" stroke-opacity=".35" stroke-width="1.6"/><circle cx="-56" cy="-62" r="17" fill="#2a160a" stroke="#ff8a2a" stroke-opacity=".3" stroke-width="1.4"/><circle cx="56" cy="-62" r="17" fill="#2a160a" stroke="#ff8a2a" stroke-opacity=".3" stroke-width="1.4"/>'
+      + '<path d="M-18 -112 H18 L23 -76 H-23 Z" fill="#3a1e0c" stroke="#ff8a2a" stroke-opacity=".35" stroke-width="1.4"/><path d="M-22 -96 Q0 -150 22 -96" stroke="#5a4a3a" stroke-width="3" fill="none"/>'
+      + '<circle class="rz-eye" cx="-8" cy="-92" r="3.4" fill="#ffb000"/><circle class="rz-eye" cx="8" cy="-92" r="3.4" fill="#ffb000"/>'
+      + '<circle class="rz-chest" cx="0" cy="-40" r="13" fill="url(#rzFire)"/>'
+      + '<path d="M-56 -60 L-76 -24 L-62 -4" stroke="#2a160a" stroke-width="14" stroke-linecap="round" fill="none"/>'
+      + (arm || '<path d="M56 -60 L76 -24 L62 -4" stroke="#2a160a" stroke-width="14" stroke-linecap="round" fill="none"/>') + '</g>';
+    const mound = '<path d="M-20 262 Q60 196 140 176 Q200 160 260 176 Q340 196 420 262 Z" fill="#0a0705"/>'
+      + Array.from({length: 40}, () => { const x = R() * 400, y = 185 + R() * 75; return '<rect x="' + f1(x) + '" y="' + f1(y) + '" width="' + f1(4 + R() * 10) + '" height="' + f1(3 + R() * 6) + '" fill="' + ['#140e0a', '#1a120c', '#0e0a08'][Math.floor(R() * 3)] + '" transform="rotate(' + f1(R() * 60 - 30) + ' ' + f1(x) + ' ' + f1(y) + ')"/>'; }).join('');
+
+    /* 1. the storm */
+    const s1 = SV + DEFS + '<rect width="400" height="260" fill="url(#rzSky)"/>' + clouds('rz-clouds')
+      + '<path d="M0 200 Q40 180 80 190 Q130 170 170 186 Q230 172 280 188 Q330 176 400 192 V260 H0 Z" fill="#0c0907"/>'
+      + mound + giant(200, 176, .9)
+      + '<g class="rz-bolt"><path d="M286 0 L270 44 L282 46 L262 92 L276 94 L252 140" stroke="#cfe0ff" stroke-width="7" stroke-opacity=".25" fill="none"/><path d="M286 0 L270 44 L282 46 L262 92 L276 94 L252 140" stroke="#f4f8ff" stroke-width="2.4" fill="none"/></g>'
+      + '<g class="rz-bolt b2"><path d="M96 0 L106 30 L96 34 L112 70" stroke="#cfe0ff" stroke-width="6" stroke-opacity=".25" fill="none"/><path d="M96 0 L106 30 L96 34 L112 70" stroke="#f4f8ff" stroke-width="2" fill="none"/></g></svg>';
+
+    /* 2. the heart */
+    const flames = Array.from({length: 11}, (_, i) => { const a = i / 11 * Math.PI * 2, x = 200 + Math.cos(a) * 58, y = 130 + Math.sin(a) * 58, h = 30 + R() * 26;
+      return '<path class="rz-fl" style="--d:' + (R() * .6).toFixed(2) + 's" transform="rotate(' + f1(a * 180 / Math.PI + 90) + ' ' + f1(x) + ' ' + f1(y) + ')" d="M' + f1(x - 10) + ' ' + f1(y) + ' Q' + f1(x - 8) + ' ' + f1(y - h * .6) + ' ' + f1(x) + ' ' + f1(y - h) + ' Q' + f1(x + 8) + ' ' + f1(y - h * .6) + ' ' + f1(x + 10) + ' ' + f1(y) + ' Z" fill="' + ['#ff5a0a', '#ffb030', '#ff7a1a'][i % 3] + '"/>'; }).join('');
+    const s2 = SV + DEFS + '<rect width="400" height="260" fill="#1a0c06"/>'
+      + '<rect x="-10" y="-10" width="420" height="280" fill="url(#rzRust)" opacity=".75"/>'
+      + Array.from({length: 22}, (_, i) => '<circle cx="' + (i < 11 ? 20 + i * 36 : 20 + (i - 11) * 36) + '" cy="' + (i < 11 ? 14 : 246) + '" r="4" fill="#d98a4a" stroke="#2a1206"/>').join('')
+      + '<path class="rz-pipe" d="M150 196 Q110 230 -10 236" stroke="#2a1a10" stroke-width="22" fill="none"/><path class="rz-flow" d="M150 196 Q110 230 -10 236" stroke="#ff8a1a" stroke-width="7" fill="none" stroke-dasharray="16 22"/>'
+      + '<path class="rz-pipe" d="M250 196 Q290 230 410 236" stroke="#2a1a10" stroke-width="22" fill="none"/><path class="rz-flow" d="M250 196 Q290 230 410 236" stroke="#ff8a1a" stroke-width="7" fill="none" stroke-dasharray="16 22"/>'
+      + '<circle class="rz-hglow" cx="200" cy="130" r="120" fill="url(#rzGl)"/>'
+      + '<circle cx="200" cy="130" r="88" fill="#0b0503" stroke="#4a240e" stroke-width="14"/>'
+      + '<g class="rz-fls">' + flames + '</g>'
+      + '<circle class="rz-core" cx="200" cy="130" r="74" fill="url(#rzFire)"/>'
+      + '<g class="rz-beat"><path d="M200 196 C150 168 132 136 146 112 C158 94 184 96 200 118 C216 96 242 94 254 112 C268 136 250 168 200 196 Z" fill="url(#rzLead)" stroke="#2a2e33" stroke-width="3"/>'
+      + '<path class="rz-hot" d="M200 196 C150 168 132 136 146 112 C158 94 184 96 200 118 C216 96 242 94 254 112 C268 136 250 168 200 196 Z" fill="#ff6a1a"/>'
+      + '<path d="M200 120 V190 M160 112 Q150 126 158 142" stroke="#4c5258" stroke-width="2.4" fill="none"/><rect x="186" y="74" width="10" height="26" fill="#6d747b" stroke="#2a2e33"/><rect x="206" y="80" width="10" height="20" fill="#5d646b" stroke="#2a2e33"/></g>'
+      + '<path d="M140 50 V210 M170 44 V216 M200 42 V218 M230 44 V216 M260 50 V210" stroke="#2a1206" stroke-width="9" opacity=".92"/>'
+      + Array.from({length: 14}, (_, i) => '<circle cx="' + f1(200 + Math.cos(i / 14 * Math.PI * 2) * 88) + '" cy="' + f1(130 + Math.sin(i / 14 * Math.PI * 2) * 88) + '" r="4.4" fill="#d98a4a" stroke="#2a1206"/>').join('') + '</svg>';
+
+    /* 3. Ma's crane */
+    let lat = ''; for (let i = 0; i < 12; i++) { const x0 = 124 + i * 17.5, y0 = 172 - i * 9.6; lat += 'M' + f1(x0) + ' ' + f1(y0) + ' L' + f1(x0 + 17.5) + ' ' + f1(y0 - 9.6 - 8) + ' '; }
+    const s3 = SV + DEFS + '<rect width="400" height="260" fill="url(#rzSky)"/>' + clouds('rz-clouds') + '<path d="M0 214 Q80 196 160 206 Q260 190 400 208 V260 H0 Z" fill="#0f0b08"/>'
+      + '<path class="rz-flow" d="M-10 238 H120" stroke="#ff8a1a" stroke-width="5" stroke-dasharray="16 22"/><path d="M-10 238 H120" stroke="#2a1a10" stroke-width="13" opacity=".55"/>'
+      + '<rect x="96" y="178" width="58" height="46" fill="#4a3018" stroke="#1a0e06" stroke-width="2"/><rect x="104" y="186" width="20" height="16" fill="#ffd27a" opacity=".55" class="rz-cab"/><path d="M96 224 H156" stroke="#1a0e06" stroke-width="4"/>'
+      + '<rect x="90" y="224" width="70" height="14" fill="#2a1a10"/><circle cx="100" cy="240" r="7" fill="#151515"/><circle cx="150" cy="240" r="7" fill="#151515"/>'
+      + '<g class="rz-boom"><path d="M124 176 L334 50 M124 190 L340 64" stroke="#c9a24a" stroke-width="4"/><path d="' + lat + '" stroke="#a87a3a" stroke-width="1.6" fill="none"/>'
+      + '<g class="rz-mag"><path d="M336 58 V96" stroke="#3a3f44" stroke-width="2"/><rect x="320" y="96" width="32" height="10" rx="2" fill="#3a3f44" stroke="#14171a"/><circle class="rz-magl" cx="336" cy="101" r="3" fill="#ff8a1a"/>'
+      + '<g class="rz-car"><g transform="translate(312 108)">' + yCar(0, 0, 48, 22, '#6a2a1a') + '</g></g></g></g>'
+      + '<g class="rz-crush"><rect x="300" y="208" width="80" height="40" fill="#2a2a2a" stroke="#0e0e0e" stroke-width="2"/><path d="M300 214 H380" stroke="#ffd23f" stroke-width="4" stroke-dasharray="8 8"/>'
+      + '<rect class="rz-jl" x="300" y="176" width="10" height="34" fill="#4a4f54"/><rect class="rz-jr" x="370" y="176" width="10" height="34" fill="#4a4f54"/></g>'
+      + giant(40, 214, .55) + '</svg>';
+
+    /* 4. the forge */
+    const junk = [['<circle r="11" fill="none" stroke="#a87a3a" stroke-width="5" stroke-dasharray="4 3"/><circle r="5" fill="#5a3a14"/>', '-260px', '-140px', '-540deg'],
+      ['<rect x="-20" y="-4" width="40" height="8" rx="4" fill="#6a6f74"/>', '260px', '-160px', '420deg'],
+      ['<path d="M-10 -10 L10 -10 L7 10 L-7 10 Z" fill="#9a4c22" stroke="#3a1a0a"/><path d="M-11 -10 Q0 -22 11 -10" stroke="#8a8f96" stroke-width="1.6" fill="none"/>', '-200px', '-220px', '360deg'],
+      ['<rect x="-16" y="-10" width="32" height="20" fill="#7a5a44" stroke="#2a1206"/><path d="M-10 -10 V10 M-2 -10 V10 M6 -10 V10" stroke="#4a3626" stroke-width="2"/>', '240px', '-240px', '-300deg'],
+      ['<path d="M-12 0 Q-8 -8 -4 0 T4 0 T12 0" stroke="#c9cfd6" stroke-width="2.4" fill="none"/>', '0px', '-280px', '720deg']];
+    const s4 = SV + DEFS + '<rect width="400" height="260" fill="#120a06"/>'
+      + Array.from({length: 9}, (_, row) => Array.from({length: 11}, (_, c) => '<rect x="' + (c * 40 - (row % 2) * 20) + '" y="' + (row * 22) + '" width="38" height="20" fill="#2a1a12" stroke="#160c08" stroke-width="2"/>').join('')).join('')
+      + '<path d="M130 160 V70 Q200 6 270 70 V160 Z" fill="#0a0503"/><g class="rz-furn"><path d="M140 160 V76 Q200 18 260 76 V160 Z" fill="url(#rzFire)"/>'
+      + Array.from({length: 8}, (_, i) => '<path class="rz-fl" style="--d:' + (i * .09).toFixed(2) + 's" d="M' + (148 + i * 14) + ' 160 Q' + (150 + i * 14) + ' ' + (120 - (i % 3) * 14) + ' ' + (156 + i * 14) + ' ' + (96 - (i % 3) * 16) + ' Q' + (162 + i * 14) + ' ' + (120 - (i % 3) * 14) + ' ' + (164 + i * 14) + ' 160 Z" fill="' + (i % 2 ? '#ffd27a' : '#ff7a1a') + '"/>').join('') + '</g>'
+      + '<ellipse class="rz-fglow" cx="200" cy="170" rx="210" ry="120" fill="url(#rzGl)"/>'
+      + '<rect x="0" y="214" width="400" height="46" fill="#1a0f08"/>'
+      + fig('socket', 18, 82, .64, 'rz-so') + fig('deacon', 300, 92, .58) + fig('tinny', 356, 124, .44)
+      + '<g class="rz-bell"><path d="M262 196 L300 186 L300 214 L262 206 Z" fill="#5a3a20" stroke="#2a1206" stroke-width="1.4"/><path d="M262 196 L246 200 L262 206" fill="#3a2a1e"/></g>'
+      + '<path d="M154 214 L162 190 H238 L246 214 Z M148 186 H252 V174 Q214 172 206 164 H164 Q156 172 148 174 Z" fill="#2c3034" stroke="#0d0f11" stroke-width="2"/><path d="M150 176 H250" stroke="#6a7076" stroke-width="2"/>'
+      + '<g class="rz-rif"><ellipse cx="200" cy="150" rx="80" ry="34" fill="url(#rzGl)"/><g transform="translate(130 119) scale(.7)"><path d="' + RIFLE + '" fill="url(#rzHot)" stroke="#ff4a00" stroke-width="2"/></g></g>'
+      + '<g class="rz-junk">' + junk.map(([sh, x, y, rr], i) => '<g class="rz-j" style="--x:' + x + ';--y:' + y + ';--r:' + rr + ';--d:' + (i * .26).toFixed(2) + 's"><g transform="translate(' + (176 + i * 12) + ' 160)">' + sh + '</g></g>').join('') + '</g>'
+      + '<g class="rz-ham"><path d="M86 150 L176 158" stroke="#2f4a4a" stroke-width="12" stroke-linecap="round"/><path d="M168 158 L196 156" stroke="#5a3a20" stroke-width="4"/><rect x="190" y="146" width="14" height="22" rx="2" fill="#4a4f54" stroke="#14171a" stroke-width="1.4"/></g>'
+      + '</svg>';
+
+    /* 5. the quench */
+    const s5 = SV + DEFS + '<rect width="400" height="260" fill="#0e0806"/><ellipse cx="200" cy="150" rx="220" ry="140" fill="url(#rzGl)" opacity=".5"/>'
+      + '<g class="rz-dip"><g transform="translate(196 -40) rotate(84) scale(.7)"><path d="' + RIFLE + '" fill="url(#rzHot)" stroke="#ff4a00" stroke-width="2"/></g><path d="M188 -60 V30 M204 -60 V30" stroke="#3a3f44" stroke-width="5"/></g>'
+      + '<rect x="120" y="150" width="160" height="120" rx="6" fill="#2a2a2a" stroke="#0e0e0e" stroke-width="3"/><path d="M120 180 H280 M120 226 H280" stroke="#4a4f54" stroke-width="5"/><ellipse cx="200" cy="150" rx="80" ry="12" fill="#050505" stroke="#3a3a3a" stroke-width="4"/><path d="M146 148 Q200 140 252 148" stroke="#6a5a8a" stroke-width="2" opacity=".5" fill="none"/>'
+      + '<text x="200" y="210" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="22" fill="#c0262d" opacity=".8">OIL</text>'
+      + '<g class="rz-steam">' + Array.from({length: 16}, (_, i) => '<circle style="--d:' + (i * .06).toFixed(2) + 's;--x:' + f1((R() - .5) * 220) + 'px;--y:' + f1(-60 - R() * 160) + 'px" cx="' + f1(170 + R() * 60) + '" cy="150" r="' + f1(26 + R() * 30) + '" fill="url(#rzSt)"/>').join('') + '</g></svg>';
+
+    /* 6. the gauge */
+    const tick = (a, r0, r1, w, c) => { const t = (a - 90) * Math.PI / 180; return '<path d="M' + f1(200 + Math.cos(t) * r0) + ' ' + f1(130 + Math.sin(t) * r0) + ' L' + f1(200 + Math.cos(t) * r1) + ' ' + f1(130 + Math.sin(t) * r1) + '" stroke="' + c + '" stroke-width="' + w + '"/>'; };
+    let face = ''; for (let k = 0; k <= 30; k++) { const a = -120 + k * 8; face += tick(a, 84, k % 5 ? 76 : 70, k % 5 ? 1.6 : 3, k >= 25 ? '#c0262d' : '#2a1a10'); }
+    for (let k = 0; k <= 6; k++) { const a = (-120 + k * 40 - 90) * Math.PI / 180; face += '<text x="' + f1(200 + Math.cos(a) * 58) + '" y="' + f1(134 + Math.sin(a) * 58) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" fill="' + (k >= 5 ? '#c0262d' : '#2a1a10') + '">' + (k * 1500) + '</text>'; }
+    const s6 = SV + DEFS + '<rect width="400" height="260" fill="#160c08"/>' + '<path d="M0 60 H120 M280 60 H400 M0 200 H110 M290 200 H400" stroke="#2a1a10" stroke-width="18"/><path class="rz-flow" d="M0 60 H120 M280 60 H400 M0 200 H110 M290 200 H400" stroke="#ff8a1a" stroke-width="4" stroke-dasharray="16 22"/>'
+      + '<g class="rz-gauge"><circle cx="200" cy="130" r="112" fill="url(#rzBrass)" stroke="#2a1206" stroke-width="4"/><circle cx="200" cy="130" r="96" fill="#efe3c8" stroke="#5a3a14" stroke-width="3"/>'
+      + '<path d="M' + f1(200 + Math.cos((80 - 90) * Math.PI / 180) * 88) + ' ' + f1(130 + Math.sin((80 - 90) * Math.PI / 180) * 88) + ' A88 88 0 0 1 ' + f1(200 + Math.cos((120 - 90) * Math.PI / 180) * 88) + ' ' + f1(130 + Math.sin((120 - 90) * Math.PI / 180) * 88) + '" stroke="#c0262d" stroke-width="8" fill="none" opacity=".7"/>'
+      + face + '<text x="200" y="98" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="11" letter-spacing="2" fill="#5a3a14">PSI · SOCKET-MADE</text>'
+      + '<rect x="166" y="160" width="68" height="22" rx="3" fill="#0b0604" stroke="#5a3a14" stroke-width="2"/><text id="rzCnt" x="200" y="177" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="20" letter-spacing="3" fill="#ff8a1a">0000</text>'
+      + '<g class="rz-needle"><path d="M200 130 L196 126 L200 50 L204 126 Z" fill="#c0262d" stroke="#5a0a10"/><circle cx="200" cy="130" r="9" fill="#2a1a10" stroke="#a87a3a" stroke-width="2"/></g>'
+      + Array.from({length: 10}, (_, i) => '<circle cx="' + f1(200 + Math.cos(i / 10 * Math.PI * 2) * 104) + '" cy="' + f1(130 + Math.sin(i / 10 * Math.PI * 2) * 104) + '" r="3.4" fill="#5a3a14"/>').join('')
+      + '<g class="rz-crack"><path d="M200 130 L240 70 L252 52 M240 70 L270 84 M200 130 L150 176 L132 196 M150 176 L128 160 M200 130 L262 156 L286 150 M200 130 L170 64" stroke="#fff" stroke-width="1.6" fill="none" opacity=".85"/></g></g>'
+      + '<g class="rz-jets"><path d="M88 130 L-20 100 L-20 160 Z" fill="url(#rzSt)"/><path d="M312 130 L420 100 L420 160 Z" fill="url(#rzSt)"/></g>'
+      + '<text class="rz-9000" x="200" y="160" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="120" letter-spacing="6" fill="#ff8a1a" stroke="#3a1206" stroke-width="3">9000</text></svg>';
+
+    /* 7. the shot */
+    const gunArm = '<g transform="translate(56 -60)"><g class="rz-aim"><path d="M0 0 L22 -26 L30 -54" stroke="#2a160a" stroke-width="14" stroke-linecap="round" fill="none"/><path d="M0 0 L22 -26 L30 -54" stroke="#ff8a2a" stroke-opacity=".3" stroke-width="1.4" fill="none"/>'
+      + '<g transform="translate(30 -56) rotate(-38) scale(.55) translate(-96 -46)"><path d="' + RIFLE + '" fill="#6a3014" stroke="#ff9a3a" stroke-width="2.4"/>'
+      + '<g class="rz-beam"><rect x="190" y="18" width="900" height="40" fill="url(#rzBeam)"/><rect x="190" y="33" width="900" height="10" fill="#fff6d0"/></g><circle class="rz-muz" cx="196" cy="38" r="20" fill="url(#rzFire)"/></g></g></g>';
+    const s7 = SV + DEFS + '<rect width="400" height="260" fill="url(#rzSky)"/><circle class="rz-moon" cx="300" cy="40" r="20" fill="#efe2bf"/>'
+      + '<g class="rz-cl-l">' + Array.from({length: 6}, (_, i) => '<ellipse cx="' + f1(i * 36) + '" cy="' + f1(20 + R() * 40) + '" rx="' + f1(50 + R() * 30) + '" ry="' + f1(18 + R() * 12) + '" fill="' + (i % 2 ? '#0c0f18' : '#151a26') + '"/>').join('') + '</g>'
+      + '<g class="rz-cl-r">' + Array.from({length: 6}, (_, i) => '<ellipse cx="' + f1(220 + i * 36) + '" cy="' + f1(20 + R() * 40) + '" rx="' + f1(50 + R() * 30) + '" ry="' + f1(18 + R() * 12) + '" fill="' + (i % 2 ? '#0c0f18' : '#151a26') + '"/>').join('') + '</g>'
+      + mound + giant(160, 222, .86, gunArm) + '</svg>';
+
+    const title = it.name.split('').map((ch, i) => '<span style="--i:' + i + '">' + (ch === ' ' ? '&nbsp;' : escH(ch)) + '</span>').join('');
+    const gear = (n, r0, r1) => '<svg viewBox="-110 -110 220 220" aria-hidden="true"><path d="' + Array.from({length: n * 2}, (_, i) => { const a = i / (n * 2) * Math.PI * 2, rr = i % 2 ? r0 : r1, b = a + Math.PI / (n * 2); return (i ? 'L' : 'M') + f1(Math.cos(a) * rr) + ' ' + f1(Math.sin(a) * rr) + ' L' + f1(Math.cos(b) * rr) + ' ' + f1(Math.sin(b) * rr); }).join(' ') + ' Z" fill="#2a160a" stroke="#4a240e" stroke-width="3"/><circle r="' + (r0 * .4) + '" fill="#120804"/></svg>';
+    ov.innerHTML = '<canvas class="gt-cv"></canvas><div class="rz-flash"></div><div class="rz-white"></div>'
+      + '<section class="gt-s rz-1">' + s1 + '<div class="gt-cap rz-cap"><small>The Scrapyard · three in the morning</small><p>Everything they throw away up the hill ends up here.</p><p class="rz-p2">Everything.</p></div></section>'
+      + '<section class="gt-s rz-2">' + s2 + '<div class="gt-cap rz-cap"><small>Inside Rustagard</small><p>A million credits of rust.</p><p class="rz-p2">Burning in a heart of lead.</p></div></section>'
+      + '<section class="gt-s rz-3">' + s3 + '<div class="gt-cap rz-cap"><small>Ma Rust’s crane</small><p>It hadn’t moved in forty years.</p><p class="rz-p2">Tonight it did.</p></div></section>'
+      + '<section class="gt-s rz-4">' + s4 + '<div class="gt-cap rz-cap"><small>The forge</small><p>Four rejects. One anvil.</p><p class="rz-p2">And everything the Prestige threw out.</p></div></section>'
+      + '<section class="gt-s rz-5">' + s5 + '</section>'
+      + '<section class="gt-s rz-6">' + s6 + '<div class="gt-cap rz-cap"><small>Pressure test</small><p>Rated to nine thousand.</p><p class="rz-p2">Nobody checked what comes after.</p></div></section>'
+      + '<section class="gt-s rz-7">' + s7 + '<div class="gt-cap c rz-cap"><p>It doesn’t fire bullets.</p><p class="rz-p2">It fires the Scrapyard.</p></div></section>'
+      + '<section class="gt-s rz-8"><div class="rz-gears"><i class="g1">' + gear(14, 78, 100) + '</i><i class="g2">' + gear(10, 52, 68) + '</i><i class="g3">' + gear(12, 60, 78) + '</i></div><div class="rz-rv"><div class="rz-art"><span class="gt-foil"></span></div>'
+        + '<h2 class="rz-h2">' + title + '</h2><div class="rz-sub">CHROMA · ONE OF ONE</div><div class="rz-tag">Built from what they threw away.</div><div class="gt-val rz-val"><span class="coin"></span><span id="rzVal">0</span></div><div class="gt-tap">tap to continue</div></div></section>'
+      + '<button class="pc-skip gt-skip">Skip ››</button>';
+    const src = artHi(it, wearIdx(r.fl)), art = ov.querySelector('.rz-art');
+    art.prepend(imgOf(src)); art.querySelector('.gt-foil').style.setProperty('--m', 'url("' + src + '")');
+    ov.className = 'gtc rzc'; ov.hidden = false; go(0);
+
+    /* rain, sparks, embers, rust rain */
+    const cv = ov.querySelector('.gt-cv'), g = cv.getContext('2d');
+    let W = 0, H = 0, parts = [], rain = 0, rust = 0, embers = 0;
+    const size = () => { const d = Math.min(devicePixelRatio || 1, 1.5); W = innerWidth; H = innerHeight; cv.width = W * d; cv.height = H * d; g.setTransform(d, 0, 0, d, 0, 0); };
+    size(); addEventListener('resize', size);
+    /* where a point of the 400x260 scene lands on screen (the SVGs are drawn "slice") */
+    const at = (x, y) => { const f = Math.max(W / 400, H / 260); return [(W - 400 * f) / 2 + x * f, (H - 260 * f) / 2 + y * f]; };
+    const sparks = (n, x, y, up) => { for (let i = 0; i < n; i++) { const a = -Math.PI / 2 + (Rr() - .5) * (up ? 1.6 : 3.4), v = .3 + Rr() * .9; parts.push({k: 's', x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 500 + Rr() * 700, max: 1200, c: Rr() < .5 ? '#ffd27a' : '#ff8a1a'}); } };
+    let last = performance.now(), clean = true;
+    function frame(now){
+      if (done) return;
+      const dt = Math.min(50, now - last); last = now;
+      if (!parts.length && !rain && !rust && !embers) { if (!clean) { g.clearRect(0, 0, W, H); clean = true; } raf = requestAnimationFrame(frame); return; }
+      clean = false; g.clearRect(0, 0, W, H);
+      for (let k = 0; k < rain; k++) if (parts.length < 600) parts.push({k: 'r', x: Rr() * (W + 200), y: -20, vx: -.25, vy: 1.4 + Rr() * .5, life: 2000, max: 2000});
+      for (let k = 0; k < rust; k++) if (parts.length < 600) parts.push({k: 'u', x: Rr() * W, y: -10, vx: (Rr() - .5) * .05, vy: .3 + Rr() * .35, life: 5000, max: 5000, s: 1.5 + Rr() * 2.5});
+      for (let k = 0; k < embers; k++) if (parts.length < 600) parts.push({k: 'e', x: Rr() * W, y: H + 6, vx: (Rr() - .5) * .06, vy: -(.05 + Rr() * .15), life: 5000, max: 5000, s: 1 + Rr() * 2});
+      for (let i = parts.length - 1; i >= 0; i--) {
+        const p = parts[i]; p.life -= dt; if (p.k === 's') p.vy += .0016 * dt; p.x += p.vx * dt; p.y += p.vy * dt;
+        if (p.life <= 0 || p.y > H + 30 || p.y < -40) { parts.splice(i, 1); continue; }
+        if (p.k === 'r') { g.strokeStyle = 'rgba(170,190,220,.35)'; g.lineWidth = 1; g.beginPath(); g.moveTo(p.x, p.y); g.lineTo(p.x - 4, p.y + 16); g.stroke(); continue; }
+        const al = Math.max(0, Math.min(1, p.life / p.max * 1.6));
+        if (p.k === 's') { g.strokeStyle = p.c; g.globalAlpha = al; g.lineWidth = 1.6; g.beginPath(); g.moveTo(p.x, p.y); g.lineTo(p.x - p.vx * 14, p.y - p.vy * 14); g.stroke(); g.globalAlpha = 1; continue; }
+        g.globalAlpha = al * (p.k === 'u' ? .9 : .7); g.fillStyle = p.k === 'u' ? '#c8733a' : '#ff8a1a';
+        g.fillRect(p.x - p.s / 2, p.y - p.s / 2, p.s, p.k === 'u' ? p.s * 1.8 : p.s); g.globalAlpha = 1;
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    raf = requestAnimationFrame(frame);
+    const finish = () => {
+      if (done) return; done = true; timers.forEach(t => { clearTimeout(t); clearInterval(t); }); clearInterval(cnt); cancelAnimationFrame(raf); removeEventListener('resize', size);
+      ov.classList.add('out');
+      setTimeout(() => { ov.hidden = true; ov.className = 'gtc rzc'; ov.innerHTML = ''; cine = null; musSync(); resolve(); }, 500);
+    };
+    ov.onclick = e => { if (e.target.closest('.gt-skip') || ov.classList.contains('ready')) finish(); };
+    cine = {skip: finish}; musSync(); ac();
+
+    /* sound: an original scrap-metal score at 120 bpm. A kick made of a dropped engine block, a snare made of a
+       bin lid, anvil pings, a distorted bass riff and power-chord stabs when it gets going. Thunder, rain, a crane,
+       a crusher, a hammer, a quench, a pressure whine and one very large shot for the effects. */
+    const flash = (c) => { const f = ov.querySelector('.rz-flash'); if (f) { f.style.background = c || '#f4f8ff'; restart(f, 'on'); } };
+    const shake = () => restart(ov, 'shake');
+    const thunder = v => { noise(.3, 5000, 1500, v * .7, 'highpass'); noise(3, 700, 50, v, 'lowpass'); tone(36, 2.2, 'sine', v * 1.4); };
+    const clang = (f, v) => { v = v || 1; tone(f, .6, 'square', .05 * v); tone(f * 2.76, .4, 'triangle', .04 * v); tone(f * 5.4, .22, 'sine', .03 * v); noise(.16, 5200, 2000, .12 * v, 'bandpass'); };
+    const hiss = (d, v) => noise(d, 7500, 2500, v, 'highpass');
+    const RIFF = [41.2, 0, 41.2, 0, 49, 0, 41.2, 55, 41.2, 0, 41.2, 0, 61.74, 55, 49, 0], RIFF2 = [36.71, 0, 36.71, 0, 43.65, 0, 36.71, 49, 36.71, 0, 36.71, 0, 55, 49, 43.65, 0];
+    let step = 0, groove = 0;
+    const seq = setInterval(() => {
+      const s16 = step % 16, bar = Math.floor(step / 16) % 4; step++;
+      if (done || !groove) return;
+      const v = groove, rf = bar === 3 ? RIFF2 : RIFF;
+      if (s16 === 0 || s16 === 6 || s16 === 8 || (v > .7 && s16 === 11)) sweep(150, 42, .22, 'sine', .5 * v);
+      if (s16 === 4 || s16 === 12) { noise(.12, 1900, 1200, .14 * v, 'bandpass'); tone(330, .06, 'square', .03 * v); }
+      if (v > .3 && (s16 === 2 || s16 === 10 || s16 === 14)) { tone(1760, .12, 'triangle', .016 * v); tone(4858, .06, 'sine', .008 * v); }
+      if (s16 % 2 === 0) noise(.03, 9000, 7000, .025 * v, 'highpass');
+      if (v > .45 && rf[s16]) { tone(rf[s16], .14, 'sawtooth', .07 * v); tone(rf[s16] * 2, .1, 'square', .025 * v); }
+      if (v > .85 && (s16 === 0 || s16 === 8)) [82.41, 123.47, 164.81].forEach(f => tone(bar === 3 ? f * .89 : f, .32, 'sawtooth', .022));
+    }, 125);
+    timers.push(seq);
+    let rainS = 0;
+    const rainLoop = setInterval(() => { if (!done && rainS) noise(.4, 6500, 4500, .03 * rainS, 'highpass'); }, 260);
+    timers.push(rainLoop);
+
+    /* 1. the storm */
+    T(100, () => { go('z1'); rain = 5; rainS = 1; noise(4, 400, 200, .04, 'lowpass'); });
+    T(900, () => add('c1'));
+    T(2300, () => { add('bolt1'); flash(); thunder(.3); shake(); setTimeout(() => rm('bolt1'), 260); });
+    T(3200, () => add('c1b'));
+    T(4300, () => { add('eyes'); [0, .25].forEach(d => tone(880, .1, 'sine', .04, d)); sweep(55, 200, 1.4, 'sawtooth', .04); });
+    T(5200, () => { add('bolt2'); flash(); thunder(.36); shake(); setTimeout(() => rm('bolt2'), 260); });
+    /* 2. his heart */
+    T(7000, () => { go('z2'); rain = 0; rainS = .3; embers = 2; groove = .25; });
+    for (let i = 0; i < 10; i++) T(7200 + i * Math.max(260, 760 - i * 55), () => { tone(55, .26, 'sine', .4); tone(46, .3, 'sine', .3, .16); { const b = ov.querySelector('.rz-beat'); if (b) { b.classList.remove('pump'); b.getBoundingClientRect(); b.classList.add('pump'); } } });
+    T(7800, () => add('c2'));
+    T(9800, () => { add('c2b'); add('roar'); noise(2.4, 200, 1400, .12, 'bandpass'); groove = .45; });
+    T(11600, () => { flash('#ff8a1a'); boom(); shake(); sparks(80, W / 2, H / 2); });
+    /* 3. the crane */
+    T(13000, () => { go('z3'); embers = 0; rain = 2; rainS = .6; groove = .55; });
+    T(13400, () => { add('swing'); sweep(110, 360, 2.2, 'sawtooth', .035); [0, .6, 1.2, 1.8].forEach(d => setTimeout(() => clang(180, .5), d * 1000)); });
+    T(13800, () => add('c3'));
+    T(15900, () => { add('drop'); sweep(900, 120, .7, 'sine', .04); });
+    T(16600, () => { add('crunch'); shake(); boom(); noise(.8, 1500, 150, .3, 'lowpass'); [0, .08, .18, .3].forEach((d, i) => setTimeout(() => clang(90 + i * 40, .9), d * 1000)); const [x, y] = at(340, 206); sparks(90, x, y, true); });
+    T(17000, () => add('c3b'));
+    /* 4. the forge */
+    T(19400, () => { go('z4'); rain = 0; rainS = 0; embers = 3; groove = .8; noise(2.4, 300, 900, .08, 'bandpass'); });
+    T(19900, () => { add('junk'); [0, .26, .52, .78, 1.04].forEach((d, i) => setTimeout(() => { if (!done) { clang(300 + i * 60, .7); const [x, y] = at(200, 160); sparks(20, x, y, true); } }, 900 + d * 1000)); });
+    T(20600, () => add('c4'));
+    T(21800, () => { add('hammer'); add('hot'); });
+    for (let i = 0; i < 11; i++) T(21800 + 372 + i * 600, () => { clang(i % 2 ? 230 : 196, 1.1); tone(60, .2, 'sine', .3); const [x, y] = at(196, 160); sparks(36, x, y, true); if (i % 3 === 2) flash('#ffb030'); });
+    T(23600, () => add('c4b'));
+    T(28400, () => { rm('hammer'); groove = 0; });
+    /* 5. the quench */
+    T(28700, () => { go('z5'); embers = 0; });
+    T(29100, () => { add('dip'); sweep(400, 120, .8, 'sine', .03); });
+    T(29900, () => { add('steam'); hiss(3.2, .28); noise(1.4, 300, 80, .2, 'lowpass'); shake(); });
+    T(30600, () => add('white'));
+    /* 6. the gauge */
+    T(31600, () => { go('z6'); rm('white'); groove = .35; });
+    T(32100, () => {
+      add('needle'); sweep(160, 2400, 3.4, 'sawtooth', .035);
+      const el = $('#rzCnt'), t0 = performance.now();
+      const iv = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 3300); if (el) el.textContent = String(Math.round(9000 * Math.pow(k, 1.6))).padStart(4, '0'); if (k >= 1) clearInterval(iv); }, 40); timers.push(iv);
+    });
+    T(32500, () => add('c6'));
+    T(35500, () => { add('crack'); clang(1400, .8); noise(.3, 6000, 2000, .2, 'highpass'); hiss(2, .2); shake(); const [x, y] = at(200, 130); sparks(50, x, y); });
+    T(36100, () => { add('stamp'); boom(); shake(); flash('#ff8a1a'); groove = .6; });
+    T(36400, () => add('c6b'));
+    /* 7. the shot */
+    T(38600, () => { go('z7'); rain = 4; rainS = .8; groove = .9; thunder(.2); });
+    T(39200, () => { add('aim'); sweep(120, 420, 1, 'square', .025); });
+    T(40400, () => { add('fire'); flash('#fff1c0'); boom(); boom(); shake(); sweep(1400, 50, 1.4, 'sawtooth', .09); noise(2, 3000, 150, .32, 'lowpass'); });
+    T(40700, () => add('c7'));
+    T(41500, () => { add('part'); rain = 0; rust = 4; rainS = 0; thunder(.16); });
+    T(42600, () => { add('c7b'); groove = 1; });
+    /* 8. the reveal */
+    T(45600, () => { go('z8'); rust = 2; embers = 2; groove = 0; tone(48, 1.2, 'sine', .3); sweep(90, 900, 1.2, 'sine', .04); });
+    T(46300, () => {
+      add('slam'); boom(); shake(); flash('#ff8a1a'); clang(160, 1.4); const [x, y] = [W / 2, H * .42]; sparks(140, x, y);
+      for (let i = 0; i < it.name.length; i++) setTimeout(() => { if (!done) clang(500 + i * 70, .5); }, 500 + i * 85);
+      const el = $('#rzVal'), t0 = performance.now();
+      cnt = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 1900); if (el) el.textContent = fmt(Math.round(r.v * (1 - Math.pow(1 - k, 3)))); if (k >= 1) { clearInterval(cnt); kaching(); } }, 40);
+      setTimeout(() => { if (!done) { groove = 1; [164.81, 246.94, 329.63, 493.88].forEach((f, i) => tone(f, 1.6, 'sawtooth', .03, i * .05)); } }, 900);
+    });
+    T(49000, () => add('ready'));
+    T(60000, finish);
+  });
+}
 function chromaCinematic(r){
+  if (r.id === RUSTED_ID) return rustedCinematic(r);
   if (r.id === 'x1' || r.id === 'x1c') return requiemCinematic(r);
   if (r.id === 'x3' || r.id === SFOT_ID) return goatCinematic(r);
   if (r.id === SUI_ID || r.id === PULGA_ID) return suiCinematic(r);
@@ -15781,6 +16367,11 @@ $('#prRoom').addEventListener('click', e => {
   if (a && a.dataset.a === 'ggive') { if (!a.disabled) gadGive(); return; }
   if (a && a.dataset.a === 'rusta') { if (!a.disabled) { openOv('rusta'); sayRoom(rpCount() === 3 ? 'You found all three? Give ’em here. Give ’em HERE.' : 'Three parts. Bucket, sheet, heart. They’re in Scrapyard crates if you open enough of them.', 'happy'); } return; }
   if (a && a.dataset.a === 'rgive') { if (!a.disabled) rpGive(); return; }
+  if (a && a.dataset.a === 'feed') { if (!a.disabled) { rgSel = new Set(); openOv('feed'); sayRoom('FEED ME. EXPENSIVE THINGS BURN HOTTER.', 'happy'); } return; }
+  if (a && a.dataset.a === 'rgpick') { rgPick(a); return; }
+  if (a && a.dataset.a === 'rgfeed') { if (!a.disabled) rgFeed(); return; }
+  if (a && a.dataset.a === 'rcase') { if (!a.disabled) openRC(); return; }
+  if (a && a.dataset.a === 'rcprev') { if (!a.disabled) openPreview(RC); return; }
   if (a && a.dataset.a === 'gbuy') { if (!a.disabled) gadBuy(); return; }
   if (a && a.dataset.a === 'bags') { if (!a.disabled) { openOv('bags'); sayRoom('Backpacks! I got ’em from… places. Good places.'); } return; }
   if (a && a.dataset.a === 'bagbuy') { if (!a.disabled) bagBuy(+a.dataset.v); return; }
