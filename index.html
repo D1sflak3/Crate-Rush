@@ -3466,6 +3466,9 @@ body.dz-open .toast{z-index:95}
 .gtc.cm5 .cm-wrap{animation:cmOut .7s ease-in both}
 @keyframes cmOut{to{opacity:0;transform:scale(.96)}}
 @media (prefers-reduced-motion: reduce){.cm-top,.cm-bot,.cm-l{transform:none!important}}
+/* once La Pulga has moved on to its own scenes, the shared SFOT scenes are switched off and the page underneath stops animating */
+.gtc.plc.plon>.su-1,.gtc.plc.plon>.su-2,.gtc.plc.plon>.su-3,.gtc.plc.plon>.su-4,.gtc.plc.plon>.su-5,.gtc.plc.plon>.su-6,.gtc.plc.plon>.su-7,.gtc.plc.plon>.su-8{display:none}
+body.cine-cover>:not(.gtc),body.cine-cover>:not(.gtc) *{animation-play-state:paused!important}
 .plc.dark .su-5{filter:brightness(.15) saturate(.3);transition:filter .9s steps(6)}
 .pl-cap small{color:#ffd23f}
 .gtc[data-s="p2"] .pl-2 .gt-cap small,.gtc[data-s="p3"] .pl-3 .gt-cap small,.gtc[data-s="p4"] .pl-4 .gt-cap small{opacity:1;transform:none}
@@ -3481,6 +3484,7 @@ body.dz-open .toast{z-index:95}
 .gtc.tunnel .pl-who{opacity:1;animation:plWho 2.6s .8s ease-in forwards;transition:opacity .6s 1s}
 @keyframes plWho{to{transform:scale(2.2)}}
 .pl-weyes{opacity:0}
+.gt-s>img.pl4bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .gt-s>img.pl-picimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.18);will-change:transform;transition:transform 5s ease-out}
 .gtc.tunnel .gt-s>img.pl-picimg{transform:scale(1)}
 .gtc.weyes .pl-weyes{opacity:1;animation:plBlink 2s ease-in-out infinite}
@@ -3570,7 +3574,7 @@ body.dz-open .toast{z-index:95}
 .pl-photogs g:nth-child(2) .pl-pf{animation-delay:.3s!important}.pl-photogs g:nth-child(3) .pl-pf{animation-delay:.55s!important}.pl-photogs g:nth-child(4) .pl-pf{animation-delay:.8s!important}
 .gtc.shirt .pl-arms{transform:none;opacity:1;transition:transform .6s cubic-bezier(.2,1.4,.4,1),opacity .2s}
 .pl-shirt{transform-box:fill-box;transform-origin:center}
-.gtc.shirt .pl-shirt{animation:plWave 1.6s .8s ease-in-out infinite alternate}
+.pl-4>svg.pl4-shl{will-change:transform}.gtc.shirt .pl-4>svg.pl4-shl{animation:plWaveL 1.6s .8s ease-in-out infinite alternate}@keyframes plWaveL{to{transform:rotate(-2deg) translateY(var(--ty,-2px))}}
 @keyframes plWave{to{transform:rotate(-2deg) translateY(-2px)}}
 .pl-flash circle{opacity:0}
 .gtc.shirt .pl-flash circle{animation:sfFlash 1.1s var(--d) steps(1) infinite}
@@ -3627,7 +3631,7 @@ body.dz-open .toast{z-index:95}
 .gtc.pland .pl-sub{opacity:1;transition:opacity .5s 1.1s}
 .gtc.pland .pl-tag{opacity:1;transition:opacity .5s 1.3s}
 .gtc.pland .pl-val{opacity:1;transition:opacity .5s 1.5s}
-@media (prefers-reduced-motion: reduce){.pl-shirt,.pl-b,.pl-eyes,.pl-weyes{animation:none!important}}
+@media (prefers-reduced-motion: reduce){.pl-shirt,.pl4-shl,.pl-b,.pl-eyes,.pl-weyes{animation:none!important}}
 /* the case on Ronaldo's wall turns round */
 .cr-flipper{transform-box:fill-box;transform-origin:center}
 .cr-back{opacity:0}
@@ -11270,19 +11274,20 @@ function suiCinematic(r){
         + '<animateMotion class="pl-mot" dur="3.3s" begin="indefinite" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines=".4 0 .6 1" path="' + PATH + ' L384 130"/></g>'
         + '<text class="pl-gl3" x="200" y="60" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="44" letter-spacing="5" fill="#ffd23f">GOAL</text></g></svg>';
       // 4. the Bernabéu, 2017: he shows them the name
-      let p4 = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + defs('pl4') + '<pattern id="plBg" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="#004d98"/><rect width="3" height="6" fill="#a50044"/></pattern>'
-        + '<filter id="plBlur" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="2.6"/></filter>'
+      // the stands, lamps, beams and glow never move, so they are baked once into an image (the blur filter over ~1,600 shapes was being redrawn every frame)
+      let p4bg = '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + defs('pl4')
         + '<radialGradient id="plWg" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>'
         + '<linearGradient id="plBm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".42"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>'
         + '<filter id="plBlur4" x="-5%" y="-5%" width="110%" height="110%"><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncR type="linear" slope=".62"/><feFuncG type="linear" slope=".62"/><feFuncB type="linear" slope=".62"/></feComponentTransfer><feGaussianBlur stdDeviation="1.1"/></filter>'
         + '<rect width="400" height="260" fill="#05060c"/>' + lamps + '<g class="pl-crowd4" filter="url(#plBlur4)">';
       // the stands fill the whole frame behind him, out of focus: no pitch
-      for (let row = 0; row < 20; row++) for (let x = 4 + (row % 2) * 5; x < 400; x += 10) p4 += '<circle cx="' + x + '" cy="' + (34 + row * 12) + '" r="3.2" fill="' + (R() < .2 ? '#e8e8f0' : '#8a8a92') + '"/><rect x="' + (x - 3.6) + '" y="' + (37 + row * 12) + '" width="7.2" height="6" fill="' + (R() < .25 ? '#f4f4fa' : '#a9a9b4') + '"/>';
-      p4 += '<rect width="400" height="260" fill="#05060c" opacity=".5"/>';
-      p4 += '</g><g class="pl-flash">' + Array.from({length: 14}, () => '<circle style="--d:' + f1(R() * 1.6) + 's" cx="' + f1(10 + R() * 380) + '" cy="' + f1(34 + R() * 60) + '" r="' + f1(1.6 + R() * 2.4) + '" fill="#fff"/>').join('') + '</g>'
-        + '<rect x="146" y="6" width="108" height="20" rx="3" fill="#000" stroke="#334"/><text x="200" y="20.5" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" letter-spacing="1.5" fill="#ffd23f">RMA 2 – 3 BAR · 92’</text>'
+      for (let row = 0; row < 20; row++) for (let x = 4 + (row % 2) * 5; x < 400; x += 10) p4bg += '<circle cx="' + x + '" cy="' + (34 + row * 12) + '" r="3.2" fill="' + (R() < .2 ? '#e8e8f0' : '#8a8a92') + '"/><rect x="' + (x - 3.6) + '" y="' + (37 + row * 12) + '" width="7.2" height="6" fill="' + (R() < .25 ? '#f4f4fa' : '#a9a9b4') + '"/>';
+      p4bg += '<rect width="400" height="260" fill="#05060c" opacity=".5"/></g>'
         + '<path d="M28 10 L52 10 L300 262 L170 262 Z" fill="url(#plBm)"/><path d="M348 10 L372 10 L330 262 L200 262 Z" fill="url(#plBm)"/>'
-        + '<ellipse cx="236" cy="150" rx="150" ry="120" fill="url(#plWg)"/>'
+        + '<ellipse cx="236" cy="150" rx="150" ry="120" fill="url(#plWg)"/></svg>';
+      let p4 = svgImg(p4bg, 'pl4bg') + '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + '<g class="pl-flash">' + Array.from({length: 14}, () => '<circle style="--d:' + f1(R() * 1.6) + 's" cx="' + f1(10 + R() * 380) + '" cy="' + f1(34 + R() * 60) + '" r="' + f1(1.6 + R() * 2.4) + '" fill="#fff"/>').join('') + '</g>' + '</svg><svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + defs('pl4') + '<pattern id="plBg" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="#004d98"/><rect width="3" height="6" fill="#a50044"/></pattern>'
+        + '<filter id="plBlur" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="2.6"/></filter>'
+        + '<rect x="146" y="6" width="108" height="20" rx="3" fill="#000" stroke="#334"/><text x="200" y="20.5" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" letter-spacing="1.5" fill="#ffd23f">RMA 2 – 3 BAR · 92’</text>'
         // the shirt held up to the crowd: side-on, long blue sleeves, head bowed, the shirt hanging from both fists
         + '<pattern id="plSt" width="34" height="200" patternUnits="userSpaceOnUse" x="96"><rect width="34" height="200" fill="#0b4aa8"/><rect x="17" width="17" height="200" fill="#a8103e"/></pattern>'
         + '<linearGradient id="plSl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a63c8"/><stop offset="1" stop-color="#103b8c"/></linearGradient>'
@@ -11332,6 +11337,7 @@ function suiCinematic(r){
         // both arms up, the shirt between them
         + '<g class="pl-arms">'
         + '<path d="M228 160 Q176 120 112 52" stroke="#123f94" stroke-width="17" stroke-linecap="round" fill="none"/>'
+        + '</g></g></g></svg><svg class="pl4-shl" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><g class="pl-hold"><g transform="translate(200 262) scale(.72) translate(-200 -262)"><g class="pl-arms">'
         + '<g class="pl-shirt">'
         + '<path d="M100 48 L84 92 L88 132 L100 122 Z" fill="#0b4aa8" stroke="#081a3a" stroke-width="1"/>'
         + '<path d="M100 46 Q136 38 172 40 L176 58 L170 66 Q176 130 168 200 Q150 206 132 202 Q114 206 98 200 L100 70 L94 62 Z" fill="url(#plSt)" stroke="#081a3a" stroke-width="1.2"/><path d="M168 44 Q178 90 170 150 Q166 176 168 200" stroke="#000" stroke-width="4" fill="none" opacity=".25"/>'
@@ -11340,11 +11346,13 @@ function suiCinematic(r){
         + '<text x="134" y="80" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="15" letter-spacing="2" fill="#ffd23f" stroke="#7a4e00" stroke-width=".4">MESSI</text>'
         + '<text x="134" y="160" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="64" fill="#ffd23f" stroke="#7a4e00" stroke-width="1">10</text>'
         + '</g>'
+        + '</g></g></g></svg><svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><g class="pl-hold"><g transform="translate(200 262) scale(.72) translate(-200 -262)"><g class="pl-arms">'
         + '<ellipse cx="106" cy="47" rx="7" ry="8" fill="#e2ad86"/><path d="M100 42 Q106 38 112 42" stroke="#b9805c" stroke-width="1" fill="none"/>'
         + '<path d="M266 160 L174 42" stroke="url(#plSl)" stroke-width="21" stroke-linecap="round" fill="none"/><path d="M273 155 L182 39" stroke="#7fb2ff" stroke-width="1.6" opacity=".5"/><path d="M240 124 Q236 118 232 120 M222 102 Q218 96 214 98" stroke="#0a2a66" stroke-width="1.6" fill="none" opacity=".6"/>'
         + '<ellipse cx="172" cy="42" rx="9" ry="8" fill="#e2ad86"/><path d="M165 38 Q172 34 179 38 M166 44 H178" stroke="#b9805c" stroke-width="1" fill="none"/>'
         + '</g>'
         + '</g>'
+        + '</g></svg><svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><g class="pl-hold">'
         + '<g class="pl-photogs">' + [[48, 214], [92, 226], [312, 226], [356, 214]].map(([x, y]) => '<g><circle cx="' + x + '" cy="' + (y - 18) + '" r="7" fill="#1a1a22"/><path d="M' + (x - 12) + ' ' + (y + 30) + ' Q' + x + ' ' + (y - 14) + ' ' + (x + 12) + ' ' + (y + 30) + ' Z" fill="#1a1a22"/><rect x="' + (x - 7) + '" y="' + (y - 12) + '" width="14" height="9" rx="1.5" fill="#2a2a32"/><circle class="pl-pf" cx="' + x + '" cy="' + (y - 8) + '" r="3" fill="#fff"/></g>').join('') + '</g>'
         + '</g></g></svg>';
       // 6. the throne of eight
@@ -11564,7 +11572,7 @@ function suiCinematic(r){
     /* embers, rain and sparks */
     const cv = ov.querySelector('.gt-cv'), g = cv.getContext('2d');
     let W = 0, H = 0, parts = [], embers = 0, rain = false, confetti = false;
-    const PLC = ['#ffd23f', '#fff3c0', '#a50044', '#004d98', '#ffffff'];
+    const PLC = ['#ffd23f', '#fff3c0', '#a50044', '#004d98', '#ffffff']; let cvDirty = true;
     const size = () => { const d = Math.min(devicePixelRatio || 1, 1.5); W = innerWidth; H = innerHeight; cv.width = W * d; cv.height = H * d; g.setTransform(d, 0, 0, d, 0, 0); };
     size(); addEventListener('resize', size);
     const sparks = (n, x, y, pal) => { for (let i = 0; i < n; i++) { const a = Rr() * Math.PI * 2, v = .2 + Rr() * .6; parts.push({x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - .3, c: pal ? pal[i % pal.length] : Rr() < .5 ? '#ffd23f' : '#ff3a2a', life: 700 + Rr() * 700, max: 1400, g: .0009}); } };
@@ -11572,7 +11580,8 @@ function suiCinematic(r){
     function frame(now){
       if (done) return;
       const dt = Math.min(50, now - last); last = now;
-      g.clearRect(0, 0, W, H);
+      if (!parts.length && !embers && !confetti && !rain) { if (cvDirty) { g.clearRect(0, 0, W, H); cvDirty = false; } raf = requestAnimationFrame(frame); return; }
+      cvDirty = true; g.clearRect(0, 0, W, H);
       for (let k = 0; k < embers; k++) if (parts.length < 380) parts.push({x: Rr() * W, y: H + 6, vx: (Rr() - .5) * .05, vy: -(.05 + Rr() * .12), c: Rr() < .7 ? '#ff4a2a' : '#ffd23f', life: 6000, max: 6000, g: 0, s: 1 + Rr() * 2});
       if (confetti && parts.length < 460) for (let k = 0; k < 4; k++) parts.push({x: Rr() * W, y: -10, vx: (Rr() - .5) * .08, vy: .08 + Rr() * .12, c: PLC[k % 5], life: 7000, max: 7000, g: .00002, s: 3 + Rr() * 3});
       if (rain && parts.length < 500) for (let k = 0; k < 6; k++) parts.push({rain: true, x: Rr() * (W + 120), y: -20, vx: -.2, vy: 1.1 + Rr() * .5, life: 3000});
@@ -11591,7 +11600,7 @@ function suiCinematic(r){
 
     const finish = () => {
       if (done) return; done = true; timers.forEach(clearTimeout); clearInterval(cnt); cancelAnimationFrame(raf); removeEventListener('resize', size);
-      ov.classList.add('out');
+      ov.classList.add('out'); document.body.classList.remove('cine-cover');
       setTimeout(() => { ov.hidden = true; ov.className = 'gtc suc'; ov.innerHTML = ''; cine = null; musSync(); resolve(); }, 500);
     };
     ov.onclick = e => { if (e.target.closest('.gt-skip') || ov.classList.contains('ready')) finish(); };
@@ -11653,7 +11662,7 @@ function suiCinematic(r){
       }
       // the suspense: the lights die, a heartbeat, a tunnel, and two gold eyes at the end of it
       T(22800, () => { add('dark'); embers = 0; parts = []; for (let i = 0; i < 6; i++) setTimeout(() => { if (!done) { tone(90, .06, 'square', .05); noise(.06, 400, 200, .08, 'lowpass'); } }, i * 140); sweep(400, 40, 1.4, 'sawtooth', .04); });
-      T(23700, () => { go('p1'); noise(5, 300, 200, .03, 'lowpass'); });
+      T(23700, () => { go('p1'); add('plon'); document.body.classList.add('cine-cover'); noise(5, 300, 200, .03, 'lowpass'); });
       [24100, 25100, 25900, 26500, 27000, 27400].forEach((d, i) => T(d, () => heart(.24 + i * .04)));
       T(24300, () => { add('w1'); tone(880, 1.6, 'sine', .015); });
       T(25300, () => { add('w2'); add('tunnel'); sweep(60, 220, 1.6, 'sine', .05); tone(1174.66, 2, 'sine', .012); });
@@ -11677,7 +11686,7 @@ function suiCinematic(r){
       T(40000, () => add('gcap'));
       // the Bernabéu, 2017
       T(42400, () => { go('p4'); noise(2, 700, 400, .02, 'lowpass'); });
-      T(42900, () => { add('shirt'); for (let i = 0; i < 10; i++) setTimeout(() => { if (!done) noise(.04, 4000, 2500, .05, 'highpass'); }, 300 + i * 260 + Rr() * 120); });
+      T(42900, () => { const sv = ov.querySelector('.pl4-shl'), sh = sv && sv.querySelector('.pl-shirt'); if (sh && sh.getBBox) { const bb = sh.getBBox(), m = sh.parentNode.parentNode.getScreenCTM(), r = sv.getBoundingClientRect(); if (m) { const x = m.a * (bb.x + bb.width / 2) + m.e, y = m.d * (bb.y + bb.height / 2) + m.f; sv.style.transformOrigin = (x - r.left).toFixed(1) + 'px ' + (y - r.top).toFixed(1) + 'px'; sv.style.setProperty('--ty', (-2 * m.d).toFixed(2) + 'px'); } } add('shirt'); for (let i = 0; i < 10; i++) setTimeout(() => { if (!done) noise(.04, 4000, 2500, .05, 'highpass'); }, 300 + i * 260 + Rr() * 120); });
       T(44000, () => add('bcap'));
       T(45000, () => { add('glare'); tone(61.74, 1.2, 'sawtooth', .04); });
       // the count
