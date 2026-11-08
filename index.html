@@ -4264,6 +4264,53 @@ body.ar-on{overflow:hidden}
   .ar-pausebtn{top:auto;bottom:10px;left:50%;transform:translateX(-50%);height:38px;font-size:15px}.ar-sc b{width:42px;height:42px;font-size:26px}.ar-clock{font-size:24px}}
 @media (max-width:700px){.ar-load{grid-template-columns:1fr}.ar-logo{font-size:36px}.ar-ban b{font-size:40px}.ar-sc small{max-width:90px;font-size:13px}}
 @media (max-height:520px){.ar-rcard{padding:14px}.ar-rtop{font-size:42px}.ar-rsc{font-size:28px}.ar-rvs{margin-bottom:8px}.ar-rcr{margin:8px 0 2px;font-size:18px}.ar-btn{padding:9px;margin-top:6px}.ar-emb{width:48px;height:48px}}
+
+/* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
+.ar-mtop{flex-wrap:wrap}
+.ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
+.ar-rmini .ar-emb{width:44px;height:44px}.ar-rmini b{display:block;font-size:20px;color:var(--rc);text-shadow:var(--ol);line-height:1.1}.ar-rmini span{font-size:12px;font-weight:600;color:#4a5568}.ar-rmini .ar-rbar{min-width:120px;height:9px;margin:3px 0}
+.ar-gear{width:48px;height:48px;border-radius:14px;border:3px solid #1b2230;background:#fff;color:#1b2230;cursor:pointer;box-shadow:0 4px 0 #1b2230;display:grid;place-items:center}.ar-gear svg{width:26px;height:26px}
+.ar-modes{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.ar-mode{grid-column:span 3;position:relative;height:150px;padding:0;border:3px solid #1b2230;border-radius:18px;overflow:hidden;cursor:pointer;background:#1b2230;box-shadow:0 5px 0 #1b2230;transform:skewX(-4deg);transition:transform .12s}
+.ar-mode:not(.big){grid-column:span 3;height:118px}
+@media (min-width:760px){.ar-mode.big{grid-column:span 3;height:170px}.ar-mode:not(.big){grid-column:span 3}.ar-modes{grid-template-columns:repeat(6,1fr)}.ar-mode:nth-child(3){grid-column:2/span 2}.ar-mode:nth-child(4){grid-column:4/span 2}}
+.ar-mode:hover{transform:skewX(-4deg) translateY(-3px)}.ar-mode.on{outline:4px solid #ffd23f;outline-offset:2px}
+.ar-mart{position:absolute;inset:0;width:100%;height:100%;display:block;transform:skewX(4deg) scale(1.08)}
+.ar-mlab{position:absolute;left:14px;bottom:8px;display:flex;flex-direction:column;align-items:flex-start;transform:skewX(4deg);color:#fff;text-shadow:var(--ol);text-align:left;pointer-events:none}
+.ar-mlab b{font-size:42px;line-height:.9;font-weight:700}.ar-mode:not(.big) .ar-mlab b{font-size:32px}.ar-mlab em{font-style:normal;font-size:18px;font-weight:700;letter-spacing:.08em}.ar-mlab small{font-size:12px;font-weight:600;max-width:200px}
+.ar-maps{display:flex;flex-wrap:wrap;align-items:center;gap:8px}.ar-maps > span{font-size:18px;font-weight:700;margin-right:4px}
+.ar-chip{padding:7px 14px;border-radius:999px;border:3px solid #1b2230;background:#fff;color:#1b2230;font:inherit;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 3px 0 #1b2230}
+.ar-chip small{font-weight:500;color:#6b7686;font-size:12px}.ar-chip.on{background:#3b9cff;color:#fff;text-shadow:0 2px 0 #1b2230}.ar-chip.on small{color:#e6f0ff}
+.ar-set{display:flex;flex-direction:column;gap:8px;margin:12px 4px;font-size:17px;font-weight:600}.ar-set span{display:flex;justify-content:space-between}.ar-set b{color:#3b9cff}
+.ar-set input[type=range]{width:100%;height:28px;accent-color:#3b9cff}.ar-set.tog{flex-direction:row;justify-content:space-between;align-items:center}.ar-set.tog input{width:28px;height:28px;accent-color:#3b9cff}
+.ar-qfill{display:flex;gap:8px;margin:8px 0}.ar-qfill i{width:26px;height:26px;border-radius:8px;border:3px solid #1b2230;background:#fff;box-shadow:0 3px 0 #1b2230}.ar-qfill i.on{background:#5fe36a}.ar-qfill i.me{background:#3b9cff}
+.ar-vs.teams{align-items:center}.ar-team{display:flex;flex-direction:column;gap:8px}
+.ar-vsc.sm{flex-direction:row;min-width:240px;padding:8px 14px;gap:10px;text-align:left}.ar-vsc.sm .ar-emb{width:40px;height:40px}.ar-vsc.sm b{font-size:18px}.ar-vsc.sm span{font-size:13px}.ar-vsc.sm em{font-size:11px}
+.ar-vsi{display:flex;flex-direction:column;align-items:inherit}.ar-vsc.t0{border-color:#3b9cff}.ar-vsc.t1{border-color:#ff4d6d}
+.ar-pips{display:flex;gap:3px;margin:0 4px}.ar-pips i{width:12px;height:20px;border-radius:4px;background:#fff;border:2px solid #1b2230}.ar-pips i.dead{background:#55606f;opacity:.6}
+.ar-tag.t0 i{background:#3b9cff}.ar-tag.t1 i{background:#ff4d6d}.ar-tag.t0 span{color:#bfe0ff}
+.ar-feed div.b{border-left:4px solid #3b9cff}.ar-feed div.r{border-left:4px solid #ff4d6d}
+.ar-spec{position:absolute;left:50%;bottom:22%;transform:translateX(-50%);font-size:24px;padding:6px 18px;border-radius:12px;background:rgba(27,34,48,.55)}
+/* phone controls: big round buttons with icons, sized by the screen */
+.tb{position:absolute;display:grid;place-items:center;padding:0;border-radius:50%;border:3px solid rgba(27,34,48,.9);background:rgba(255,255,255,.55);color:#1b2230;box-shadow:0 4px 0 rgba(27,34,48,.6);
+  width:calc(var(--s) * 1vmin);height:calc(var(--s) * 1vmin);-webkit-tap-highlight-color:transparent}
+.tb svg{width:52%;height:52%}.tb.on,.tb.lock{background:#ffd23f;transform:translateY(3px);box-shadow:0 1px 0 rgba(27,34,48,.6)}
+.tb.fire{--s:30;right:5vmin;bottom:9vmin;background:linear-gradient(180deg,rgba(255,122,122,.92),rgba(255,58,58,.92));color:#fff}
+.tb.fire2{--s:17;left:5vmin;top:34vmin;background:linear-gradient(180deg,rgba(255,122,122,.85),rgba(255,58,58,.85));color:#fff}
+.tb.jump{--s:21;right:38vmin;bottom:4vmin;background:linear-gradient(180deg,rgba(127,216,255,.92),rgba(59,156,255,.92));color:#fff}
+.tb.ads{--s:19;right:35vmin;bottom:28vmin}
+.tb.slide{--s:17;right:4vmin;bottom:42vmin}
+.tb.reload{--s:16;right:23vmin;bottom:44vmin}
+.tb.skill{--s:19;right:44vmin;bottom:48vmin;background:linear-gradient(180deg,rgba(192,132,252,.6),rgba(139,63,224,.6));color:#fff}.tb.skill.ready{background:linear-gradient(180deg,#c084fc,#8b3fe0);box-shadow:0 4px 0 rgba(27,34,48,.6),0 0 16px #c084fc}
+.tb.skill .cdr{position:absolute;inset:-4px;width:calc(100% + 8px);height:calc(100% + 8px);transform:rotate(-90deg)}.tb.skill .cdr circle{fill:none;stroke:#fff;stroke-width:3;stroke-dasharray:113.1}
+.tb.swap{--s:16;right:4vmin;top:20vmin}
+.ar-stick{width:34vmin;height:34vmin;margin:-17vmin 0 0 -17vmin;left:22vmin;top:68%}.ar-stick i{width:15vmin;height:15vmin;margin:-7.5vmin 0 0 -7.5vmin}
+@media (pointer:coarse){.ar-pausebtn{top:10px;bottom:auto;left:10px;transform:none;width:46px;height:46px;padding:0;display:grid;place-items:center}.ar-pausebtn svg{width:24px;height:24px}
+  .ar-hp{top:66px}.ar-spec{bottom:auto;top:30%}
+  .ar-wp{top:auto;right:auto;left:50%;bottom:6px;transform:translateX(-50%);text-align:center;z-index:2;pointer-events:none}.ar-wp .ar-ammo b{font-size:28px}.ar-wp .ar-ammo span{font-size:16px}.ar-wn{font-size:13px;margin:0 auto;white-space:nowrap}
+  .ar-feed{right:auto;left:12px;top:108px;justify-items:start;font-size:12px}.ar-feed div{max-width:42vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tb.swap{top:auto;bottom:62vmin;right:5vmin}.tb.slide{bottom:41vmin;right:3vmin}.tb.skill{right:42vmin;bottom:50vmin}}
+@media (max-width:700px){.ar-rmini{margin-left:0}.ar-mode.big{height:130px}.ar-mlab b{font-size:34px}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -17247,27 +17294,35 @@ function acctInit(){
 acctInit();
 
 /* =====================================================================================================
-   SHOWDOWN: a 1v1 arena shooter inside Crate Rush.
-   You take three of your own weapons (primary, pistol, knife) into a crate-yard arena against a bot.
-   First to 5 rounds. Matchmaking takes 15-30 seconds. Your rank decides how good the bot is and what it
-   carries; Black Market pieces each have a special skill (Q). Three.js loads the first time you open it.
+   SHOWDOWN: an arena shooter inside Crate Rush. 1v1 up to 4v4, with bots on both teams.
+   You take three of your own weapons (primary, pistol, knife). First team to 5 rounds wins.
+   Matchmaking takes 15-30 seconds. Your rank decides how good the bots are and what they carry;
+   Black Market pieces each have a special skill (Q). Three.js loads the first time you open it.
    ===================================================================================================== */
 const AR_THREE_URL = 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js';
 const AR_RANKS = ['Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Master', 'Legend'];
 const AR_RCOL = ['#cd8a52', '#c3ccd8', '#ffcb2e', '#46e0c4', '#6ab8ff', '#c46bff', '#ff4d6d'];
 const AR_DIV = 100, AR_WIN = 5, AR_ROUND_T = 90;
-const arS = () => { const a = state.arena || (state.arena = {}); a.rp = a.rp || 0; a.w = a.w || 0; a.l = a.l || 0; a.load = a.load || {p: null, s: null, m: null}; return a; };
+const arS = () => { const a = state.arena || (state.arena = {}); a.rp = a.rp || 0; a.w = a.w || 0; a.l = a.l || 0; a.load = a.load || {p: null, s: null, m: null};
+  a.mode = a.mode || '1v1'; a.map = a.map || 'any'; a.sens = a.sens || {pc: 1, mob: 1}; if (a.assist == null) a.assist = true; return a; };
 const arRankIdx = rp => Math.max(0, Math.min(20, Math.floor(rp / AR_DIV)));
 const arRankName = rp => { const i = arRankIdx(rp); return AR_RANKS[Math.floor(i / 3)] + ' ' + ['I', 'II', 'III'][i % 3]; };
 const arRankCol = rp => AR_RCOL[Math.floor(arRankIdx(rp) / 3)];
+/* game modes: team size, which maps they use, and the card colours */
+const AR_MODES = [
+  {id: '1v1', n: 1, name: 'Duel', sub: 'Just you. First to 5.', maps: ['yard', 'overpass'], g: ['#ff7a59', '#ff3d77']},
+  {id: '2v2', n: 2, name: 'Duo', sub: 'You and a bot partner.', maps: ['yard', 'overpass', 'court'], g: ['#3bc9ff', '#4f6bff']},
+  {id: '3v3', n: 3, name: 'Squad', sub: 'Three a side on big maps.', maps: ['overpass', 'court', 'docks'], g: ['#5fe36a', '#13a39a']},
+  {id: '4v4', n: 4, name: 'Brawl', sub: 'Eight players. Chaos.', maps: ['docks', 'court'], g: ['#ffcf3a', '#ff8a1f']}];
+const arMode = id => AR_MODES.find(m => m.id === id) || AR_MODES[0];
 /* weapon handling by type: every skin of a type plays the same; Black Market adds a skill */
 const AR_W = {
-  rifle:  {slot: 0, auto: 1, rate: .1,  dmg: 22, hm: 1.6, mag: 30, rl: 2.0, sp: .016, ads: .004, fall: [30, 60, .7], kick: .012, zoom: 1.35, spd: 1,    snd: [2200, 260, .2, 120]},
-  smg:    {slot: 0, auto: 1, rate: .068, dmg: 15, hm: 1.4, mag: 32, rl: 1.7, sp: .032, ads: .016, fall: [14, 40, .6], kick: .008, zoom: 1.2,  spd: 1.08, snd: [3200, 500, .14, 160]},
-  shotgun:{slot: 0, rate: .85, pel: 8, dmg: 11, hm: 1.3, mag: 6, rl: 2.4, sp: .075, ads: .06, fall: [7, 24, .25], kick: .055, zoom: 1.15, spd: 1, snd: [1400, 120, .32, 70]},
-  sniper: {slot: 0, rate: 1.2, dmg: 90, hm: 2.05, mag: 5, rl: 2.8, sp: .09, ads: .0006, fall: [999, 999, 1], kick: .07, zoom: 4.2, spd: .92, scope: 1, snd: [1800, 90, .45, 60]},
-  pistol: {slot: 1, rate: .17, dmg: 26, hm: 1.6, mag: 12, rl: 1.4, sp: .018, ads: .006, fall: [20, 45, .7], kick: .022, zoom: 1.2, spd: 1.05, snd: [2600, 400, .16, 180]},
-  knife:  {slot: 2, melee: 1, rate: .5, dmg: 45, hm: 1, mag: 0, rl: 0, range: 2.7, spd: 1.15, zoom: 1, sp: .02, ads: .02, kick: 0, fall: [99, 99, 1]}
+  rifle:  {slot: 0, auto: 1, rate: .1,  dmg: 22, hm: 1.6, mag: 30, rl: 2.0, sp: .016, ads: .004, fall: [30, 60, .7], kick: .012, zoom: 1.35, spd: 1,    snd: [2200, 260, .2, 120], pref: 14},
+  smg:    {slot: 0, auto: 1, rate: .068, dmg: 15, hm: 1.4, mag: 32, rl: 1.7, sp: .032, ads: .016, fall: [14, 40, .6], kick: .008, zoom: 1.2,  spd: 1.08, snd: [3200, 500, .14, 160], pref: 8},
+  shotgun:{slot: 0, rate: .85, pel: 8, dmg: 11, hm: 1.3, mag: 6, rl: 2.4, sp: .075, ads: .06, fall: [7, 24, .25], kick: .055, zoom: 1.15, spd: 1, snd: [1400, 120, .32, 70], pref: 3.5},
+  sniper: {slot: 0, rate: 1.2, dmg: 90, hm: 2.05, mag: 5, rl: 2.8, sp: .09, ads: .0006, fall: [999, 999, 1], kick: .07, zoom: 4.2, spd: .92, scope: 1, snd: [1800, 90, .45, 60], pref: 22},
+  pistol: {slot: 1, rate: .17, dmg: 26, hm: 1.6, mag: 12, rl: 1.4, sp: .018, ads: .006, fall: [20, 45, .7], kick: .022, zoom: 1.2, spd: 1.05, snd: [2600, 400, .16, 180], pref: 10},
+  knife:  {slot: 2, melee: 1, rate: .5, dmg: 45, hm: 1, mag: 0, rl: 0, range: 2.7, spd: 1.15, zoom: 1, sp: .02, ads: .02, kick: 0, fall: [99, 99, 1], pref: 0}
 };
 const arType = it => SHAPES[it.w] && SHAPES[it.w].knife ? 'knife' : it.w;
 const AR_SLOTN = ['Primary', 'Pistol', 'Knife'];
@@ -17278,11 +17333,11 @@ const AR_STOCK = [
 /* Black Market special skills (Chromas get theirs later) */
 const AR_SK = {
   b1: {n: 'Abyss Rounds', d: 'For 5s your shots hit 20% harder and slow the enemy.', cd: 18},
-  b2: {n: 'Void Sight', d: 'For 6s you see the enemy through walls and your shots pierce them.', cd: 20},
+  b2: {n: 'Void Sight', d: 'For 6s you see enemies through walls and your shots pierce them.', cd: 20},
   b3: {n: 'Shade Step', d: 'Blink 7m forward and turn invisible for 2s.', cd: 14},
   b4: {n: 'Overdrive', d: 'For 5s you fire 60% faster and use no ammo.', cd: 18},
-  b5: {n: 'Wraith Dash', d: 'Dash forward. For 6s your pellets set the enemy on fire.', cd: 16},
-  b6: {n: 'Umbra Lunge', d: 'Lunge 10m. Hitting the enemy deals 80.', cd: 12},
+  b5: {n: 'Wraith Dash', d: 'Dash forward. For 6s your pellets set enemies on fire.', cd: 16},
+  b6: {n: 'Umbra Lunge', d: 'Lunge 10m. Hitting an enemy deals 80.', cd: 12},
   b7: {n: 'Hex Bind', d: 'Throw a hex: 20 damage and it roots the enemy for 1.6s.', cd: 16},
   x1: {n: 'Requiem', d: 'Heal 40 and your next 3 shots deal double.', cd: 22},
   x2: {n: 'Kingmaker', d: 'A 50-point shield and 30% speed for 5s.', cd: 18}
@@ -17299,32 +17354,87 @@ function arLoadout(){
   return out;
 }
 
-/* ---------- the map: a crate yard, mirrored left/right ---------- */
-const AR_MAP = (() => {
+/* ---------- maps: each one is a list of boxes [x0, y0, z0, x1, y1, z1, kind], mirrored left/right ---------- */
+function arBuild(W, D, wallH, fill){
   const B = [], box = (cx, cz, w, d, h, k, y0) => B.push([cx - w / 2, y0 || 0, cz - d / 2, cx + w / 2, (y0 || 0) + h, cz + d / 2, k]);
-  const both = (cx, cz, w, d, h, k, y0) => { box(cx, cz, w, d, h, k, y0); box(-cx, cz, w, d, h, k, y0); };
-  box(0, -15.5, 46, 1, 6, 'wall'); box(0, 15.5, 46, 1, 6, 'wall'); box(-22.5, 0, 1, 30, 6, 'wall'); box(22.5, 0, 1, 30, 6, 'wall');
-  box(0, 0, 3, 3, 3, 'crate'); box(0, 0, 1.5, 1.5, 1.5, 'crate', 3);
-  box(0, 7.6, 2.4, 1.2, 1.2, 'crate'); box(0, -7.6, 2.4, 1.2, 1.2, 'crate');
-  both(6, -5.5, 1.5, 1.5, 1.5, 'crate'); both(6.6, 5.2, 1.5, 1.5, 1.5, 'crate'); both(6.6, 5.2, 1.5, 1.5, 1.5, 'crate', 1.5);
-  both(12, 12.6, 6, 2.5, 2.6, 'cont'); both(12, -12.6, 6, 2.5, 2.6, 'cont');
-  both(15, 0, .8, 6, 1.2, 'barrier');
-  both(3.6, 11.6, 1.2, 1.2, 1.2, 'crate'); both(3.6, -11.6, 1.2, 1.2, 1.2, 'crate');
-  both(9.8, 0, 1, 1, 3.4, 'pillar');
-  both(18.6, 7.4, 1.5, 1.5, 1.5, 'crate'); both(18.6, -7.4, 1.5, 1.5, 1.5, 'crate');
-  both(10.5, 7.8, 2.6, 1.2, 1.2, 'barrier'); both(10.5, -7.8, 2.6, 1.2, 1.2, 'barrier');
+  const both = (cx, cz, w, d, h, k, y0) => { box(cx, cz, w, d, h, k, y0); if (cx) box(-cx, cz, w, d, h, k, y0); };
+  box(0, -D / 2 - .5, W + 2, 1, wallH, 'wall'); box(0, D / 2 + .5, W + 2, 1, wallH, 'wall'); box(-W / 2 - .5, 0, 1, D, wallH, 'wall'); box(W / 2 + .5, 0, 1, D, wallH, 'wall');
+  fill(box, both);
   return B;
-})();
-const AR_R = .32, AR_H = 1.8, AR_EYE = 1.6, AR_G = 22;
+}
+/* a flight of steps from the ground up to height h, running along +z or -z from z0 */
+function arStairs(box, cx, z0, dir, w, h){ const n = Math.round(h / .4); for (let i = 0; i < n; i++) box(cx, z0 + dir * (i + .5) * .8, w, .8, h - .4 * (i + 1) + .4, 'stair'); }
+const AR_MAPS = {
+  yard: {name: 'Crate Yard', W: 44, D: 30, wallH: 6, pal: ['#c3c8d0', '#d9dde3', '#e6e9ee'], sky: '#8fb8e8',
+    boxes: () => arBuild(44, 30, 6, (box, both) => {
+      box(0, 0, 3, 3, 3, 'crate'); box(0, 0, 1.5, 1.5, 1.5, 'crate', 3);
+      box(0, 7.6, 2.4, 1.2, 1.2, 'crate'); box(0, -7.6, 2.4, 1.2, 1.2, 'crate');
+      both(6, -5.5, 1.5, 1.5, 1.5, 'crate'); both(6.6, 5.2, 1.5, 1.5, 1.5, 'crate'); both(6.6, 5.2, 1.5, 1.5, 1.5, 'crate', 1.5);
+      both(12, 12.6, 6, 2.5, 2.6, 'cont'); both(12, -12.6, 6, 2.5, 2.6, 'cont');
+      both(15, 0, .8, 6, 1.2, 'barrier');
+      both(3.6, 11.6, 1.2, 1.2, 1.2, 'crate'); both(3.6, -11.6, 1.2, 1.2, 1.2, 'crate');
+      both(9.8, 0, 1, 1, 3.4, 'pillar');
+      both(18.6, 7.4, 1.5, 1.5, 1.5, 'crate'); both(18.6, -7.4, 1.5, 1.5, 1.5, 'crate');
+      both(10.5, 7.8, 2.6, 1.2, 1.2, 'barrier'); both(10.5, -7.8, 2.6, 1.2, 1.2, 'barrier');
+    })},
+  overpass: {name: 'Overpass', W: 64, D: 40, wallH: 7, pal: ['#cfc7bd', '#e2dcd3', '#ece7e0'], sky: '#f2b58a',
+    boxes: () => arBuild(64, 40, 7, (box, both) => {
+      /* a raised bridge across the middle, with stairs at both ends and pillars underneath */
+      box(0, 0, 4, 24, .4, 'plat', 2.2);
+      [-9, -3, 3, 9].forEach(z => both(1.6, z, .6, .6, 2.2, 'pillar'));
+      arStairs(box, 0, 12, 1, 4, 2.6); arStairs(box, 0, -12, -1, 4, 2.6);
+      both(12, 8, 2.5, 6, 2.6, 'cont'); both(12, -8, 2.5, 6, 2.6, 'cont'); both(12, -8, 2.5, 6, 2.6, 'cont', 2.6);
+      both(7, 0, .8, 4, 1.2, 'barrier'); both(24, 0, .8, 8, 1.2, 'barrier');
+      both(18, 13, 3, 3, 4.2, 'crate'); both(18, -13, 3, 3, 4.2, 'crate');
+      both(19, 4.5, 1.5, 1.5, 1.5, 'crate'); both(19, -4.5, 1.5, 1.5, 1.5, 'crate');
+      both(26, 11, 1, 1, 3.6, 'pillar'); both(26, -11, 1, 1, 3.6, 'pillar');
+      both(6, 16, 2.4, 1.2, 1.2, 'crate'); both(6, -16, 2.4, 1.2, 1.2, 'crate');
+      both(28, 16, 1.5, 1.5, 1.5, 'crate'); both(28, -16, 1.5, 1.5, 1.5, 'crate');
+    })},
+  court: {name: 'Courtyard', W: 60, D: 60, wallH: 7, pal: ['#c6d3c8', '#dde6de', '#eef2ee'], sky: '#8fd0c8',
+    boxes: () => arBuild(60, 60, 7, (box, both) => {
+      box(0, 0, 6, 6, .9, 'barrier'); box(0, 0, 1.6, 1.6, 3.2, 'pillar');
+      /* four pavilions: pillars and a roof you can walk under */
+      [[14, 14], [14, -14]].forEach(([x, z]) => { [[-3.6, -3.6], [3.6, -3.6], [-3.6, 3.6], [3.6, 3.6]].forEach(([dx, dz]) => both(x + dx, z + dz, .7, .7, 3.2, 'pillar')); both(x, z, 8.4, 8.4, .4, 'plat', 3.2); both(x, z, 2.4, 1.2, 1.2, 'crate'); });
+      both(22, 0, .8, 10, 1.2, 'barrier'); box(0, 22, 10, .8, 1.2, 'barrier'); box(0, -22, 10, .8, 1.2, 'barrier');
+      both(8, 26, 3, 3, 3, 'crate'); both(8, -26, 3, 3, 3, 'crate'); both(25, 22, 3, 3, 2.4, 'cont'); both(25, -22, 3, 3, 2.4, 'cont');
+      both(7, 7, 1.5, 1.5, 1.5, 'crate'); both(7, -7, 1.5, 1.5, 1.5, 'crate');
+      both(14, 0, 1.2, 1.2, 1.2, 'crate'); both(24, 9, 1.5, 1.5, 1.5, 'crate'); both(24, -9, 1.5, 1.5, 1.5, 'crate');
+    })},
+  docks: {name: 'Docks', W: 80, D: 48, wallH: 8, pal: ['#b9c3cf', '#cfd7e0', '#e1e7ee'], sky: '#7fa8d8',
+    boxes: () => arBuild(80, 48, 8, (box, both) => {
+      /* container rows with lanes between them */
+      [[-14, 6], [-2, 6], [10, 6]].forEach(([z, l]) => { both(12, z, 2.5, l, 2.6, 'cont'); both(26, z + 3, 2.5, l, 2.6, 'cont'); });
+      both(12, 10, 2.5, 6, 2.6, 'cont', 2.6); both(26, -11, 2.5, 6, 2.6, 'cont', 2.6);
+      box(0, 0, 6, 2.5, 2.6, 'cont'); box(0, 0, 6, 2.5, 2.6, 'cont', 2.6); box(0, 14, 6, 2.5, 2.6, 'cont'); box(0, -14, 6, 2.5, 2.6, 'cont');
+      both(0, 7, 2, 2, 8, 'pillar'); both(0, -7, 2, 2, 8, 'pillar');
+      box(0, 7, 2, 18, .5, 'plat', 7.5);
+      both(19, 0, .8, 8, 1.2, 'barrier'); both(33, 0, .8, 10, 1.2, 'barrier');
+      both(6, 20, 1.5, 1.5, 1.5, 'crate'); both(6, -20, 1.5, 1.5, 1.5, 'crate'); both(19, 18, 2.4, 1.2, 1.2, 'crate'); both(19, -18, 2.4, 1.2, 1.2, 'crate');
+      both(34, 14, 3, 3, 3, 'crate'); both(34, -14, 3, 3, 3, 'crate'); both(6, 4, 1.2, 1.2, 1.2, 'crate'); both(6, -9, 1.2, 1.2, 1.2, 'crate');
+    })}
+};
+/* the live map: boxes, bounds and the bots' walking grid */
+let ARB = [], AR_GX0 = -22, AR_GZ0 = -15, AR_GW = 44, AR_GH = 30, AR_GRID = new Uint8Array(1), ARM = null;
+function arSetMap(id){
+  ARM = Object.assign({id}, AR_MAPS[id]); ARB = ARM.boxes();
+  AR_GW = ARM.W; AR_GH = ARM.D; AR_GX0 = -ARM.W / 2; AR_GZ0 = -ARM.D / 2;
+  AR_GRID = new Uint8Array(AR_GW * AR_GH);
+  for (let i = 0; i < AR_GW; i++) for (let j = 0; j < AR_GH; j++) {
+    const x = AR_GX0 + i + .5, z = AR_GZ0 + j + .5;
+    AR_GRID[j * AR_GW + i] = ARB.some(b => b[1] < 1 && x + .45 > b[0] && x - .45 < b[3] && z + .45 > b[2] && z - .45 < b[5]) ? 1 : 0;
+  }
+}
+const AR_R = .32, AR_H = 1.8, AR_EYE = 1.6, AR_G = 24;
 const arOv = (p, b) => p.x + AR_R > b[0] && p.x - AR_R < b[3] && p.z + AR_R > b[2] && p.z - AR_R < b[5] && p.y + AR_H > b[1] + 1e-3 && p.y < b[4] - 1e-3;
 function arMoveBody(f, dt){
   const p = f.p, v = f.v;
   const stepAxis = (ax, d) => {
     if (!d) return;
     p[ax] += d;
-    for (const b of AR_MAP) if (arOv(p, b)) {
+    for (const b of ARB) if (arOv(p, b)) {
       const lift = b[4] - p.y;
-      if (f.ground && lift > 0 && lift <= .5) { const y0 = p.y; p.y = b[4]; if (AR_MAP.some(c => arOv(p, c))) p.y = y0; else continue; }
+      if (lift > 0 && lift <= .5 && (f.ground || lift <= .25)) { const y0 = p.y; p.y = b[4]; if (ARB.some(c => arOv(p, c))) p.y = y0; else continue; }
       if (ax === 'x') p.x = d > 0 ? b[0] - AR_R - 1e-4 : b[3] + AR_R + 1e-4; else p.z = d > 0 ? b[2] - AR_R - 1e-4 : b[5] + AR_R + 1e-4;
       v[ax] = 0;
     }
@@ -17332,10 +17442,10 @@ function arMoveBody(f, dt){
   stepAxis('x', v.x * dt); stepAxis('z', v.z * dt);
   v.y -= AR_G * dt; p.y += v.y * dt; f.ground = false;
   if (p.y <= 0) { p.y = 0; v.y = 0; f.ground = true; }
-  for (const b of AR_MAP) if (arOv(p, b)) {
+  for (const b of ARB) if (arOv(p, b)) {
     if (v.y <= 0 && p.y > b[4] - .6) { p.y = b[4]; v.y = 0; f.ground = true; } else if (v.y > 0) { p.y = b[1] - AR_H; v.y = 0; }
   }
-  if (!f.ground && v.y <= 0) { const q = {x: p.x, y: p.y - .05, z: p.z}; if (q.y <= 0 || AR_MAP.some(b => arOv(q, b))) f.ground = true; }
+  if (!f.ground && v.y <= 0) { const q = {x: p.x, y: p.y - .05, z: p.z}; if (q.y <= 0 || ARB.some(b => arOv(q, b))) f.ground = true; }
 }
 /* rays: slab test against boxes, spheres for heads */
 function arRayBox(o, d, b){
@@ -17348,7 +17458,7 @@ function arRayBox(o, d, b){
   }
   return t0;
 }
-function arRayMap(o, d, max){ let t = max; for (const b of AR_MAP) { const h = arRayBox(o, d, b); if (h < t) t = h; } if (d.y < 0) { const g = -o.y / d.y; if (g < t) t = g; } return t; }
+function arRayMap(o, d, max){ let t = max; for (const b of ARB) { const h = arRayBox(o, d, b); if (h < t) t = h; } if (d.y < 0) { const g = -o.y / d.y; if (g < t) t = g; } return t; }
 function arRaySphere(o, d, c, r){ const ox = o.x - c.x, oy = o.y - c.y, oz = o.z - c.z, b = ox * d.x + oy * d.y + oz * d.z, cc = ox * ox + oy * oy + oz * oz - r * r, h = b * b - cc; if (h < 0) return Infinity; const t = -b - Math.sqrt(h); return t >= 0 ? t : Infinity; }
 const arEye = f => ({x: f.p.x, y: f.p.y + (f.slide > 0 ? 1.05 : AR_EYE), z: f.p.z});
 const arDist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z);
@@ -17360,36 +17470,27 @@ function arRayFighter(o, d, f){
   const hb = f.slide > 0 ? 1.0 : 1.42, body = arRayBox(o, d, [f.p.x - .36, f.p.y, f.p.z - .36, f.p.x + .36, f.p.y + hb, f.p.z + .36]);
   return head <= body ? {t: head, head: head < Infinity} : {t: body, head: false};
 }
-/* the bots walk a 1m grid with A* */
-const AR_GX0 = -22, AR_GZ0 = -15, AR_GW = 44, AR_GH = 30;
-const AR_GRID = (() => {
-  const g = new Uint8Array(AR_GW * AR_GH);
-  for (let i = 0; i < AR_GW; i++) for (let j = 0; j < AR_GH; j++) {
-    const x = AR_GX0 + i + .5, z = AR_GZ0 + j + .5;
-    g[j * AR_GW + i] = AR_MAP.some(b => b[1] < 1 && x + .45 > b[0] && x - .45 < b[3] && z + .45 > b[2] && z - .45 < b[5]) ? 1 : 0;
-  }
-  return g;
-})();
+/* A* on the 1m grid with a binary heap, so big maps and eight bots stay cheap */
 const arCell = p => [Math.max(0, Math.min(AR_GW - 1, Math.floor(p.x - AR_GX0))), Math.max(0, Math.min(AR_GH - 1, Math.floor(p.z - AR_GZ0)))];
 function arPath(a, b){
   const [ax, az] = arCell(a), [bx, bz] = arCell(b), N = AR_GW * AR_GH, start = az * AR_GW + ax, goal = bz * AR_GW + bx;
-  const gS = new Float32Array(N).fill(1e9), from = new Int32Array(N).fill(-1), open = [start], closed = new Uint8Array(N);
-  const h = i => Math.hypot(i % AR_GW - bx, Math.floor(i / AR_GW) - bz);
-  gS[start] = 0; const fS = new Float32Array(N).fill(1e9); fS[start] = h(start);
-  let guard = 0;
-  while (open.length && guard++ < 3000) {
-    let bi = 0; for (let k = 1; k < open.length; k++) if (fS[open[k]] < fS[open[bi]]) bi = k;
-    const cur = open.splice(bi, 1)[0]; if (cur === goal) break; closed[cur] = 1;
+  const gS = new Float32Array(N).fill(1e9), from = new Int32Array(N).fill(-1), closed = new Uint8Array(N), heap = [], hf = [];
+  const h = i => { const dx = Math.abs(i % AR_GW - bx), dz = Math.abs(Math.floor(i / AR_GW) - bz); return dx + dz - .586 * Math.min(dx, dz); };
+  const push = (n, f) => { heap.push(n); hf.push(f); let i = heap.length - 1; while (i > 0) { const p = (i - 1) >> 1; if (hf[p] <= hf[i]) break; [heap[p], heap[i]] = [heap[i], heap[p]]; [hf[p], hf[i]] = [hf[i], hf[p]]; i = p; } };
+  const pop = () => { const top = heap[0], ln = heap.pop(), lf = hf.pop(); if (heap.length) { heap[0] = ln; hf[0] = lf; let i = 0; for (;;) { const l = 2 * i + 1, r = l + 1; let m = i; if (l < heap.length && hf[l] < hf[m]) m = l; if (r < heap.length && hf[r] < hf[m]) m = r; if (m === i) break; [heap[m], heap[i]] = [heap[i], heap[m]]; [hf[m], hf[i]] = [hf[i], hf[m]]; i = m; } } return top; };
+  gS[start] = 0; push(start, h(start)); let guard = 0;
+  while (heap.length && guard++ < 6000) {
+    const cur = pop(); if (closed[cur]) continue; if (cur === goal) break; closed[cur] = 1;
     const cx = cur % AR_GW, cz = Math.floor(cur / AR_GW);
     for (let dx = -1; dx <= 1; dx++) for (let dz = -1; dz <= 1; dz++) {
       if (!dx && !dz) continue; const nx = cx + dx, nz = cz + dz; if (nx < 0 || nz < 0 || nx >= AR_GW || nz >= AR_GH) continue;
       const n = nz * AR_GW + nx; if (closed[n] || (AR_GRID[n] && n !== goal)) continue;
       if (dx && dz && (AR_GRID[cz * AR_GW + nx] || AR_GRID[nz * AR_GW + cx])) continue;
-      const g2 = gS[cur] + (dx && dz ? 1.414 : 1); if (g2 < gS[n]) { gS[n] = g2; fS[n] = g2 + h(n); from[n] = cur; if (!open.includes(n)) open.push(n); }
+      const g2 = gS[cur] + (dx && dz ? 1.414 : 1); if (g2 < gS[n]) { gS[n] = g2; from[n] = cur; push(n, g2 + h(n)); }
     }
   }
   const out = []; let c = goal; if (from[c] < 0 && c !== start) return out;
-  while (c !== start && c >= 0 && out.length < 200) { out.unshift({x: AR_GX0 + c % AR_GW + .5, z: AR_GZ0 + Math.floor(c / AR_GW) + .5}); c = from[c]; }
+  while (c !== start && c >= 0 && out.length < 300) { out.unshift({x: AR_GX0 + c % AR_GW + .5, z: AR_GZ0 + Math.floor(c / AR_GW) + .5}); c = from[c]; }
   return out;
 }
 
@@ -17403,7 +17504,7 @@ function arBotKit(rp){
   let t = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 6]][ti][R < .5 ? 0 : 1];
   if (ti === 5 && R > .65) t = 6; if (ti === 5 && R <= .65) t = 5;
   if (ti === 6 && Math.random() < .25) t = 5;
-  let chroma = ti === 6 && Math.random() < .08;
+  const chroma = ti === 6 && Math.random() < .08;
   let pool;
   if (chroma) pool = ITEMS.filter(i => i.t === 7 && !i.id.endsWith('c') && arType(i) !== 'knife');
   else if (t === 6) pool = ITEMS.filter(i => /^b[1-7]$/.test(i.id));
@@ -17420,23 +17521,22 @@ let AR_T = null, AR = null;
 async function arThree(){ if (AR_T) return AR_T; AR_T = await import(AR_THREE_URL); return AR_T; }
 const AR_MOBILE = matchMedia('(pointer: coarse)').matches || ('ontouchstart' in window && innerWidth < 1100);
 function arCanvas(w, h, draw){ const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); return c; }
-function arTex(T, c, rx, ry){ const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.wrapS = t.wrapT = T.RepeatWrapping; t.repeat.set(rx || 1, ry || 1); t.anisotropy = 4; return t; }
-function arMats(T){
+const arShade = (hex, k) => { const n = parseInt(hex.slice(1), 16), f = c => Math.max(0, Math.min(255, Math.round(c * k))); return '#' + [f(n >> 16), f(n >> 8 & 255), f(n & 255)].map(x => x.toString(16).padStart(2, '0')).join(''); };
+function arMats(T, pal){
   /* one clean tile: light panel, soft bevel, dark seam, a cross where four tiles meet */
-  const tile = (base, seam, cross) => arCanvas(256, 256, (g, w, h) => {
+  const tile = base => arCanvas(256, 256, (g, w, h) => {
     g.fillStyle = base; g.fillRect(0, 0, w, h);
     const lg = g.createLinearGradient(0, 0, w, h); lg.addColorStop(0, 'rgba(255,255,255,.18)'); lg.addColorStop(1, 'rgba(0,0,0,.06)'); g.fillStyle = lg; g.fillRect(0, 0, w, h);
     g.strokeStyle = 'rgba(255,255,255,.45)'; g.lineWidth = 3; g.strokeRect(5, 5, w - 10, h - 10);
-    g.strokeStyle = seam; g.lineWidth = 4; g.strokeRect(0, 0, w, h);
-    g.fillStyle = cross; [[0, 0], [w, 0], [0, h], [w, h]].forEach(([x, y]) => { g.fillRect(x - 18, y - 4, 36, 8); g.fillRect(x - 4, y - 18, 8, 36); });
+    g.strokeStyle = arShade(base, .8); g.lineWidth = 4; g.strokeRect(0, 0, w, h);
+    g.fillStyle = arShade(base, .73); [[0, 0], [w, 0], [0, h], [w, h]].forEach(([x, y]) => { g.fillRect(x - 18, y - 4, 36, 8); g.fillRect(x - 4, y - 18, 8, 36); });
   });
-  const S = (c, o) => { const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.wrapS = t.wrapT = T.RepeatWrapping; t.anisotropy = 8;
+  const S = (c, o) => { const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.wrapS = t.wrapT = T.RepeatWrapping; t.anisotropy = AR_MOBILE ? 2 : 8;
     return new T.MeshStandardMaterial(Object.assign({map: t, roughness: .78, metalness: 0}, o || {})); };
-  return {
-    floor: S(tile('#c3c8d0', '#9aa1ab', '#8d949f')), wall: S(tile('#d9dde3', '#aeb4bd', '#9ea5af')),
-    crate: S(tile('#e6e9ee', '#b4bac3', '#a7aeb8')), barrier: S(tile('#cfd5dd', '#a2a9b3', '#959ca7')),
-    pillar: S(tile('#e9ecf0', '#b6bcc5', '#a9b0ba')),
-    cont: [S(tile('#bcd3ec', '#8fa9c6', '#7f9aba')), S(tile('#d8c9ef', '#ad9bcc', '#9c89bd')), S(tile('#c4e4d2', '#93bba4', '#83ad95')), S(tile('#f1d5c4', '#cfa98f', '#c09a80'))],
+  const [fl, wl, bk] = pal;
+  return {floor: S(tile(fl)), wall: S(tile(wl)), crate: S(tile(bk)), barrier: S(tile(arShade(bk, .92))), pillar: S(tile(arShade(bk, 1.02))),
+    plat: S(tile(arShade(wl, .96))), stair: S(tile(arShade(bk, .95))),
+    cont0: S(tile('#bcd3ec')), cont1: S(tile('#d8c9ef')), cont2: S(tile('#c4e4d2')), cont3: S(tile('#f1d5c4')),
     trim: new T.MeshStandardMaterial({color: '#ffffff', emissive: '#7fd8ff', emissiveIntensity: 1.4})};
 }
 /* box UVs in world metres so every surface shares one 2m tile grid */
@@ -17448,14 +17548,14 @@ function arBoxUV(geo, cx, cy, cz, tile){
   }
   uv.needsUpdate = true; return geo;
 }
-/* a rounded block: an extruded rounded rectangle with a bevel, centred */
-function arRBox(T, w, h, d, r){
-  r = Math.min(r, w / 2 - .001, h / 2 - .001, d / 2 - .001);
-  const s = new T.Shape();
-  s.moveTo(-w / 2 + r, -h / 2); s.lineTo(w / 2 - r, -h / 2); s.quadraticCurveTo(w / 2, -h / 2, w / 2, -h / 2 + r); s.lineTo(w / 2, h / 2 - r);
-  s.quadraticCurveTo(w / 2, h / 2, w / 2 - r, h / 2); s.lineTo(-w / 2 + r, h / 2); s.quadraticCurveTo(-w / 2, h / 2, -w / 2, h / 2 - r); s.lineTo(-w / 2, -h / 2 + r); s.quadraticCurveTo(-w / 2, -h / 2, -w / 2 + r, -h / 2);
-  const g = new T.ExtrudeGeometry(s, {depth: Math.max(.001, d - 2 * r), bevelEnabled: true, bevelSize: r * .9, bevelThickness: r, bevelSegments: 3, curveSegments: 4});
-  g.translate(0, 0, -(d - 2 * r) / 2); g.computeVertexNormals(); return g;
+/* merge many boxes that share a material into one mesh: a big map draws in a handful of calls */
+function arMerge(T, geos){
+  let n = 0; geos.forEach(g => n += g.index ? g.index.count : g.attributes.position.count);
+  const P = new Float32Array(n * 3), N = new Float32Array(n * 3), U = new Float32Array(n * 2); let o = 0;
+  geos.forEach(g0 => { const g = g0.index ? g0.toNonIndexed() : g0, p = g.attributes.position.array, nn = g.attributes.normal.array, u = g.attributes.uv.array;
+    P.set(p, o * 3); N.set(nn, o * 3); U.set(u, o * 2); o += g.attributes.position.count; g.dispose(); if (g !== g0) g0.dispose(); });
+  const out = new T.BufferGeometry(); out.setAttribute('position', new T.BufferAttribute(P, 3)); out.setAttribute('normal', new T.BufferAttribute(N, 3)); out.setAttribute('uv', new T.BufferAttribute(U, 2));
+  out.computeBoundingSphere(); return out;
 }
 /* SVG path (M L H V Q A Z, absolute) to a three ShapePath */
 function arShapePath(T, d){
@@ -17505,26 +17605,25 @@ function arGun(T, it, fl){
   out.add(inner); out.rotation.y = Math.PI / 2;
   const wrap = new T.Group(); wrap.add(out); wrap.userData.len = (knife ? 150 : 128) * s; return wrap;
 }
-const AR_BOTCOL = ['#a855f7', '#3b82f6', '#ef4444', '#f59e0b', '#10b981', '#ec4899', '#14b8a6', '#f97316', '#6366f1', '#84cc16'];
-/* a bot: a chunky, rounded, single-colour figure with a dark visor and two glowing eyes */
-function arBotModel(T, col, kit, name){
-  const body = AR_BOTCOL[hash(name || 'bot') % AR_BOTCOL.length], g = new T.Group();
+/* team colours: your side in cool colours, theirs in warm ones */
+const AR_TEAMCOL = [['#3b82f6', '#0ea5e9', '#14b8a6', '#6366f1', '#22c55e'], ['#ef4444', '#f97316', '#ec4899', '#a855f7', '#eab308']];
+const AR_TEAMHUE = ['#3b9cff', '#ff4d6d'];
+/* a bot: blocky build, separate arms and legs that swing from shoulder and hip pivots, a square visor head */
+function arBotModel(T, col, kit, body){
+  const g = new T.Group();
   const mat = new T.MeshStandardMaterial({color: body, roughness: .7, metalness: 0, flatShading: true});
-  const dark = new T.MeshStandardMaterial({color: new T.Color(body).multiplyScalar(.55), roughness: .6});
+  const limbM = new T.MeshStandardMaterial({color: new T.Color(body).multiplyScalar(.9), roughness: .7, flatShading: true});
   const visorM = new T.MeshStandardMaterial({color: '#141821', roughness: .25, metalness: .4});
   const eyeM = new T.MeshBasicMaterial({color: '#ffffff'}), rankM = new T.MeshStandardMaterial({color: col, emissive: col, emissiveIntensity: .6});
-  const mats = [mat, dark, visorM, eyeM, rankM];
-  const add = (geo, m, x, y, z, parent) => { const me = new T.Mesh(geo, m); me.position.set(x, y, z); me.castShadow = true; me.receiveShadow = true; (parent || g).add(me); return me; };
-  /* blocky build: torso 2 x 2 x 1, separate arms and legs 1 x 2 x 1 with small gaps, a square visor head.
-     Arms and legs hang from shoulder and hip pivots so they can swing. */
+  const mats = [mat, limbM, visorM, eyeM, rankM];
+  const add = (geo, m, x, y, z, parent) => { const me = new T.Mesh(geo, m); me.position.set(x, y, z); me.castShadow = !AR_MOBILE; (parent || g).add(me); return me; };
   const U = .355, box = (w, h, d) => new T.BoxGeometry(w * U, h * U, d * U);
-  const limbM = new T.MeshStandardMaterial({color: new T.Color(body).multiplyScalar(.9), roughness: .7, flatShading: true}); mats.push(limbM);
   const torso = new T.Group(); torso.position.set(0, 2 * U, 0); g.add(torso);
   add(box(2, 2, 1), mat, 0, U, 0, torso);
   add(new T.CylinderGeometry(.055, .055, .02, 16).rotateX(Math.PI / 2), rankM, .18, 1.45 * U, -.5 * U - .011, torso);
   const head = new T.Group(); head.position.set(0, 2.64 * U, 0); torso.add(head);
   add(box(1.2, 1.2, 1.2), mat, 0, 0, 0, head);
-  const visor = add(box(1.0, .38, .12), visorM, 0, .05 * U, -.61 * U, head);
+  add(box(1.0, .38, .12), visorM, 0, .05 * U, -.61 * U, head);
   const eyeL = add(new T.SphereGeometry(.03, 10, 8), eyeM, -.2 * U, .05 * U, -.69 * U, head), eyeR = add(new T.SphereGeometry(.03, 10, 8), eyeM, .2 * U, .05 * U, -.69 * U, head);
   eyeL.scale.set(1, 1.5, .5); eyeR.scale.set(1, 1.5, .5);
   const legL = new T.Group(), legR = new T.Group(); legL.position.set(-.52 * U, 2 * U, 0); legR.position.set(.52 * U, 2 * U, 0); g.add(legL, legR);
@@ -17534,77 +17633,89 @@ function arBotModel(T, col, kit, name){
   const armL = new T.Group(); armL.position.set(-1.54 * U, 1.88 * U, 0); torso.add(armL);
   add(box(.94, 2, .96), limbM, 0, -.88 * U, 0, armL);
   const gun = arGun(T, kit.it, kit.fl); gun.scale.setScalar(1.15); gun.position.set(0, -1.72 * U, -.55 * U); gun.rotation.set(-Math.PI / 2, 0, 0); armR.add(gun);
+  /* a soft round shadow under the feet (real shadows are off on phones) */
+  const blob = new T.Mesh(new T.CircleGeometry(.5, 20).rotateX(-Math.PI / 2), new T.MeshBasicMaterial({color: '#000', transparent: true, opacity: .22, depthWrite: false})); blob.position.y = .02; g.add(blob);
   g.traverse(o => { if (o.material && !mats.includes(o.material)) mats.push(o.material); });
-  return {g, torso, head, legL, legR, armR, armL, body, gun, mats, eyes: [eyeL, eyeR]};
+  return {g, torso, head, legL, legR, armR, armL, gun, mats, blob};
 }
 
 /* ---------- a match ---------- */
-function arFighter(me, load, name){
-  return {me, name, p: {x: 0, y: 0, z: 0}, v: {x: 0, y: 0, z: 0}, yaw: 0, pitch: 0, hp: 100, alive: true, ground: true,
+function arFighter(me, team, load, name){
+  return {me, team, name, p: {x: 0, y: 0, z: 0}, v: {x: 0, y: 0, z: 0}, yaw: 0, pitch: 0, hp: 100, alive: true, ground: true, kills: 0,
     load, cur: 0, mag: load.map(l => AR_W[arType(l.it)].mag), reload: 0, fireT: 0, swap: 0, slide: 0, st: {}, cd: {}, kick: 0};
 }
-async function arStartMatch(opp){
-  const T = await arThree(), root = $('#arena');
-  const L = arLoadout(), me = arFighter(true, L, 'You'), bot = arFighter(false, [opp.kit], opp.name);
-  bot.skill = opp.skill; bot.rp = opp.rp;
+const arFoes = f => AR.F.filter(o => o.team !== f.team && o.alive);
+const arMates = f => AR.F.filter(o => o.team === f.team && o !== f);
+async function arStartMatch(lobby){
+  const T = await arThree();
+  arSetMap(lobby.map);
+  const L = arLoadout(), me = arFighter(true, 0, L, 'You'), F = [me];
+  lobby.teams.forEach((tm, ti) => tm.forEach((p, i) => { if (p.me) return; const b = arFighter(false, ti, [p.kit], p.name); b.skill = p.skill; b.rp = p.rp; b.col = AR_TEAMCOL[ti][i % 5]; F.push(b); }));
   const R = new T.WebGLRenderer({antialias: !AR_MOBILE, powerPreference: 'high-performance'});
-  R.setPixelRatio(Math.min(devicePixelRatio, AR_MOBILE ? 1.25 : 1.75)); R.setSize(innerWidth, innerHeight);
+  R.setPixelRatio(Math.min(devicePixelRatio, AR_MOBILE ? 1 : 1.6)); R.setSize(innerWidth, innerHeight);
   R.outputColorSpace = T.SRGBColorSpace; R.toneMapping = T.ACESFilmicToneMapping; R.toneMappingExposure = 1.12;
-  R.shadowMap.enabled = true; R.shadowMap.type = AR_MOBILE ? T.PCFShadowMap : T.PCFSoftShadowMap; R.autoClear = false;
+  R.shadowMap.enabled = !AR_MOBILE; R.shadowMap.type = T.PCFSoftShadowMap; R.autoClear = false;
   const cv = R.domElement; cv.className = 'ar-cv'; $('#arGame').prepend(cv);
-  const sc = new T.Scene();
-  /* a soft daylight sky: pale blue at the top fading to the haze colour */
-  sc.background = new T.CanvasTexture(arCanvas(4, 256, (g, w, h) => { const lg = g.createLinearGradient(0, 0, 0, h); lg.addColorStop(0, '#8fb8e8'); lg.addColorStop(.55, '#cfdff0'); lg.addColorStop(1, '#e6ecf3'); g.fillStyle = lg; g.fillRect(0, 0, w, h); }));
+  const sc = new T.Scene(), big = Math.max(ARM.W, ARM.D);
+  sc.background = new T.CanvasTexture(arCanvas(4, 256, (g, w, h) => { const lg = g.createLinearGradient(0, 0, 0, h); lg.addColorStop(0, ARM.sky); lg.addColorStop(.55, '#d7e3f0'); lg.addColorStop(1, '#e8edf3'); g.fillStyle = lg; g.fillRect(0, 0, w, h); }));
   sc.background.colorSpace = T.SRGBColorSpace;
-  sc.fog = new T.Fog('#e3e9f0', 26, 70);
-  const cam = new T.PerspectiveCamera(AR_MOBILE ? 72 : 78, innerWidth / innerHeight, .05, 200); cam.rotation.order = 'YXZ';
-  sc.add(new T.HemisphereLight('#ffffff', '#9aa4b2', 1.55));
-  const sun = new T.DirectionalLight('#fffaf0', 2.1); sun.position.set(10, 30, 14); sun.castShadow = true;
-  Object.assign(sun.shadow.camera, {left: -25, right: 25, top: 18, bottom: -18, near: 1, far: 80}); sun.shadow.mapSize.set(AR_MOBILE ? 1024 : 2048, AR_MOBILE ? 1024 : 2048);
-  sun.shadow.bias = -.0004; sun.shadow.normalBias = .02; sun.shadow.radius = 4; sc.add(sun);
-  const M = arMats(T);
-  const flg = new T.PlaneGeometry(46, 32); flg.rotateX(-Math.PI / 2); arBoxUV(flg, 0, 0, 0, 2);
+  sc.fog = new T.Fog('#e3e9f0', big * .6, big * 1.7);
+  const cam = new T.PerspectiveCamera(AR_MOBILE ? 74 : 78, innerWidth / innerHeight, .05, 300); cam.rotation.order = 'YXZ';
+  sc.add(new T.HemisphereLight('#ffffff', '#9aa4b2', AR_MOBILE ? 1.85 : 1.55));
+  const sun = new T.DirectionalLight('#fffaf0', AR_MOBILE ? 1.6 : 2.1); sun.position.set(ARM.W * .22, 32, ARM.D * .35); sun.castShadow = !AR_MOBILE;
+  Object.assign(sun.shadow.camera, {left: -ARM.W / 2 - 2, right: ARM.W / 2 + 2, top: ARM.D / 2 + 2, bottom: -ARM.D / 2 - 2, near: 1, far: 120});
+  sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -.0004; sun.shadow.normalBias = .02; sun.shadow.radius = 4; sc.add(sun);
+  const M = arMats(T, ARM.pal);
+  const flg = new T.PlaneGeometry(ARM.W + 2, ARM.D + 2); flg.rotateX(-Math.PI / 2); arBoxUV(flg, 0, 0, 0, 2);
   const fl = new T.Mesh(flg, M.floor); fl.receiveShadow = true; sc.add(fl);
-  let ci = 0;
-  AR_MAP.forEach(b => {
+  /* every box goes into one merged mesh per material */
+  const groups = {}; let ci = 0;
+  const put = (key, geo) => (groups[key] = groups[key] || []).push(geo);
+  ARB.forEach(b => {
     const w = b[3] - b[0], h = b[4] - b[1], d = b[5] - b[2], k = b[6], cx = (b[0] + b[3]) / 2, cy = (b[1] + b[4]) / 2, cz = (b[2] + b[5]) / 2;
-    const mat = k === 'cont' ? M.cont[ci++ % M.cont.length] : M[k];
-    const m = new T.Mesh(arBoxUV(new T.BoxGeometry(w, h, d), cx, cy, cz, 2), mat); m.position.set(cx, cy, cz);
-    m.castShadow = k !== 'wall'; m.receiveShadow = true; sc.add(m);
-    /* a thin glowing trim along the top edge of the low cover */
-    if (k === 'barrier') { const t = new T.Mesh(new T.BoxGeometry(w + .02, .05, d + .02), M.trim); t.position.set(cx, b[4] + .01, cz); sc.add(t); }
+    const geo = arBoxUV(new T.BoxGeometry(w, h, d), cx, cy, cz, 2); geo.translate(cx, cy, cz);
+    put(k === 'cont' ? 'cont' + (ci++ % 4) : k, geo);
+    if (k === 'barrier') { const t = new T.BoxGeometry(w + .02, .05, d + .02); t.translate(cx, b[4] + .01, cz); put('trim', t); }
   });
-  /* spawn pads that glow under each side */
-  [-1, 1].forEach(sx => { const pad = new T.Mesh(new T.CylinderGeometry(1.6, 1.6, .04, 40), new T.MeshStandardMaterial({color: sx > 0 ? '#7fd8ff' : '#ff9ad0', emissive: sx > 0 ? '#3ab8ff' : '#ff5aa8', emissiveIntensity: .8, transparent: true, opacity: .55}));
-    pad.position.set(sx * 19.5, .02, 0); sc.add(pad); });
-  /* tall pale towers outside the walls give the arena a skyline */
-  const tw = new T.MeshStandardMaterial({color: '#e8edf3', roughness: .9}), R2 = seeded(77);
-  for (let i = 0; i < 26; i++) { const a = i / 26 * Math.PI * 2, rr = 34 + R2() * 14, h = 8 + R2() * 22, ww = 3 + R2() * 5;
-    const t = new T.Mesh(new T.BoxGeometry(ww, h, ww), tw); t.position.set(Math.cos(a) * rr * 1.2, h / 2, Math.sin(a) * rr * .8); sc.add(t); }
+  Object.keys(groups).forEach(k => { const m = new T.Mesh(arMerge(T, groups[k]), M[k]); m.castShadow = k !== 'wall'; m.receiveShadow = true; sc.add(m); });
+  /* spawn pads, and pale towers outside the walls for a skyline */
+  [-1, 1].forEach(sx => { const pad = new T.Mesh(new T.CylinderGeometry(2.2, 2.2, .04, 40), new T.MeshStandardMaterial({color: sx > 0 ? '#7fd8ff' : '#ff9ad0', emissive: sx > 0 ? '#3ab8ff' : '#ff5aa8', emissiveIntensity: .8, transparent: true, opacity: .5}));
+    pad.position.set(sx * (ARM.W / 2 - 3.5), .02, 0); sc.add(pad); });
+  const tws = [], R2 = seeded(77 + ARM.W);
+  for (let i = 0; i < 30; i++) { const a = i / 30 * Math.PI * 2, rr = 1.25 + R2() * .4, h = 10 + R2() * 26, ww = 3 + R2() * 6;
+    const t = new T.BoxGeometry(ww, h, ww); t.translate(Math.cos(a) * ARM.W * .55 * rr + Math.sign(Math.cos(a)) * 8, h / 2, Math.sin(a) * ARM.D * .55 * rr + Math.sign(Math.sin(a)) * 8); tws.push(t); }
+  sc.add(new T.Mesh(arMerge(T, tws), new T.MeshStandardMaterial({color: '#e8edf3', roughness: .9})));
   /* the viewmodel lives in its own scene so it never clips into walls */
   const vsc = new T.Scene(), vcam = new T.PerspectiveCamera(60, innerWidth / innerHeight, .01, 10);
   vsc.add(new T.HemisphereLight('#ffffff', '#a8b0bc', 1.9)); const vl = new T.DirectionalLight('#ffffff', 1.6); vl.position.set(1, 2, 1); vsc.add(vl);
   const vm = new T.Group(); vsc.add(vm);
   const guns = L.map(l => { const o = arGun(T, l.it, l.fl), g = new T.Group(); o.scale.setScalar(.62); g.add(o); g.userData.len = o.userData.len * .62; g.visible = false; vm.add(g); return g; });
   const flash = new T.Mesh(new T.SphereGeometry(.05, 8, 6), new T.MeshBasicMaterial({color: '#ffe9a8', transparent: true, opacity: 0})); vm.add(flash);
-  const B = arBotModel(T, arRankCol(opp.rp), opp.kit, opp.name); sc.add(B.g);
+  F.forEach(f => { if (f.me) return; f.B = arBotModel(T, arRankCol(f.rp), f.load[0], f.col); sc.add(f.B.g); });
   const fx = new T.Group(); sc.add(fx);
-  AR = {T, R, sc, cam, vsc, vcam, vm, guns, flash, B, fx, me, bot, opp, score: [0, 0], round: 0, phase: 'load', t: 0, keys: {}, mdx: 0, mdy: 0, fire: false, ads: 0, adsHeld: false,
-    tracers: [], nums: [], proj: [], feed: [], last: performance.now(), raf: 0, paused: false, side: Math.random() < .5 ? 1 : -1, bob: 0, shake: 0, hurt: 0, hitm: 0, fps: [], path: [], pathT: 0, M};
+  AR = {T, R, sc, cam, vsc, vcam, vm, guns, flash, fx, me, F, lobby, mode: arMode(lobby.mode), score: [0, 0], round: 0, phase: 'load', t: 0, keys: {}, mdx: 0, mdy: 0, fire: false, ads: 0, adsHeld: false,
+    tracers: [], nums: [], proj: [], last: performance.now(), acc: 0, raf: 0, paused: false, side: Math.random() < .5 ? 1 : -1, bob: 0, shake: 0, hurt: 0, hitm: 0, fps: [], clock: 0, M};
   arHUD(); arBindInput(); arNewRound();
   AR.raf = requestAnimationFrame(arLoop);
 }
+function arSpawnSpot(team, i, n){
+  const sx = (team === 0 ? 1 : -1) * AR.side * (ARM.W / 2 - 3.5);
+  for (let tries = 0; tries < 30; tries++) {
+    const z = (i - (n - 1) / 2) * 3 + (tries ? (Math.random() - .5) * tries * .6 : 0), x = sx - Math.sign(sx) * (tries ? Math.random() * tries * .3 : 0), p = {x, y: 0, z};
+    if (!ARB.some(b => arOv(p, b))) return p;
+  }
+  return {x: sx, y: 0, z: 0};
+}
 function arNewRound(){
   const A = AR; A.round++; A.side = -A.side;
-  [A.me, A.bot].forEach((f, i) => {
-    const sx = (i ? -1 : 1) * A.side * 19.5;
-    Object.assign(f, {hp: 100, alive: true, reload: 0, fireT: 0, swap: 0, slide: 0, st: {}, cd: {}, cur: 0});
-    f.p = {x: sx, y: 0, z: (Math.random() - .5) * 4}; f.v = {x: 0, y: 0, z: 0}; f.yaw = sx > 0 ? Math.PI / 2 : -Math.PI / 2; f.pitch = 0;
+  [0, 1].forEach(team => { const tm = A.F.filter(f => f.team === team); tm.forEach((f, i) => {
+    Object.assign(f, {hp: 100, alive: true, reload: 0, fireT: 0, swap: 0, slide: 0, st: {}, cd: {}, cur: 0, acq: 0, burst: 0, strafe: 1, strafeT: 0, lastSeen: -9, jumpT: 2 + Math.random() * 2, path: [], pathT: Math.random() * .5, tgt: null, tgtT: 0, known: null});
+    f.p = arSpawnSpot(team, i, tm.length); f.v = {x: 0, y: 0, z: 0}; f.yaw = f.p.x > 0 ? Math.PI / 2 : -Math.PI / 2; f.pitch = 0;
     f.mag = f.load.map(l => AR_W[arType(l.it)].mag);
-  });
-  A.bot.acq = 0; A.bot.burst = 0; A.bot.strafe = 1; A.bot.strafeT = 0; A.bot.lastSeen = -9; A.bot.jumpT = 2; A.path = []; A.pathT = 0;
+    if (f.B) { f.B.g.rotation.z = 0; }
+  }); });
   A.proj.forEach(p => A.fx.remove(p.m)); A.proj = [];
-  A.phase = 'count'; A.t = 3.2; A.roundT = AR_ROUND_T;
+  A.phase = 'count'; A.t = 3.2; A.roundT = AR_ROUND_T; A.spec = null;
   arShowWeapon(); arHudBanner('ROUND ' + A.round, A.score[0] + ' – ' + A.score[1]); arHudUpdate(true);
 }
 function arShowWeapon(){ const A = AR; A.guns.forEach((g, i) => g.visible = i === A.me.cur); A.me.swap = .32; arHudUpdate(true); }
@@ -17618,122 +17729,136 @@ function arEndRound(winner, why){
   arHudUpdate(true);
 }
 function arDamage(src, dst, dmg, head, at){
-  if (!dst.alive || AR.phase !== 'live') return;
+  const A = AR; if (!dst.alive || A.phase !== 'live' || (src && src.team === dst.team)) return;
   if (src && src.st.abyss > 0) { dmg *= 1.2; dst.st.slow = 1.5; }
   if (src && src.st.req > 0) { dmg *= 2; src.st.req--; }
   if (dst.st.shield > 0) { const a = Math.min(dst.st.shield, dmg); dst.st.shield -= a; dmg -= a; }
-  dmg = Math.round(dmg); dst.hp -= dmg;
-  if (dst.me) { AR.hurt = Math.min(1, AR.hurt + dmg / 45); AR.shake = Math.min(.5, AR.shake + dmg / 120); tone(140, .12, 'square', .05); }
-  else { AR.hitm = .18; tone(head ? 1900 : 1200, .05, 'square', head ? .05 : .035); if (at) arNum(at, dmg, head); }
-  if (dst.hp <= 0) { dst.hp = 0; dst.alive = false;
-    if (!dst.me) { noise(.4, 600, 80, .2, 'lowpass'); arFeed('You eliminated ' + dst.name + (head ? ' · headshot' : '')); }
-    else arFeed(AR.bot.name + ' eliminated you');
-    arEndRound(dst.me ? 1 : 0, dst.me ? AR.bot.name + ' got you' : 'You got ' + AR.bot.name);
+  dmg = Math.round(dmg); dst.hp -= dmg; dst.lastHit = A.clock; if (src) dst.lastBy = src;
+  if (dst.me) { A.hurt = Math.min(1, A.hurt + dmg / 45); A.shake = Math.min(.5, A.shake + dmg / 120); tone(140, .12, 'square', .05); if (src) A.hurtFrom = {x: src.p.x, z: src.p.z, t: 1}; }
+  else if (src && src.me) { A.hitm = .18; tone(head ? 1900 : 1200, .05, 'square', head ? .05 : .035); if (at) arNum(at, dmg, head); }
+  if (dst.hp <= 0) {
+    dst.hp = 0; dst.alive = false; if (src) src.kills++;
+    const who = src ? (src.me ? 'You' : src.name) : 'The fire', whom = dst.me ? 'you' : dst.name;
+    arFeed(who + ' eliminated ' + whom + (head ? ' · headshot' : ''), src && src.team === 0 ? 'b' : 'r');
+    if (src && src.me) noise(.4, 600, 80, .2, 'lowpass');
+    if (dst.me) { const m = arMates(dst).find(o => o.alive); A.spec = m || null; }
+    [0, 1].forEach(t => { if (A.phase === 'live' && !A.F.some(f => f.team === t && f.alive)) arEndRound(1 - t, A.mode.n === 1 ? (t === 1 ? 'You got ' + dst.name : dst.lastBy ? dst.lastBy.name + ' got you' : '') : (t === 1 ? 'Their team is down' : 'Your team is down')); });
   }
 }
-function arSpeed(f){ const W = AR_W[arType(f.load[f.cur].it)]; let s = 7 * W.spd; if (f.st.slow > 0) s *= .6; if (f.st.haste > 0) s *= 1.3; if (f.me && AR.ads > .5) s *= .62; return s; }
-/* shooting: rays for you, aim rolls for the bot */
+function arSpeed(f){ const W = AR_W[arType(f.load[f.cur].it)]; let s = 7.6 * W.spd; if (f.st.slow > 0) s *= .6; if (f.st.haste > 0) s *= 1.3; if (f.me && AR.ads > .5) s *= .64; return s; }
+const arFall = (W, d) => d <= W.fall[0] ? 1 : d >= W.fall[1] ? W.fall[2] : 1 - (1 - W.fall[2]) * (d - W.fall[0]) / (W.fall[1] - W.fall[0]);
+/* shooting: rays for you, aim rolls for the bots */
 function arShoot(f){
-  const A = AR, l = f.load[f.cur], W = AR_W[arType(l.it)], o = f.me ? A.me : A.bot, tgt = f.me ? A.bot : A.me;
+  const A = AR, l = f.load[f.cur], W = AR_W[arType(l.it)];
   let rate = W.rate; if (f.st.od > 0) rate /= 1.6;
-  f.fireT = rate;
-  f.lastShot = AR.clock;
-  if (W.melee) { arMelee(f, tgt, W); return; }
-  if (f.st.od <= 0 || !f.st.od) f.mag[f.cur]--;
-  arGunSound(W, f.me ? 1 : Math.max(.25, 1 - arDist(f.p, A.me.p) / 40));
+  f.fireT = rate; f.lastShot = A.clock;
+  if (W.melee) { arMelee(f, W); return; }
+  if (!(f.st.od > 0)) f.mag[f.cur]--;
+  arGunSound(W, f.me ? 1 : Math.max(.12, 1 - arDist(f.p, A.me.p) / 50));
   const eye = arEye(f), moving = Math.hypot(f.v.x, f.v.z) / 7 + (f.ground ? 0 : .8);
   if (f.me) {
-    A.me.kick += W.kick; A.flashT = .05; f.pitch = Math.min(1.45, f.pitch + W.kick * .3 * (A.ads > .5 ? .6 : 1)); f.yaw += (Math.random() - .5) * W.kick * .2;
-    const spread = (A.ads > .5 ? W.ads : W.sp) * (1 + moving * 1.2);
+    f.kick += W.kick; A.flashT = .05; f.pitch = Math.min(1.45, f.pitch + W.kick * .3 * (A.ads > .5 ? .6 : 1)); f.yaw += (Math.random() - .5) * W.kick * .2;
+    const spread = (A.ads > .5 ? W.ads : W.sp) * (1 + moving * 1.2), foes = arFoes(f);
     for (let k = 0; k < (W.pel || 1); k++) {
       const d = arFwd(f.yaw + (Math.random() - .5) * 2 * spread, f.pitch + (Math.random() - .5) * 2 * spread);
-      const wallT = f.st.void > 0 ? 300 : arRayMap(eye, d, 300), hit = tgt.alive ? arRayFighter(eye, d, tgt) : {t: Infinity};
-      const end = Math.min(wallT, hit.t, 120);
+      const wallT = f.st.void > 0 ? 300 : arRayMap(eye, d, 300); let best = {t: Infinity}, who = null;
+      foes.forEach(o => { const h = arRayFighter(eye, d, o); if (h.t < best.t) { best = h; who = o; } });
+      const end = Math.min(wallT, best.t, 160);
       arTracer(arMuzzleWorld(), {x: eye.x + d.x * end, y: eye.y + d.y * end, z: eye.z + d.z * end}, W.pel ? .5 : 1);
-      if (hit.t < wallT) {
-        const dist = hit.t, fall = dist <= W.fall[0] ? 1 : dist >= W.fall[1] ? W.fall[2] : 1 - (1 - W.fall[2]) * (dist - W.fall[0]) / (W.fall[1] - W.fall[0]);
-        arDamage(f, tgt, W.dmg * fall * (hit.head ? W.hm : 1), hit.head, {x: eye.x + d.x * dist, y: eye.y + d.y * dist + .2, z: eye.z + d.z * dist});
-        if (f.st.wraith > 0) tgt.st.burn = 3;
-      } else if (wallT < 120) arSpark({x: eye.x + d.x * wallT, y: eye.y + d.y * wallT, z: eye.z + d.z * wallT});
+      if (who && best.t < wallT) {
+        arDamage(f, who, W.dmg * arFall(W, best.t) * (best.head ? W.hm : 1), best.head, {x: eye.x + d.x * best.t, y: eye.y + d.y * best.t + .2, z: eye.z + d.z * best.t});
+        if (f.st.wraith > 0) who.st.burn = 3;
+      } else if (wallT < 160) arSpark({x: eye.x + d.x * wallT, y: eye.y + d.y * wallT, z: eye.z + d.z * wallT});
     }
   } else {
-    /* the bot rolls each shot: your angular size against its aim error, your movement and its weapon spread */
-    const d = arDist(eye, arEye(tgt)), s = f.skill, see = arLOS(eye, {x: tgt.p.x, y: tgt.p.y + 1.1, z: tgt.p.z}) || f.st.void > 0;
+    /* a bot rolls each shot: the target's angular size against its aim error, the target's movement and its weapon spread */
+    const tgt = f.tgt; if (!tgt || !tgt.alive) return;
+    const d = arDist(eye, arEye(tgt)), s = f.skill, see = f.st.void > 0 || arLOS(eye, {x: tgt.p.x, y: tgt.p.y + 1.1, z: tgt.p.z});
     const tv = Math.hypot(tgt.v.x, tgt.v.z) + (tgt.ground ? 0 : 3) + (tgt.slide > 0 ? 3 : 0);
-    const err = (.085 - .07 * s) + tv * (.011 - .006 * s) + (W.scope ? .01 : W.sp * .6) + (tgt.st.invis > 0 ? .25 : 0);
+    const err = (.085 - .07 * s) + tv * (.011 - .006 * s) + (W.scope ? .01 : W.sp * .6) + (tgt.st.invis > 0 ? .25 : 0) + (tgt.me ? 0 : .015);
     for (let k = 0; k < (W.pel || 1); k++) {
       const pHit = see ? Math.min(.93, (.36 / Math.max(1, d)) / err) : 0, hit = Math.random() < pHit;
       const tp = arEye(tgt), miss = hit ? 0 : .6 + Math.random() * 1.4;
-      arTracer(arBotMuzzle(), {x: tp.x + (Math.random() - .5) * miss, y: tp.y - .3 + (Math.random() - .5) * miss, z: tp.z + (Math.random() - .5) * miss}, W.pel ? .4 : .9);
-      if (hit) { const head = Math.random() < .05 + .3 * s; const dist = d, fall = dist <= W.fall[0] ? 1 : dist >= W.fall[1] ? W.fall[2] : 1 - (1 - W.fall[2]) * (dist - W.fall[0]) / (W.fall[1] - W.fall[0]);
-        arDamage(f, tgt, W.dmg * fall * (head ? W.hm : 1), head); if (f.st.wraith > 0) tgt.st.burn = 3; }
+      if (k < 3) arTracer(arBotMuzzle(f), {x: tp.x + (Math.random() - .5) * miss, y: tp.y - .3 + (Math.random() - .5) * miss, z: tp.z + (Math.random() - .5) * miss}, W.pel ? .4 : .9);
+      if (hit) { const head = Math.random() < .05 + .3 * s; arDamage(f, tgt, W.dmg * arFall(W, d) * (head ? W.hm : 1), head); if (f.st.wraith > 0) tgt.st.burn = 3; }
     }
   }
 }
-function arMelee(f, tgt, W){
+function arMelee(f, W){
   const A = AR; if (f.me) { A.swing = .3; noise(.12, 800, 3000, .06); }
-  const e = arEye(f), te = {x: tgt.p.x, y: tgt.p.y + 1.1, z: tgt.p.z}, d = arDist(e, te);
-  if (d > W.range || !tgt.alive) return;
-  const fw = arFwd(f.yaw, 0), dx = (te.x - e.x) / d, dz = (te.z - e.z) / d;
-  if (fw.x * dx + fw.z * dz < Math.cos(f.me ? .7 : 1)) return;
-  if (!arLOS(e, te)) return;
-  arDamage(f, tgt, W.dmg, false, {x: te.x, y: te.y + .6, z: te.z}); noise(.1, 400, 120, .14, 'lowpass');
+  const e = arEye(f), fw = arFwd(f.yaw, 0);
+  const hit = arFoes(f).map(o => ({o, te: {x: o.p.x, y: o.p.y + 1.1, z: o.p.z}})).map(x => Object.assign(x, {d: arDist(e, x.te)})).filter(x => x.d <= W.range).sort((a, b) => a.d - b.d)
+    .find(x => (fw.x * (x.te.x - e.x) + fw.z * (x.te.z - e.z)) / x.d >= Math.cos(f.me ? .7 : 1) && arLOS(e, x.te));
+  if (!hit) return;
+  arDamage(f, hit.o, W.dmg, false, {x: hit.te.x, y: hit.te.y + .6, z: hit.te.z}); noise(.1, 400, 120, .14, 'lowpass');
 }
 function arGunSound(W, v){ if (!W.snd) return; const [f0, f1, dur, low] = W.snd; noise(dur, f0, f1, .22 * v, 'lowpass'); tone(low, dur * .6, 'square', .05 * v); }
 function arReload(f){ const W = AR_W[arType(f.load[f.cur].it)]; if (W.melee || f.reload > 0 || f.mag[f.cur] >= W.mag) return; f.reload = W.rl; if (f.me) { tone(320, .06, 'square', .03); tone(260, .06, 'square', .03, W.rl * .6); } }
+const arNearestFoe = f => arFoes(f).sort((a, b) => arDist(a.p, f.p) - arDist(b.p, f.p))[0];
 /* ---------- skills ---------- */
 function arUseSkill(f){
   const A = AR, l = f.load[f.cur], id = arSkillOf(l.it); if (!id || A.phase !== 'live' || !f.alive) return false;
   if ((f.cd[id] || 0) > 0) return false;
-  f.cd[id] = AR_SK[id].cd; const fw = arFwd(f.yaw, 0), tgt = f.me ? A.bot : A.me;
-  sweep(300, 1200, .35, 'sawtooth', .04); noise(.3, 2000, 400, .06);
+  f.cd[id] = AR_SK[id].cd; const fw = arFwd(f.yaw, 0), tgt = f.tgt || arNearestFoe(f);
+  if (f.me || arDist(f.p, A.me.p) < 30) { sweep(300, 1200, .35, 'sawtooth', .04); noise(.3, 2000, 400, .06); }
   if (id === 'b1') f.st.abyss = 5;
   if (id === 'b2') f.st.void = 6;
   if (id === 'b3') { arBlink(f, fw, 7); f.st.invis = 2; }
   if (id === 'b4') f.st.od = 5;
   if (id === 'b5') { f.st.dash = .25; f.st.dashV = {x: fw.x * 34, z: fw.z * 34}; f.st.wraith = 6; }
-  if (id === 'b6') { const d = f.me ? fw : arDirTo(f, tgt); f.st.dash = .34; f.st.dashV = {x: d.x * 30, z: d.z * 30}; f.st.lunge = 1; }
-  if (id === 'b7') { const e = arEye(f), d = f.me ? arFwd(f.yaw, f.pitch) : arDirTo3(f, tgt);
+  if (id === 'b6') { const d = f.me || !tgt ? fw : arDirTo(f, tgt); f.st.dash = .34; f.st.dashV = {x: d.x * 30, z: d.z * 30}; f.st.lunge = 1; }
+  if (id === 'b7') { const e = arEye(f), d = f.me || !tgt ? arFwd(f.yaw, f.pitch) : arDirTo3(f, tgt);
     const m = new A.T.Mesh(new A.T.IcosahedronGeometry(.18, 0), new A.T.MeshBasicMaterial({color: '#c084fc'})); A.fx.add(m);
     A.proj.push({p: {x: e.x + d.x * .6, y: e.y - .15, z: e.z + d.z * .6}, d, owner: f, life: 1.4, m}); }
   if (id === 'x1') { f.hp = Math.min(100, f.hp + 40); f.st.req = 3; }
   if (id === 'x2') { f.st.shield = 50; f.st.shT = 5; f.st.haste = 5; }
-  if (f.me) arFeed(AR_SK[id].n + '!'); else arFeed(A.bot.name + ' used ' + AR_SK[id].n);
+  arFeed((f.me ? 'You' : f.name) + ' used ' + AR_SK[id].n, f.team === 0 ? 'b' : 'r');
   return true;
 }
 const arDirTo = (f, t) => { const dx = t.p.x - f.p.x, dz = t.p.z - f.p.z, L = Math.hypot(dx, dz) || 1; return {x: dx / L, z: dz / L}; };
 const arDirTo3 = (f, t) => { const a = arEye(f), b = {x: t.p.x, y: t.p.y + 1.1, z: t.p.z}, L = arDist(a, b) || 1; return {x: (b.x - a.x) / L, y: (b.y - a.y) / L, z: (b.z - a.z) / L}; };
-function arBlink(f, d, dist){ for (let k = 0; k < dist / .25; k++) { const q = {x: f.p.x + d.x * .25, y: f.p.y, z: f.p.z + d.z * .25}; if (Math.abs(q.x) > 21.8 || Math.abs(q.z) > 14.8 || AR_MAP.some(b => arOv(q, b))) break; f.p = q; } }
-/* ---------- the bot's brain ---------- */
-function arBotThink(dt){
-  const A = AR, b = A.bot, me = A.me, s = b.skill, W = AR_W[arType(b.load[0].it)];
-  const eye = arEye(b), meC = {x: me.p.x, y: me.p.y + 1.1, z: me.p.z};
-  const see = me.alive && (me.st.invis > 0 ? false : arLOS(eye, meC) || arLOS(eye, arEye(me)));
+function arBlink(f, d, dist){ for (let k = 0; k < dist / .25; k++) { const q = {x: f.p.x + d.x * .25, y: f.p.y, z: f.p.z + d.z * .25}; if (Math.abs(q.x) > ARM.W / 2 - .3 || Math.abs(q.z) > ARM.D / 2 - .3 || ARB.some(b => arOv(q, b))) break; f.p = q; } }
+/* ---------- a bot's brain ---------- */
+function arBotThink(b, dt){
+  const A = AR, s = b.skill, W = AR_W[arType(b.load[0].it)], eye = arEye(b);
+  /* pick a target: the nearest enemy it can see, otherwise the nearest one */
+  b.tgtT -= dt;
+  if (b.tgtT <= 0 || !b.tgt || !b.tgt.alive) {
+    b.tgtT = .4 + Math.random() * .3; const foes = arFoes(b);
+    const vis = foes.filter(o => !(o.st.invis > 0) && arLOS(eye, {x: o.p.x, y: o.p.y + 1.1, z: o.p.z})).sort((x, y) => arDist(x.p, b.p) - arDist(y.p, b.p));
+    const nt = vis[0] || foes.sort((x, y) => arDist(x.p, b.p) - arDist(y.p, b.p))[0] || null;
+    if (nt !== b.tgt) { b.tgt = nt; b.acq = 0; }
+  }
+  const me = b.tgt; if (!me) { b.v.x *= .8; b.v.z *= .8; return; }
+  const meC = {x: me.p.x, y: me.p.y + 1.1, z: me.p.z};
+  const see = me.alive && !(me.st.invis > 0) && (arLOS(eye, meC) || arLOS(eye, arEye(me)));
   if (see) { if (!b.acq) b.acq = A.clock + (.75 - .58 * s) + Math.random() * .15; b.lastSeen = A.clock; b.known = {x: me.p.x, z: me.p.z}; }
   else if (A.clock - b.lastSeen > .4) b.acq = 0;
   if (!b.known || !see && Math.random() < dt * (.3 + s)) b.known = {x: me.p.x, z: me.p.z};
-  /* aim: turn toward you, faster the better it is */
+  /* aim: turn toward the target, faster the better it is */
   const tx = (see ? me.p.x : b.known.x) - b.p.x, tz = (see ? me.p.z : b.known.z) - b.p.z;
   const wantYaw = Math.atan2(-tx, -tz), dist = Math.hypot(tx, tz);
   let dy = wantYaw - b.yaw; while (dy > Math.PI) dy -= Math.PI * 2; while (dy < -Math.PI) dy += Math.PI * 2;
   b.yaw += dy * Math.min(1, dt * (4 + 10 * s));
   b.pitch = Math.atan2(me.p.y + 1.2 - eye.y, Math.max(.1, dist)) * .9;
-  /* movement */
-  const pref = W.melee ? 0 : W.scope ? 20 : arType(b.load[0].it) === 'shotgun' ? 3.5 : arType(b.load[0].it) === 'smg' ? 8 : arType(b.load[0].it) === 'pistol' ? 10 : 13;
+  /* movement: walk the grid toward the target, then strafe at its preferred range */
+  const pref = W.pref;
   let mx = 0, mz = 0;
-  if (!see || (W.melee) || dist > pref + 6) {
-    A.pathT -= dt;
-    if (A.pathT <= 0 || !A.path.length) { A.path = arPath(b.p, see ? me.p : b.known); A.pathT = .45; }
-    while (A.path.length && Math.hypot(A.path[0].x - b.p.x, A.path[0].z - b.p.z) < .6) A.path.shift();
-    const wp = A.path[0] || {x: me.p.x, z: me.p.z}; const L = Math.hypot(wp.x - b.p.x, wp.z - b.p.z) || 1; mx = (wp.x - b.p.x) / L; mz = (wp.z - b.p.z) / L;
+  if (!see || W.melee || dist > pref + 6) {
+    b.pathT -= dt;
+    if (b.pathT <= 0 || !b.path.length) { b.path = arPath(b.p, see ? me.p : b.known); b.pathT = .45 + Math.random() * .2; }
+    while (b.path.length && Math.hypot(b.path[0].x - b.p.x, b.path[0].z - b.p.z) < .6) b.path.shift();
+    const wp = b.path[0] || {x: me.p.x, z: me.p.z}; const L = Math.hypot(wp.x - b.p.x, wp.z - b.p.z) || 1; mx = (wp.x - b.p.x) / L; mz = (wp.z - b.p.z) / L;
   } else {
     const L = dist || 1, fx = tx / L, fz = tz / L; b.strafeT -= dt;
     if (b.strafeT <= 0) { b.strafe = Math.random() < .5 ? -1 : 1; b.strafeT = .5 + Math.random() * (1.4 - s); }
     const toward = dist > pref + 1.5 ? 1 : dist < pref - 2 ? -1 : 0;
     mx = -fz * b.strafe * (.4 + .6 * s) + fx * toward; mz = fx * b.strafe * (.4 + .6 * s) + fz * toward;
-    const probe = {x: b.p.x + mx * .8, y: b.p.y, z: b.p.z + mz * .8}; if (AR_MAP.some(c => arOv(probe, c))) { b.strafe = -b.strafe; b.strafeT = .6; }
-    b.jumpT -= dt; if (b.jumpT <= 0 && b.ground && s > .35) { b.v.y = 7.6; b.jumpT = 1.5 + Math.random() * 4 * (1.3 - s); }
+    const probe = {x: b.p.x + mx * .8, y: b.p.y, z: b.p.z + mz * .8}; if (ARB.some(c => arOv(probe, c))) { b.strafe = -b.strafe; b.strafeT = .6; }
+    b.jumpT -= dt; if (b.jumpT <= 0 && b.ground && s > .35) { b.v.y = 8; b.jumpT = 1.5 + Math.random() * 4 * (1.3 - s); }
   }
+  /* keep a little space from teammates so they don't stack up */
+  arMates(b).forEach(o => { if (!o.alive) return; const dx = b.p.x - o.p.x, dz = b.p.z - o.p.z, dd = Math.hypot(dx, dz); if (dd < 1.6 && dd > .01) { mx += dx / dd * (1.6 - dd); mz += dz / dd * (1.6 - dd); } });
   if (b.st.root > 0) { mx = 0; mz = 0; }
   const ml = Math.hypot(mx, mz); if (ml > 1) { mx /= ml; mz /= ml; }
   const spd = arSpeed(b) * (.78 + .22 * s), k = Math.min(1, dt * 10);
@@ -17754,49 +17879,79 @@ function arBotThink(dt){
   }
 }
 
-/* ---------- the frame loop ---------- */
+/* ---------- the frame loop: physics at a fixed 60 steps a second, drawing once per frame ---------- */
+const AR_STEP = 1 / 60;
 function arLoop(now){
   const A = AR; if (!A) return;
   A.raf = requestAnimationFrame(arLoop);
-  let dt = Math.min(.05, (now - A.last) / 1000); A.last = now;
-  A.fps.push(dt); if (A.fps.length > 60) A.fps.shift();
-  if (A.paused) { arRender(); return; }
-  A.clock = (A.clock || 0) + dt;
+  const frame = Math.min(.25, (now - A.last) / 1000); A.last = now;
+  A.fps.push(frame); if (A.fps.length > 90) A.fps.shift();
+  if (A.paused) { arRender(0); return; }
+  arLook(frame);
+  A.acc += frame; let n = 0;
+  while (A.acc >= AR_STEP && n < 6) { arStep(AR_STEP); A.acc -= AR_STEP; n++; if (!AR || A.over) return; }
+  if (n === 6) A.acc = 0;
+  A.F.forEach(f => { if (f.B) arAnimBot(f, frame); });
+  arRender(frame); arHudUpdate();
+}
+function arStep(dt){
+  const A = AR; A.clock += dt;
   if (A.phase === 'count') { A.t -= dt; arHudCount(Math.ceil(A.t)); if (A.t <= 0) { A.phase = 'live'; arHudCount(0); tone(880, .2, 'square', .05); } }
-  else if (A.phase === 'live') { A.roundT -= dt; if (A.roundT <= 0) { const w = A.me.hp > A.bot.hp ? 0 : A.bot.hp > A.me.hp ? 1 : -1; arEndRound(w, 'Time · more health wins'); } }
-  else if (A.phase === 'end') { A.t -= dt; if (A.t <= 0) { if (A.score[0] >= AR_WIN || A.score[1] >= AR_WIN) { arFinish(); return; } arNewRound(); } }
+  else if (A.phase === 'live') { A.roundT -= dt; if (A.roundT <= 0) { const hp = t => A.F.filter(f => f.team === t).reduce((a, f) => a + Math.max(0, f.hp), 0); const w = hp(0) > hp(1) ? 0 : hp(1) > hp(0) ? 1 : -1; arEndRound(w, 'Time · more health wins'); } }
+  else if (A.phase === 'end') { A.t -= dt; if (A.t <= 0) { if (A.score[0] >= AR_WIN || A.score[1] >= AR_WIN) { arFinish(); return; } arNewRound(); return; } }
   const live = A.phase === 'live';
-  [A.me, A.bot].forEach(f => {
+  A.F.forEach(f => {
     for (const k in f.st) if (typeof f.st[k] === 'number' && k !== 'shield' && k !== 'req') f.st[k] = Math.max(0, f.st[k] - dt);
     if (f.st.shT <= 0) f.st.shield = 0;
     for (const k in f.cd) f.cd[k] = Math.max(0, f.cd[k] - dt);
     f.fireT -= dt; f.swap = Math.max(0, f.swap - dt); f.slide = Math.max(0, f.slide - dt);
     if (f.reload > 0) { f.reload -= dt; if (f.reload <= 0) { f.reload = 0; f.mag[f.cur] = AR_W[arType(f.load[f.cur].it)].mag; } }
-    if (f.st.burn > 0 && live) { f.burnAcc = (f.burnAcc || 0) + 6 * dt; if (f.burnAcc >= 2) { f.burnAcc -= 2; arDamage(null, f, 2, false); } }
+    if (f.st.burn > 0 && live && f.alive) { f.burnAcc = (f.burnAcc || 0) + 6 * dt; if (f.burnAcc >= 2) { f.burnAcc -= 2; arDamage(null, f, 2, false); } }
   });
   if (live || A.phase === 'count') arPlayer(dt, live);
-  if (live && A.bot.alive) arBotThink(dt); else { A.bot.v.x *= .8; A.bot.v.z *= .8; }
-  [A.me, A.bot].forEach(f => {
+  A.F.forEach(f => { if (f.me) return; if (live && f.alive) arBotThink(f, dt); else { f.v.x *= .8; f.v.z *= .8; } });
+  A.F.forEach(f => {
+    if (!f.alive) { f.v.x = f.v.z = 0; }
     if (f.st.dash > 0) { f.v.x = f.st.dashV.x; f.v.z = f.st.dashV.z; }
     if (f.st.root > 0) { f.v.x = 0; f.v.z = 0; }
     if (A.phase !== 'count' || f.v.y) arMoveBody(f, dt);
-    if (f.st.lunge && f.st.dash > 0) { const o = f.me ? A.bot : A.me; if (o.alive && Math.hypot(o.p.x - f.p.x, o.p.z - f.p.z) < 1.3) { f.st.lunge = 0; arDamage(f, o, 80, false, {x: o.p.x, y: o.p.y + 1.9, z: o.p.z}); noise(.2, 300, 90, .2, 'lowpass'); } }
+    if (f.st.lunge && f.st.dash > 0) { const o = arFoes(f).find(o => Math.hypot(o.p.x - f.p.x, o.p.z - f.p.z) < 1.3); if (o) { f.st.lunge = 0; arDamage(f, o, 80, false, {x: o.p.x, y: o.p.y + 1.9, z: o.p.z}); noise(.2, 300, 90, .2, 'lowpass'); } }
     else if (!(f.st.dash > 0)) f.st.lunge = 0;
   });
   /* projectiles */
   A.proj = A.proj.filter(pr => {
-    pr.life -= dt; const step = 32 * dt, o = pr.owner.me ? A.bot : A.me;
-    const t = arRayFighter(pr.p, pr.d, o).t, w = arRayMap(pr.p, pr.d, step);
-    if (t <= step && t < w && o.alive) { arDamage(pr.owner, o, 20, false, {x: o.p.x, y: o.p.y + 1.9, z: o.p.z}); o.st.root = 1.6; A.fx.remove(pr.m); return false; }
+    pr.life -= dt; const step = 32 * dt, w = arRayMap(pr.p, pr.d, step);
+    for (const o of arFoes(pr.owner)) { const t = arRayFighter(pr.p, pr.d, o).t; if (t <= step && t < w) { arDamage(pr.owner, o, 20, false, {x: o.p.x, y: o.p.y + 1.9, z: o.p.z}); o.st.root = 1.6; A.fx.remove(pr.m); return false; } }
     if (w < step || pr.life <= 0) { A.fx.remove(pr.m); return false; }
     pr.p.x += pr.d.x * step; pr.p.y += pr.d.y * step; pr.p.z += pr.d.z * step; pr.m.position.set(pr.p.x, pr.p.y, pr.p.z); pr.m.rotation.x += dt * 9; return true;
   });
-  arAnimBot(dt); arRender(dt); arHudUpdate();
+}
+/* look input is applied once per frame, so the camera follows your thumb or mouse with no lag */
+function arLook(frame){
+  const A = AR, f = A.me, W = AR_W[arType(f.load[f.cur].it)], S = arS();
+  let sens = AR_MOBILE ? .0085 * S.sens.mob : .0022 * S.sens.pc;
+  if (A.ads > .5) sens /= Math.max(1, W.zoom * .8);
+  /* phone aim assist: the aim slows over an enemy and drifts gently onto them while you fight */
+  let pull = null;
+  if (AR_MOBILE && S.assist && f.alive && A.phase === 'live') {
+    const e = arEye(f), fw = arFwd(f.yaw, f.pitch); let best = .16;
+    arFoes(f).forEach(o => { if (o.st.invis > 0) return; const c = {x: o.p.x, y: o.p.y + 1.2, z: o.p.z}, d = arDist(e, c); if (d > 60) return;
+      const ang = Math.acos(Math.max(-1, Math.min(1, ((c.x - e.x) * fw.x + (c.y - e.y) * fw.y + (c.z - e.z) * fw.z) / d)));
+      if (ang < best && arLOS(e, c)) { best = ang; pull = {c, ang, d}; } });
+    if (pull) sens *= .65;
+  }
+  f.yaw -= A.mdx * sens; f.pitch = Math.max(-1.45, Math.min(1.45, f.pitch - A.mdy * sens));
+  const active = A.mdx || A.mdy || A.fire || A.stick;
+  A.mdx = 0; A.mdy = 0;
+  if (pull && active) {
+    const e = arEye(f), wy = Math.atan2(-(pull.c.x - e.x), -(pull.c.z - e.z)), wp = Math.atan2(pull.c.y - e.y, Math.hypot(pull.c.x - e.x, pull.c.z - e.z));
+    let dy = wy - f.yaw; while (dy > Math.PI) dy -= Math.PI * 2; while (dy < -Math.PI) dy += Math.PI * 2;
+    const k = Math.min(1, frame * (A.fire ? 5 : 2.5) * (1 - pull.ang / .16));
+    f.yaw += dy * k; f.pitch += (wp - f.pitch) * k * .6;
+  }
 }
 function arPlayer(dt, live){
   const A = AR, f = A.me, K = A.keys, W = AR_W[arType(f.load[f.cur].it)];
-  const sens = (AR_MOBILE ? .0052 : .0022) / (A.ads > .5 ? Math.max(1, W.zoom * .8) : 1);
-  f.yaw -= A.mdx * sens; f.pitch = Math.max(-1.45, Math.min(1.45, f.pitch - A.mdy * sens)); A.mdx = 0; A.mdy = 0;
   f.kick *= Math.pow(.002, dt);
   if (!f.alive) return;
   let mx = (K.d ? 1 : 0) - (K.a ? 1 : 0), mz = (K.s ? 1 : 0) - (K.w ? 1 : 0);
@@ -17804,53 +17959,49 @@ function arPlayer(dt, live){
   const ml = Math.hypot(mx, mz); if (ml > 1) { mx /= ml; mz /= ml; }
   if (!live) { mx = 0; mz = 0; }
   const cy = Math.cos(f.yaw), sy = Math.sin(f.yaw), wx = mx * cy + mz * sy, wz = -mx * sy + mz * cy;
-  const spd = arSpeed(f), k = Math.min(1, dt * (f.ground ? 12 : 3));
-  if (f.slide > 0) { f.v.x *= Math.pow(.35, dt); f.v.z *= Math.pow(.35, dt); }
+  const spd = arSpeed(f), k = Math.min(1, dt * (f.ground ? 16 : 4));
+  if (f.slide > 0) { f.v.x *= Math.pow(.4, dt); f.v.z *= Math.pow(.4, dt); }
   else if (!(f.st.dash > 0)) { f.v.x += (wx * spd - f.v.x) * k; f.v.z += (wz * spd - f.v.z) * k; }
-  if (live && K.jump && f.ground && !(f.st.root > 0)) { f.v.y = 7.6; f.ground = false; K.jump = AR_MOBILE ? false : K.jump; tone(200, .05, 'sine', .03); }
-  if (live && K.slide && f.ground && f.slide <= 0 && ml > .3) { f.slide = .65; const L = Math.hypot(f.v.x, f.v.z) || 1; f.v.x = f.v.x / L * 12; f.v.z = f.v.z / L * 12; K.slide = false; noise(.4, 900, 200, .05); }
-  A.ads += ((A.adsHeld && !W.melee && f.reload <= 0 && f.swap <= 0 ? 1 : 0) - A.ads) * Math.min(1, dt * 12);
-  if (live && A.fire && f.fireT <= 0 && f.swap <= 0 && f.reload <= 0) {
+  if (live && K.jump && f.ground && !(f.st.root > 0)) { f.v.y = 8; f.ground = false; if (AR_MOBILE) K.jump = false; tone(200, .05, 'sine', .03); }
+  if (live && K.slide && f.ground && f.slide <= 0 && ml > .3) { f.slide = .7; const L = Math.hypot(f.v.x, f.v.z) || 1; f.v.x = f.v.x / L * 13; f.v.z = f.v.z / L * 13; noise(.4, 900, 200, .05); }
+  K.slide = false;
+  A.ads += ((A.adsHeld && !W.melee && f.reload <= 0 && f.swap <= 0 ? 1 : 0) - A.ads) * Math.min(1, dt * 14);
+  if (live && (A.fire || A.fire2) && f.fireT <= 0 && f.swap <= 0 && f.reload <= 0) {
     if (!W.melee && f.mag[f.cur] <= 0 && !(f.st.od > 0)) { arReload(f); }
-    else { arShoot(f); if (!W.auto) A.fire = AR_MOBILE ? A.fire : false; }
+    else { arShoot(f); if (!W.auto && !AR_MOBILE) A.fire = false; }
   }
 }
-/* the bot's body: idle stance, walk, run, jump, aim, slide, fall */
-function arAnimBot(dt){
-  const A = AR, b = A.bot, B = A.B, sp = Math.hypot(b.v.x, b.v.z), k = Math.min(1, dt * 14), L = (o, ax, v) => { o.rotation[ax] += (v - o.rotation[ax]) * k; };
+/* a bot's body: idle stance, walk, run, jump, aim, slide, fall */
+function arAnimBot(b, dt){
+  const A = AR, B = b.B, sp = Math.hypot(b.v.x, b.v.z), k = Math.min(1, dt * 14), L = (o, ax, v) => { o.rotation[ax] += (v - o.rotation[ax]) * k; };
   B.g.position.set(b.p.x, b.p.y, b.p.z); B.g.rotation.y = b.yaw;
   const t = A.clock || 0, run = sp > 6.2, moving = sp > .6 && b.ground;
   b.walk = (b.walk || 0) + dt * (moving ? 2.2 + sp * .95 : 0);
   const amp = moving ? Math.min(1, sp / 6) * (run ? 1.05 : .72) : 0, sw = Math.sin(b.walk) * amp;
   const aiming = b.alive && (A.clock - (b.lastShot || -9) < .9 || (b.acq && A.clock >= b.acq - .3));
-  /* legs */
   if (!b.ground) { L(B.legL, 'x', -.55); L(B.legR, 'x', .35); }
   else if (moving) { L(B.legL, 'x', sw); L(B.legR, 'x', -sw); }
   else { L(B.legL, 'x', .08); L(B.legR, 'x', -.06); }
   L(B.legL, 'z', moving || !b.ground ? 0 : -.05); L(B.legR, 'z', moving || !b.ground ? 0 : .05);
-  /* gun arm: held forward at the target, lowered a little when relaxed */
   const gunX = (aiming ? Math.PI / 2 : moving ? .75 : .6) + b.pitch * (aiming ? 1 : .3) + (moving ? Math.sin(b.walk * 2) * .04 : Math.sin(t * 2) * .02);
   L(B.armR, 'x', gunX); L(B.armR, 'z', aiming ? .12 : .06);
-  /* free arm: swings while walking, hangs out a little at rest, braces the gun when shooting, flails up in the air */
   if (aiming) { L(B.armL, 'x', Math.PI / 2 - .1 + b.pitch); L(B.armL, 'z', .72); }
   else if (!b.ground) { L(B.armL, 'x', .5); L(B.armL, 'z', -1.15); }
   else if (moving) { L(B.armL, 'x', -sw * .95); L(B.armL, 'z', -.08); }
   else { L(B.armL, 'x', .12 + Math.sin(t * 2) * .03); L(B.armL, 'z', -.2); }
-  /* torso: breathe at rest, lean into a run, bob with each step */
   B.torso.position.y = .71 + (moving ? Math.abs(Math.cos(b.walk)) * .035 * amp : Math.sin(t * 2) * .008);
   L(B.torso, 'x', run ? -.12 : moving ? -.05 : 0); L(B.torso, 'y', moving ? Math.sin(b.walk) * .06 : 0);
   B.head.rotation.x = -b.pitch * .6;
-  /* slide: lean back low; death: topple */
-  B.g.scale.y = 1; L(B.g, 'x', b.slide > 0 ? .55 : 0);
+  L(B.g, 'x', b.slide > 0 ? .55 : 0);
   if (b.slide > 0) B.g.position.y = b.p.y - .15;
   if (!b.alive) { B.g.rotation.z = Math.min(1.5, (B.g.rotation.z || 0) + dt * 5); B.g.position.y = b.p.y + .2; } else B.g.rotation.z = 0;
-  const inv = b.st.invis > 0, xr = A.me.st.void > 0;
-  B.mats.forEach(m => { m.transparent = inv || xr; m.opacity = inv ? .1 : 1; m.depthTest = !xr; });
-  B.g.renderOrder = xr ? 10 : 0;
+  B.blob.visible = b.alive && AR_MOBILE;
+  const inv = b.st.invis > 0, xr = A.me.st.void > 0 && b.team !== 0;
+  if (B.inv !== inv || B.xr !== xr) { B.inv = inv; B.xr = xr; B.mats.forEach(m => { m.transparent = inv || xr; m.opacity = inv ? .1 : 1; m.depthTest = !xr; }); B.g.renderOrder = xr ? 10 : 0; }
 }
 function arMuzzleWorld(){ const A = AR, f = A.me, d = arFwd(f.yaw, f.pitch), e = arEye(f), r = {x: Math.cos(f.yaw), z: -Math.sin(f.yaw)};
   const ads = A.ads > .5; return {x: e.x + d.x * .7 + (ads ? 0 : r.x * .2), y: e.y + d.y * .7 - (ads ? .08 : .17), z: e.z + d.z * .7 + (ads ? 0 : r.z * .2)}; }
-function arBotMuzzle(){ const b = AR.bot, d = arFwd(b.yaw, b.pitch), r = {x: Math.cos(b.yaw), z: -Math.sin(b.yaw)}; return {x: b.p.x + d.x * 1.0 + r.x * .55, y: b.p.y + 1.38 + d.y * 1.0, z: b.p.z + d.z * 1.0 + r.z * .55}; }
+function arBotMuzzle(b){ const d = arFwd(b.yaw, b.pitch), r = {x: Math.cos(b.yaw), z: -Math.sin(b.yaw)}; return {x: b.p.x + d.x * 1.0 + r.x * .55, y: b.p.y + 1.38 + d.y * 1.0, z: b.p.z + d.z * 1.0 + r.z * .55}; }
 function arTracer(a, b, w){
   const T = AR.T, g = new T.BufferGeometry().setFromPoints([new T.Vector3(a.x, a.y, a.z), new T.Vector3(b.x, b.y, b.z)]);
   const l = new T.Line(g, new T.LineBasicMaterial({color: '#fff2b0', transparent: true, opacity: .9 * (w || 1)})); AR.fx.add(l); AR.tracers.push({o: l, t: .07});
@@ -17860,54 +18011,78 @@ function arRender(dt){
   const A = AR, f = A.me, W = AR_W[arType(f.load[f.cur].it)], cam = A.cam;
   dt = dt || 0;
   A.tracers = A.tracers.filter(t => { t.t -= dt; if (t.o.material) t.o.material.opacity = Math.max(0, t.t * 12); if (t.t <= 0) { A.fx.remove(t.o); t.o.geometry.dispose(); t.o.material.dispose(); return false; } return true; });
-  const e = arEye(f), moving = Math.hypot(f.v.x, f.v.z);
-  A.bob += dt * moving * (f.ground ? 1.5 : 0);
-  A.shake = Math.max(0, A.shake - dt * 2);
-  cam.position.set(e.x + (Math.random() - .5) * A.shake * .1, e.y + Math.sin(A.bob * 2) * .025 * Math.min(1, moving / 6), e.z);
-  cam.rotation.set(f.pitch, f.yaw, 0);
-  const zoom = 1 + (W.zoom - 1) * A.ads, base = AR_MOBILE ? 72 : 78; cam.fov = base / zoom; cam.updateProjectionMatrix();
+  /* if you're down in a team mode, the camera follows a living teammate */
+  if (!f.alive && A.spec && !A.spec.alive) A.spec = arMates(f).find(o => o.alive) || null;
+  const spec = !f.alive && A.spec ? A.spec : null;
+  if (spec) {
+    const fw = arFwd(spec.yaw, -.25), back = 3.6;
+    let px = spec.p.x - fw.x * back, pz = spec.p.z - fw.z * back; const py = spec.p.y + 2.4;
+    const e = {x: spec.p.x, y: spec.p.y + 1.8, z: spec.p.z}, d = {x: px - e.x, y: py - e.y, z: pz - e.z}, L = Math.hypot(d.x, d.y, d.z); d.x /= L; d.y /= L; d.z /= L;
+    const hit = Math.min(L, arRayMap(e, d, L) - .2); cam.position.set(e.x + d.x * hit, e.y + d.y * hit, e.z + d.z * hit);
+    cam.rotation.set(-.22, spec.yaw, 0); cam.fov = AR_MOBILE ? 74 : 78; cam.updateProjectionMatrix();
+  } else {
+    const e = arEye(f), moving = Math.hypot(f.v.x, f.v.z);
+    A.bob += dt * moving * (f.ground ? 1.5 : 0);
+    A.shake = Math.max(0, A.shake - dt * 2);
+    cam.position.set(e.x + (Math.random() - .5) * A.shake * .1, e.y + Math.sin(A.bob * 2) * .02 * Math.min(1, moving / 6), e.z);
+    cam.rotation.set(f.pitch, f.yaw, 0);
+    const zoom = 1 + (W.zoom - 1) * A.ads, base = AR_MOBILE ? 74 : 78; cam.fov = base / zoom; cam.updateProjectionMatrix();
+  }
   /* viewmodel: hip vs ADS, bob, recoil, reload dip, swap raise, knife swing */
   const g = A.guns[f.cur], ads = A.ads, rl = f.reload > 0 ? Math.sin(Math.min(1, (1 - f.reload / W.rl)) * Math.PI) : 0;
   const knife = !!W.melee; A.swing = Math.max(0, (A.swing || 0) - dt);
   const sw2 = Math.sin(Math.min(1, A.swing / .3) * Math.PI);
   g.position.set(knife ? .2 - sw2 * .14 : .17 * (1 - ads), (knife ? -.15 : -.165 + .085 * ads) - rl * .14 - f.swap * .7 + Math.sin(A.bob * 2) * .008 * (1 - ads), (knife ? -.34 - sw2 * .14 : -.36 + .05 * ads) + f.kick * 1.4);
   g.rotation.set(rl * .7 + f.kick * 2.4 + (knife ? .3 - sw2 * 1.1 : 0), (knife ? 1.2 - sw2 * .4 : .24 * (1 - ads)) + Math.sin(A.bob) * .015, knife ? -.25 - sw2 * .5 : 0);
-  g.visible = !(W.scope && ads > .9);
+  g.visible = f.alive && !(W.scope && ads > .9);
   A.flashT = Math.max(0, (A.flashT || 0) - dt); A.flash.material.opacity = A.flashT > 0 ? 1 : 0;
   A.flash.position.set(g.position.x, g.position.y + .03, g.position.z - (g.userData.len || .5) - .02);
-  const sw = $('#arScope'); if (sw) sw.hidden = !(W.scope && ads > .9);
-  A.R.clear(); A.R.render(A.sc, cam); A.R.clearDepth(); A.R.render(A.vsc, A.vcam);
-  /* floating damage numbers and the enemy tag */
-  const T = A.T, v = new T.Vector3();
+  const sw = $('#arScope'); if (sw) sw.hidden = !(f.alive && W.scope && ads > .9);
+  A.R.clear(); A.R.render(A.sc, cam); A.R.clearDepth(); if (f.alive) A.R.render(A.vsc, A.vcam);
+  /* floating damage numbers and the name tags */
+  const T = A.T, v = new T.Vector3(), e = cam.position, sx = innerWidth, sy = innerHeight;
   A.nums = A.nums.filter(n => { n.t -= dt; n.p.y += dt * .8; v.set(n.p.x, n.p.y, n.p.z).project(cam);
-    n.el.style.transform = 'translate(' + ((v.x * .5 + .5) * innerWidth) + 'px,' + ((-v.y * .5 + .5) * innerHeight) + 'px) translate(-50%,-50%)'; n.el.style.opacity = Math.min(1, n.t * 2); n.el.hidden = v.z > 1;
+    n.el.style.transform = 'translate(' + ((v.x * .5 + .5) * sx) + 'px,' + ((-v.y * .5 + .5) * sy) + 'px) translate(-50%,-50%)'; n.el.style.opacity = Math.min(1, n.t * 2); n.el.hidden = v.z > 1;
     if (n.t <= 0) { n.el.remove(); return false; } return true; });
-  const b = A.bot, tag = $('#arTag'); v.set(b.p.x, b.p.y + 2.25, b.p.z).project(cam);
-  const vis = b.alive && v.z < 1 && (arLOS(e, {x: b.p.x, y: b.p.y + 1.5, z: b.p.z}) || f.st.void > 0) && !(b.st.invis > 0);
-  tag.hidden = !vis; if (vis) { tag.style.transform = 'translate(' + ((v.x * .5 + .5) * innerWidth) + 'px,' + ((-v.y * .5 + .5) * innerHeight) + 'px) translate(-50%,-100%)'; tag.querySelector('i').style.width = b.hp + '%'; }
+  A.tagT = (A.tagT || 0) - dt; const losCheck = A.tagT <= 0; if (losCheck) A.tagT = .12;
+  A.F.forEach(b => { if (!b.tag) return; v.set(b.p.x, b.p.y + 2.3, b.p.z).project(cam);
+    if (losCheck) b.tagVis = b.alive && (b.team === 0 || ((arLOS(e, {x: b.p.x, y: b.p.y + 1.5, z: b.p.z}) || f.st.void > 0) && !(b.st.invis > 0)));
+    const vis = b.tagVis && v.z < 1 && Math.abs(v.x) < 1.2 && Math.abs(v.y) < 1.2;
+    b.tag.hidden = !vis; if (vis) { b.tag.style.transform = 'translate(' + ((v.x * .5 + .5) * sx) + 'px,' + ((-v.y * .5 + .5) * sy) + 'px) translate(-50%,-100%)'; b.tagBar.style.width = b.hp + '%'; } });
 }
 function arNum(p, dmg, head){ const el = document.createElement('div'); el.className = 'ar-num' + (head ? ' hd' : ''); el.textContent = dmg; $('#arHud').append(el); AR.nums.push({el, p: {x: p.x, y: p.y, z: p.z}, t: .9}); }
-function arFeed(msg){ const f = $('#arFeed'); if (!f) return; const d = document.createElement('div'); d.textContent = msg; f.prepend(d); setTimeout(() => d.remove(), 3500); while (f.children.length > 4) f.lastChild.remove(); }
+function arFeed(msg, side){ const f = $('#arFeed'); if (!f) return; const d = document.createElement('div'); d.className = side || ''; d.textContent = msg; f.prepend(d); setTimeout(() => d.remove(), 3500); while (f.children.length > 5) f.lastChild.remove(); }
 
 /* ---------- HUD ---------- */
+const AR_IC = {
+  fire: '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="13" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="24" cy="24" r="3.5" fill="currentColor"/><path d="M24 3v10M24 35v10M3 24h10M35 24h10" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>',
+  ads: '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16" fill="none" stroke="currentColor" stroke-width="4"/><path d="M24 8v32M8 24h32" stroke="currentColor" stroke-width="2.5"/><circle cx="24" cy="24" r="6" fill="none" stroke="currentColor" stroke-width="3"/></svg>',
+  jump: '<svg viewBox="0 0 48 48"><path d="M10 30 L24 15 L38 30" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 38h20" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>',
+  reload: '<svg viewBox="0 0 48 48"><path d="M37 20 A14 14 0 1 0 38 28" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M39 9 V21 H27" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  slide: '<svg viewBox="0 0 48 48"><circle cx="31" cy="12" r="5" fill="currentColor"/><path d="M8 38 H40 M14 30 L26 22 L34 30" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  swap: '<svg viewBox="0 0 48 48"><path d="M10 17 H36 M30 10 L37 17 L30 24 M38 31 H12 M18 24 L11 31 L18 38" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  skill: '<svg viewBox="0 0 48 48"><path d="M27 4 L12 27 H23 L20 44 L36 19 H25 Z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
+  pause: '<svg viewBox="0 0 48 48"><rect x="13" y="11" width="8" height="26" rx="2" fill="currentColor"/><rect x="27" y="11" width="8" height="26" rx="2" fill="currentColor"/></svg>'};
 function arHUD(){
-  const A = AR, opp = A.opp;
-  $('#arHud').innerHTML = '<div class="ar-top"><div class="ar-sc me"><small>YOU</small><b id="arS0">0</b></div><div class="ar-mid"><div class="ar-rd" id="arRd">ROUND 1</div><div class="ar-clock" id="arClock">1:30</div><div class="ar-to">First to ' + AR_WIN + '</div></div><div class="ar-sc op" style="--rc:' + arRankCol(opp.rp) + '"><small>' + esc(opp.name) + '</small><b id="arS1">0</b></div></div>'
+  const A = AR, n = A.mode.n, pips = t => '<div class="ar-pips">' + A.F.filter(f => f.team === t).map(f => '<i data-id="' + A.F.indexOf(f) + '"></i>').join('') + '</div>';
+  const oppName = n === 1 ? A.F.find(f => f.team === 1).name : 'RED';
+  $('#arHud').innerHTML = '<div class="ar-top"><div class="ar-sc me"><small>' + (n === 1 ? 'YOU' : 'BLUE') + '</small><b id="arS0">0</b>' + (n > 1 ? pips(0) : '') + '</div><div class="ar-mid"><div class="ar-rd" id="arRd">ROUND 1</div><div class="ar-clock" id="arClock">1:30</div><div class="ar-to">' + A.mode.id + ' · ' + esc(ARM.name) + '</div></div><div class="ar-sc op"><small>' + esc(oppName) + '</small><b id="arS1">0</b>' + (n > 1 ? pips(1) : '') + '</div></div>'
     + '<div class="ar-x" id="arX"><i></i><i></i><i></i><i></i></div><div class="ar-hm" id="arHm"></div>'
     + '<div class="ar-hurt" id="arHurt"></div><div class="ar-scope" id="arScope" hidden></div>'
-    + '<div class="ar-ban" id="arBan" hidden><b></b><span></span></div><div class="ar-count" id="arCount"></div>'
-    + '<div class="ar-feed" id="arFeed"></div>'
-    + '<div class="ar-tag" id="arTag" hidden style="--rc:' + arRankCol(opp.rp) + '"><span>' + esc(opp.name) + '</span><em><i></i></em></div>'
+    + '<div class="ar-ban" id="arBan" hidden><b></b><span></span></div><div class="ar-count" id="arCount"></div><div class="ar-spec" id="arSpec" hidden></div>'
+    + '<div class="ar-feed" id="arFeed"></div><div id="arTags"></div>'
     + '<div class="ar-hp"><div class="ar-hpn" id="arHpN">100</div><div class="ar-hpb"><i id="arHpB"></i><u id="arSh"></u></div><div class="ar-st" id="arSt"></div></div>'
     + '<div class="ar-wp"><div class="ar-ammo" id="arAmmo"></div><div class="ar-wn" id="arWn"></div><div class="ar-slots" id="arSlots"></div></div>'
     + '<button type="button" class="ar-sk" id="arSk" hidden><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" class="bg"/><circle cx="20" cy="20" r="17" class="cd" id="arSkC"/></svg><b>Q</b><span id="arSkN"></span></button>'
-    + '<button type="button" class="ar-pausebtn" id="arPauseBtn" aria-label="Pause or leave">Leave</button>'
-    + '<div class="ar-pause" id="arPause" hidden><div class="ar-pcard"><h3>Paused</h3><p id="arPauseP">' + (AR_MOBILE ? '' : 'Click to jump back in.') + '</p><button type="button" class="ar-btn" id="arResume">Resume</button><button type="button" class="ar-btn ghost" id="arQuit">Leave match (counts as a loss)</button></div></div>'
+    + '<button type="button" class="ar-pausebtn" id="arPauseBtn" aria-label="Pause or leave">' + (AR_MOBILE ? AR_IC.pause : 'Leave') + '</button>'
+    + '<div class="ar-pause" id="arPause" hidden><div class="ar-pcard"><h3>Paused</h3><p id="arPauseP"></p><button type="button" class="ar-btn" id="arResume">Resume</button><button type="button" class="ar-btn ghost" id="arQuit">Leave match (counts as a loss)</button></div></div>'
     + (AR_MOBILE ? '<div class="ar-touch" id="arTouch"><div class="ar-stick" id="arStick"><i></i></div>'
-      + '<button type="button" class="tb fire" data-t="fire">FIRE</button><button type="button" class="tb ads" data-t="ads">AIM</button><button type="button" class="tb jump" data-t="jump">JUMP</button>'
-      + '<button type="button" class="tb rl" data-t="reload">R</button><button type="button" class="tb sl" data-t="slide">SLIDE</button><button type="button" class="tb sw" data-t="swap">⇄</button><button type="button" class="tb skb" data-t="skill">SKILL</button></div>' : '');
+      + [['fire', 'fire'], ['fire2', 'fire'], ['ads', 'ads'], ['jump', 'jump'], ['reload', 'reload'], ['slide', 'slide'], ['swap', 'swap'], ['skill', 'skill']]
+        .map(([k, ic]) => '<button type="button" class="tb ' + k + '" data-t="' + k + '" aria-label="' + k + '">' + AR_IC[ic] + (k === 'skill' ? '<svg class="cdr" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" id="arTSkC"/></svg>' : '') + '</button>').join('') + '</div>' : '');
   $('#arSlots').innerHTML = A.me.load.map((l, i) => '<div class="ar-slot" data-i="' + i + '" style="--tc:' + TIERS[l.it.t].color + '"><small>' + (i + 1) + '</small><span></span></div>').join('');
   A.me.load.forEach((l, i) => { const s = $('#arSlots').children[i].querySelector('span'); s.append(thumb(l.it, wearIdx(l.fl))); });
+  /* name tags over every bot: your team's always show, enemies only when you can see them */
+  A.F.forEach(f => { if (f.me) return; const t = document.createElement('div'); t.className = 'ar-tag t' + f.team; t.hidden = true; t.innerHTML = '<span>' + esc(f.name) + '</span><em><i></i></em>'; $('#arTags').append(t); f.tag = t; f.tagBar = t.querySelector('i'); });
 }
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 let arBanT = 0;
@@ -17917,20 +18092,24 @@ function arHudUpdate(full){
   const A = AR; if (!A) return; const f = A.me, l = f.load[f.cur], W = AR_W[arType(l.it)];
   $('#arS0').textContent = A.score[0]; $('#arS1').textContent = A.score[1]; $('#arRd').textContent = 'ROUND ' + A.round;
   const rt = Math.max(0, Math.ceil(A.roundT || 0)); $('#arClock').textContent = Math.floor(rt / 60) + ':' + String(rt % 60).padStart(2, '0');
+  document.querySelectorAll('#arHud .ar-pips i').forEach(p => p.classList.toggle('dead', !A.F[+p.dataset.id].alive));
   $('#arHpN').textContent = Math.max(0, Math.ceil(f.hp)); $('#arHpB').style.width = Math.max(0, f.hp) + '%'; $('#arHpB').className = f.hp < 35 ? 'low' : '';
   $('#arSh').style.width = (f.st.shield > 0 ? f.st.shield : 0) + '%';
+  const sp = $('#arSpec'), spec = !f.alive && A.spec; sp.hidden = !spec && f.alive; if (!f.alive) sp.textContent = spec ? 'Spectating ' + A.spec.name : 'You were eliminated';
   $('#arAmmo').innerHTML = W.melee ? '<b>∞</b>' : f.reload > 0 ? '<b class="rl">RELOADING</b>' : '<b' + (f.mag[f.cur] <= Math.ceil(W.mag * .25) ? ' class="low"' : '') + '>' + (f.st.od > 0 ? '∞' : f.mag[f.cur]) + '</b><span>/ ' + W.mag + '</span>';
   if (full || A.lastCur !== f.cur) { A.lastCur = f.cur; $('#arWn').innerHTML = '<span style="color:' + TIERS[l.it.t].color + '">' + (l.it.stock ? 'Stock' : TIERS[l.it.t].name) + '</span> ' + WNAME[l.it.w] + (l.it.stock ? '' : ' | ' + l.it.name);
     [...$('#arSlots').children].forEach((s, i) => s.classList.toggle('on', i === f.cur)); }
-  const sk = arSkillOf(l.it), btn = $('#arSk');
-  btn.hidden = !sk; if (sk) { const cd = f.cd[sk] || 0, p = cd / AR_SK[sk].cd; $('#arSkN').textContent = AR_SK[sk].n; btn.classList.toggle('ready', cd <= 0); $('#arSkC').style.strokeDashoffset = (106.8 * p).toFixed(1); }
+  const sk = arSkillOf(l.it), btn = $('#arSk'), tsk = document.querySelector('#arTouch .tb.skill');
+  btn.hidden = !sk; if (tsk) tsk.hidden = !sk;
+  if (sk) { const cd = f.cd[sk] || 0, p = cd / AR_SK[sk].cd; $('#arSkN').textContent = AR_SK[sk].n; btn.classList.toggle('ready', cd <= 0); $('#arSkC').style.strokeDashoffset = (106.8 * p).toFixed(1);
+    if (tsk) { tsk.classList.toggle('ready', cd <= 0); $('#arTSkC').style.strokeDashoffset = (113.1 * p).toFixed(1); } }
   const st = []; if (f.st.abyss > 0) st.push('Abyss'); if (f.st.void > 0) st.push('Void Sight'); if (f.st.invis > 0) st.push('Invisible'); if (f.st.od > 0) st.push('Overdrive'); if (f.st.wraith > 0) st.push('Wraithfire');
   if (f.st.req > 0) st.push('Requiem ×' + f.st.req); if (f.st.haste > 0) st.push('Haste'); if (f.st.slow > 0) st.push('Slowed'); if (f.st.root > 0) st.push('Rooted'); if (f.st.burn > 0) st.push('Burning');
   $('#arSt').textContent = st.join(' · ');
   const spread = (A.ads > .5 ? W.ads : W.sp || .02) * (1 + Math.hypot(f.v.x, f.v.z) / 7 * 1.2 + (f.ground ? 0 : .8)), gap = W.melee ? 4 : Math.min(60, 4 + spread * 900);
-  const X = $('#arX'); X.style.setProperty('--g', gap.toFixed(1) + 'px'); X.style.opacity = W.scope && A.ads > .5 ? 0 : 1;
+  const X = $('#arX'); X.style.setProperty('--g', gap.toFixed(1) + 'px'); X.style.opacity = !f.alive || (W.scope && A.ads > .5) ? 0 : 1;
   A.hitm = Math.max(0, (A.hitm || 0) - .016); $('#arHm').style.opacity = A.hitm > 0 ? 1 : 0;
-  A.hurt = Math.max(0, (A.hurt || 0) - .012); $('#arHurt').style.opacity = A.hurt + (f.hp < 30 ? .25 : 0);
+  A.hurt = Math.max(0, (A.hurt || 0) - .012); $('#arHurt').style.opacity = A.hurt + (f.alive && f.hp < 30 ? .25 : 0);
 }
 /* ---------- input ---------- */
 function arBindInput(){
@@ -17953,11 +18132,11 @@ function arBindInput(){
   A.onMd = e => { if (AR_MOBILE) return; if (document.pointerLockElement !== cv) { cv.requestPointerLock && cv.requestPointerLock(); return; } if (e.button === 0) A.fire = true; if (e.button === 2) A.adsHeld = true; };
   A.onMu = e => { if (e.button === 0) A.fire = false; if (e.button === 2) A.adsHeld = false; };
   A.onWheel = e => { if (document.pointerLockElement === cv) arSwap((A.me.cur + (e.deltaY > 0 ? 1 : 2)) % 3); };
-  A.onPl = () => { if (AR_MOBILE || !AR) return; const locked = document.pointerLockElement === cv; A.paused = !locked && !A.over; $('#arPause').hidden = locked || !!A.over; if (!locked) { A.fire = false; A.adsHeld = false; A.keys = {}; } };
+  A.onPl = () => { if (AR_MOBILE || !AR) return; const locked = document.pointerLockElement === cv; A.paused = !locked && !A.over; $('#arPause').hidden = locked || !!A.over; if (!locked) { A.fire = false; A.adsHeld = false; A.keys = {}; } else A.last = performance.now(); };
   A.onResize = () => { A.R.setSize(innerWidth, innerHeight); A.cam.aspect = A.vcam.aspect = innerWidth / innerHeight; A.cam.updateProjectionMatrix(); A.vcam.updateProjectionMatrix(); };
   addEventListener('mousemove', A.onMm); cv.addEventListener('mousedown', A.onMd); addEventListener('mouseup', A.onMu); addEventListener('wheel', A.onWheel, {passive: true});
   document.addEventListener('pointerlockchange', A.onPl); addEventListener('resize', A.onResize); cv.addEventListener('contextmenu', e => e.preventDefault());
-  $('#arResume').onclick = () => { if (AR_MOBILE) { A.paused = false; $('#arPause').hidden = true; } else cv.requestPointerLock(); };
+  $('#arResume').onclick = () => { if (AR_MOBILE) { A.paused = false; A.last = performance.now(); $('#arPause').hidden = true; } else cv.requestPointerLock(); };
   $('#arPause').onclick = e => { if (e.target.id === 'arPause') $('#arResume').click(); };
   $('#arQuit').onclick = () => { A.score[1] = AR_WIN; A.quit = true; arFinish(); };
   $('#arPauseBtn').onclick = () => { if (AR_MOBILE) { A.paused = true; $('#arPause').hidden = false; } else document.exitPointerLock(); };
@@ -17967,30 +18146,32 @@ function arBindInput(){
   else arTouch();
 }
 function arSwap(i){ const A = AR; if (!A || i === A.me.cur || !A.me.alive) return; A.me.cur = i; A.me.reload = 0; A.ads = 0; arShowWeapon(); tone(500, .04, 'square', .03); }
+/* phone controls: a floating stick on the left, drag anywhere on the right to aim, big icon buttons */
 function arTouch(){
   const A = AR, pad = $('#arTouch'), stick = $('#arStick'), knob = stick.querySelector('i'); const ids = {};
   const btnOf = el => el && el.closest && el.closest('.tb');
   pad.addEventListener('touchstart', e => {
     for (const t of e.changedTouches) {
       const b = btnOf(document.elementFromPoint(t.clientX, t.clientY));
-      if (b) { const k = b.dataset.t; ids[t.identifier] = {k, x: t.clientX, y: t.clientY}; b.classList.add('on');
-        if (k === 'fire') A.fire = true; if (k === 'ads') A.adsHeld = !A.adsHeld, b.classList.toggle('lock', A.adsHeld); if (k === 'jump') A.keys.jump = true;
+      if (b && !b.hidden) { const k = b.dataset.t; ids[t.identifier] = {k, x: t.clientX, y: t.clientY, b}; b.classList.add('on');
+        if (k === 'fire') A.fire = true; if (k === 'fire2') A.fire2 = true; if (k === 'jump') A.keys.jump = true;
+        if (k === 'ads') { A.adsHeld = !A.adsHeld; b.classList.toggle('lock', A.adsHeld); }
         if (k === 'reload') arReload(A.me); if (k === 'slide') A.keys.slide = true; if (k === 'swap') arSwap((A.me.cur + 1) % 3); if (k === 'skill') arUseSkill(A.me); }
-      else if (t.clientX < innerWidth * .42) { ids[t.identifier] = {k: 'stick', x: t.clientX, y: t.clientY}; stick.style.left = t.clientX + 'px'; stick.style.top = t.clientY + 'px'; stick.classList.add('on'); A.stick = {x: 0, y: 0}; }
+      else if (t.clientX < innerWidth * .45) { ids[t.identifier] = {k: 'stick', x: t.clientX, y: t.clientY}; stick.style.left = t.clientX + 'px'; stick.style.top = t.clientY + 'px'; stick.classList.add('on'); A.stick = {x: 0, y: 0}; }
       else ids[t.identifier] = {k: 'look', x: t.clientX, y: t.clientY};
     }
     e.preventDefault();
   }, {passive: false});
   pad.addEventListener('touchmove', e => {
     for (const t of e.changedTouches) { const s = ids[t.identifier]; if (!s) continue;
-      if (s.k === 'stick') { let dx = t.clientX - s.x, dy = t.clientY - s.y; const L = Math.hypot(dx, dy), m = 46; if (L > m) { dx *= m / L; dy *= m / L; } knob.style.transform = 'translate(' + dx + 'px,' + dy + 'px)'; A.stick = {x: dx / m, y: dy / m}; }
-      else if (s.k === 'look' || s.k === 'fire') { A.mdx += (t.clientX - s.x) * 1.0; A.mdy += (t.clientY - s.y) * 1.0; s.x = t.clientX; s.y = t.clientY; } }
+      if (s.k === 'stick') { let dx = t.clientX - s.x, dy = t.clientY - s.y; const L = Math.hypot(dx, dy), m = Math.min(innerWidth, innerHeight) * .13; if (L > m) { dx *= m / L; dy *= m / L; } knob.style.transform = 'translate(' + dx + 'px,' + dy + 'px)'; A.stick = {x: dx / m, y: dy / m}; }
+      else if (s.k === 'look' || s.k === 'fire' || s.k === 'ads') { A.mdx += t.clientX - s.x; A.mdy += t.clientY - s.y; s.x = t.clientX; s.y = t.clientY; } }
     e.preventDefault();
   }, {passive: false});
   const end = e => { for (const t of e.changedTouches) { const s = ids[t.identifier]; if (!s) continue; delete ids[t.identifier];
     if (s.k === 'stick') { A.stick = null; stick.classList.remove('on'); knob.style.transform = ''; }
-    if (s.k === 'fire') A.fire = false; if (s.k === 'jump') A.keys.jump = false;
-    pad.querySelectorAll('.tb.on').forEach(b => { if (b.dataset.t === s.k) b.classList.remove('on'); }); } };
+    if (s.k === 'fire') A.fire = false; if (s.k === 'fire2') A.fire2 = false; if (s.k === 'jump') A.keys.jump = false;
+    if (s.b) s.b.classList.remove('on'); } };
   pad.addEventListener('touchend', end); pad.addEventListener('touchcancel', end);
 }
 function arCleanup(){
@@ -18008,13 +18189,14 @@ function arFinish(){
   const diff = A.score[0] - A.score[1];
   const d = won ? 20 + 2 * diff : -Math.max(8, 18 - 2 * A.score[0]);
   S.rp = Math.max(0, S.rp + d); if (won) S.w++; else S.l++;
-  const cr = won ? 200 + 150 * ti + 30 * A.score[0] : A.quit ? 0 : 50 + 20 * A.score[0];
+  const cr = won ? 200 + 150 * ti + 30 * A.score[0] + 25 * A.me.kills : A.quit ? 0 : 50 + 20 * A.score[0] + 15 * A.me.kills;
   state.bal += cr; save(); setBal(cr);
   const after = S.rp, up = arRankIdx(after) > ri, down = arRankIdx(after) < ri;
   if (document.pointerLockElement) document.exitPointerLock();
   cancelAnimationFrame(A.raf);
-  const res = $('#arRes');
-  res.innerHTML = '<div class="ar-rcard ' + (won ? 'win' : 'lose') + '"><div class="ar-rtop">' + (won ? 'VICTORY' : A.quit ? 'YOU LEFT' : 'DEFEAT') + '</div><div class="ar-rsc">' + A.score[0] + ' – ' + A.score[1] + '</div><div class="ar-rvs">vs ' + esc(A.opp.name) + ' · ' + arRankName(A.opp.rp) + '</div>'
+  const res = $('#arRes'), opp = A.F.filter(f => f.team === 1);
+  res.innerHTML = '<div class="ar-rcard ' + (won ? 'win' : 'lose') + '"><div class="ar-rtop">' + (won ? 'VICTORY' : A.quit ? 'YOU LEFT' : 'DEFEAT') + '</div><div class="ar-rsc">' + A.score[0] + ' – ' + A.score[1] + '</div>'
+    + '<div class="ar-rvs">' + A.mode.id + ' ' + A.mode.name + ' · ' + esc(ARM.name) + ' · ' + A.me.kills + ' elimination' + (A.me.kills === 1 ? '' : 's') + (A.mode.n === 1 ? ' · vs ' + esc(opp[0].name) : '') + '</div>'
     + '<div class="ar-rrank" style="--rc:' + arRankCol(after) + '">' + arEmblem(after) + '<div><b>' + arRankName(after) + (up ? ' <em>RANK UP!</em>' : down ? ' <em class="dn">RANK DOWN</em>' : '') + '</b><div class="ar-rbar"><i style="width:' + (after % AR_DIV) + '%"></i></div><small>' + (d >= 0 ? '+' : '') + d + ' RP · ' + (after % AR_DIV) + ' / ' + AR_DIV + '</small></div></div>'
     + '<div class="ar-rcr"><span class="coin"></span>+' + fmt(cr) + ' credits</div>'
     + '<div class="ar-racts"><button type="button" class="ar-btn" id="arAgain">Play again</button><button type="button" class="ar-btn ghost" id="arMenuB">Menu</button></div></div>';
@@ -18024,11 +18206,31 @@ function arFinish(){
   $('#arMenuB').onclick = () => { arCleanup(); res.hidden = true; arMenu(); };
 }
 
-/* ---------- menu, loadout, matchmaking ---------- */
+/* ---------- menu: modes, maps, loadout, settings; matchmaking ---------- */
 function arEmblem(rp){ const ti = Math.floor(arRankIdx(rp) / 3), div = arRankIdx(rp) % 3;
   return '<svg class="ar-emb" viewBox="0 0 60 60" aria-hidden="true"><path d="M30 3 L54 14 V32 Q54 48 30 57 Q6 48 6 32 V14 Z" fill="var(--rc)" stroke="#0b0d12" stroke-width="3"/><path d="M30 9 L48 18 V32 Q48 44 30 51 Q12 44 12 32 V18 Z" fill="#0b0d12" opacity=".35"/>'
     + (ti >= 5 ? '<path d="M18 14 L24 22 L30 12 L36 22 L42 14 L40 26 H20 Z" fill="#fff" opacity=".9"/>' : '')
     + Array.from({length: div + 1}, (_, i) => '<path d="M' + (20 + i * 10 - (div * 5)) + ' 30 l5 -6 l5 6 l-5 10 z" fill="#fff" opacity=".95"/>').join('') + '</svg>'; }
+/* card art: a burst of light, your team on the left, theirs on the right */
+function arFig(x, y, s, col, flip){
+  const k = s, f = flip ? -1 : 1;
+  return '<g transform="translate(' + x + ' ' + y + ') scale(' + (f * k) + ' ' + k + ')">'
+    + '<rect x="-9" y="-2" width="7" height="20" fill="' + arShade(col, .85) + '" stroke="#1b2230" stroke-width="1.6"/><rect x="2" y="-2" width="7" height="20" fill="' + arShade(col, .85) + '" stroke="#1b2230" stroke-width="1.6" transform="rotate(-8 5 -2)"/>'
+    + '<rect x="-13" y="-24" width="26" height="23" fill="' + col + '" stroke="#1b2230" stroke-width="1.6"/>'
+    + '<rect x="-21" y="-24" width="8" height="21" fill="' + arShade(col, .85) + '" stroke="#1b2230" stroke-width="1.6" transform="rotate(-14 -17 -24)"/>'
+    + '<rect x="13" y="-24" width="8" height="20" fill="' + arShade(col, .85) + '" stroke="#1b2230" stroke-width="1.6" transform="rotate(-72 17 -22)"/>'
+    + '<path d="M22 -30 h22 v5 h-12 v6 h-5 v-6 h-5 z" fill="#2a2f3a" stroke="#1b2230" stroke-width="1.2"/>'
+    + '<rect x="-9" y="-41" width="18" height="17" fill="' + col + '" stroke="#1b2230" stroke-width="1.6"/><rect x="-7" y="-37" width="15" height="6" fill="#141821"/><rect x="-3.5" y="-36" width="2.4" height="3.6" rx="1" fill="#fff"/><rect x="2.5" y="-36" width="2.4" height="3.6" rx="1" fill="#fff"/></g>'; }
+function arModeArt(m){
+  const n = m.n, sc = n <= 2 ? 1.25 : n === 3 ? 1.05 : .9, gap = 26 * sc;
+  let s = '<svg class="ar-mart" viewBox="0 0 320 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="mg' + m.id + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + m.g[0] + '"/><stop offset="1" stop-color="' + m.g[1] + '"/></linearGradient>'
+    + '<radialGradient id="mb' + m.id + '"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>'
+    + '<rect width="320" height="160" fill="url(#mg' + m.id + ')"/>';
+  for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2; s += '<path d="M160 70 L' + (160 + Math.cos(a) * 260).toFixed(0) + ' ' + (70 + Math.sin(a) * 260).toFixed(0) + ' L' + (160 + Math.cos(a + .14) * 260).toFixed(0) + ' ' + (70 + Math.sin(a + .14) * 260).toFixed(0) + ' Z" fill="#fff" opacity=".1"/>'; }
+  s += '<circle cx="160" cy="72" r="56" fill="url(#mb' + m.id + ')" opacity=".55"/>';
+  for (let i = n - 1; i >= 0; i--) { s += arFig(118 - i * gap, 112 - i * 6 * sc, sc * (1 - i * .06), AR_TEAMCOL[0][i], false); s += arFig(202 + i * gap, 112 - i * 6 * sc, sc * (1 - i * .06), AR_TEAMCOL[1][i], true); }
+  return s + '<path d="M150 50 L172 50 L160 74 L174 74 L146 104 L154 80 L142 80 Z" fill="#fff" stroke="#1b2230" stroke-width="2.4" stroke-linejoin="round"/></svg>';
+}
 function arOpen(){
   const el = $('#arena'); el.hidden = false; document.body.classList.add('ar-on'); arMenu();
   arThree().catch(() => {});
@@ -18036,18 +18238,35 @@ function arOpen(){
 function arClose(){ arCleanup(); clearInterval(arQ && arQ.iv); arQ = null; $('#arena').hidden = true; document.body.classList.remove('ar-on'); }
 function arScreen(id){ ['arMenu', 'arQ', 'arGame', 'arRes'].forEach(k => $('#' + k).hidden = k !== id); }
 function arMenu(){
-  arScreen('arMenu'); const S = arS(), L = arLoadout();
-  $('#arMenu').innerHTML = '<div class="ar-mtop"><button type="button" class="ar-back" id="arBack">‹ Crate Rush</button><div class="ar-logo">SHOW<b>DOWN</b><small>1v1 · first to ' + AR_WIN + '</small></div></div>'
-    + '<div class="ar-mgrid"><div class="ar-rankc" style="--rc:' + arRankCol(S.rp) + '">' + arEmblem(S.rp) + '<div><small>Your rank</small><b>' + arRankName(S.rp) + '</b><div class="ar-rbar"><i style="width:' + (S.rp % AR_DIV) + '%"></i></div><span>' + (S.rp % AR_DIV) + ' / ' + AR_DIV + ' RP · ' + S.w + 'W ' + S.l + 'L</span></div></div>'
+  arScreen('arMenu'); const S = arS(), L = arLoadout(), M = arMode(S.mode);
+  if (S.map !== 'any' && !M.maps.includes(S.map)) S.map = 'any';
+  $('#arMenu').innerHTML = '<div class="ar-mtop"><button type="button" class="ar-back" id="arBack">‹ Crate Rush</button><div class="ar-logo">SHOW<b>DOWN</b></div>'
+    + '<div class="ar-rmini" style="--rc:' + arRankCol(S.rp) + '">' + arEmblem(S.rp) + '<div><b>' + arRankName(S.rp) + '</b><div class="ar-rbar"><i style="width:' + (S.rp % AR_DIV) + '%"></i></div><span>' + S.w + 'W ' + S.l + 'L</span></div></div>'
+    + '<button type="button" class="ar-gear" id="arGear" aria-label="Settings"><svg viewBox="0 0 24 24"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm8.6 4.9-1.9 1.1.1 2.2-2.2 1.3-1.9-1.1-1.9 1.1h-1.6l-1.9-1.1-1.9 1.1L3.2 16.7l.1-2.2-1.9-1.1V10.6l1.9-1.1-.1-2.2L5.4 6l1.9 1.1L9.2 6h1.6l1.9 1.1L14.6 6l2.2 1.3-.1 2.2 1.9 1.1z" fill="currentColor"/></svg></button></div>'
+    + '<div class="ar-mgrid"><div class="ar-modes">' + AR_MODES.map((m, i) => '<button type="button" class="ar-mode' + (m.id === S.mode ? ' on' : '') + (i < 2 ? ' big' : '') + '" data-mode="' + m.id + '">' + arModeArt(m) + '<span class="ar-mlab"><b>' + m.id + '</b><em>' + m.name.toUpperCase() + '</em><small>' + m.sub + '</small></span></button>').join('') + '</div>'
+    + '<div class="ar-maps"><span>Map</span>' + ['any'].concat(M.maps).map(id => '<button type="button" class="ar-chip' + (S.map === id ? ' on' : '') + '" data-map="' + id + '">' + (id === 'any' ? 'Random' : AR_MAPS[id].name + ' <small>' + AR_MAPS[id].W + '×' + AR_MAPS[id].D + '</small>') + '</button>').join('') + '</div>'
     + '<div class="ar-load"><div class="ar-lh">Loadout <small>tap a slot to change it</small></div>' + L.map((l, i) => {
         const sk = arSkillOf(l.it);
         return '<button type="button" class="ar-lslot" data-slot="' + i + '" style="--tc:' + TIERS[l.it.t].color + '"><small>' + AR_SLOTN[i] + '</small><span class="ar-lart"></span><b>' + (l.it.stock ? 'Stock ' + WNAME[l.it.w].replace('★ ', '') : WNAME[l.it.w] + ' | ' + l.it.name) + '</b>'
           + (sk ? '<em>★ ' + AR_SK[sk].n + '</em>' : l.it.t === 7 ? '<em class="ch">Chroma skill coming soon</em>' : '') + '</button>'; }).join('') + '</div>'
-    + '<button type="button" class="ar-find" id="arFind">FIND MATCH</button>'
-    + '<p class="ar-note">Bots get sharper and carry better weapons as you rank up. Win: rank points and credits. ' + (AR_MOBILE ? 'Left thumb moves, right thumb aims.' : 'Mouse and keyboard.') + '</p></div>';
+    + '<button type="button" class="ar-find" id="arFind">FIND MATCH · ' + M.id + '</button>'
+    + '<p class="ar-note">Bots on both teams get sharper and carry better weapons as you rank up. Win: rank points and credits.</p></div>';
   [...document.querySelectorAll('#arMenu .ar-lslot')].forEach((b, i) => b.querySelector('.ar-lart').append(thumb(L[i].it, wearIdx(L[i].fl))));
-  $('#arBack').onclick = arClose; $('#arFind').onclick = arQueue;
+  $('#arBack').onclick = arClose; $('#arFind').onclick = arQueue; $('#arGear').onclick = arSettings;
+  $('#arMenu').querySelectorAll('.ar-mode').forEach(b => b.onclick = () => { S.mode = b.dataset.mode; save(); tone(660, .05, 'triangle', .04); arMenu(); });
+  $('#arMenu').querySelectorAll('.ar-chip').forEach(b => b.onclick = () => { S.map = b.dataset.map; save(); tone(720, .04, 'triangle', .04); arMenu(); });
   $('#arMenu').querySelectorAll('.ar-lslot').forEach(b => b.onclick = () => arPick(+b.dataset.slot));
+}
+function arSettings(){
+  const S = arS(), box = document.createElement('div'); box.className = 'ar-pick';
+  const row = (id, lab, v, min, max) => '<label class="ar-set"><span>' + lab + ' <b id="' + id + 'V">' + v.toFixed(2) + '×</b></span><input type="range" id="' + id + '" min="' + min + '" max="' + max + '" step=".05" value="' + v + '"></label>';
+  box.innerHTML = '<div class="ar-pcard2"><div class="ar-lh">Settings <button type="button" class="ar-x2" aria-label="Close">✕</button></div>'
+    + row('arSm', 'Phone look speed', S.sens.mob, .4, 3) + row('arSp', 'Mouse look speed', S.sens.pc, .3, 3)
+    + '<label class="ar-set tog"><span>Phone aim assist</span><input type="checkbox" id="arAs"' + (S.assist ? ' checked' : '') + '></label></div>';
+  $('#arena').append(box);
+  const bind = (id, key) => { const i = $('#' + id); i.oninput = () => { S.sens[key] = +i.value; $('#' + id + 'V').textContent = (+i.value).toFixed(2) + '×'; save(); }; };
+  bind('arSm', 'mob'); bind('arSp', 'pc'); $('#arAs').onchange = e => { S.assist = e.target.checked; save(); };
+  box.onclick = e => { if (e.target === box || e.target.closest('.ar-x2')) box.remove(); };
 }
 function arPick(slot){
   const list = state.inv.filter(e => BY[e.id] && arSlotOf(BY[e.id]) === slot).sort((a, b) => BY[b.id].t - BY[a.id].t || b.v - a.v);
@@ -18063,26 +18282,33 @@ function arPick(slot){
     else if (e.target === box || e.target.closest('.ar-x2')) box.remove(); };
 }
 let arQ = null;
+/* matchmaking: 15-30 seconds, with the lobby filling up as players are found */
 function arQueue(){
-  arScreen('arQ'); const wait = 15000 + Math.random() * 15000, t0 = Date.now(), S = arS();
-  $('#arQ').innerHTML = '<div class="ar-radar"><i></i><i></i><i></i><b></b></div><h2>FINDING AN OPPONENT</h2><div class="ar-qt" id="arQt">0:00</div><p>Usually takes 0:15 – 0:30 · ' + arRankName(S.rp) + '</p><button type="button" class="ar-btn ghost" id="arQx">Cancel</button>';
+  arScreen('arQ'); const S = arS(), M = arMode(S.mode), need = M.n * 2 - 1, wait = 15000 + Math.random() * 15000, t0 = Date.now();
+  const at = Array.from({length: need}, () => Math.random()).sort((a, b) => a - b).map((r, i) => i === need - 1 ? 1 : .15 + r * .8);
+  $('#arQ').innerHTML = '<div class="ar-radar"><i></i><i></i><i></i><b></b></div><h2>' + (M.n === 1 ? 'FINDING AN OPPONENT' : 'FINDING PLAYERS') + '</h2><div class="ar-qt" id="arQt">0:00</div>'
+    + (M.n > 1 ? '<div class="ar-qfill" id="arQf">' + Array.from({length: M.n * 2}, (_, i) => '<i class="' + (i === 0 ? 'on me' : '') + '"></i>').join('') + '</div>' : '')
+    + '<p>' + M.id + ' ' + M.name + ' · usually takes 0:15 – 0:30 · ' + arRankName(S.rp) + '</p><button type="button" class="ar-btn ghost" id="arQx">Cancel</button>';
   arThree().catch(() => {});
   arQ = {iv: setInterval(() => {
-    const e = Date.now() - t0, s = Math.floor(e / 1000); const q = $('#arQt'); if (q) q.textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+    const e = Date.now() - t0, s = Math.floor(e / 1000), q = $('#arQt'); if (q) q.textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+    const qf = $('#arQf'); if (qf) { const got = at.filter(a => a * wait <= e).length; [...qf.children].forEach((c, i) => { const on = i === 0 || i <= got; if (on && !c.classList.contains('on')) { c.classList.add('on'); tone(900, .05, 'triangle', .03); } }); }
     if (e >= wait) { clearInterval(arQ.iv); arFound(); }
   }, 250)};
   $('#arQx').onclick = () => { clearInterval(arQ.iv); arQ = null; arMenu(); };
 }
 async function arFound(){
-  const S = arS(), rp = Math.max(0, S.rp + Math.round((Math.random() - .5) * 60)), opp = {name: arBotName(), rp, kit: arBotKit(S.rp), skill: arSkill(S.rp)};
+  const S = arS(), M = arMode(S.mode), map = S.map !== 'any' && M.maps.includes(S.map) ? S.map : pickOne(M.maps);
+  const bot = () => ({name: arBotName(), rp: Math.max(0, S.rp + Math.round((Math.random() - .5) * 60)), kit: arBotKit(S.rp), skill: arSkill(S.rp)});
+  const teams = [[{me: true, name: 'You', rp: S.rp}].concat(Array.from({length: M.n - 1}, bot)), Array.from({length: M.n}, bot)];
   [523.25, 783.99, 1046.5].forEach((f, i) => tone(f, .3, 'triangle', .06, i * .09));
-  const sk = arSkillOf(opp.kit.it);
-  $('#arQ').innerHTML = '<div class="ar-found"><small>OPPONENT FOUND</small><div class="ar-vs"><div class="ar-vsc" style="--rc:' + arRankCol(S.rp) + '">' + arEmblem(S.rp) + '<b>You</b><span>' + arRankName(S.rp) + '</span></div><div class="ar-vsx">VS</div>'
-    + '<div class="ar-vsc" style="--rc:' + arRankCol(rp) + '">' + arEmblem(rp) + '<b>' + esc(opp.name) + '</b><span>' + arRankName(rp) + '</span><div class="ar-vsg" style="--tc:' + TIERS[opp.kit.it.t].color + '"></div><em>' + WNAME[opp.kit.it.w] + ' | ' + opp.kit.it.name + (sk ? ' · ★ ' + AR_SK[sk].n : '') + '</em></div></div><p id="arLd">Loading the arena…</p></div>';
-  $('#arQ .ar-vsg').append(thumb(opp.kit.it, wearIdx(opp.kit.fl)));
-  try { await Promise.all([arThree(), wait(2600)]); } catch (e) { $('#arLd').textContent = 'Couldn’t load the 3D engine. Check your connection and try again.'; setTimeout(arMenu, 2500); return; }
+  const card = (p, t) => { const sk = p.kit && arSkillOf(p.kit.it);
+    return '<div class="ar-vsc' + (M.n > 1 ? ' sm' : '') + ' t' + t + '" style="--rc:' + arRankCol(p.rp) + '">' + arEmblem(p.rp) + '<div class="ar-vsi"><b>' + esc(p.name) + '</b><span>' + arRankName(p.rp) + '</span>' + (p.kit ? '<em>' + WNAME[p.kit.it.w] + ' | ' + p.kit.it.name + (sk ? ' · ★ ' + AR_SK[sk].n : '') + '</em>' : '') + '</div>' + (p.kit && M.n === 1 ? '<div class="ar-vsg"></div>' : '') + '</div>'; };
+  $('#arQ').innerHTML = '<div class="ar-found"><small>' + (M.n === 1 ? 'OPPONENT FOUND' : 'MATCH FOUND') + ' · ' + M.id + ' ' + M.name.toUpperCase() + ' · ' + esc(AR_MAPS[map].name.toUpperCase()) + '</small><div class="ar-vs' + (M.n > 1 ? ' teams' : '') + '"><div class="ar-team">' + teams[0].map(p => card(p, 0)).join('') + '</div><div class="ar-vsx">VS</div><div class="ar-team">' + teams[1].map(p => card(p, 1)).join('') + '</div></div><p id="arLd">Loading the arena…</p></div>';
+  const g = $('#arQ .ar-vsg'); if (g) g.append(thumb(teams[1][0].kit.it, wearIdx(teams[1][0].kit.fl)));
+  try { await Promise.all([arThree(), wait(2800)]); } catch (e) { $('#arLd').textContent = 'Couldn’t load the 3D engine. Check your connection and try again.'; setTimeout(arMenu, 2500); return; }
   arScreen('arGame'); $('#arRes').hidden = true;
-  try { await arStartMatch(opp); } catch (e) { console.error(e); arCleanup(); arMenu(); toast('The arena failed to start on this device.'); }
+  try { await arStartMatch({mode: M.id, map, teams}); } catch (e) { console.error(e); arCleanup(); arMenu(); toast('The arena failed to start on this device.'); }
 }
 
 $('#arBtn').onclick = () => { if (busy) return; arOpen(); };
