@@ -4251,7 +4251,7 @@ body.cine-cover>:not(.gtc),body.cine-cover>:not(.gtc) *{animation-play-state:pau
 </div></div>
 <div class="auth" id="auth" hidden>
   <div class="au-card">
-    <div class="au-brand"><span class="au-logo">CRATE<b>RUSH</b></span><span class="au-tag">Your cases, your knives, your deals with the Prestige. Saved to your account.</span></div>
+    <div class="au-brand"><span class="au-logo">CRATE<b>RUSH</b></span><span class="au-tag">Your cases, your crew, your deals with the Prestige. Saved to your account.</span></div>
     <div class="au-tabs" role="tablist"><button type="button" class="au-tab" data-m="in" role="tab">Sign in</button><button type="button" class="au-tab" data-m="up" role="tab">Create account</button></div>
     <div class="au-load" id="auLoad"><span class="au-spin"></span>Checking your account…</div>
     <form class="au-form" id="auForm" novalidate>
@@ -4396,7 +4396,7 @@ body.cine-cover>:not(.gtc),body.cine-cover>:not(.gtc) *{animation-play-state:pau
   <div class="pc-sub" id="pcSub" aria-live="polite"><b id="pcWho"></b><span id="pcLine"></span></div>
   <button class="pc-skip" id="pcSkip">Skip ››</button>
   <div class="pc-title">
-    <small>An organization that uses weapons</small>
+    <small>An organization that collects people</small>
     <h2>THE PRESTIGE</h2>
     <div class="rule"></div>
     <p>Six members. Six appetites. They pay far more than the market, and they reward anyone who brings exactly what they asked for.</p>
@@ -4460,7 +4460,7 @@ body.cine-cover>:not(.gtc),body.cine-cover>:not(.gtc) *{animation-play-state:pau
       <div class="pr-hero">
         <div class="pr-dial" aria-hidden="true"><span style="transform:rotate(-78deg)">L</span><span style="transform:rotate(-39deg)">10</span><span style="transform:rotate(0deg)">20</span><span style="transform:rotate(39deg)">30</span><span style="transform:rotate(78deg)">P</span><i></i></div>
         <h2 id="prHeroH">Who are you selling to?</h2>
-        <p id="prHeroP">Each member has one favorite weapon type and pays well above market for it. They'll buy anything else too, usually at market price. You can talk any offer up, and bringing someone the exact item on their list pays 10× in a briefcase. Every room is also a shop: tap what's on display.</p>
+        <p id="prHeroP">Each member has one favorite class and pays well above market for it. They'll buy anything else too, usually at market price. You can talk any offer up, and bringing someone the exact item on their list pays 10× in a briefcase. Every room is also a shop: tap what's on display.</p>
         <div class="pr-ledger" id="prLedger"></div>
       </div>
       <div class="pr-grid" id="prGrid"></div>
@@ -4526,8 +4526,9 @@ function bmAt(it, wi){ return Math.round(TIERS[it.t >= 7 ? 7 : 6].base * it.m * 
 function bmVal(it, fl){ const i = WEARS.findIndex(w => fl < w.hi); return bmAt(it, i < 0 ? 4 : i); }
 const VIS_FLOAT = [.04, .26, .62];
 const visGroup = wi => wi <= 1 ? 0 : wi === 2 ? 1 : 2;
-const WNAME = {rifle:'Rifle', sniper:'Sniper', pistol:'Pistol', smg:'SMG', shotgun:'Shotgun',
-  karambit:'★ Karambit', bayonet:'★ Bayonet', butterfly:'★ Butterfly', bowie:'★ Bowie'};
+/* No more guns: the old weapon keys are now classes */
+const WNAME = {rifle:'Warrior', sniper:'Ranger', pistol:'Mage', smg:'Rogue', shotgun:'Tank',
+  karambit:'★ Royal', bayonet:'★ Royal', butterfly:'★ Royal', bowie:'★ Royal'};
 
 /* Weapon silhouettes in a 200x80 unit box. "dark" = bare metal, "skin" = painted parts. */
 const SHAPES = {
@@ -4557,52 +4558,52 @@ const SHAPES = {
 
 const ITEMS = [
   // Scrapyard
-  {id:'s1', w:'pistol',  name:'Rust Bucket', t:0, pat:'camo',    pal:['#6b4a2b','#8a5a2e','#3d2b1c','#a0703c']},
-  {id:'s2', w:'smg',     name:'Sand Dune',   t:0, pat:'solid',   pal:['#d0b075','#8d7346']},
-  {id:'s3', w:'shotgun', name:'Olive Drab',  t:0, pat:'camo',    pal:['#556b2f','#3f5122','#6f8540','#2d3a18']},
-  {id:'s4', w:'rifle',   name:'Gravel',      t:0, pat:'digital', pal:['#5f6468','#7d8388','#43474b','#9aa0a5']},
-  {id:'s5', w:'sniper',  name:'Patina',      t:1, pat:'marble',  pal:['#2f7f74','#8a5a35','#bfe6d8']},
-  {id:'s6', w:'pistol',  name:'Hazard',      t:1, pat:'stripes', pal:['#f1c40f','#1b1b1b']},
-  {id:'s7', w:'rifle',   name:'Oxidized',    t:2, pat:'tiger',   pal:['#c25a2b','#24130b']},
-  {id:'s8', w:'smg',     name:'Toxic Drip',  t:2, pat:'wave',    pal:['#1b2a12','#5fd12c','#2e6b16','#b6ff5c']},
-  {id:'s9', w:'shotgun', name:'Furnace',     t:3, pat:'flame',   pal:['#3a0a05','#d6451b','#ffd23f']},
-  {id:'s10',w:'sniper',  name:'Copperhead',  t:3, pat:'hex',     pal:['#3b2416','#d28a4a','#f0b27a']},
-  {id:'s11',w:'rifle',   name:'Scrap Baron', t:4, pat:'circuit', pal:['#14110c','#ffb43a','#ff6a00']},
-  {id:'s12',w:'bowie',   name:'Rusty Knife', t:4, pat:'marble',  pal:['#3a1a0a','#b5541c','#e0904a'], m:1.3},
+  {id:'s1', w:'pistol',  name:'Tinker Tess', t:0, pat:'camo',    pal:['#6b4a2b','#8a5a2e','#3d2b1c','#a0703c']},
+  {id:'s2', w:'smg',     name:'Dusty Dale',   t:0, pat:'solid',   pal:['#d0b075','#8d7346']},
+  {id:'s3', w:'shotgun', name:'Sergeant Sprout',  t:0, pat:'camo',    pal:['#556b2f','#3f5122','#6f8540','#2d3a18']},
+  {id:'s4', w:'rifle',   name:'Gravel Gus',      t:0, pat:'digital', pal:['#5f6468','#7d8388','#43474b','#9aa0a5']},
+  {id:'s5', w:'sniper',  name:'Patina Pearl',      t:1, pat:'marble',  pal:['#2f7f74','#8a5a35','#bfe6d8']},
+  {id:'s6', w:'pistol',  name:'Hazard Hank',      t:1, pat:'stripes', pal:['#f1c40f','#1b1b1b']},
+  {id:'s7', w:'rifle',   name:'Ember Ozzie',    t:2, pat:'tiger',   pal:['#c25a2b','#24130b']},
+  {id:'s8', w:'smg',     name:'Sludge Sally',  t:2, pat:'wave',    pal:['#1b2a12','#5fd12c','#2e6b16','#b6ff5c']},
+  {id:'s9', w:'shotgun', name:'Furnace Fran',     t:3, pat:'flame',   pal:['#3a0a05','#d6451b','#ffd23f']},
+  {id:'s10',w:'sniper',  name:'Copper Cass',  t:3, pat:'hex',     pal:['#3b2416','#d28a4a','#f0b27a']},
+  {id:'s11',w:'rifle',   name:'Baron Bolt', t:4, pat:'circuit', pal:['#14110c','#ffb43a','#ff6a00']},
+  {id:'s12',w:'bowie',   name:'Rusty Jr.', t:4, pat:'marble',  pal:['#3a1a0a','#b5541c','#e0904a'], m:1.3},
   // Neon Circuit
-  {id:'n1', w:'smg',     name:'Grid Lock',   t:0, pat:'digital', pal:['#1b2b4a','#24406e','#11192b','#3561a8']},
-  {id:'n2', w:'pistol',  name:'Static',      t:0, pat:'stripes', pal:['#3a3f4a','#5a606d']},
-  {id:'n3', w:'shotgun', name:'Night Shift', t:0, pat:'solid',   pal:['#25366a','#0d1426']},
-  {id:'n4', w:'rifle',   name:'Synthwave',   t:1, pat:'fade',    pal:['#ff3ea5','#8a3cff','#2fd3ff']},
-  {id:'n5', w:'pistol',  name:'Overclock',   t:1, pat:'circuit', pal:['#071a24','#2fe3ff','#0b8fb3']},
-  {id:'n6', w:'sniper',  name:'Glitch',      t:2, pat:'digital', pal:['#120a24','#ff2bd6','#24e5ff','#3d1a6e']},
-  {id:'n7', w:'smg',     name:'Pulse',       t:2, pat:'wave',    pal:['#0b0b1f','#5b2bff','#ff2bd6','#2be0ff']},
-  {id:'n8', w:'rifle',   name:'Neon Viper',  t:3, pat:'hex',     pal:['#050a08','#2bff88','#0f5a35']},
-  {id:'n9', w:'shotgun', name:'Laser Grid',  t:3, pat:'circuit', pal:['#140320','#ff3bf2','#7b1bff']},
-  {id:'n10',w:'sniper',  name:'Hyperdrive',  t:4, pat:'galaxy',  pal:['#05030f','#6a2bff','#ff3ea5']},
+  {id:'n1', w:'smg',     name:'Pixel Pip',   t:0, pat:'digital', pal:['#1b2b4a','#24406e','#11192b','#3561a8']},
+  {id:'n2', w:'pistol',  name:'Static Stan',      t:0, pat:'stripes', pal:['#3a3f4a','#5a606d']},
+  {id:'n3', w:'shotgun', name:'Night Nell', t:0, pat:'solid',   pal:['#25366a','#0d1426']},
+  {id:'n4', w:'rifle',   name:'Synth Sienna',   t:1, pat:'fade',    pal:['#ff3ea5','#8a3cff','#2fd3ff']},
+  {id:'n5', w:'pistol',  name:'Overclock Otto',   t:1, pat:'circuit', pal:['#071a24','#2fe3ff','#0b8fb3']},
+  {id:'n6', w:'sniper',  name:'Glitch Gigi',      t:2, pat:'digital', pal:['#120a24','#ff2bd6','#24e5ff','#3d1a6e']},
+  {id:'n7', w:'smg',     name:'DJ Pulse',       t:2, pat:'wave',    pal:['#0b0b1f','#5b2bff','#ff2bd6','#2be0ff']},
+  {id:'n8', w:'rifle',   name:'Viper Vex',  t:3, pat:'hex',     pal:['#050a08','#2bff88','#0f5a35']},
+  {id:'n9', w:'shotgun', name:'Laser Lux',  t:3, pat:'circuit', pal:['#140320','#ff3bf2','#7b1bff']},
+  {id:'n10',w:'sniper',  name:'Nova Kade',  t:4, pat:'galaxy',  pal:['#05030f','#6a2bff','#ff3ea5']},
   // Frostbite
-  {id:'f1', w:'pistol',  name:'Snowfield',   t:0, pat:'camo',    pal:['#d8dee6','#9aa6b4','#eef2f6','#6c7987']},
-  {id:'f2', w:'smg',     name:'Glacier',     t:0, pat:'solid',   pal:['#b9e2f5','#5d9fc4']},
-  {id:'f3', w:'shotgun', name:'Tundra',      t:0, pat:'digital', pal:['#cfd6de','#e9eef3','#9aa5b1','#7b8794']},
-  {id:'f4', w:'rifle',   name:'Frostline',   t:1, pat:'marble',  pal:['#a9d8f0','#ffffff','#2d7fb8']},
-  {id:'f5', w:'sniper',  name:'Whiteout',    t:1, pat:'stripes', pal:['#f2f6fa','#9fb3c8']},
-  {id:'f6', w:'pistol',  name:'Aurora',      t:2, pat:'fade',    pal:['#1de9b6','#4a7bff','#b04aff']},
-  {id:'f7', w:'shotgun', name:'Permafrost',  t:2, pat:'hex',     pal:['#0e2a40','#7fd3ff','#c8f0ff']},
-  {id:'f8', w:'smg',     name:'Blizzard',    t:3, pat:'tiger',   pal:['#e8f3fb','#264f73']},
-  {id:'f9', w:'rifle',   name:'Polar Night', t:3, pat:'galaxy',  pal:['#020a16','#1e6bff','#29ffd4']},
-  {id:'f10',w:'sniper',  name:'Frost Wyrm',  t:4, pat:'doppler', pal:['#06182b','#2aa8ff','#c9f2ff']},
+  {id:'f1', w:'pistol',  name:'Snowy Sam',   t:0, pat:'camo',    pal:['#d8dee6','#9aa6b4','#eef2f6','#6c7987']},
+  {id:'f2', w:'smg',     name:'Glacier Gwen',     t:0, pat:'solid',   pal:['#b9e2f5','#5d9fc4']},
+  {id:'f3', w:'shotgun', name:'Tundra Ted',      t:0, pat:'digital', pal:['#cfd6de','#e9eef3','#9aa5b1','#7b8794']},
+  {id:'f4', w:'rifle',   name:'Frost Fern',   t:1, pat:'marble',  pal:['#a9d8f0','#ffffff','#2d7fb8']},
+  {id:'f5', w:'sniper',  name:'Whiteout Willa',    t:1, pat:'stripes', pal:['#f2f6fa','#9fb3c8']},
+  {id:'f6', w:'pistol',  name:'Aurora Ava',      t:2, pat:'fade',    pal:['#1de9b6','#4a7bff','#b04aff']},
+  {id:'f7', w:'shotgun', name:'Perma Pike',  t:2, pat:'hex',     pal:['#0e2a40','#7fd3ff','#c8f0ff']},
+  {id:'f8', w:'smg',     name:'Blizzard Bo',    t:3, pat:'tiger',   pal:['#e8f3fb','#264f73']},
+  {id:'f9', w:'rifle',   name:'Polar Nyx', t:3, pat:'galaxy',  pal:['#020a16','#1e6bff','#29ffd4']},
+  {id:'f10',w:'sniper',  name:'Frost Queen Isolde',  t:4, pat:'doppler', pal:['#06182b','#2aa8ff','#c9f2ff']},
   // Gold pool: knives and rifles. Retired pieces (ex) stay valid in anyone's bag but no longer drop.
-  {id:'g1', w:'karambit',  name:'Solar Flare',    t:5, pat:'doppler', pal:['#2a0500','#ff3d1a','#ffcf3a'], m:1.4},
-  {id:'g2', w:'karambit',  name:'Deep Space',     t:5, pat:'galaxy',  pal:['#03020a','#7a3cff','#2fd3ff'], m:1.2, ex:true},
-  {id:'g3', w:'bayonet',   name:'Liquid Gold',    t:5, pat:'fade',    pal:['#7a4a00','#ffd34d','#fff3b0','#c98a0b'], m:1.3},
-  {id:'g4', w:'bayonet',   name:'Emerald Tide',   t:5, pat:'doppler', pal:['#01150c','#13d36b','#9dffcf'], m:1.5},
-  {id:'g5', w:'butterfly', name:'Prism',          t:5, pat:'fade',    pal:['#ff3e6c','#ffd23f','#2fe38a','#3aa0ff','#a24bff'], m:1.6},
-  {id:'g6', w:'butterfly', name:'Night Tiger',    t:5, pat:'tiger',   pal:['#f2b632','#120c02'], m:1.0, ex:true},
-  {id:'g7', w:'bowie',     name:'Blood Moon',     t:5, pat:'marble',  pal:['#3a0006','#b3001b','#ff6b6b'], m:1.0, ex:true},
-  {id:'g8', w:'bowie',     name:'Sapphire Storm', t:5, pat:'doppler', pal:['#020a24','#1f4dff','#7fd0ff'], m:1.7},
-  {id:'g9', w:'rifle',     name:'Gilded Lion',    t:5, pat:'fade',    pal:['#7a4a00','#ffd34d','#fff3b0','#c98a0b'], m:1.3},
-  {id:'g10',w:'rifle',     name:'Inferno Crown',  t:5, pat:'flame',   pal:['#2a0500','#ff6a1a','#ffd23f'], m:1.2},
-  {id:'g11',w:'rifle',     name:'Aurora Royale',  t:5, pat:'galaxy',  pal:['#03020a','#7a3cff','#2fd3ff'], m:1.5},
+  {id:'g1', w:'karambit',  name:'Sun King Sol',    t:5, pat:'doppler', pal:['#2a0500','#ff3d1a','#ffcf3a'], m:1.4},
+  {id:'g2', w:'karambit',  name:'Astra',     t:5, pat:'galaxy',  pal:['#03020a','#7a3cff','#2fd3ff'], m:1.2, ex:true},
+  {id:'g3', w:'bayonet',   name:'King Midas',    t:5, pat:'fade',    pal:['#7a4a00','#ffd34d','#fff3b0','#c98a0b'], m:1.3},
+  {id:'g4', w:'bayonet',   name:'Empress Marina',   t:5, pat:'doppler', pal:['#01150c','#13d36b','#9dffcf'], m:1.5},
+  {id:'g5', w:'butterfly', name:'Princess Iris',          t:5, pat:'fade',    pal:['#ff3e6c','#ffd23f','#2fe38a','#3aa0ff','#a24bff'], m:1.6},
+  {id:'g6', w:'butterfly', name:'Tigress Rani',    t:5, pat:'tiger',   pal:['#f2b632','#120c02'], m:1.0, ex:true},
+  {id:'g7', w:'bowie',     name:'Count Crimson',     t:5, pat:'marble',  pal:['#3a0006','#b3001b','#ff6b6b'], m:1.0, ex:true},
+  {id:'g8', w:'bowie',     name:'Queen Sapphira', t:5, pat:'doppler', pal:['#020a24','#1f4dff','#7fd0ff'], m:1.7},
+  {id:'g9', w:'rifle',     name:'King Leo',    t:5, pat:'fade',    pal:['#7a4a00','#ffd34d','#fff3b0','#c98a0b'], m:1.3},
+  {id:'g10',w:'rifle',     name:'Prince Blaze',  t:5, pat:'flame',   pal:['#2a0500','#ff6a1a','#ffd23f'], m:1.2},
+  {id:'g11',w:'rifle',     name:'Duchess Aurora',  t:5, pat:'galaxy',  pal:['#03020a','#7a3cff','#2fd3ff'], m:1.5},
   // Black Market (trade-up only)
   {id:'b1', w:'rifle',     name:'Abyssal Crown',  t:6, pat:'abyss',  pal:['#05010a','#a855f7','#f0e1ff'], m:1.0},
   {id:'b2', w:'sniper',    name:'Void Monarch',   t:6, pat:'runes',  pal:['#06020c','#b46cff','#3b0a6b'], m:1.15},
@@ -4624,11 +4625,11 @@ const ITEMS = [
   // Admin only for now: no way to earn it in the game yet
   {id:'x7', w:'butterfly', name:'The Prince',     t:7, pat:'prince', pal:['#ffdf00','#009c3b','#002776','#ffd23f'], m:8800000 / 935000, ex:true},
   // Ma Rust's Rusty Case: its own rusty legendaries and one Chroma. Nowhere else.
-  {id:'r1', w:'rifle',   name:'Iron Lung',   t:4, pat:'marble',  pal:['#2a1408','#a4501c','#e8a060'], m:1.25, ex:true},
-  {id:'r2', w:'sniper',  name:'Corroder',    t:4, pat:'tiger',   pal:['#b5541c','#1e0e06'], m:1.35, ex:true},
-  {id:'r3', w:'shotgun', name:'Tetanus',     t:4, pat:'hex',     pal:['#2a1a10','#c8733a','#ffb070'], m:1.15, ex:true},
-  {id:'r4', w:'smg',     name:'Scrapheart',  t:4, pat:'circuit', pal:['#1a0e08','#ff8a2a','#b5541c'], m:1.2, ex:true},
-  {id:'r5', w:'pistol',  name:'Oxide Queen', t:4, pat:'flame',   pal:['#2a0a04','#b5541c','#ffcf7a'], m:1.1, ex:true},
+  {id:'r1', w:'rifle',   name:'Iron Ivan',   t:4, pat:'marble',  pal:['#2a1408','#a4501c','#e8a060'], m:1.25, ex:true},
+  {id:'r2', w:'sniper',  name:'Corroda',    t:4, pat:'tiger',   pal:['#b5541c','#1e0e06'], m:1.35, ex:true},
+  {id:'r3', w:'shotgun', name:'Old Tet',     t:4, pat:'hex',     pal:['#2a1a10','#c8733a','#ffb070'], m:1.15, ex:true},
+  {id:'r4', w:'smg',     name:'Scrapheart Sid',  t:4, pat:'circuit', pal:['#1a0e08','#ff8a2a','#b5541c'], m:1.2, ex:true},
+  {id:'r5', w:'pistol',  name:'Queen Oxa', t:4, pat:'flame',   pal:['#2a0a04','#b5541c','#ffcf7a'], m:1.1, ex:true},
   {id:'x8', w:'rifle',   name:'Rusted9000',  t:7, pat:'rusted',  pal:['#3a1606','#a4501c','#ff8a2a','#5fa078'], m:2.4, ex:true}
 ];
 
@@ -4652,7 +4653,7 @@ const CASES = [
 CASES.forEach(c => { c.pools = [0,1,2,3,4,5].map(t => t === 5 ? GOLD : c.items.filter(id => BY[id].t === t)); });
 const MIN_COST = Math.min(...CASES.map(c => c.cost));
 /* Case #PK1: sold only in Tobias's back room. Every pull is Black Market. */
-/* Case #LG1: on Brick's wall shelf. Every pull is Legendary (never the Rusty Knife). */
+/* Case #LG1: on Brick's wall shelf. Every pull is Legendary (never Rusty Jr.). */
 const LG1 = {id:'lg1', name:'Case #LG1', tag:'Every pull is Legendary', cost:5500, cls:'k-lg', mark:'LG1', glow:'#ff4d4d'};
 const LG_IDS = () => ITEMS.filter(it => it.t === 4 && !it.ex && it.id !== 's12');
 const pkCase = st => st && st.pk === 'rc' ? RC : st && st.pk === 'lg1' ? LG1 : PK1;
@@ -5018,7 +5019,165 @@ function scuff(g, fl, r){
   g.fillStyle = 'rgba(90,85,80,'+(fl*.2)+')'; g.fillRect(0,0,200,80);
 }
 
+/* ---------- People ----------
+   Every pull is a person now: a little chibi hero with a big head, standing in the middle of the old 200x80 art box.
+   The item's finish (pattern + palette) is their outfit, its wear shows as scuffs and plasters, and their class
+   decides the hat and the kit. Black Market and Chroma pieces keep their old art until they get designs of their own. */
+const CLASS_OF = {rifle:'warrior', sniper:'ranger', pistol:'mage', smg:'rogue', shotgun:'tank', karambit:'royal', bayonet:'royal', butterfly:'royal', bowie:'royal'};
+const isPerson = it => it.t <= 5;
+const P_SKIN = ['#ffe0c8', '#f8cba6', '#ebb48a', '#d69b6c', '#b97b4e', '#8f5b3a', '#6a4028'];
+const P_HAIR = ['#2a1a12', '#4a2c1a', '#7a4524', '#c4863a', '#ecc66a', '#1c1a26', '#8c2c1c', '#dcd6cc'];
+const P_INK = '#2a1810';
+function pShade(hex, k){ const n = parseInt(hex.slice(1), 16), f = c => Math.max(0, Math.min(255, Math.round(c * k))); return 'rgb(' + f(n >> 16) + ',' + f(n >> 8 & 255) + ',' + f(n & 255) + ')'; }
+function pLum(hex){ const n = parseInt(hex.slice(1), 16); return ((n >> 16) * .3 + (n >> 8 & 255) * .59 + (n & 255) * .11) / 255; }
+function renderPerson(it, fl, S){
+  const c = document.createElement('canvas'); c.width = 200 * S; c.height = 80 * S;
+  const g = c.getContext('2d'); g.scale(S, S); g.lineJoin = 'round'; g.lineCap = 'round';
+  const q = seeded(hash(it.id + ':person')), r = seeded(hash(it.id)), cls = CLASS_OF[it.w] || 'warrior', pal = it.pal;
+  const skin = P_SKIN[Math.floor(q() * P_SKIN.length)];
+  const bright = pal.slice().sort((a, b) => pLum(b) - pLum(a));
+  const hair = it.t >= 2 ? (pLum(bright[0]) > .85 && bright[1] ? bright[1] : bright[0]) : P_HAIR[Math.floor(q() * P_HAIR.length)];
+  const eye = it.t >= 1 ? bright[Math.min(1, bright.length - 1)] : ['#3a6ad0', '#3a8a4a', '#6a3a1a', '#2a2a2a'][Math.floor(q() * 4)];
+  const style = Math.floor(q() * 6), mouth = Math.floor(q() * 4), gold = it.t === 5, leg = it.t === 4;
+  const metal = gold ? '#e8b23a' : '#9aa3ad', metalD = gold ? '#8a5a10' : '#4a525c';
+  const X = 100, HY = 25, HR = 17;
+  const ink = (w) => { g.strokeStyle = P_INK; g.lineWidth = w || 1.4; };
+  const fillStroke = (p, f, w) => { g.fillStyle = f; g.fill(p); ink(w); g.stroke(p); };
+  const P = d => new Path2D(d);
+
+  /* the outfit: torso, sleeves and the class piece all wear the finish */
+  const torso = P('M86.5 41 Q100 37 113.5 41 L117.5 64 Q100 69.5 82.5 64 Z');
+  const sleeves = new Path2D(); sleeves.ellipse(83.4, 51.5, 4.4, 8.4, .52, 0, 7); sleeves.ellipse(116.6, 51.5, 4.4, 8.4, -.52, 0, 7);
+  let piece = null, cape = null;
+  if (cls === 'ranger') piece = P('M79 31 Q76 3 100 2.5 Q124 3 121 31 Q119 15 100 13 Q81 15 79 31 Z');
+  if (cls === 'mage') piece = P('M86 11.5 Q92 8 101 1.5 Q106 -1 111 2 Q107 2.5 106 6 L114 11.5 Q100 15 86 11.5 Z');
+  if (cls === 'rogue') piece = P('M85 40.5 Q100 46 115 40.5 Q117 44 115 46 Q100 51 85 46 Q83 44 85 40.5 Z M110 45 L118 58 L113 59 L106 47 Z');
+  if (cls === 'royal' || cls === 'ranger') cape = P('M86 42 Q72 58 70 77 Q100 80 130 77 Q128 58 114 42 Z');
+  let shield = null;
+  if (cls === 'warrior') { shield = new Path2D(); shield.arc(76, 58, 10, 0, 7); }
+  if (cls === 'tank') shield = P('M124 42 H144 V60 Q144 72 134 77 Q124 72 124 60 Z');
+
+  /* glow behind the whole silhouette for the rarer tiers */
+  const sil = new Path2D(); sil.arc(X, HY, HR + 3, 0, 7); sil.addPath(torso); sil.addPath(sleeves); if (cape) sil.addPath(cape); if (shield) sil.addPath(shield);
+  sil.rect(90, 62, 20, 16);
+  g.save(); g.shadowColor = gold ? 'rgba(255,205,60,.95)' : leg ? 'rgba(255,77,77,.85)' : it.t === 3 ? 'rgba(225,79,210,.6)' : 'rgba(0,0,0,.45)';
+  g.shadowBlur = (it.t >= 3 ? 10 : 4); g.shadowOffsetY = it.t >= 3 ? 0 : 2; g.fillStyle = 'rgba(0,0,0,.01)'; g.fill(sil); g.restore();
+  g.fillStyle = 'rgba(0,0,0,.35)'; g.beginPath(); g.ellipse(X, 78, 22, 2.2, 0, 0, 7); g.fill();
+
+  const wear = p => { g.save(); g.clip(p); PAT[it.pat](g, 200, 80, pal, r); scuff(g, fl, r);
+    const sg = g.createLinearGradient(0, 0, 0, 80); sg.addColorStop(0, 'rgba(255,255,255,.25)'); sg.addColorStop(.45, 'rgba(255,255,255,0)'); sg.addColorStop(1, 'rgba(0,0,0,.3)');
+    g.fillStyle = sg; g.fillRect(0, 0, 200, 80); g.restore(); ink(); g.stroke(p); };
+
+  /* behind the body: cape, long hair, ponytail */
+  if (cape) { g.save(); g.clip(cape); g.fillStyle = pShade(pal[0], .8); g.fillRect(0, 0, 200, 80); if (cls === 'royal') { PAT[it.pat](g, 200, 80, pal, r); g.fillStyle = 'rgba(0,0,0,.28)'; g.fillRect(0, 0, 200, 80); } g.restore(); ink(); g.stroke(cape);
+    if (cls === 'royal') { g.strokeStyle = '#fff4d0'; g.lineWidth = 2.4; g.beginPath(); g.moveTo(71, 76); g.quadraticCurveTo(100, 79.2, 129, 76); g.stroke(); } }
+  const hairBack = style === 2 ? P('M81 22 Q78 40 77 56 Q86 60 92 54 L108 54 Q114 60 123 56 Q122 40 119 22 Z')
+    : style === 1 ? P('M81 20 Q79 34 82 40 L118 40 Q121 34 119 20 Z')
+    : style === 5 ? P('M114 18 Q132 20 130 36 Q128 48 122 54 Q124 40 116 30 Z') : null;
+  if (hairBack && cls !== 'ranger') fillStroke(hairBack, pShade(hair, .82));
+
+  /* legs and boots */
+  g.fillStyle = cls === 'royal' ? '#f4ecdc' : '#2c2638'; g.beginPath(); g.roundRect(90.5, 63, 8, 11, 3); g.roundRect(101.5, 63, 8, 11, 3); g.fill(); ink(1.2); g.stroke();
+  const boot = cls === 'tank' || cls === 'warrior' ? metalD : pShade(pal[0], .6);
+  g.fillStyle = boot; g.beginPath(); g.roundRect(88.5, 71.5, 10.5, 6.5, 3); g.roundRect(101, 71.5, 10.5, 6.5, 3); g.fill(); ink(1.2); g.stroke();
+
+  /* body */
+  wear(sleeves); wear(torso);
+  g.fillStyle = 'rgba(0,0,0,.2)'; g.fillRect(84, 60, 32, 2.6); // belt
+  g.fillStyle = gold ? '#ffd34d' : '#d8b25a'; g.beginPath(); g.roundRect(97.4, 59.6, 5.2, 3.4, 1); g.fill(); ink(.8); g.stroke();
+  if (cls === 'royal') { g.strokeStyle = gold ? '#ffd34d' : '#e0c070'; g.lineWidth = 1.6; g.beginPath(); g.moveTo(100, 42); g.lineTo(100, 59); g.stroke(); }
+  if (cls === 'tank' || cls === 'warrior') {
+    const pa = new Path2D(); pa.ellipse(83.5, 44.5, 8, 5, -.25, 0, 7); pa.ellipse(116.5, 44.5, 8, 5, .25, 0, 7);
+    const mg = g.createLinearGradient(0, 39, 0, 50); mg.addColorStop(0, '#fff'); mg.addColorStop(.3, metal); mg.addColorStop(1, metalD);
+    if (cls === 'tank') fillStroke(pa, mg);
+  }
+  /* hands */
+  g.fillStyle = skin; [[78.6, 59.4], [121.4, 59.4]].forEach(([x, y]) => { g.beginPath(); g.arc(x, y, 3.5, 0, 7); g.fill(); ink(1.1); g.stroke(); });
+
+  /* the head */
+  g.fillStyle = skin; g.beginPath(); g.arc(X - 16.4, HY + 2, 3.2, 0, 7); g.arc(X + 16.4, HY + 2, 3.2, 0, 7); g.fill(); ink(1.2); g.stroke();
+  const head = new Path2D(); head.arc(X, HY, HR, 0, 7);
+  const hg = g.createRadialGradient(X - 5, HY - 6, 2, X, HY, HR); hg.addColorStop(0, pShade(skin, 1.08)); hg.addColorStop(1, pShade(skin, .9));
+  fillStroke(head, hg, 1.6);
+  /* face */
+  const eyeY = HY + 3;
+  [-7, 7].forEach(dx => {
+    const ex = X + dx, eg = g.createLinearGradient(0, eyeY - 4, 0, eyeY + 4); eg.addColorStop(0, pShade(eye, .55)); eg.addColorStop(.55, eye); eg.addColorStop(1, pShade(eye, .3));
+    g.fillStyle = '#1a0e08'; g.beginPath(); g.ellipse(ex, eyeY, 3.2, 4.1, 0, 0, 7); g.fill();
+    g.fillStyle = eg; g.beginPath(); g.ellipse(ex, eyeY + .5, 2.4, 3.2, 0, 0, 7); g.fill();
+    g.fillStyle = '#fff'; g.beginPath(); g.arc(ex - 1, eyeY - 1.5, 1.25, 0, 7); g.fill(); g.beginPath(); g.arc(ex + 1.1, eyeY + 1.5, .55, 0, 7); g.fill();
+  });
+  g.strokeStyle = pShade(hair, .55); g.lineWidth = 1.1; g.beginPath(); g.moveTo(X - 10, eyeY - 6.4); g.quadraticCurveTo(X - 7, eyeY - 8, X - 4.4, eyeY - 6.8); g.moveTo(X + 10, eyeY - 6.4); g.quadraticCurveTo(X + 7, eyeY - 8, X + 4.4, eyeY - 6.8); g.stroke();
+  g.fillStyle = 'rgba(255,110,120,.45)'; g.beginPath(); g.ellipse(X - 11, eyeY + 5, 2.8, 1.5, 0, 0, 7); g.ellipse(X + 11, eyeY + 5, 2.8, 1.5, 0, 0, 7); g.fill();
+  ink(1.1); g.beginPath();
+  if (mouth === 0) { g.moveTo(X - 2.4, eyeY + 6.2); g.quadraticCurveTo(X, eyeY + 8.4, X + 2.4, eyeY + 6.2); g.stroke(); }
+  else if (mouth === 1) { g.moveTo(X - 2.8, eyeY + 6); g.quadraticCurveTo(X, eyeY + 10.6, X + 2.8, eyeY + 6); g.closePath(); g.fillStyle = '#8a2a2a'; g.fill(); g.stroke(); }
+  else if (mouth === 2) { g.moveTo(X - 3, eyeY + 6.6); g.quadraticCurveTo(X - 1.5, eyeY + 8, X, eyeY + 6.6); g.quadraticCurveTo(X + 1.5, eyeY + 8, X + 3, eyeY + 6.6); g.stroke(); }
+  else { g.moveTo(X - 2.6, eyeY + 7); g.quadraticCurveTo(X + 1, eyeY + 8.6, X + 3, eyeY + 5.8); g.stroke(); }
+  if (fl > .38) { g.save(); g.translate(X + 10.5, eyeY + 1.5); g.rotate(-.5); g.fillStyle = '#f2d2a8'; g.fillRect(-3.2, -1.3, 6.4, 2.6); g.strokeStyle = 'rgba(80,40,20,.6)'; g.lineWidth = .5; g.strokeRect(-3.2, -1.3, 6.4, 2.6); g.restore(); }
+  if (fl > .45) { g.fillStyle = 'rgba(70,50,40,.35)'; g.beginPath(); g.ellipse(X - 9, HY - 6, 2.4, 1.6, .4, 0, 7); g.fill(); }
+
+  /* hair on top */
+  const bangs = [
+    'M83 24 Q83 7 100 6.5 Q117 7 117 24 L113.5 17 L109.5 22 L105.5 15 L100.5 21 L95.5 15 L91 22 L86.5 17 Z',
+    'M83 27 Q82 8 100 7.5 Q118 8 117 27 Q114 16.5 106 15 Q104 19 100 18.5 Q93 18 88 15.5 Q85 19 83 27 Z',
+    'M83 28 Q81 8 100 7.5 Q119 8 117 28 Q112 14 100 13.5 Q92 14 89 18 Q86 22 83 28 Z',
+    'M83 25 Q83 9 100 8 Q117 9 117 25 Q110 16 100 16 Q90 16 83 25 Z',
+    'M82 26 Q80 16 86 11 Q90 4 98 6 Q104 2 110 6 Q118 8 118 16 Q120 22 117 27 Q114 18 108 18 Q100 14 92 18 Q86 19 82 26 Z',
+    'M83 26 Q83 8 100 7 Q117 8 117 26 Q114 17 104 14.5 Q98 19 91 17 Q86 19 83 26 Z'][style];
+  const hairTop = P(bangs);
+  if (style === 3) { const bn = new Path2D(); bn.arc(85.5, 11, 6, 0, 7); bn.moveTo(120.5, 11); bn.arc(114.5, 11, 6, 0, 7); if (cls !== 'ranger' && cls !== 'mage') fillStroke(bn, pShade(hair, .9)); }
+  if (style === 4) { const cu = new Path2D(); [[84, 15], [90, 8.5], [99, 6], [108, 8], [115.5, 14], [82, 22], [118, 22]].forEach(([x, y]) => { cu.moveTo(x + 5, y); cu.arc(x, y, 5, 0, 7); }); if (cls !== 'ranger') fillStroke(cu, hair); }
+  if (cls !== 'ranger') { const hgr = g.createLinearGradient(0, 6, 0, 28); hgr.addColorStop(0, pShade(hair, 1.15)); hgr.addColorStop(1, pShade(hair, .8)); fillStroke(hairTop, hgr, 1.3);
+    g.strokeStyle = 'rgba(255,255,255,.45)'; g.lineWidth = 1.2; g.beginPath(); g.arc(X - 3, HY - 4, 11.5, 3.75, 4.3); g.stroke(); }
+
+  /* the class kit */
+  if (cls === 'warrior') {
+    const hm = P('M82.5 22 Q82 4.5 100 4 Q118 4.5 117.5 22 L113.5 22 Q113 11 100 10.5 Q87 11 86.5 22 Z');
+    const mg = g.createLinearGradient(0, 4, 0, 22); mg.addColorStop(0, '#fff'); mg.addColorStop(.25, metal); mg.addColorStop(1, metalD); fillStroke(hm, mg);
+    g.fillStyle = metal; g.beginPath(); g.roundRect(98, 4, 4, 10, 1); g.fill(); ink(1); g.stroke();
+    const pl = P('M100 5 Q104 -2 112 1 Q108 2 106 6 Q111 4 113 8 Q106 7 100 7 Z'); fillStroke(pl, bright[0] === '#ffffff' ? pal[1] : bright[0], 1.1);
+    wear(shield); g.fillStyle = metal; g.beginPath(); g.arc(76, 58, 3.4, 0, 7); g.fill(); ink(1); g.stroke(); g.beginPath(); g.arc(76, 58, 10, 0, 7); g.strokeStyle = metal; g.lineWidth = 1.6; g.stroke(); ink(.8); g.beginPath(); g.arc(76, 58, 10.8, 0, 7); g.stroke();
+  }
+  if (cls === 'ranger') {
+    wear(piece);
+    g.fillStyle = pShade(hair, .9); g.beginPath(); g.moveTo(87, 13.5); g.quadraticCurveTo(100, 9, 113, 13.5); g.quadraticCurveTo(108, 18, 100, 17); g.quadraticCurveTo(92, 18, 87, 13.5); g.fill(); ink(1.1); g.stroke();
+    g.fillStyle = '#6aa84f'; g.beginPath(); g.ellipse(100, 43, 3.4, 2, .6, 0, 7); g.fill(); ink(.8); g.stroke();
+  }
+  if (cls === 'mage') {
+    g.fillStyle = pShade(pal[0], .7); g.beginPath(); g.ellipse(100, 12, 22, 4.6, 0, 0, 7); g.fill(); ink(1.3); g.stroke();
+    wear(piece);
+    g.fillStyle = '#ffe27a'; g.beginPath(); for (let k = 0; k < 10; k++) { const a = -Math.PI / 2 + k * Math.PI / 5, rr = k % 2 ? 1.4 : 3.2; g.lineTo(100 + Math.cos(a) * rr, 7.5 + Math.sin(a) * rr); } g.closePath(); g.fill(); ink(.7); g.stroke();
+    const og = g.createRadialGradient(128, 46, 0, 128, 46, 9); og.addColorStop(0, '#fff'); og.addColorStop(.35, bright[0]); og.addColorStop(1, 'rgba(0,0,0,0)');
+    g.fillStyle = og; g.beginPath(); g.arc(128, 46, 9, 0, 7); g.fill(); g.fillStyle = bright[0]; g.beginPath(); g.arc(128, 46, 3.6, 0, 7); g.fill(); ink(.9); g.stroke();
+    g.fillStyle = '#fff'; g.beginPath(); g.arc(126.8, 44.8, 1.1, 0, 7); g.fill();
+  }
+  if (cls === 'rogue') {
+    g.fillStyle = '#1c1622'; g.beginPath(); g.moveTo(84, eyeY - 4.5); g.quadraticCurveTo(100, eyeY - 7.5, 116, eyeY - 4.5); g.lineTo(116, eyeY + 2); g.quadraticCurveTo(100, eyeY + .5, 84, eyeY + 2); g.closePath(); g.fill();
+    g.fillStyle = '#1c1622'; g.beginPath(); g.moveTo(116, eyeY - 3); g.lineTo(124, eyeY - 6); g.lineTo(122, eyeY); g.closePath(); g.fill();
+    [-7, 7].forEach(dx => { const ex = X + dx; g.fillStyle = '#fff'; g.beginPath(); g.ellipse(ex, eyeY - .5, 2.4, 2.2, 0, 0, 7); g.fill(); g.fillStyle = eye; g.beginPath(); g.arc(ex + .3, eyeY - .2, 1.5, 0, 7); g.fill(); g.fillStyle = '#fff'; g.beginPath(); g.arc(ex - .3, eyeY - .9, .6, 0, 7); g.fill(); });
+    wear(piece);
+  }
+  if (cls === 'tank') {
+    const hb = P('M82.5 18 Q100 10 117.5 18 L117 22.5 Q100 15.5 83 22.5 Z'); const mg = g.createLinearGradient(0, 10, 0, 23); mg.addColorStop(0, '#fff'); mg.addColorStop(.3, metal); mg.addColorStop(1, metalD); fillStroke(hb, mg, 1.2);
+    wear(shield); g.fillStyle = metal; g.beginPath(); g.moveTo(134, 50); g.lineTo(138, 56); g.lineTo(134, 64); g.lineTo(130, 56); g.closePath(); g.fill(); ink(.9); g.stroke();
+    g.strokeStyle = metal; g.lineWidth = 1.6; g.stroke(shield);
+  }
+  if (cls === 'royal') {
+    const cr = P('M86 13 L84 2.5 L91.5 8 L96 0.5 L100 7 L104 0.5 L108.5 8 L116 2.5 L114 13 Q100 10.5 86 13 Z');
+    const cg = g.createLinearGradient(0, 0, 0, 13); cg.addColorStop(0, '#fff6c0'); cg.addColorStop(.35, '#ffd34d'); cg.addColorStop(1, '#b07810'); fillStroke(cr, cg, 1.1);
+    [[91.5, 10], [100, 9.4], [108.5, 10]].forEach(([x, y], k) => { g.fillStyle = k === 1 ? bright[0] : pal[1] || '#c0262d'; g.beginPath(); g.arc(x, y, 1.5, 0, 7); g.fill(); ink(.5); g.stroke(); });
+  }
+  /* sparkles: mint gets one, gold gets a crown of them */
+  const spark = (x, y, s, col) => { g.fillStyle = col; g.beginPath(); g.moveTo(x, y - s); g.quadraticCurveTo(x + s * .18, y - s * .18, x + s, y); g.quadraticCurveTo(x + s * .18, y + s * .18, x, y + s); g.quadraticCurveTo(x - s * .18, y + s * .18, x - s, y); g.quadraticCurveTo(x - s * .18, y - s * .18, x, y - s); g.fill(); };
+  if (fl < .07) spark(121, 12, 3.4, 'rgba(255,255,255,.95)');
+  if (gold) { spark(70, 20, 4.4, '#fff3b0'); spark(132, 26, 3.2, '#ffe27a'); spark(64, 50, 2.6, '#ffd34d'); spark(140, 64, 2.4, '#fff3b0'); }
+  if (leg) { spark(72, 24, 3, '#ffb0b0'); spark(130, 20, 2.6, '#ffd0d0'); }
+  return c;
+}
+
 function renderItem(it, fl, S){
+  if (isPerson(it)) return renderPerson(it, fl, S);
   const c = document.createElement('canvas'); c.width = 200*S; c.height = 80*S;
   const g = c.getContext('2d'); g.scale(S,S);
   const P = paths(it.w), sh = SHAPES[it.w], r = seeded(hash(it.id)), bm = it.t >= 6;
@@ -5592,7 +5751,7 @@ try {
 const HACKS = [
   {id:'magnet',    name:'Gold Magnet',       price:6000, charges:5,  unit:['open','opens'],         file:'gold_magnet.dll',
    desc:'Gold odds ×20 in Scrapyard, Neon Circuit and Frostbite for your next 5 case opens. The odds shown on each case update while it is active.',
-   line:'Pulls knives like a moth to a flame. Five opens. Don’t ask where I got it.'},
+   line:'Pulls royals like a moth to a flame. Five opens. Don’t ask where I got it.'},
   {id:'xray',      name:'X-Ray Goggles',     price:3000, charges:10, unit:['scan','scans'],         file:'xray_lens.sys',
    desc:'Scan a case before you open it and see exactly what is inside. Opening that case gives you that exact item. 10 scans.',
    line:'See through the lid. What you see is what you get.'},
@@ -5737,7 +5896,7 @@ function openPreview(c){
   const body = $('#pvBody'); body.innerHTML = hacked.length ? '<div class="pv-note">Odds include your active hacks: ' + hacked.map(k => HACK_BY[k].name).join(' + ') + '</div>' : '';
   groups.forEach(g => {
     const T = TIERS[g.t], n = g.ids.filter(id => have.has(id)).length;
-    body.insertAdjacentHTML('beforeend', '<div class="pv-grp" style="--tc:' + T.color + '"><span>' + T.name + (g.t === 5 ? ' ★ knives & rifles' : '') + ' · ' + pctText(g.pct) + '</span><b>' + n + '/' + g.ids.length + '</b></div>');
+    body.insertAdjacentHTML('beforeend', '<div class="pv-grp" style="--tc:' + T.color + '"><span>' + T.name + (g.t === 5 ? ' ★ royals & warriors' : '') + ' · ' + pctText(g.pct) + '</span><b>' + n + '/' + g.ids.length + '</b></div>');
     const grid = document.createElement('div'); grid.className = 'pv-grid';
     g.ids.forEach(id => {
       const it = BY[id], ok = have.has(id), d = document.createElement('div');
@@ -5749,7 +5908,7 @@ function openPreview(c){
     body.append(grid);
   });
   if (c.id === 'scrap' && rpQuest()) {
-    body.insertAdjacentHTML('beforeend', '<div class="pv-grp" style="--tc:#ff8a2a"><span>Socket’s parts · not weapons · only while she’s asking</span><b>' + rpCount() + '/3</b></div>');
+    body.insertAdjacentHTML('beforeend', '<div class="pv-grp" style="--tc:#ff8a2a"><span>Socket’s parts · not people · only while she’s asking</span><b>' + rpCount() + '/3</b></div>');
     const grid = document.createElement('div'); grid.className = 'pv-grid';
     RPARTS.forEach(p => { const ok = rpHave(p.id), d = document.createElement('div'); d.className = 'pv-it rp-pv' + (ok ? ' got' : ' miss'); d.style.setProperty('--tc', p.col);
       d.innerHTML = rpSVG(p.id) + '<span class="pv-st">' + (ok ? '✓ Got it' : 'Not yet') + '</span><div class="wt">Part</div><div class="nm">' + p.n + '</div><div class="pv-ch">' + p.p + '%</div>'; grid.append(d); });
@@ -5794,7 +5953,7 @@ function renderContents(c, w, tot){
     const pool = c.pools[t]; count += pool.length;
     const each = w[t] / tot * 100 / pool.length;
     const h = document.createElement('div'); h.className = 'grp';
-    h.textContent = TIERS[t].name + (t === 5 ? ' ★ knives & rifles' : '') + ' · ' + pctText(w[t]/tot*100);
+    h.textContent = TIERS[t].name + (t === 5 ? ' ★ royals & warriors' : '') + ' · ' + pctText(w[t]/tot*100);
     grid.append(h);
     pool.forEach(id => {
       const it = BY[id], d = document.createElement('div');
@@ -5996,7 +6155,7 @@ function renderChTrade(){
   slots.append(b);
   const up = e ? BY[CH_UP[e.id]] : null, out = $('#cOut'); out.style.setProperty('--oc', TIERS[7].color);
   out.innerHTML = '<div class="eyebrow">You get</div><div class="co-tier">1 × Chroma</div>'
-    + '<div class="co-row"><span>Weapon</span><b>' + (up ? 'Same ' + up.name : '—') + '</b></div>'
+    + '<div class="co-row"><span>Class</span><b>' + (up ? 'Same ' + up.name : '—') + '</b></div>'
     + '<div class="co-row"><span>Value</span><b>' + (up ? fmt(bmVal(up, e.fl)) : '—') + '</b></div>'
     + '<div class="co-bm"><span>Chroma chance</span><b>' + (sure ? 'Guaranteed (first one)' : pctText(CH_CHANCE * 100)) + '</b></div>';
   const outs = $('#outs'); outs.innerHTML = '';
@@ -7571,42 +7730,42 @@ const KNIFE = it => !!SHAPES[it.w].knife;
    market price, except on the odd item a member happens to like (about 1 in 5), which pays MOOD_X. */
 const MOOD_X = 1.2;
 const MEMBERS = [
-  {id:'vance', name:'Vance', role:'The Chairman', col:'#ffcb2e', pitch:118, mult:1.6, pat:2, ego:true, fav:KNIFE, favName:'Knives', one:'knife', many:'knives',
-   say:{hi:"So you're the one pulling gold. Sit down. Knives, that's what I want. The rest I'll take at market.", none:"You walked in here with empty pockets? Bold.",
-        open:"{o}. That's more than the market has ever paid you.", plain:"Not a knife. {o}, market rate.", exact:"…That's the one. That's the exact blade. {o}, and that's before we talk about the case.",
+  {id:'vance', name:'Vance', role:'The Chairman', col:'#ffcb2e', pitch:118, mult:1.6, pat:2, ego:true, fav:KNIFE, favName:'Royals', one:'royal', many:'royals',
+   say:{hi:"So you're the one pulling gold. Sit down. Royals, that's who I want. The rest I'll take at market.", none:"You walked in here with empty pockets? Bold.",
+        open:"{o}. That's more than the market has ever paid you.", plain:"Not a royal. {o}, market rate.", exact:"…That's the one. That's the exact face. {o}, and that's before we talk about the case.",
         pushOk:"You've got nerve. {o}.", pushNo:"Careful. {o}, and you're lucky it's that.",
         bluffOk:"Nobody outbids me in my own city. {o}. We're done talking about them.", bluffNo:"Then go to them. And don't come back up that elevator for a while.",
         deal:"Pleasure doing business.", brief:"Bring the case.", thanks:"Tell no one where this came from.", cool:"Mr. Vance is not taking visitors."}},
-  {id:'brick', name:'Brick', role:'The Muscle', col:'#ff4d4d', pitch:82, mult:1.6, pat:4, ego:true, fav:it => it.w === 'rifle', favName:'Rifles', one:'rifle', many:'rifles',
-   say:{hi:"You. You got rifles? Big ones? I'll look at other stuff too, I guess.", none:"Your bag's empty, man.",
-        open:"{o}. Fair, right? That's fair.", plain:"Eh. Not a rifle. {o}.", exact:"THAT'S IT. That's the one I drew on the whiteboard! {o}!",
+  {id:'brick', name:'Brick', role:'The Muscle', col:'#ff4d4d', pitch:82, mult:1.6, pat:4, ego:true, fav:it => it.w === 'rifle', favName:'Warriors', one:'warrior', many:'warriors',
+   say:{hi:"You. You got warriors? Big ones? I'll look at other folks too, I guess.", none:"Your bag's empty, man.",
+        open:"{o}. Fair, right? That's fair.", plain:"Eh. Not a warrior. {o}.", exact:"THAT'S IT. That's the one I drew on the whiteboard! {o}!",
         pushOk:"Ugh. Fine. {o}. Don't tell the boss.", pushNo:"Hey. Don't. {o}.",
         bluffOk:"Another buyer?! No no no. {o}. It's mine.", bluffNo:"Then go! Get outta here!",
-        deal:"Finally. A real gun.", brief:"Boss said if anybody brought this one, give 'em the case.", thanks:"Now get out, I wanna go shoot something.", cool:"Brick is still mad at you."}},
-  {id:'wren', name:'Wren', role:'The Marksman', col:'#4d8dff', pitch:205, mult:1.7, pat:2, fav:it => it.w === 'sniper', favName:'Snipers', one:'sniper', many:'snipers',
-   say:{hi:"…Snipers.", none:"Nothing? Then leave.",
-        open:"{o}.", plain:"Not a rifle I'd use. {o}.", exact:"That's the one I marked. {o}.",
+        deal:"Finally. A real fighter.", brief:"Boss said if anybody brought this one, give 'em the case.", thanks:"Now get out, I wanna go spar with somebody.", cool:"Brick is still mad at you."}},
+  {id:'wren', name:'Wren', role:'The Marksman', col:'#4d8dff', pitch:205, mult:1.7, pat:2, fav:it => it.w === 'sniper', favName:'Rangers', one:'ranger', many:'rangers',
+   say:{hi:"…Rangers.", none:"Nothing? Then leave.",
+        open:"{o}.", plain:"Not a ranger. {o}.", exact:"That's the one I marked. {o}.",
         pushOk:"Hm. {o}.", pushNo:"No. {o}.",
         bluffOk:"…{o}. Don't do that again.", bluffNo:"Liar. Leave.",
-        deal:"Good weight.", brief:"For the right rifle, I don't count.", thanks:"Good hunting.", cool:"Wren isn't answering the door."}},
-  {id:'juno', name:'Juno', role:'Tech Ops', col:'#ff3ea5', pitch:262, mult:1.55, pat:3, fav:it => it.w === 'smg', favName:'SMGs', one:'SMG', many:'SMGs',
-   say:{hi:"Ooh, a visitor! SMGs are my thing, but show me whatever you've got.", none:"Your inventory is literally empty. Go open something!",
-        open:"Okay okay, I can do {o}!", plain:"Not an SMG, so, market-ish. {o}.", exact:"No way. NO WAY. That's literally on my wishlist. {o}, right now!",
+        deal:"Good weight.", brief:"For the right ranger, I don't count.", thanks:"Good hunting.", cool:"Wren isn't answering the door."}},
+  {id:'juno', name:'Juno', role:'Tech Ops', col:'#ff3ea5', pitch:262, mult:1.55, pat:3, fav:it => it.w === 'smg', favName:'Rogues', one:'rogue', many:'rogues',
+   say:{hi:"Ooh, a visitor! Rogues are my thing, but show me whoever you've got.", none:"Your inventory is literally empty. Go open something!",
+        open:"Okay okay, I can do {o}!", plain:"Not a rogue, so, market-ish. {o}.", exact:"No way. NO WAY. That's literally on my wishlist. {o}, right now!",
         pushOk:"You drive a hard bargain, I love it. {o}.", pushNo:"Hey, I have a budget! Kinda. {o}.",
         bluffOk:"Wait, who?! Ugh. {o}. Don't sell to them.", bluffNo:"I ran your story through my system. It's fake. Bye!",
-        deal:"Yesss. Adding it to the rack.", brief:"Okay, don't freak out. I hacked the petty cash.", thanks:"Pleasure doing crimes with you.", cool:"Juno's door is locked. There's a sticky note on it that says 'liar :('."}},
-  {id:'kessler', name:'Kessler', role:'Quartermaster', col:'#39ff88', pitch:150, mult:1.55, pat:3, fav:it => it.w === 'shotgun', favName:'Shotguns', one:'shotgun', many:'shotguns',
-   say:{hi:"Wipe your shoes. The ledger is short on shotguns. Anything else, I pay what it's worth.", none:"Nothing to log. Come back with stock.",
-        open:"{o}. Shotguns are always short.", plain:"Logged at market. {o}.", exact:"Exactly as listed in my ledger. {o}.",
+        deal:"Yesss. Adding them to the crew.", brief:"Okay, don't freak out. I hacked the petty cash.", thanks:"Pleasure doing crimes with you.", cool:"Juno's door is locked. There's a sticky note on it that says 'liar :('."}},
+  {id:'kessler', name:'Kessler', role:'Quartermaster', col:'#39ff88', pitch:150, mult:1.55, pat:3, fav:it => it.w === 'shotgun', favName:'Tanks', one:'tank', many:'tanks',
+   say:{hi:"Wipe your shoes. The ledger is short on tanks. Anyone else, I pay what they're worth.", none:"Nothing to log. Come back with stock.",
+        open:"{o}. Tanks are always short.", plain:"Logged at market. {o}.", exact:"Exactly as listed in my ledger. {o}.",
         pushOk:"Mm. {o}.", pushNo:"My ledger does not move for charm. {o}.",
         bluffOk:"Hmph. {o}. Noted in the ledger.", bluffNo:"I keep records of every buyer in this city. Yours doesn't exist. Out.",
         deal:"Logged and shelved.", brief:"Ledger says this one is worth ten times. The ledger is never wrong.", thanks:"A pleasure. Keep them clean.", cool:"Kessler has struck you from the ledger. For now."}},
-  {id:'sable', name:'Sable', role:'The Collector', col:'#a855f7', pitch:188, mult:1.6, pat:2, fav:it => it.w === 'pistol', favName:'Pistols', one:'pistol', many:'pistols',
-   say:{hi:"I collect pistols. Small, elegant, deadly. Other things… I'll consider.", none:"You've brought me nothing at all.",
-        open:"{o}. Rarity has a price.", plain:"Not a pistol. {o}, and only because I'm curious.", exact:"Oh. Oh, you found it. {o}.",
+  {id:'sable', name:'Sable', role:'The Collector', col:'#a855f7', pitch:188, mult:1.6, pat:2, fav:it => it.w === 'pistol', favName:'Mages', one:'mage', many:'mages',
+   say:{hi:"I collect mages. Small, elegant, mysterious. Others… I'll consider.", none:"You've brought me nothing at all.",
+        open:"{o}. Rarity has a price.", plain:"Not a mage. {o}, and only because I'm curious.", exact:"Oh. Oh, you found it. {o}.",
         pushOk:"Greedy. I like that. {o}.", pushNo:"Don't spoil it. {o}.",
         bluffOk:"They can't have it. {o}.", bluffNo:"Then let them have it. And you.",
-        deal:"It will be well loved.", brief:"For this one, I'd empty the vault.", thanks:"Come back when you find another.", cool:"Sable has drawn the curtains."}}
+        deal:"They will be well loved.", brief:"For this one, I'd empty the vault.", thanks:"Come back when you find another.", cool:"Sable has drawn the curtains."}}
 ];
 MEMBERS.push({id:'tobias', name:'Tobias', role:'The Contraband King', col:'#a855f7', pitch:96, mult:1.8, pat:3, outsider:true,
    fav:it => it.t === 6, favName:'Black Market', one:'piece of contraband', many:'contraband',
@@ -7631,32 +7790,32 @@ const knifeHome = (m, e) => m.id === 'ma' && e.id === KNIFE_ID && !Y().home;
 const yardMem = (id, name, role, col, pitch, mult, pat, wt, favName, one, many, say) =>
   ({id, name, role, col, pitch, mult, pat, wt, yard:true, fav: it => fromYard(it) && it.w === wt, favName, one, many, say});
 MEMBERS.push(
-  yardMem('ma', 'Ma Rust', 'The Matriarch', '#ff8a3d', 104, 1.5, 3, 'rifle', 'Rusty rifles', 'rusty rifle', 'rusty rifles',
-   {hi:"Sit down, kid. Rifles, if they're rusty. Any other rust, I'll still pay for.", none:"Empty-handed in my yard? Go dig.",
-    open:"{o}. Rust like that's worth keeping.", plain:"Not a rifle. Still rust. {o}.", exact:"That's the one. I've seen it in my dreams, kid. {o}.",
+  yardMem('ma', 'Ma Rust', 'The Matriarch', '#ff8a3d', 104, 1.5, 3, 'rifle', 'Rusty warriors', 'rusty warrior', 'rusty warriors',
+   {hi:"Sit down, kid. Warriors, if they're rusty. Any other rust, I'll still pay for.", none:"Empty-handed in my yard? Go dig.",
+    open:"{o}. Rust like that's worth keeping.", plain:"Not a warrior. Still rust. {o}.", exact:"That's the one. I've seen it in my dreams, kid. {o}.",
     pushOk:"Hah. Fine. {o}.", pushNo:"Don't get cute. {o}.",
     bluffOk:"Another buyer? Out here? …{o}. Don't try it twice.", bluffNo:"Nobody else buys rust, kid. Nobody. Out of my yard.",
     deal:"Onto the pile it goes.", brief:"Tinny! Fetch the tin.", thanks:"Rust never sleeps.", cool:"Ma Rust has locked herself in the crane cab.",
-    shiny:"Too shiny. Take that up the hill to the Prestige.", knife:"…My knife. You brought my knife home. {o}, and I'm not haggling over it.",
-    home:"Forty years that knife was gone. You're family now, kid."}),
-  yardMem('tinny', 'Tinny', 'The Kid', '#ffd23f', 300, 1.45, 4, 'smg', 'Rusty SMGs', 'rusty SMG', 'rusty SMGs',
-   {hi:"A customer! SMGs! Rusty ones! Ma says I can't buy shiny stuff.", none:"Your pockets are emptier than mine!",
-    open:"{o}! That's like a million cans.", plain:"It's not an SMG but it's nice and crusty. {o}!", exact:"THAT'S THE ONE FROM MY DRAWING! {o}!",
+    shiny:"Too shiny. Take that up the hill to the Prestige.", knife:"…My boy. You brought my boy home. {o}, and I'm not haggling over it.",
+    home:"Ten years my boy was gone. You're family now, kid."}),
+  yardMem('tinny', 'Tinny', 'The Kid', '#ffd23f', 300, 1.45, 4, 'smg', 'Rusty rogues', 'rusty rogue', 'rusty rogues',
+   {hi:"A customer! Rogues! Rusty ones! Ma says I can't buy shiny folks.", none:"Your pockets are emptier than mine!",
+    open:"{o}! That's like a million cans.", plain:"They're not a rogue but they're nice and crusty. {o}!", exact:"THAT'S THE ONE FROM MY DRAWING! {o}!",
     pushOk:"Aww. Okay. {o}.", pushNo:"Hey! That's my lunch money. {o}.",
     bluffOk:"WHAT? Who?! No no no. {o}! Don't tell Ma.", bluffNo:"You're lying! Your ears do a thing. Go away!",
     deal:"Mine now. No take-backs.", brief:"Ma said if anybody brought this one, give 'em the tin!", thanks:"Come back tomorrow! Or today!", cool:"Tinny is hiding in the tire fort and won't come out.",
     shiny:"Ew, it's all shiny. Ma would yell at me.",
     peek:"Psst. I snuck a look in the next Scrapyard crate. It's {t}. Don't tell anyone.", peekNo:"They're watching the crates. I can sneak back in after {n} more case open{s}."}),
-  yardMem('deacon', 'Deacon', 'The Preacher', '#e0603a', 92, 1.45, 2, 'shotgun', 'Rusty shotguns', 'rusty shotgun', 'rusty shotguns',
-   {hi:"Welcome, child. Shotguns, rusted by honest years. All rust is holy here.", none:"You come before the altar with nothing?",
-    open:"{o}. The rust provides.", plain:"Not a shotgun, but rust is rust. {o}.", exact:"Praise be. The very one I prayed for. {o}.",
+  yardMem('deacon', 'Deacon', 'The Preacher', '#e0603a', 92, 1.45, 2, 'shotgun', 'Rusty tanks', 'rusty tank', 'rusty tanks',
+   {hi:"Welcome, child. Tanks, rusted by honest years. All rust is holy here.", none:"You come before the altar with nothing?",
+    open:"{o}. The rust provides.", plain:"Not a tank, but rust is rust. {o}.", exact:"Praise be. The very one I prayed for. {o}.",
     pushOk:"Greed is a sin. But {o}.", pushNo:"Patience, child. {o}.",
     confess:"Thou shalt not lie, child. I hear it in your voice. {o}, and say three Hail Rusts.",
     deal:"Go in peace.", brief:"The collection plate. It's yours, child.", thanks:"Bless your rusty heart.", cool:"Deacon is at prayer and must not be disturbed.",
     shiny:"Vanity. That shine is vanity. Take it up the hill."}),
-  yardMem('socket', 'Socket', 'The Mechanic', '#5fd1c2', 176, 1.4, 3, 'pistol', 'Rusty pistols', 'rusty pistol', 'rusty pistols',
-   {hi:"Pistols. Rusted, seized, busted, I don't care. The worse it looks, the more I pay.", none:"Nothing to fix? Then quit blocking my light.",
-    open:"{o}. Look at that corrosion. Gorgeous.", plain:"Not a pistol. Still crusty. {o}.", exact:"That's the exact one I need for parts. {o}.",
+  yardMem('socket', 'Socket', 'The Mechanic', '#5fd1c2', 176, 1.4, 3, 'pistol', 'Rusty mages', 'rusty mage', 'rusty mages',
+   {hi:"Mages. Rusted, seized, busted, I don't care. The worse they look, the more I pay.", none:"Nothing to fix? Then quit blocking my light.",
+    open:"{o}. Look at that corrosion. Gorgeous.", plain:"Not a mage. Still crusty. {o}.", exact:"That's the exact one I need. {o}.",
     pushOk:"Ugh. {o}. Don't touch anything.", pushNo:"Nope. {o}.",
     bluffOk:"Another mechanic? Who? …{o}.", bluffNo:"Nobody else in this town knows what to do with rust. Out of my garage.",
     deal:"Straight onto the bench.", brief:"Take the toolbox. The cash is under the sockets.", thanks:"Keep it crusty.", cool:"Socket's garage door is down.",
@@ -7672,7 +7831,7 @@ MEMBERS.push({id:'rusta', name:'Rustagard', role:'The Scrap Colossus', col:'#ff8
        bluffOk:"ANOTHER BUYER? WHO IS BIGGER THAN ME? …{o}.", bluffNo:"NOBODY ELSE EATS RUST. GO AWAY BEFORE I EAT YOU.",
        deal:"*CRUNCH* DELICIOUS.", brief:"SOCKET HID MONEY IN MY CHEST. TAKE IT. IT DOES NOT TASTE GOOD.", thanks:"COME BACK HUNGRY. I AM ALWAYS HUNGRY.",
        cool:"Rustagard is asleep on the garbage mountain. Don't wake him.", shiny:"TOO SHINY. SHINY HURTS MY TEETH. TAKE IT UP THE HILL."}});
-const YARD_SPECIAL = {ma:'Wants her knife back', tinny:'Peeks inside crates', deacon:'Can’t be lied to', socket:'Rust counts double', rusta:'Eats it on the spot'};
+const YARD_SPECIAL = {ma:'Wants her boy back', tinny:'Peeks inside crates', deacon:'Can’t be lied to', socket:'Rust counts double', rusta:'Eats it on the spot'};
 const BM_REFUSE = {
   vance:"Black Market? Not in my building. Tobias handles that kind of filth.",
   brick:"Whoa whoa whoa. That's HOT. Boss'd kill me. Take it to Tobias.",
@@ -7979,7 +8138,7 @@ function prestigeIntro(again){
     await say(V, "Do you know what that does to a reputation? Do you know what people say about—");
     if (!ctl.skip) { $('#pcSub').classList.remove('on'); el.classList.add('bang'); restart(el, 'shake'); boom(); noise(.35, 3000, 300, .3); tone(95, .2, 'square', .12); pan(336); mus.hold = 'brick'; musPlay('brick', false, true); }
     await W(1000);
-    await say(B, "Boss. We need gold weapons.");
+    await say(B, "Boss. We need gold recruits.");
     await say(B, "We can't keep using these shitty commons.");
     pan(200); el.classList.remove('talk'); el.classList.add('turn');
     if (mus.hold) { mus.hold = null; musSync(); }
@@ -8024,7 +8183,7 @@ function enterCrew(kind){
   $('#prBrand').innerHTML = kind === 'yard' ? '<small>Scrapyard · after dark</small>THE REJECTS' : '<small>Members only</small>THE PRESTIGE';
   $('#prHeroH').textContent = kind === 'yard' ? 'Got any rust?' : h;
   $('#prHeroP').textContent = kind === 'yard'
-    ? 'The Rejects only buy rust: anything out of a Scrapyard case, or anything Scarred. Each one pays extra for one weapon type, and every one of them pays more the more worn a piece is (Mint gets haggled down). You can still talk offers up, and bringing someone the exact piece on their list pays 10× in a briefcase. Every room is a shop too.'
+    ? 'The Rejects only buy rust: anything out of a Scrapyard case, or anything Scarred. Each one pays extra for one class, and every one of them pays more the more worn a piece is (Mint gets haggled down). You can still talk offers up, and bringing someone the exact piece on their list pays 10× in a briefcase. Every room is a shop too.'
     : ptxt;
   const el = $('#pres'); el.hidden = false; el.scrollTop = 0;
   $('#prRoom').hidden = true; $('#prLobby').hidden = false;
@@ -8220,7 +8379,7 @@ function renderLeft(anim){
       + (m.id === 'vance' && !neg.raged && !tagged(e) ? '<div class="pr-pat rmc-anger">Anger ' + Array.from({length: chain ? XLAST_AT : RAGE_AT}, (_, i) => '<i' + (i < (neg.rage || 0) ? ' class="on"' : '') + '></i>').join('') + '</div>' : '')
       + (m.ego && !neg.raged ? '<div class="rmc-sub">Big ego: he hates hearing about other buyers</div>' : '')
       + (m.yard && !neg.knife && !tagged(e) ? '<div class="rmc-sub">' + WEARS[wi].n + ' · rust ×' + rustOf(m, e).toFixed(2) + (m.id === 'deacon' ? ' · he can tell when you lie' : '') + '</div>' : '')
-      + (neg.knife ? '<div class="rmc-exact">★ Her family knife: ' + KNIFE_X + '× market. She won’t haggle over it.</div>' : '')
+      + (neg.knife ? '<div class="rmc-exact">★ Her lost boy: ' + KNIFE_X + '× market. She won’t haggle over it.</div>' : '')
       + (!neg.raged && (out ? '<div class="rmc-sub">Done haggling</div>' : maxed ? '<div class="rmc-sub">That’s the ceiling</div>' : '') || '') + '</div>';
     art = thumb(it, wi);
   } else {
@@ -8242,8 +8401,8 @@ function renderLeft(anim){
     art = thumb(w, 0);
     if (m.id === 'ma' && !Y().home) {
       const hk = state.inv.find(e => e.id === KNIFE_ID);
-      ctx = '<div class="rmc rmc-want' + (hk ? ' have' : '') + '"><div class="lab">' + (hk ? '★ You have it' : 'Her family knife') + '</div><span class="rmc-art"></span>'
-        + '<div class="t">' + WNAME.bowie + ' | Rusty Knife</div><div class="rmc-sub">Bring it home: ' + KNIFE_X + '× market, no haggling</div>'
+      ctx = '<div class="rmc rmc-want' + (hk ? ' have' : '') + '"><div class="lab">' + (hk ? '★ You have him' : 'Her lost boy') + '</div><span class="rmc-art"></span>'
+        + '<div class="t">' + WNAME.bowie + ' | Rusty Jr.</div><div class="rmc-sub">Bring it home: ' + KNIFE_X + '× market, no haggling</div>'
         + '<div class="rmc-rule">Also pays <b>' + m.mult + '×</b> for ' + m.many + ' · any other rust at market · worn pays more</div></div>';
       art = thumb(BY[KNIFE_ID], hk ? wearIdx(hk.fl) : 4);
     }
@@ -8301,7 +8460,7 @@ function renderOv(){
     b.type = 'button'; b.className = 'pr-it' + (ok ? '' : ' no'); b.dataset.uid = e.uid; b.style.setProperty('--tc', TIERS[it.t].color);
     b.append(thumb(it, wi));
     const star = own ? '<span class="star stock">' + (m.yard ? 'YOURS NOW' : 'HIS OWN STOCK') + '</span>' : !ok ? (m.yard ? '<span class="star stock">TOO SHINY</span>' : m.outsider ? '<span class="star stock">LEGAL · BORING</span>' : '<span class="star bm">CONTRABAND</span>')
-      : k ? '<span class="star">★ HER KNIFE</span>' : x ? '<span class="star">★ ON THE LIST</span>' : f ? '<span class="star fav">' + (m.outsider ? 'CONTRABAND' : 'FAVORITE') + '</span>' : md ? '<span class="star mood">LIKES IT</span>' : tg ? '<span class="star stock">BOUGHT · MARKET</span>' : '';
+      : k ? '<span class="star">★ HER BOY</span>' : x ? '<span class="star">★ ON THE LIST</span>' : f ? '<span class="star fav">' + (m.outsider ? 'CONTRABAND' : 'FAVORITE') + '</span>' : md ? '<span class="star mood">LIKES IT</span>' : tg ? '<span class="star stock">BOUGHT · MARKET</span>' : '';
     b.insertAdjacentHTML('beforeend', star + '<div class="nm">' + it.name + '</div><div class="sub">' + WNAME[it.w] + ' · ' + WEARS[wi].n + ' · ' + e.fl.toFixed(4) + '</div><div class="of"><span>Market ' + fmt(e.v) + '</span>' + (ok ? '<b>' + fmt(o) + '</b>' : '<b class="nob">' + (m.yard ? 'Too shiny' : m.outsider ? 'Won’t buy' : 'Tobias only') + '</b>') + '</div>');
     list.append(b);
   });
@@ -8599,7 +8758,7 @@ async function egoBluff(m, before){
   neg.offer = Math.min(neg.cap, Math.round(before * (1.3 + Math.random()*.2)));
   setAnger(neg.rage);
   if (neg.rage === 1) { tone(110, .4, 'sine', .12); sayRoom('…Another buyer. In MY city. ' + fmt(neg.offer) + ' cr.', ''); }
-  else if (tg && neg.rage >= RAGE_AT) { neg.noBluff = true; sc_thump(); sayRoom('That is MY stock. You think I don’t know my own knives? ' + fmt(neg.offer) + ' cr. Final.', 'mad'); }
+  else if (tg && neg.rage >= RAGE_AT) { neg.noBluff = true; sc_thump(); sayRoom('That is MY stock. You think I don’t know my own people? ' + fmt(neg.offer) + ' cr. Final.', 'mad'); }
   else { sc_thump(); sayRoom('You’re testing me. Nobody. Tests. Me. ' + fmt(neg.offer) + ' cr.', 'mad'); }
   await wait(250);
   actBusy = false; renderLeft('up');
@@ -8740,7 +8899,7 @@ async function vanceRage(m, mult, lvl){
   await wait(450);
   if (big) { await wait(200); boom(); shakeStage(); }
   sc.classList.remove('v-stand', 'v-back'); setAnger(big ? 3 : 2);
-  await sayRoom(huge ? W + ' TIMES. ' + fmt(ten) + ' cr. The whole vault. Take it before I change my mind.' : big ? W + ' TIMES. ' + fmt(ten) + ' cr. On top of the first pile. Leave the knife on my desk and TAKE IT.' : 'Count it. ' + fmt(ten) + ' cr, cash. Now shake my hand.', big ? 'mad' : 'happy');
+  await sayRoom(huge ? W + ' TIMES. ' + fmt(ten) + ' cr. The whole vault. Take it before I change my mind.' : big ? W + ' TIMES. ' + fmt(ten) + ' cr. On top of the first pile. Leave them in my office and TAKE IT.' : 'Count it. ' + fmt(ten) + ' cr, cash. Now shake my hand.', big ? 'mad' : 'happy');
   actBusy = false; renderLeft();
 }
 /* Vance with the exact knife on his list can't say no to it. Bluffs always land: the third makes him put 5x
@@ -8756,7 +8915,7 @@ async function vanceExact(m, before){
   if (n === RAGE_AT) { await vanceRage(m, 5); return; }
   neg.offer = Math.min(neg.cap, Math.round(before * (1.3 + Math.random()*.2)));
   setAnger(n);
-  if (n === 1) { tone(110, .4, 'sine', .12); sayRoom('…Another buyer. For MY knife. ' + fmt(neg.offer) + ' cr.', ''); }
+  if (n === 1) { tone(110, .4, 'sine', .12); sayRoom('…Another buyer. For MY royal. ' + fmt(neg.offer) + ' cr.', ''); }
   else { sc_thump(); sayRoom('That blade has been on my list for YEARS. Say “buyer” one more time. ' + fmt(neg.offer) + ' cr.', 'mad'); }
   await wait(250);
   actBusy = false; renderLeft('up');
@@ -8776,7 +8935,7 @@ async function vanceSecurity(m){
   sc.classList.add('v-secon'); boom(); shakeStage();
   for (let i = 0; i < 6; i++) setTimeout(() => { if (sc.isConnected) tone(70 - i*4, .2, 'sine', .3); }, i*170);
   await wait(1100);
-  await sayRoom('Take the knife. Throw this one out the window. The LOW window.', 'mad');
+  await sayRoom('Take them. Throw this one out the window. The LOW window.', 'mad');
   // the knife is gone: no payment, he keeps the cash, and it comes off his list
   state.inv = state.inv.filter(x => x.uid !== e.uid);
   P().cool[m.id] = state.opened + SEC_COOL; newWant(m); save(); renderOpen();
@@ -8818,33 +8977,33 @@ const INV_PX = ['0100010','0011100','0111110','1101011','1111111','0101010'];
    needs storing except which slots were bought. Prices are SHOP_X times market. */
 const SHOP_X = 2.2, RESTOCK = 10;
 const SHOPS = {
-  vance:{hint:'Knife cabinet', tag:'plaque', group:[294, 16, 104, 140],
-    slots:[{x:306, y:21, w:80, h:32, tag:[346, 62]}, {x:306, y:59, w:80, h:32, tag:[346, 100]}, {x:306, y:97, w:80, h:32, tag:[346, 138]}],
-    lines:['Balanced like a scalpel.', 'Took it off a man who talked too much.', 'Never been used. Officially.'],
+  vance:{hint:'Royal gallery', tag:'plaque', group:[294, 16, 104, 140],
+    slots:[{x:316, y:22, w:60, h:24, tag:[346, 70]}, {x:316, y:60, w:60, h:24, tag:[346, 108]}, {x:316, y:98, w:60, h:24, tag:[346, 146]}],
+    lines:['Old money. Older manners.', 'Won them off a man who talked too much.', 'Never lost a duel. Officially.'],
     open:'My private cabinet. Everything in this building has a price.', buy:"Don't scratch it.", broke:'Come back when your pockets match your taste.'},
-  brick:{hint:'Rifle rack', tag:'paper', group:[16, 52, 144, 112],
-    slots:[{x:26, y:58, w:100, h:40, tag:[143, 80]}, {x:26, y:88, w:100, h:40, tag:[143, 110]}, {x:26, y:118, w:100, h:40, tag:[143, 140]}],
-    lines:['Kicks like a mule.', 'Won this one arm wrestling.', 'Loud. Real loud.'],
-    open:"Old rifles. Take 'em, I need the wall space.", buy:'Hah! Good pick.', broke:"You're short, buddy."},
-  wren:{hint:'Spare rifles', tag:'paper', group:[258, 96, 136, 120],
-    slots:[{x:242, y:138, w:100, h:40, rot:-76, tag:[311, 124]}, {x:276, y:136, w:100, h:40, rot:-76, tag:[345, 122]}, {x:310, y:138, w:100, h:40, rot:-76, tag:[379, 124]}],
-    lines:['Straight shooter.', 'Pulls left. Slightly.', 'Quiet.'],
+  brick:{hint:'Warrior wall', tag:'paper', group:[16, 52, 144, 112],
+    slots:[{x:-40, y:62, w:160, h:64, tag:[41, 138], hit:[14.4, 62, 51.2, 64], hr:[26.88, 35.2]}, {x:8, y:62, w:160, h:64, tag:[89, 138], hit:[62.4, 62, 51.2, 64], hr:[26.88, 35.2]}, {x:56, y:62, w:160, h:64, tag:[137, 138], hit:[110.4, 62, 51.2, 64], hr:[26.88, 35.2]}],
+    lines:['Kicks like a mule.', 'Beat me arm wrestling. Once.', 'Loud. Real loud.'],
+    open:"Old warriors. Take 'em, I need the wall space.", buy:'Hah! Good pick.', broke:"You're short, buddy."},
+  wren:{hint:'Spare rangers', tag:'paper', group:[258, 96, 136, 120],
+    slots:[{x:199, y:122, w:170, h:68, tag:[285, 212], hit:[256.8, 122, 54.4, 68], hr:[28.56, 37.4]}, {x:241, y:122, w:170, h:68, tag:[327, 214], hit:[298.8, 122, 54.4, 68], hr:[28.56, 37.4]}, {x:283, y:122, w:170, h:68, tag:[369, 216], hit:[340.8, 122, 54.4, 68], hr:[28.56, 37.4]}],
+    lines:['Never misses.', 'Walks left. Slightly.', 'Quiet.'],
     open:'Spares.', buy:'Zero it first.', broke:'…No.'},
   juno:{hint:'Prize machines', tag:'marquee', group:null,
-    slots:[{x:21, y:105.4, w:38, h:15.2, tag:[40, 85.6], box:[15, 72, 54, 60], hit:[14, 74, 56, 66], hr:[26, 20]},
-           {x:83, y:105.4, w:38, h:15.2, tag:[102, 85.6], box:[77, 72, 54, 60], hit:[76, 74, 56, 66], hr:[26, 20]},
-           {x:277, y:105.4, w:38, h:15.2, tag:[296, 85.6], box:[271, 72, 54, 60], hit:[270, 74, 56, 66], hr:[26, 20]}],
-    lines:['High score prize!', 'I won this one twice. Don’t ask how.', 'Glitched it out of a claw machine.'],
+    slots:[{x:-5, y:90, w:90, h:36, tag:[40, 85.6], box:[15, 72, 54, 60], hit:[14, 74, 56, 66], hr:[26, 20]},
+           {x:57, y:90, w:90, h:36, tag:[102, 85.6], box:[77, 72, 54, 60], hit:[76, 74, 56, 66], hr:[26, 20]},
+           {x:251, y:90, w:90, h:36, tag:[296, 85.6], box:[271, 72, 54, 60], hit:[270, 74, 56, 66], hr:[26, 20]}],
+    lines:['High score prize!', 'I won them twice. Don’t ask how.', 'Glitched it out of a claw machine.'],
     open:'Prize machines! Except you pay instead of play. Same thing.', buy:'Winner winner!', broke:'Insert more coins!'},
   kessler:{hint:'Pegboard', tag:'paper', group:[12, 40, 164, 148],
-    slots:[{x:22, y:42, w:116, h:46, tag:[156, 66]}, {x:22, y:86, w:116, h:46, tag:[156, 110]}, {x:22, y:130, w:116, h:46, tag:[156, 154]}],
+    slots:[{x:27.5, y:44, w:105, h:42, tag:[156, 66]}, {x:27.5, y:88, w:105, h:42, tag:[156, 110]}, {x:27.5, y:132, w:105, h:42, tag:[156, 154]}],
     lines:['Inspected. Twice.', 'Ledger entry 4471.', 'Fresh out of the crate.'],
     open:'Surplus. Every piece logged and inspected.', buy:'Signed out. Initial here.', broke:'Insufficient funds. Noted.'},
   sable:{hint:'Display cases', tag:'plaque', group:[50, 126, 300, 92],
-    slots:[{x:52, y:141, w:60, h:24, tag:[82, 174], hit:[61, 134, 42, 36], hr:[26, 18]},
-           {x:170, y:175, w:60, h:24, tag:[200, 208], hit:[179, 168, 42, 36], hr:[26, 18]},
-           {x:288, y:141, w:60, h:24, tag:[318, 174], hit:[297, 134, 42, 36], hr:[26, 18]}],
-    lines:['Small. Elegant.', 'A gift from an admirer.', 'It has a story. Not one I tell.'],
+    slots:[{x:39.5, y:131, w:85, h:34, tag:[82, 174], hit:[66, 131, 32, 36], hr:[18, 20]},
+           {x:157.5, y:165, w:85, h:34, tag:[200, 212], hit:[184, 165, 32, 36], hr:[18, 20]},
+           {x:275.5, y:131, w:85, h:34, tag:[318, 186], hit:[302, 131, 32, 36], hr:[18, 20]}],
+    lines:['Small. Elegant.', 'A gift from an admirer.', 'They have a story. Not one I tell.'],
     open:'You may look. Properly, though. In order.', buy:'Take care of it.', broke:'Taste is free. These are not.'},
   /* Tobias doesn't stock anything himself: whatever you sell him goes up here at 3x what he paid you */
   tobias:{hint:'His shelf', tag:'paper', group:null, shelf:true,
@@ -8855,22 +9014,22 @@ const SHOPS = {
 /* The Rejects' shops: rust from every case, never better than Worn */
 Object.assign(SHOPS, {
   ma:{hint:'Scrap rack', tag:'paper', group:[16, 52, 144, 112],
-    slots:[{x:26, y:58, w:100, h:40, tag:[143, 80]}, {x:26, y:88, w:100, h:40, tag:[143, 110]}, {x:26, y:118, w:100, h:40, tag:[143, 140]}, {x:112, y:188, w:38, h:26, tag:[100, 192], own:[56, 150, 120, 80]}],
-    lines:['Pulled that one out of a Buick.', 'Older than you. Shoots straighter, too.', 'Rust is just character.'],
+    slots:[{x:-40, y:62, w:160, h:64, tag:[41, 138], hit:[14.4, 62, 51.2, 64], hr:[26.88, 35.2]}, {x:8, y:62, w:160, h:64, tag:[89, 138], hit:[62.4, 62, 51.2, 64], hr:[26.88, 35.2]}, {x:56, y:62, w:160, h:64, tag:[137, 138], hit:[110.4, 62, 51.2, 64], hr:[26.88, 35.2]}, {x:112, y:188, w:38, h:26, tag:[100, 192], own:[56, 150, 120, 80]}],
+    lines:['Pulled that one out of a Buick.', 'Older than you. Tougher, too.', 'Rust is just character.'],
     open:"The rack's for sale. Rust and all.", buy:"Don't you dare clean it.", broke:"Rust ain't free, kid."},
   tinny:{hint:'Fridge-door shelf', tag:'paper', group:[262, 46, 132, 128],
     slots:[{x:270, y:52, w:94, h:34, tag:[377, 69]}, {x:270, y:92, w:94, h:34, tag:[377, 109]}, {x:270, y:132, w:94, h:34, tag:[377, 149]}],
-    lines:['Found it under a car!', 'It’s only a little bit broken.', 'This one goes pew.'],
+    lines:['Found it under a car!', 'It’s only a little bit broken.', 'This one goes zoom.'],
     open:'My stuff! Ma says I’m allowed to sell it.', buy:'Yesss! I’m rich!', broke:'You need more money. Like, way more.'},
   deacon:{hint:'The altar', tag:'plaque', group:[56, 176, 288, 52],
-    slots:[{x:66, y:184, w:76, h:26, tag:[104, 218], hit:[62, 180, 84, 34], hr:[34, 15]},
-           {x:162, y:186, w:76, h:26, tag:[200, 218], hit:[158, 182, 84, 34], hr:[34, 15]},
-           {x:258, y:184, w:76, h:26, tag:[296, 218], hit:[254, 180, 84, 34], hr:[34, 15]}],
+    slots:[{x:54, y:168, w:100, h:42, tag:[104, 219], hit:[86, 168, 36, 44], hr:[20, 24]},
+           {x:150, y:170, w:100, h:42, tag:[200, 224], hit:[182, 170, 36, 44], hr:[20, 24]},
+           {x:246, y:168, w:100, h:42, tag:[296, 229], hit:[278, 168, 36, 44], hr:[20, 24]}],
     lines:['Blessed by forty winters.', 'An offering from a sinner.', 'It has seen things, child.'],
     open:'The offerings. Take whatever speaks to you.', buy:'Go with God. And rust.', broke:'The Lord loves a cheerful giver. You are not one yet.'},
   socket:{hint:'Pegboard', tag:'paper', group:[14, 42, 142, 140],
     slots:[{x:24, y:50, w:86, h:34, tag:[128, 67]}, {x:24, y:94, w:86, h:34, tag:[128, 111]}, {x:24, y:138, w:86, h:34, tag:[128, 155]}],
-    lines:['Seized up. Fixed it. Mostly.', 'Parts from three different guns.', 'Don’t ask what that stain is.'],
+    lines:['Seized up. Fixed it. Mostly.', 'Raised by three different mechanics.', 'Don’t ask what that stain is.'],
     open:'Rebuilt junk. Runs better than new.', buy:'Bring it back when it jams.', broke:'Parts cost money, pal.'}
 });
 function yardStock(m){
@@ -9133,7 +9292,7 @@ const SC = {
       S.off('vi-spin vi-open');
       await S.card();
       await S.say("Sit.");
-      await S.say("You've been pulling gold. I want knives. All of them. The rest, I'll take at market.");
+      await S.say("You've been pulling gold. I want royals. All of them. The rest, I'll take at market.");
     }},
 
   brick:{end:'b-drop', cap:'Has punched through three doors. Today.',
@@ -9178,7 +9337,7 @@ const SC = {
       S.at(420, () => { boom(); noise(.4, 900, 120, .3, 'lowpass'); S.shake(); });
       await S.W(1300);
       await S.card();
-      await S.say("What. You got rifles or not? I'll look at other stuff. Probably.");
+      await S.say("What. You got warriors or not? I'll look at other folks. Probably.");
     }},
 
   wren:{end:'', cap:'Last spoke in full sentences sometime in 2019.',
@@ -9226,7 +9385,7 @@ const SC = {
       await S.W(700);
       await S.card();
       await S.say("…You walk loud.");
-      await S.say("Snipers. Clean ones. Show me.");
+      await S.say("Rangers. Clean ones. Show me.");
     }},
 
   juno:{end:'', cap:'Undefeated at arcade games. According to her.',
@@ -9292,7 +9451,7 @@ const SC = {
       await S.say("NO NO NO. That boss is SO cheap!");
       S.off('j-over'); S.on('j-look');
       await S.card();
-      await S.say("Oh! A customer! Sorry, sorry. SMGs are my thing, but show me whatever you've got.");
+      await S.say("Oh! A customer! Sorry, sorry. Rogues are my thing, but show me whoever you've got.");
     }},
 
   kessler:{end:'k-done', cap:'Already has a ledger entry for you.',
@@ -9340,7 +9499,7 @@ const SC = {
       await S.W(1200);
       await S.card();
       await S.say("Name. Item. Condition.");
-      await S.say("Shotguns, if you have them. The ledger is short. Anything else, I pay what it's worth.");
+      await S.say("Tanks, if you have them. The ledger is short. Anyone else, I pay what they're worth.");
     }},
 
   sable:{end:'s-1 s-2 s-3', cap:'Nobody has ever seen her buy anything retail.',
@@ -9389,7 +9548,7 @@ const SC = {
       await S.W(1500);
       await S.card();
       await S.say("Welcome to my collection.");
-      await S.say("Pistols. Small, elegant, final. Other things… I'll consider.");
+      await S.say("Mages. Small, elegant, mysterious. Others… I'll consider.");
     }},
 
   tobias:{end:'', cap:'Has never paid a single cent of tax.',
@@ -9719,7 +9878,7 @@ const YARD_SC = {
       S.at(430, () => { boom(); noise(.5, 700, 90, .32, 'lowpass'); tone(46, .6, 'sine', .3); S.shake(); });
       await S.W(1500);
       await S.card();
-      await S.say("Sit down, kid. Rifles, if they're rusty. Any other rust, I'll still pay for.");
+      await S.say("Sit down, kid. Warriors, if they're rusty. Any other rust, I'll still pay for.");
     }},
 
   tinny:{end:'tn-up', cap:'Has never once been allowed to drive the crane.',
@@ -9756,7 +9915,7 @@ const YARD_SC = {
       S.fx(() => { sweep(300, 950, .18, 'square', .04); tone(1250, .08, 'square', .03, .16); });
       await S.W(700);
       await S.card();
-      await S.say("A CUSTOMER! SMGs! Rusty ones! Ma says I can't buy shiny stuff.");
+      await S.say("A CUSTOMER! Rogues! Rusty ones! Ma says I can't buy shiny folks.");
     }},
 
   deacon:{end:'dc-lit', cap:'Has married forty couples and one forklift.',
@@ -9804,7 +9963,7 @@ const YARD_SC = {
       S.on('dc-lit'); S.fx(() => sweep(220, 660, 1.2, 'sine', .03)); await S.W(900);
       await S.say("Rust is only iron, remembering where it came from.");
       await S.card();
-      await S.say("Welcome, child. Shotguns, rusted by honest years. All rust is holy here.");
+      await S.say("Welcome, child. Tanks, rusted by honest years. All rust is holy here.");
     }},
 
   socket:{end:'sk-up', cap:'Can rebuild an engine blindfolded. Has, twice.',
@@ -9848,7 +10007,7 @@ const YARD_SC = {
       S.fx(() => { tone(320, .06, 'square', .03); noise(.06, 3000, 800, .05); });
       await S.W(800);
       await S.card();
-      await S.say("Pistols. Rusted, seized, busted, I don't care. The worse it looks, the more I pay.");
+      await S.say("Mages. Rusted, seized, busted, I don't care. The worse they look, the more I pay.");
       S.on('sk-phone'); S.fx(() => { [0, .1, .2].forEach(d => { tone(1400, .05, 'square', .02, d); noise(.05, 3000, 1500, .04, 'bandpass'); }); });
       await S.say("Oh. And take this. Built it out of a toaster and two walkie-talkies.");
       await S.say("If I need you, it'll ring. If it doesn't ring, hit it.");
@@ -9961,14 +10120,14 @@ const YARD_SC = {
       S.on('yc-ma'); await S.W(400);
       await S.say("Five. And?", M);
       S.on('yc-knife'); S.fx(() => { [659.25, 830.6, 987.8, 1318.5].forEach((f, i) => tone(f, 1.6, 'sine', .03, i*.12)); });
-      await S.say("AND THEY GOT THE RUSTY KNIFE!", T);
+      await S.say("AND THEY FOUND RUSTY JR.!", T);
       S.on('yc-de'); await S.W(300);
       await S.say("Five crates deep. The rust provides.", D);
       S.on('yc-so'); await S.W(300);
       await S.say("Up the hill they'd laugh at it. Brick calls our stuff “shitty commons”.", K);
       await S.say("The Prestige threw every one of us out. Too old. Too loud. Too rusty.", M);
       await S.say("So we buy what they won't. Rusted, scarred, worn to the bone.", M);
-      await S.say("Bring that knife home, kid. And bring us rust. We pay better than you'd think.", M);
+      await S.say("Bring my boy home, kid. And bring us rust. We pay better than you'd think.", M);
     }}
 };
 Object.assign(SC, YARD_SC);
@@ -9994,7 +10153,7 @@ function closeYt(enter){
 }
 function renderYardBtn(){ $('#yardBtn').hidden = !Y().seen; }
 function renderYardLobby(){
-  $('#prLedger').innerHTML = 'Rust sold <b>' + fmt(Y().deals || 0) + '</b><span>Paid to you <b>' + fmt(Y().earned || 0) + ' cr</b></span><span>Family knife <b>' + (Y().home ? 'home' : 'missing') + '</b></span>';
+  $('#prLedger').innerHTML = 'Rust sold <b>' + fmt(Y().deals || 0) + '</b><span>Paid to you <b>' + fmt(Y().earned || 0) + ' cr</b></span><span>Rusty Jr. <b>' + (Y().home ? 'home' : 'missing') + '</b></span>';
   const grid = $('#prGrid'); grid.innerHTML = '';
   grid.append(aucCard());
   YARD.forEach(m => {
@@ -10449,7 +10608,7 @@ function partPop(id){
   const p = RP_BY[id], el = $('#partPop'); if (!p || !el) return;
   const n = Y().rusta ? 3 : rpCount();
   el.style.setProperty('--pc', p.col);
-  el.innerHTML = '<div class="pp-art">' + rpSVG(id) + '</div><div class="pp-txt"><small>Also in the crate · not a weapon</small><b>' + p.n + '</b><span>' + p.p + '% · one of Socket’s three parts</span><i>' + n + ' of 3 found' + (n === 3 ? ' · take them to Socket' : '') + '</i></div>';
+  el.innerHTML = '<div class="pp-art">' + rpSVG(id) + '</div><div class="pp-txt"><small>Also in the crate · not a person</small><b>' + p.n + '</b><span>' + p.p + '% · one of Socket’s three parts</span><i>' + n + ' of 3 found' + (n === 3 ? ' · take them to Socket' : '') + '</i></div>';
   el.hidden = false; el.classList.remove('on'); void el.offsetWidth; el.classList.add('on');
   [659.25, 880, 1318.5].forEach((f, i) => tone(f, .5, 'triangle', .05, i * .1)); noise(.3, 1200, 300, .08, 'lowpass');
   clearTimeout(rpTimer); rpTimer = setTimeout(() => { el.classList.remove('on'); rpTimer = setTimeout(() => { el.hidden = true; }, 400); }, 5200);
@@ -10461,7 +10620,7 @@ function rpPanel(){
     + '<div><div class="lab">She wants to build</div><b>Something big</b><p>Bigger than the garage. Bigger than the crane.</p><small>“Bring me the three parts and stand well back.”</small></div></div>'
     + '<div class="rp-parts">' + RPARTS.map(p => { const ok = rpHave(p.id); return '<div class="rp-part' + (ok ? ' ok' : '') + '" style="--pc:' + p.col + '"><div class="rp-art">' + rpSVG(p.id) + '</div><b>' + p.n + '</b><small>' + p.p + '% from a Scrapyard crate</small><span>' + (ok ? '✓ Found' : 'Not yet') + '</span></div>'; }).join('') + '</div>'
     + '<div class="gd-acts"><button class="gold-btn" data-a="rgive"' + (all ? '' : ' disabled') + '>' + (all ? 'Hand them over' : n + ' of 3 parts') + '</button><button class="ghost" data-a="ovclose">Not now</button></div>'
-    + '<p class="jb-note">They aren’t weapons and they don’t take bag space. They only turn up in Scrapyard crates, Contraption runs included.</p>';
+    + '<p class="jb-note">They aren’t people and they don’t take bag space. They only turn up in Scrapyard crates, Contraption runs included.</p>';
 }
 async function rpGive(){
   const m = room; if (!m || m.id !== 'socket' || !rpQuest() || rpCount() < 3 || actBusy) return;
@@ -10927,7 +11086,7 @@ async function runBatch(){
   for (const id of rps) {
     const p = RP_BY[id], d = document.createElement('div');
     d.className = 'bt-card big bt-part'; d.style.setProperty('--tc', p.col);
-    d.innerHTML = '<div class="bt-pa">' + rpSVG(id) + '</div><span class="nm">' + p.n + '</span><span class="sub">Not a weapon · ' + p.p + '%</span><span class="v">Socket’s part</span>';
+    d.innerHTML = '<div class="bt-pa">' + rpSVG(id) + '</div><span class="nm">' + p.n + '</span><span class="sub">Not a person · ' + p.p + '%</span><span class="v">Socket’s part</span>';
     $('#btGrid').append(d); [659.25, 880, 1318.5].forEach((f, i) => tone(f, .5, 'triangle', .05, i * .1));
     await W(700);
   }
@@ -10962,7 +11121,7 @@ function closeBatch(sell){
 
 /* ---------- Jobs ----------
    Every member of the Prestige and the Rejects has a job going (Tobias doesn't share). Each one shows where it
-   happens, what to bring, the story and a 0.5-5 star difficulty. You bring weapons of the asked-for types: better
+   happens, what to bring, the story and a 0.5-5 star difficulty. You bring people of the asked-for classes: better
    tiers raise your odds (for the Rejects the gear must be rusty, and rustier is better). Pull it off and you're paid
    and keep your gear; blow it and each piece you brought has a coin-flip chance of being lost. One job per member
    every JOB_EVERY case opens. */
@@ -10974,14 +11133,14 @@ const JOBS = {
      story:'Somebody is selling glitched contraband out of an alley. Values that make no sense, and they’re wrecking my market. A masked man, they say. My boys will handle him. They just need something with real teeth. Lend me your best piece of contraband. Or better.'}],
   vance:[
     {t:'The Mayor’s Insurance', loc:'vault', place:'Golden Ace Casino, private vault', need:['knife', 'pistol'], d:4.5,
-     story:'The mayor keeps a ledger in the casino vault, and my name is in it. Get in, bring me the book, and leave the knife in the table so he knows who sent you.'},
+     story:'The mayor keeps a ledger in the casino vault, and my name is in it. Get in, bring me the book, and leave a calling card on the table so he knows who sent you.'},
     {t:'Collection Day', loc:'rooftop', place:'Rooftop across from First City Bank', need:['sniper'], d:3,
-     story:'A banker forgot who he owes. Keep a scope on his window while my men go up and remind him. If anything goes wrong, it was the weather.'}],
+     story:'A banker forgot who he owes. Keep an eye on his window while my men go up and remind him. If anything goes wrong, it was the weather.'}],
   brick:[
     {t:'Truck Stop', loc:'road', place:'Route 9, mile 41', need:['rifle', 'shotgun'], d:3.5,
      story:'Armored truck. Two guards. Boss says don’t hurt the truck. I say the truck can take it. Bring something loud.'},
     {t:'Pier Seven', loc:'harbor', place:'Pier 7 warehouse', need:['rifle'], d:2,
-     story:'Some clowns are keeping stolen rifles at Pier 7. Our rifles. We go in, we take them back, we leave the clowns.'}],
+     story:'Some clowns grabbed three of our crew at Pier 7. Our crew. We go in, we take them back, we leave the clowns.'}],
   wren:[
     {t:'Long Shot', loc:'rooftop', place:'Clocktower, north district', need:['sniper'], d:4,
      story:'Eleven hundred meters. Crosswind off the river. A man in a red tie steps onto a balcony at 9:14. Don’t miss.'},
@@ -11001,7 +11160,7 @@ const JOBS = {
     {t:'The Portrait', loc:'museum', place:'City Museum of Fine Art, east wing', need:['pistol'], d:4,
      story:'There is a portrait of me in the east wing. I never sat for it. Bring it home, quietly, darling. Something small and elegant.'},
     {t:'Plus One', loc:'rooftop', place:'Party at Halcyon Tower, 60th floor', need:['pistol', 'knife'], d:3,
-     story:'A collector is showing off a pistol that should be mine at his party tonight. You’re on the guest list. So is your knife.'}],
+     story:'A collector is showing off a mage who should be with me at his party tonight. You’re on the guest list. So is your crew.'}],
   ma:[
     {t:'Crusher Night', loc:'landfill', place:'City landfill, cell 4', need:['rifle'], d:1.5,
      story:'The city dumps good scrap in cell 4 and buries it before we get there. Tonight we dig it up first. Bring a rusty rifle for the dogs.'},
@@ -13717,7 +13876,7 @@ function chromaCinematic(r){
    Saves from before this existed start with whichever bag already fits what they're carrying. */
 const BAGS = [
   {n:'Lunchbox', cap:5, price:0, line:''},
-  {n:'School backpack', cap:10, price:1500, line:'It has a pencil pocket! For, um, tiny guns.'},
+  {n:'School backpack', cap:10, price:1500, line:'It has a pencil pocket! For, um, tiny people.'},
   {n:'Duffel bag', cap:20, price:6000, line:'Found it at the bus station. Nobody came back for it. For three years.'},
   {n:'Hiking pack', cap:40, price:20000, line:'It’s got like a MILLION pockets. I counted. Forty.'},
   {n:'Shopping cart', cap:80, price:60000, line:'One wheel squeaks. That’s how you know it’s real.'},
@@ -14184,7 +14343,7 @@ function bdoPlot(){
   const el = bdoEl(); el.className = 'bdo in cer plot';
   sweep(600, 80, .5, 'sawtooth', .05); noise(.3, 2000, 200, .05);
   bdoPlotShow('backstage', '<div class="bdo-eyebrow">Meanwhile, backstage</div><p class="bdo-line bdo-type" id="bdoSay"></p>');
-  const lines = ['Mbappé: “Kane does not win tonight. Vini, the stage. Wreck it.”', 'Vini Jr.: “Not with my bare hands. I need a weapon.”'];
+  const lines = ['Mbappé: “Kane does not win tonight. Vini, the stage. Wreck it.”', 'Vini Jr.: “Not on my own. I need backup.”'];
   let t = 500;
   lines.forEach((line, li) => {
     [...line].forEach((ch, i) => bdoT(t + i*30, () => { const sy = $('#bdoSay'); if (sy) sy.textContent = line.slice(0, i + 1); if (i % 3 === 0) tone(li ? 260 : 180, .03, 'square', .015); }));
@@ -14192,7 +14351,7 @@ function bdoPlot(){
   });
   bdoT(t - 600, () => {
     const p = el.querySelector('.bdo-panel');
-    if (p) p.insertAdjacentHTML('beforeend', '<p class="bdo-sub">He’s looking at your bag. He’ll give it back.</p><button class="open-btn sm" data-bdo="lend">Hand Vini a weapon</button>');
+    if (p) p.insertAdjacentHTML('beforeend', '<p class="bdo-sub">He’s looking at your bag. He’ll give it back.</p><button class="open-btn sm" data-bdo="lend">Lend Vini someone</button>');
   });
 }
 function bdoPicker(){
@@ -15415,7 +15574,7 @@ const GADGETS = {
 };
 const G = () => state.gad || (state.gad = {});
 const GUNS = ['pistol', 'smg', 'shotgun', 'rifle', 'sniper'];
-const partText = p => p.k === 'w' ? p.n + ' ' + WNAME[p.v] + (p.v === 'smg' ? 's' : p.n > 1 ? 's' : '') + ', any condition'
+const partText = p => p.k === 'w' ? p.n + ' ' + WNAME[p.v] + (p.n > 1 ? 's' : '') + ', any condition'
   : p.k === 'wear' ? p.n + ' ' + WEARS[p.v].n + ' piece' + (p.n > 1 ? 's' : '') : p.n + ' ' + TIERS[p.v].name + (p.n > 1 ? 's' : '');
 const partOk = (p, e) => { const it = BY[e.id]; if (!it || it.t >= 5 || e.id === KNIFE_ID) return false; return p.k === 'w' ? it.w === p.v : p.k === 'wear' ? wearIdx(e.fl) === p.v : it.t === p.v; };
 function gadEnsure(){
