@@ -4644,9 +4644,9 @@ const GOLD = ITEMS.filter(i => i.t === 5 && !i.ex).map(i => i.id);
 const BM_IDS = ITEMS.filter(i => i.t === 6 && !i.ex).map(i => i.id);
 
 const CASES = [
-  {id:'scrap', name:'Scrapyard',    tag:'Rust, grit, hazard tape', cost:100,  f:1,   w:[78.9,15,4.2,1.45,.35,.1],      cls:'k-scrap', mark:'SY', glow:'#ff9a3c', items:['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12']},
-  {id:'neon',  name:'Neon Circuit', tag:'Synth glow after dark',   cost:200,  f:1.5, w:[75,16.5,5.8,1.9,.55,.25],     cls:'k-neon',  mark:'NC', glow:'#c34bff', items:['n1','n2','n3','n4','n5','n6','n7','n8','n9','n10']},
-  {id:'frost', name:'Frostbite',    tag:'Cold-forged finishes',    cost:350,  f:1.6, w:[65,21,9,3.4,1.1,.5], cls:'k-frost', mark:'FB', glow:'#8fe0ff', items:['f1','f2','f3','f4','f5','f6','f7','f8','f9','f10']},
+  {id:'scrap', name:'Scrapyard',    tag:'Rust, grit, hazard tape', cost:100,  f:1,   w:[78.9,15,4.2,1.45,.1,.35],      cls:'k-scrap', mark:'SY', glow:'#ff9a3c', items:['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12']},
+  {id:'neon',  name:'Neon Circuit', tag:'Synth glow after dark',   cost:200,  f:1.5, w:[75,16.5,5.8,1.9,.25,.55],     cls:'k-neon',  mark:'NC', glow:'#c34bff', items:['n1','n2','n3','n4','n5','n6','n7','n8','n9','n10']},
+  {id:'frost', name:'Frostbite',    tag:'Cold-forged finishes',    cost:350,  f:1.6, w:[65,21,9,3.4,.5,1.1], cls:'k-frost', mark:'FB', glow:'#8fe0ff', items:['f1','f2','f3','f4','f5','f6','f7','f8','f9','f10']},
   {id:'c4',    name:'Case 4',       tag:'Every pull is gold',      cost:20000, f:1,  w:[0,0,0,0,0,1],          cls:'k-gold',  mark:'4',  glow:'#ffcb2e', items:[]}
 ];
 CASES.forEach(c => { c.pools = [0,1,2,3,4,5].map(t => t === 5 ? GOLD : c.items.filter(id => BY[id].t === t)); });
@@ -8823,7 +8823,7 @@ const SHOPS = {
     lines:['Balanced like a scalpel.', 'Took it off a man who talked too much.', 'Never been used. Officially.'],
     open:'My private cabinet. Everything in this building has a price.', buy:"Don't scratch it.", broke:'Come back when your pockets match your taste.'},
   brick:{hint:'Rifle rack', tag:'paper', group:[16, 52, 144, 112],
-    slots:[{x:26, y:58, w:100, h:40, tag:[143, 80]}, {x:26, y:88, w:100, h:40, tag:[143, 110]}, {x:26, y:118, w:100, h:40, tag:[143, 140]}, {x:238, y:40, w:48, h:30, tag:[262, 92], own:[204, 14, 118, 94]}],
+    slots:[{x:26, y:58, w:100, h:40, tag:[143, 80]}, {x:26, y:88, w:100, h:40, tag:[143, 110]}, {x:26, y:118, w:100, h:40, tag:[143, 140]}],
     lines:['Kicks like a mule.', 'Won this one arm wrestling.', 'Loud. Real loud.'],
     open:"Old rifles. Take 'em, I need the wall space.", buy:'Hah! Good pick.', broke:"You're short, buddy."},
   wren:{hint:'Spare rifles', tag:'paper', group:[258, 96, 136, 120],
@@ -8906,7 +8906,7 @@ function shopStock(m){
   const ep = epochNow(), R = seeded(hash(m.id + ':stock:' + ep)), pool = shopPool(m).slice();
   for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(R() * (i + 1)); const t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
   const tot = WEAR_W.reduce((a, b) => a + b, 0);
-  const lgSlot = m.id === 'brick' ? [{i: 3, pk: 'lg1', id: null, price: LG1.cost, key: 'lg1', sold: false}] : [];
+  const lgSlot = []; /* Case #LG1 has been taken off Brick's shelf */
   return pool.slice(0, 3).map((it, i) => {
     let x = R() * tot, wi = 0; while (x >= WEAR_W[wi] && wi < WEAR_W.length - 1) { x -= WEAR_W[wi]; wi++; }
     const W = WEARS[wi], fl = +(W.lo + R() * (W.hi - W.lo - .0001)).toFixed(4), v = marketValue(it, fl), key = m.id + ':' + ep + ':' + i;
