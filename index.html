@@ -3569,19 +3569,36 @@ body.dz-open .toast{z-index:95}
 .sc-no span{background:radial-gradient(circle at 40% 35%,#ff6a5a,#a01a10)}
 .sc-btn:active span{transform:translateY(3px);box-shadow:inset 0 3px 0 rgba(255,255,255,.3),inset 0 -3px 6px rgba(0,0,0,.45),0 1px 0 #1a0c04}
 @media (prefers-reduced-motion: reduce){.scall *{animation:none!important}}
-/* the Rust Shop */
-.rs-coin{display:inline-block;width:16px;height:16px;border-radius:4px;vertical-align:-3px;background:radial-gradient(circle at 30% 30%,#ffb070,#a4501c 55%,#3a1606);box-shadow:inset 0 0 0 1px #2a1206}
-.rs-bal{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 14px;border-radius:var(--r-md);border:1px solid #7a3a18;background:radial-gradient(90% 120% at 0% 50%,rgba(255,138,42,.2),transparent 70%),var(--panel)}
-.rs-bal b{font-family:var(--display);font-size:28px;line-height:1;color:#ffd0a0}.rs-bal small{color:var(--muted)}
-.rs-grid{display:grid;gap:10px;margin-top:12px}
-.rs-it{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px;border-radius:var(--r-md);border:1px solid var(--line-strong);background:var(--panel)}
-.rs-art svg{width:72px;height:58px;display:block}
-.rs-txt b{font-family:var(--display);font-weight:700;font-size:22px;line-height:1}
-.rs-txt p{margin:3px 0;font-size:13px;color:#cdbfa8}.rs-txt small{font-size:12px;color:#ffb070;font-weight:700}
-.rs-souls{display:flex;gap:4px;margin-top:6px}.rs-souls i{width:12px;height:16px;clip-path:polygon(50% 0,100% 30%,80% 100%,20% 100%,0 30%);background:#3a2a30}.rs-souls i.on{background:linear-gradient(#ffe2a0,#ff8a1a)}
-.rs-unlock{width:100%;background:linear-gradient(120deg,#ff7a1a,#ffd27a 50%,#ff7a1a)!important}
+/* the Rust Shop: a gacha-style mileage shop */
+.rs-coin{width:22px;height:22px;flex:none;display:block}
+.rs-mini{display:block;width:22px;height:22px;flex:none}.rs-mini svg{width:100%;height:100%;display:block}
+.rs-top{display:flex;gap:8px;flex-wrap:wrap;max-width:620px;margin:0 auto}
+.rs-bal{display:flex;align-items:center;gap:8px;padding:7px 16px 7px 8px;border-radius:999px;background:#1c1b20;border:2px solid #4a3426;box-shadow:inset 0 2px 0 rgba(255,255,255,.05)}
+.rs-bal .rs-coin{width:30px;height:30px}.rs-bal b{font-family:var(--display);font-size:26px;line-height:1;color:#fff}.rs-bal span{color:#c8b8a4;font-size:13px;font-weight:700}
+.rs-bal.sm{padding-left:8px}.rs-bal.sm b{font-size:22px}.rs-bal.sm .rs-mini{width:26px;height:26px}
+.rs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px auto 0;max-width:620px}
+.rs-tile{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 10px 10px;border-radius:18px;cursor:pointer;color:#fff;font:inherit;
+  background:linear-gradient(160deg,#4d4f5c,#373844 60%,#30313b);border:0;box-shadow:inset 2px 3px 0 rgba(255,255,255,.12),inset 0 -3px 0 rgba(0,0,0,.25),0 4px 0 #1a1a20;transition:transform .12s}
+.rs-tile:hover:not(:disabled){transform:translateY(-3px)}.rs-tile:active:not(:disabled){transform:translateY(2px);box-shadow:inset 2px 3px 0 rgba(255,255,255,.12),0 1px 0 #1a1a20}
+.rs-tile:focus-visible{outline:3px solid #ffb070;outline-offset:3px}
+.rs-tile::before{content:"";position:absolute;left:8px;top:8px;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.35)}
+.rs-ic{position:relative;width:100%;aspect-ratio:1;max-width:120px;display:grid;place-items:center}.rs-ic svg{width:100%;height:100%;display:block;filter:drop-shadow(0 4px 4px rgba(0,0,0,.4))}
+.rs-ic{overflow:hidden}.rs-gun{position:absolute;left:50%;top:52%;width:84%;max-height:70%;object-fit:contain;transform:translate(-50%,-50%) rotate(-24deg);filter:drop-shadow(0 3px 3px rgba(0,0,0,.6)) drop-shadow(0 0 6px rgba(255,138,42,.6));pointer-events:none}
+.rs-nm{font-family:var(--display);font-weight:700;font-size:17px;line-height:1;color:#efe4d6;letter-spacing:.02em}
+.rs-price{display:flex;align-items:center;gap:6px;width:100%;padding:3px 10px 3px 3px;border-radius:999px;background:#1c1b20;box-shadow:inset 0 2px 3px rgba(0,0,0,.5)}
+.rs-price .rs-coin,.rs-price .rs-mini{width:28px;height:28px}.rs-price b{font-family:var(--display);font-size:24px;line-height:1;color:#fff}
+.rs-badge{position:absolute;right:8px;top:8px;z-index:1;padding:2px 8px;border-radius:999px;background:#c0502a;color:#fff;font-weight:800;font-size:12px;box-shadow:0 2px 0 #4a1606}
+.rs-tile:disabled{cursor:not-allowed}.rs-tile:disabled .rs-ic{opacity:.55;filter:grayscale(.5)}.rs-tile:disabled .rs-price b{color:#ff6a5a}
+.rs-r9k:disabled .rs-gun{filter:brightness(.5)}
+.rs-r9k.ready{background:linear-gradient(160deg,#5a3a2a,#3a2a30);animation:rsReady 1.6s ease-in-out infinite}
+@keyframes rsReady{50%{box-shadow:inset 2px 3px 0 rgba(255,255,255,.12),0 4px 0 #1a1a20,0 0 22px rgba(255,180,90,.7)}}
+.rs-ic svg.dim{opacity:.5}
+.rs-info{max-width:620px;margin:16px auto 0;display:grid;gap:8px}
+.rs-info p{display:flex;align-items:center;gap:10px;margin:0;font-size:13px;color:#cdbfa8}.rs-info b{color:#fff}.rs-info em{font-style:normal;color:#ffb070;font-weight:800}
+.rs-info .rs-coin,.rs-info .rs-mini{width:26px;height:26px}
+@media (max-width:520px){.rs-top{gap:6px;flex-wrap:nowrap}.rs-bal{padding:5px 10px 5px 5px;gap:5px}.rs-bal .rs-coin,.rs-bal.sm .rs-mini{width:22px;height:22px}.rs-bal b,.rs-bal.sm b{font-size:18px}.rs-bal span{font-size:11px}.rs-grid{gap:8px}.rs-tile{padding:10px 6px 8px;border-radius:14px}.rs-nm{font-size:14px}.rs-price b{font-size:19px}.rs-price .rs-coin,.rs-price .rs-mini{width:22px;height:22px}}
+@media (prefers-reduced-motion: reduce){.rs-r9k.ready{animation:none}}
 .rg-rust{font-size:13px;font-weight:700;color:#ffb070}
-@media (max-width:520px){.rs-it{grid-template-columns:auto 1fr}.rs-it .gold-btn{grid-column:1/-1}}
 /* ---------- Rustagard's heart, feeding, Ma's Rusty Case ---------- */
 .ms-rusta .rg-glow{transform-box:fill-box;transform-origin:center;transform:scale(calc(1 + var(--burn,0) * .7))}
 .ms-rusta .rg-hotheart{opacity:calc(var(--burn,0) * .65)}
@@ -8250,7 +8267,7 @@ function renderOv(){
   const head = (small, big) => '<div class="ov-top"><div class="ov-h"><small>' + small + '</small><b>' + big + '</b></div><div class="bal"><span class="coin"></span><span class="ov-bal">' + fmt(state.bal) + '</span></div><button class="icon-btn ov-x" data-a="ovclose" aria-label="Close">✕</button></div>';
   if (ovMode === 'jobrun') return;
   if (ovMode === 'gad') { ov.innerHTML = head('Socket’s workbench', Y().gReady ? 'Fresh off the bench' : 'She needs parts') + '<div class="ov-body">' + gadPanel() + '</div>'; gadFill(); return; }
-  if (ovMode === 'rshop') { ov.innerHTML = head('Rust Shop', 'Rustagard’s fuel') + '<div class="ov-body">' + rsPanel() + '</div>'; return; }
+  if (ovMode === 'rshop') { ov.innerHTML = head('Rust Shop', 'Rustagard’s fuel') + '<div class="ov-body">' + rsPanel() + '</div>'; rsFill(); return; }
   if (ovMode === 'feed') { ov.innerHTML = head('Rustagard’s heart', 'Feed it') + '<div class="ov-body">' + rgFeedPanel() + '</div>'; rgFill(); return; }
   if (ovMode === 'rusta') { ov.innerHTML = head('Socket’s big project', rpCount() === 3 ? 'All three parts' : 'She needs three parts') + '<div class="ov-body">' + rpPanel() + '</div>'; return; }
   if (ovMode === 'bags') { ov.innerHTML = head('Tinny’s backpacks', 'More room for your stuff') + '<div class="ov-body">' + bagsPanel() + '</div>'; return; }
@@ -10649,28 +10666,61 @@ const rgFed = () => Y().fed != null ? Y().fed : (Y().burn || 0);
 const rustBal = () => Math.max(0, Math.floor(rgFed() / RG_RUST) - (Y().rspent || 0));
 const rcChance = () => RC_CHROMA * (1 + .1 * (Y().charms || 0));
 function rcSync(){ const c = rcChance() * 100; RC.w[7] = c; RC.w[4] = 100 - c; }
-function rsCharmSVG(){ return '<svg viewBox="0 0 80 64" aria-hidden="true"><path d="M40 2 Q30 10 32 18" stroke="#8a8f96" stroke-width="1.6" fill="none" stroke-dasharray="3 2"/>'
-  + '<path d="M22 22 Q22 56 40 58 Q58 56 58 22 L50 22 Q50 48 40 48 Q30 48 30 22 Z" fill="#a4501c" stroke="#3a1a0a" stroke-width="1.6"/>'
-  + [[25, 30], [26, 42], [33, 53], [47, 53], [54, 42], [55, 30]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="1.8" fill="#2a1206"/>').join('')
-  + '<circle cx="28" cy="38" r="3" fill="#5fa078" opacity=".6"/><circle cx="52" cy="46" r="3.4" fill="#c8733a" opacity=".7"/><path d="M24 26 Q26 44 34 52" stroke="#ffb070" stroke-width="1.2" opacity=".5" fill="none"/>'
-  + '<circle cx="40" cy="20" r="5" fill="#ffd27a" stroke="#a87a3a" stroke-width="1.4"/><circle cx="40" cy="20" r="2" fill="#ff8a1a"/></svg>'; }
-function rsSoulSVG(lit){ return '<svg viewBox="0 0 80 64" aria-hidden="true"><path d="M40 4 L56 22 L50 56 L30 56 L24 22 Z" fill="#1a1016" stroke="#4a2a3a" stroke-width="1.6"/>'
-  + '<path d="M40 4 L46 24 L40 56 M24 22 L46 24 L56 22" stroke="#3a2030" stroke-width="1" fill="none"/>'
-  + '<ellipse cx="40" cy="32" rx="9" ry="12" fill="' + (lit ? '#ff8a1a' : '#5a3a2a') + '" opacity=".8"/><path d="M36 38 Q40 22 44 38 Q40 34 36 38 Z" fill="' + (lit ? '#ffe2a0' : '#8a6a5a') + '"/>'
-  + '<path d="M30 14 L36 10" stroke="#fff" stroke-opacity=".4" stroke-width="1.4"/></svg>'; }
+/* Rust Shop icons: everything gets one, like a gacha mileage shop */
+function rsCoinSVG(){ return '<svg class="rs-coin" viewBox="0 0 40 40" aria-hidden="true"><defs><radialGradient id="rsCn" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffc48a"/><stop offset=".5" stop-color="#c8662a"/><stop offset="1" stop-color="#5a2208"/></radialGradient></defs>'
+  + '<circle cx="20" cy="20" r="18" fill="url(#rsCn)" stroke="#2a1004" stroke-width="2"/><circle cx="20" cy="20" r="13.5" fill="none" stroke="#ffd2a0" stroke-opacity=".55" stroke-width="1.6" stroke-dasharray="2.4 1.6"/>'
+  + '<path d="M14.5 28 V12 H21.5 Q27 12 27 17 Q27 21.5 22 22 L27.5 28 M14.5 22 H21.5" fill="none" stroke="#3a1404" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>'
+  + '<path d="M14.5 28 V12 H21.5 Q27 12 27 17 Q27 21.5 22 22 L27.5 28 M14.5 22 H21.5" fill="none" stroke="#ffe6c8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>'
+  + '<circle cx="9" cy="25" r="2.2" fill="#5fa078" opacity=".55"/><circle cx="29" cy="9.5" r="1.6" fill="#3a1606" opacity=".6"/><path d="M8 13 Q11 7 17 5.5" stroke="#fff" stroke-opacity=".5" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>'; }
+/* a pentagon gem with a face in it, the way soulstones look */
+function rsGem(inner, c1, c2, id){ return '<defs><linearGradient id="' + id + 'a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + c1 + '"/><stop offset="1" stop-color="' + c2 + '"/></linearGradient></defs>'
+  + '<path d="M50 4 L95 37 L78 92 L22 92 L5 37 Z" fill="url(#' + id + 'a)" stroke="#2a0a06" stroke-width="3" stroke-linejoin="round"/>'
+  + '<path d="M50 4 L50 18 M95 37 L82 41 M78 92 L70 80 M22 92 L30 80 M5 37 L18 41" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>'
+  + '<path d="M50 18 L82 41 L70 80 L30 80 L18 41 Z" fill="#fff" fill-opacity=".12" stroke="#fff" stroke-opacity=".3" stroke-width="1.5" stroke-linejoin="round"/>'
+  + '<path d="M50 4 L95 37 L82 41 L50 18 Z" fill="#fff" fill-opacity=".22"/><path d="M5 37 L50 4 L50 18 L18 41 Z" fill="#fff" fill-opacity=".1"/>' + inner; }
+function rsCharmSVG(){ return '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="rsChG" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffb060" stop-opacity=".55"/><stop offset="1" stop-color="#ffb060" stop-opacity="0"/></radialGradient>'
+  + '<linearGradient id="rsChM" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e08a4a"/><stop offset=".55" stop-color="#a4501c"/><stop offset="1" stop-color="#4a1c06"/></linearGradient></defs>'
+  + '<circle cx="50" cy="54" r="46" fill="url(#rsChG)"/>'
+  + '<path d="M50 4 Q40 10 44 22" stroke="#9aa0a8" stroke-width="2.4" fill="none" stroke-dasharray="4 3"/>'
+  + '<path d="M24 28 Q22 82 50 86 Q78 82 76 28 L63 28 Q64 70 50 70 Q36 70 37 28 Z" fill="url(#rsChM)" stroke="#2a1004" stroke-width="3" stroke-linejoin="round"/>'
+  + [[28, 38], [29, 54], [36, 70], [50, 78], [64, 70], [71, 54], [72, 38]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="2.8" fill="#2a1206"/><circle cx="' + (x - .8) + '" cy="' + (y - .8) + '" r="1" fill="#ffd0a0" opacity=".6"/>').join('')
+  + '<circle cx="31" cy="46" r="4" fill="#5fa078" opacity=".55"/><circle cx="68" cy="62" r="4.6" fill="#c8733a" opacity=".7"/><path d="M27 34 Q29 60 40 74" stroke="#ffd0a0" stroke-width="2" opacity=".55" fill="none" stroke-linecap="round"/>'
+  + '<circle cx="50" cy="24" r="8.5" fill="#ffd27a" stroke="#8a5a1a" stroke-width="2.4"/><circle cx="50" cy="24" r="3.4" fill="#ff7a1a"/>'
+  + '<path d="M84 16 L86 22 L92 24 L86 26 L84 32 L82 26 L76 24 L82 22 Z M14 66 L15.4 70 L19.4 71.4 L15.4 72.8 L14 77 L12.6 72.8 L8.6 71.4 L12.6 70 Z" fill="#fff2c8"/></svg>'; }
+/* Soul Stone: a rusty-red gem with Rustagard's head inside */
+function rsSoulSVG(dim){ return '<svg viewBox="0 0 100 100" aria-hidden="true"' + (dim ? ' class="dim"' : '') + '>' + rsGem(
+    '<rect x="32" y="34" width="36" height="32" rx="6" fill="#8a3a14" stroke="#2a0a04" stroke-width="2.4"/>'
+    + '<path d="M50 34 V25 M46 25 H54" stroke="#2a0a04" stroke-width="2.6" stroke-linecap="round"/><circle cx="50" cy="23" r="3" fill="#ff8a1a" stroke="#2a0a04" stroke-width="1.6"/>'
+    + '<rect x="37" y="41" width="10" height="8" rx="2" fill="#140602"/><rect x="53" y="41" width="10" height="8" rx="2" fill="#140602"/>'
+    + '<circle cx="42" cy="45" r="2.8" fill="#ffb040"/><circle cx="58" cy="45" r="2.8" fill="#ffb040"/>'
+    + '<rect x="38" y="54" width="24" height="7" rx="1.5" fill="#140602"/><path d="M42 54 V61 M46 54 V61 M50 54 V61 M54 54 V61 M58 54 V61" stroke="#8a3a14" stroke-width="1.4"/>'
+    + '<circle cx="35" cy="37" r="1.4" fill="#2a0a04"/><circle cx="65" cy="37" r="1.4" fill="#2a0a04"/><circle cx="35" cy="63" r="1.4" fill="#2a0a04"/><circle cx="65" cy="63" r="1.4" fill="#2a0a04"/>'
+    + '<path d="M60 36 Q66 40 64 50" stroke="#5fa078" stroke-width="2.2" opacity=".6" fill="none"/>',
+    '#ff6a3a', '#7a1606', 'rsSo') + '</svg>'; }
+/* the Rusted9000 tile: a chroma gem with the rifle itself laid across it */
+function rsR9kSVG(){ return '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="rsRkR" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff3ea5"/><stop offset=".25" stop-color="#ffd23f"/><stop offset=".5" stop-color="#39ff88"/><stop offset=".75" stop-color="#2fe3ff"/><stop offset="1" stop-color="#7a6aff"/></linearGradient></defs>'
+  + rsGem('', '#ff8a3a', '#5a1a06', 'rsRk')
+  + '<path d="M50 4 L95 37 L78 92 L22 92 L5 37 Z" fill="none" stroke="url(#rsRkR)" stroke-width="4" stroke-linejoin="round"/>'
+  + '<path d="M88 10 L90 16 L96 18 L90 20 L88 26 L86 20 L80 18 L86 16 Z M10 78 L11.4 82 L15.4 83.4 L11.4 84.8 L10 89 L8.6 84.8 L4.6 83.4 L8.6 82 Z" fill="#fff"/></svg>'; }
+function rsFill(){ const s = document.querySelector('#prOv .rs-r9k .rs-ic'); if (s && !s.querySelector('img')) { const im = thumb(BY[RUSTED_ID], 0); im.className = 'rs-gun'; im.alt = ''; s.append(im); } }
 function rsPanel(){
-  const r = rustBal(), ch = Y().charms || 0, so = Y().souls || 0, done = !!Y().r9k;
-  return '<div class="rs-bal"><span class="rs-coin"></span><b>' + fmt(r) + '</b> rust <small>· 1 rust for every ' + fmt(RG_RUST) + ' credits you feed him</small></div>'
+  const r = rustBal(), ch = Y().charms || 0, so = Y().souls || 0, done = Y().r9k || 0, coin = rsCoinSVG();
+  const tile = (cls, a, k, ok, badge, ic, nm, price) => '<button type="button" class="rs-tile ' + cls + '" data-a="' + a + '"' + (k ? ' data-k="' + k + '"' : '') + (ok ? '' : ' disabled') + '>'
+    + (badge ? '<span class="rs-badge">' + badge + '</span>' : '') + '<span class="rs-ic">' + ic + '</span><span class="rs-nm">' + nm + '</span><span class="rs-price">' + price + '</span></button>';
+  const soulMini = '<span class="rs-mini">' + rsSoulSVG() + '</span>';
+  return '<div class="rs-top"><div class="rs-bal">' + coin + '<b>' + fmt(r) + '</b><span>rust</span></div>'
+    + '<div class="rs-bal sm">' + soulMini + '<b>' + so + '</b><span>/ ' + RS_SOULS + '</span></div>'
+    + '<div class="rs-bal sm"><span class="rs-mini">' + rsCharmSVG() + '</span><b>' + ch + '</b><span>charms</span></div></div>'
     + '<div class="rs-grid">'
-    + '<div class="rs-it"><div class="rs-art">' + rsCharmSVG() + '</div><div class="rs-txt"><b>Rusty Charm</b><p>+10% luck on Ma’s Rusty Case. Every charm makes the Rusted9000 come up 10% more often.</p><small>You have ' + ch + ' · Rusted9000 odds ' + pctText(rcChance() * 100) + '</small></div>'
-      + '<button class="gold-btn" data-a="rsbuy" data-k="charm"' + (r >= RS_CHARM ? '' : ' disabled') + '>' + RS_CHARM + ' rust</button></div>'
-    + '<div class="rs-it"><div class="rs-art">' + rsSoulSVG(true) + '</div><div class="rs-txt"><b>Soul Stone</b><p>A little of his fire, set in stone. Ten of them unlock the Rusted9000.</p><small>' + so + ' of ' + RS_SOULS + '</small>'
-      + '<div class="rs-souls">' + Array.from({length: RS_SOULS}, (_, i) => '<i class="' + (i < so ? 'on' : '') + '"></i>').join('') + '</div></div>'
-      + '<button class="gold-btn" data-a="rsbuy" data-k="soul"' + (r >= RS_SOUL && so < RS_SOULS ? '' : ' disabled') + '>' + RS_SOUL + ' rust</button></div>'
+    + tile('rs-charm', 'rsbuy', 'charm', r >= RS_CHARM, ch ? '×' + ch : '', rsCharmSVG(), 'Rusty Charm', coin + '<b>' + RS_CHARM + '</b>')
+    + tile('rs-soul', 'rsbuy', 'soul', r >= RS_SOUL && so < RS_SOULS, so + '/' + RS_SOULS, rsSoulSVG(), 'Soul Stone', coin + '<b>' + RS_SOUL + '</b>')
+    + tile('rs-r9k' + (so >= RS_SOULS ? ' ready' : ''), 'rsunlock', '', so >= RS_SOULS, done ? '×' + done : '', rsR9kSVG(), 'Rusted9000', soulMini + '<b>' + RS_SOULS + '</b>')
     + '</div>'
-    + (so >= RS_SOULS ? '<div class="gd-acts"><button class="gold-btn rs-unlock" data-a="rsunlock">Unlock the Rusted9000 · 10 Soul Stones</button></div>' : '')
-    + (done ? '<p class="jb-note">You’ve unlocked a Rusted9000 with Soul Stones before. Ten more will unlock another.</p>' : '')
-    + '<p class="jb-note">Feed him more to make more rust: every ' + fmt(RG_RUST) + ' credits you feed him is 1 rust. Selling him rust warms his heart but makes no rust.</p>';
+    + '<div class="rs-info">'
+    + '<p><span class="rs-mini">' + rsCharmSVG() + '</span><span><b>Rusty Charm</b> · +10% luck on Ma’s Rusty Case. Rusted9000 odds now <em>' + pctText(rcChance() * 100) + '</em>.</span></p>'
+    + '<p>' + soulMini + '<span><b>Soul Stone</b> · collect ' + RS_SOULS + ' to unlock the Rusted9000.</span></p>'
+    + '<p><span class="rs-mini">' + rsR9kSVG() + '</span><span><b>Rusted9000</b> · the Chroma rifle, with its full cutscene. Costs ' + RS_SOULS + ' Soul Stones' + (done ? ', and you can unlock it again' : '') + '.</span></p>'
+    + '<p>' + coin + '<span>Every ' + fmt(RG_RUST) + ' credits you feed him makes 1 rust.</span></p></div>';
 }
 function rsBuy(k){
   const r = rustBal(), cost = k === 'charm' ? RS_CHARM : RS_SOUL;
