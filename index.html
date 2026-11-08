@@ -17311,7 +17311,7 @@ const arRankCol = rp => AR_RCOL[Math.floor(arRankIdx(rp) / 3)];
 /* game modes: team size, which maps they use, and the card colours */
 const AR_MODES = [
   {id: '1v1', n: 1, name: 'Duel', sub: 'Just you. First to 5.', maps: ['yard', 'overpass'], g: ['#ff7a59', '#ff3d77']},
-  {id: '2v2', n: 2, name: 'Duo', sub: 'You and a bot partner.', maps: ['yard', 'overpass', 'court'], g: ['#3bc9ff', '#4f6bff']},
+  {id: '2v2', n: 2, name: 'Duo', sub: 'You and a partner.', maps: ['yard', 'overpass', 'court'], g: ['#3bc9ff', '#4f6bff']},
   {id: '3v3', n: 3, name: 'Squad', sub: 'Three a side on big maps.', maps: ['overpass', 'court', 'docks'], g: ['#5fe36a', '#13a39a']},
   {id: '4v4', n: 4, name: 'Brawl', sub: 'Eight players. Chaos.', maps: ['docks', 'court'], g: ['#ffcf3a', '#ff8a1f']}];
 const arMode = id => AR_MODES.find(m => m.id === id) || AR_MODES[0];
@@ -18250,7 +18250,7 @@ function arMenu(){
         return '<button type="button" class="ar-lslot" data-slot="' + i + '" style="--tc:' + TIERS[l.it.t].color + '"><small>' + AR_SLOTN[i] + '</small><span class="ar-lart"></span><b>' + (l.it.stock ? 'Stock ' + WNAME[l.it.w].replace('★ ', '') : WNAME[l.it.w] + ' | ' + l.it.name) + '</b>'
           + (sk ? '<em>★ ' + AR_SK[sk].n + '</em>' : l.it.t === 7 ? '<em class="ch">Chroma skill coming soon</em>' : '') + '</button>'; }).join('') + '</div>'
     + '<button type="button" class="ar-find" id="arFind">FIND MATCH · ' + M.id + '</button>'
-    + '<p class="ar-note">Bots on both teams get sharper and carry better weapons as you rank up. Win: rank points and credits.</p></div>';
+    + '<p class="ar-note">Rank up to face tougher players with better weapons. Win: rank points and credits.</p></div>';
   [...document.querySelectorAll('#arMenu .ar-lslot')].forEach((b, i) => b.querySelector('.ar-lart').append(thumb(L[i].it, wearIdx(L[i].fl))));
   $('#arBack').onclick = arClose; $('#arFind').onclick = arQueue; $('#arGear').onclick = arSettings;
   $('#arMenu').querySelectorAll('.ar-mode').forEach(b => b.onclick = () => { S.mode = b.dataset.mode; save(); tone(660, .05, 'triangle', .04); arMenu(); });
