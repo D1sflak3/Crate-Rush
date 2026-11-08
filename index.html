@@ -17515,25 +17515,27 @@ function arBotModel(T, col, kit, name){
   const eyeM = new T.MeshBasicMaterial({color: '#ffffff'}), rankM = new T.MeshStandardMaterial({color: col, emissive: col, emissiveIntensity: .6});
   const mats = [mat, dark, visorM, eyeM, rankM];
   const add = (geo, m, x, y, z, parent) => { const me = new T.Mesh(geo, m); me.position.set(x, y, z); me.castShadow = true; me.receiveShadow = true; (parent || g).add(me); return me; };
-  /* classic blocky build: torso 2 wide x 2 tall x 1 deep, arms and legs 1 x 2 x 1, a square visor head */
+  /* blocky build: torso 2 x 2 x 1, separate arms and legs 1 x 2 x 1 with small gaps, a square visor head.
+     Arms and legs hang from shoulder and hip pivots so they can swing. */
   const U = .355, box = (w, h, d) => new T.BoxGeometry(w * U, h * U, d * U);
-  add(box(2, 2, 1), mat, 0, 3 * U, 0);
-  add(new T.CylinderGeometry(.055, .055, .02, 16).rotateX(Math.PI / 2), rankM, .18, 3.45 * U, -.5 * U - .011);
-  const head = new T.Group(); head.position.set(0, 4.62 * U, 0); g.add(head);
-  add(box(1.22, 1.22, 1.22), mat, 0, 0, 0, head);
-  const visor = add(box(1.02, .4, .12), visorM, 0, .05 * U, -.62 * U, head);
-  const eyeL = add(new T.SphereGeometry(.03, 10, 8), eyeM, -.2 * U, .05 * U, -.7 * U, head), eyeR = add(new T.SphereGeometry(.03, 10, 8), eyeM, .2 * U, .05 * U, -.7 * U, head);
+  const limbM = new T.MeshStandardMaterial({color: new T.Color(body).multiplyScalar(.9), roughness: .7, flatShading: true}); mats.push(limbM);
+  const torso = new T.Group(); torso.position.set(0, 2 * U, 0); g.add(torso);
+  add(box(2, 2, 1), mat, 0, U, 0, torso);
+  add(new T.CylinderGeometry(.055, .055, .02, 16).rotateX(Math.PI / 2), rankM, .18, 1.45 * U, -.5 * U - .011, torso);
+  const head = new T.Group(); head.position.set(0, 2.64 * U, 0); torso.add(head);
+  add(box(1.2, 1.2, 1.2), mat, 0, 0, 0, head);
+  const visor = add(box(1.0, .38, .12), visorM, 0, .05 * U, -.61 * U, head);
+  const eyeL = add(new T.SphereGeometry(.03, 10, 8), eyeM, -.2 * U, .05 * U, -.69 * U, head), eyeR = add(new T.SphereGeometry(.03, 10, 8), eyeM, .2 * U, .05 * U, -.69 * U, head);
   eyeL.scale.set(1, 1.5, .5); eyeR.scale.set(1, 1.5, .5);
-  const legL = new T.Group(), legR = new T.Group(); legL.position.set(-.5 * U, 2 * U, 0); legR.position.set(.5 * U, 2 * U, 0); g.add(legL, legR);
-  add(box(1, 2, 1), mat, 0, -U, 0, legL); add(box(1, 2, 1), mat, 0, -U, 0, legR);
-  const armR = new T.Group(); armR.position.set(1.5 * U, 3.85 * U, 0); g.add(armR);
-  add(box(1, 2, 1), mat, 0, -.85 * U, 0, armR);
-  const armL = new T.Group(); armL.position.set(-1.5 * U, 3.85 * U, 0); g.add(armL);
-  add(box(1, 2, 1), mat, 0, -.85 * U, 0, armL);
-  armR.rotation.x = 1.4; armL.rotation.x = 1.3; armL.rotation.z = .62;
-  const gun = arGun(T, kit.it, kit.fl); gun.scale.setScalar(1.15); gun.position.set(0, -1.75 * U, -.62 * U); gun.rotation.set(-Math.PI / 2, 0, 0); armR.add(gun);
+  const legL = new T.Group(), legR = new T.Group(); legL.position.set(-.52 * U, 2 * U, 0); legR.position.set(.52 * U, 2 * U, 0); g.add(legL, legR);
+  add(box(.94, 2, .96), limbM, 0, -U, 0, legL); add(box(.94, 2, .96), limbM, 0, -U, 0, legR);
+  const armR = new T.Group(); armR.position.set(1.54 * U, 1.88 * U, 0); torso.add(armR);
+  add(box(.94, 2, .96), limbM, 0, -.88 * U, 0, armR);
+  const armL = new T.Group(); armL.position.set(-1.54 * U, 1.88 * U, 0); torso.add(armL);
+  add(box(.94, 2, .96), limbM, 0, -.88 * U, 0, armL);
+  const gun = arGun(T, kit.it, kit.fl); gun.scale.setScalar(1.15); gun.position.set(0, -1.72 * U, -.55 * U); gun.rotation.set(-Math.PI / 2, 0, 0); armR.add(gun);
   g.traverse(o => { if (o.material && !mats.includes(o.material)) mats.push(o.material); });
-  return {g, head, legL, legR, armR, armL, body, gun, mats, eyes: [eyeL, eyeR]};
+  return {g, torso, head, legL, legR, armR, armL, body, gun, mats, eyes: [eyeL, eyeR]};
 }
 
 /* ---------- a match ---------- */
@@ -17635,6 +17637,7 @@ function arShoot(f){
   const A = AR, l = f.load[f.cur], W = AR_W[arType(l.it)], o = f.me ? A.me : A.bot, tgt = f.me ? A.bot : A.me;
   let rate = W.rate; if (f.st.od > 0) rate /= 1.6;
   f.fireT = rate;
+  f.lastShot = AR.clock;
   if (W.melee) { arMelee(f, tgt, W); return; }
   if (f.st.od <= 0 || !f.st.od) f.mag[f.cur]--;
   arGunSound(W, f.me ? 1 : Math.max(.25, 1 - arDist(f.p, A.me.p) / 40));
@@ -17812,12 +17815,34 @@ function arPlayer(dt, live){
     else { arShoot(f); if (!W.auto) A.fire = AR_MOBILE ? A.fire : false; }
   }
 }
+/* the bot's body: idle stance, walk, run, jump, aim, slide, fall */
 function arAnimBot(dt){
-  const A = AR, b = A.bot, B = A.B, sp = Math.hypot(b.v.x, b.v.z);
+  const A = AR, b = A.bot, B = A.B, sp = Math.hypot(b.v.x, b.v.z), k = Math.min(1, dt * 14), L = (o, ax, v) => { o.rotation[ax] += (v - o.rotation[ax]) * k; };
   B.g.position.set(b.p.x, b.p.y, b.p.z); B.g.rotation.y = b.yaw;
-  b.walk = (b.walk || 0) + dt * sp * 1.6; const sw = Math.sin(b.walk) * Math.min(1, sp / 5) * .7;
-  B.legL.rotation.x = sw; B.legR.rotation.x = -sw; B.head.rotation.x = -b.pitch * .6; B.armR.rotation.x = 1.4 + b.pitch; B.armL.rotation.x = 1.3 + b.pitch;
-  B.g.scale.y = b.slide > 0 ? .7 : 1;
+  const t = A.clock || 0, run = sp > 6.2, moving = sp > .6 && b.ground;
+  b.walk = (b.walk || 0) + dt * (moving ? 2.2 + sp * .95 : 0);
+  const amp = moving ? Math.min(1, sp / 6) * (run ? 1.05 : .72) : 0, sw = Math.sin(b.walk) * amp;
+  const aiming = b.alive && (A.clock - (b.lastShot || -9) < .9 || (b.acq && A.clock >= b.acq - .3));
+  /* legs */
+  if (!b.ground) { L(B.legL, 'x', -.55); L(B.legR, 'x', .35); }
+  else if (moving) { L(B.legL, 'x', sw); L(B.legR, 'x', -sw); }
+  else { L(B.legL, 'x', .08); L(B.legR, 'x', -.06); }
+  L(B.legL, 'z', moving || !b.ground ? 0 : -.05); L(B.legR, 'z', moving || !b.ground ? 0 : .05);
+  /* gun arm: held forward at the target, lowered a little when relaxed */
+  const gunX = (aiming ? Math.PI / 2 : moving ? .75 : .6) + b.pitch * (aiming ? 1 : .3) + (moving ? Math.sin(b.walk * 2) * .04 : Math.sin(t * 2) * .02);
+  L(B.armR, 'x', gunX); L(B.armR, 'z', aiming ? .12 : .06);
+  /* free arm: swings while walking, hangs out a little at rest, braces the gun when shooting, flails up in the air */
+  if (aiming) { L(B.armL, 'x', Math.PI / 2 - .1 + b.pitch); L(B.armL, 'z', .72); }
+  else if (!b.ground) { L(B.armL, 'x', .5); L(B.armL, 'z', -1.15); }
+  else if (moving) { L(B.armL, 'x', -sw * .95); L(B.armL, 'z', -.08); }
+  else { L(B.armL, 'x', .12 + Math.sin(t * 2) * .03); L(B.armL, 'z', -.2); }
+  /* torso: breathe at rest, lean into a run, bob with each step */
+  B.torso.position.y = .71 + (moving ? Math.abs(Math.cos(b.walk)) * .035 * amp : Math.sin(t * 2) * .008);
+  L(B.torso, 'x', run ? -.12 : moving ? -.05 : 0); L(B.torso, 'y', moving ? Math.sin(b.walk) * .06 : 0);
+  B.head.rotation.x = -b.pitch * .6;
+  /* slide: lean back low; death: topple */
+  B.g.scale.y = 1; L(B.g, 'x', b.slide > 0 ? .55 : 0);
+  if (b.slide > 0) B.g.position.y = b.p.y - .15;
   if (!b.alive) { B.g.rotation.z = Math.min(1.5, (B.g.rotation.z || 0) + dt * 5); B.g.position.y = b.p.y + .2; } else B.g.rotation.z = 0;
   const inv = b.st.invis > 0, xr = A.me.st.void > 0;
   B.mats.forEach(m => { m.transparent = inv || xr; m.opacity = inv ? .1 : 1; m.depthTest = !xr; });
@@ -17825,7 +17850,7 @@ function arAnimBot(dt){
 }
 function arMuzzleWorld(){ const A = AR, f = A.me, d = arFwd(f.yaw, f.pitch), e = arEye(f), r = {x: Math.cos(f.yaw), z: -Math.sin(f.yaw)};
   const ads = A.ads > .5; return {x: e.x + d.x * .7 + (ads ? 0 : r.x * .2), y: e.y + d.y * .7 - (ads ? .08 : .17), z: e.z + d.z * .7 + (ads ? 0 : r.z * .2)}; }
-function arBotMuzzle(){ const b = AR.bot, d = arFwd(b.yaw, b.pitch), r = {x: Math.cos(b.yaw), z: -Math.sin(b.yaw)}; return {x: b.p.x + d.x * 1.0 + r.x * .36, y: b.p.y + 1.32 + d.y, z: b.p.z + d.z * 1.0 + r.z * .36}; }
+function arBotMuzzle(){ const b = AR.bot, d = arFwd(b.yaw, b.pitch), r = {x: Math.cos(b.yaw), z: -Math.sin(b.yaw)}; return {x: b.p.x + d.x * 1.0 + r.x * .55, y: b.p.y + 1.38 + d.y * 1.0, z: b.p.z + d.z * 1.0 + r.z * .55}; }
 function arTracer(a, b, w){
   const T = AR.T, g = new T.BufferGeometry().setFromPoints([new T.Vector3(a.x, a.y, a.z), new T.Vector3(b.x, b.y, b.z)]);
   const l = new T.Line(g, new T.LineBasicMaterial({color: '#fff2b0', transparent: true, opacity: .9 * (w || 1)})); AR.fx.add(l); AR.tracers.push({o: l, t: .07});
