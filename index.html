@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Barlow+Semi+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Limelight&family=Monoton&family=Cinzel:wght@600;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Barlow+Semi+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Limelight&family=Monoton&family=Cinzel:wght@600;800&family=Permanent+Marker&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 /* Layout: one arcade column — HUD, case rack, stage (crate -> reel), trade-up contract, inventory, stats */
 :root{
@@ -4138,116 +4138,132 @@ body.cine-cover>:not(.gtc),body.cine-cover>:not(.gtc) *{animation-play-state:pau
 .ar-hbtn{width:auto;padding:0 12px 0 9px;border-radius:999px;gap:5px;display:flex;align-items:center;color:#fff;border-color:#ff4d6d;background:linear-gradient(135deg,#3a0a18,#140810);font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:.04em}
 .ar-hbtn svg{width:18px;height:18px}.ar-hbtn:hover{background:linear-gradient(135deg,#5a1024,#200a14)}
 body.ar-on{overflow:hidden}
-.arena{position:fixed;inset:0;z-index:400;background:#07090d;color:#eef2f8;font-family:var(--body,system-ui);overflow:hidden;user-select:none;-webkit-user-select:none}
+.arena{--arf:'Fredoka','Barlow Semi Condensed',system-ui,sans-serif;--ol:0 2px 0 #1b2230,2px 0 0 #1b2230,-2px 0 0 #1b2230,0 -2px 0 #1b2230,2px 2px 0 #1b2230,-2px 2px 0 #1b2230,2px -2px 0 #1b2230,-2px -2px 0 #1b2230,0 4px 6px rgba(0,0,0,.25);
+  position:fixed;inset:0;z-index:400;background:#dfe5ec;color:#1b2230;font-family:var(--arf);overflow:hidden;user-select:none;-webkit-user-select:none}
 .ar-scr{position:absolute;inset:0;overflow:auto}
-#arMenu{background:radial-gradient(80% 60% at 50% 0%,rgba(255,77,109,.18),transparent 70%),radial-gradient(60% 50% at 100% 100%,rgba(106,184,255,.12),transparent 70%),repeating-linear-gradient(135deg,#0b0e14 0 22px,#0d1118 22px 44px)}
+/* light tiled backdrop for the menus */
+#arMenu,.ar-qscr{background:
+  linear-gradient(rgba(255,255,255,.35),rgba(255,255,255,0) 40%),
+  repeating-linear-gradient(0deg,transparent 0 78px,#b9c1cc 78px 80px),repeating-linear-gradient(90deg,transparent 0 78px,#b9c1cc 78px 80px),
+  linear-gradient(180deg,#e9eef4,#d2d9e2)}
 .ar-mtop{display:flex;align-items:center;gap:16px;padding:16px 20px}
-.ar-back{background:none;border:1px solid #2a3140;color:#c8d0dc;border-radius:999px;padding:8px 14px;font:inherit;font-weight:700;cursor:pointer}
-.ar-logo{font-family:var(--display);font-size:44px;font-weight:700;line-height:.9;letter-spacing:.02em}.ar-logo b{color:#ff4d6d}.ar-logo small{display:block;font-size:14px;letter-spacing:.2em;color:#8a94a6;font-family:var(--mono)}
-.ar-mgrid{max-width:880px;margin:10px auto 40px;padding:0 16px;display:grid;gap:16px}
-.ar-rankc{display:flex;align-items:center;gap:16px;padding:16px 18px;border-radius:18px;background:linear-gradient(120deg,color-mix(in srgb,var(--rc) 22%,#10141c),#10141c 60%);border:1px solid color-mix(in srgb,var(--rc) 50%,#222)}
-.ar-emb{width:64px;height:64px;flex:none;filter:drop-shadow(0 4px 10px color-mix(in srgb,var(--rc) 50%,transparent))}
-.ar-rankc small{color:#9aa4b4;font-size:12px;letter-spacing:.14em;text-transform:uppercase}.ar-rankc b{display:block;font-family:var(--display);font-size:34px;line-height:1;color:var(--rc)}
-.ar-rankc span{font-size:13px;color:#aab3c2}
-.ar-rbar{height:8px;border-radius:9px;background:#1d2230;margin:6px 0;overflow:hidden;min-width:200px}.ar-rbar i{display:block;height:100%;background:var(--rc);border-radius:9px}
-.ar-load{padding:14px;border-radius:18px;background:#10141c;border:1px solid #232a38}
-.ar-lh{display:flex;align-items:baseline;gap:10px;font-family:var(--display);font-size:24px;font-weight:700;margin:0 4px 10px}.ar-lh small{font-family:inherit;font-size:13px;color:#7a8496;font-weight:400}
-.ar-load{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.ar-load .ar-lh{grid-column:1/-1}
-.ar-lslot{position:relative;display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:left;padding:10px 12px;border-radius:14px;cursor:pointer;color:#fff;font:inherit;
-  background:linear-gradient(160deg,color-mix(in srgb,var(--tc) 16%,#151a24),#121620);border:1px solid color-mix(in srgb,var(--tc) 45%,#2a3140);border-bottom:3px solid var(--tc)}
-.ar-lslot:hover{transform:translateY(-2px)}.ar-lslot small{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9aa4b4}
-.ar-lart{display:block;width:100%;aspect-ratio:5/2}.ar-lart img{width:100%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 4px 6px rgba(0,0,0,.5))}
-.ar-lslot b{font-size:14px;line-height:1.15}.ar-lslot em{font-style:normal;font-size:12px;font-weight:700;color:#d8b4fe}.ar-lslot em.ch{color:#ff7ad9}
-.ar-find{justify-self:center;width:min(420px,100%);padding:18px;border:0;border-radius:16px;cursor:pointer;font-family:var(--display);font-size:34px;font-weight:700;letter-spacing:.06em;color:#fff;
-  background:linear-gradient(120deg,#ff3a5e,#ff7a3a);box-shadow:0 6px 0 #8a1428,0 12px 30px rgba(255,77,109,.35)}
-.ar-find:hover{filter:brightness(1.08)}.ar-find:active{transform:translateY(4px);box-shadow:0 2px 0 #8a1428}
-.ar-note{text-align:center;color:#7a8496;font-size:13px;margin:0}
-.ar-btn{display:block;width:100%;margin-top:10px;padding:13px;border:0;border-radius:12px;cursor:pointer;font:inherit;font-weight:800;font-size:16px;color:#1a0a0e;background:linear-gradient(120deg,#ff5a7a,#ffb03a)}
-.ar-btn.ghost{background:#1a2030;color:#c8d0dc;border:1px solid #2a3140}
-.ar-pick{position:absolute;inset:0;z-index:5;background:rgba(4,6,10,.75);display:grid;place-items:center;padding:16px}
-.ar-pcard2{width:min(560px,100%);max-height:84vh;overflow:auto;background:#10141c;border:1px solid #2a3140;border-radius:18px;padding:14px}
-.ar-x2{margin-left:auto;background:#1a2030;border:0;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer}
+.ar-back{background:#ff4d4d;border:0;color:#fff;border-radius:12px;padding:9px 16px;font:inherit;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 4px 0 #b02222;text-shadow:0 1px 0 #8a1a1a}
+.ar-back:active{transform:translateY(3px);box-shadow:0 1px 0 #b02222}
+.ar-logo{font-size:46px;font-weight:700;line-height:.9;color:#fff;text-shadow:var(--ol)}.ar-logo b{color:#ffd23f}.ar-logo small{display:block;font-size:15px;font-weight:600;letter-spacing:.06em;color:#4a5568;text-shadow:none;margin-top:6px}
+.ar-mgrid{max-width:880px;margin:6px auto 40px;padding:0 16px;display:grid;gap:14px}
+.ar-rankc,.ar-load,.ar-pcard2,.ar-vsc,.ar-rcard,.ar-pcard{background:#fff;border:3px solid #1b2230;border-radius:18px;box-shadow:0 6px 0 #1b2230}
+.ar-rankc{display:flex;align-items:center;gap:16px;padding:14px 18px}
+.ar-emb{width:64px;height:64px;flex:none;filter:drop-shadow(0 3px 0 #1b2230)}
+.ar-rankc small{color:#6b7686;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}.ar-rankc b{display:block;font-size:34px;line-height:1.05;color:var(--rc);text-shadow:var(--ol)}
+.ar-rankc span{font-size:14px;font-weight:600;color:#4a5568}
+.ar-rbar{height:12px;border-radius:9px;background:#e3e8ef;border:2px solid #1b2230;margin:6px 0;overflow:hidden;min-width:200px}.ar-rbar i{display:block;height:100%;background:var(--rc)}
+.ar-load{padding:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ar-lh{display:flex;align-items:baseline;gap:10px;font-size:26px;font-weight:700;margin:0 4px 4px;grid-column:1/-1}.ar-lh small{font-size:14px;color:#6b7686;font-weight:500}
+.ar-lslot{position:relative;display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:left;padding:10px 12px;border-radius:14px;cursor:pointer;color:#1b2230;font:inherit;
+  background:linear-gradient(180deg,#f4f6f9,#e6eaf0);border:3px solid #1b2230;box-shadow:inset 0 -5px 0 var(--tc),0 4px 0 #1b2230}
+.ar-lslot:hover{transform:translateY(-2px)}.ar-lslot:active{transform:translateY(3px);box-shadow:inset 0 -5px 0 var(--tc),0 1px 0 #1b2230}
+.ar-lslot small{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b7686}
+.ar-lart{display:block;width:100%;aspect-ratio:5/2}.ar-lart img{width:100%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 3px 2px rgba(0,0,0,.35))}
+.ar-lslot b{font-size:16px;font-weight:600;line-height:1.1}.ar-lslot em{font-style:normal;font-size:13px;font-weight:700;color:#8b3fe0}.ar-lslot em.ch{color:#e0409a}
+.ar-find{justify-self:center;width:min(420px,100%);padding:16px;border:3px solid #1b2230;border-radius:18px;cursor:pointer;font:inherit;font-size:34px;font-weight:700;color:#fff;text-shadow:var(--ol);
+  background:linear-gradient(180deg,#5fe36a,#2fb83f);box-shadow:inset 0 -6px 0 #1f8a2c,0 6px 0 #1b2230}
+.ar-find:hover{filter:brightness(1.05)}.ar-find:active{transform:translateY(4px);box-shadow:inset 0 -6px 0 #1f8a2c,0 2px 0 #1b2230}
+.ar-note{text-align:center;color:#4a5568;font-size:14px;font-weight:500;margin:0}
+.ar-btn{display:block;width:100%;margin-top:10px;padding:12px;border:3px solid #1b2230;border-radius:14px;cursor:pointer;font:inherit;font-weight:700;font-size:18px;color:#fff;text-shadow:0 2px 0 #1b2230;
+  background:linear-gradient(180deg,#5fe36a,#2fb83f);box-shadow:inset 0 -5px 0 #1f8a2c,0 4px 0 #1b2230}
+.ar-btn:active{transform:translateY(3px);box-shadow:inset 0 -5px 0 #1f8a2c,0 1px 0 #1b2230}
+.ar-btn.ghost{background:linear-gradient(180deg,#ff6b6b,#e23b3b);box-shadow:inset 0 -5px 0 #a82424,0 4px 0 #1b2230}
+.ar-pick{position:absolute;inset:0;z-index:5;background:rgba(27,34,48,.45);display:grid;place-items:center;padding:16px}
+.ar-pcard2{width:min(560px,100%);max-height:84vh;overflow:auto;padding:14px}
+.ar-x2{margin-left:auto;background:#ff4d4d;border:2px solid #1b2230;color:#fff;width:34px;height:34px;border-radius:10px;cursor:pointer;font-weight:900}
 .ar-plist{display:grid;gap:8px}
-.ar-pi{display:grid;grid-template-columns:110px 1fr;grid-template-rows:auto auto auto;column-gap:12px;align-items:center;text-align:left;padding:8px 10px;border-radius:12px;cursor:pointer;color:#fff;font:inherit;background:#151a24;border:1px solid #232a38;border-left:4px solid var(--tc,#5c6168)}
-.ar-pi .ar-lart{grid-row:1/4}.ar-pi b{font-size:14px}.ar-pi small{font-size:12px;color:#9aa4b4}.ar-pi i{font-style:normal;font-size:12px;color:#d8b4fe}
-.ar-pi.on{outline:2px solid #ff4d6d}
-.ar-qscr{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;background:radial-gradient(circle at 50% 40%,#1a1220,#07090d 70%)}
-.ar-qscr h2{font-family:var(--display);font-size:40px;letter-spacing:.06em;margin:18px 0 0}.ar-qscr p{color:#8a94a6;margin:0 0 10px}.ar-qscr .ar-btn{width:auto;padding:10px 26px}
-.ar-qt{font-family:var(--mono);font-size:34px;color:#ff7a8e}
-.ar-radar{position:relative;width:170px;height:170px;border-radius:50%;border:2px solid #ff4d6d55;background:radial-gradient(circle,#ff4d6d22,transparent 70%)}
-.ar-radar i{position:absolute;inset:0;border-radius:50%;border:2px solid #ff4d6d;animation:arPing 2.4s ease-out infinite;opacity:0}.ar-radar i:nth-child(2){animation-delay:.8s}.ar-radar i:nth-child(3){animation-delay:1.6s}
-.ar-radar b{position:absolute;left:50%;top:50%;width:50%;height:2px;background:linear-gradient(90deg,#ff4d6d,transparent);transform-origin:0 50%;animation:arSweep 1.6s linear infinite}
+.ar-pi{display:grid;grid-template-columns:110px 1fr;grid-template-rows:auto auto auto;column-gap:12px;align-items:center;text-align:left;padding:8px 10px;border-radius:12px;cursor:pointer;color:#1b2230;font:inherit;background:#f1f4f8;border:2px solid #c3cad4;border-left:6px solid var(--tc,#8d949f)}
+.ar-pi .ar-lart{grid-row:1/4}.ar-pi b{font-size:15px;font-weight:600}.ar-pi small{font-size:13px;color:#6b7686}.ar-pi i{font-style:normal;font-size:13px;color:#8b3fe0}
+.ar-pi.on{border-color:#1b2230;background:#fff;box-shadow:0 3px 0 #1b2230}
+.ar-qscr{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px}
+.ar-qscr h2{font-size:42px;font-weight:700;color:#fff;text-shadow:var(--ol);margin:18px 0 0}.ar-qscr p{color:#4a5568;font-weight:600;margin:0 0 10px}.ar-qscr .ar-btn{width:auto;padding:10px 30px}
+.ar-qt{font-size:40px;font-weight:700;color:#fff;text-shadow:var(--ol)}
+.ar-radar{position:relative;width:170px;height:170px;border-radius:50%;border:4px solid #1b2230;background:radial-gradient(circle,#ffffff,#cfe0f2);box-shadow:0 6px 0 #1b2230}
+.ar-radar i{position:absolute;inset:0;border-radius:50%;border:4px solid #3b9cff;animation:arPing 2.4s ease-out infinite;opacity:0}.ar-radar i:nth-child(2){animation-delay:.8s}.ar-radar i:nth-child(3){animation-delay:1.6s}
+.ar-radar b{position:absolute;left:50%;top:50%;width:50%;height:4px;margin-top:-2px;border-radius:4px;background:linear-gradient(90deg,#3b9cff,transparent);transform-origin:0 50%;animation:arSweep 1.6s linear infinite}
 @keyframes arPing{0%{transform:scale(.2);opacity:1}100%{transform:scale(1.3);opacity:0}}@keyframes arSweep{to{transform:rotate(360deg)}}
-.ar-found small{letter-spacing:.3em;color:#ff7a8e;font-weight:800}
+.ar-found small{font-size:16px;letter-spacing:.12em;color:#fff;font-weight:700;text-shadow:var(--ol)}
 .ar-vs{display:flex;align-items:center;gap:22px;margin:16px 0;flex-wrap:wrap;justify-content:center}
-.ar-vsc{display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px 22px;border-radius:18px;background:#10141c;border:1px solid color-mix(in srgb,var(--rc) 50%,#222);min-width:180px;animation:arIn .5s both}
-.ar-vsc b{font-family:var(--display);font-size:26px}.ar-vsc span{color:var(--rc);font-weight:700;font-size:14px}.ar-vsc em{font-style:normal;font-size:12px;color:#aab3c2;max-width:220px}
+.ar-vsc{display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px 22px;min-width:190px;animation:arIn .5s both}
+.ar-vsc b{font-size:26px;font-weight:700}.ar-vsc span{color:var(--rc);font-weight:700;font-size:15px;text-shadow:0 1px 0 #1b2230}.ar-vsc em{font-style:normal;font-size:13px;font-weight:500;color:#4a5568;max-width:230px}
 .ar-vsg{width:200px;aspect-ratio:5/2}.ar-vsg img{width:100%;height:100%;object-fit:contain}
-.ar-vsx{font-family:var(--display);font-size:54px;font-weight:700;color:#ff4d6d;animation:arIn .5s .2s both}
+.ar-vsx{font-size:60px;font-weight:700;color:#ffd23f;text-shadow:var(--ol);animation:arIn .5s .2s both}
 @keyframes arIn{from{opacity:0;transform:scale(.8)}}
 #arGame{overflow:hidden;background:#000;touch-action:none}
 .ar-cv{position:absolute;inset:0;display:block;width:100%;height:100%}
-.ar-hud{position:absolute;inset:0;pointer-events:none;font-family:var(--display)}
-.ar-hud button{pointer-events:auto}
-.ar-top{position:absolute;top:10px;left:50%;transform:translateX(-50%);display:flex;align-items:stretch;gap:6px}
-.ar-sc{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:92px;padding:4px 12px;border-radius:12px;background:rgba(8,10,16,.72);border-bottom:3px solid #6ab8ff}
-.ar-sc.op{border-color:var(--rc)}.ar-sc small{font-family:var(--body,system-ui);font-size:11px;font-weight:700;color:#c8d0dc;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ar-sc b{font-size:34px;line-height:1}
-.ar-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px 14px;border-radius:12px;background:rgba(8,10,16,.72)}
-.ar-rd{font-size:13px;letter-spacing:.2em;color:#ff7a8e}.ar-clock{font-family:var(--mono);font-size:22px;line-height:1}.ar-to{font-size:11px;color:#8a94a6;letter-spacing:.1em}
+/* in-match HUD: white outlined text, chunky bars */
+.ar-hud{position:absolute;inset:0;pointer-events:none;color:#fff;font-family:var(--arf);font-weight:700;text-shadow:var(--ol)}
+.ar-hud button{pointer-events:auto;font-family:var(--arf)}
+.ar-top{position:absolute;top:10px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px}
+.ar-sc{display:flex;align-items:center;gap:8px;min-width:0;padding:0}
+.ar-sc b{display:grid;place-items:center;width:52px;height:52px;border-radius:14px;font-size:32px;line-height:1;background:#3b9cff;border:3px solid #1b2230;box-shadow:0 4px 0 #1b2230}
+.ar-sc.op b{background:#ff4d6d}.ar-sc small{font-size:15px;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ar-sc.op{flex-direction:row-reverse}
+.ar-mid{display:flex;flex-direction:column;align-items:center;padding:0 6px}
+.ar-rd{font-size:14px;letter-spacing:.06em}.ar-clock{font-size:30px;line-height:1}.ar-to{font-size:12px;opacity:.95}
 .ar-x{position:absolute;left:50%;top:50%;width:0;height:0;--g:6px}
-.ar-x i{position:absolute;background:#fff;box-shadow:0 0 2px #000}.ar-x i:nth-child(1){width:2px;height:9px;left:-1px;bottom:var(--g)}.ar-x i:nth-child(2){width:2px;height:9px;left:-1px;top:var(--g)}
-.ar-x i:nth-child(3){height:2px;width:9px;top:-1px;right:var(--g)}.ar-x i:nth-child(4){height:2px;width:9px;top:-1px;left:var(--g)}
-.ar-hm{position:absolute;left:50%;top:50%;width:26px;height:26px;margin:-13px 0 0 -13px;opacity:0;background:linear-gradient(45deg,transparent 46%,#ff4d4d 46% 54%,transparent 54%),linear-gradient(-45deg,transparent 46%,#ff4d4d 46% 54%,transparent 54%);-webkit-mask:radial-gradient(circle,transparent 5px,#000 6px);mask:radial-gradient(circle,transparent 5px,#000 6px)}
-.ar-hurt{position:absolute;inset:0;opacity:0;background:radial-gradient(ellipse at center,transparent 45%,rgba(200,0,20,.65))}
-.ar-scope{position:absolute;inset:0;background:radial-gradient(circle at center,transparent 0 min(34vh,34vw),#000 calc(min(34vh,34vw) + 1px))}
-.ar-scope::before,.ar-scope::after{content:"";position:absolute;background:#000;left:50%;top:50%}.ar-scope::before{width:1px;height:68vmin;transform:translate(-50%,-50%)}.ar-scope::after{height:1px;width:68vmin;transform:translate(-50%,-50%)}
-.ar-ban{position:absolute;left:50%;top:22%;transform:translateX(-50%);text-align:center;animation:arIn .3s both}.ar-ban b{display:block;font-size:56px;letter-spacing:.06em;text-shadow:0 4px 18px rgba(0,0,0,.7)}
-.ar-ban span{font-family:var(--body,system-ui);font-weight:700;color:#c8d0dc;text-shadow:0 2px 6px #000}.ar-ban.win b{color:#5dff9a}.ar-ban.lose b{color:#ff4d6d}
-.ar-count{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);font-size:110px;color:#fff;text-shadow:0 6px 24px rgba(0,0,0,.6)}.ar-count.pop{animation:arIn .35s both}
-.ar-feed{position:absolute;right:14px;top:84px;display:grid;gap:4px;justify-items:end;font-family:var(--body,system-ui);font-size:13px;font-weight:700}
-.ar-feed div{background:rgba(8,10,16,.72);padding:4px 10px;border-radius:8px;border-left:3px solid #ff4d6d}
-.ar-tag{position:absolute;left:0;top:0;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--body,system-ui);font-size:12px;font-weight:800;text-shadow:0 1px 3px #000}
-.ar-tag em{display:block;width:60px;height:5px;border-radius:5px;background:rgba(0,0,0,.6);overflow:hidden}.ar-tag i{display:block;height:100%;background:var(--rc)}
-.ar-num{position:absolute;left:0;top:0;font-size:24px;font-weight:700;color:#fff;text-shadow:0 2px 4px #000}.ar-num.hd{color:#ffd23f;font-size:30px}
-.ar-hp{position:absolute;left:18px;bottom:18px;width:min(300px,40vw)}
-.ar-hpn{font-size:44px;line-height:1;text-shadow:0 2px 6px #000}.ar-hpb{position:relative;height:12px;border-radius:8px;background:rgba(0,0,0,.6);overflow:hidden;border:1px solid rgba(255,255,255,.15)}
-.ar-hpb i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#3adf7a,#9dff5c);transition:width .15s}.ar-hpb i.low{background:linear-gradient(90deg,#ff3a3a,#ff8a3a)}
-.ar-hpb u{position:absolute;inset:0 auto 0 0;background:rgba(120,200,255,.7)}
-.ar-st{font-family:var(--body,system-ui);font-size:12px;font-weight:800;color:#d8b4fe;margin-top:4px;text-shadow:0 1px 3px #000}
-.ar-wp{position:absolute;right:18px;bottom:18px;text-align:right}
-.ar-ammo b{font-size:48px;line-height:1;text-shadow:0 2px 6px #000}.ar-ammo b.low{color:#ff6a5a}.ar-ammo b.rl{font-size:24px;color:#ffd23f}.ar-ammo span{font-size:22px;color:#aab3c2;margin-left:4px}
-.ar-wn{font-family:var(--body,system-ui);font-size:13px;font-weight:700;text-shadow:0 1px 3px #000;max-width:300px;margin-left:auto}
-.ar-slots{display:flex;gap:6px;justify-content:flex-end;margin-top:6px}
-.ar-slot{pointer-events:auto;position:relative;width:86px;height:40px;border-radius:8px;background:rgba(8,10,16,.6);border:1px solid rgba(255,255,255,.12);border-bottom:2px solid var(--tc);cursor:pointer;opacity:.6}
-.ar-slot.on{opacity:1;background:rgba(30,36,50,.85);border-color:rgba(255,255,255,.4)}.ar-slot small{position:absolute;left:5px;top:2px;font-size:12px}.ar-slot span img{width:100%;height:100%;object-fit:contain}
-.ar-slot span{position:absolute;inset:4px 4px 2px 14px}
-.ar-sk{position:absolute;right:18px;bottom:150px;width:66px;height:66px;border:0;border-radius:50%;background:rgba(40,16,60,.8);color:#fff;cursor:pointer;display:grid;place-items:center}
-.ar-sk svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}.ar-sk .bg{fill:none;stroke:rgba(255,255,255,.12);stroke-width:4}.ar-sk .cd{fill:none;stroke:#c084fc;stroke-width:4;stroke-dasharray:106.8}
-.ar-sk b{font-size:24px;line-height:1}.ar-sk span{position:absolute;bottom:-18px;font-family:var(--body,system-ui);font-size:11px;font-weight:800;white-space:nowrap;text-shadow:0 1px 3px #000}
-.ar-sk.ready{background:radial-gradient(circle,#a855f7,#4c1d95);box-shadow:0 0 18px #a855f7}
-.ar-pausebtn{position:absolute;z-index:2;left:14px;top:12px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(8,10,16,.7);color:#fff;font-weight:900;cursor:pointer}
-.ar-pause{pointer-events:auto;position:absolute;inset:0;z-index:3;display:grid;place-items:center;background:rgba(4,6,10,.6);cursor:pointer}
-.ar-pcard{width:min(440px,90vw);padding:20px;border-radius:18px;background:#10141c;border:1px solid #2a3140;text-align:center;cursor:default}.ar-pcard h3{font-size:36px;margin:0}.ar-pcard p{font-family:var(--body,system-ui);color:#aab3c2;font-size:14px}
-.ar-res{position:absolute;inset:0;z-index:6;display:flex;overflow:auto;background:rgba(4,6,10,.8);padding:16px}.ar-res .ar-rcard{margin:auto}
-@media (max-height:520px){.ar-rcard{padding:14px}.ar-rtop{font-size:40px}.ar-rsc{font-size:28px}.ar-rvs{margin-bottom:8px}.ar-rcr{margin:8px 0 2px;font-size:18px}.ar-btn{padding:10px;margin-top:6px}.ar-emb{width:48px;height:48px}}
-.ar-rcard{width:min(480px,100%);padding:22px;border-radius:22px;background:#10141c;border:1px solid #2a3140;text-align:center;animation:arIn .4s both}
-.ar-rtop{font-family:var(--display);font-size:62px;font-weight:700;line-height:1;letter-spacing:.04em}.win .ar-rtop{color:#5dff9a}.lose .ar-rtop{color:#ff4d6d}
-.ar-rsc{font-family:var(--display);font-size:40px}.ar-rvs{color:#8a94a6;font-size:14px;margin-bottom:14px}
-.ar-rrank{display:flex;align-items:center;gap:14px;text-align:left;padding:12px;border-radius:14px;background:#151a24}.ar-rrank b{font-family:var(--display);font-size:26px;color:var(--rc)}.ar-rrank em{font-style:normal;font-size:14px;color:#5dff9a;margin-left:6px}.ar-rrank em.dn{color:#ff6a5a}
-.ar-rrank small{color:#aab3c2}.ar-rrank > div{flex:1}
-.ar-rcr{display:flex;align-items:center;justify-content:center;gap:8px;margin:14px 0 4px;font-size:22px;font-weight:800;color:#ffd23f}
+.ar-x i{position:absolute;background:#fff;box-shadow:0 0 0 1.5px #1b2230;border-radius:2px}.ar-x i:nth-child(1){width:3px;height:10px;left:-1.5px;bottom:var(--g)}.ar-x i:nth-child(2){width:3px;height:10px;left:-1.5px;top:var(--g)}
+.ar-x i:nth-child(3){height:3px;width:10px;top:-1.5px;right:var(--g)}.ar-x i:nth-child(4){height:3px;width:10px;top:-1.5px;left:var(--g)}
+.ar-hm{position:absolute;left:50%;top:50%;width:30px;height:30px;margin:-15px 0 0 -15px;opacity:0;background:linear-gradient(45deg,transparent 44%,#ff3a3a 44% 56%,transparent 56%),linear-gradient(-45deg,transparent 44%,#ff3a3a 44% 56%,transparent 56%);-webkit-mask:radial-gradient(circle,transparent 6px,#000 7px);mask:radial-gradient(circle,transparent 6px,#000 7px)}
+.ar-hurt{position:absolute;inset:0;opacity:0;background:radial-gradient(ellipse at center,transparent 50%,rgba(255,40,40,.55))}
+.ar-scope{position:absolute;inset:0;background:radial-gradient(circle at center,transparent 0 min(34vh,34vw),#11141b calc(min(34vh,34vw) + 1px))}
+.ar-scope::before,.ar-scope::after{content:"";position:absolute;background:#11141b;left:50%;top:50%}.ar-scope::before{width:2px;height:68vmin;transform:translate(-50%,-50%)}.ar-scope::after{height:2px;width:68vmin;transform:translate(-50%,-50%)}
+.ar-ban{position:absolute;left:50%;top:20%;transform:translateX(-50%);text-align:center;animation:arIn .3s both;white-space:nowrap}.ar-ban b{display:block;font-size:60px;line-height:1}
+.ar-ban span{font-size:18px}.ar-ban.win b{color:#5fe36a}.ar-ban.lose b{color:#ff5a5a}
+.ar-count{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);font-size:120px}.ar-count.pop{animation:arIn .35s both}
+.ar-feed{position:absolute;right:14px;top:78px;display:grid;gap:4px;justify-items:end;font-size:15px}
+.ar-feed div{background:rgba(27,34,48,.55);padding:4px 12px;border-radius:10px;text-shadow:0 2px 0 #1b2230}
+.ar-tag{position:absolute;left:0;top:0;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:15px}
+.ar-tag em{display:block;width:70px;height:9px;border-radius:6px;background:#1b2230;border:2px solid #1b2230;overflow:hidden}.ar-tag i{display:block;height:100%;background:#5fe36a}
+.ar-num{position:absolute;left:0;top:0;font-size:28px}.ar-num.hd{color:#ffd23f;font-size:34px}
+.ar-hp{position:absolute;left:18px;bottom:16px;width:min(380px,42vw)}
+.ar-hpn{position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:1;font-size:22px;line-height:1}
+.ar-hpb{position:relative;height:30px;border-radius:12px;background:#1b2230;overflow:hidden;border:3px solid #1b2230;box-shadow:0 4px 0 rgba(27,34,48,.6)}
+.ar-hpb i{position:absolute;inset:0 auto 0 0;background:linear-gradient(180deg,#7df07f,#3ccf43 55%,#2fb83f);border-radius:8px;transition:width .15s}.ar-hpb i.low{background:linear-gradient(180deg,#ff8a7a,#ff3a3a)}
+.ar-hpb u{position:absolute;inset:0 auto 0 0;background:rgba(120,200,255,.75);border-radius:8px}
+.ar-st{font-size:14px;color:#e6c3ff;margin-bottom:6px}
+.ar-hp .ar-st{position:absolute;bottom:100%;left:0}
+.ar-wp{position:absolute;right:16px;bottom:14px;text-align:right}
+.ar-ammo b{font-size:46px;line-height:1}.ar-ammo b.low{color:#ff6a5a}.ar-ammo b.rl{font-size:24px;color:#ffd23f}.ar-ammo span{font-size:22px;margin-left:4px}
+.ar-wn{font-size:18px;max-width:340px;margin-left:auto}.ar-wn span{text-shadow:var(--ol)}
+.ar-slots{display:flex;gap:8px;justify-content:flex-end;margin-top:6px}
+.ar-slot{pointer-events:auto;position:relative;width:96px;height:56px;border-radius:12px;background:rgba(255,255,255,.18);border:3px solid rgba(27,34,48,.55);cursor:pointer}
+.ar-slot.on{background:rgba(255,255,255,.55);border-color:#1b2230;box-shadow:0 4px 0 #1b2230;transform:translateY(-4px)}.ar-slot small{position:absolute;left:6px;top:2px;font-size:14px}
+.ar-slot span{position:absolute;inset:6px 4px 4px 14px}.ar-slot span img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 0 rgba(27,34,48,.6))}
+.ar-sk{position:absolute;right:18px;bottom:160px;width:70px;height:70px;border:3px solid #1b2230;border-radius:50%;background:#6b5a8a;color:#fff;cursor:pointer;display:grid;place-items:center;box-shadow:0 4px 0 #1b2230}
+.ar-sk svg{position:absolute;inset:-3px;width:calc(100% + 6px);height:calc(100% + 6px);transform:rotate(-90deg)}.ar-sk .bg{fill:none;stroke:rgba(255,255,255,.2);stroke-width:4}.ar-sk .cd{fill:none;stroke:#e6c3ff;stroke-width:4;stroke-dasharray:106.8}
+.ar-sk b{font-size:26px;line-height:1;text-shadow:var(--ol)}.ar-sk span{position:absolute;bottom:-22px;font-size:14px;white-space:nowrap;text-shadow:var(--ol)}
+.ar-sk.ready{background:linear-gradient(180deg,#c084fc,#8b3fe0);box-shadow:0 4px 0 #1b2230,0 0 18px #c084fc}
+.ar-pausebtn{position:absolute;z-index:2;left:14px;top:12px;height:44px;padding:0 16px;border-radius:12px;border:3px solid #1b2230;background:linear-gradient(180deg,#ff6b6b,#e23b3b);color:#fff;font-size:18px;font-weight:700;cursor:pointer;box-shadow:0 4px 0 #1b2230;text-shadow:0 2px 0 #1b2230}
+.ar-pause{pointer-events:auto;position:absolute;inset:0;z-index:3;display:grid;place-items:center;background:rgba(27,34,48,.4);cursor:pointer;text-shadow:none;color:#1b2230}
+.ar-pcard{width:min(460px,90vw);padding:20px;text-align:center;cursor:default}.ar-pcard h3{font-size:38px;margin:0}.ar-pcard p{font-weight:500;color:#4a5568;font-size:15px}
+.ar-res{position:absolute;inset:0;z-index:6;display:flex;overflow:auto;background:rgba(27,34,48,.45);padding:16px}.ar-res .ar-rcard{margin:auto}
+.ar-rcard{width:min(480px,100%);padding:22px;text-align:center;animation:arIn .4s both}
+.ar-rtop{font-size:64px;font-weight:700;line-height:1;color:#fff}.win .ar-rtop{color:#5fe36a;text-shadow:var(--ol)}.lose .ar-rtop{color:#ff5a5a;text-shadow:var(--ol)}
+.ar-rsc{font-size:42px;font-weight:700}.ar-rvs{color:#6b7686;font-weight:600;font-size:15px;margin-bottom:14px}
+.ar-rrank{display:flex;align-items:center;gap:14px;text-align:left;padding:12px;border-radius:14px;background:#f1f4f8;border:2px solid #c3cad4}.ar-rrank b{font-size:26px;color:var(--rc);text-shadow:var(--ol)}
+.ar-rrank em{font-style:normal;font-size:15px;color:#2fb83f;margin-left:6px;text-shadow:none}.ar-rrank em.dn{color:#e23b3b}
+.ar-rrank small{color:#4a5568;font-weight:600}.ar-rrank > div{flex:1}
+.ar-rcr{display:flex;align-items:center;justify-content:center;gap:8px;margin:14px 0 4px;font-size:24px;font-weight:700;color:#e8a800}
 .ar-racts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .ar-touch{position:absolute;inset:0;z-index:1;pointer-events:auto;touch-action:none}
-.ar-stick{position:absolute;width:110px;height:110px;margin:-55px 0 0 -55px;border-radius:50%;border:2px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);left:18%;top:72%;opacity:.5}
-.ar-stick.on{opacity:1}.ar-stick i{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(255,255,255,.45)}
-.tb{position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,.3);background:rgba(10,12,18,.55);color:#fff;font-family:var(--display);font-size:15px;font-weight:700}
-.tb.on,.tb.lock{background:rgba(255,77,109,.6)}
-.tb.fire{right:6%;bottom:22%;width:92px;height:92px;font-size:20px;background:rgba(255,77,109,.35)}
-.tb.ads{right:calc(6% + 104px);bottom:30%;width:62px;height:62px}.tb.jump{right:3%;bottom:6%;width:62px;height:62px}
-.tb.rl{right:calc(6% + 96px);bottom:12%;width:50px;height:50px}.tb.sl{right:calc(3% + 74px);bottom:2%;width:54px;height:54px;font-size:12px}
-.tb.sw{right:4%;top:40%;width:52px;height:52px;font-size:22px}.tb.skb{right:calc(6% + 110px);bottom:calc(30% + 74px);width:58px;height:58px;font-size:12px;background:rgba(168,85,247,.45)}
-@media (pointer:coarse){.ar-feed{top:118px}.ar-sk{display:none}.ar-wp{bottom:auto;top:66px;right:12px}.ar-wp .ar-ammo b{font-size:30px}.ar-slots{display:none}.ar-hp{bottom:auto;top:66px;left:12px;width:36vw}.ar-hpn{font-size:28px}.ar-pausebtn{top:auto;bottom:12px;left:50%;transform:translateX(-50%)}}
-@media (max-width:700px){.ar-load{grid-template-columns:1fr}.ar-logo{font-size:34px}.ar-ban b{font-size:38px}.ar-sc{min-width:70px}.ar-sc b{font-size:26px}}
+.ar-stick{position:absolute;width:118px;height:118px;margin:-59px 0 0 -59px;border-radius:50%;border:3px solid rgba(255,255,255,.7);background:rgba(27,34,48,.25);left:18%;top:72%;opacity:.6}
+.ar-stick.on{opacity:1}.ar-stick i{position:absolute;left:50%;top:50%;width:50px;height:50px;margin:-25px 0 0 -25px;border-radius:50%;background:#fff;border:3px solid #1b2230}
+.tb{position:absolute;border-radius:50%;border:3px solid #1b2230;background:rgba(255,255,255,.75);color:#1b2230;font-family:var(--arf);font-size:15px;font-weight:700;box-shadow:0 4px 0 rgba(27,34,48,.7);text-shadow:none}
+.tb.on,.tb.lock{background:#ffd23f;transform:translateY(3px);box-shadow:0 1px 0 rgba(27,34,48,.7)}
+.tb.fire{right:6%;bottom:22%;width:96px;height:96px;font-size:20px;background:linear-gradient(180deg,#ff7a7a,#ff3a3a);color:#fff;text-shadow:0 2px 0 #1b2230}
+.tb.ads{right:calc(6% + 108px);bottom:30%;width:62px;height:62px}.tb.jump{right:3%;bottom:6%;width:64px;height:64px;background:linear-gradient(180deg,#7fd8ff,#3b9cff);color:#fff;text-shadow:0 2px 0 #1b2230}
+.tb.rl{right:calc(6% + 98px);bottom:12%;width:50px;height:50px}.tb.sl{right:calc(3% + 76px);bottom:2%;width:56px;height:56px;font-size:12px}
+.tb.sw{right:4%;top:40%;width:54px;height:54px;font-size:22px}.tb.skb{right:calc(6% + 112px);bottom:calc(30% + 76px);width:60px;height:60px;font-size:12px;background:linear-gradient(180deg,#c084fc,#8b3fe0);color:#fff;text-shadow:0 2px 0 #1b2230}
+@media (pointer:coarse){.ar-feed{top:118px}.ar-sk{display:none}.ar-wp{bottom:auto;top:70px;right:12px}.ar-wp .ar-ammo b{font-size:32px}.ar-slots{display:none}.ar-hp{bottom:auto;top:78px;left:12px;width:34vw}.ar-hpb{height:22px}.ar-hpn{font-size:16px}
+  .ar-pausebtn{top:auto;bottom:10px;left:50%;transform:translateX(-50%);height:38px;font-size:15px}.ar-sc b{width:42px;height:42px;font-size:26px}.ar-clock{font-size:24px}}
+@media (max-width:700px){.ar-load{grid-template-columns:1fr}.ar-logo{font-size:36px}.ar-ban b{font-size:40px}.ar-sc small{max-width:90px;font-size:13px}}
+@media (max-height:520px){.ar-rcard{padding:14px}.ar-rtop{font-size:42px}.ar-rsc{font-size:28px}.ar-rvs{margin-bottom:8px}.ar-rcr{margin:8px 0 2px;font-size:18px}.ar-btn{padding:9px;margin-top:6px}.ar-emb{width:48px;height:48px}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -17406,31 +17422,40 @@ const AR_MOBILE = matchMedia('(pointer: coarse)').matches || ('ontouchstart' in 
 function arCanvas(w, h, draw){ const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); return c; }
 function arTex(T, c, rx, ry){ const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.wrapS = t.wrapT = T.RepeatWrapping; t.repeat.set(rx || 1, ry || 1); t.anisotropy = 4; return t; }
 function arMats(T){
-  const R = seeded(4242);
-  const floor = arCanvas(256, 256, (g, w, h) => { g.fillStyle = '#4a4d52'; g.fillRect(0, 0, w, h);
-    for (let i = 0; i < 900; i++) { g.fillStyle = 'rgba(' + (R() < .5 ? '0,0,0' : '255,255,255') + ',' + (R() * .06) + ')'; g.fillRect(R() * w, R() * h, 2 + R() * 6, 2 + R() * 6); }
-    g.strokeStyle = 'rgba(20,22,26,.8)'; g.lineWidth = 3; g.strokeRect(0, 0, w, h); g.strokeStyle = 'rgba(255,255,255,.05)'; g.lineWidth = 1; g.strokeRect(3, 3, w - 6, h - 6); });
-  const crate = arCanvas(256, 256, (g, w, h) => { g.fillStyle = '#9a6a3a'; g.fillRect(0, 0, w, h);
-    for (let i = 0; i < 8; i++) { g.fillStyle = i % 2 ? '#8a5c30' : '#a2723f'; g.fillRect(0, i * 32, w, 31); g.fillStyle = 'rgba(0,0,0,.25)'; g.fillRect(0, i * 32 + 30, w, 2); }
-    for (let i = 0; i < 300; i++) { g.strokeStyle = 'rgba(60,35,15,' + R() * .25 + ')'; g.beginPath(); const y = R() * h; g.moveTo(R() * w, y); g.lineTo(R() * w, y + R() * 3); g.stroke(); }
-    g.fillStyle = '#6a4220'; g.fillRect(0, 0, w, 22); g.fillRect(0, h - 22, w, 22); g.fillRect(0, 0, 22, h); g.fillRect(w - 22, 0, 22, h);
-    g.save(); g.translate(w / 2, h / 2); g.rotate(Math.PI / 4); g.fillRect(-180, -11, 360, 22); g.restore();
-    g.fillStyle = 'rgba(20,10,4,.55)'; g.font = '900 34px Teko, Impact, sans-serif'; g.textAlign = 'center'; g.fillText('CRATE', w / 2 - 50, h / 2 + 70); });
-  const cont = col => arCanvas(256, 256, (g, w, h) => { g.fillStyle = col; g.fillRect(0, 0, w, h);
-    for (let x = 0; x < w; x += 16) { g.fillStyle = 'rgba(0,0,0,.22)'; g.fillRect(x, 0, 6, h); g.fillStyle = 'rgba(255,255,255,.08)'; g.fillRect(x + 8, 0, 3, h); }
-    for (let i = 0; i < 120; i++) { g.fillStyle = 'rgba(110,50,20,' + R() * .35 + ')'; g.beginPath(); g.arc(R() * w, R() * h, R() * 6, 0, 7); g.fill(); }
-    g.fillStyle = 'rgba(255,255,255,.75)'; g.font = '700 26px JetBrains Mono, monospace'; g.fillText('CRU 41' + Math.floor(R() * 90 + 10), 18, 40); });
-  const wall = arCanvas(256, 256, (g, w, h) => { g.fillStyle = '#2b2f37'; g.fillRect(0, 0, w, h);
-    g.strokeStyle = '#1c1f25'; g.lineWidth = 4; for (let y = 0; y < h; y += 64) { g.beginPath(); g.moveTo(0, y); g.lineTo(w, y); g.stroke(); }
-    for (let x = 0; x < w; x += 128) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, h); g.stroke(); }
-    for (let i = 0; i < 18; i++) { g.fillStyle = i % 2 ? '#ffcb2e' : '#141414'; g.beginPath(); g.moveTo(i * 16, h - 26); g.lineTo(i * 16 + 16, h - 26); g.lineTo(i * 16 + 4, h); g.lineTo(i * 16 - 12, h); g.fill(); } });
-  const bar = arCanvas(128, 64, (g, w, h) => { g.fillStyle = '#8d9096'; g.fillRect(0, 0, w, h); for (let i = 0; i < 12; i++) { g.fillStyle = i % 2 ? '#ffcb2e' : '#1a1a1a'; g.beginPath(); g.moveTo(i * 16, 0); g.lineTo(i * 16 + 16, 0); g.lineTo(i * 16 + 4, 16); g.lineTo(i * 16 - 12, 16); g.fill(); } });
-  const pil = arCanvas(64, 256, (g, w, h) => { const lg = g.createLinearGradient(0, 0, w, 0); lg.addColorStop(0, '#3a3f47'); lg.addColorStop(.5, '#7a828c'); lg.addColorStop(1, '#30343a'); g.fillStyle = lg; g.fillRect(0, 0, w, h); g.fillStyle = '#ffcb2e'; g.fillRect(0, h - 30, w, 12); });
-  const S = (map, o) => new T.MeshStandardMaterial(Object.assign({map, roughness: .85, metalness: .05}, o || {}));
+  /* one clean tile: light panel, soft bevel, dark seam, a cross where four tiles meet */
+  const tile = (base, seam, cross) => arCanvas(256, 256, (g, w, h) => {
+    g.fillStyle = base; g.fillRect(0, 0, w, h);
+    const lg = g.createLinearGradient(0, 0, w, h); lg.addColorStop(0, 'rgba(255,255,255,.18)'); lg.addColorStop(1, 'rgba(0,0,0,.06)'); g.fillStyle = lg; g.fillRect(0, 0, w, h);
+    g.strokeStyle = 'rgba(255,255,255,.45)'; g.lineWidth = 3; g.strokeRect(5, 5, w - 10, h - 10);
+    g.strokeStyle = seam; g.lineWidth = 4; g.strokeRect(0, 0, w, h);
+    g.fillStyle = cross; [[0, 0], [w, 0], [0, h], [w, h]].forEach(([x, y]) => { g.fillRect(x - 18, y - 4, 36, 8); g.fillRect(x - 4, y - 18, 8, 36); });
+  });
+  const S = (c, o) => { const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.wrapS = t.wrapT = T.RepeatWrapping; t.anisotropy = 8;
+    return new T.MeshStandardMaterial(Object.assign({map: t, roughness: .78, metalness: 0}, o || {})); };
   return {
-    floor: S(arTex(T, floor, 12, 8), {roughness: .95}), crate: S(arTex(T, crate)),
-    cont: [S(arTex(T, cont('#c0502a')), {metalness: .3, roughness: .6}), S(arTex(T, cont('#2a7a8a')), {metalness: .3, roughness: .6}), S(arTex(T, cont('#3a6a2a')), {metalness: .3, roughness: .6}), S(arTex(T, cont('#8a2a3a')), {metalness: .3, roughness: .6})],
-    wall: S(arTex(T, wall, 6, 1)), barrier: S(arTex(T, bar)), pillar: S(arTex(T, pil), {metalness: .5, roughness: .4})};
+    floor: S(tile('#c3c8d0', '#9aa1ab', '#8d949f')), wall: S(tile('#d9dde3', '#aeb4bd', '#9ea5af')),
+    crate: S(tile('#e6e9ee', '#b4bac3', '#a7aeb8')), barrier: S(tile('#cfd5dd', '#a2a9b3', '#959ca7')),
+    pillar: S(tile('#e9ecf0', '#b6bcc5', '#a9b0ba')),
+    cont: [S(tile('#bcd3ec', '#8fa9c6', '#7f9aba')), S(tile('#d8c9ef', '#ad9bcc', '#9c89bd')), S(tile('#c4e4d2', '#93bba4', '#83ad95')), S(tile('#f1d5c4', '#cfa98f', '#c09a80'))],
+    trim: new T.MeshStandardMaterial({color: '#ffffff', emissive: '#7fd8ff', emissiveIntensity: 1.4})};
+}
+/* box UVs in world metres so every surface shares one 2m tile grid */
+function arBoxUV(geo, cx, cy, cz, tile){
+  const pos = geo.attributes.position, uv = geo.attributes.uv, n = geo.attributes.normal;
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i) + cx, y = pos.getY(i) + cy, z = pos.getZ(i) + cz, ax = Math.abs(n.getX(i)), ay = Math.abs(n.getY(i));
+    if (ax > .5) uv.setXY(i, z / tile, y / tile); else if (ay > .5) uv.setXY(i, x / tile, z / tile); else uv.setXY(i, x / tile, y / tile);
+  }
+  uv.needsUpdate = true; return geo;
+}
+/* a rounded block: an extruded rounded rectangle with a bevel, centred */
+function arRBox(T, w, h, d, r){
+  r = Math.min(r, w / 2 - .001, h / 2 - .001, d / 2 - .001);
+  const s = new T.Shape();
+  s.moveTo(-w / 2 + r, -h / 2); s.lineTo(w / 2 - r, -h / 2); s.quadraticCurveTo(w / 2, -h / 2, w / 2, -h / 2 + r); s.lineTo(w / 2, h / 2 - r);
+  s.quadraticCurveTo(w / 2, h / 2, w / 2 - r, h / 2); s.lineTo(-w / 2 + r, h / 2); s.quadraticCurveTo(-w / 2, h / 2, -w / 2, h / 2 - r); s.lineTo(-w / 2, -h / 2 + r); s.quadraticCurveTo(-w / 2, -h / 2, -w / 2 + r, -h / 2);
+  const g = new T.ExtrudeGeometry(s, {depth: Math.max(.001, d - 2 * r), bevelEnabled: true, bevelSize: r * .9, bevelThickness: r, bevelSegments: 3, curveSegments: 4});
+  g.translate(0, 0, -(d - 2 * r) / 2); g.computeVertexNormals(); return g;
 }
 /* SVG path (M L H V Q A Z, absolute) to a three ShapePath */
 function arShapePath(T, d){
@@ -17480,30 +17505,35 @@ function arGun(T, it, fl){
   out.add(inner); out.rotation.y = Math.PI / 2;
   const wrap = new T.Group(); wrap.add(out); wrap.userData.len = (knife ? 150 : 128) * s; return wrap;
 }
-/* a bot: a chunky armoured figure in its rank colour */
-function arBotModel(T, col, kit){
-  const g = new T.Group(), M = c => new T.MeshStandardMaterial({color: c, roughness: .6, metalness: .2});
-  const suit = M('#2a2e36'), acc = M(col), skin = M('#c89a72'), dark = M('#14161a');
-  const mats = [suit, acc, skin, dark];
-  const add = (geo, m, x, y, z, parent) => { const me = new T.Mesh(geo, m); me.position.set(x, y, z); me.castShadow = true; (parent || g).add(me); return me; };
-  const body = add(new T.BoxGeometry(.62, .7, .36), suit, 0, 1.08, 0);
-  add(new T.BoxGeometry(.64, .16, .38), acc, 0, 1.36, 0); add(new T.BoxGeometry(.5, .1, .4), dark, 0, .76, 0);
-  add(new T.BoxGeometry(.2, .26, .05), acc, 0, 1.12, -.2);
-  const head = new T.Group(); head.position.set(0, 1.6, 0); g.add(head);
-  add(new T.BoxGeometry(.36, .38, .36), skin, 0, 0, 0, head); add(new T.BoxGeometry(.4, .14, .4), acc, 0, .19, 0, head);
-  const visor = add(new T.BoxGeometry(.34, .1, .05), new T.MeshStandardMaterial({color: '#111', emissive: col, emissiveIntensity: .9}), 0, .03, -.19, head);
-  const legL = new T.Group(), legR = new T.Group(); legL.position.set(-.15, .74, 0); legR.position.set(.15, .74, 0); g.add(legL, legR);
-  add(new T.BoxGeometry(.22, .74, .26), suit, 0, -.37, 0, legL); add(new T.BoxGeometry(.22, .74, .26), suit, 0, -.37, 0, legR);
-  add(new T.BoxGeometry(.24, .14, .34), dark, 0, -.7, -.04, legL); add(new T.BoxGeometry(.24, .14, .34), dark, 0, -.7, -.04, legR);
-  const armR = new T.Group(); armR.position.set(.38, 1.34, 0); g.add(armR);
-  add(new T.BoxGeometry(.18, .6, .2), suit, 0, -.26, 0, armR); add(new T.BoxGeometry(.16, .14, .16), skin, 0, -.58, 0, armR);
-  const armL = new T.Group(); armL.position.set(-.38, 1.34, 0); g.add(armL);
-  add(new T.BoxGeometry(.18, .6, .2), suit, 0, -.26, 0, armL); add(new T.BoxGeometry(.16, .14, .16), skin, 0, -.58, 0, armL);
+const AR_BOTCOL = ['#a855f7', '#3b82f6', '#ef4444', '#f59e0b', '#10b981', '#ec4899', '#14b8a6', '#f97316', '#6366f1', '#84cc16'];
+/* a bot: a chunky, rounded, single-colour figure with a dark visor and two glowing eyes */
+function arBotModel(T, col, kit, name){
+  const body = AR_BOTCOL[hash(name || 'bot') % AR_BOTCOL.length], g = new T.Group();
+  const mat = new T.MeshStandardMaterial({color: body, roughness: .55, metalness: .05});
+  const dark = new T.MeshStandardMaterial({color: new T.Color(body).multiplyScalar(.55), roughness: .6});
+  const visorM = new T.MeshStandardMaterial({color: '#141821', roughness: .25, metalness: .4});
+  const eyeM = new T.MeshBasicMaterial({color: '#ffffff'}), rankM = new T.MeshStandardMaterial({color: col, emissive: col, emissiveIntensity: .6});
+  const mats = [mat, dark, visorM, eyeM, rankM];
+  const add = (geo, m, x, y, z, parent) => { const me = new T.Mesh(geo, m); me.position.set(x, y, z); me.castShadow = true; me.receiveShadow = true; (parent || g).add(me); return me; };
+  add(arRBox(T, .66, .72, .4, .1), mat, 0, 1.08, 0);
+  add(arRBox(T, .5, .12, .42, .05), dark, 0, .76, 0);
+  add(new T.CylinderGeometry(.07, .07, .03, 16).rotateX(Math.PI / 2), rankM, 0, 1.2, -.215);
+  const head = new T.Group(); head.position.set(0, 1.62, 0); g.add(head);
+  add(arRBox(T, .44, .42, .42, .13), mat, 0, 0, 0, head);
+  const visor = add(arRBox(T, .38, .17, .06, .05), visorM, 0, .02, -.2, head);
+  const eyeL = add(new T.SphereGeometry(.035, 10, 8), eyeM, -.08, .02, -.235, head), eyeR = add(new T.SphereGeometry(.035, 10, 8), eyeM, .08, .02, -.235, head);
+  eyeL.scale.set(1, 1.5, .5); eyeR.scale.set(1, 1.5, .5);
+  const legL = new T.Group(), legR = new T.Group(); legL.position.set(-.16, .72, 0); legR.position.set(.16, .72, 0); g.add(legL, legR);
+  add(arRBox(T, .25, .7, .28, .08), mat, 0, -.35, 0, legL); add(arRBox(T, .25, .7, .28, .08), mat, 0, -.35, 0, legR);
+  add(arRBox(T, .27, .12, .34, .05), dark, 0, -.66, -.03, legL); add(arRBox(T, .27, .12, .34, .05), dark, 0, -.66, -.03, legR);
+  const armR = new T.Group(); armR.position.set(.43, 1.34, 0); g.add(armR);
+  add(arRBox(T, .2, .6, .22, .08), mat, 0, -.26, 0, armR); add(arRBox(T, .18, .14, .18, .06), dark, 0, -.58, 0, armR);
+  const armL = new T.Group(); armL.position.set(-.43, 1.34, 0); g.add(armL);
+  add(arRBox(T, .2, .6, .22, .08), mat, 0, -.26, 0, armL); add(arRBox(T, .18, .14, .18, .06), dark, 0, -.58, 0, armL);
   armR.rotation.x = 1.35; armL.rotation.x = 1.25; armL.rotation.z = -.5;
   const gun = arGun(T, kit.it, kit.fl); gun.scale.setScalar(1.15); gun.position.set(0, -.58, -.05); gun.rotation.set(-Math.PI / 2, 0, 0); armR.add(gun);
-  g.traverse(o => { if (o.material && !mats.includes(o.material) && o !== visor) mats.push(o.material); });
-  mats.push(visor.material);
-  return {g, head, legL, legR, armR, armL, body, gun, mats};
+  g.traverse(o => { if (o.material && !mats.includes(o.material)) mats.push(o.material); });
+  return {g, head, legL, legR, armR, armL, body, gun, mats, eyes: [eyeL, eyeR]};
 }
 
 /* ---------- a match ---------- */
@@ -17516,36 +17546,46 @@ async function arStartMatch(opp){
   const L = arLoadout(), me = arFighter(true, L, 'You'), bot = arFighter(false, [opp.kit], opp.name);
   bot.skill = opp.skill; bot.rp = opp.rp;
   const R = new T.WebGLRenderer({antialias: !AR_MOBILE, powerPreference: 'high-performance'});
-  R.setPixelRatio(Math.min(devicePixelRatio, AR_MOBILE ? 1 : 1.5)); R.setSize(innerWidth, innerHeight);
-  R.outputColorSpace = T.SRGBColorSpace; R.toneMapping = T.ACESFilmicToneMapping; R.toneMappingExposure = 1.05;
-  R.shadowMap.enabled = !AR_MOBILE; R.shadowMap.type = T.PCFSoftShadowMap; R.autoClear = false;
+  R.setPixelRatio(Math.min(devicePixelRatio, AR_MOBILE ? 1.25 : 1.75)); R.setSize(innerWidth, innerHeight);
+  R.outputColorSpace = T.SRGBColorSpace; R.toneMapping = T.ACESFilmicToneMapping; R.toneMappingExposure = 1.12;
+  R.shadowMap.enabled = true; R.shadowMap.type = AR_MOBILE ? T.PCFShadowMap : T.PCFSoftShadowMap; R.autoClear = false;
   const cv = R.domElement; cv.className = 'ar-cv'; $('#arGame').prepend(cv);
-  const sc = new T.Scene(); sc.background = new T.Color('#3a4a6a'); sc.fog = new T.Fog('#3a4a6a', 34, 80);
+  const sc = new T.Scene();
+  /* a soft daylight sky: pale blue at the top fading to the haze colour */
+  sc.background = new T.CanvasTexture(arCanvas(4, 256, (g, w, h) => { const lg = g.createLinearGradient(0, 0, 0, h); lg.addColorStop(0, '#8fb8e8'); lg.addColorStop(.55, '#cfdff0'); lg.addColorStop(1, '#e6ecf3'); g.fillStyle = lg; g.fillRect(0, 0, w, h); }));
+  sc.background.colorSpace = T.SRGBColorSpace;
+  sc.fog = new T.Fog('#e3e9f0', 26, 70);
   const cam = new T.PerspectiveCamera(AR_MOBILE ? 72 : 78, innerWidth / innerHeight, .05, 200); cam.rotation.order = 'YXZ';
-  sc.add(new T.HemisphereLight('#d8e4ff', '#5a4a3a', 1.35));
-  const sun = new T.DirectionalLight('#fff0dc', 1.9); sun.position.set(14, 26, 9); sun.castShadow = !AR_MOBILE;
-  Object.assign(sun.shadow.camera, {left: -26, right: 26, top: 20, bottom: -20, near: 1, far: 70}); sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -.0005; sc.add(sun);
+  sc.add(new T.HemisphereLight('#ffffff', '#9aa4b2', 1.55));
+  const sun = new T.DirectionalLight('#fffaf0', 2.1); sun.position.set(10, 30, 14); sun.castShadow = true;
+  Object.assign(sun.shadow.camera, {left: -25, right: 25, top: 18, bottom: -18, near: 1, far: 80}); sun.shadow.mapSize.set(AR_MOBILE ? 1024 : 2048, AR_MOBILE ? 1024 : 2048);
+  sun.shadow.bias = -.0004; sun.shadow.normalBias = .02; sun.shadow.radius = 4; sc.add(sun);
   const M = arMats(T);
-  const fl = new T.Mesh(new T.PlaneGeometry(46, 32), M.floor); fl.rotation.x = -Math.PI / 2; fl.receiveShadow = true; sc.add(fl);
+  const flg = new T.PlaneGeometry(46, 32); flg.rotateX(-Math.PI / 2); arBoxUV(flg, 0, 0, 0, 2);
+  const fl = new T.Mesh(flg, M.floor); fl.receiveShadow = true; sc.add(fl);
   let ci = 0;
   AR_MAP.forEach(b => {
-    const w = b[3] - b[0], h = b[4] - b[1], d = b[5] - b[2], k = b[6];
+    const w = b[3] - b[0], h = b[4] - b[1], d = b[5] - b[2], k = b[6], cx = (b[0] + b[3]) / 2, cy = (b[1] + b[4]) / 2, cz = (b[2] + b[5]) / 2;
     const mat = k === 'cont' ? M.cont[ci++ % M.cont.length] : M[k];
-    const m = new T.Mesh(new T.BoxGeometry(w, h, d), mat); m.position.set((b[0] + b[3]) / 2, (b[1] + b[4]) / 2, (b[2] + b[5]) / 2);
+    const m = new T.Mesh(arBoxUV(new T.BoxGeometry(w, h, d), cx, cy, cz, 2), mat); m.position.set(cx, cy, cz);
     m.castShadow = k !== 'wall'; m.receiveShadow = true; sc.add(m);
+    /* a thin glowing trim along the top edge of the low cover */
+    if (k === 'barrier') { const t = new T.Mesh(new T.BoxGeometry(w + .02, .05, d + .02), M.trim); t.position.set(cx, b[4] + .01, cz); sc.add(t); }
   });
-  /* floodlights in the corners */
-  [[-21, -14], [21, -14], [-21, 14], [21, 14]].forEach(([x, z]) => {
-    const pole = new T.Mesh(new T.CylinderGeometry(.12, .16, 9, 8), M.pillar); pole.position.set(x, 4.5, z); sc.add(pole);
-    const lamp = new T.Mesh(new T.BoxGeometry(1.2, .5, .5), new T.MeshStandardMaterial({color: '#fff', emissive: '#fff4c8', emissiveIntensity: 2})); lamp.position.set(x * .97, 9, z * .97); lamp.lookAt(0, 0, 0); sc.add(lamp);
-  });
+  /* spawn pads that glow under each side */
+  [-1, 1].forEach(sx => { const pad = new T.Mesh(new T.CylinderGeometry(1.6, 1.6, .04, 40), new T.MeshStandardMaterial({color: sx > 0 ? '#7fd8ff' : '#ff9ad0', emissive: sx > 0 ? '#3ab8ff' : '#ff5aa8', emissiveIntensity: .8, transparent: true, opacity: .55}));
+    pad.position.set(sx * 19.5, .02, 0); sc.add(pad); });
+  /* tall pale towers outside the walls give the arena a skyline */
+  const tw = new T.MeshStandardMaterial({color: '#e8edf3', roughness: .9}), R2 = seeded(77);
+  for (let i = 0; i < 26; i++) { const a = i / 26 * Math.PI * 2, rr = 34 + R2() * 14, h = 8 + R2() * 22, ww = 3 + R2() * 5;
+    const t = new T.Mesh(new T.BoxGeometry(ww, h, ww), tw); t.position.set(Math.cos(a) * rr * 1.2, h / 2, Math.sin(a) * rr * .8); sc.add(t); }
   /* the viewmodel lives in its own scene so it never clips into walls */
   const vsc = new T.Scene(), vcam = new T.PerspectiveCamera(60, innerWidth / innerHeight, .01, 10);
-  vsc.add(new T.HemisphereLight('#dfe8ff', '#4a3a2a', 1.4)); const vl = new T.DirectionalLight('#ffffff', 1.4); vl.position.set(1, 2, 1); vsc.add(vl);
+  vsc.add(new T.HemisphereLight('#ffffff', '#a8b0bc', 1.9)); const vl = new T.DirectionalLight('#ffffff', 1.6); vl.position.set(1, 2, 1); vsc.add(vl);
   const vm = new T.Group(); vsc.add(vm);
   const guns = L.map(l => { const o = arGun(T, l.it, l.fl), g = new T.Group(); o.scale.setScalar(.62); g.add(o); g.userData.len = o.userData.len * .62; g.visible = false; vm.add(g); return g; });
   const flash = new T.Mesh(new T.SphereGeometry(.05, 8, 6), new T.MeshBasicMaterial({color: '#ffe9a8', transparent: true, opacity: 0})); vm.add(flash);
-  const B = arBotModel(T, arRankCol(opp.rp), opp.kit); sc.add(B.g);
+  const B = arBotModel(T, arRankCol(opp.rp), opp.kit, opp.name); sc.add(B.g);
   const fx = new T.Group(); sc.add(fx);
   AR = {T, R, sc, cam, vsc, vcam, vm, guns, flash, B, fx, me, bot, opp, score: [0, 0], round: 0, phase: 'load', t: 0, keys: {}, mdx: 0, mdy: 0, fire: false, ads: 0, adsHeld: false,
     tracers: [], nums: [], proj: [], feed: [], last: performance.now(), raf: 0, paused: false, side: Math.random() < .5 ? 1 : -1, bob: 0, shake: 0, hurt: 0, hitm: 0, fps: [], path: [], pathT: 0, M};
@@ -17836,7 +17876,7 @@ function arHUD(){
     + '<div class="ar-hp"><div class="ar-hpn" id="arHpN">100</div><div class="ar-hpb"><i id="arHpB"></i><u id="arSh"></u></div><div class="ar-st" id="arSt"></div></div>'
     + '<div class="ar-wp"><div class="ar-ammo" id="arAmmo"></div><div class="ar-wn" id="arWn"></div><div class="ar-slots" id="arSlots"></div></div>'
     + '<button type="button" class="ar-sk" id="arSk" hidden><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" class="bg"/><circle cx="20" cy="20" r="17" class="cd" id="arSkC"/></svg><b>Q</b><span id="arSkN"></span></button>'
-    + '<button type="button" class="ar-pausebtn" id="arPauseBtn" aria-label="Pause">II</button>'
+    + '<button type="button" class="ar-pausebtn" id="arPauseBtn" aria-label="Pause or leave">Leave</button>'
     + '<div class="ar-pause" id="arPause" hidden><div class="ar-pcard"><h3>Paused</h3><p id="arPauseP">' + (AR_MOBILE ? '' : 'Click to jump back in.') + '</p><button type="button" class="ar-btn" id="arResume">Resume</button><button type="button" class="ar-btn ghost" id="arQuit">Leave match (counts as a loss)</button></div></div>'
     + (AR_MOBILE ? '<div class="ar-touch" id="arTouch"><div class="ar-stick" id="arStick"><i></i></div>'
       + '<button type="button" class="tb fire" data-t="fire">FIRE</button><button type="button" class="tb ads" data-t="ads">AIM</button><button type="button" class="tb jump" data-t="jump">JUMP</button>'
