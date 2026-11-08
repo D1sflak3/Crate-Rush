@@ -4133,6 +4133,121 @@ body.cine-cover>:not(.gtc),body.cine-cover>:not(.gtc) *{animation-play-state:pau
 @keyframes omenSpin{to{filter:hue-rotate(360deg)}}
 #viewport.omen-out{filter:brightness(0);transition:filter .3s}
 @media (prefers-reduced-motion: reduce){#viewport.omen{animation:none}}
+
+/* ---------- SHOWDOWN arena ---------- */
+.ar-hbtn{width:auto;padding:0 12px 0 9px;border-radius:999px;gap:5px;display:flex;align-items:center;color:#fff;border-color:#ff4d6d;background:linear-gradient(135deg,#3a0a18,#140810);font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:.04em}
+.ar-hbtn svg{width:18px;height:18px}.ar-hbtn:hover{background:linear-gradient(135deg,#5a1024,#200a14)}
+body.ar-on{overflow:hidden}
+.arena{position:fixed;inset:0;z-index:400;background:#07090d;color:#eef2f8;font-family:var(--body,system-ui);overflow:hidden;user-select:none;-webkit-user-select:none}
+.ar-scr{position:absolute;inset:0;overflow:auto}
+#arMenu{background:radial-gradient(80% 60% at 50% 0%,rgba(255,77,109,.18),transparent 70%),radial-gradient(60% 50% at 100% 100%,rgba(106,184,255,.12),transparent 70%),repeating-linear-gradient(135deg,#0b0e14 0 22px,#0d1118 22px 44px)}
+.ar-mtop{display:flex;align-items:center;gap:16px;padding:16px 20px}
+.ar-back{background:none;border:1px solid #2a3140;color:#c8d0dc;border-radius:999px;padding:8px 14px;font:inherit;font-weight:700;cursor:pointer}
+.ar-logo{font-family:var(--display);font-size:44px;font-weight:700;line-height:.9;letter-spacing:.02em}.ar-logo b{color:#ff4d6d}.ar-logo small{display:block;font-size:14px;letter-spacing:.2em;color:#8a94a6;font-family:var(--mono)}
+.ar-mgrid{max-width:880px;margin:10px auto 40px;padding:0 16px;display:grid;gap:16px}
+.ar-rankc{display:flex;align-items:center;gap:16px;padding:16px 18px;border-radius:18px;background:linear-gradient(120deg,color-mix(in srgb,var(--rc) 22%,#10141c),#10141c 60%);border:1px solid color-mix(in srgb,var(--rc) 50%,#222)}
+.ar-emb{width:64px;height:64px;flex:none;filter:drop-shadow(0 4px 10px color-mix(in srgb,var(--rc) 50%,transparent))}
+.ar-rankc small{color:#9aa4b4;font-size:12px;letter-spacing:.14em;text-transform:uppercase}.ar-rankc b{display:block;font-family:var(--display);font-size:34px;line-height:1;color:var(--rc)}
+.ar-rankc span{font-size:13px;color:#aab3c2}
+.ar-rbar{height:8px;border-radius:9px;background:#1d2230;margin:6px 0;overflow:hidden;min-width:200px}.ar-rbar i{display:block;height:100%;background:var(--rc);border-radius:9px}
+.ar-load{padding:14px;border-radius:18px;background:#10141c;border:1px solid #232a38}
+.ar-lh{display:flex;align-items:baseline;gap:10px;font-family:var(--display);font-size:24px;font-weight:700;margin:0 4px 10px}.ar-lh small{font-family:inherit;font-size:13px;color:#7a8496;font-weight:400}
+.ar-load{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.ar-load .ar-lh{grid-column:1/-1}
+.ar-lslot{position:relative;display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:left;padding:10px 12px;border-radius:14px;cursor:pointer;color:#fff;font:inherit;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--tc) 16%,#151a24),#121620);border:1px solid color-mix(in srgb,var(--tc) 45%,#2a3140);border-bottom:3px solid var(--tc)}
+.ar-lslot:hover{transform:translateY(-2px)}.ar-lslot small{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9aa4b4}
+.ar-lart{display:block;width:100%;aspect-ratio:5/2}.ar-lart img{width:100%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 4px 6px rgba(0,0,0,.5))}
+.ar-lslot b{font-size:14px;line-height:1.15}.ar-lslot em{font-style:normal;font-size:12px;font-weight:700;color:#d8b4fe}.ar-lslot em.ch{color:#ff7ad9}
+.ar-find{justify-self:center;width:min(420px,100%);padding:18px;border:0;border-radius:16px;cursor:pointer;font-family:var(--display);font-size:34px;font-weight:700;letter-spacing:.06em;color:#fff;
+  background:linear-gradient(120deg,#ff3a5e,#ff7a3a);box-shadow:0 6px 0 #8a1428,0 12px 30px rgba(255,77,109,.35)}
+.ar-find:hover{filter:brightness(1.08)}.ar-find:active{transform:translateY(4px);box-shadow:0 2px 0 #8a1428}
+.ar-note{text-align:center;color:#7a8496;font-size:13px;margin:0}
+.ar-btn{display:block;width:100%;margin-top:10px;padding:13px;border:0;border-radius:12px;cursor:pointer;font:inherit;font-weight:800;font-size:16px;color:#1a0a0e;background:linear-gradient(120deg,#ff5a7a,#ffb03a)}
+.ar-btn.ghost{background:#1a2030;color:#c8d0dc;border:1px solid #2a3140}
+.ar-pick{position:absolute;inset:0;z-index:5;background:rgba(4,6,10,.75);display:grid;place-items:center;padding:16px}
+.ar-pcard2{width:min(560px,100%);max-height:84vh;overflow:auto;background:#10141c;border:1px solid #2a3140;border-radius:18px;padding:14px}
+.ar-x2{margin-left:auto;background:#1a2030;border:0;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer}
+.ar-plist{display:grid;gap:8px}
+.ar-pi{display:grid;grid-template-columns:110px 1fr;grid-template-rows:auto auto auto;column-gap:12px;align-items:center;text-align:left;padding:8px 10px;border-radius:12px;cursor:pointer;color:#fff;font:inherit;background:#151a24;border:1px solid #232a38;border-left:4px solid var(--tc,#5c6168)}
+.ar-pi .ar-lart{grid-row:1/4}.ar-pi b{font-size:14px}.ar-pi small{font-size:12px;color:#9aa4b4}.ar-pi i{font-style:normal;font-size:12px;color:#d8b4fe}
+.ar-pi.on{outline:2px solid #ff4d6d}
+.ar-qscr{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;background:radial-gradient(circle at 50% 40%,#1a1220,#07090d 70%)}
+.ar-qscr h2{font-family:var(--display);font-size:40px;letter-spacing:.06em;margin:18px 0 0}.ar-qscr p{color:#8a94a6;margin:0 0 10px}.ar-qscr .ar-btn{width:auto;padding:10px 26px}
+.ar-qt{font-family:var(--mono);font-size:34px;color:#ff7a8e}
+.ar-radar{position:relative;width:170px;height:170px;border-radius:50%;border:2px solid #ff4d6d55;background:radial-gradient(circle,#ff4d6d22,transparent 70%)}
+.ar-radar i{position:absolute;inset:0;border-radius:50%;border:2px solid #ff4d6d;animation:arPing 2.4s ease-out infinite;opacity:0}.ar-radar i:nth-child(2){animation-delay:.8s}.ar-radar i:nth-child(3){animation-delay:1.6s}
+.ar-radar b{position:absolute;left:50%;top:50%;width:50%;height:2px;background:linear-gradient(90deg,#ff4d6d,transparent);transform-origin:0 50%;animation:arSweep 1.6s linear infinite}
+@keyframes arPing{0%{transform:scale(.2);opacity:1}100%{transform:scale(1.3);opacity:0}}@keyframes arSweep{to{transform:rotate(360deg)}}
+.ar-found small{letter-spacing:.3em;color:#ff7a8e;font-weight:800}
+.ar-vs{display:flex;align-items:center;gap:22px;margin:16px 0;flex-wrap:wrap;justify-content:center}
+.ar-vsc{display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px 22px;border-radius:18px;background:#10141c;border:1px solid color-mix(in srgb,var(--rc) 50%,#222);min-width:180px;animation:arIn .5s both}
+.ar-vsc b{font-family:var(--display);font-size:26px}.ar-vsc span{color:var(--rc);font-weight:700;font-size:14px}.ar-vsc em{font-style:normal;font-size:12px;color:#aab3c2;max-width:220px}
+.ar-vsg{width:200px;aspect-ratio:5/2}.ar-vsg img{width:100%;height:100%;object-fit:contain}
+.ar-vsx{font-family:var(--display);font-size:54px;font-weight:700;color:#ff4d6d;animation:arIn .5s .2s both}
+@keyframes arIn{from{opacity:0;transform:scale(.8)}}
+#arGame{overflow:hidden;background:#000;touch-action:none}
+.ar-cv{position:absolute;inset:0;display:block;width:100%;height:100%}
+.ar-hud{position:absolute;inset:0;pointer-events:none;font-family:var(--display)}
+.ar-hud button{pointer-events:auto}
+.ar-top{position:absolute;top:10px;left:50%;transform:translateX(-50%);display:flex;align-items:stretch;gap:6px}
+.ar-sc{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:92px;padding:4px 12px;border-radius:12px;background:rgba(8,10,16,.72);border-bottom:3px solid #6ab8ff}
+.ar-sc.op{border-color:var(--rc)}.ar-sc small{font-family:var(--body,system-ui);font-size:11px;font-weight:700;color:#c8d0dc;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ar-sc b{font-size:34px;line-height:1}
+.ar-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px 14px;border-radius:12px;background:rgba(8,10,16,.72)}
+.ar-rd{font-size:13px;letter-spacing:.2em;color:#ff7a8e}.ar-clock{font-family:var(--mono);font-size:22px;line-height:1}.ar-to{font-size:11px;color:#8a94a6;letter-spacing:.1em}
+.ar-x{position:absolute;left:50%;top:50%;width:0;height:0;--g:6px}
+.ar-x i{position:absolute;background:#fff;box-shadow:0 0 2px #000}.ar-x i:nth-child(1){width:2px;height:9px;left:-1px;bottom:var(--g)}.ar-x i:nth-child(2){width:2px;height:9px;left:-1px;top:var(--g)}
+.ar-x i:nth-child(3){height:2px;width:9px;top:-1px;right:var(--g)}.ar-x i:nth-child(4){height:2px;width:9px;top:-1px;left:var(--g)}
+.ar-hm{position:absolute;left:50%;top:50%;width:26px;height:26px;margin:-13px 0 0 -13px;opacity:0;background:linear-gradient(45deg,transparent 46%,#ff4d4d 46% 54%,transparent 54%),linear-gradient(-45deg,transparent 46%,#ff4d4d 46% 54%,transparent 54%);-webkit-mask:radial-gradient(circle,transparent 5px,#000 6px);mask:radial-gradient(circle,transparent 5px,#000 6px)}
+.ar-hurt{position:absolute;inset:0;opacity:0;background:radial-gradient(ellipse at center,transparent 45%,rgba(200,0,20,.65))}
+.ar-scope{position:absolute;inset:0;background:radial-gradient(circle at center,transparent 0 min(34vh,34vw),#000 calc(min(34vh,34vw) + 1px))}
+.ar-scope::before,.ar-scope::after{content:"";position:absolute;background:#000;left:50%;top:50%}.ar-scope::before{width:1px;height:68vmin;transform:translate(-50%,-50%)}.ar-scope::after{height:1px;width:68vmin;transform:translate(-50%,-50%)}
+.ar-ban{position:absolute;left:50%;top:22%;transform:translateX(-50%);text-align:center;animation:arIn .3s both}.ar-ban b{display:block;font-size:56px;letter-spacing:.06em;text-shadow:0 4px 18px rgba(0,0,0,.7)}
+.ar-ban span{font-family:var(--body,system-ui);font-weight:700;color:#c8d0dc;text-shadow:0 2px 6px #000}.ar-ban.win b{color:#5dff9a}.ar-ban.lose b{color:#ff4d6d}
+.ar-count{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);font-size:110px;color:#fff;text-shadow:0 6px 24px rgba(0,0,0,.6)}.ar-count.pop{animation:arIn .35s both}
+.ar-feed{position:absolute;right:14px;top:84px;display:grid;gap:4px;justify-items:end;font-family:var(--body,system-ui);font-size:13px;font-weight:700}
+.ar-feed div{background:rgba(8,10,16,.72);padding:4px 10px;border-radius:8px;border-left:3px solid #ff4d6d}
+.ar-tag{position:absolute;left:0;top:0;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--body,system-ui);font-size:12px;font-weight:800;text-shadow:0 1px 3px #000}
+.ar-tag em{display:block;width:60px;height:5px;border-radius:5px;background:rgba(0,0,0,.6);overflow:hidden}.ar-tag i{display:block;height:100%;background:var(--rc)}
+.ar-num{position:absolute;left:0;top:0;font-size:24px;font-weight:700;color:#fff;text-shadow:0 2px 4px #000}.ar-num.hd{color:#ffd23f;font-size:30px}
+.ar-hp{position:absolute;left:18px;bottom:18px;width:min(300px,40vw)}
+.ar-hpn{font-size:44px;line-height:1;text-shadow:0 2px 6px #000}.ar-hpb{position:relative;height:12px;border-radius:8px;background:rgba(0,0,0,.6);overflow:hidden;border:1px solid rgba(255,255,255,.15)}
+.ar-hpb i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#3adf7a,#9dff5c);transition:width .15s}.ar-hpb i.low{background:linear-gradient(90deg,#ff3a3a,#ff8a3a)}
+.ar-hpb u{position:absolute;inset:0 auto 0 0;background:rgba(120,200,255,.7)}
+.ar-st{font-family:var(--body,system-ui);font-size:12px;font-weight:800;color:#d8b4fe;margin-top:4px;text-shadow:0 1px 3px #000}
+.ar-wp{position:absolute;right:18px;bottom:18px;text-align:right}
+.ar-ammo b{font-size:48px;line-height:1;text-shadow:0 2px 6px #000}.ar-ammo b.low{color:#ff6a5a}.ar-ammo b.rl{font-size:24px;color:#ffd23f}.ar-ammo span{font-size:22px;color:#aab3c2;margin-left:4px}
+.ar-wn{font-family:var(--body,system-ui);font-size:13px;font-weight:700;text-shadow:0 1px 3px #000;max-width:300px;margin-left:auto}
+.ar-slots{display:flex;gap:6px;justify-content:flex-end;margin-top:6px}
+.ar-slot{pointer-events:auto;position:relative;width:86px;height:40px;border-radius:8px;background:rgba(8,10,16,.6);border:1px solid rgba(255,255,255,.12);border-bottom:2px solid var(--tc);cursor:pointer;opacity:.6}
+.ar-slot.on{opacity:1;background:rgba(30,36,50,.85);border-color:rgba(255,255,255,.4)}.ar-slot small{position:absolute;left:5px;top:2px;font-size:12px}.ar-slot span img{width:100%;height:100%;object-fit:contain}
+.ar-slot span{position:absolute;inset:4px 4px 2px 14px}
+.ar-sk{position:absolute;right:18px;bottom:150px;width:66px;height:66px;border:0;border-radius:50%;background:rgba(40,16,60,.8);color:#fff;cursor:pointer;display:grid;place-items:center}
+.ar-sk svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}.ar-sk .bg{fill:none;stroke:rgba(255,255,255,.12);stroke-width:4}.ar-sk .cd{fill:none;stroke:#c084fc;stroke-width:4;stroke-dasharray:106.8}
+.ar-sk b{font-size:24px;line-height:1}.ar-sk span{position:absolute;bottom:-18px;font-family:var(--body,system-ui);font-size:11px;font-weight:800;white-space:nowrap;text-shadow:0 1px 3px #000}
+.ar-sk.ready{background:radial-gradient(circle,#a855f7,#4c1d95);box-shadow:0 0 18px #a855f7}
+.ar-pausebtn{position:absolute;z-index:2;left:14px;top:12px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(8,10,16,.7);color:#fff;font-weight:900;cursor:pointer}
+.ar-pause{pointer-events:auto;position:absolute;inset:0;z-index:3;display:grid;place-items:center;background:rgba(4,6,10,.6);cursor:pointer}
+.ar-pcard{width:min(440px,90vw);padding:20px;border-radius:18px;background:#10141c;border:1px solid #2a3140;text-align:center;cursor:default}.ar-pcard h3{font-size:36px;margin:0}.ar-pcard p{font-family:var(--body,system-ui);color:#aab3c2;font-size:14px}
+.ar-res{position:absolute;inset:0;z-index:6;display:flex;overflow:auto;background:rgba(4,6,10,.8);padding:16px}.ar-res .ar-rcard{margin:auto}
+@media (max-height:520px){.ar-rcard{padding:14px}.ar-rtop{font-size:40px}.ar-rsc{font-size:28px}.ar-rvs{margin-bottom:8px}.ar-rcr{margin:8px 0 2px;font-size:18px}.ar-btn{padding:10px;margin-top:6px}.ar-emb{width:48px;height:48px}}
+.ar-rcard{width:min(480px,100%);padding:22px;border-radius:22px;background:#10141c;border:1px solid #2a3140;text-align:center;animation:arIn .4s both}
+.ar-rtop{font-family:var(--display);font-size:62px;font-weight:700;line-height:1;letter-spacing:.04em}.win .ar-rtop{color:#5dff9a}.lose .ar-rtop{color:#ff4d6d}
+.ar-rsc{font-family:var(--display);font-size:40px}.ar-rvs{color:#8a94a6;font-size:14px;margin-bottom:14px}
+.ar-rrank{display:flex;align-items:center;gap:14px;text-align:left;padding:12px;border-radius:14px;background:#151a24}.ar-rrank b{font-family:var(--display);font-size:26px;color:var(--rc)}.ar-rrank em{font-style:normal;font-size:14px;color:#5dff9a;margin-left:6px}.ar-rrank em.dn{color:#ff6a5a}
+.ar-rrank small{color:#aab3c2}.ar-rrank > div{flex:1}
+.ar-rcr{display:flex;align-items:center;justify-content:center;gap:8px;margin:14px 0 4px;font-size:22px;font-weight:800;color:#ffd23f}
+.ar-racts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ar-touch{position:absolute;inset:0;z-index:1;pointer-events:auto;touch-action:none}
+.ar-stick{position:absolute;width:110px;height:110px;margin:-55px 0 0 -55px;border-radius:50%;border:2px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);left:18%;top:72%;opacity:.5}
+.ar-stick.on{opacity:1}.ar-stick i{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(255,255,255,.45)}
+.tb{position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,.3);background:rgba(10,12,18,.55);color:#fff;font-family:var(--display);font-size:15px;font-weight:700}
+.tb.on,.tb.lock{background:rgba(255,77,109,.6)}
+.tb.fire{right:6%;bottom:22%;width:92px;height:92px;font-size:20px;background:rgba(255,77,109,.35)}
+.tb.ads{right:calc(6% + 104px);bottom:30%;width:62px;height:62px}.tb.jump{right:3%;bottom:6%;width:62px;height:62px}
+.tb.rl{right:calc(6% + 96px);bottom:12%;width:50px;height:50px}.tb.sl{right:calc(3% + 74px);bottom:2%;width:54px;height:54px;font-size:12px}
+.tb.sw{right:4%;top:40%;width:52px;height:52px;font-size:22px}.tb.skb{right:calc(6% + 110px);bottom:calc(30% + 74px);width:58px;height:58px;font-size:12px;background:rgba(168,85,247,.45)}
+@media (pointer:coarse){.ar-feed{top:118px}.ar-sk{display:none}.ar-wp{bottom:auto;top:66px;right:12px}.ar-wp .ar-ammo b{font-size:30px}.ar-slots{display:none}.ar-hp{bottom:auto;top:66px;left:12px;width:36vw}.ar-hpn{font-size:28px}.ar-pausebtn{top:auto;bottom:12px;left:50%;transform:translateX(-50%)}}
+@media (max-width:700px){.ar-load{grid-template-columns:1fr}.ar-logo{font-size:34px}.ar-ban b{font-size:38px}.ar-sc{min-width:70px}.ar-sc b{font-size:26px}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -4148,6 +4263,7 @@ body.cine-cover>:not(.gtc),body.cine-cover>:not(.gtc) *{animation-play-state:pau
       <button class="icon-btn yard-btn" id="yardBtn" hidden aria-label="Go to the Scrapyard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3M6 6l2.1 2.1M15.9 15.9 18 18M6 18l2.1-2.1M15.9 8.1 18 6"/></svg></button>
       <button class="icon-btn msi-btn" id="msiBtn" hidden aria-label="Go to Messi’s place"><span>10</span></button>
       <button class="icon-btn adm-btn" id="admBtn" hidden aria-label="Admin panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7l5 5-5 5M12 18h7"/></svg></button>
+      <button class="icon-btn ar-hbtn" id="arBtn" aria-label="Showdown: 1v1 arena"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l9 9M20 4l-9 9M7 14l-3 3 3 3 3-3M17 14l3 3-3 3-3-3"/></svg>1v1</button>
       <button class="icon-btn" id="muteBtn" aria-label="Mute sound"></button>
       <button class="icon-btn" id="lbBtn" aria-label="Leaderboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 20h8"/></svg></button>
       <button class="icon-btn tr-btn" id="trBtn" hidden aria-label="Trades"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg><b id="trBadge" hidden></b></button>
@@ -4489,6 +4605,7 @@ body.cine-cover>:not(.gtc),body.cine-cover>:not(.gtc) *{animation-play-state:pau
 </div>
 
 <div class="toast" id="toast" hidden></div>
+<div class="arena" id="arena" hidden><div id="arMenu" class="ar-scr"></div><div id="arQ" class="ar-scr ar-qscr" hidden></div><div id="arGame" class="ar-scr" hidden><div id="arHud" class="ar-hud"></div></div><div id="arRes" class="ar-res" hidden></div></div>
 <div class="part-pop" id="partPop" hidden></div>
 <div class="scall" id="scall" hidden></div>
 <div class="sr" aria-live="polite" id="live"></div>
@@ -17112,5 +17229,798 @@ function acctInit(){
   }).catch(() => { showGate('in'); gateMsg('Can’t reach the account server right now.', 'err'); $g('#auOffline').hidden = false; });
 }
 acctInit();
+
+/* =====================================================================================================
+   SHOWDOWN: a 1v1 arena shooter inside Crate Rush.
+   You take three of your own weapons (primary, pistol, knife) into a crate-yard arena against a bot.
+   First to 5 rounds. Matchmaking takes 15-30 seconds. Your rank decides how good the bot is and what it
+   carries; Black Market pieces each have a special skill (Q). Three.js loads the first time you open it.
+   ===================================================================================================== */
+const AR_THREE_URL = 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js';
+const AR_RANKS = ['Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Master', 'Legend'];
+const AR_RCOL = ['#cd8a52', '#c3ccd8', '#ffcb2e', '#46e0c4', '#6ab8ff', '#c46bff', '#ff4d6d'];
+const AR_DIV = 100, AR_WIN = 5, AR_ROUND_T = 90;
+const arS = () => { const a = state.arena || (state.arena = {}); a.rp = a.rp || 0; a.w = a.w || 0; a.l = a.l || 0; a.load = a.load || {p: null, s: null, m: null}; return a; };
+const arRankIdx = rp => Math.max(0, Math.min(20, Math.floor(rp / AR_DIV)));
+const arRankName = rp => { const i = arRankIdx(rp); return AR_RANKS[Math.floor(i / 3)] + ' ' + ['I', 'II', 'III'][i % 3]; };
+const arRankCol = rp => AR_RCOL[Math.floor(arRankIdx(rp) / 3)];
+/* weapon handling by type: every skin of a type plays the same; Black Market adds a skill */
+const AR_W = {
+  rifle:  {slot: 0, auto: 1, rate: .1,  dmg: 22, hm: 1.6, mag: 30, rl: 2.0, sp: .016, ads: .004, fall: [30, 60, .7], kick: .012, zoom: 1.35, spd: 1,    snd: [2200, 260, .2, 120]},
+  smg:    {slot: 0, auto: 1, rate: .068, dmg: 15, hm: 1.4, mag: 32, rl: 1.7, sp: .032, ads: .016, fall: [14, 40, .6], kick: .008, zoom: 1.2,  spd: 1.08, snd: [3200, 500, .14, 160]},
+  shotgun:{slot: 0, rate: .85, pel: 8, dmg: 11, hm: 1.3, mag: 6, rl: 2.4, sp: .075, ads: .06, fall: [7, 24, .25], kick: .055, zoom: 1.15, spd: 1, snd: [1400, 120, .32, 70]},
+  sniper: {slot: 0, rate: 1.2, dmg: 90, hm: 2.05, mag: 5, rl: 2.8, sp: .09, ads: .0006, fall: [999, 999, 1], kick: .07, zoom: 4.2, spd: .92, scope: 1, snd: [1800, 90, .45, 60]},
+  pistol: {slot: 1, rate: .17, dmg: 26, hm: 1.6, mag: 12, rl: 1.4, sp: .018, ads: .006, fall: [20, 45, .7], kick: .022, zoom: 1.2, spd: 1.05, snd: [2600, 400, .16, 180]},
+  knife:  {slot: 2, melee: 1, rate: .5, dmg: 45, hm: 1, mag: 0, rl: 0, range: 2.7, spd: 1.15, zoom: 1, sp: .02, ads: .02, kick: 0, fall: [99, 99, 1]}
+};
+const arType = it => SHAPES[it.w] && SHAPES[it.w].knife ? 'knife' : it.w;
+const AR_SLOTN = ['Primary', 'Pistol', 'Knife'];
+const AR_STOCK = [
+  {id: 'st_rifle', w: 'rifle', name: 'Stock', t: 0, pat: 'solid', pal: ['#5c6168', '#3a3e44'], m: 1, stock: 1},
+  {id: 'st_pistol', w: 'pistol', name: 'Stock', t: 0, pat: 'solid', pal: ['#5c6168', '#3a3e44'], m: 1, stock: 1},
+  {id: 'st_knife', w: 'bayonet', name: 'Stock', t: 0, pat: 'solid', pal: ['#7a8088', '#4a4e54'], m: 1, stock: 1}];
+/* Black Market special skills (Chromas get theirs later) */
+const AR_SK = {
+  b1: {n: 'Abyss Rounds', d: 'For 5s your shots hit 20% harder and slow the enemy.', cd: 18},
+  b2: {n: 'Void Sight', d: 'For 6s you see the enemy through walls and your shots pierce them.', cd: 20},
+  b3: {n: 'Shade Step', d: 'Blink 7m forward and turn invisible for 2s.', cd: 14},
+  b4: {n: 'Overdrive', d: 'For 5s you fire 60% faster and use no ammo.', cd: 18},
+  b5: {n: 'Wraith Dash', d: 'Dash forward. For 6s your pellets set the enemy on fire.', cd: 16},
+  b6: {n: 'Umbra Lunge', d: 'Lunge 10m. Hitting the enemy deals 80.', cd: 12},
+  b7: {n: 'Hex Bind', d: 'Throw a hex: 20 damage and it roots the enemy for 1.6s.', cd: 16},
+  x1: {n: 'Requiem', d: 'Heal 40 and your next 3 shots deal double.', cd: 22},
+  x2: {n: 'Kingmaker', d: 'A 50-point shield and 30% speed for 5s.', cd: 18}
+};
+const arSkillOf = it => it && AR_SK[it.id] ? it.id : null;
+const arSlotOf = it => AR_W[arType(it)].slot;
+function arLoadout(){
+  const L = arS().load, out = [];
+  ['p', 's', 'm'].forEach((k, i) => {
+    const e = L[k] && state.inv.find(x => x.uid === L[k]);
+    const ok = e && BY[e.id] && arSlotOf(BY[e.id]) === i;
+    out.push(ok ? {it: BY[e.id], fl: e.fl, uid: e.uid} : {it: AR_STOCK[i], fl: .3});
+  });
+  return out;
+}
+
+/* ---------- the map: a crate yard, mirrored left/right ---------- */
+const AR_MAP = (() => {
+  const B = [], box = (cx, cz, w, d, h, k, y0) => B.push([cx - w / 2, y0 || 0, cz - d / 2, cx + w / 2, (y0 || 0) + h, cz + d / 2, k]);
+  const both = (cx, cz, w, d, h, k, y0) => { box(cx, cz, w, d, h, k, y0); box(-cx, cz, w, d, h, k, y0); };
+  box(0, -15.5, 46, 1, 6, 'wall'); box(0, 15.5, 46, 1, 6, 'wall'); box(-22.5, 0, 1, 30, 6, 'wall'); box(22.5, 0, 1, 30, 6, 'wall');
+  box(0, 0, 3, 3, 3, 'crate'); box(0, 0, 1.5, 1.5, 1.5, 'crate', 3);
+  box(0, 7.6, 2.4, 1.2, 1.2, 'crate'); box(0, -7.6, 2.4, 1.2, 1.2, 'crate');
+  both(6, -5.5, 1.5, 1.5, 1.5, 'crate'); both(6.6, 5.2, 1.5, 1.5, 1.5, 'crate'); both(6.6, 5.2, 1.5, 1.5, 1.5, 'crate', 1.5);
+  both(12, 12.6, 6, 2.5, 2.6, 'cont'); both(12, -12.6, 6, 2.5, 2.6, 'cont');
+  both(15, 0, .8, 6, 1.2, 'barrier');
+  both(3.6, 11.6, 1.2, 1.2, 1.2, 'crate'); both(3.6, -11.6, 1.2, 1.2, 1.2, 'crate');
+  both(9.8, 0, 1, 1, 3.4, 'pillar');
+  both(18.6, 7.4, 1.5, 1.5, 1.5, 'crate'); both(18.6, -7.4, 1.5, 1.5, 1.5, 'crate');
+  both(10.5, 7.8, 2.6, 1.2, 1.2, 'barrier'); both(10.5, -7.8, 2.6, 1.2, 1.2, 'barrier');
+  return B;
+})();
+const AR_R = .32, AR_H = 1.8, AR_EYE = 1.6, AR_G = 22;
+const arOv = (p, b) => p.x + AR_R > b[0] && p.x - AR_R < b[3] && p.z + AR_R > b[2] && p.z - AR_R < b[5] && p.y + AR_H > b[1] + 1e-3 && p.y < b[4] - 1e-3;
+function arMoveBody(f, dt){
+  const p = f.p, v = f.v;
+  const stepAxis = (ax, d) => {
+    if (!d) return;
+    p[ax] += d;
+    for (const b of AR_MAP) if (arOv(p, b)) {
+      const lift = b[4] - p.y;
+      if (f.ground && lift > 0 && lift <= .5) { const y0 = p.y; p.y = b[4]; if (AR_MAP.some(c => arOv(p, c))) p.y = y0; else continue; }
+      if (ax === 'x') p.x = d > 0 ? b[0] - AR_R - 1e-4 : b[3] + AR_R + 1e-4; else p.z = d > 0 ? b[2] - AR_R - 1e-4 : b[5] + AR_R + 1e-4;
+      v[ax] = 0;
+    }
+  };
+  stepAxis('x', v.x * dt); stepAxis('z', v.z * dt);
+  v.y -= AR_G * dt; p.y += v.y * dt; f.ground = false;
+  if (p.y <= 0) { p.y = 0; v.y = 0; f.ground = true; }
+  for (const b of AR_MAP) if (arOv(p, b)) {
+    if (v.y <= 0 && p.y > b[4] - .6) { p.y = b[4]; v.y = 0; f.ground = true; } else if (v.y > 0) { p.y = b[1] - AR_H; v.y = 0; }
+  }
+  if (!f.ground && v.y <= 0) { const q = {x: p.x, y: p.y - .05, z: p.z}; if (q.y <= 0 || AR_MAP.some(b => arOv(q, b))) f.ground = true; }
+}
+/* rays: slab test against boxes, spheres for heads */
+function arRayBox(o, d, b){
+  let t0 = 0, t1 = Infinity;
+  for (let i = 0; i < 3; i++) {
+    const oi = i === 0 ? o.x : i === 1 ? o.y : o.z, di = i === 0 ? d.x : i === 1 ? d.y : d.z, lo = b[i], hi = b[i + 3];
+    if (Math.abs(di) < 1e-9) { if (oi < lo || oi > hi) return Infinity; continue; }
+    let a = (lo - oi) / di, c = (hi - oi) / di; if (a > c) { const t = a; a = c; c = t; }
+    t0 = Math.max(t0, a); t1 = Math.min(t1, c); if (t0 > t1) return Infinity;
+  }
+  return t0;
+}
+function arRayMap(o, d, max){ let t = max; for (const b of AR_MAP) { const h = arRayBox(o, d, b); if (h < t) t = h; } if (d.y < 0) { const g = -o.y / d.y; if (g < t) t = g; } return t; }
+function arRaySphere(o, d, c, r){ const ox = o.x - c.x, oy = o.y - c.y, oz = o.z - c.z, b = ox * d.x + oy * d.y + oz * d.z, cc = ox * ox + oy * oy + oz * oz - r * r, h = b * b - cc; if (h < 0) return Infinity; const t = -b - Math.sqrt(h); return t >= 0 ? t : Infinity; }
+const arEye = f => ({x: f.p.x, y: f.p.y + (f.slide > 0 ? 1.05 : AR_EYE), z: f.p.z});
+const arDist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z);
+const arLOS = (a, b) => { const d = {x: b.x - a.x, y: b.y - a.y, z: b.z - a.z}, L = Math.hypot(d.x, d.y, d.z); d.x /= L; d.y /= L; d.z /= L; return arRayMap(a, d, L) >= L - .05; };
+const arFwd = (yaw, pitch) => ({x: -Math.sin(yaw) * Math.cos(pitch), y: Math.sin(pitch), z: -Math.cos(yaw) * Math.cos(pitch)});
+/* hit a fighter: head sphere first, then the body box */
+function arRayFighter(o, d, f){
+  const head = arRaySphere(o, d, {x: f.p.x, y: f.p.y + (f.slide > 0 ? 1.05 : 1.6), z: f.p.z}, .25);
+  const hb = f.slide > 0 ? 1.0 : 1.42, body = arRayBox(o, d, [f.p.x - .34, f.p.y, f.p.z - .34, f.p.x + .34, f.p.y + hb, f.p.z + .34]);
+  return head <= body ? {t: head, head: head < Infinity} : {t: body, head: false};
+}
+/* the bots walk a 1m grid with A* */
+const AR_GX0 = -22, AR_GZ0 = -15, AR_GW = 44, AR_GH = 30;
+const AR_GRID = (() => {
+  const g = new Uint8Array(AR_GW * AR_GH);
+  for (let i = 0; i < AR_GW; i++) for (let j = 0; j < AR_GH; j++) {
+    const x = AR_GX0 + i + .5, z = AR_GZ0 + j + .5;
+    g[j * AR_GW + i] = AR_MAP.some(b => b[1] < 1 && x + .45 > b[0] && x - .45 < b[3] && z + .45 > b[2] && z - .45 < b[5]) ? 1 : 0;
+  }
+  return g;
+})();
+const arCell = p => [Math.max(0, Math.min(AR_GW - 1, Math.floor(p.x - AR_GX0))), Math.max(0, Math.min(AR_GH - 1, Math.floor(p.z - AR_GZ0)))];
+function arPath(a, b){
+  const [ax, az] = arCell(a), [bx, bz] = arCell(b), N = AR_GW * AR_GH, start = az * AR_GW + ax, goal = bz * AR_GW + bx;
+  const gS = new Float32Array(N).fill(1e9), from = new Int32Array(N).fill(-1), open = [start], closed = new Uint8Array(N);
+  const h = i => Math.hypot(i % AR_GW - bx, Math.floor(i / AR_GW) - bz);
+  gS[start] = 0; const fS = new Float32Array(N).fill(1e9); fS[start] = h(start);
+  let guard = 0;
+  while (open.length && guard++ < 3000) {
+    let bi = 0; for (let k = 1; k < open.length; k++) if (fS[open[k]] < fS[open[bi]]) bi = k;
+    const cur = open.splice(bi, 1)[0]; if (cur === goal) break; closed[cur] = 1;
+    const cx = cur % AR_GW, cz = Math.floor(cur / AR_GW);
+    for (let dx = -1; dx <= 1; dx++) for (let dz = -1; dz <= 1; dz++) {
+      if (!dx && !dz) continue; const nx = cx + dx, nz = cz + dz; if (nx < 0 || nz < 0 || nx >= AR_GW || nz >= AR_GH) continue;
+      const n = nz * AR_GW + nx; if (closed[n] || (AR_GRID[n] && n !== goal)) continue;
+      if (dx && dz && (AR_GRID[cz * AR_GW + nx] || AR_GRID[nz * AR_GW + cx])) continue;
+      const g2 = gS[cur] + (dx && dz ? 1.414 : 1); if (g2 < gS[n]) { gS[n] = g2; fS[n] = g2 + h(n); from[n] = cur; if (!open.includes(n)) open.push(n); }
+    }
+  }
+  const out = []; let c = goal; if (from[c] < 0 && c !== start) return out;
+  while (c !== start && c >= 0 && out.length < 200) { out.unshift({x: AR_GX0 + c % AR_GW + .5, z: AR_GZ0 + Math.floor(c / AR_GW) + .5}); c = from[c]; }
+  return out;
+}
+
+/* ---------- bots: names, skill and kit by your rank ---------- */
+const AR_BN1 = ['Rusty', 'Neon', 'Frost', 'Toxic', 'Blaze', 'Ghost', 'Nova', 'Pixel', 'Drift', 'Static', 'Vapor', 'Crimson', 'Lunar', 'Turbo', 'Echo', 'Onyx', 'Hollow', 'Quartz', 'Ember', 'Velvet'];
+const AR_BN2 = ['Fox', 'Viper', 'Crate', 'Wolf', 'Hawk', 'Rogue', 'Bandit', 'Shark', 'Comet', 'Raven', 'Knight', 'Mantis', 'Golem', 'Spark', 'Lynx', 'Otter', 'Moth', 'Jackal'];
+function arBotName(){ const r = Math.random(), a = pickOne(AR_BN1), b = pickOne(AR_BN2), n = Math.floor(Math.random() * 999);
+  return r < .3 ? a + b + n : r < .5 ? a.toLowerCase() + '_' + b.toLowerCase() : r < .7 ? 'xX' + a + b + 'Xx' : r < .85 ? a + '.' + b : b + a + (n % 100); }
+function arBotKit(rp){
+  const ri = arRankIdx(rp), ti = Math.floor(ri / 3), R = Math.random();
+  let t = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 6]][ti][R < .5 ? 0 : 1];
+  if (ti === 5 && R > .65) t = 6; if (ti === 5 && R <= .65) t = 5;
+  if (ti === 6 && Math.random() < .25) t = 5;
+  let chroma = ti === 6 && Math.random() < .08;
+  let pool;
+  if (chroma) pool = ITEMS.filter(i => i.t === 7 && !i.id.endsWith('c') && arType(i) !== 'knife');
+  else if (t === 6) pool = ITEMS.filter(i => /^b[1-7]$/.test(i.id));
+  else pool = ITEMS.filter(i => i.t === t && !i.ex && arType(i) !== 'knife' && (ti >= 1 || i.w !== 'sniper'));
+  if (!pool.length) pool = ITEMS.filter(i => i.t === t && arType(i) !== 'knife');
+  if (!pool.length) pool = ITEMS.filter(i => i.t <= 4 && arType(i) !== 'knife');
+  const it = pickOne(pool), W = WEARS[pickW(WEAR_W)];
+  return {it, fl: +(W.lo + Math.random() * (W.hi - W.lo)).toFixed(4)};
+}
+const arSkill = rp => Math.max(0, Math.min(1, arRankIdx(rp) / 20 + (Math.random() - .5) * .08));
+
+/* ---------- 3D: loading, textures, the gun models ---------- */
+let AR_T = null, AR = null;
+async function arThree(){ if (AR_T) return AR_T; AR_T = await import(AR_THREE_URL); return AR_T; }
+const AR_MOBILE = matchMedia('(pointer: coarse)').matches || ('ontouchstart' in window && innerWidth < 1100);
+function arCanvas(w, h, draw){ const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); return c; }
+function arTex(T, c, rx, ry){ const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.wrapS = t.wrapT = T.RepeatWrapping; t.repeat.set(rx || 1, ry || 1); t.anisotropy = 4; return t; }
+function arMats(T){
+  const R = seeded(4242);
+  const floor = arCanvas(256, 256, (g, w, h) => { g.fillStyle = '#4a4d52'; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 900; i++) { g.fillStyle = 'rgba(' + (R() < .5 ? '0,0,0' : '255,255,255') + ',' + (R() * .06) + ')'; g.fillRect(R() * w, R() * h, 2 + R() * 6, 2 + R() * 6); }
+    g.strokeStyle = 'rgba(20,22,26,.8)'; g.lineWidth = 3; g.strokeRect(0, 0, w, h); g.strokeStyle = 'rgba(255,255,255,.05)'; g.lineWidth = 1; g.strokeRect(3, 3, w - 6, h - 6); });
+  const crate = arCanvas(256, 256, (g, w, h) => { g.fillStyle = '#9a6a3a'; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 8; i++) { g.fillStyle = i % 2 ? '#8a5c30' : '#a2723f'; g.fillRect(0, i * 32, w, 31); g.fillStyle = 'rgba(0,0,0,.25)'; g.fillRect(0, i * 32 + 30, w, 2); }
+    for (let i = 0; i < 300; i++) { g.strokeStyle = 'rgba(60,35,15,' + R() * .25 + ')'; g.beginPath(); const y = R() * h; g.moveTo(R() * w, y); g.lineTo(R() * w, y + R() * 3); g.stroke(); }
+    g.fillStyle = '#6a4220'; g.fillRect(0, 0, w, 22); g.fillRect(0, h - 22, w, 22); g.fillRect(0, 0, 22, h); g.fillRect(w - 22, 0, 22, h);
+    g.save(); g.translate(w / 2, h / 2); g.rotate(Math.PI / 4); g.fillRect(-180, -11, 360, 22); g.restore();
+    g.fillStyle = 'rgba(20,10,4,.55)'; g.font = '900 34px Teko, Impact, sans-serif'; g.textAlign = 'center'; g.fillText('CRATE', w / 2 - 50, h / 2 + 70); });
+  const cont = col => arCanvas(256, 256, (g, w, h) => { g.fillStyle = col; g.fillRect(0, 0, w, h);
+    for (let x = 0; x < w; x += 16) { g.fillStyle = 'rgba(0,0,0,.22)'; g.fillRect(x, 0, 6, h); g.fillStyle = 'rgba(255,255,255,.08)'; g.fillRect(x + 8, 0, 3, h); }
+    for (let i = 0; i < 120; i++) { g.fillStyle = 'rgba(110,50,20,' + R() * .35 + ')'; g.beginPath(); g.arc(R() * w, R() * h, R() * 6, 0, 7); g.fill(); }
+    g.fillStyle = 'rgba(255,255,255,.75)'; g.font = '700 26px JetBrains Mono, monospace'; g.fillText('CRU 41' + Math.floor(R() * 90 + 10), 18, 40); });
+  const wall = arCanvas(256, 256, (g, w, h) => { g.fillStyle = '#2b2f37'; g.fillRect(0, 0, w, h);
+    g.strokeStyle = '#1c1f25'; g.lineWidth = 4; for (let y = 0; y < h; y += 64) { g.beginPath(); g.moveTo(0, y); g.lineTo(w, y); g.stroke(); }
+    for (let x = 0; x < w; x += 128) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, h); g.stroke(); }
+    for (let i = 0; i < 18; i++) { g.fillStyle = i % 2 ? '#ffcb2e' : '#141414'; g.beginPath(); g.moveTo(i * 16, h - 26); g.lineTo(i * 16 + 16, h - 26); g.lineTo(i * 16 + 4, h); g.lineTo(i * 16 - 12, h); g.fill(); } });
+  const bar = arCanvas(128, 64, (g, w, h) => { g.fillStyle = '#8d9096'; g.fillRect(0, 0, w, h); for (let i = 0; i < 12; i++) { g.fillStyle = i % 2 ? '#ffcb2e' : '#1a1a1a'; g.beginPath(); g.moveTo(i * 16, 0); g.lineTo(i * 16 + 16, 0); g.lineTo(i * 16 + 4, 16); g.lineTo(i * 16 - 12, 16); g.fill(); } });
+  const pil = arCanvas(64, 256, (g, w, h) => { const lg = g.createLinearGradient(0, 0, w, 0); lg.addColorStop(0, '#3a3f47'); lg.addColorStop(.5, '#7a828c'); lg.addColorStop(1, '#30343a'); g.fillStyle = lg; g.fillRect(0, 0, w, h); g.fillStyle = '#ffcb2e'; g.fillRect(0, h - 30, w, 12); });
+  const S = (map, o) => new T.MeshStandardMaterial(Object.assign({map, roughness: .85, metalness: .05}, o || {}));
+  return {
+    floor: S(arTex(T, floor, 12, 8), {roughness: .95}), crate: S(arTex(T, crate)),
+    cont: [S(arTex(T, cont('#c0502a')), {metalness: .3, roughness: .6}), S(arTex(T, cont('#2a7a8a')), {metalness: .3, roughness: .6}), S(arTex(T, cont('#3a6a2a')), {metalness: .3, roughness: .6}), S(arTex(T, cont('#8a2a3a')), {metalness: .3, roughness: .6})],
+    wall: S(arTex(T, wall, 6, 1)), barrier: S(arTex(T, bar)), pillar: S(arTex(T, pil), {metalness: .5, roughness: .4})};
+}
+/* SVG path (M L H V Q A Z, absolute) to a three ShapePath */
+function arShapePath(T, d){
+  const sp = new T.ShapePath(), tk = d.match(/[MLHVQAZ]|-?\d*\.?\d+(?:e-?\d+)?/g); let i = 0, cx = 0, cy = 0, sx = 0, sy = 0, cmd = '';
+  const n = () => parseFloat(tk[i++]), Y = y => -y;
+  while (i < tk.length) {
+    if (/[A-Z]/.test(tk[i])) cmd = tk[i++];
+    if (cmd === 'M') { cx = n(); cy = n(); sx = cx; sy = cy; sp.moveTo(cx, Y(cy)); cmd = 'L'; }
+    else if (cmd === 'L') { cx = n(); cy = n(); sp.lineTo(cx, Y(cy)); }
+    else if (cmd === 'H') { cx = n(); sp.lineTo(cx, Y(cy)); }
+    else if (cmd === 'V') { cy = n(); sp.lineTo(cx, Y(cy)); }
+    else if (cmd === 'Q') { const qx = n(), qy = n(); cx = n(); cy = n(); sp.quadraticCurveTo(qx, Y(qy), cx, Y(cy)); }
+    else if (cmd === 'A') {
+      let rx = n(), ry = n(); n(); const fa = n(), fs = n(), x2 = n(), y2 = n();
+      const dx = (cx - x2) / 2, dy = (cy - y2) / 2; let l = dx * dx / (rx * rx) + dy * dy / (ry * ry); if (l > 1) { rx *= Math.sqrt(l); ry *= Math.sqrt(l); }
+      let co = Math.sqrt(Math.max(0, (rx * rx * ry * ry - rx * rx * dy * dy - ry * ry * dx * dx) / (rx * rx * dy * dy + ry * ry * dx * dx))); if (fa === fs) co = -co;
+      const ccx = co * rx * dy / ry + (cx + x2) / 2, ccy = -co * ry * dx / rx + (cy + y2) / 2;
+      const a1 = Math.atan2((cy - ccy) / ry, (cx - ccx) / rx); let da = Math.atan2((y2 - ccy) / ry, (x2 - ccx) / rx) - a1;
+      if (fs && da < 0) da += Math.PI * 2; if (!fs && da > 0) da -= Math.PI * 2;
+      for (let k = 1; k <= 16; k++) { const a = a1 + da * k / 16; sp.lineTo(ccx + rx * Math.cos(a), Y(ccy + ry * Math.sin(a))); }
+      cx = x2; cy = y2;
+    }
+    else if (cmd === 'Z') { cx = sx; cy = sy; cmd = ''; }
+    else i++;
+  }
+  return sp;
+}
+const arGunCache = {};
+/* a 3D gun: the skin and metal silhouettes extruded, painted with the item's own artwork */
+function arGun(T, it, fl){
+  const key = it.id + '|' + visGroup(wearIdx(fl));
+  let base = arGunCache[key];
+  if (!base) {
+    const art = renderItem(it, fl, 4), tex = new T.CanvasTexture(art); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 4;
+    const mat = new T.MeshStandardMaterial({map: tex, roughness: .45, metalness: .35, transparent: true, alphaTest: .4, side: T.DoubleSide});
+    const mk = (d, depth) => {
+      const shapes = arShapePath(T, d).toShapes(true); const geo = new T.ExtrudeGeometry(shapes, {depth, bevelEnabled: false, curveSegments: 6});
+      geo.translate(0, 0, -depth / 2); const pos = geo.attributes.position, uv = geo.attributes.uv;
+      for (let k = 0; k < pos.count; k++) uv.setXY(k, pos.getX(k) / 200, 1 + pos.getY(k) / 80);
+      return new T.Mesh(geo, mat);
+    };
+    const sh = SHAPES[it.w], g = new T.Group(); g.add(mk(sh.dark, 6), mk(sh.skin, 8));
+    base = arGunCache[key] = {g, tex, mat};
+  }
+  const knife = !!SHAPES[it.w].knife, s = knife ? .0034 : .0042, inner = base.g.clone(), out = new T.Group();
+  inner.scale.setScalar(s); inner.position.set(-(knife ? 40 : 72) * s, (knife ? 42 : 46) * s, 0);
+  out.add(inner); out.rotation.y = Math.PI / 2;
+  const wrap = new T.Group(); wrap.add(out); wrap.userData.len = (knife ? 150 : 128) * s; return wrap;
+}
+/* a bot: a chunky armoured figure in its rank colour */
+function arBotModel(T, col, kit){
+  const g = new T.Group(), M = c => new T.MeshStandardMaterial({color: c, roughness: .6, metalness: .2});
+  const suit = M('#2a2e36'), acc = M(col), skin = M('#c89a72'), dark = M('#14161a');
+  const mats = [suit, acc, skin, dark];
+  const add = (geo, m, x, y, z, parent) => { const me = new T.Mesh(geo, m); me.position.set(x, y, z); me.castShadow = true; (parent || g).add(me); return me; };
+  const body = add(new T.BoxGeometry(.62, .7, .36), suit, 0, 1.08, 0);
+  add(new T.BoxGeometry(.64, .16, .38), acc, 0, 1.36, 0); add(new T.BoxGeometry(.5, .1, .4), dark, 0, .76, 0);
+  add(new T.BoxGeometry(.2, .26, .05), acc, 0, 1.12, -.2);
+  const head = new T.Group(); head.position.set(0, 1.6, 0); g.add(head);
+  add(new T.BoxGeometry(.36, .38, .36), skin, 0, 0, 0, head); add(new T.BoxGeometry(.4, .14, .4), acc, 0, .19, 0, head);
+  const visor = add(new T.BoxGeometry(.34, .1, .05), new T.MeshStandardMaterial({color: '#111', emissive: col, emissiveIntensity: .9}), 0, .03, -.19, head);
+  const legL = new T.Group(), legR = new T.Group(); legL.position.set(-.15, .74, 0); legR.position.set(.15, .74, 0); g.add(legL, legR);
+  add(new T.BoxGeometry(.22, .74, .26), suit, 0, -.37, 0, legL); add(new T.BoxGeometry(.22, .74, .26), suit, 0, -.37, 0, legR);
+  add(new T.BoxGeometry(.24, .14, .34), dark, 0, -.7, -.04, legL); add(new T.BoxGeometry(.24, .14, .34), dark, 0, -.7, -.04, legR);
+  const armR = new T.Group(); armR.position.set(.38, 1.34, 0); g.add(armR);
+  add(new T.BoxGeometry(.18, .6, .2), suit, 0, -.26, 0, armR); add(new T.BoxGeometry(.16, .14, .16), skin, 0, -.58, 0, armR);
+  const armL = new T.Group(); armL.position.set(-.38, 1.34, 0); g.add(armL);
+  add(new T.BoxGeometry(.18, .6, .2), suit, 0, -.26, 0, armL); add(new T.BoxGeometry(.16, .14, .16), skin, 0, -.58, 0, armL);
+  armR.rotation.x = 1.35; armL.rotation.x = 1.25; armL.rotation.z = -.5;
+  const gun = arGun(T, kit.it, kit.fl); gun.scale.setScalar(1.15); gun.position.set(0, -.58, -.05); gun.rotation.set(-Math.PI / 2, 0, 0); armR.add(gun);
+  g.traverse(o => { if (o.material && !mats.includes(o.material) && o !== visor) mats.push(o.material); });
+  mats.push(visor.material);
+  return {g, head, legL, legR, armR, armL, body, gun, mats};
+}
+
+/* ---------- a match ---------- */
+function arFighter(me, load, name){
+  return {me, name, p: {x: 0, y: 0, z: 0}, v: {x: 0, y: 0, z: 0}, yaw: 0, pitch: 0, hp: 100, alive: true, ground: true,
+    load, cur: 0, mag: load.map(l => AR_W[arType(l.it)].mag), reload: 0, fireT: 0, swap: 0, slide: 0, st: {}, cd: {}, kick: 0};
+}
+async function arStartMatch(opp){
+  const T = await arThree(), root = $('#arena');
+  const L = arLoadout(), me = arFighter(true, L, 'You'), bot = arFighter(false, [opp.kit], opp.name);
+  bot.skill = opp.skill; bot.rp = opp.rp;
+  const R = new T.WebGLRenderer({antialias: !AR_MOBILE, powerPreference: 'high-performance'});
+  R.setPixelRatio(Math.min(devicePixelRatio, AR_MOBILE ? 1 : 1.5)); R.setSize(innerWidth, innerHeight);
+  R.outputColorSpace = T.SRGBColorSpace; R.toneMapping = T.ACESFilmicToneMapping; R.toneMappingExposure = 1.05;
+  R.shadowMap.enabled = !AR_MOBILE; R.shadowMap.type = T.PCFSoftShadowMap; R.autoClear = false;
+  const cv = R.domElement; cv.className = 'ar-cv'; $('#arGame').prepend(cv);
+  const sc = new T.Scene(); sc.background = new T.Color('#3a4a6a'); sc.fog = new T.Fog('#3a4a6a', 34, 80);
+  const cam = new T.PerspectiveCamera(AR_MOBILE ? 72 : 78, innerWidth / innerHeight, .05, 200); cam.rotation.order = 'YXZ';
+  sc.add(new T.HemisphereLight('#d8e4ff', '#5a4a3a', 1.35));
+  const sun = new T.DirectionalLight('#fff0dc', 1.9); sun.position.set(14, 26, 9); sun.castShadow = !AR_MOBILE;
+  Object.assign(sun.shadow.camera, {left: -26, right: 26, top: 20, bottom: -20, near: 1, far: 70}); sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -.0005; sc.add(sun);
+  const M = arMats(T);
+  const fl = new T.Mesh(new T.PlaneGeometry(46, 32), M.floor); fl.rotation.x = -Math.PI / 2; fl.receiveShadow = true; sc.add(fl);
+  let ci = 0;
+  AR_MAP.forEach(b => {
+    const w = b[3] - b[0], h = b[4] - b[1], d = b[5] - b[2], k = b[6];
+    const mat = k === 'cont' ? M.cont[ci++ % M.cont.length] : M[k];
+    const m = new T.Mesh(new T.BoxGeometry(w, h, d), mat); m.position.set((b[0] + b[3]) / 2, (b[1] + b[4]) / 2, (b[2] + b[5]) / 2);
+    m.castShadow = k !== 'wall'; m.receiveShadow = true; sc.add(m);
+  });
+  /* floodlights in the corners */
+  [[-21, -14], [21, -14], [-21, 14], [21, 14]].forEach(([x, z]) => {
+    const pole = new T.Mesh(new T.CylinderGeometry(.12, .16, 9, 8), M.pillar); pole.position.set(x, 4.5, z); sc.add(pole);
+    const lamp = new T.Mesh(new T.BoxGeometry(1.2, .5, .5), new T.MeshStandardMaterial({color: '#fff', emissive: '#fff4c8', emissiveIntensity: 2})); lamp.position.set(x * .97, 9, z * .97); lamp.lookAt(0, 0, 0); sc.add(lamp);
+  });
+  /* the viewmodel lives in its own scene so it never clips into walls */
+  const vsc = new T.Scene(), vcam = new T.PerspectiveCamera(60, innerWidth / innerHeight, .01, 10);
+  vsc.add(new T.HemisphereLight('#dfe8ff', '#4a3a2a', 1.4)); const vl = new T.DirectionalLight('#ffffff', 1.4); vl.position.set(1, 2, 1); vsc.add(vl);
+  const vm = new T.Group(); vsc.add(vm);
+  const guns = L.map(l => { const o = arGun(T, l.it, l.fl), g = new T.Group(); o.scale.setScalar(.62); g.add(o); g.userData.len = o.userData.len * .62; g.visible = false; vm.add(g); return g; });
+  const flash = new T.Mesh(new T.SphereGeometry(.05, 8, 6), new T.MeshBasicMaterial({color: '#ffe9a8', transparent: true, opacity: 0})); vm.add(flash);
+  const B = arBotModel(T, arRankCol(opp.rp), opp.kit); sc.add(B.g);
+  const fx = new T.Group(); sc.add(fx);
+  AR = {T, R, sc, cam, vsc, vcam, vm, guns, flash, B, fx, me, bot, opp, score: [0, 0], round: 0, phase: 'load', t: 0, keys: {}, mdx: 0, mdy: 0, fire: false, ads: 0, adsHeld: false,
+    tracers: [], nums: [], proj: [], feed: [], last: performance.now(), raf: 0, paused: false, side: Math.random() < .5 ? 1 : -1, bob: 0, shake: 0, hurt: 0, hitm: 0, fps: [], path: [], pathT: 0, M};
+  arHUD(); arBindInput(); arNewRound();
+  AR.raf = requestAnimationFrame(arLoop);
+}
+function arNewRound(){
+  const A = AR; A.round++; A.side = -A.side;
+  [A.me, A.bot].forEach((f, i) => {
+    const sx = (i ? -1 : 1) * A.side * 19.5;
+    Object.assign(f, {hp: 100, alive: true, reload: 0, fireT: 0, swap: 0, slide: 0, st: {}, cd: {}, cur: 0});
+    f.p = {x: sx, y: 0, z: (Math.random() - .5) * 4}; f.v = {x: 0, y: 0, z: 0}; f.yaw = sx > 0 ? Math.PI / 2 : -Math.PI / 2; f.pitch = 0;
+    f.mag = f.load.map(l => AR_W[arType(l.it)].mag);
+  });
+  A.bot.acq = 0; A.bot.burst = 0; A.bot.strafe = 1; A.bot.strafeT = 0; A.bot.lastSeen = -9; A.bot.jumpT = 2; A.path = []; A.pathT = 0;
+  A.proj.forEach(p => A.fx.remove(p.m)); A.proj = [];
+  A.phase = 'count'; A.t = 3.2; A.roundT = AR_ROUND_T;
+  arShowWeapon(); arHudBanner('ROUND ' + A.round, A.score[0] + ' – ' + A.score[1]); arHudUpdate(true);
+}
+function arShowWeapon(){ const A = AR; A.guns.forEach((g, i) => g.visible = i === A.me.cur); A.me.swap = .32; arHudUpdate(true); }
+function arEndRound(winner, why){
+  const A = AR; if (A.phase !== 'live') return;
+  A.phase = 'end'; A.t = 2.8;
+  if (winner >= 0) A.score[winner]++;
+  const won = winner === 0;
+  arHudBanner(winner < 0 ? 'DRAW' : won ? 'ROUND WON' : 'ROUND LOST', why || '', winner < 0 ? '' : won ? 'win' : 'lose');
+  if (won) [523.25, 659.25, 783.99].forEach((f, i) => tone(f, .35, 'triangle', .07, i * .08)); else if (winner === 1) [392, 311.1, 261.6].forEach((f, i) => tone(f, .4, 'sawtooth', .04, i * .1));
+  arHudUpdate(true);
+}
+function arDamage(src, dst, dmg, head, at){
+  if (!dst.alive || AR.phase !== 'live') return;
+  if (src && src.st.abyss > 0) { dmg *= 1.2; dst.st.slow = 1.5; }
+  if (src && src.st.req > 0) { dmg *= 2; src.st.req--; }
+  if (dst.st.shield > 0) { const a = Math.min(dst.st.shield, dmg); dst.st.shield -= a; dmg -= a; }
+  dmg = Math.round(dmg); dst.hp -= dmg;
+  if (dst.me) { AR.hurt = Math.min(1, AR.hurt + dmg / 45); AR.shake = Math.min(.5, AR.shake + dmg / 120); tone(140, .12, 'square', .05); }
+  else { AR.hitm = .18; tone(head ? 1900 : 1200, .05, 'square', head ? .05 : .035); if (at) arNum(at, dmg, head); }
+  if (dst.hp <= 0) { dst.hp = 0; dst.alive = false;
+    if (!dst.me) { noise(.4, 600, 80, .2, 'lowpass'); arFeed('You eliminated ' + dst.name + (head ? ' · headshot' : '')); }
+    else arFeed(AR.bot.name + ' eliminated you');
+    arEndRound(dst.me ? 1 : 0, dst.me ? AR.bot.name + ' got you' : 'You got ' + AR.bot.name);
+  }
+}
+function arSpeed(f){ const W = AR_W[arType(f.load[f.cur].it)]; let s = 7 * W.spd; if (f.st.slow > 0) s *= .6; if (f.st.haste > 0) s *= 1.3; if (f.me && AR.ads > .5) s *= .62; return s; }
+/* shooting: rays for you, aim rolls for the bot */
+function arShoot(f){
+  const A = AR, l = f.load[f.cur], W = AR_W[arType(l.it)], o = f.me ? A.me : A.bot, tgt = f.me ? A.bot : A.me;
+  let rate = W.rate; if (f.st.od > 0) rate /= 1.6;
+  f.fireT = rate;
+  if (W.melee) { arMelee(f, tgt, W); return; }
+  if (f.st.od <= 0 || !f.st.od) f.mag[f.cur]--;
+  arGunSound(W, f.me ? 1 : Math.max(.25, 1 - arDist(f.p, A.me.p) / 40));
+  const eye = arEye(f), moving = Math.hypot(f.v.x, f.v.z) / 7 + (f.ground ? 0 : .8);
+  if (f.me) {
+    A.me.kick += W.kick; A.flashT = .05; f.pitch = Math.min(1.45, f.pitch + W.kick * .3 * (A.ads > .5 ? .6 : 1)); f.yaw += (Math.random() - .5) * W.kick * .2;
+    const spread = (A.ads > .5 ? W.ads : W.sp) * (1 + moving * 1.2);
+    for (let k = 0; k < (W.pel || 1); k++) {
+      const d = arFwd(f.yaw + (Math.random() - .5) * 2 * spread, f.pitch + (Math.random() - .5) * 2 * spread);
+      const wallT = f.st.void > 0 ? 300 : arRayMap(eye, d, 300), hit = tgt.alive ? arRayFighter(eye, d, tgt) : {t: Infinity};
+      const end = Math.min(wallT, hit.t, 120);
+      arTracer(arMuzzleWorld(), {x: eye.x + d.x * end, y: eye.y + d.y * end, z: eye.z + d.z * end}, W.pel ? .5 : 1);
+      if (hit.t < wallT) {
+        const dist = hit.t, fall = dist <= W.fall[0] ? 1 : dist >= W.fall[1] ? W.fall[2] : 1 - (1 - W.fall[2]) * (dist - W.fall[0]) / (W.fall[1] - W.fall[0]);
+        arDamage(f, tgt, W.dmg * fall * (hit.head ? W.hm : 1), hit.head, {x: eye.x + d.x * dist, y: eye.y + d.y * dist + .2, z: eye.z + d.z * dist});
+        if (f.st.wraith > 0) tgt.st.burn = 3;
+      } else if (wallT < 120) arSpark({x: eye.x + d.x * wallT, y: eye.y + d.y * wallT, z: eye.z + d.z * wallT});
+    }
+  } else {
+    /* the bot rolls each shot: your angular size against its aim error, your movement and its weapon spread */
+    const d = arDist(eye, arEye(tgt)), s = f.skill, see = arLOS(eye, {x: tgt.p.x, y: tgt.p.y + 1.1, z: tgt.p.z}) || f.st.void > 0;
+    const tv = Math.hypot(tgt.v.x, tgt.v.z) + (tgt.ground ? 0 : 3) + (tgt.slide > 0 ? 3 : 0);
+    const err = (.085 - .07 * s) + tv * (.011 - .006 * s) + (W.scope ? .01 : W.sp * .6) + (tgt.st.invis > 0 ? .25 : 0);
+    for (let k = 0; k < (W.pel || 1); k++) {
+      const pHit = see ? Math.min(.93, (.36 / Math.max(1, d)) / err) : 0, hit = Math.random() < pHit;
+      const tp = arEye(tgt), miss = hit ? 0 : .6 + Math.random() * 1.4;
+      arTracer(arBotMuzzle(), {x: tp.x + (Math.random() - .5) * miss, y: tp.y - .3 + (Math.random() - .5) * miss, z: tp.z + (Math.random() - .5) * miss}, W.pel ? .4 : .9);
+      if (hit) { const head = Math.random() < .05 + .3 * s; const dist = d, fall = dist <= W.fall[0] ? 1 : dist >= W.fall[1] ? W.fall[2] : 1 - (1 - W.fall[2]) * (dist - W.fall[0]) / (W.fall[1] - W.fall[0]);
+        arDamage(f, tgt, W.dmg * fall * (head ? W.hm : 1), head); if (f.st.wraith > 0) tgt.st.burn = 3; }
+    }
+  }
+}
+function arMelee(f, tgt, W){
+  const A = AR; if (f.me) { A.swing = .3; noise(.12, 800, 3000, .06); }
+  const e = arEye(f), te = {x: tgt.p.x, y: tgt.p.y + 1.1, z: tgt.p.z}, d = arDist(e, te);
+  if (d > W.range || !tgt.alive) return;
+  const fw = arFwd(f.yaw, 0), dx = (te.x - e.x) / d, dz = (te.z - e.z) / d;
+  if (fw.x * dx + fw.z * dz < Math.cos(f.me ? .7 : 1)) return;
+  if (!arLOS(e, te)) return;
+  arDamage(f, tgt, W.dmg, false, {x: te.x, y: te.y + .6, z: te.z}); noise(.1, 400, 120, .14, 'lowpass');
+}
+function arGunSound(W, v){ if (!W.snd) return; const [f0, f1, dur, low] = W.snd; noise(dur, f0, f1, .22 * v, 'lowpass'); tone(low, dur * .6, 'square', .05 * v); }
+function arReload(f){ const W = AR_W[arType(f.load[f.cur].it)]; if (W.melee || f.reload > 0 || f.mag[f.cur] >= W.mag) return; f.reload = W.rl; if (f.me) { tone(320, .06, 'square', .03); tone(260, .06, 'square', .03, W.rl * .6); } }
+/* ---------- skills ---------- */
+function arUseSkill(f){
+  const A = AR, l = f.load[f.cur], id = arSkillOf(l.it); if (!id || A.phase !== 'live' || !f.alive) return false;
+  if ((f.cd[id] || 0) > 0) return false;
+  f.cd[id] = AR_SK[id].cd; const fw = arFwd(f.yaw, 0), tgt = f.me ? A.bot : A.me;
+  sweep(300, 1200, .35, 'sawtooth', .04); noise(.3, 2000, 400, .06);
+  if (id === 'b1') f.st.abyss = 5;
+  if (id === 'b2') f.st.void = 6;
+  if (id === 'b3') { arBlink(f, fw, 7); f.st.invis = 2; }
+  if (id === 'b4') f.st.od = 5;
+  if (id === 'b5') { f.st.dash = .25; f.st.dashV = {x: fw.x * 34, z: fw.z * 34}; f.st.wraith = 6; }
+  if (id === 'b6') { const d = f.me ? fw : arDirTo(f, tgt); f.st.dash = .34; f.st.dashV = {x: d.x * 30, z: d.z * 30}; f.st.lunge = 1; }
+  if (id === 'b7') { const e = arEye(f), d = f.me ? arFwd(f.yaw, f.pitch) : arDirTo3(f, tgt);
+    const m = new A.T.Mesh(new A.T.IcosahedronGeometry(.18, 0), new A.T.MeshBasicMaterial({color: '#c084fc'})); A.fx.add(m);
+    A.proj.push({p: {x: e.x + d.x * .6, y: e.y - .15, z: e.z + d.z * .6}, d, owner: f, life: 1.4, m}); }
+  if (id === 'x1') { f.hp = Math.min(100, f.hp + 40); f.st.req = 3; }
+  if (id === 'x2') { f.st.shield = 50; f.st.shT = 5; f.st.haste = 5; }
+  if (f.me) arFeed(AR_SK[id].n + '!'); else arFeed(A.bot.name + ' used ' + AR_SK[id].n);
+  return true;
+}
+const arDirTo = (f, t) => { const dx = t.p.x - f.p.x, dz = t.p.z - f.p.z, L = Math.hypot(dx, dz) || 1; return {x: dx / L, z: dz / L}; };
+const arDirTo3 = (f, t) => { const a = arEye(f), b = {x: t.p.x, y: t.p.y + 1.1, z: t.p.z}, L = arDist(a, b) || 1; return {x: (b.x - a.x) / L, y: (b.y - a.y) / L, z: (b.z - a.z) / L}; };
+function arBlink(f, d, dist){ for (let k = 0; k < dist / .25; k++) { const q = {x: f.p.x + d.x * .25, y: f.p.y, z: f.p.z + d.z * .25}; if (Math.abs(q.x) > 21.8 || Math.abs(q.z) > 14.8 || AR_MAP.some(b => arOv(q, b))) break; f.p = q; } }
+/* ---------- the bot's brain ---------- */
+function arBotThink(dt){
+  const A = AR, b = A.bot, me = A.me, s = b.skill, W = AR_W[arType(b.load[0].it)];
+  const eye = arEye(b), meC = {x: me.p.x, y: me.p.y + 1.1, z: me.p.z};
+  const see = me.alive && (me.st.invis > 0 ? false : arLOS(eye, meC) || arLOS(eye, arEye(me)));
+  if (see) { if (!b.acq) b.acq = A.clock + (.75 - .58 * s) + Math.random() * .15; b.lastSeen = A.clock; b.known = {x: me.p.x, z: me.p.z}; }
+  else if (A.clock - b.lastSeen > .4) b.acq = 0;
+  if (!b.known || !see && Math.random() < dt * (.3 + s)) b.known = {x: me.p.x, z: me.p.z};
+  /* aim: turn toward you, faster the better it is */
+  const tx = (see ? me.p.x : b.known.x) - b.p.x, tz = (see ? me.p.z : b.known.z) - b.p.z;
+  const wantYaw = Math.atan2(-tx, -tz), dist = Math.hypot(tx, tz);
+  let dy = wantYaw - b.yaw; while (dy > Math.PI) dy -= Math.PI * 2; while (dy < -Math.PI) dy += Math.PI * 2;
+  b.yaw += dy * Math.min(1, dt * (4 + 10 * s));
+  b.pitch = Math.atan2(me.p.y + 1.2 - eye.y, Math.max(.1, dist)) * .9;
+  /* movement */
+  const pref = W.melee ? 0 : W.scope ? 20 : arType(b.load[0].it) === 'shotgun' ? 3.5 : arType(b.load[0].it) === 'smg' ? 8 : arType(b.load[0].it) === 'pistol' ? 10 : 13;
+  let mx = 0, mz = 0;
+  if (!see || (W.melee) || dist > pref + 6) {
+    A.pathT -= dt;
+    if (A.pathT <= 0 || !A.path.length) { A.path = arPath(b.p, see ? me.p : b.known); A.pathT = .45; }
+    while (A.path.length && Math.hypot(A.path[0].x - b.p.x, A.path[0].z - b.p.z) < .6) A.path.shift();
+    const wp = A.path[0] || {x: me.p.x, z: me.p.z}; const L = Math.hypot(wp.x - b.p.x, wp.z - b.p.z) || 1; mx = (wp.x - b.p.x) / L; mz = (wp.z - b.p.z) / L;
+  } else {
+    const L = dist || 1, fx = tx / L, fz = tz / L; b.strafeT -= dt;
+    if (b.strafeT <= 0) { b.strafe = Math.random() < .5 ? -1 : 1; b.strafeT = .5 + Math.random() * (1.4 - s); }
+    const toward = dist > pref + 1.5 ? 1 : dist < pref - 2 ? -1 : 0;
+    mx = -fz * b.strafe * (.4 + .6 * s) + fx * toward; mz = fx * b.strafe * (.4 + .6 * s) + fz * toward;
+    const probe = {x: b.p.x + mx * .8, y: b.p.y, z: b.p.z + mz * .8}; if (AR_MAP.some(c => arOv(probe, c))) { b.strafe = -b.strafe; b.strafeT = .6; }
+    b.jumpT -= dt; if (b.jumpT <= 0 && b.ground && s > .35) { b.v.y = 7.6; b.jumpT = 1.5 + Math.random() * 4 * (1.3 - s); }
+  }
+  if (b.st.root > 0) { mx = 0; mz = 0; }
+  const ml = Math.hypot(mx, mz); if (ml > 1) { mx /= ml; mz /= ml; }
+  const spd = arSpeed(b) * (.78 + .22 * s), k = Math.min(1, dt * 10);
+  if (!(b.st.dash > 0)) { b.v.x += (mx * spd - b.v.x) * k; b.v.z += (mz * spd - b.v.z) * k; }
+  /* firing */
+  if (b.reload <= 0 && b.mag[0] <= 0 && !W.melee) arReload(b);
+  const aimed = Math.abs(dy) < .25;
+  if (see && b.acq && A.clock >= b.acq && aimed && b.fireT <= 0 && b.reload <= 0 && (W.melee ? dist < W.range : b.mag[0] > 0 || b.st.od > 0)) {
+    if (W.auto) { if (b.burst <= 0) { b.burst = 4 + Math.floor(Math.random() * (4 + 8 * s)); } arShoot(b); b.burst--; if (b.burst <= 0) b.fireT = .25 + (1 - s) * .35; }
+    else arShoot(b);
+    if (W.scope) b.fireT += (1 - s) * .5;
+  }
+  /* skills: used when it makes sense */
+  const sk = arSkillOf(b.load[0].it);
+  if (sk && !(b.cd[sk] > 0) && Math.random() < dt * (.4 + s)) {
+    const ok = sk === 'x1' ? b.hp < 60 : sk === 'b6' ? see && dist < 10 : sk === 'b3' ? see && b.hp < 70 : sk === 'b5' ? see && dist < 12 : sk === 'b2' ? !see : see;
+    if (ok) arUseSkill(b);
+  }
+}
+
+/* ---------- the frame loop ---------- */
+function arLoop(now){
+  const A = AR; if (!A) return;
+  A.raf = requestAnimationFrame(arLoop);
+  let dt = Math.min(.05, (now - A.last) / 1000); A.last = now;
+  A.fps.push(dt); if (A.fps.length > 60) A.fps.shift();
+  if (A.paused) { arRender(); return; }
+  A.clock = (A.clock || 0) + dt;
+  if (A.phase === 'count') { A.t -= dt; arHudCount(Math.ceil(A.t)); if (A.t <= 0) { A.phase = 'live'; arHudCount(0); tone(880, .2, 'square', .05); } }
+  else if (A.phase === 'live') { A.roundT -= dt; if (A.roundT <= 0) { const w = A.me.hp > A.bot.hp ? 0 : A.bot.hp > A.me.hp ? 1 : -1; arEndRound(w, 'Time · more health wins'); } }
+  else if (A.phase === 'end') { A.t -= dt; if (A.t <= 0) { if (A.score[0] >= AR_WIN || A.score[1] >= AR_WIN) { arFinish(); return; } arNewRound(); } }
+  const live = A.phase === 'live';
+  [A.me, A.bot].forEach(f => {
+    for (const k in f.st) if (typeof f.st[k] === 'number' && k !== 'shield' && k !== 'req') f.st[k] = Math.max(0, f.st[k] - dt);
+    if (f.st.shT <= 0) f.st.shield = 0;
+    for (const k in f.cd) f.cd[k] = Math.max(0, f.cd[k] - dt);
+    f.fireT -= dt; f.swap = Math.max(0, f.swap - dt); f.slide = Math.max(0, f.slide - dt);
+    if (f.reload > 0) { f.reload -= dt; if (f.reload <= 0) { f.reload = 0; f.mag[f.cur] = AR_W[arType(f.load[f.cur].it)].mag; } }
+    if (f.st.burn > 0 && live) { f.burnAcc = (f.burnAcc || 0) + 6 * dt; if (f.burnAcc >= 2) { f.burnAcc -= 2; arDamage(null, f, 2, false); } }
+  });
+  if (live || A.phase === 'count') arPlayer(dt, live);
+  if (live && A.bot.alive) arBotThink(dt); else { A.bot.v.x *= .8; A.bot.v.z *= .8; }
+  [A.me, A.bot].forEach(f => {
+    if (f.st.dash > 0) { f.v.x = f.st.dashV.x; f.v.z = f.st.dashV.z; }
+    if (f.st.root > 0) { f.v.x = 0; f.v.z = 0; }
+    if (A.phase !== 'count' || f.v.y) arMoveBody(f, dt);
+    if (f.st.lunge && f.st.dash > 0) { const o = f.me ? A.bot : A.me; if (o.alive && Math.hypot(o.p.x - f.p.x, o.p.z - f.p.z) < 1.3) { f.st.lunge = 0; arDamage(f, o, 80, false, {x: o.p.x, y: o.p.y + 1.9, z: o.p.z}); noise(.2, 300, 90, .2, 'lowpass'); } }
+    else if (!(f.st.dash > 0)) f.st.lunge = 0;
+  });
+  /* projectiles */
+  A.proj = A.proj.filter(pr => {
+    pr.life -= dt; const step = 32 * dt, o = pr.owner.me ? A.bot : A.me;
+    const t = arRayFighter(pr.p, pr.d, o).t, w = arRayMap(pr.p, pr.d, step);
+    if (t <= step && t < w && o.alive) { arDamage(pr.owner, o, 20, false, {x: o.p.x, y: o.p.y + 1.9, z: o.p.z}); o.st.root = 1.6; A.fx.remove(pr.m); return false; }
+    if (w < step || pr.life <= 0) { A.fx.remove(pr.m); return false; }
+    pr.p.x += pr.d.x * step; pr.p.y += pr.d.y * step; pr.p.z += pr.d.z * step; pr.m.position.set(pr.p.x, pr.p.y, pr.p.z); pr.m.rotation.x += dt * 9; return true;
+  });
+  arAnimBot(dt); arRender(dt); arHudUpdate();
+}
+function arPlayer(dt, live){
+  const A = AR, f = A.me, K = A.keys, W = AR_W[arType(f.load[f.cur].it)];
+  const sens = (AR_MOBILE ? .0052 : .0022) / (A.ads > .5 ? Math.max(1, W.zoom * .8) : 1);
+  f.yaw -= A.mdx * sens; f.pitch = Math.max(-1.45, Math.min(1.45, f.pitch - A.mdy * sens)); A.mdx = 0; A.mdy = 0;
+  f.kick *= Math.pow(.002, dt);
+  if (!f.alive) return;
+  let mx = (K.d ? 1 : 0) - (K.a ? 1 : 0), mz = (K.s ? 1 : 0) - (K.w ? 1 : 0);
+  if (A.stick) { mx += A.stick.x; mz += A.stick.y; }
+  const ml = Math.hypot(mx, mz); if (ml > 1) { mx /= ml; mz /= ml; }
+  if (!live) { mx = 0; mz = 0; }
+  const cy = Math.cos(f.yaw), sy = Math.sin(f.yaw), wx = mx * cy + mz * sy, wz = -mx * sy + mz * cy;
+  const spd = arSpeed(f), k = Math.min(1, dt * (f.ground ? 12 : 3));
+  if (f.slide > 0) { f.v.x *= Math.pow(.35, dt); f.v.z *= Math.pow(.35, dt); }
+  else if (!(f.st.dash > 0)) { f.v.x += (wx * spd - f.v.x) * k; f.v.z += (wz * spd - f.v.z) * k; }
+  if (live && K.jump && f.ground && !(f.st.root > 0)) { f.v.y = 7.6; f.ground = false; K.jump = AR_MOBILE ? false : K.jump; tone(200, .05, 'sine', .03); }
+  if (live && K.slide && f.ground && f.slide <= 0 && ml > .3) { f.slide = .65; const L = Math.hypot(f.v.x, f.v.z) || 1; f.v.x = f.v.x / L * 12; f.v.z = f.v.z / L * 12; K.slide = false; noise(.4, 900, 200, .05); }
+  A.ads += ((A.adsHeld && !W.melee && f.reload <= 0 && f.swap <= 0 ? 1 : 0) - A.ads) * Math.min(1, dt * 12);
+  if (live && A.fire && f.fireT <= 0 && f.swap <= 0 && f.reload <= 0) {
+    if (!W.melee && f.mag[f.cur] <= 0 && !(f.st.od > 0)) { arReload(f); }
+    else { arShoot(f); if (!W.auto) A.fire = AR_MOBILE ? A.fire : false; }
+  }
+}
+function arAnimBot(dt){
+  const A = AR, b = A.bot, B = A.B, sp = Math.hypot(b.v.x, b.v.z);
+  B.g.position.set(b.p.x, b.p.y, b.p.z); B.g.rotation.y = b.yaw;
+  b.walk = (b.walk || 0) + dt * sp * 1.6; const sw = Math.sin(b.walk) * Math.min(1, sp / 5) * .7;
+  B.legL.rotation.x = sw; B.legR.rotation.x = -sw; B.head.rotation.x = -b.pitch * .6; B.armR.rotation.x = 1.35 + b.pitch; B.armL.rotation.x = 1.25 + b.pitch;
+  B.g.scale.y = b.slide > 0 ? .7 : 1;
+  if (!b.alive) { B.g.rotation.z = Math.min(1.5, (B.g.rotation.z || 0) + dt * 5); B.g.position.y = b.p.y + .2; } else B.g.rotation.z = 0;
+  const inv = b.st.invis > 0, xr = A.me.st.void > 0;
+  B.mats.forEach(m => { m.transparent = inv || xr; m.opacity = inv ? .1 : 1; m.depthTest = !xr; });
+  B.g.renderOrder = xr ? 10 : 0;
+}
+function arMuzzleWorld(){ const A = AR, f = A.me, d = arFwd(f.yaw, f.pitch), e = arEye(f), r = {x: Math.cos(f.yaw), z: -Math.sin(f.yaw)};
+  const ads = A.ads > .5; return {x: e.x + d.x * .7 + (ads ? 0 : r.x * .2), y: e.y + d.y * .7 - (ads ? .08 : .17), z: e.z + d.z * .7 + (ads ? 0 : r.z * .2)}; }
+function arBotMuzzle(){ const b = AR.bot, d = arFwd(b.yaw, b.pitch), r = {x: Math.cos(b.yaw), z: -Math.sin(b.yaw)}; return {x: b.p.x + d.x * 1.0 + r.x * .36, y: b.p.y + 1.32 + d.y, z: b.p.z + d.z * 1.0 + r.z * .36}; }
+function arTracer(a, b, w){
+  const T = AR.T, g = new T.BufferGeometry().setFromPoints([new T.Vector3(a.x, a.y, a.z), new T.Vector3(b.x, b.y, b.z)]);
+  const l = new T.Line(g, new T.LineBasicMaterial({color: '#fff2b0', transparent: true, opacity: .9 * (w || 1)})); AR.fx.add(l); AR.tracers.push({o: l, t: .07});
+}
+function arSpark(p){ const T = AR.T, m = new T.Mesh(new T.SphereGeometry(.06, 6, 4), new T.MeshBasicMaterial({color: '#ffd27a', transparent: true})); m.position.set(p.x, p.y, p.z); AR.fx.add(m); AR.tracers.push({o: m, t: .12}); }
+function arRender(dt){
+  const A = AR, f = A.me, W = AR_W[arType(f.load[f.cur].it)], cam = A.cam;
+  dt = dt || 0;
+  A.tracers = A.tracers.filter(t => { t.t -= dt; if (t.o.material) t.o.material.opacity = Math.max(0, t.t * 12); if (t.t <= 0) { A.fx.remove(t.o); t.o.geometry.dispose(); t.o.material.dispose(); return false; } return true; });
+  const e = arEye(f), moving = Math.hypot(f.v.x, f.v.z);
+  A.bob += dt * moving * (f.ground ? 1.5 : 0);
+  A.shake = Math.max(0, A.shake - dt * 2);
+  cam.position.set(e.x + (Math.random() - .5) * A.shake * .1, e.y + Math.sin(A.bob * 2) * .025 * Math.min(1, moving / 6), e.z);
+  cam.rotation.set(f.pitch, f.yaw, 0);
+  const zoom = 1 + (W.zoom - 1) * A.ads, base = AR_MOBILE ? 72 : 78; cam.fov = base / zoom; cam.updateProjectionMatrix();
+  /* viewmodel: hip vs ADS, bob, recoil, reload dip, swap raise, knife swing */
+  const g = A.guns[f.cur], ads = A.ads, rl = f.reload > 0 ? Math.sin(Math.min(1, (1 - f.reload / W.rl)) * Math.PI) : 0;
+  const knife = !!W.melee; A.swing = Math.max(0, (A.swing || 0) - dt);
+  const sw2 = Math.sin(Math.min(1, A.swing / .3) * Math.PI);
+  g.position.set(knife ? .2 - sw2 * .14 : .17 * (1 - ads), (knife ? -.15 : -.165 + .085 * ads) - rl * .14 - f.swap * .7 + Math.sin(A.bob * 2) * .008 * (1 - ads), (knife ? -.34 - sw2 * .14 : -.36 + .05 * ads) + f.kick * 1.4);
+  g.rotation.set(rl * .7 + f.kick * 2.4 + (knife ? .3 - sw2 * 1.1 : 0), (knife ? 1.2 - sw2 * .4 : .24 * (1 - ads)) + Math.sin(A.bob) * .015, knife ? -.25 - sw2 * .5 : 0);
+  g.visible = !(W.scope && ads > .9);
+  A.flashT = Math.max(0, (A.flashT || 0) - dt); A.flash.material.opacity = A.flashT > 0 ? 1 : 0;
+  A.flash.position.set(g.position.x, g.position.y + .03, g.position.z - (g.userData.len || .5) - .02);
+  const sw = $('#arScope'); if (sw) sw.hidden = !(W.scope && ads > .9);
+  A.R.clear(); A.R.render(A.sc, cam); A.R.clearDepth(); A.R.render(A.vsc, A.vcam);
+  /* floating damage numbers and the enemy tag */
+  const T = A.T, v = new T.Vector3();
+  A.nums = A.nums.filter(n => { n.t -= dt; n.p.y += dt * .8; v.set(n.p.x, n.p.y, n.p.z).project(cam);
+    n.el.style.transform = 'translate(' + ((v.x * .5 + .5) * innerWidth) + 'px,' + ((-v.y * .5 + .5) * innerHeight) + 'px) translate(-50%,-50%)'; n.el.style.opacity = Math.min(1, n.t * 2); n.el.hidden = v.z > 1;
+    if (n.t <= 0) { n.el.remove(); return false; } return true; });
+  const b = A.bot, tag = $('#arTag'); v.set(b.p.x, b.p.y + 2.25, b.p.z).project(cam);
+  const vis = b.alive && v.z < 1 && (arLOS(e, {x: b.p.x, y: b.p.y + 1.5, z: b.p.z}) || f.st.void > 0) && !(b.st.invis > 0);
+  tag.hidden = !vis; if (vis) { tag.style.transform = 'translate(' + ((v.x * .5 + .5) * innerWidth) + 'px,' + ((-v.y * .5 + .5) * innerHeight) + 'px) translate(-50%,-100%)'; tag.querySelector('i').style.width = b.hp + '%'; }
+}
+function arNum(p, dmg, head){ const el = document.createElement('div'); el.className = 'ar-num' + (head ? ' hd' : ''); el.textContent = dmg; $('#arHud').append(el); AR.nums.push({el, p: {x: p.x, y: p.y, z: p.z}, t: .9}); }
+function arFeed(msg){ const f = $('#arFeed'); if (!f) return; const d = document.createElement('div'); d.textContent = msg; f.prepend(d); setTimeout(() => d.remove(), 3500); while (f.children.length > 4) f.lastChild.remove(); }
+
+/* ---------- HUD ---------- */
+function arHUD(){
+  const A = AR, opp = A.opp;
+  $('#arHud').innerHTML = '<div class="ar-top"><div class="ar-sc me"><small>YOU</small><b id="arS0">0</b></div><div class="ar-mid"><div class="ar-rd" id="arRd">ROUND 1</div><div class="ar-clock" id="arClock">1:30</div><div class="ar-to">First to ' + AR_WIN + '</div></div><div class="ar-sc op" style="--rc:' + arRankCol(opp.rp) + '"><small>' + esc(opp.name) + '</small><b id="arS1">0</b></div></div>'
+    + '<div class="ar-x" id="arX"><i></i><i></i><i></i><i></i></div><div class="ar-hm" id="arHm"></div>'
+    + '<div class="ar-hurt" id="arHurt"></div><div class="ar-scope" id="arScope" hidden></div>'
+    + '<div class="ar-ban" id="arBan" hidden><b></b><span></span></div><div class="ar-count" id="arCount"></div>'
+    + '<div class="ar-feed" id="arFeed"></div>'
+    + '<div class="ar-tag" id="arTag" hidden style="--rc:' + arRankCol(opp.rp) + '"><span>' + esc(opp.name) + '</span><em><i></i></em></div>'
+    + '<div class="ar-hp"><div class="ar-hpn" id="arHpN">100</div><div class="ar-hpb"><i id="arHpB"></i><u id="arSh"></u></div><div class="ar-st" id="arSt"></div></div>'
+    + '<div class="ar-wp"><div class="ar-ammo" id="arAmmo"></div><div class="ar-wn" id="arWn"></div><div class="ar-slots" id="arSlots"></div></div>'
+    + '<button type="button" class="ar-sk" id="arSk" hidden><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" class="bg"/><circle cx="20" cy="20" r="17" class="cd" id="arSkC"/></svg><b>Q</b><span id="arSkN"></span></button>'
+    + '<button type="button" class="ar-pausebtn" id="arPauseBtn" aria-label="Pause">II</button>'
+    + '<div class="ar-pause" id="arPause" hidden><div class="ar-pcard"><h3>Paused</h3><p id="arPauseP">' + (AR_MOBILE ? '' : 'Click to jump back in.') + '</p><button type="button" class="ar-btn" id="arResume">Resume</button><button type="button" class="ar-btn ghost" id="arQuit">Leave match (counts as a loss)</button></div></div>'
+    + (AR_MOBILE ? '<div class="ar-touch" id="arTouch"><div class="ar-stick" id="arStick"><i></i></div>'
+      + '<button type="button" class="tb fire" data-t="fire">FIRE</button><button type="button" class="tb ads" data-t="ads">AIM</button><button type="button" class="tb jump" data-t="jump">JUMP</button>'
+      + '<button type="button" class="tb rl" data-t="reload">R</button><button type="button" class="tb sl" data-t="slide">SLIDE</button><button type="button" class="tb sw" data-t="swap">⇄</button><button type="button" class="tb skb" data-t="skill">SKILL</button></div>' : '');
+  $('#arSlots').innerHTML = A.me.load.map((l, i) => '<div class="ar-slot" data-i="' + i + '" style="--tc:' + TIERS[l.it.t].color + '"><small>' + (i + 1) + '</small><span></span></div>').join('');
+  A.me.load.forEach((l, i) => { const s = $('#arSlots').children[i].querySelector('span'); s.append(thumb(l.it, wearIdx(l.fl))); });
+}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+let arBanT = 0;
+function arHudBanner(t, s, cls){ const b = $('#arBan'); if (!b) return; b.className = 'ar-ban ' + (cls || ''); b.querySelector('b').textContent = t; b.querySelector('span').textContent = s; b.hidden = false; clearTimeout(arBanT); arBanT = setTimeout(() => b.hidden = true, 2300); }
+function arHudCount(n){ const c = $('#arCount'); if (!c) return; if (c.dataset.n !== String(n)) { c.dataset.n = n; c.textContent = n > 0 ? n : ''; if (n > 0) { restart(c, 'pop'); tone(440, .1, 'square', .04); } } }
+function arHudUpdate(full){
+  const A = AR; if (!A) return; const f = A.me, l = f.load[f.cur], W = AR_W[arType(l.it)];
+  $('#arS0').textContent = A.score[0]; $('#arS1').textContent = A.score[1]; $('#arRd').textContent = 'ROUND ' + A.round;
+  const rt = Math.max(0, Math.ceil(A.roundT || 0)); $('#arClock').textContent = Math.floor(rt / 60) + ':' + String(rt % 60).padStart(2, '0');
+  $('#arHpN').textContent = Math.max(0, Math.ceil(f.hp)); $('#arHpB').style.width = Math.max(0, f.hp) + '%'; $('#arHpB').className = f.hp < 35 ? 'low' : '';
+  $('#arSh').style.width = (f.st.shield > 0 ? f.st.shield : 0) + '%';
+  $('#arAmmo').innerHTML = W.melee ? '<b>∞</b>' : f.reload > 0 ? '<b class="rl">RELOADING</b>' : '<b' + (f.mag[f.cur] <= Math.ceil(W.mag * .25) ? ' class="low"' : '') + '>' + (f.st.od > 0 ? '∞' : f.mag[f.cur]) + '</b><span>/ ' + W.mag + '</span>';
+  if (full || A.lastCur !== f.cur) { A.lastCur = f.cur; $('#arWn').innerHTML = '<span style="color:' + TIERS[l.it.t].color + '">' + (l.it.stock ? 'Stock' : TIERS[l.it.t].name) + '</span> ' + WNAME[l.it.w] + (l.it.stock ? '' : ' | ' + l.it.name);
+    [...$('#arSlots').children].forEach((s, i) => s.classList.toggle('on', i === f.cur)); }
+  const sk = arSkillOf(l.it), btn = $('#arSk');
+  btn.hidden = !sk; if (sk) { const cd = f.cd[sk] || 0, p = cd / AR_SK[sk].cd; $('#arSkN').textContent = AR_SK[sk].n; btn.classList.toggle('ready', cd <= 0); $('#arSkC').style.strokeDashoffset = (106.8 * p).toFixed(1); }
+  const st = []; if (f.st.abyss > 0) st.push('Abyss'); if (f.st.void > 0) st.push('Void Sight'); if (f.st.invis > 0) st.push('Invisible'); if (f.st.od > 0) st.push('Overdrive'); if (f.st.wraith > 0) st.push('Wraithfire');
+  if (f.st.req > 0) st.push('Requiem ×' + f.st.req); if (f.st.haste > 0) st.push('Haste'); if (f.st.slow > 0) st.push('Slowed'); if (f.st.root > 0) st.push('Rooted'); if (f.st.burn > 0) st.push('Burning');
+  $('#arSt').textContent = st.join(' · ');
+  const spread = (A.ads > .5 ? W.ads : W.sp || .02) * (1 + Math.hypot(f.v.x, f.v.z) / 7 * 1.2 + (f.ground ? 0 : .8)), gap = W.melee ? 4 : Math.min(60, 4 + spread * 900);
+  const X = $('#arX'); X.style.setProperty('--g', gap.toFixed(1) + 'px'); X.style.opacity = W.scope && A.ads > .5 ? 0 : 1;
+  A.hitm = Math.max(0, (A.hitm || 0) - .016); $('#arHm').style.opacity = A.hitm > 0 ? 1 : 0;
+  A.hurt = Math.max(0, (A.hurt || 0) - .012); $('#arHurt').style.opacity = A.hurt + (f.hp < 30 ? .25 : 0);
+}
+/* ---------- input ---------- */
+function arBindInput(){
+  const A = AR, cv = A.R.domElement;
+  const key = (e, down) => {
+    if (!AR || $('#arGame').hidden) return;
+    const k = e.key.toLowerCase();
+    if (['w', 'a', 's', 'd'].includes(k)) A.keys[k] = down;
+    if (k === 'arrowup') A.keys.w = down; if (k === 'arrowdown') A.keys.s = down; if (k === 'arrowleft') A.keys.a = down; if (k === 'arrowright') A.keys.d = down;
+    if (k === ' ') { A.keys.jump = down; e.preventDefault(); }
+    if ((k === 'c' || k === 'control' || k === 'shift') && down) A.keys.slide = true;
+    if (!down) return;
+    if (k === 'r') arReload(A.me);
+    if (k === 'q' || k === 'e' || k === 'f') arUseSkill(A.me);
+    if (['1', '2', '3'].includes(k)) arSwap(+k - 1);
+  };
+  A.onKd = e => key(e, true); A.onKu = e => key(e, false);
+  addEventListener('keydown', A.onKd); addEventListener('keyup', A.onKu);
+  A.onMm = e => { if (document.pointerLockElement === cv) { A.mdx += e.movementX; A.mdy += e.movementY; } };
+  A.onMd = e => { if (AR_MOBILE) return; if (document.pointerLockElement !== cv) { cv.requestPointerLock && cv.requestPointerLock(); return; } if (e.button === 0) A.fire = true; if (e.button === 2) A.adsHeld = true; };
+  A.onMu = e => { if (e.button === 0) A.fire = false; if (e.button === 2) A.adsHeld = false; };
+  A.onWheel = e => { if (document.pointerLockElement === cv) arSwap((A.me.cur + (e.deltaY > 0 ? 1 : 2)) % 3); };
+  A.onPl = () => { if (AR_MOBILE || !AR) return; const locked = document.pointerLockElement === cv; A.paused = !locked && !A.over; $('#arPause').hidden = locked || !!A.over; if (!locked) { A.fire = false; A.adsHeld = false; A.keys = {}; } };
+  A.onResize = () => { A.R.setSize(innerWidth, innerHeight); A.cam.aspect = A.vcam.aspect = innerWidth / innerHeight; A.cam.updateProjectionMatrix(); A.vcam.updateProjectionMatrix(); };
+  addEventListener('mousemove', A.onMm); cv.addEventListener('mousedown', A.onMd); addEventListener('mouseup', A.onMu); addEventListener('wheel', A.onWheel, {passive: true});
+  document.addEventListener('pointerlockchange', A.onPl); addEventListener('resize', A.onResize); cv.addEventListener('contextmenu', e => e.preventDefault());
+  $('#arResume').onclick = () => { if (AR_MOBILE) { A.paused = false; $('#arPause').hidden = true; } else cv.requestPointerLock(); };
+  $('#arPause').onclick = e => { if (e.target.id === 'arPause') $('#arResume').click(); };
+  $('#arQuit').onclick = () => { A.score[1] = AR_WIN; A.quit = true; arFinish(); };
+  $('#arPauseBtn').onclick = () => { if (AR_MOBILE) { A.paused = true; $('#arPause').hidden = false; } else document.exitPointerLock(); };
+  $('#arSk').onclick = () => arUseSkill(A.me);
+  $('#arSlots').onclick = e => { const s = e.target.closest('.ar-slot'); if (s) arSwap(+s.dataset.i); };
+  if (!AR_MOBILE) { A.paused = true; $('#arPause').hidden = false; $('#arPauseP').textContent = 'Click to lock your mouse and start. WASD move · mouse aim · click shoot · right-click aim · Space jump · Shift slide · R reload · 1/2/3 weapons · Q skill · Esc pause'; $('#arResume').textContent = 'Start'; }
+  else arTouch();
+}
+function arSwap(i){ const A = AR; if (!A || i === A.me.cur || !A.me.alive) return; A.me.cur = i; A.me.reload = 0; A.ads = 0; arShowWeapon(); tone(500, .04, 'square', .03); }
+function arTouch(){
+  const A = AR, pad = $('#arTouch'), stick = $('#arStick'), knob = stick.querySelector('i'); const ids = {};
+  const btnOf = el => el && el.closest && el.closest('.tb');
+  pad.addEventListener('touchstart', e => {
+    for (const t of e.changedTouches) {
+      const b = btnOf(document.elementFromPoint(t.clientX, t.clientY));
+      if (b) { const k = b.dataset.t; ids[t.identifier] = {k, x: t.clientX, y: t.clientY}; b.classList.add('on');
+        if (k === 'fire') A.fire = true; if (k === 'ads') A.adsHeld = !A.adsHeld, b.classList.toggle('lock', A.adsHeld); if (k === 'jump') A.keys.jump = true;
+        if (k === 'reload') arReload(A.me); if (k === 'slide') A.keys.slide = true; if (k === 'swap') arSwap((A.me.cur + 1) % 3); if (k === 'skill') arUseSkill(A.me); }
+      else if (t.clientX < innerWidth * .42) { ids[t.identifier] = {k: 'stick', x: t.clientX, y: t.clientY}; stick.style.left = t.clientX + 'px'; stick.style.top = t.clientY + 'px'; stick.classList.add('on'); A.stick = {x: 0, y: 0}; }
+      else ids[t.identifier] = {k: 'look', x: t.clientX, y: t.clientY};
+    }
+    e.preventDefault();
+  }, {passive: false});
+  pad.addEventListener('touchmove', e => {
+    for (const t of e.changedTouches) { const s = ids[t.identifier]; if (!s) continue;
+      if (s.k === 'stick') { let dx = t.clientX - s.x, dy = t.clientY - s.y; const L = Math.hypot(dx, dy), m = 46; if (L > m) { dx *= m / L; dy *= m / L; } knob.style.transform = 'translate(' + dx + 'px,' + dy + 'px)'; A.stick = {x: dx / m, y: dy / m}; }
+      else if (s.k === 'look' || s.k === 'fire') { A.mdx += (t.clientX - s.x) * 1.0; A.mdy += (t.clientY - s.y) * 1.0; s.x = t.clientX; s.y = t.clientY; } }
+    e.preventDefault();
+  }, {passive: false});
+  const end = e => { for (const t of e.changedTouches) { const s = ids[t.identifier]; if (!s) continue; delete ids[t.identifier];
+    if (s.k === 'stick') { A.stick = null; stick.classList.remove('on'); knob.style.transform = ''; }
+    if (s.k === 'fire') A.fire = false; if (s.k === 'jump') A.keys.jump = false;
+    pad.querySelectorAll('.tb.on').forEach(b => { if (b.dataset.t === s.k) b.classList.remove('on'); }); } };
+  pad.addEventListener('touchend', end); pad.addEventListener('touchcancel', end);
+}
+function arCleanup(){
+  const A = AR; if (!A) return; cancelAnimationFrame(A.raf);
+  removeEventListener('keydown', A.onKd); removeEventListener('keyup', A.onKu); removeEventListener('mousemove', A.onMm); removeEventListener('mouseup', A.onMu); removeEventListener('wheel', A.onWheel);
+  document.removeEventListener('pointerlockchange', A.onPl); removeEventListener('resize', A.onResize);
+  if (document.pointerLockElement) document.exitPointerLock();
+  A.sc.traverse(o => { if (o.geometry) o.geometry.dispose(); });
+  A.R.dispose(); A.R.domElement.remove(); $('#arHud').innerHTML = ''; AR = null;
+}
+/* ---------- results ---------- */
+function arFinish(){
+  const A = AR; if (!A || A.over) return; A.over = true; A.paused = true;
+  const won = A.score[0] >= AR_WIN && !A.quit, S = arS(), before = S.rp, ri = arRankIdx(before), ti = Math.floor(ri / 3);
+  const diff = A.score[0] - A.score[1];
+  const d = won ? 20 + 2 * diff : -Math.max(8, 18 - 2 * A.score[0]);
+  S.rp = Math.max(0, S.rp + d); if (won) S.w++; else S.l++;
+  const cr = won ? 200 + 150 * ti + 30 * A.score[0] : A.quit ? 0 : 50 + 20 * A.score[0];
+  state.bal += cr; save(); setBal(cr);
+  const after = S.rp, up = arRankIdx(after) > ri, down = arRankIdx(after) < ri;
+  if (document.pointerLockElement) document.exitPointerLock();
+  cancelAnimationFrame(A.raf);
+  const res = $('#arRes');
+  res.innerHTML = '<div class="ar-rcard ' + (won ? 'win' : 'lose') + '"><div class="ar-rtop">' + (won ? 'VICTORY' : A.quit ? 'YOU LEFT' : 'DEFEAT') + '</div><div class="ar-rsc">' + A.score[0] + ' – ' + A.score[1] + '</div><div class="ar-rvs">vs ' + esc(A.opp.name) + ' · ' + arRankName(A.opp.rp) + '</div>'
+    + '<div class="ar-rrank" style="--rc:' + arRankCol(after) + '">' + arEmblem(after) + '<div><b>' + arRankName(after) + (up ? ' <em>RANK UP!</em>' : down ? ' <em class="dn">RANK DOWN</em>' : '') + '</b><div class="ar-rbar"><i style="width:' + (after % AR_DIV) + '%"></i></div><small>' + (d >= 0 ? '+' : '') + d + ' RP · ' + (after % AR_DIV) + ' / ' + AR_DIV + '</small></div></div>'
+    + '<div class="ar-rcr"><span class="coin"></span>+' + fmt(cr) + ' credits</div>'
+    + '<div class="ar-racts"><button type="button" class="ar-btn" id="arAgain">Play again</button><button type="button" class="ar-btn ghost" id="arMenuB">Menu</button></div></div>';
+  res.hidden = false;
+  if (won) { goldSound && goldSound(); } else [330, 262, 196].forEach((f, i) => tone(f, .5, 'triangle', .05, i * .15));
+  $('#arAgain').onclick = () => { arCleanup(); res.hidden = true; arQueue(); };
+  $('#arMenuB').onclick = () => { arCleanup(); res.hidden = true; arMenu(); };
+}
+
+/* ---------- menu, loadout, matchmaking ---------- */
+function arEmblem(rp){ const ti = Math.floor(arRankIdx(rp) / 3), div = arRankIdx(rp) % 3;
+  return '<svg class="ar-emb" viewBox="0 0 60 60" aria-hidden="true"><path d="M30 3 L54 14 V32 Q54 48 30 57 Q6 48 6 32 V14 Z" fill="var(--rc)" stroke="#0b0d12" stroke-width="3"/><path d="M30 9 L48 18 V32 Q48 44 30 51 Q12 44 12 32 V18 Z" fill="#0b0d12" opacity=".35"/>'
+    + (ti >= 5 ? '<path d="M18 14 L24 22 L30 12 L36 22 L42 14 L40 26 H20 Z" fill="#fff" opacity=".9"/>' : '')
+    + Array.from({length: div + 1}, (_, i) => '<path d="M' + (20 + i * 10 - (div * 5)) + ' 30 l5 -6 l5 6 l-5 10 z" fill="#fff" opacity=".95"/>').join('') + '</svg>'; }
+function arOpen(){
+  const el = $('#arena'); el.hidden = false; document.body.classList.add('ar-on'); arMenu();
+  arThree().catch(() => {});
+}
+function arClose(){ arCleanup(); clearInterval(arQ && arQ.iv); arQ = null; $('#arena').hidden = true; document.body.classList.remove('ar-on'); }
+function arScreen(id){ ['arMenu', 'arQ', 'arGame', 'arRes'].forEach(k => $('#' + k).hidden = k !== id); }
+function arMenu(){
+  arScreen('arMenu'); const S = arS(), L = arLoadout();
+  $('#arMenu').innerHTML = '<div class="ar-mtop"><button type="button" class="ar-back" id="arBack">‹ Crate Rush</button><div class="ar-logo">SHOW<b>DOWN</b><small>1v1 · first to ' + AR_WIN + '</small></div></div>'
+    + '<div class="ar-mgrid"><div class="ar-rankc" style="--rc:' + arRankCol(S.rp) + '">' + arEmblem(S.rp) + '<div><small>Your rank</small><b>' + arRankName(S.rp) + '</b><div class="ar-rbar"><i style="width:' + (S.rp % AR_DIV) + '%"></i></div><span>' + (S.rp % AR_DIV) + ' / ' + AR_DIV + ' RP · ' + S.w + 'W ' + S.l + 'L</span></div></div>'
+    + '<div class="ar-load"><div class="ar-lh">Loadout <small>tap a slot to change it</small></div>' + L.map((l, i) => {
+        const sk = arSkillOf(l.it);
+        return '<button type="button" class="ar-lslot" data-slot="' + i + '" style="--tc:' + TIERS[l.it.t].color + '"><small>' + AR_SLOTN[i] + '</small><span class="ar-lart"></span><b>' + (l.it.stock ? 'Stock ' + WNAME[l.it.w].replace('★ ', '') : WNAME[l.it.w] + ' | ' + l.it.name) + '</b>'
+          + (sk ? '<em>★ ' + AR_SK[sk].n + '</em>' : l.it.t === 7 ? '<em class="ch">Chroma skill coming soon</em>' : '') + '</button>'; }).join('') + '</div>'
+    + '<button type="button" class="ar-find" id="arFind">FIND MATCH</button>'
+    + '<p class="ar-note">Bots get sharper and carry better weapons as you rank up. Win: rank points and credits. ' + (AR_MOBILE ? 'Left thumb moves, right thumb aims.' : 'Mouse and keyboard.') + '</p></div>';
+  [...document.querySelectorAll('#arMenu .ar-lslot')].forEach((b, i) => b.querySelector('.ar-lart').append(thumb(L[i].it, wearIdx(L[i].fl))));
+  $('#arBack').onclick = arClose; $('#arFind').onclick = arQueue;
+  $('#arMenu').querySelectorAll('.ar-lslot').forEach(b => b.onclick = () => arPick(+b.dataset.slot));
+}
+function arPick(slot){
+  const list = state.inv.filter(e => BY[e.id] && arSlotOf(BY[e.id]) === slot).sort((a, b) => BY[b.id].t - BY[a.id].t || b.v - a.v);
+  const cur = arS().load[['p', 's', 'm'][slot]];
+  const box = document.createElement('div'); box.className = 'ar-pick';
+  box.innerHTML = '<div class="ar-pcard2"><div class="ar-lh">' + AR_SLOTN[slot] + ' <button type="button" class="ar-x2" aria-label="Close">✕</button></div><div class="ar-plist">'
+    + '<button type="button" class="ar-pi' + (!cur ? ' on' : '') + '" data-uid=""><span class="ar-lart"></span><b>Stock</b><small>Plain, always available</small></button>'
+    + list.map(e => { const it = BY[e.id], sk = arSkillOf(it); return '<button type="button" class="ar-pi' + (cur === e.uid ? ' on' : '') + '" data-uid="' + e.uid + '" style="--tc:' + TIERS[it.t].color + '"><span class="ar-lart"></span><b>' + WNAME[it.w] + ' | ' + it.name + '</b><small>' + TIERS[it.t].name + ' · ' + WEARS[wearIdx(e.fl)].n + (sk ? ' · ★ ' + AR_SK[sk].n : '') + '</small>' + (sk ? '<i>' + AR_SK[sk].d + '</i>' : '') + '</button>'; }).join('')
+    + (list.length ? '' : '<p class="ar-note">Nothing in your bag fits this slot yet. Open some cases.</p>') + '</div></div>';
+  $('#arena').append(box);
+  const arts = box.querySelectorAll('.ar-lart'); arts[0].append(thumb(AR_STOCK[slot], 2)); list.forEach((e, i) => arts[i + 1].append(thumb(BY[e.id], wearIdx(e.fl))));
+  box.onclick = e => { const b = e.target.closest('.ar-pi'); if (b) { arS().load[['p', 's', 'm'][slot]] = b.dataset.uid || null; save(); box.remove(); arMenu(); tone(660, .05, 'triangle', .04); }
+    else if (e.target === box || e.target.closest('.ar-x2')) box.remove(); };
+}
+let arQ = null;
+function arQueue(){
+  arScreen('arQ'); const wait = 15000 + Math.random() * 15000, t0 = Date.now(), S = arS();
+  $('#arQ').innerHTML = '<div class="ar-radar"><i></i><i></i><i></i><b></b></div><h2>FINDING AN OPPONENT</h2><div class="ar-qt" id="arQt">0:00</div><p>Usually takes 0:15 – 0:30 · ' + arRankName(S.rp) + '</p><button type="button" class="ar-btn ghost" id="arQx">Cancel</button>';
+  arThree().catch(() => {});
+  arQ = {iv: setInterval(() => {
+    const e = Date.now() - t0, s = Math.floor(e / 1000); const q = $('#arQt'); if (q) q.textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+    if (e >= wait) { clearInterval(arQ.iv); arFound(); }
+  }, 250)};
+  $('#arQx').onclick = () => { clearInterval(arQ.iv); arQ = null; arMenu(); };
+}
+async function arFound(){
+  const S = arS(), rp = Math.max(0, S.rp + Math.round((Math.random() - .5) * 60)), opp = {name: arBotName(), rp, kit: arBotKit(S.rp), skill: arSkill(S.rp)};
+  [523.25, 783.99, 1046.5].forEach((f, i) => tone(f, .3, 'triangle', .06, i * .09));
+  const sk = arSkillOf(opp.kit.it);
+  $('#arQ').innerHTML = '<div class="ar-found"><small>OPPONENT FOUND</small><div class="ar-vs"><div class="ar-vsc" style="--rc:' + arRankCol(S.rp) + '">' + arEmblem(S.rp) + '<b>You</b><span>' + arRankName(S.rp) + '</span></div><div class="ar-vsx">VS</div>'
+    + '<div class="ar-vsc" style="--rc:' + arRankCol(rp) + '">' + arEmblem(rp) + '<b>' + esc(opp.name) + '</b><span>' + arRankName(rp) + '</span><div class="ar-vsg" style="--tc:' + TIERS[opp.kit.it.t].color + '"></div><em>' + WNAME[opp.kit.it.w] + ' | ' + opp.kit.it.name + (sk ? ' · ★ ' + AR_SK[sk].n : '') + '</em></div></div><p id="arLd">Loading the arena…</p></div>';
+  $('#arQ .ar-vsg').append(thumb(opp.kit.it, wearIdx(opp.kit.fl)));
+  try { await Promise.all([arThree(), wait(2600)]); } catch (e) { $('#arLd').textContent = 'Couldn’t load the 3D engine. Check your connection and try again.'; setTimeout(arMenu, 2500); return; }
+  arScreen('arGame'); $('#arRes').hidden = true;
+  try { await arStartMatch(opp); } catch (e) { console.error(e); arCleanup(); arMenu(); toast('The arena failed to start on this device.'); }
+}
+
+$('#arBtn').onclick = () => { if (busy) return; arOpen(); };
+document.addEventListener('keydown', e => { const el = $('#arena'); if (!el || el.hidden) return; if (e.key === 'Escape') { e.stopImmediatePropagation(); if (!AR && $('#arGame').hidden && !document.querySelector('.ar-pick')) { if (arQ) { clearInterval(arQ.iv); arQ = null; arMenu(); } else arClose(); } else { const pk = document.querySelector('.ar-pick'); if (pk) pk.remove(); } } }, true);
 })();
 </script>
