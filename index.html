@@ -4344,6 +4344,7 @@ body.ar-on{overflow:hidden}
 
 
 
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -18096,15 +18097,13 @@ function arBotKit(rp){
   if (ti === 6 && Math.random() < .25) t = 5;
   const chroma = ti === 6 && Math.random() < .08;
   let pool;
-  if (chroma) pool = ITEMS.filter(i => i.t === 7 && !i.id.endsWith('c') && arType(i) !== 'knife');
+  /* the only chromas a bot ever carries: Velvet Requiem and Kingmaker. The footballers' chromas are players' only */
+  if (chroma) pool = ['x1', 'x2'].map(id => BY[id]).filter(Boolean);
   else if (t === 6) pool = ITEMS.filter(i => /^b[1-7]$/.test(i.id));
   else pool = ITEMS.filter(i => i.t === t && !i.ex && arType(i) !== 'knife' && (ti >= 1 || i.w !== 'sniper'));
   if (!pool.length) pool = ITEMS.filter(i => i.t === t && arType(i) !== 'knife');
   if (!pool.length) pool = ITEMS.filter(i => i.t <= 4 && arType(i) !== 'knife');
-  let it = pickOne(pool);
-  /* La Pulga is the rarest of them: a bot that rolls it keeps it only one time in five */
-  if (chroma && it.id === 'x6' && Math.random() < .8) it = pickOne(pool.filter(i => i.id !== 'x6')) || it;
-  const W = WEARS[pickW(WEAR_W)];
+  const it = pickOne(pool), W = WEARS[pickW(WEAR_W)];
   return {it, fl: +(W.lo + Math.random() * (W.hi - W.lo)).toFixed(4)};
 }
 const arSkill = rp => Math.max(0, Math.min(.85, .04 + arRankIdx(rp) / 26 + (Math.random() - .5) * .08));
