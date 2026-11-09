@@ -4345,6 +4345,8 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -17875,11 +17877,12 @@ const AR_MAPS = {
      and ladders outside; stacked containers to climb near each side; guard booths */
   yard: {name: 'Crate Yard', W: 48, D: 34, wallH: 6, pal: ['#c3c8d0', '#d9dde3', '#e6e9ee'], sky: '#8fb8e8',
     boxes: () => arBuild(48, 34, 6, (box, both, K) => {
-      K.house(0, 0, 14, 12, 4.2, {doors: [['e', 0, 2.6], ['w', 0, 2.6], ['s', -3.6, 2], ['s', 3.6, 2]], wins: [['e', 3.6, 1.8], ['e', -3.6, 1.8], ['w', 3.6, 1.8], ['w', -3.6, 1.8], ['n', 0, 2.2], ['s', 0, 2]],
+      K.house(0, 0, 14, 12, 4.2, {doors: [['e', 0, 2.6], ['w', 0, 2.6], ['s', -3.6, 2], ['s', 3.6, 2]], wins: [['n', 0, 2.2], ['s', 0, 2]],
         holes: [[.75, -5.75, 4.5, -4.25], [-4.5, -5.75, -.75, -4.25]], sign: 'DEPOT 07', signSide: 'ew'});
       [1, -1].forEach(s => { K.stairs(s * 5.8, -5, 'x', -s, 1.4, 4.2, 0, .46); K.ladder(s * 7, -5.2, s, 0, 4.2); });
       /* inside: a crate stack in the middle, shelving along the south wall, pallets */
-      box(0, 1.6, 2, 2, 1.4, 'crate'); box(0, 1.6, 1.1, 1.1, 1, 'crate', 1.4);
+      /* a wall of crates down the middle, so nobody sees (or snipes) straight through from door to door */
+      box(0, 0, 1.4, 5.2, 2.6, 'crate'); box(0, 0, 1.1, 1.1, 1, 'crate', 2.6);
       both(5.7, 4.6, 1.8, .9, 2, 'crate'); both(3.4, -1.2, 1.2, 1.2, 1.2, 'crate');
       /* on the roof: air-con units and a skylight frame for cover */
       box(0, 2.6, 2.4, 1.4, 1.1, 'cont', 4.2); both(4.6, 2.4, 1.4, 1.4, 1, 'crate', 4.2);
@@ -17899,6 +17902,8 @@ const AR_MAPS = {
     boxes: () => arBuild(64, 40, 7, (box, both, K) => {
       box(0, 0, 4, 24, .4, 'plat', 2.2);
       [-9, -3, 3, 9].forEach(z => both(1.6, z, .6, .6, 2.2, 'pillar'));
+      /* a solid support wall under the middle of the deck: no clear shot from one end of the street to the other */
+      box(0, 0, 1.2, 12, 2.2, 'pillar');
       K.stairs(0, 16.2, 'z', -1, 4, 2.6, 0, .6); K.stairs(0, -16.2, 'z', 1, 4, 2.6, 0, .6);
       /* deck railings, open where the catwalks join */
       [1, -1].forEach(s => { K.rail(s * 1.95, -12, s * 1.95, -11.1, 2.6); K.rail(s * 1.95, -8.9, s * 1.95, 12, 2.6); });
@@ -18612,6 +18617,8 @@ function arNewRound(ev){
   if (ev) { A.round = ev.rd; if (ev.sc) A.score = ev.sc; ev.sp.forEach((s, i) => { const f = A.F[i]; if (!f) return; f.p = {x: s[0], y: 0, z: s[1]}; f.yaw = s[2]; if (f.net) Object.assign(f.net, {x: s[0], y: 0, z: s[1], yaw: s[2]}); });
     if (ev.ph === 'count') A.t = ev.t; }
   A.F.forEach(f => { if (f.gone) { f.alive = false; if (f.B) f.B.g.visible = false; } });
+  /* no ability can be used the moment a round starts: every weapon's skill unlocks 3 seconds after the countdown */
+  A.F.forEach(f => f.load.forEach(l => { const sk = arSkillOf(l.it); if (sk) f.cd[sk] = Math.max(0, A.t) + 3; }));
   if (A.net && A.net.host && !A.waitReady) arNetRoundEv();
   arShowWeapon(); arHudBanner('ROUND ' + A.round, A.score[0] + ' – ' + A.score[1]); arHudUpdate(true);
 }
@@ -18718,6 +18725,7 @@ const arNearestFoe = f => arFoes(f).sort((a, b) => arDist(a.p, f.p) - arDist(b.p
 /* ---------- skills ---------- */
 function arUseSkill(f){
   const A = AR, l = f.load[f.cur], id = arSkillOf(l.it); if (!id || A.phase !== 'live' || !f.alive) return false;
+  if ((f.cd[id] || 0) > 0 && (id === AR_GOAT_ID || id === AR_PULGA)) { if (f.me) { arFeed(AR_SK[id].n + ' ready in ' + Math.ceil(f.cd[id]) + 's', 'b'); tone(220, .08, 'square', .03); } return false; }
   if (id === AR_GOAT_ID) { if (!f.me) return false; if (A.goatMenu) { arGoatMenuClose(); return false; } return arGoatMenu(); }
   if (id === AR_PULGA) { if (f.summon || A.duel) return false;
     if (!arMsnReady(f)) { if (f.me) { arFeed('MSN is resting · back in round ' + f.msnNext, 'b'); tone(220, .08, 'square', .03); } return false; }
@@ -19434,7 +19442,7 @@ function arHudUpdate(full){
   if (goatOn) { const c = f.goatC || 0, k = `${c}|${f.goatK || 0}|${l.it.id === AR_GOAT_ID}`; if (gb.dataset.k !== k) { gb.dataset.k = k; [...gb.querySelectorAll('.ar-goat-b i')].forEach((s, i) => s.classList.toggle('on', i < c));
     gb.classList.toggle('full', c >= 3); gb.classList.toggle('act', l.it.id === AR_GOAT_ID); $('#arGoatT').textContent = '+' + Math.round((arGoatMul(f) - 1) * 100) + '%';
     $('#arGoatS').textContent = c >= 3 ? 'MARK READY · ' + (AR_MOBILE ? 'TAP THE GOAT' : 'PRESS Q') : (3 - c) + ' KILL' + (3 - c === 1 ? '' : 'S') + ' TO A MARK'; } }
-  if (sk) { const isG = sk === AR_GOAT_ID, isP = sk === AR_PULGA, cd = isG ? ((f.goatC || 0) >= 3 ? 0 : 1) : isP ? (arMsnReady(f) ? 0 : 1) : (f.cd[sk] || 0), p = isG ? 1 - (f.goatC || 0) / 3 : isP ? Math.min(1, Math.max(0, ((f.msnNext || 0) - A.round) / 3)) : cd / AR_SK[sk].cd; $('#arSkN').textContent = AR_SK[sk].n; btn.classList.toggle('ready', cd <= 0); $('#arSkC').style.strokeDashoffset = (106.8 * p).toFixed(1);
+  if (sk) { const isG = sk === AR_GOAT_ID, isP = sk === AR_PULGA, lock = (isG || isP) && (f.cd[sk] || 0) > 0, cd = lock ? 1 : isG ? ((f.goatC || 0) >= 3 ? 0 : 1) : isP ? (arMsnReady(f) ? 0 : 1) : (f.cd[sk] || 0), p = lock ? Math.min(1, f.cd[sk] / 3) : isG ? 1 - (f.goatC || 0) / 3 : isP ? Math.min(1, Math.max(0, ((f.msnNext || 0) - A.round) / 3)) : cd / AR_SK[sk].cd; $('#arSkN').textContent = AR_SK[sk].n; btn.classList.toggle('ready', cd <= 0); $('#arSkC').style.strokeDashoffset = (106.8 * p).toFixed(1);
     if (tsk) { tsk.classList.toggle('ready', cd <= 0); $('#arTSkC').style.strokeDashoffset = (113.1 * p).toFixed(1); } }
   const st = []; if (f.st.abyss > 0) st.push('Abyss'); if (f.st.void > 0) st.push('Void Sight'); if (f.st.invis > 0) st.push('Invisible'); if (f.st.od > 0) st.push('Overdrive'); if (f.st.wraith > 0) st.push('Wraithfire');
   if (f.st.req > 0) st.push('Requiem ×' + f.st.req); if (f.st.haste > 0) st.push('Haste'); if (f.st.long > 0) st.push('Long Shot'); if (f.st.speedy > 0) st.push('Speedster'); if (f.st.slow > 0) st.push('Slowed'); if (f.st.root > 0) st.push('Rooted'); if (f.st.burn > 0) st.push('Burning');
