@@ -4332,6 +4332,9 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -20473,7 +20476,7 @@ function arStadTick(dt){
    a striped shirt with the name and number on the back, blue shorts, garnet socks, and a flat face decal on the
    head. Neymar's face is the one from his film; Suárez gets his own, big front teeth and all. */
 const AR_STARS = {
-  ney: {name: 'NEYMAR JR', num: '11', skin: '#d4a07a', hair: '#3a2616', tip: '#e8c27a', boot: '#ffd23f', face: () => bdoP('neymar', {hair: 'none', tape: false, mouth: 'none', lip: false, beard: 'none', skin: 'rgba(0,0,0,0)', shade: 'rgba(0,0,0,0)'})},
+  ney: {name: 'NEYMAR JR', num: '11', skin: '#cf9a6b', hair: '#3a2616', tip: '#e8c27a', boot: '#ffd23f', face: () => bdoP('neymar', {hair: 'none', tape: false, mouth: 'none', lip: false, beard: 'none', skin: 'rgba(0,0,0,0)', shade: 'rgba(0,0,0,0)'})},
   sua: {name: 'SUÁREZ', num: '9', skin: '#d6a07a', hair: '#1c130c', boot: '#15171c', face: () => ({skin: '#d6a07a', shade: 'rgba(110,55,25,.2)', head: 'long', hair: 'part', hc: '#1c130c', beard: 'stubble', brow: 'thick', iris: '#4a3020', mouth: 'none', lip: false}),
     /* the teeth: a wide grin with two huge front teeth that hang below the lip */
     extra: '<path d="M-10.5 27.4 Q0 42 10.5 27.4 Q0 30.4 -10.5 27.4 Z" fill="#4a1410"/>'
@@ -20547,6 +20550,7 @@ function arStarHead(T, head, who, skinM, hairM){
   const hg = new T.Group(); head.add(hg);
   const add = (geo, m, x, y, z, sx, sy, sz) => { const o = new T.Mesh(geo, m); o.position.set(x, y, z); if (sx) o.scale.set(sx, sy, sz); o.castShadow = !AR_MOBILE; hg.add(o); return o; };
   const sph = (r, a, b) => new T.SphereGeometry(r, a || 20, b || 14);
+  if (ney) return arNeyHead(T, add, skinM, P);
   let skull, R;
   if (!ney) { R = .27; skull = new T.SphereGeometry(R, 48, 36); }
   else { /* the classic blocky-game head: a short, wide cylinder with rounded top and bottom edges */
@@ -20649,6 +20653,76 @@ function arNeyHair(T, add, sph, R, cy, P, skinM, pts){
   for (let i = 0; i < 26; i++) { const a = rnd() * Math.PI * 2, rr = Math.sqrt(rnd()) * .075, x = Math.cos(a) * rr * .9 - .008, z = -.035 + Math.sin(a) * rr, y = cy + H2;
     const dir = new T.Vector3(-x * 2.4 - .04, 1, -(z + .035) * 1.8 + .12).normalize(), len = .3 + rnd() * .14 - rr * 1.4;
     spike(x, y, z, dir, len, .033 + rnd() * .012, i % 3 ? light : brown[2], blond); }
+  return keep;
+}
+
+/* Neymar's head, modelled from his drawing in the film. Everything is laid out in the drawing's own units (the face
+   is about 33 across and 54 from crown to chin) and scaled into the game. The skull is a sphere pushed into his
+   outline: straight sides, a jaw that angles in at the corners, a rounded chin, a flatter face and a rounder back.
+   Then the features, each placed on the surface by casting a ray at the head from the front, and the hair. */
+function arNeyHead(T, add, skinM, P){
+  const s = .0105, Y = yd => (9.7 - yd) * s + .085, rnd = seeded(5150);
+  const std = o => new T.MeshStandardMaterial(Object.assign({roughness: .55, metalness: 0}, o)), keep = [];
+  const M = o => { const m = std(o); keep.push(m); return m; };
+  const whiteM = M({color: '#f6f1e6', roughness: .25}), irisM = M({color: '#5a3a1c', roughness: .15}), pupilM = M({color: '#0e0a08', roughness: .1}), lashM = M({color: '#1e1410', roughness: .6}),
+    browM = M({color: '#2b1a10', roughness: .9}), lipU = M({color: '#9a5640'}), lipL = M({color: '#b06a52', roughness: .4}), lineM = M({color: '#4a1c12'}), tapeM = M({color: '#f4f1ea', roughness: .7}),
+    earIn = M({color: arShade(P.skin, .8)}), hairM = M({color: '#5e3c20', roughness: .95}), hairD = M({color: '#432812', roughness: .95}), goldM = M({color: '#f0cc62', roughness: .6, emissive: '#5a4210'}), goldL = M({color: '#ffe8a0', roughness: .55, emissive: '#6a5218'});
+  /* his outline, half-width by height (drawing units, y down), and how far the face and the back of the head reach */
+  const W = yd => yd < -6 ? 15.5 * Math.sqrt(Math.max(0, 1 - ((yd + 6) / 11.6) ** 2)) : yd < 19 ? 15.5 - (yd + 6) * .012 : yd < 27.4 ? 15.2 - (yd - 19) / 8.4 * 2.6 : yd < 34.2 ? 12.6 - (yd - 27.4) / 6.8 * 6 : 6.6 * Math.sqrt(Math.max(0, 1 - ((yd - 34.2) / 2.75) ** 2));
+  const DF = yd => { const base = yd < -6 ? 15 * Math.sqrt(Math.max(0, 1 - ((yd + 6) / 11.6) ** 2)) : yd < 26 ? 15.2 : yd < 34.5 ? 15.2 - (yd - 26) * .45 : 11.4 * Math.sqrt(Math.max(0, 1 - ((yd - 34.5) / 2.5) ** 2)); return base; };
+  const DB = yd => yd < -4 ? 17.5 * Math.sqrt(Math.max(0, 1 - ((yd + 4) / 13.6) ** 2)) : yd < 14 ? 17.5 - Math.max(0, yd - 6) * .3 : 15 - (yd - 14) * .45;
+  const sculpt = (geo, grow) => { const p = geo.attributes.position;
+    for (let i = 0; i < p.count; i++) { const ux = p.getX(i), uy = p.getY(i), uz = p.getZ(i), r = Math.hypot(ux, uz), yd = -17.6 + (1 - uy) / 2 * 54.6;
+      const cx = r > 1e-6 ? ux / r : 0, cz = r > 1e-6 ? uz / r : 0, g = grow || 1;
+      p.setXYZ(i, cx * W(yd) * s * g, (Y(yd) - .085) * g + .085, cz * (cz < 0 ? DF(yd) : DB(yd)) * s * g); }
+    geo.computeVertexNormals(); return geo; };
+  const skull = sculpt(new T.SphereGeometry(1, 64, 56)); add(skull, skinM, 0, 0, 0);
+  const tmp = new T.Mesh(skull), ray = new T.Raycaster(); tmp.updateMatrixWorld(true);
+  const fz = (xd, yd) => { ray.set(new T.Vector3(xd * s, Y(yd), -2), new T.Vector3(0, 0, 1)); const h = ray.intersectObject(tmp); return h.length ? h[0].point.z : -15 * s; };
+  const at = (geo, m, xd, yd, out, sx, sy, sz) => add(geo, m, xd * s, Y(yd), fz(xd, yd) - out * s, sx, sy, sz);
+  const sp = r => new T.SphereGeometry(r * s, 20, 14);
+  /* ears */
+  [-1, 1].forEach(k => { add(sp(3.6), skinM, k * 15.9 * s, Y(14), .5 * s, .45, 1.25, .8); add(sp(2.2), earIn, k * 16.6 * s, Y(14), .2 * s, .3, 1.1, .6); });
+  /* eyes: a narrow almond of white, a brown iris, a heavy dark lash line over the top, a soft line under */
+  [-1, 1].forEach(k => { const ex = k * 6.6;
+    at(sp(1), whiteM, ex, 11, -.4, 3.1, 1.25, 1);
+    at(sp(1.35), irisM, ex - k * .2, 11.1, .45, 1, 1, .5); at(sp(.6), pupilM, ex - k * .2, 11.1, .95, 1, 1, .4);
+    const l = at(new T.BoxGeometry(7 * s, 1.15 * s, 1.2 * s), lashM, ex, 9.85, .25); l.rotation.z = k * -.07;
+    at(new T.BoxGeometry(5 * s, .35 * s, .6 * s), earIn, ex, 12.5, .1);
+    /* brows: thick, straight with a slight lift at the outer end */
+    const b1 = at(new T.BoxGeometry(5.6 * s, 1.9 * s, 1.6 * s), browM, k * 4.6, 7.2, .2); b1.rotation.z = k * -.03;
+    const b2 = at(new T.BoxGeometry(5 * s, 1.6 * s, 1.5 * s), browM, k * 9.6, 6.9, .1); b2.rotation.z = k * -.16; });
+  /* the nose: a bridge, a round tip, nostril wings */
+  at(sp(1), skinM, 0, 16.6, -.6, 2.4, 6.4, 3.4); at(sp(2.9), skinM, 0, 21.9, 1.2, 1.15, .9, 1); [-1, 1].forEach(k => at(sp(1.7), skinM, k * 2.7, 23, .3, 1, .85, 1));
+  [-1, 1].forEach(k => at(sp(.7), lineM, k * 1.5, 23.9, 1.4, 1.2, .6, .6));
+  /* the tape across the nose */
+  const tp = at(new T.TorusGeometry(4.2 * s, .75 * s, 8, 24, Math.PI), tapeM, 0, 18.6, 1.6, 1.2, 1, 1); tp.rotation.set(-Math.PI / 2, 0, 0); tp.scale.set(1.25, 1, 2.6);
+  /* the mouth: a closed, firm mouth with a little smile at the corners */
+  at(sp(1), lipU, 0, 29.9, .2, 5.6, 1, 1.4); at(new T.BoxGeometry(11.6 * s, .45 * s, .8 * s), lineM, 0, 30.7, .55);
+  at(sp(1), lipL, 0, 31.9, .3, 4.8, 1.35, 1.5);
+  [-1, 1].forEach(k => { const c = at(new T.BoxGeometry(1.6 * s, .45 * s, .7 * s), lineM, k * 6.2, 30.3, .25); c.rotation.z = k * .45; });
+  /* hair: a cap over the top and sides, longer at the back, sideburns */
+  const capTo = yd => Math.acos(Math.max(-1, Math.min(1, 1 - 2 * (yd + 17.6) / 54.6)));
+  add(sculpt(new T.SphereGeometry(1, 48, 24, 0, Math.PI * 2, 0, capTo(.5)), 1.045), hairM, 0, 0, 0);
+  add(sculpt(new T.SphereGeometry(1, 32, 16, Math.PI * .08, Math.PI * .84, capTo(0), capTo(17) - capTo(0)), 1.04), hairM, 0, 0, 0);
+  [-1, 1].forEach(k => add(new T.BoxGeometry(1.4 * s, 7 * s, 2.6 * s), hairD, k * 15.2 * s, Y(10.5), -4.6 * s));
+  /* spikes */
+  const up = new T.Vector3(0, 1, 0);
+  const spike = (xd, yd, zd, dir, len, rad, m, tipM, tl) => { const c = add(new T.ConeGeometry(rad * s, len * s, 7), m, (xd + dir.x * len / 2) * s, Y(yd) + dir.y * len / 2 * s, (zd + dir.z * len / 2) * s);
+    c.quaternion.setFromUnitVectors(up, dir);
+    if (tipM) { const t = add(new T.ConeGeometry(rad * tl * s * 1.08, len * tl * s * 1.01, 7), tipM, (xd + dir.x * len * (1 - tl / 2)) * s, Y(yd) + dir.y * len * (1 - tl / 2) * s, (zd + dir.z * len * (1 - tl / 2)) * s); t.quaternion.copy(c.quaternion); } };
+  /* the fringe: a row of short spikes along the hairline, pointing up and forward */
+  for (let i = 0; i < 11; i++) { const xd = -13 + i * 2.6, yd = .6 - Math.abs(xd) * .12, zd = -DF(yd) * 1.03 + 1.2;
+    spike(xd, yd, zd, new T.Vector3(xd * .03, 1, -.55).normalize(), 6.5 + rnd() * 3, 1.7, i % 2 ? hairM : hairD, null, 0); }
+  /* spiky texture over the top and sides */
+  for (let i = 0; i < 60; i++) { const a = rnd() * Math.PI * 2, lat = .08 + rnd() * .82, uy = Math.cos(lat * capTo(.5)), r = Math.sqrt(1 - uy * uy), yd = -17.6 + (1 - uy) / 2 * 54.6;
+    const cx = Math.cos(a), cz = Math.sin(a), xd = cx * W(yd) * 1.03, zd = cz * (cz < 0 ? DF(yd) : DB(yd)) * 1.03;
+    const dir = new T.Vector3(cx * r * 1.3, 1, cz * r * 1.1 + .25).normalize(), centre = 1 - lat;
+    spike(xd, yd, zd, dir, 4.5 + centre * 6 + rnd() * 2.5, 1.6, rnd() < .5 ? hairM : hairD, centre > .5 && rnd() < .4 ? goldM : null, .4); }
+  /* the crest: thin spikes bunched at the crown, fanning up, brown at the root and gold toward the tips */
+  for (let i = 0; i < 24; i++) { const xd = (rnd() - .5) * 9, zd = -4 + (rnd() - .5) * 7, yd = -16.6 + Math.abs(xd) * .08;
+    const dir = new T.Vector3(xd * .085 + (rnd() - .5) * .14, 1, .05 + (rnd() - .5) * .15).normalize(), len = 19 + rnd() * 10 - Math.abs(xd) * .7;
+    spike(xd, yd, zd, dir, len, 2.2 + rnd() * .6, i % 3 ? hairM : hairD, i % 2 ? goldM : goldL, .72); }
   return keep;
 }
 $('#arBtn').onclick = () => { if (busy) return; arOpen(); };
