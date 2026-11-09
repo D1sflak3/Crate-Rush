@@ -4326,6 +4326,8 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -20467,7 +20469,7 @@ function arStadTick(dt){
    a striped shirt with the name and number on the back, blue shorts, garnet socks, and a flat face decal on the
    head. Neymar's face is the one from his film; Suárez gets his own, big front teeth and all. */
 const AR_STARS = {
-  ney: {name: 'NEYMAR JR', num: '11', skin: '#c99572', hair: '#3a2616', tip: '#e8c27a', boot: '#ffd23f', face: () => bdoP('neymar', {mouth: 'grin'})},
+  ney: {name: 'NEYMAR JR', num: '11', skin: '#c99572', hair: '#3a2616', tip: '#e8c27a', boot: '#ffd23f', face: () => bdoP('neymar', {hair: 'none', skin: 'rgba(0,0,0,0)', shade: 'rgba(0,0,0,0)'})},
   sua: {name: 'SUÁREZ', num: '9', skin: '#d6a07a', hair: '#1c130c', boot: '#15171c', face: () => ({skin: '#d6a07a', shade: 'rgba(110,55,25,.2)', head: 'long', hair: 'part', hc: '#1c130c', beard: 'stubble', brow: 'thick', iris: '#4a3020', mouth: 'none', lip: false}),
     /* the teeth: a wide grin with two huge front teeth that hang below the lip */
     extra: '<path d="M-10.5 27.4 Q0 42 10.5 27.4 Q0 30.4 -10.5 27.4 Z" fill="#4a1410"/>'
@@ -20491,8 +20493,8 @@ function arStarCanvas(kind, who){
   else if (kind === 'shorts' || kind === 'shorts2') c = arCanvas(128, 128, (g, w, h) => { g.fillStyle = '#004d98'; g.fillRect(0, 0, w, h); g.fillStyle = '#a50044'; g.fillRect(0, h * .86, w, h * .14); if (kind === 'shorts') { g.fillStyle = '#ffd23f'; g.font = '700 30px Fredoka, Teko, sans-serif'; g.fillText(P.num, w * .55, h * .5); } });
   else if (kind === 'socks') c = arCanvas(128, 128, (g, w, h) => { g.fillStyle = '#a50044'; g.fillRect(0, 0, w, h); g.fillStyle = '#004d98'; g.fillRect(0, 0, w, h * .2); g.fillStyle = '#ffd23f'; g.fillRect(0, h * .2, w, h * .05); });
   else if (kind === 'face') { /* the face drawing, cropped to the face, onto a transparent canvas; drawn once its picture loads */
-    const W = 352, H = 506; c = arCanvas(W, H, () => {});
-    const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -7 32 46" width="' + W + '" height="' + H + '">' + bdoFace(P.face()) + (P.extra || '') + '</svg>';
+    const W = 432, H = 513; c = arCanvas(W, H, () => {});
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 2 32 38" width="' + W + '" height="' + H + '">' + bdoFace(P.face()) + (P.extra || '') + '</svg>';
     const img = new Image(); img.onload = () => { c.getContext('2d').drawImage(img, 0, 0, W, H); const t = arStarTex[key + 't']; if (t) t.needsUpdate = true; };
     img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
   }
@@ -20547,8 +20549,19 @@ function arStarHead(T, head, who, skinM, hairM){
     R = .205; const H = .33, e = .075, pts = [new T.Vector2(0, -H / 2)];
     for (let i = 0; i <= 8; i++) { const a = -Math.PI / 2 + i / 8 * Math.PI / 2; pts.push(new T.Vector2(R - e + Math.cos(a) * e, -H / 2 + e + Math.sin(a) * e)); }
     for (let i = 0; i <= 8; i++) { const a = i / 8 * Math.PI / 2; pts.push(new T.Vector2(R - e + Math.cos(a) * e, H / 2 - e + Math.sin(a) * e)); }
-    pts.push(new T.Vector2(0, H / 2)); skull = new T.LatheGeometry(pts, 56); skull.scale(1, 1, .94); skull.computeVertexNormals(); }
-  const cy = ney ? .2 : .24, sk = add(skull, skinM, 0, cy, 0);
+    pts.push(new T.Vector2(0, H / 2)); skull = new T.LatheGeometry(pts, 56); skull.userData.pts = pts; skull.scale(1, 1, .94); skull.computeVertexNormals(); }
+  /* centred so the bottom of the head rests on the neck block (its top is 0.18 below the head group) */
+  const cy = ney ? -.02 : .05, sk = add(skull, skinM, 0, cy, 0);
+  if (ney) { /* his face from the film, wrapped onto the front of the head: a slice of the same rounded shape, a hair
+       bigger, mapped flat from the front so the drawing isn't stretched round the sides */
+    const ft = new T.CanvasTexture(arStarCanvas('face', who)); ft.colorSpace = T.SRGBColorSpace; ft.anisotropy = 8; arStarTex['face' + who + 't'] = ft;
+    const pg = new T.LatheGeometry(skull.userData.pts, 40, Math.PI * .72, Math.PI * .56); pg.scale(1.012, 1, .94 * 1.012);
+    const pp = pg.attributes.position, uv = pg.attributes.uv, FW = .253, FH = .3;
+    for (let i = 0; i < pp.count; i++) uv.setXY(i, .5 + pp.getX(i) / FW, .5 + pp.getY(i) / FH);
+    const fm = new T.MeshStandardMaterial({map: ft, transparent: true, alphaTest: .04, roughness: .6, polygonOffset: true, polygonOffsetFactor: -2});
+    add(pg, fm, 0, cy, 0).castShadow = false;
+    return [fm].concat(arNeyHawk(T, add, sph, R, cy, P));
+  }
   /* where the face is: cast a ray at the head from the front */
   const ray = new T.Raycaster(), tmp = new T.Mesh(skull); tmp.position.y = cy; tmp.updateMatrixWorld(true);
   const fz = (x, y) => { ray.set(new T.Vector3(x, y, -2), new T.Vector3(0, 0, 1)); const h = ray.intersectObject(tmp); return h.length ? h[0].point.z : -R * .9; };
@@ -20579,23 +20592,6 @@ function arStarHead(T, head, who, skinM, hairM){
     const lip = add(new T.TorusGeometry(.052, .0065, 6, 20, Math.PI), lipM, 0, my + .01, mz - .002); lip.scale.set(1.15, .5, 1);
   }
   /* hair */
-  if (ney) { /* a white headband, then a big fluffy mop of curls piled over it: a dark base cap and dozens of lumps in mixed
-       browns with blond highlights, each lump dotted with smaller curls so it reads as texture, not a helmet */
-    const keep = [], top = cy + .165, hm = ['#2e1c10', '#3a2616', '#4a301c', '#5a3a20'].map(c => { const m = new T.MeshStandardMaterial({color: c, roughness: .95}); keep.push(m); return m; });
-    const hl = new T.MeshStandardMaterial({color: P.tip, roughness: .85}); keep.push(hl);
-    const band = new T.MeshStandardMaterial({color: '#f4f4f0', roughness: .7, side: T.DoubleSide}); keep.push(band);
-    add(new T.CylinderGeometry(R * 1.035, R * 1.035, .055, 48, 1, true), band, 0, cy + .1, 0, 1, 1, .95);
-    add(new T.SphereGeometry(R * 1.02, 40, 20, 0, Math.PI * 2, 0, Math.PI * .5), hm[1], 0, cy + .12, 0, 1, .55, .95);
-    const rnd = seeded(1111);
-    for (let i = 0; i < 70; i++) { const a = rnd() * Math.PI * 2, rr = Math.sqrt(rnd()) * R * 1.02, x = Math.cos(a) * rr, z = Math.sin(a) * rr * .95, edge = rr / (R * 1.02);
-      const y = top - .02 + (1 - edge * edge) * .07 + rnd() * .03, s = .04 + rnd() * .03 - edge * .008;
-      const m = rnd() < .16 && edge < .8 ? hl : hm[Math.floor(rnd() * hm.length)];
-      add(sph(s, 10, 8), m, x, y, z, 1 + rnd() * .3, .75 + rnd() * .3, 1 + rnd() * .3);
-      for (let c = 0; c < 2; c++) { const b = rnd() * Math.PI * 2; add(sph(s * .45, 7, 6), m, x + Math.cos(b) * s * .8, y + s * .45, z + Math.sin(b) * s * .8); } }
-    /* a few curls spilling over the band at the front and sides */
-    for (let i = 0; i < 16; i++) { const a = Math.PI * (1.08 + i / 15 * .84) + (rnd() - .5) * .1; add(sph(.03 + rnd() * .012, 9, 7), hm[Math.floor(rnd() * hm.length)], Math.cos(a) * R * 1.03, cy + .135 + rnd() * .02, Math.sin(a) * R * .98, 1, .8, 1); }
-    return [whiteM, irisM, darkM, lipM, mouthM, browM].concat(keep);
-  }
   /* Suárez: slicked back with a little height at the front, sideburns, stubble on the jaw and chin */
   const cap = new T.SphereGeometry(R * 1.035, 48, 24, 0, Math.PI * 2, 0, Math.PI * .5); add(cap, hairM, 0, cy + .012, .02);
   add(sph(.11, 18, 12), hairM, 0, cy + .2, -.06, 1.7, .5, 1.25);
@@ -20604,6 +20600,28 @@ function arStarHead(T, head, who, skinM, hairM){
   const stM = new T.MeshStandardMaterial({color: P.hair, transparent: true, opacity: .14, roughness: 1, depthWrite: false}); stM.userData.keep = true;
   [[1.06, .88, .73, .22]].forEach(([a, l, t0, tl]) => add(new T.SphereGeometry(R * 1.012, 28, 14, Math.PI * a, Math.PI * l, Math.PI * t0, Math.PI * tl), stM, 0, cy, 0));
   return [whiteM, irisM, darkM, lipM, mouthM, browM];
+}
+
+/* Neymar's mohawk: short faded sides, then a tall ridge from his forehead over the crown to the back, built from
+   overlapping fluffy lumps in a few browns, dotted with little curls for texture and topped with spiky tufts whose
+   tips are bleached. Taller at the front, like his. */
+function arNeyHawk(T, add, sph, R, cy, P){
+  const keep = [], top = cy + .165, rnd = seeded(2222);
+  const hm = ['#2a1a0e', '#3a2616', '#4a301c', '#5a3a20'].map(c => { const m = new T.MeshStandardMaterial({color: c, roughness: .95}); keep.push(m); return m; });
+  const tipM = new T.MeshStandardMaterial({color: P.tip, roughness: .85}); keep.push(tipM);
+  const fade = new T.MeshStandardMaterial({color: P.hair, transparent: true, opacity: .55, roughness: 1, depthWrite: false}); fade.userData.keep = true;
+  /* the faded sides: a thin dark layer over the crown only */
+  add(new T.SphereGeometry(R * 1.01, 40, 12, 0, Math.PI * 2, 0, Math.PI * .36), fade, 0, cy + .11, 0, 1, .42, .95);
+  /* the ridge: a solid strip of hair from the front edge over to the back, tallest at the front */
+  const N = 16;
+  for (let i = 0; i < N; i++) { const t = i / (N - 1), z = (-.9 + t * 1.8) * R * .95, h = .11 + .09 * Math.pow(1 - t, 1.3), w = .062 - t * .014, y = top - .015;
+    add(sph(1, 12, 10), hm[1 + (i % 2)], 0, y + h * .3, z, w, h * .55, .045);
+    for (let k = 0; k < 2; k++) { const s = .02 + rnd() * .012; add(sph(s, 9, 7), hm[Math.floor(rnd() * hm.length)], (rnd() - .5) * w, y + h * (.2 + rnd() * .5), z + (rnd() - .5) * .03, 1, 1.1, 1); }
+    /* spikes on top, leaning back, bleached at the tips */
+    for (let k = 0; k < 3; k++) { const lean = -.28 - t * .45 + (rnd() - .5) * .25, side = (k - 1) * .28 + (rnd() - .5) * .15, hh = h * (.6 + rnd() * .35);
+      const c = add(new T.ConeGeometry(.019, hh, 7), hm[Math.floor(rnd() * 3)], (k - 1) * w * .35, y + h * .55, z); c.rotation.set(lean, 0, -side);
+      const up = new T.Vector3(0, hh * .34, 0).applyEuler(c.rotation), tp = add(new T.ConeGeometry(.0115, hh * .4, 6), tipM, c.position.x + up.x, c.position.y + up.y, c.position.z + up.z); tp.rotation.copy(c.rotation); } }
+  return keep;
 }
 $('#arBtn').onclick = () => { if (busy) return; arOpen(); };
 document.addEventListener('keydown', e => { const el = $('#arena'); if (!el || el.hidden) return; if (e.key === 'Escape') { e.stopImmediatePropagation(); if (!AR && $('#arGame').hidden && !document.querySelector('.ar-pick')) { if (arQ) { clearInterval(arQ.iv); arQ = null; arMenu(); } else arClose(); } else { const pk = document.querySelector('.ar-pick'); if (pk) pk.remove(); } } }, true);
