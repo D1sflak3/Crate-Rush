@@ -4304,6 +4304,10 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -17642,104 +17646,212 @@ const AR_MAPTILES = {
   6: {docks: [1, 3], court: [2, 2]},
   8: {docks: [2, 2], court: [2, 2]}};
 function arTilesFor(id, n){ const t = (AR_MAPTILES[n] || {})[id] || [1, Math.max(1, Math.round(n / 2))]; return {c: t[0], r: t[1]}; }
+/* one rectangle minus some holes, as a few rectangles (a grid cut, then each row's cells merged) */
+function arRectMinus(r, holes){
+  const xs = [r[0], r[2]], zs = [r[1], r[3]]; holes.forEach(h => { xs.push(h[0], h[2]); zs.push(h[1], h[3]); });
+  const ux = [...new Set(xs)].filter(v => v >= r[0] && v <= r[2]).sort((a, b) => a - b), uz = [...new Set(zs)].filter(v => v >= r[1] && v <= r[3]).sort((a, b) => a - b), out = [];
+  for (let j = 0; j < uz.length - 1; j++) { let run = null;
+    for (let i = 0; i < ux.length - 1; i++) { const cx = (ux[i] + ux[i + 1]) / 2, cz = (uz[j] + uz[j + 1]) / 2, hole = holes.some(h => cx > h[0] && cx < h[2] && cz > h[1] && cz < h[3]);
+      if (!hole) { if (run) run[2] = ux[i + 1]; else run = [ux[i], uz[j], ux[i + 1], uz[j + 1]]; } else if (run) { out.push(run); run = null; } }
+    if (run) out.push(run); }
+  return out;
+}
+/* the kit a layout is built with. Besides plain boxes it lays down buildings (walls with doors and windows, a
+   roof or an upper floor, holes for stairs), flights of steps and ladders. Stairs and ladders also leave a
+   route behind, a list of points from the ground to the top, which is how the bots know how to get up. */
+function arKit(raw, ox, oz, B){
+  const box = (cx, cz, w, d, h, k, y0) => raw(cx + ox, cz + oz, w, d, h, k, y0);
+  const P = (x, z, y) => ({x: x + ox, z: z + oz, y: y || 0});
+  const K = {box};
+  /* steps from height y0 up to h, running along x or z in direction dir, starting at (x, z) */
+  K.stairs = (x, z, ax, dir, w, h, y0, dep) => { y0 = y0 || 0; dep = dep || .6; const n = Math.max(1, Math.round((h - y0) / .4)), rise = (h - y0) / n;
+    for (let i = 0; i < n; i++) { const a = (i + .5) * dep * dir; if (ax === 'x') box(x + a, z, dep, w, rise * (i + 1), 'stair', y0); else box(x, z + a, w, dep, rise * (i + 1), 'stair', y0); }
+    const L = n * dep, s0 = -.55 * dir, s1 = L * dir + .7 * dir, pts = ax === 'x' ? [P(x + s0, z, y0), P(x + s1, z, h)] : [P(x, z + s0, y0), P(x, z + s1, h)];
+    if (!y0) B.routes.push({pts, top: pts[1]}); return pts; };
+  /* a ladder against a wall face (x, z), facing out along (nx, nz), from y0 up to the top */
+  K.ladder = (x, z, nx, nz, top, y0) => { y0 = y0 || 0; const cx = x + nx * .26, cz = z + nz * .26, hw = .5;
+    const b = nx ? [cx - .26 + ox, y0, cz - hw + oz, cx + .26 + ox, top + .4, cz + hw + oz] : [cx - hw + ox, y0, cz - .26 + oz, cx + hw + ox, top + .4, cz + .26 + oz];
+    B.ladders.push({b, n: {x: nx, z: nz}, face: {x: x + ox, z: z + oz}, top, y0});
+    if (!y0) { const pts = [P(x + nx * 1.1, z + nz * 1.1, 0), Object.assign(P(x + nx * .3, z + nz * .3, top), {lad: 1}), P(x - nx * 1.2, z - nz * 1.2, top)]; B.routes.push({pts, top: pts[2]}); } };
+  K.route = pts => { const r = pts.map(p => Object.assign(P(p[0], p[1], p[2]), p[3] ? {lad: 1} : {})); B.routes.push({pts: r, top: r[r.length - 1]}); };
+  /* a building: walls of thickness t around w x d, h tall from y0, with openings on each side.
+     o.doors / o.wins: [side, offset along that side, width]; sides n (-z), s (+z), w (-x), e (+x).
+     o.roof (default on) puts a slab on top, minus o.holes ([x0, z0, x1, z1] relative to the centre). */
+  K.house = (cx, cz, w, d, h, o) => { o = o || {}; const t = o.t || .3, y0 = o.y0 || 0, kind = o.kind || 'bwall', roof = o.roof !== false, hw = roof ? h - .25 : h;
+    const ops = side => (o.doors || []).filter(q => q[0] === side).map(q => ({at: q[1], w: q[2], door: 1})).concat((o.wins || []).filter(q => q[0] === side).map(q => ({at: q[1], w: q[2]}))).sort((a, b) => a.at - b.at);
+    const side = (sd, len, put) => { let a = -len / 2;
+      ops(sd).forEach(q => { const a0 = q.at - q.w / 2, a1 = q.at + q.w / 2; if (a0 > a) put((a + a0) / 2, a0 - a, 0, hw);
+        const top = q.door ? Math.min(hw, (o.doorH || 2.45)) : Math.min(hw, 2.3); if (!q.door) put(q.at, q.w, 0, 1.05); if (hw > top) put(q.at, q.w, top, hw - top); a = a1; });
+      if (a < len / 2) put((a + len / 2) / 2, len / 2 - a, 0, hw); };
+    side('n', w, (a, L, yb, hh) => box(cx + a, cz - d / 2 + t / 2, L, t, hh, kind, y0 + yb));
+    side('s', w, (a, L, yb, hh) => box(cx + a, cz + d / 2 - t / 2, L, t, hh, kind, y0 + yb));
+    side('w', d - 2 * t, (a, L, yb, hh) => box(cx - w / 2 + t / 2, cz + a, t, L, hh, kind, y0 + yb));
+    side('e', d - 2 * t, (a, L, yb, hh) => box(cx + w / 2 - t / 2, cz + a, t, L, hh, kind, y0 + yb));
+    if (roof) arRectMinus([-w / 2, -d / 2, w / 2, d / 2], o.holes || []).forEach(r => box(cx + (r[0] + r[2]) / 2, cz + (r[1] + r[3]) / 2, r[2] - r[0], r[3] - r[1], .25, o.roofK || 'roof', y0 + hw));
+    B.houses.push({x0: cx - w / 2 + ox, z0: cz - d / 2 + oz, x1: cx + w / 2 + ox, z1: cz + d / 2 + oz, y0, y1: y0 + h, roof, sign: o.sign, signSide: o.signSide}); };
+  /* a thin railing along x or z */
+  K.rail = (x0, z0, x1, z1, y) => { const L = Math.hypot(x1 - x0, z1 - z0); if (Math.abs(x1 - x0) > Math.abs(z1 - z0)) box((x0 + x1) / 2, z0, L, .1, 1, 'rail', y); else box(x0, (z0 + z1) / 2, .1, L, 1, 'rail', y); };
+  return K;
+}
 function arBuild(W, D, wallH, fill){
   const B = [], TW = W * AR_TILE.c, TD = D * AR_TILE.r, raw = (cx, cz, w, d, h, k, y0) => B.push([cx - w / 2, y0 || 0, cz - d / 2, cx + w / 2, (y0 || 0) + h, cz + d / 2, k]);
+  B.ladders = []; B.routes = []; B.houses = [];
   raw(0, -TD / 2 - .5, TW + 2, 1, wallH, 'wall'); raw(0, TD / 2 + .5, TW + 2, 1, wallH, 'wall'); raw(-TW / 2 - .5, 0, 1, TD, wallH, 'wall'); raw(TW / 2 + .5, 0, 1, TD, wallH, 'wall');
   for (let ci = 0; ci < AR_TILE.c; ci++) for (let ri = 0; ri < AR_TILE.r; ri++) {
     const ox = (ci - (AR_TILE.c - 1) / 2) * W, oz = (ri - (AR_TILE.r - 1) / 2) * D;
-    const box = (cx, cz, w, d, h, k, y0) => raw(cx + ox, cz + oz, w, d, h, k, y0);
+    const K = arKit(raw, ox, oz, B), box = K.box;
     const both = (cx, cz, w, d, h, k, y0) => { box(cx, cz, w, d, h, k, y0); if (cx) box(-cx, cz, w, d, h, k, y0); };
-    fill(box, both);
+    fill(box, both, K);
   }
   return B;
 }
 /* the tiles' centres, for dressing that belongs to each copy of the layout */
 const arTileCentres = () => { const out = [], W = ARM.W / ARM.tile.c, D = ARM.D / ARM.tile.r; for (let ci = 0; ci < ARM.tile.c; ci++) for (let ri = 0; ri < ARM.tile.r; ri++) out.push([(ci - (ARM.tile.c - 1) / 2) * W, (ri - (ARM.tile.r - 1) / 2) * D]); return out; };
-/* a flight of steps from the ground up to height h, running along +z or -z from z0 */
-function arStairs(box, cx, z0, dir, w, h){ const n = Math.round(h / .4); for (let i = 0; i < n; i++) box(cx, z0 + dir * (i + .5) * .8, w, .8, h - .4 * (i + 1) + .4, 'stair'); }
 const AR_MAPS = {
-  yard: {name: 'Crate Yard', W: 44, D: 30, wallH: 6, pal: ['#c3c8d0', '#d9dde3', '#e6e9ee'], sky: '#8fb8e8',
-    boxes: () => arBuild(44, 30, 6, (box, both) => {
-      box(0, 0, 3, 3, 3, 'crate'); box(0, 0, 1.5, 1.5, 1.5, 'crate', 3);
-      box(0, 7.6, 2.4, 1.2, 1.2, 'crate'); box(0, -7.6, 2.4, 1.2, 1.2, 'crate');
-      both(6, -5.5, 1.5, 1.5, 1.5, 'crate'); both(6.6, 5.2, 1.5, 1.5, 1.5, 'crate'); both(6.6, 5.2, 1.5, 1.5, 1.5, 'crate', 1.5);
-      both(12, 12.6, 6, 2.5, 2.6, 'cont'); both(12, -12.6, 6, 2.5, 2.6, 'cont');
-      both(15, 0, .8, 6, 1.2, 'barrier');
-      both(3.6, 11.6, 1.2, 1.2, 1.2, 'crate'); both(3.6, -11.6, 1.2, 1.2, 1.2, 'crate');
-      both(9.8, 0, 1, 1, 3.4, 'pillar');
-      both(18.6, 7.4, 1.5, 1.5, 1.5, 'crate'); both(18.6, -7.4, 1.5, 1.5, 1.5, 'crate');
-      both(10.5, 7.8, 2.6, 1.2, 1.2, 'barrier'); both(10.5, -7.8, 2.6, 1.2, 1.2, 'barrier');
+  /* an industrial depot: a warehouse in the middle you can walk through, with stairs inside up through the roof
+     and ladders outside; stacked containers to climb near each side; guard booths */
+  yard: {name: 'Crate Yard', W: 48, D: 34, wallH: 6, pal: ['#c3c8d0', '#d9dde3', '#e6e9ee'], sky: '#8fb8e8',
+    boxes: () => arBuild(48, 34, 6, (box, both, K) => {
+      K.house(0, 0, 14, 12, 4.2, {doors: [['e', 0, 2.6], ['w', 0, 2.6], ['s', -3.6, 2], ['s', 3.6, 2]], wins: [['e', 3.6, 1.8], ['e', -3.6, 1.8], ['w', 3.6, 1.8], ['w', -3.6, 1.8], ['n', 0, 2.2], ['s', 0, 2]],
+        holes: [[.75, -5.75, 4.5, -4.25], [-4.5, -5.75, -.75, -4.25]], sign: 'DEPOT 07', signSide: 'ew'});
+      [1, -1].forEach(s => { K.stairs(s * 5.8, -5, 'x', -s, 1.4, 4.2, 0, .46); K.ladder(s * 7, -5.2, s, 0, 4.2); });
+      /* inside: a crate stack in the middle, shelving along the south wall, pallets */
+      box(0, 1.6, 2, 2, 1.4, 'crate'); box(0, 1.6, 1.1, 1.1, 1, 'crate', 1.4);
+      both(5.7, 4.6, 1.8, .9, 2, 'crate'); both(3.4, -1.2, 1.2, 1.2, 1.2, 'crate');
+      /* on the roof: air-con units and a skylight frame for cover */
+      box(0, 2.6, 2.4, 1.4, 1.1, 'cont', 4.2); both(4.6, 2.4, 1.4, 1.4, 1, 'crate', 4.2);
+      /* containers: a double stack with a ladder (the high spot) and a single one with steps */
+      both(13, -11, 6, 2.5, 2.6, 'cont'); both(13, -11, 6, 2.5, 2.6, 'cont', 2.6); [1, -1].forEach(s => K.ladder(s * 14.6, -9.75, 0, 1, 5.2));
+      both(12.2, -11, 1.3, 1.3, 1.1, 'crate', 5.2);
+      both(13, 11, 6, 2.5, 2.6, 'cont'); [1, -1].forEach(s => K.stairs(s * 14.6, 16.1, 'z', -1, 1.4, 2.6, 0, .55)); both(11.2, 11, 1.2, 1.2, 1.1, 'crate', 2.6);
+      /* guard booths you can duck into, roof by ladder */
+      [1, -1].forEach(s => { K.house(s * 18.3, 7.4, 3.2, 3.2, 2.8, {doors: [[s > 0 ? 'w' : 'e', 0, 1.4]], wins: [['n', 0, 1.6], ['s', 0, 1.6]]}); K.ladder(s * 19.9, 6.6, s, 0, 2.8); });
+      both(9.8, 4, 2.6, 1.2, 1.2, 'barrier'); both(9.8, -4, 2.6, 1.2, 1.2, 'barrier'); both(15.5, 0, .8, 5, 1.2, 'barrier');
+      both(20.5, -6, 1.5, 1.5, 1.5, 'crate'); both(20.5, 12, 1.5, 1.5, 1.5, 'crate'); both(6.5, 13.5, 1.5, 1.5, 1.5, 'crate'); both(6.5, -13.5, 1.5, 1.5, 1.5, 'crate'); both(6.5, -13.5, 1.2, 1.2, 1.2, 'crate', 1.5);
+      both(9.6, 9, 1.2, 1.2, 1.2, 'crate'); both(9.6, -8, 1.2, 1.2, 1.2, 'crate');
     })},
+  /* a city street under a raised road: the deck crosses the middle, catwalks run from it onto the corner shops'
+     roofs, and a parked bus can be climbed by hopping up the crates behind it */
   overpass: {name: 'Overpass', W: 64, D: 40, wallH: 7, pal: ['#cfc7bd', '#e2dcd3', '#ece7e0'], sky: '#f2b58a',
-    boxes: () => arBuild(64, 40, 7, (box, both) => {
-      /* a raised bridge across the middle, with stairs at both ends and pillars underneath */
+    boxes: () => arBuild(64, 40, 7, (box, both, K) => {
       box(0, 0, 4, 24, .4, 'plat', 2.2);
       [-9, -3, 3, 9].forEach(z => both(1.6, z, .6, .6, 2.2, 'pillar'));
-      arStairs(box, 0, 12, 1, 4, 2.6); arStairs(box, 0, -12, -1, 4, 2.6);
-      both(12, 8, 2.5, 6, 2.6, 'cont'); both(12, -8, 2.5, 6, 2.6, 'cont'); both(12, -8, 2.5, 6, 2.6, 'cont', 2.6);
-      both(7, 0, .8, 4, 1.2, 'barrier'); both(24, 0, .8, 8, 1.2, 'barrier');
-      both(18, 13, 3, 3, 4.2, 'crate'); both(18, -13, 3, 3, 4.2, 'crate');
-      both(19, 4.5, 1.5, 1.5, 1.5, 'crate'); both(19, -4.5, 1.5, 1.5, 1.5, 'crate');
+      K.stairs(0, 16.2, 'z', -1, 4, 2.6, 0, .6); K.stairs(0, -16.2, 'z', 1, 4, 2.6, 0, .6);
+      /* deck railings, open where the catwalks join */
+      [1, -1].forEach(s => { K.rail(s * 1.95, -12, s * 1.95, -11.1, 2.6); K.rail(s * 1.95, -8.9, s * 1.95, 12, 2.6); });
+      [1, -1].forEach(s => {
+        /* corner shop with a storefront, and a catwalk from the deck to its roof */
+        K.house(s * 15, -10, 8, 6, 2.6, {doors: [['s', s * -2, 1.8]], wins: [['s', s * 1.6, 2.6], [s > 0 ? 'w' : 'e', 0, 2], ['n', 0, 2.4]], sign: s > 0 ? 'MINI MART' : 'PIZZA', signSide: 's'});
+        box(s * 6.5, -10, 9, 2, .3, 'plat', 2.3); K.rail(s * 2.2, -11.05, s * 10.9, -11.05, 2.6); K.rail(s * 2.2, -8.95, s * 10.9, -8.95, 2.6);
+        K.ladder(s * 19, -11.2, s, 0, 2.6);
+        /* parked bus, and crates behind it to hop up */
+        box(s * 15, 10, 9, 2.6, 2.9, 'bus'); box(s * 20.2, 10.6, 1.2, 1.2, 1.2, 'crate'); box(s * 20.2, 9.3, 1.3, 1.3, 2.2, 'crate');
+        /* a parked car */
+        box(s * 7.5, 15.5, 1.9, 4.2, 1, 'car'); box(s * 7.5, 15.3, 1.7, 2.2, .55, 'car', 1);
+      });
+      K.route([[20.9, 11.8, 0], [20.2, 10.6, 1.2], [20.2, 9.3, 2.2], [18.4, 10, 2.9]]); K.route([[-20.9, 11.8, 0], [-20.2, 10.6, 1.2], [-20.2, 9.3, 2.2], [-18.4, 10, 2.9]]);
+      both(7, 3, .8, 4, 1.2, 'barrier'); both(24, 0, .8, 8, 1.2, 'barrier');
       both(26, 11, 1, 1, 3.6, 'pillar'); both(26, -11, 1, 1, 3.6, 'pillar');
-      both(6, 16, 2.4, 1.2, 1.2, 'crate'); both(6, -16, 2.4, 1.2, 1.2, 'crate');
-      both(28, 16, 1.5, 1.5, 1.5, 'crate'); both(28, -16, 1.5, 1.5, 1.5, 'crate');
+      both(9, 4.8, 1.5, 1.5, 1.5, 'crate'); both(22, -4.5, 1.5, 1.5, 1.5, 'crate'); both(28, 16, 1.5, 1.5, 1.5, 'crate'); both(28, -16, 1.5, 1.5, 1.5, 'crate');
+      both(6, -16, 2.4, 1.2, 1.2, 'crate'); both(12, 4.5, 2.6, 1.2, 1.2, 'barrier');
     })},
+  /* a sunny town square: a fountain, four pavilions with ladders onto their roofs, and a two-storey arcade on
+     the north and south sides with stairs inside, windows and a balcony over the square */
   court: {name: 'Courtyard', W: 60, D: 60, wallH: 7, pal: ['#c6d3c8', '#dde6de', '#eef2ee'], sky: '#8fd0c8',
-    boxes: () => arBuild(60, 60, 7, (box, both) => {
+    boxes: () => arBuild(60, 60, 7, (box, both, K) => {
       box(0, 0, 6, 6, .9, 'barrier'); box(0, 0, 1.6, 1.6, 3.2, 'pillar');
-      /* four pavilions: pillars and a roof you can walk under */
-      [[14, 14], [14, -14]].forEach(([x, z]) => { [[-3.6, -3.6], [3.6, -3.6], [-3.6, 3.6], [3.6, 3.6]].forEach(([dx, dz]) => both(x + dx, z + dz, .7, .7, 3.2, 'pillar')); both(x, z, 8.4, 8.4, .4, 'plat', 3.2); both(x, z, 2.4, 1.2, 1.2, 'crate'); });
-      both(22, 0, .8, 10, 1.2, 'barrier'); box(0, 22, 10, .8, 1.2, 'barrier'); box(0, -22, 10, .8, 1.2, 'barrier');
-      both(8, 26, 3, 3, 3, 'crate'); both(8, -26, 3, 3, 3, 'crate'); both(25, 22, 3, 3, 2.4, 'cont'); both(25, -22, 3, 3, 2.4, 'cont');
-      both(7, 7, 1.5, 1.5, 1.5, 'crate'); both(7, -7, 1.5, 1.5, 1.5, 'crate');
+      /* four pavilions: pillars, a flat roof, a ladder up the outside edge */
+      [[14, 14], [14, -14]].forEach(([x, z]) => { [[-3.6, -3.6], [3.6, -3.6], [-3.6, 3.6], [3.6, 3.6]].forEach(([dx, dz]) => both(x + dx, z + dz, .7, .7, 3.2, 'pillar'));
+        both(x, z, 8.4, 8.4, .4, 'plat', 3.2); both(x, z, 2.4, 1.2, 1.2, 'crate'); both(x - 2.6, z + 2.4 * Math.sign(z), 1.4, 1.4, 1, 'crate', 3.6);
+        [1, -1].forEach(s => { box(s * (x + 4.05), z, .3, 1.1, 3.2, 'pillar'); K.ladder(s * (x + 4.2), z, s, 0, 3.6); }); });
+      /* the arcades: ground floor with arches onto the square, stairs at both ends up to the first floor, windows
+         and doors out onto a balcony with a ladder down at each end */
+      [1, -1].forEach(sz => { const N = sz > 0 ? 'n' : 's', S = sz > 0 ? 's' : 'n', zc = sz * 23;
+        K.house(0, zc, 20, 7, 3.4, {doors: [[N, -6, 2.2], [N, 0, 2.2], [N, 6, 2.2], ['e', 0, 1.8], ['w', 0, 1.8]], wins: [[N, -3, 1.4], [N, 3, 1.4], [N, -8.6, 1.2], [N, 8.6, 1.2], [S, -3, 1.4], [S, 3, 1.4]],
+          holes: [[-7.85, sz > 0 ? 1.55 : -3.05, -3.6, sz > 0 ? 3.05 : -1.55], [3.6, sz > 0 ? 1.55 : -3.05, 7.85, sz > 0 ? 3.05 : -1.55]], roofK: 'slab', sign: 'CAFE', signSide: N});
+        K.house(0, zc, 20, 7, 3, {y0: 3.4, doors: [[N, -3, 1.4], [N, 3, 1.4]], wins: [[N, -7, 1.8], [N, 0, 2.2], [N, 7, 1.8], [S, -5, 1.6], [S, 5, 1.6], ['e', 0, 1.6], ['w', 0, 1.6]]});
+        [1, -1].forEach(s => { K.stairs(s * 8.7, zc + sz * 2.3, 'x', -s, 1.4, 3.4, 0, .55); });
+        box(0, sz * 18.75, 20, 1.5, .3, 'slab', 3.1); K.rail(-8.4, sz * 18.05, 8.4, sz * 18.05, 3.4);
+        [1, -1].forEach(s => { K.rail(s * 10, sz * 18.05, s * 10, sz * 19.45, 3.4); box(s * 9.15, sz * 18.15, 1.1, .3, 3.1, 'pillar'); K.ladder(s * 9.15, sz * 18, 0, -sz, 3.4); });
+        box(-5.5, zc - sz * .5, 1.6, 1, 1, 'crate', 3.4); box(5.5, zc - sz * .5, 1.6, 1, 1, 'crate', 3.4); box(0, zc + sz * 1.2, 3, 1, 1, 'crate'); });
+      both(22, 0, .8, 10, 1.2, 'barrier'); both(20, 8, .9, 4, 1.1, 'hedge'); both(20, -8, .9, 4, 1.1, 'hedge');
+      both(7, 7, 1.5, 1.5, 1.5, 'crate'); both(7, -7, 1.5, 1.5, 1.5, 'crate'); both(25, 22, 3, 3, 2.4, 'cont'); both(25, -22, 3, 3, 2.4, 'cont');
       both(14, 0, 1.2, 1.2, 1.2, 'crate'); both(24, 9, 1.5, 1.5, 1.5, 'crate'); both(24, -9, 1.5, 1.5, 1.5, 'crate');
+      both(6, 14, 4, .9, 1.1, 'hedge'); both(6, -14, 4, .9, 1.1, 'hedge');
     })},
+  /* a harbour: lanes of shipping containers, a crane gantry over the middle with ladders up its legs, a dock
+     warehouse on each side and containers with steps up */
   docks: {name: 'Docks', W: 80, D: 48, wallH: 8, pal: ['#b9c3cf', '#cfd7e0', '#e1e7ee'], sky: '#7fa8d8',
-    boxes: () => arBuild(80, 48, 8, (box, both) => {
-      /* container rows with lanes between them */
-      [[-14, 6], [-2, 6], [10, 6]].forEach(([z, l]) => { both(12, z, 2.5, l, 2.6, 'cont'); both(26, z + 3, 2.5, l, 2.6, 'cont'); });
-      both(12, 10, 2.5, 6, 2.6, 'cont', 2.6); both(26, -11, 2.5, 6, 2.6, 'cont', 2.6);
-      box(0, 0, 6, 2.5, 2.6, 'cont'); box(0, 0, 6, 2.5, 2.6, 'cont', 2.6); box(0, 14, 6, 2.5, 2.6, 'cont'); box(0, -14, 6, 2.5, 2.6, 'cont');
-      both(0, 7, 2, 2, 8, 'pillar'); both(0, -7, 2, 2, 8, 'pillar');
-      box(0, 7, 2, 18, .5, 'plat', 7.5);
+    boxes: () => arBuild(80, 48, 8, (box, both, K) => {
+      [[-14, 6], [-2, 6], [10, 6]].forEach(([z, l]) => both(12, z, 2.5, l, 2.6, 'cont')); both(12, 10, 2.5, 6, 2.6, 'cont', 2.6);
+      box(0, 0, 6, 2.5, 2.6, 'cont'); box(0, 0, 6, 2.5, 2.6, 'cont', 2.6); box(0, 15, 6, 2.5, 2.6, 'cont'); box(0, -15, 6, 2.5, 2.6, 'cont');
+      /* the gantry: four legs and a deck at 8 m with a cab for cover */
+      [[4, 8], [4, -8]].forEach(([x, z]) => both(x, z, 1.2, 1.2, 7.6, 'pillar'));
+      box(0, 0, 10, 18, .4, 'plat', 7.6); box(0, 0, 3, 3, 2.2, 'cont', 8); both(3.4, 6.5, 1.4, 1.4, 1, 'crate', 8); both(3.4, -6.5, 1.4, 1.4, 1, 'crate', 8);
+      K.rail(-5, -9, 5, -9, 8); K.rail(-5, 9, 5, 9, 8);
+      [1, -1].forEach(s => [8, -8].forEach(z => { box(s * 4.8, z, .4, 1.1, 7.6, 'pillar'); K.ladder(s * 5.0, z, s, 0, 8); }));
+      [1, -1].forEach(s => {
+        /* a dock warehouse with a ladder to the roof */
+        K.house(s * 27, -12, 10, 9, 3.6, {doors: [[s > 0 ? 'w' : 'e', 0, 2.4], ['s', 0, 2.4]], wins: [['n', 2, 2], ['n', -2, 2], [s > 0 ? 'e' : 'w', 2.2, 1.6], [s > 0 ? 'e' : 'w', -2.2, 1.6]], sign: 'PIER ' + (s > 0 ? '4' : '9'), signSide: 's'});
+        K.ladder(s * 23.5, -16.5, 0, -1, 3.6); box(s * 27, -12, 1.4, 1.4, 1, 'crate', 3.6);
+        /* containers to climb: one with steps, a crate on top */
+        box(s * 27, 12, 2.5, 6, 2.6, 'cont'); K.stairs(s * 27, 19.2, 'z', -1, 1.4, 2.6, 0, .6); box(s * 27, 10.6, 1.4, 1.4, 1.2, 'crate', 2.6);
+      });
       both(19, 0, .8, 8, 1.2, 'barrier'); both(33, 0, .8, 10, 1.2, 'barrier');
       both(6, 20, 1.5, 1.5, 1.5, 'crate'); both(6, -20, 1.5, 1.5, 1.5, 'crate'); both(19, 18, 2.4, 1.2, 1.2, 'crate'); both(19, -18, 2.4, 1.2, 1.2, 'crate');
-      both(34, 14, 3, 3, 3, 'crate'); both(34, -14, 3, 3, 3, 'crate'); both(6, 4, 1.2, 1.2, 1.2, 'crate'); both(6, -9, 1.2, 1.2, 1.2, 'crate');
+      both(34, 14, 3, 3, 3, 'crate'); both(34, -12, 3, 3, 3, 'crate'); both(6.5, 4, 1.2, 1.2, 1.2, 'crate'); both(6.5, -9, 1.2, 1.2, 1.2, 'crate');
     })}
 };
-/* the live map: boxes, bounds and the bots' walking grid */
-let ARB = [], AR_GX0 = -22, AR_GZ0 = -15, AR_GW = 44, AR_GH = 30, AR_GRID = new Uint8Array(1), ARM = null;
+/* the live map: boxes, ladders, climbing routes, bounds and the bots' walking grid */
+let ARB = [], ARL = [], ARR = [], AR_GX0 = -22, AR_GZ0 = -15, AR_GW = 44, AR_GH = 30, AR_GRID = new Uint8Array(1), ARM = null;
 function arSetMap(id, n){
-  AR_TILE = arTilesFor(id, n || 1); ARM = Object.assign({id}, AR_MAPS[id]); ARB = ARM.boxes();
+  AR_TILE = arTilesFor(id, n || 1); ARM = Object.assign({id}, AR_MAPS[id]); ARB = ARM.boxes(); ARL = ARB.ladders || []; ARR = ARB.routes || []; ARM.houses = ARB.houses || [];
   ARM.tile = AR_TILE; ARM.k = AR_TILE.c * AR_TILE.r; ARM.W = AR_MAPS[id].W * AR_TILE.c; ARM.D = AR_MAPS[id].D * AR_TILE.r; AR_TILE = {c: 1, r: 1};
   AR_GW = ARM.W; AR_GH = ARM.D; AR_GX0 = -ARM.W / 2; AR_GZ0 = -ARM.D / 2;
   AR_GRID = new Uint8Array(AR_GW * AR_GH);
+  const low = ARB.filter(b => b[1] < 1);
   for (let i = 0; i < AR_GW; i++) for (let j = 0; j < AR_GH; j++) {
     const x = AR_GX0 + i + .5, z = AR_GZ0 + j + .5;
-    AR_GRID[j * AR_GW + i] = ARB.some(b => b[1] < 1 && x + .45 > b[0] && x - .45 < b[3] && z + .45 > b[2] && z - .45 < b[5]) ? 1 : 0;
+    AR_GRID[j * AR_GW + i] = low.some(b => x + .45 > b[0] && x - .45 < b[3] && z + .45 > b[2] && z - .45 < b[5]) ? 1 : 0;
   }
 }
+/* a broad phase: boxes grouped into 8 m buckets, each with the bounds of its boxes, so moving and ray casts
+   only look at what is nearby. Rebuilt whenever the box list changes. */
+let ARBK = null;
+function arBuckets(){ if (ARBK && ARBK.src === ARB && ARBK.n === ARB.length) return ARBK;
+  const S = 8, m = new Map(); ARB.forEach(b => { const k = b[6] === 'wall' ? 'w' : Math.floor((b[0] + b[3]) / 2 / S) + ',' + Math.floor((b[2] + b[5]) / 2 / S); let q = m.get(k);
+    if (!q) m.set(k, q = {b: [1e9, 1e9, 1e9, -1e9, -1e9, -1e9], list: []}); q.list.push(b); for (let i = 0; i < 3; i++) { if (b[i] < q.b[i]) q.b[i] = b[i]; if (b[i + 3] > q.b[i + 3]) q.b[i + 3] = b[i + 3]; } });
+  ARBK = [...m.values()]; ARBK.src = ARB; ARBK.n = ARB.length; return ARBK; }
+/* the boxes whose bucket comes within pad of p */
+function arNear(p, pad){ const out = []; for (const q of arBuckets()) { const b = q.b; if (p.x + pad > b[0] && p.x - pad < b[3] && p.z + pad > b[2] && p.z - pad < b[5] && p.y + pad + 2 > b[1] && p.y - pad < b[4]) for (const x of q.list) out.push(x); } return out; }
 const AR_R = .32, AR_H = 1.8, AR_EYE = 1.6, AR_G = 24;
 const arOv = (p, b) => p.x + AR_R > b[0] && p.x - AR_R < b[3] && p.z + AR_R > b[2] && p.z - AR_R < b[5] && p.y + AR_H > b[1] + 1e-3 && p.y < b[4] - 1e-3;
 function arMoveBody(f, dt){
-  const p = f.p, v = f.v;
+  const p = f.p, v = f.v, NB = arNear(p, 1.2 + (Math.abs(v.x) + Math.abs(v.y) + Math.abs(v.z)) * dt);
   const stepAxis = (ax, d) => {
     if (!d) return;
     p[ax] += d;
-    for (const b of ARB) if (arOv(p, b)) {
+    for (const b of NB) if (arOv(p, b)) {
       const lift = b[4] - p.y;
-      if (lift > 0 && lift <= .5 && (f.ground || lift <= .25)) { const y0 = p.y; p.y = b[4]; if (ARB.some(c => arOv(p, c))) p.y = y0; else continue; }
+      if (lift > 0 && lift <= .5 && (f.ground || lift <= .25)) { const y0 = p.y; p.y = b[4]; if (NB.some(c => arOv(p, c))) p.y = y0; else continue; }
       if (ax === 'x') p.x = d > 0 ? b[0] - AR_R - 1e-4 : b[3] + AR_R + 1e-4; else p.z = d > 0 ? b[2] - AR_R - 1e-4 : b[5] + AR_R + 1e-4;
       v[ax] = 0;
     }
   };
   stepAxis('x', v.x * dt); stepAxis('z', v.z * dt);
+  /* ladders: push into one to climb it, let go to slide down slowly, push away (or jump) to drop off */
+  f.climb = false;
+  for (const L of ARL) { const b = L.b; if (p.x + AR_R > b[0] && p.x - AR_R < b[3] && p.z + AR_R > b[2] && p.z - AR_R < b[5] && p.y < b[4] - .05 && p.y + AR_H > b[1]) {
+    const w = f.wish || {x: 0, z: 0}, into = -(w.x * L.n.x + w.z * L.n.z);
+    if (into > .3) { if (v.y < 4.6) v.y = 4.6 + AR_G * dt; f.climb = true; }
+    else if (into > -.3 && p.y > b[1] + .05 && v.y < 0) { v.y = Math.max(v.y, -2.2); f.climb = true; }
+    break; } }
   v.y -= AR_G * dt; p.y += v.y * dt; f.ground = false;
   if (p.y <= 0) { p.y = 0; v.y = 0; f.ground = true; }
-  for (const b of ARB) if (arOv(p, b)) {
+  for (const b of NB) if (arOv(p, b)) {
     if (v.y <= 0 && p.y > b[4] - .6) { p.y = b[4]; v.y = 0; f.ground = true; } else if (v.y > 0) { p.y = b[1] - AR_H; v.y = 0; }
   }
-  if (!f.ground && v.y <= 0) { const q = {x: p.x, y: p.y - .05, z: p.z}; if (q.y <= 0 || ARB.some(b => arOv(q, b))) f.ground = true; }
+  if (!f.ground && v.y <= 0) { const q = {x: p.x, y: p.y - .05, z: p.z}; if (q.y <= 0 || NB.some(b => arOv(q, b))) f.ground = true; }
 }
 /* rays: slab test against boxes, spheres for heads */
 function arRayBox(o, d, b){
@@ -17752,7 +17864,7 @@ function arRayBox(o, d, b){
   }
   return t0;
 }
-function arRayMap(o, d, max){ let t = max; for (const b of ARB) { const h = arRayBox(o, d, b); if (h < t) t = h; } if (d.y < 0) { const g = -o.y / d.y; if (g < t) t = g; } return t; }
+function arRayMap(o, d, max){ let t = max; for (const q of arBuckets()) { if (arRayBox(o, d, q.b) >= t) continue; for (const b of q.list) { const h = arRayBox(o, d, b); if (h < t) t = h; } } if (d.y < 0) { const g = -o.y / d.y; if (g < t) t = g; } return t; }
 function arRaySphere(o, d, c, r){ const ox = o.x - c.x, oy = o.y - c.y, oz = o.z - c.z, b = ox * d.x + oy * d.y + oz * d.z, cc = ox * ox + oy * oy + oz * oz - r * r, h = b * b - cc; if (h < 0) return Infinity; const t = -b - Math.sqrt(h); return t >= 0 ? t : Infinity; }
 const arEye = f => ({x: f.p.x, y: f.p.y + (f.slide > 0 ? 1.05 : AR_EYE), z: f.p.z});
 const arDist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z);
@@ -17846,16 +17958,20 @@ const arMix = (a, b, k) => { const p = h => [parseInt(h.slice(1, 3), 16), parseI
 const AR_LOOK = {
   yard: {sky: ['#3d86e0', '#cfe5ff', '#e9d9c4'], sun: '#fff1d6', fog: '#d6e4f2', hemi: ['#d9ecff', '#b59c80'],
     floor: ['concrete', '#cfc8bc'], wall: ['plaster', '#efe6d6', '#e8743b'], crate: ['wood', '#d8954a'], barrier: ['barrier', '#dcd6cc', '#e5484d'],
-    pillar: ['concrete', '#bfb6a8'], plat: ['plate', '#8b939e'], stair: ['concrete', '#c2b9ab'], cont: ['#e0483e', '#2f7de1', '#2ea35f', '#f0a92e'], tower: '#d9cfc0'},
+    pillar: ['concrete', '#bfb6a8'], plat: ['plate', '#8b939e'], stair: ['concrete', '#c2b9ab'], cont: ['#e0483e', '#2f7de1', '#2ea35f', '#f0a92e'], tower: '#d9cfc0',
+    bwall: ['corrug', '#8ea2b6', '#ffcb2e'], roofs: ['plate', '#7d8590'], slab: ['plate', '#8b939e'], rug: '#e8c33a', car: '#d94a4a', bus: '#f2b632', hedge: '#4f9a3c'},
   overpass: {sky: ['#4a62c9', '#ffc58e', '#f3a77d'], sun: '#ffd9a8', fog: '#f2c7a4', hemi: ['#ffe2c4', '#7d6a5c'],
     floor: ['asphalt', '#55595f'], wall: ['concrete', '#d9cfc1', '#ff8a1f'], crate: ['wood', '#c98845'], barrier: ['barrier', '#d4ccbf', '#ff8a1f'],
-    pillar: ['concrete', '#b8ad9f'], plat: ['concrete', '#aaa196'], stair: ['concrete', '#b4aa9c'], cont: ['#2f6fd6', '#d9483b', '#efb02c', '#3a9d68'], tower: '#cdb9a6'},
+    pillar: ['concrete', '#b8ad9f'], plat: ['concrete', '#aaa196'], stair: ['concrete', '#b4aa9c'], cont: ['#2f6fd6', '#d9483b', '#efb02c', '#3a9d68'], tower: '#cdb9a6',
+    bwall: ['plaster', '#eadbc4', '#c94f3a'], roofs: ['concrete', '#a59d93'], slab: ['concrete', '#aaa196'], rug: '#7a3b2e', car: '#d94a4a', bus: '#f2b632', hedge: '#5a8f3a'},
   court: {sky: ['#2f93d6', '#d4f2ff', '#cfe8d8'], sun: '#fff6e0', fog: '#d3ece8', hemi: ['#e2f6ff', '#8fa883'],
     floor: ['pavers', '#d6c9b1'], wall: ['plaster', '#f3eee4', '#1fb5a8'], crate: ['wood', '#c88a52'], barrier: ['plaster', '#e6dfd1', '#1fb5a8'],
-    pillar: ['plaster', '#f6f1e8'], plat: ['roof', '#c4573c'], stair: ['concrete', '#cfc4b0'], cont: ['#22a39b', '#e07a3d', '#4f6bd9', '#d94a6a'], tower: '#e9e0d0'},
+    pillar: ['plaster', '#f6f1e8'], plat: ['roof', '#c4573c'], stair: ['concrete', '#cfc4b0'], cont: ['#22a39b', '#e07a3d', '#4f6bd9', '#d94a6a'], tower: '#e9e0d0',
+    bwall: ['plaster', '#f4e5cb', '#c4573c'], roofs: ['roof', '#c4573c'], slab: ['pavers', '#cdb99a'], rug: '#2a8f86', car: '#4f6bd9', bus: '#f2b632', hedge: '#4f9a3c'},
   docks: {sky: ['#3570c4', '#dbe8f5', '#c8d3de'], sun: '#fff4e2', fog: '#d4dfea', hemi: ['#dfeaff', '#7f8a96'],
     floor: ['concrete', '#959ba3'], wall: ['corrug', '#7f8fa1', '#ffcb2e'], crate: ['wood', '#c9904f'], barrier: ['barrier', '#d3d6db', '#ffcb2e'],
-    pillar: ['concrete', '#a3a9b1'], plat: ['plate', '#6f7884'], stair: ['plate', '#7a838f'], cont: ['#d8433a', '#2c74d4', '#f0a62a', '#2f9b5c', '#8a4fd1'], tower: '#c6ced8'}
+    pillar: ['concrete', '#a3a9b1'], plat: ['plate', '#6f7884'], stair: ['plate', '#7a838f'], cont: ['#d8433a', '#2c74d4', '#f0a62a', '#2f9b5c', '#8a4fd1'], tower: '#c6ced8',
+    bwall: ['corrug', '#b8553a', '#f2f2f2'], roofs: ['plate', '#6f7884'], slab: ['plate', '#7a838f'], rug: '#3a6fa8', car: '#2c74d4', bus: '#f2b632', hedge: '#4f9a3c'}
 };
 const arMapLook = () => AR_LOOK[ARM && ARM.id] || AR_LOOK.yard;
 const AR_TS = AR_MOBILE ? 256 : 512;
@@ -17956,7 +18072,10 @@ function arSurfMat(T, kind, base, acc, o){
 function arMats(T){
   const L = arMapLook(), S = (d) => arSurfMat(T, d[0], d[1], d[2]);
   const M = {floor: S(L.floor), wall: S(L.wall), crate: S(L.crate), barrier: S(L.barrier), pillar: S(L.pillar), plat: S(L.plat), stair: S(L.stair),
-    trim: new T.MeshStandardMaterial({color: '#ffffff', emissive: '#7fd8ff', emissiveIntensity: 1.6})};
+    trim: new T.MeshStandardMaterial({color: '#ffffff', emissive: '#7fd8ff', emissiveIntensity: 1.6}),
+    bwall: S(L.bwall || L.wall), roof: S(L.roofs || L.plat), slab: S(L.slab || L.plat), rail: new T.MeshStandardMaterial({color: '#5d6573', roughness: .35, metalness: .85}),
+    car: new T.MeshStandardMaterial({color: L.car || '#d94a4a', roughness: .28, metalness: .45}), bus: new T.MeshStandardMaterial({color: L.bus || '#f2b632', roughness: .35, metalness: .3}),
+    hedge: arSurfMat(T, 'asphalt', L.hedge || '#4f9a3c', null, {roughness: .95})};
   L.cont.forEach((c, i) => M['cont' + i] = arSurfMat(T, 'corrug', c, null));
   M.ncont = L.cont.length; return M;
 }
@@ -18247,15 +18366,20 @@ async function arStartMatch(lobby){
   /* every box goes into one merged mesh per material; edges are rounded so they catch the light */
   const groups = {}; let ci = 0;
   const put = (key, geo) => (groups[key] = groups[key] || []).push(geo);
-  const RAD = {wall: .1, crate: .07, cont: .09, barrier: .14, pillar: .07, plat: .06, stair: .03};
+  const RAD = {wall: .1, crate: .07, cont: .09, barrier: .14, pillar: .07, plat: .06, stair: .03, bwall: .03, roof: .03, slab: .03, car: .28, bus: .3, hedge: .3};
   const ao = [];
   ARB.forEach(b => {
     const w = b[3] - b[0], h = b[4] - b[1], d = b[5] - b[2], k = b[6], cx = (b[0] + b[3]) / 2, cy = (b[1] + b[4]) / 2, cz = (b[2] + b[5]) / 2;
-    const geo = arBoxUV(arRBox(T, w, h, d, RAD[k] || .05, k === 'wall' ? 1 : 2), cx, cy, cz, 2); geo.translate(cx, cy, cz);
-    put(k === 'cont' ? 'cont' + (ci++ % M.ncont) : k, geo);
+    if (k === 'rail') { /* a railing: a top bar, a middle bar and posts, not a solid panel */
+      const bar = (yy, th) => { const g = new T.BoxGeometry(w > d ? w : .07, th, w > d ? .07 : d); g.translate(cx, yy, cz); put('rail', g); };
+      bar(b[4] - .04, .07); bar(b[1] + .5, .04); const L = Math.max(w, d), n = Math.max(1, Math.round(L / 1.2));
+      for (let i = 0; i <= n; i++) { const a = -L / 2 + i * L / n, g = new T.BoxGeometry(.06, h, .06); g.translate(w > d ? cx + a : cx, cy, w > d ? cz : cz + a); put('rail', g); }
+      return; }
+    const geo = arBoxUV(arRBox(T, w, h, d, Math.min(RAD[k] || .05, w / 2.2, h / 2.2, d / 2.2), k === 'wall' ? 1 : 2), cx, cy, cz, 2); geo.translate(cx, cy, cz);
+    put(k === 'cont' ? 'cont' + (ci++ % M.ncont) : M[k] ? k : 'pillar', geo);
     if (k === 'barrier') { const t = new T.BoxGeometry(w + .02, .05, d + .02); t.translate(cx, b[4] + .01, cz); put('trim', t); }
     /* soft contact shadow under anything standing on the floor */
-    if (k !== 'wall' && b[1] < .05) { const q = new T.PlaneGeometry(w + 1.1, d + 1.1).rotateX(-Math.PI / 2); q.translate(cx, .008, cz); ao.push(q); }
+    if (k !== 'wall' && k !== 'rail' && b[1] < .05) { const q = new T.PlaneGeometry(w + 1.1, d + 1.1).rotateX(-Math.PI / 2); q.translate(cx, .008, cz); ao.push(q); }
   });
   Object.keys(groups).forEach(k => { const m = new T.Mesh(arMerge(T, groups[k]), M[k]); m.castShadow = k !== 'wall'; m.receiveShadow = true; sc.add(m); });
   if (ao.length) { const at = new T.CanvasTexture(arCanvas(128, 128, (g, w, h) => { g.fillStyle = '#000'; g.fillRect(0, 0, w, h); g.shadowColor = '#fff'; g.shadowBlur = 22; g.shadowOffsetX = 1000; g.fillStyle = '#fff'; g.beginPath(); g.roundRect(-1000 + 26, 26, w - 52, h - 52, 10); g.fill(); }));
@@ -18311,7 +18435,7 @@ function arSpawnSpot(team, i, n){
 function arNewRound(ev){
   const A = AR; A.round++; A.side = -A.side; if (ev) A.side = ev.side;
   [0, 1].forEach(team => { const tm = A.F.filter(f => f.team === team); tm.forEach((f, i) => {
-    Object.assign(f, {hp: 100, alive: true, reload: 0, fireT: 0, swap: 0, slide: 0, st: {}, cd: {}, cur: 0, acq: 0, burst: 0, strafe: 1, strafeT: 0, lastSeen: -9, jumpT: 2 + Math.random() * 2, path: [], pathT: Math.random() * .5, tgt: null, tgtT: 0, known: null});
+    Object.assign(f, {hp: 100, alive: true, reload: 0, fireT: 0, swap: 0, slide: 0, st: {}, cd: {}, cur: 0, acq: 0, burst: 0, strafe: 1, strafeT: 0, lastSeen: -9, jumpT: 2 + Math.random() * 2, route: null, routeT: 0, wish: null, path: [], pathT: Math.random() * .5, tgt: null, tgtT: 0, known: null});
     f.p = arSpawnSpot(team, i, tm.length); f.v = {x: 0, y: 0, z: 0}; f.yaw = f.p.x > 0 ? Math.PI / 2 : -Math.PI / 2; f.pitch = 0;
     f.mag = f.load.map(l => arWS(l.it).mag);
     f.nade = 1; f.rec = 0; f.recY = 0; f.flashT = 0; f.slideCd = 0; f.aimY = f.yaw; f.aimP = 0; f.wob = Math.random() * 9; f.cover = null; f.coverT = 0; f.nadeT = 3 + Math.random() * 6;
@@ -18510,22 +18634,42 @@ function arBotThink(b, dt){
   /* movement: walk the grid toward the target, then strafe at its preferred range */
   const pref = W.pref;
   let mx = 0, mz = 0;
-  if (b.cover) {
+  /* high ground: an enemy up somewhere it can't see sends it up the nearest stairs or ladder that gets close */
+  const high = me.p.y > b.p.y + 1.3;
+  if (!b.route && high && !see && !b.cover && ARR.length && A.clock > (b.routeT || 0)) {
+    b.routeT = A.clock + 1.5; let best = null, bs = 1e9;
+    ARR.forEach(r => { if (r.top.y < me.p.y - 1.4) return; const sc = Math.hypot(r.pts[0].x - b.p.x, r.pts[0].z - b.p.z) + 1.6 * Math.hypot(r.top.x - me.p.x, r.top.z - me.p.z); if (sc < bs) { bs = sc; best = r; } });
+    if (best && Math.hypot(best.top.x - me.p.x, best.top.z - me.p.z) < 26) { b.route = best; b.ri = 0; b.routeEnd = A.clock + 16; b.path = []; }
+  }
+  if (b.route && (see && b.ri === 0 || A.clock > b.routeEnd || !high && b.ri === 0)) b.route = null;
+  if (b.route) {
+    const wp = b.route.pts[b.ri], hd = Math.hypot(wp.x - b.p.x, wp.z - b.p.z);
+    if (b.ri === 0) { b.pathT -= dt; if (b.pathT <= 0 || !b.path.length) { b.path = arPath(b.p, wp); b.pathT = .5; }
+      while (b.path.length && Math.hypot(b.path[0].x - b.p.x, b.path[0].z - b.p.z) < .6) b.path.shift();
+      const q = b.path[0] || wp, L = Math.hypot(q.x - b.p.x, q.z - b.p.z); if (L > .2) { mx = (q.x - b.p.x) / L; mz = (q.z - b.p.z) / L; } }
+    else if (wp.lad) { /* on a ladder: keep pushing toward the top of it */ const nx = b.route.pts[b.ri + 1] || wp, L = Math.hypot(nx.x - b.p.x, nx.z - b.p.z) || 1; mx = (nx.x - b.p.x) / L; mz = (nx.z - b.p.z) / L; }
+    else if (hd > .15) { mx = (wp.x - b.p.x) / hd; mz = (wp.z - b.p.z) / hd;
+      /* a ledge too tall to step onto: jump for it */
+      if (wp.y > b.p.y + .55 && !wp.lad && hd < 1.9 && b.ground) b.v.y = 8; }
+    if (hd < (b.ri === 0 ? .7 : wp.lad ? .9 : .6) && b.p.y >= wp.y - (wp.lad ? .3 : .45)) { b.ri++; if (b.ri >= b.route.pts.length) { b.route = null; b.path = []; } }
+  } else if (b.cover) {
     b.pathT -= dt; if (b.pathT <= 0 || !b.path.length) { b.path = arPath(b.p, b.cover); b.pathT = .5; }
     while (b.path.length && Math.hypot(b.path[0].x - b.p.x, b.path[0].z - b.p.z) < .6) b.path.shift();
     const wp = b.path[0] || b.cover; const L = Math.hypot(wp.x - b.p.x, wp.z - b.p.z); if (L > .3) { mx = (wp.x - b.p.x) / L; mz = (wp.z - b.p.z) / L; }
   } else if (!see || W.melee || dist > pref + 6) {
     b.pathT -= dt;
-    if (b.pathT <= 0 || !b.path.length) { b.path = arPath(b.p, see ? me.p : b.known); b.pathT = .45 + Math.random() * .2; }
+    /* up on a roof or a deck with them: walk straight there, the ground grid doesn't cover it */
+    const upTogether = b.p.y > 1 && Math.abs(me.p.y - b.p.y) < 1.2;
+    if (!upTogether && (b.pathT <= 0 || !b.path.length)) { b.path = arPath(b.p, see ? me.p : b.known); b.pathT = .45 + Math.random() * .2; }
     while (b.path.length && Math.hypot(b.path[0].x - b.p.x, b.path[0].z - b.p.z) < .6) b.path.shift();
-    const wp = b.path[0] || {x: me.p.x, z: me.p.z}; const L = Math.hypot(wp.x - b.p.x, wp.z - b.p.z) || 1; mx = (wp.x - b.p.x) / L; mz = (wp.z - b.p.z) / L;
+    const wp = upTogether ? (see ? me.p : b.known) : b.path[0] || {x: me.p.x, z: me.p.z}; const L = Math.hypot(wp.x - b.p.x, wp.z - b.p.z) || 1; mx = (wp.x - b.p.x) / L; mz = (wp.z - b.p.z) / L;
     if (b.ground && b.slide <= 0 && (b.slideCd || 0) <= 0 && dist > 10 && Math.random() < dt * (.15 + .5 * s)) { b.slide = .7; b.slideCd = 2.5; b.v.x = mx * 12.5; b.v.z = mz * 12.5; }
   } else {
     const L = dist || 1, fx = tx / L, fz = tz / L; b.strafeT -= dt;
     if (b.strafeT <= 0) { b.strafe = Math.random() < .5 ? -1 : 1; b.strafeT = .4 + Math.random() * (1.3 - s); }
     const toward = dist > pref + 1.5 ? 1 : dist < pref - 2 ? -1 : 0;
     mx = -fz * b.strafe * (.4 + .6 * s) + fx * toward; mz = fx * b.strafe * (.4 + .6 * s) + fz * toward;
-    const probe = {x: b.p.x + mx * .8, y: b.p.y, z: b.p.z + mz * .8}; if (ARB.some(c => arOv(probe, c))) { b.strafe = -b.strafe; b.strafeT = .6; }
+    const probe = {x: b.p.x + mx * .8, y: b.p.y, z: b.p.z + mz * .8}; if (arNear(probe, 1).some(c => arOv(probe, c))) { b.strafe = -b.strafe; b.strafeT = .6; }
     b.jumpT -= dt; if (b.jumpT <= 0 && b.ground && s > .3) { b.v.y = 8; b.jumpT = 1.2 + Math.random() * 4 * (1.3 - s); }
   }
   b.slideCd = Math.max(0, (b.slideCd || 0) - dt);
@@ -18536,6 +18680,7 @@ function arBotThink(b, dt){
   arMates(b).forEach(o => { if (!o.alive) return; const dx = b.p.x - o.p.x, dz = b.p.z - o.p.z, dd = Math.hypot(dx, dz); if (dd < 1.6 && dd > .01) { mx += dx / dd * (1.6 - dd); mz += dz / dd * (1.6 - dd); } });
   if (b.st.root > 0) { mx = 0; mz = 0; }
   const ml = Math.hypot(mx, mz); if (ml > 1) { mx /= ml; mz /= ml; }
+  b.wish = {x: mx, z: mz};
   const spd = arSpeed(b) * (.78 + .22 * s), k = Math.min(1, dt * 10);
   if (b.slide > 0) { b.v.x *= Math.pow(.55, dt); b.v.z *= Math.pow(.55, dt); }
   else if (!(b.st.dash > 0)) { b.v.x += (mx * spd - b.v.x) * k; b.v.z += (mz * spd - b.v.z) * k; }
@@ -18665,7 +18810,16 @@ function arDecor(T, sc){
   const W = ARM.W, D = ARM.D, wh = ARM.wallH, id = ARM.id, G = {}, put = (k, geo) => (G[k] = G[k] || []).push(geo), R = seeded(hash(id) + 7);
   const bx = (k, x, y, z, w, h, d, ry) => { const g = arRBox(T, w, h, d, Math.min(.06, Math.min(w, h, d) * .2), 1); if (ry) g.rotateY(ry); g.translate(x, y, z); put(k, g); };
   const cyl = (k, x, y, z, r, h, seg) => { const g = new T.CylinderGeometry(r, r, h, seg || 12); g.translate(x, y, z); put(k, g); };
-  const free = (x, z, r) => !ARB.some(b => b[6] !== 'wall' && x + r > b[0] && x - r < b[3] && z + r > b[2] && z - r < b[5]);
+  const free = (x, z, r) => !ARB.some(b => b[6] !== 'wall' && x + r > b[0] && x - r < b[3] && z + r > b[2] && z - r < b[5]) && !(ARM.houses || []).some(h => x + r > h.x0 && x - r < h.x1 && z + r > h.z0 && z - r < h.z1)
+    && !ARL.some(L => x + r > L.b[0] - .6 && x - r < L.b[3] + .6 && z + r > L.b[2] - .6 && z - r < L.b[5] + .6);
+  /* ladders: two rails and rungs against the wall */
+  ARL.forEach(L => { const ax = L.n.x ? 'z' : 'x', fx = L.face.x + L.n.x * .1, fz = L.face.z + L.n.z * .1, top = L.top + 1, y0 = L.y0 || 0, hh = top - y0;
+    [-1, 1].forEach(sd => bx('ladder', fx + (ax === 'x' ? sd * .4 : 0), y0 + hh / 2, fz + (ax === 'z' ? sd * .4 : 0), ax === 'x' ? .07 : .09, hh, ax === 'z' ? .07 : .09));
+    for (let y = y0 + .3; y < top - .05; y += .32) bx('ladder', fx, y, fz, ax === 'x' ? .8 : .05, .05, ax === 'z' ? .8 : .05); });
+  /* inside every building: a lamp on the ceiling and a rug on the floor */
+  (ARM.houses || []).forEach(h => { const cx = (h.x0 + h.x1) / 2, cz = (h.z0 + h.z1) / 2, w = h.x1 - h.x0, d = h.z1 - h.z0;
+    if (h.roof) { bx('lamp', cx, h.y1 - .3, cz, Math.min(2.4, w * .3), .06, .5); if (w > 9) [-1, 1].forEach(s => bx('lamp', cx + s * w * .3, h.y1 - .3, cz, 1.4, .06, .4)); }
+    bx('rug', cx, h.y0 + .012, cz, Math.min(5, w * .45), .01, Math.min(3.4, d * .45)); });
   /* floor: lane lines, team zones by the spawns, a centre ring */
   for (let x = -W / 2 + 4; x <= W / 2 - 4; x += 8) bx('paintW', x, .012, 0, .14, .01, D - 2);
   bx('paintW', 0, .013, -D / 2 + 1.2, W - 2, .01, .18); bx('paintW', 0, .013, D / 2 - 1.2, W - 2, .01, .18);
@@ -18686,24 +18840,45 @@ function arDecor(T, sc){
   const TC = arTileCentres(), edgeProps = (fn, n) => { n *= ARM.k || 1; for (let i = 0; i < n; i++) { const side = R() < .5 ? -1 : 1, along = (R() - .5) * (W - 8); const z = side * (D / 2 - 1.3 - R() * .8); fn(along, z); } };
   if (id === 'yard') { edgeProps(barrel, 10); edgeProps(tires, 6); }
   if (id === 'overpass') { edgeProps(cone, 14); edgeProps(barrel, 6);
-    TC.forEach(([ox, oz]) => { [-1, 1].forEach(sx => bx('metal', ox + sx * 1.95, 3.1, oz, .08, .9, 24)); for (let z = -11.5; z <= 11.5; z += 2.3) [-1, 1].forEach(sx => bx('metal', ox + sx * 1.95, 2.85, oz + z, .1, .5, .1)); }); }
+    /* street lamps along the kerbs and wheels and windows on the cars and buses */
+    TC.forEach(([ox, oz]) => { [-1, 1].forEach(s => { [[s * 15, 10, 9, 2.6, 2.9], [s * 7.5, 15.5, 1.9, 4.2, 1]].forEach(([x, z, w, d, h], vi) => {
+      const along = w > d ? 'x' : 'z', L = Math.max(w, d), W2 = Math.min(w, d);
+      [-1, 1].forEach(e => [-1, 1].forEach(sd => { const g = new T.CylinderGeometry(.42, .42, .3, 16).rotateZ(Math.PI / 2); if (along === 'x') g.rotateY(Math.PI / 2); const ax = along === 'x' ? x + ox + e * L * .32 : x + ox + sd * (W2 / 2), az = along === 'x' ? z + oz + sd * (W2 / 2) : z + oz + e * L * .32;
+        if (along === 'x') g.rotateY(0); g.translate(ax, .42, az); put('tire', g); }));
+      if (vi === 0) [-1, 1].forEach(sd => bx('window', x + ox, 2.05, z + oz + sd * (W2 / 2 + .01), L - 1.4, .8, .04)); else bx('window', x + ox, 1.28, z + oz, 1.74, .4, 2.26); }); }); }); }
   if (id === 'court') TC.forEach(([ox, oz]) => { [[-20, -20], [20, -20], [-20, 20], [20, 20], [-26, 4], [26, -4], [-4, 26], [4, -26], [-9, 13], [9, -13]].forEach(([x, z]) => tree(ox + x, oz + z, .9 + R() * .3));
     const wat = new T.BoxGeometry(5, .1, 5); wat.translate(ox, .86, oz); put('water', wat); });
   if (id === 'docks') { edgeProps(barrel, 12); for (let x = -W / 2 + 3; x < W / 2; x += 6) { cyl('metal', x, .35, -D / 2 + 1, .22, .7, 10); cyl('metal', x, .35, D / 2 - 1, .22, .7, 10); }
-    TC.forEach(([ox, oz]) => { const hook = new T.CylinderGeometry(.03, .03, 3, 6); hook.translate(ox, 5.9, oz + 7); put('metal', hook); bx('hazard', ox, 4.3, oz + 7, .5, .5, .5); }); }
+    TC.forEach(([ox, oz]) => { const hook = new T.CylinderGeometry(.03, .03, 2, 6); hook.translate(ox, 6.6, oz + 4.6); put('metal', hook); bx('hazard', ox, 5.5, oz + 4.6, .5, .5, .5); }); }
+  if (id === 'court') TC.forEach(([ox, oz]) => { /* flower pots and benches around the square */
+    [[-4, 9], [4, 9], [-4, -9], [4, -9]].forEach(([x, z]) => { if (!free(ox + x, oz + z, .9)) return; bx('pot', ox + x, .3, oz + z, .9, .6, .9); bx('leaf', ox + x, .8, oz + z, .8, .5, .8); });
+    [[-10, 4], [10, -4]].forEach(([x, z]) => { if (!free(ox + x, oz + z, 1.2)) return; bx('trunk', ox + x, .45, oz + z, 2, .1, .5); bx('metal', ox + x - .8, .22, oz + z, .1, .44, .4); bx('metal', ox + x + .8, .22, oz + z, .1, .44, .4); }); });
+  if (id === 'yard') { /* forklifts parked by the warehouse */
+    TC.forEach(([ox, oz]) => [[-1, -9], [1, 8.6]].forEach(([s, z]) => { const x = ox + s * 3.5, zz = oz + z; if (!free(x, zz, 1.4)) return;
+      bx('fork', x, .6, zz, 1.2, .8, 2); bx('metal', x, 1.6, zz + .2, 1.1, .08, 1.1); [-1, 1].forEach(e => bx('metal', x + e * .5, 1.3, zz + .7, .07, 1.4, .07)); bx('metal', x, 1.2, zz - 1.2, 1, 2.1, .1); [-1, 1].forEach(e => bx('metal', x + e * .3, .08, zz - 1.7, .12, .06, 1));
+      [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([a, b2]) => { const g = new T.CylinderGeometry(.28, .28, .22, 12).rotateZ(Math.PI / 2); g.translate(x + a * .62, .28, zz + b2 * .6); put('tire', g); }); })); }
   /* the sky: a pale sun and slow blocky clouds */
   const mats = {paintW: '#ffffff', paintY: '#ffd23f', zoneB: '#3b9cff', zoneR: '#ff4d6d', hazard: null, glow: '#7fd8ff', metal: '#59606c', lamp: '#fffbe8', banB: '#3b82f6', banR: '#ef4444',
-    barrelB: '#3b82f6', barrelR: '#e5484d', cone: '#ff7a1a', trunk: '#8a5a34', leaf: '#5fbf4a', leaf2: '#7fd65c', tire: '#2a2d33', water: '#4fc3f7'};
+    barrelB: '#3b82f6', barrelR: '#e5484d', cone: '#ff7a1a', trunk: '#8a5a34', leaf: '#5fbf4a', leaf2: '#7fd65c', tire: '#2a2d33', water: '#4fc3f7',
+    ladder: '#e0a82e', rug: arMapLook().rug || '#7a3b2e', window: '#2c3e57', pot: '#c4573c', fork: '#f2b632'};
   const hz = new T.CanvasTexture(arCanvas(128, 32, (g, w, h) => { g.fillStyle = '#1b1d22'; g.fillRect(0, 0, w, h); g.fillStyle = '#ffcb2e'; for (let i = -1; i < 9; i++) { g.beginPath(); g.moveTo(i * 16, h); g.lineTo(i * 16 + 8, h); g.lineTo(i * 16 + 24, 0); g.lineTo(i * 16 + 16, 0); g.fill(); } }));
   hz.wrapS = hz.wrapT = T.RepeatWrapping; hz.colorSpace = T.SRGBColorSpace;
   Object.keys(G).forEach(k => {
     const geo = arMerge(T, G[k]);
     if (k === 'hazard') { const p = geo.attributes.position, u = geo.attributes.uv, n = geo.attributes.normal; for (let i = 0; i < p.count; i++) { const along = Math.abs(n.getX(i)) > .5 ? p.getZ(i) : p.getX(i); u.setXY(i, along / 1.2, p.getY(i) / .9); } }
     const c = mats[k], em = ['glow', 'lamp', 'zoneB', 'zoneR'].includes(k);
-    const m = k === 'hazard' ? new T.MeshStandardMaterial({map: hz, roughness: .6}) : new T.MeshStandardMaterial({color: c, roughness: k === 'water' ? .05 : k === 'metal' ? .35 : k === 'tire' ? .9 : .6, metalness: k === 'metal' ? .85 : k === 'water' ? .3 : 0,
+    const m = k === 'hazard' ? new T.MeshStandardMaterial({map: hz, roughness: .6}) : new T.MeshStandardMaterial({color: c, roughness: k === 'water' || k === 'window' ? .05 : k === 'metal' || k === 'ladder' ? .35 : k === 'tire' || k === 'rug' ? .9 : .6, metalness: k === 'metal' || k === 'ladder' ? .85 : k === 'water' || k === 'window' ? .3 : 0,
       emissive: em ? c : '#000000', emissiveIntensity: k === 'lamp' ? 1.6 : k === 'glow' ? 1.2 : em ? .25 : 0, transparent: k.startsWith('zone') || k === 'water', opacity: k.startsWith('zone') ? .35 : k === 'water' ? .8 : 1});
     const me = new T.Mesh(geo, m); me.castShadow = !['paintW', 'paintY', 'zoneB', 'zoneR', 'glow'].includes(k); me.receiveShadow = true; sc.add(me);
   });
+  /* shop signs on the buildings */
+  (ARM.houses || []).forEach(h => { if (!h.sign) return; const tex = new T.CanvasTexture(arCanvas(512, 128, (g, w, hh) => { g.fillStyle = '#1b2230'; g.beginPath(); g.roundRect(4, 4, w - 8, hh - 8, 18); g.fill(); g.strokeStyle = arMapLook().wall[2] || '#ffd23f'; g.lineWidth = 8; g.stroke();
+      g.fillStyle = '#ffffff'; g.font = '700 74px Fredoka, Teko, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(h.sign, w / 2, hh / 2 + 4); }));
+    tex.colorSpace = T.SRGBColorSpace; const mat = new T.MeshBasicMaterial({map: tex}), cx = (h.x0 + h.x1) / 2, cz = (h.z0 + h.z1) / 2, y = Math.min(h.y1 - .55, h.y0 + 2.95);
+    const sides = h.signSide === 'ew' ? ['e', 'w'] : [h.signSide || 's'];
+    sides.forEach(sd => { const m = new T.Mesh(new T.PlaneGeometry(2.8, .7), mat); const off = .04;
+      if (sd === 'n') { m.position.set(cx, y, h.z0 - off); m.rotation.y = Math.PI; } else if (sd === 's') m.position.set(cx, y, h.z1 + off);
+      else if (sd === 'e') { m.position.set(h.x1 + off, y, cz); m.rotation.y = Math.PI / 2; } else { m.position.set(h.x0 - off, y, cz); m.rotation.y = -Math.PI / 2; } sc.add(m); }); });
   /* a big painted emblem in the middle of the floor */
   const em = new T.CanvasTexture(arCanvas(256, 256, (g, w, h) => { g.translate(w / 2, h / 2); g.strokeStyle = 'rgba(255,255,255,.85)'; g.lineWidth = 10; g.beginPath(); g.arc(0, 0, 100, 0, 7); g.stroke();
     g.fillStyle = 'rgba(255,255,255,.85)'; g.font = '700 68px Fredoka, Teko, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('SD', 0, 4);
@@ -18815,6 +18990,7 @@ function arPlayer(dt, live){
   if (!live) { mx = 0; mz = 0; }
   A.strafe = mx;
   const cy = Math.cos(f.yaw), sy = Math.sin(f.yaw), wx = mx * cy + mz * sy, wz = -mx * sy + mz * cy;
+  f.wish = {x: wx, z: wz};
   const spd = arSpeed(f), cur = Math.hypot(f.v.x, f.v.z);
   /* coyote time and a jump buffer make jumps land when you meant them */
   f.coy = f.ground ? .1 : Math.max(0, (f.coy || 0) - dt);
@@ -19220,10 +19396,10 @@ function arModeArt(m){
 /* a little top-down plan of each map for the map picker */
 const arMapCache = {};
 function arMapSVG(id, n){
-  const key = id + '|' + (n || 1); if (arMapCache[key]) return arMapCache[key]; AR_TILE = arTilesFor(id, n || 1); const B = AR_MAPS[id].boxes(), m = Object.assign({}, AR_MAPS[id], {W: AR_MAPS[id].W * AR_TILE.c, D: AR_MAPS[id].D * AR_TILE.r}); AR_TILE = {c: 1, r: 1}; const col = {wall: '#1b2230', crate: '#c7ccd4', barrier: '#ffd23f', pillar: '#8d949f', cont: '#7fb3e8', plat: '#b9a6e8', stair: '#a7aeb8'};
+  const key = id + '|' + (n || 1); if (arMapCache[key]) return arMapCache[key]; AR_TILE = arTilesFor(id, n || 1); const B = AR_MAPS[id].boxes(), m = Object.assign({}, AR_MAPS[id], {W: AR_MAPS[id].W * AR_TILE.c, D: AR_MAPS[id].D * AR_TILE.r}); AR_TILE = {c: 1, r: 1}; const col = {wall: '#1b2230', crate: '#c7ccd4', barrier: '#ffd23f', pillar: '#8d949f', cont: '#7fb3e8', plat: '#b9a6e8', stair: '#a7aeb8', bwall: '#4a5466', roof: '#8e97a5', slab: '#a99bd6', rail: '#59606c', car: '#e5484d', bus: '#f2b632', hedge: '#5fbf4a'};
   return arMapCache[key] = '<svg class="ar-mapsvg" viewBox="' + (-m.W / 2 - 1) + ' ' + (-m.D / 2 - 1) + ' ' + (m.W + 2) + ' ' + (m.D + 2) + '" aria-hidden="true"><rect x="' + (-m.W / 2) + '" y="' + (-m.D / 2) + '" width="' + m.W + '" height="' + m.D + '" fill="' + m.pal[0] + '"/>'
     + '<rect x="' + (m.W / 2 - 6.5) + '" y="-4" width="6" height="8" fill="#3b9cff" opacity=".5"/><rect x="' + (-m.W / 2 + .5) + '" y="-4" width="6" height="8" fill="#ff4d6d" opacity=".5"/>'
-    + B.map(b => '<rect x="' + b[0].toFixed(1) + '" y="' + b[2].toFixed(1) + '" width="' + (b[3] - b[0]).toFixed(1) + '" height="' + (b[5] - b[2]).toFixed(1) + '" fill="' + (col[b[6]] || '#aaa') + '"/>').join('') + '</svg>';
+    + B.slice().sort((a, b) => a[4] - b[4]).map(b => '<rect x="' + b[0].toFixed(1) + '" y="' + b[2].toFixed(1) + '" width="' + (b[3] - b[0]).toFixed(1) + '" height="' + (b[5] - b[2]).toFixed(1) + '" fill="' + (col[b[6]] || '#aaa') + '"/>').join('') + '</svg>';
 }
 function arOpen(){
   const el = $('#arena'); el.hidden = false; document.body.classList.add('ar-on'); arMenu();
