@@ -4276,6 +4276,7 @@ body.ar-on{overflow:hidden}
 
 
 
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -17445,6 +17446,17 @@ const AR_SK = {
 };
 const arSkillOf = it => it && AR_SK[it.id] ? it.id : null;
 const arSlotOf = it => AR_W[arType(it)].slot;
+/* weapon stats for one item. Chromas are the top tier, so they hit far harder than anything else:
+   75% more damage, 25% faster fire, half again the magazine, quicker reloads, tighter spread and little falloff */
+const arWSCache = {};
+function arWS(it){
+  const base = AR_W[arType(it)]; if (!it || it.t !== 7) return base;
+  if (arWSCache[it.id]) return arWSCache[it.id];
+  const W = Object.assign({}, base, {chroma: 1, dmg: base.dmg * 1.75, rate: base.rate * .8, mag: base.mag ? Math.round(base.mag * 1.5) : 0, rl: base.rl * .6,
+    sp: base.sp * .6, ads: base.ads * .6, kick: base.kick * .6, spd: base.spd * 1.1, fall: [base.fall[0] * 1.8, base.fall[1] * 1.8, Math.max(base.fall[2], .85)]});
+  if (base.range) W.range = base.range * 1.3;
+  return (arWSCache[it.id] = W);
+}
 function arLoadout(){
   const L = arS().load, out = [];
   ['p', 's', 'm'].forEach((k, i) => {
@@ -18009,7 +18021,7 @@ function arBotModel(T, col, kit, body, team, name){
 /* ---------- a match ---------- */
 function arFighter(me, team, load, name){
   return {me, team, name, p: {x: 0, y: 0, z: 0}, v: {x: 0, y: 0, z: 0}, yaw: 0, pitch: 0, hp: 100, alive: true, ground: true, kills: 0,
-    load, cur: 0, mag: load.map(l => AR_W[arType(l.it)].mag), reload: 0, fireT: 0, swap: 0, slide: 0, st: {}, cd: {}, kick: 0};
+    load, cur: 0, mag: load.map(l => arWS(l.it).mag), reload: 0, fireT: 0, swap: 0, slide: 0, st: {}, cd: {}, kick: 0};
 }
 const arFoes = f => AR.F.filter(o => o.team !== f.team && o.alive);
 const arMates = f => AR.F.filter(o => o.team === f.team && o !== f);
@@ -18114,7 +18126,7 @@ function arNewRound(){
   [0, 1].forEach(team => { const tm = A.F.filter(f => f.team === team); tm.forEach((f, i) => {
     Object.assign(f, {hp: 100, alive: true, reload: 0, fireT: 0, swap: 0, slide: 0, st: {}, cd: {}, cur: 0, acq: 0, burst: 0, strafe: 1, strafeT: 0, lastSeen: -9, jumpT: 2 + Math.random() * 2, path: [], pathT: Math.random() * .5, tgt: null, tgtT: 0, known: null});
     f.p = arSpawnSpot(team, i, tm.length); f.v = {x: 0, y: 0, z: 0}; f.yaw = f.p.x > 0 ? Math.PI / 2 : -Math.PI / 2; f.pitch = 0;
-    f.mag = f.load.map(l => AR_W[arType(l.it)].mag);
+    f.mag = f.load.map(l => arWS(l.it).mag);
     f.nade = 1; f.rec = 0; f.recY = 0; f.flashT = 0; f.slideCd = 0; f.aimY = f.yaw; f.aimP = 0; f.wob = Math.random() * 9; f.cover = null; f.coverT = 0; f.nadeT = 3 + Math.random() * 6;
     if (f.B) { f.B.g.rotation.z = 0; f.B.g.visible = true; }
   }); });
@@ -18152,11 +18164,11 @@ function arDamage(src, dst, dmg, head, at){
     [0, 1].forEach(t => { if (A.phase === 'live' && !A.F.some(f => f.team === t && f.alive)) arEndRound(1 - t, A.mode.n === 1 ? (t === 1 ? 'You got ' + dst.name : dst.lastBy ? dst.lastBy.name + ' got you' : '') : (t === 1 ? 'Their team is down' : 'Your team is down')); });
   }
 }
-function arSpeed(f){ const W = AR_W[arType(f.load[f.cur].it)]; let s = 8.2 * W.spd; if (f.st.slow > 0) s *= .6; if (f.st.haste > 0) s *= 1.3; if (f.me && AR.ads > .5) s *= .64; return s; }
+function arSpeed(f){ const W = arWS(f.load[f.cur].it); let s = 8.2 * W.spd; if (f.st.slow > 0) s *= .6; if (f.st.haste > 0) s *= 1.3; if (f.me && AR.ads > .5) s *= .64; return s; }
 const arFall = (W, d) => d <= W.fall[0] ? 1 : d >= W.fall[1] ? W.fall[2] : 1 - (1 - W.fall[2]) * (d - W.fall[0]) / (W.fall[1] - W.fall[0]);
 /* shooting: rays for you, aim rolls for the bots */
 function arShoot(f){
-  const A = AR, l = f.load[f.cur], W = AR_W[arType(l.it)];
+  const A = AR, l = f.load[f.cur], W = arWS(l.it);
   let rate = W.rate; if (f.st.od > 0) rate /= 1.6;
   f.fireT = rate; f.lastShot = A.clock;
   if (W.melee) { arMelee(f, W); return; }
@@ -18200,7 +18212,7 @@ function arMelee(f, W){
   if (!hit) return;
   arDamage(f, hit.o, W.dmg, false, {x: hit.te.x, y: hit.te.y + .6, z: hit.te.z}); noise(.1, 400, 120, .14, 'lowpass');
 }
-function arReload(f){ const W = AR_W[arType(f.load[f.cur].it)]; if (W.melee || f.reload > 0 || f.mag[f.cur] >= W.mag) return; f.reload = W.rl; if (f.me) { arSnd(AR_SFX.click); setTimeout(() => { if (AR && f.reload > 0) arSnd(AR_SFX.click); }, W.rl * 700); } }
+function arReload(f){ const W = arWS(f.load[f.cur].it); if (W.melee || f.reload > 0 || f.mag[f.cur] >= W.mag) return; f.reload = W.rl; if (f.me) { arSnd(AR_SFX.click); setTimeout(() => { if (AR && f.reload > 0) arSnd(AR_SFX.click); }, W.rl * 700); } }
 const arNearestFoe = f => arFoes(f).sort((a, b) => arDist(a.p, f.p) - arDist(b.p, f.p))[0];
 /* ---------- skills ---------- */
 function arUseSkill(f){
@@ -18227,7 +18239,7 @@ const arDirTo3 = (f, t) => { const a = arEye(f), b = {x: t.p.x, y: t.p.y + 1.1, 
 function arBlink(f, d, dist){ for (let k = 0; k < dist / .25; k++) { const q = {x: f.p.x + d.x * .25, y: f.p.y, z: f.p.z + d.z * .25}; if (Math.abs(q.x) > ARM.W / 2 - .3 || Math.abs(q.z) > ARM.D / 2 - .3 || ARB.some(b => arOv(q, b))) break; f.p = q; } }
 /* ---------- a bot's brain ---------- */
 function arBotThink(b, dt){
-  const A = AR, s = b.skill, W = AR_W[arType(b.load[0].it)], eye = arEye(b);
+  const A = AR, s = b.skill, W = arWS(b.load[0].it), eye = arEye(b);
   /* pick a target: the nearest enemy it can see, otherwise the nearest one */
   b.tgtT -= dt;
   if (b.tgtT <= 0 || !b.tgt || !b.tgt.alive) {
@@ -18496,7 +18508,7 @@ function arStep(dt){
     if (f.st.shT <= 0) f.st.shield = 0;
     for (const k in f.cd) f.cd[k] = Math.max(0, f.cd[k] - dt);
     f.fireT -= dt; f.swap = Math.max(0, f.swap - dt); f.slide = Math.max(0, f.slide - dt);
-    if (f.reload > 0) { f.reload -= dt; if (f.reload <= 0) { f.reload = 0; f.mag[f.cur] = AR_W[arType(f.load[f.cur].it)].mag; } }
+    if (f.reload > 0) { f.reload -= dt; if (f.reload <= 0) { f.reload = 0; f.mag[f.cur] = arWS(f.load[f.cur].it).mag; } }
     if (f.st.burn > 0 && live && f.alive) { f.burnAcc = (f.burnAcc || 0) + 6 * dt; if (f.burnAcc >= 2) { f.burnAcc -= 2; arDamage(null, f, 2, false); } }
   });
   if (live || A.phase === 'count') arPlayer(dt, live);
@@ -18523,7 +18535,7 @@ function arStep(dt){
 }
 /* look input is applied once per frame, so the camera follows your thumb or mouse with no lag */
 function arLook(frame){
-  const A = AR, f = A.me, W = AR_W[arType(f.load[f.cur].it)], S = arS();
+  const A = AR, f = A.me, W = arWS(f.load[f.cur].it), S = arS();
   let sens = AR_MOBILE ? .0085 * S.sens.mob : .0022 * S.sens.pc;
   if (A.ads > .5) sens /= Math.max(1, W.zoom * .8);
   /* phone aim assist: the aim slows over an enemy and drifts gently onto them while you fight */
@@ -18547,7 +18559,7 @@ function arLook(frame){
   }
 }
 function arPlayer(dt, live){
-  const A = AR, f = A.me, K = A.keys, W = AR_W[arType(f.load[f.cur].it)];
+  const A = AR, f = A.me, K = A.keys, W = arWS(f.load[f.cur].it);
   f.kick *= Math.pow(.002, dt);
   if (!f.alive) return;
   let mx = (K.d ? 1 : 0) - (K.a ? 1 : 0), mz = (K.s ? 1 : 0) - (K.w ? 1 : 0);
@@ -18633,7 +18645,7 @@ function arTracer(a, b, w){
 }
 function arSpark(p){ const T = AR.T, m = new T.Mesh(new T.SphereGeometry(.06, 6, 4), new T.MeshBasicMaterial({color: '#ffd27a', transparent: true})); m.position.set(p.x, p.y, p.z); AR.fx.add(m); AR.tracers.push({o: m, t: .12}); }
 function arRender(dt){
-  const A = AR, f = A.me, W = AR_W[arType(f.load[f.cur].it)], cam = A.cam;
+  const A = AR, f = A.me, W = arWS(f.load[f.cur].it), cam = A.cam;
   dt = dt || 0;
   A.tracers = A.tracers.filter(t => { t.t -= dt; if (t.o.material) t.o.material.opacity = Math.max(0, t.t * 12); if (t.t <= 0) { A.fx.remove(t.o); if (!t.keep) t.o.geometry.dispose(); t.o.material.dispose(); return false; } return true; });
   /* if you're down in a team mode, the camera follows a living teammate */
@@ -18744,7 +18756,7 @@ function arKillBanner(name, head){ const k = $('#arKill'); if (!k) return; const
 function arHudBanner(t, s, cls){ const b = $('#arBan'); if (!b) return; b.className = 'ar-ban ' + (cls || ''); b.querySelector('b').textContent = t; b.querySelector('span').textContent = s; b.hidden = false; clearTimeout(arBanT); arBanT = setTimeout(() => b.hidden = true, 2300); }
 function arHudCount(n){ const c = $('#arCount'); if (!c) return; if (c.dataset.n !== String(n)) { c.dataset.n = n; c.textContent = n > 0 ? n : ''; if (n > 0) { restart(c, 'pop'); tone(440, .1, 'square', .04); } } }
 function arHudUpdate(full){
-  const A = AR; if (!A) return; const f = A.me, l = f.load[f.cur], W = AR_W[arType(l.it)];
+  const A = AR; if (!A) return; const f = A.me, l = f.load[f.cur], W = arWS(l.it);
   $('#arS0').textContent = A.score[0]; $('#arS1').textContent = A.score[1]; $('#arRd').textContent = 'ROUND ' + A.round;
   const rt = Math.max(0, Math.ceil(A.roundT || 0)); $('#arClock').textContent = Math.floor(rt / 60) + ':' + String(rt % 60).padStart(2, '0');
   document.querySelectorAll('#arHud .ar-pips i').forEach(p => p.classList.toggle('dead', !A.F[+p.dataset.id].alive));
@@ -18920,7 +18932,7 @@ function arMenu(){
     + '<div class="ar-load"><div class="ar-lh">Loadout <small>tap a slot to change it</small></div>' + L.map((l, i) => {
         const sk = arSkillOf(l.it);
         return '<button type="button" class="ar-lslot" data-slot="' + i + '" style="--tc:' + TIERS[l.it.t].color + '"><small>' + AR_SLOTN[i] + '</small><span class="ar-lart"></span><b>' + (l.it.stock ? 'Stock ' + WNAME[l.it.w].replace('★ ', '') : WNAME[l.it.w] + ' | ' + l.it.name) + '</b>'
-          + (sk ? '<em>★ ' + AR_SK[sk].n + '</em>' : l.it.t === 7 ? '<em class="ch">Chroma skill coming soon</em>' : '') + '</button>'; }).join('') + '</div>'
+          + (sk ? '<em>★ ' + AR_SK[sk].n + '</em>' : l.it.t === 7 ? '<em class="ch">Chroma · +75% damage, faster fire</em>' : '') + '</button>'; }).join('') + '</div>'
     + '<button type="button" class="ar-find" id="arFind">FIND MATCH · ' + M.id + '</button>'
     + '<p class="ar-note">G or the grenade button throws your grenade, one per round. Rank up to face tougher players with better weapons. Win: rank points and credits.</p></div>';
   [...document.querySelectorAll('#arMenu .ar-lslot')].forEach((b, i) => b.querySelector('.ar-lart').append(thumb(L[i].it, wearIdx(L[i].fl))));
