@@ -4330,6 +4330,8 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -20471,7 +20473,7 @@ function arStadTick(dt){
    a striped shirt with the name and number on the back, blue shorts, garnet socks, and a flat face decal on the
    head. Neymar's face is the one from his film; Suárez gets his own, big front teeth and all. */
 const AR_STARS = {
-  ney: {name: 'NEYMAR JR', num: '11', skin: '#d4a07a', hair: '#3a2616', tip: '#e8c27a', boot: '#ffd23f', face: () => bdoP('neymar', {hair: 'none', tape: false, skin: 'rgba(0,0,0,0)', shade: 'rgba(0,0,0,0)'})},
+  ney: {name: 'NEYMAR JR', num: '11', skin: '#d4a07a', hair: '#3a2616', tip: '#e8c27a', boot: '#ffd23f', face: () => bdoP('neymar', {hair: 'none', tape: false, mouth: 'none', lip: false, beard: 'none', skin: 'rgba(0,0,0,0)', shade: 'rgba(0,0,0,0)'})},
   sua: {name: 'SUÁREZ', num: '9', skin: '#d6a07a', hair: '#1c130c', boot: '#15171c', face: () => ({skin: '#d6a07a', shade: 'rgba(110,55,25,.2)', head: 'long', hair: 'part', hc: '#1c130c', beard: 'stubble', brow: 'thick', iris: '#4a3020', mouth: 'none', lip: false}),
     /* the teeth: a wide grin with two huge front teeth that hang below the lip */
     extra: '<path d="M-10.5 27.4 Q0 42 10.5 27.4 Q0 30.4 -10.5 27.4 Z" fill="#4a1410"/>'
@@ -20610,8 +20612,14 @@ function arStarHead(T, head, who, skinM, hairM){
 function arNeyHair(T, add, sph, R, cy, P, skinM, pts){
   const keep = [], rnd = seeded(3131), up = new T.Vector3(0, 1, 0);
   const brown = ['#2b1a0e', '#3a2616', '#4a301c'].map(c => { const m = new T.MeshStandardMaterial({color: c, roughness: .95}); keep.push(m); return m; });
-  const light = new T.MeshStandardMaterial({color: '#8a6238', roughness: .9}), blond = new T.MeshStandardMaterial({color: '#f0d08a', roughness: .8}), tapeM = new T.MeshStandardMaterial({color: '#f4f0e6', roughness: .6});
-  keep.push(light, blond, tapeM);
+  const light = new T.MeshStandardMaterial({color: '#b8894f', roughness: .85}), blond = new T.MeshStandardMaterial({color: '#fff3c4', emissive: '#6a5218', roughness: .65}), tapeM = new T.MeshStandardMaterial({color: '#f4f0e6', roughness: .6}),
+    lipU = new T.MeshStandardMaterial({color: '#a35f4a', roughness: .45}), lipL = new T.MeshStandardMaterial({color: '#b8705a', roughness: .4}), lineM = new T.MeshStandardMaterial({color: '#4a1a12', roughness: .8});
+  keep.push(light, blond, tapeM, lipU, lipL, lineM);
+  /* lips: a firm upper lip, a fuller lower one, a dark line where they meet, a slight frown */
+  const lz = -R * .94 - .002;
+  add(sph(.02, 18, 10), lipU, 0, cy - .068, lz, 1.65, .42, .5); add(sph(.021, 18, 10), lipL, 0, cy - .083, lz + .001, 1.5, .55, .55);
+  add(new T.BoxGeometry(.062, .0035, .006), lineM, 0, cy - .0755, lz - .006, 1, 1, 1).rotation.z = 0;
+  [-1, 1].forEach(s => add(new T.BoxGeometry(.008, .003, .005), lineM, s * .033, cy - .078, lz - .004, 1, 1, 1).rotation.z = s * .5);
   /* ears and sideburns */
   [-1, 1].forEach(s => { add(sph(.04, 14, 10), skinM, s * R * .99, cy - .005, .015, .42, 1, .7); add(new T.BoxGeometry(.012, .07, .03), brown[0], s * R * 1.0, cy + .025, -.052); });
   /* the nose, with white tape across the bridge */
@@ -20625,22 +20633,22 @@ function arNeyHair(T, add, sph, R, cy, P, skinM, pts){
   /* spikes: short over the sides and back, a fringe over the forehead, longer toward the crown */
   const spike = (x, y, z, dir, len, rad, mat, tip) => { const c = add(new T.ConeGeometry(rad, len, 6), mat, x + dir.x * len / 2, y + dir.y * len / 2, z + dir.z * len / 2);
     c.quaternion.setFromUnitVectors(up, dir);
-    if (tip) { const tl = tip === blond ? .6 : .42, t = add(new T.ConeGeometry(rad * (1 - tl) * 1.05 + .002, len * tl, 6), tip, x + dir.x * len * (1 - tl / 2), y + dir.y * len * (1 - tl / 2), z + dir.z * len * (1 - tl / 2)); t.quaternion.copy(c.quaternion); } };
+    if (tip) { const tl = tip === blond ? .66 : .45, t = add(new T.ConeGeometry(rad * (1 - tl) * 1.05 + .002, len * tl, 6), tip, x + dir.x * len * (1 - tl / 2), y + dir.y * len * (1 - tl / 2), z + dir.z * len * (1 - tl / 2)); t.quaternion.copy(c.quaternion); } };
   const H2 = .165;
   for (let i = 0; i < 150; i++) { const a = rnd() * Math.PI * 2, f = rnd(), front = Math.cos(a - Math.PI) > .35;
     if (front && f < .55) continue; /* keep the face clear */
     const r0 = R * (f < .55 ? 1.03 : (1 - (f - .55) / .45 * .9) * 1.02), y = f < .55 ? cy + .04 + f / .55 * .1 : cy + H2 + .006;
     const x = Math.sin(a) * r0, z = Math.cos(a) * r0 * .94, toC = 1 - Math.min(1, Math.hypot(x, z) / R);
     const out = new T.Vector3(Math.sin(a), 0, Math.cos(a)), dir = out.clone().multiplyScalar(f < .55 ? .85 : .35 * (1 - toC)).add(new T.Vector3(0, f < .55 ? .45 : 1, 0)).add(new T.Vector3((rnd() - .5) * .35, 0, (rnd() - .5) * .35 + .12)).normalize();
-    const len = f < .55 ? .035 + rnd() * .025 : .05 + toC * .07 + rnd() * .03;
-    spike(x, y, z, dir, len, .016 + rnd() * .008, brown[Math.floor(rnd() * 3)], toC > .45 && rnd() < .5 ? light : null); }
+    const len = f < .55 ? .055 + rnd() * .035 : .085 + toC * .12 + rnd() * .05;
+    spike(x, y, z, dir, len, .018 + rnd() * .009, brown[Math.floor(rnd() * 3)], toC > .3 && rnd() < .6 ? blond : toC > .15 && rnd() < .5 ? light : null); }
   /* the fringe: spikes over the forehead, pointing forward and up */
   for (let i = 0; i < 9; i++) { const x = (i - 4) * .034 + (rnd() - .5) * .01, z = -R * .9, y = cy + H2 - .01;
-    spike(x, y, z, new T.Vector3(x * 1.5, .75, -.6).normalize(), .05 + rnd() * .025, .017, brown[Math.floor(rnd() * 3)], null); }
+    spike(x, y, z, new T.Vector3(x * 1.5, .85, -.5).normalize(), .08 + rnd() * .035, .019, brown[Math.floor(rnd() * 3)], rnd() < .4 ? light : null); }
   /* the crest: a tall cluster in the middle, front of the crown, leaning together to a point, bleached at the tips */
   for (let i = 0; i < 26; i++) { const a = rnd() * Math.PI * 2, rr = Math.sqrt(rnd()) * .075, x = Math.cos(a) * rr * .9 - .008, z = -.035 + Math.sin(a) * rr, y = cy + H2;
-    const dir = new T.Vector3(-x * 2.4 - .04, 1, -(z + .035) * 1.8 + .12).normalize(), len = .2 + rnd() * .11 - rr * 1.2;
-    spike(x, y, z, dir, len, .03 + rnd() * .01, i % 3 ? light : brown[1], blond); }
+    const dir = new T.Vector3(-x * 2.4 - .04, 1, -(z + .035) * 1.8 + .12).normalize(), len = .3 + rnd() * .14 - rr * 1.4;
+    spike(x, y, z, dir, len, .033 + rnd() * .012, i % 3 ? light : brown[2], blond); }
   return keep;
 }
 $('#arBtn').onclick = () => { if (busy) return; arOpen(); };
