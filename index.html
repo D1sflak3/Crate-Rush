@@ -4308,6 +4308,11 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
+
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -4570,6 +4575,19 @@ body.ar-on{overflow:hidden}
 .ar-flasho{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:7}
 .ar-pt-acts{min-width:200px}.ar-pt-join input{flex:none;width:96px}.ar-pt-join .ar-btn{flex:1}
 .ar-num.ar-kick{font-size:38px;color:#fff;font-style:italic;letter-spacing:.04em;text-shadow:var(--ol),0 0 16px #d22f3a;animation:arSiu .5s cubic-bezier(.2,1.6,.4,1)}
+
+
+/* Ankara Messi: blue and garnet edges, drifting stripes, a flip flash when you go in or out */
+.ar-fxo.tr{background:radial-gradient(ellipse at center,transparent 46%,rgba(0,77,152,.45) 78%,rgba(165,0,68,.6) 100%);overflow:hidden}
+.ar-fxo.tr>i{position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(0,77,152,.22) 0 7vw,rgba(165,0,68,.22) 7vw 14vw);-webkit-mask:radial-gradient(ellipse at center,transparent 50%,#000 92%);mask:radial-gradient(ellipse at center,transparent 50%,#000 92%);animation:arTrStripe 1.2s linear infinite}
+.tr .ar-fxt{background:linear-gradient(90deg,#004d98,#a50044)}
+.ar-fxo.tr .ar-fxt small{display:block;font-size:11px;opacity:.8;margin-top:2px}
+.ar-fxo.tr .ar-fxt u i{background:linear-gradient(90deg,#004d98,#a50044,#ffd23f)}
+.ar-fxo.tr.flip::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#004d98 0 50%,#a50044 50%);animation:arTrFlip .45s ease-out forwards}
+@keyframes arTrStripe{to{background-position:14vw 0}}
+@keyframes arTrFlip{0%{opacity:.85;transform:scaleX(1.2)}100%{opacity:0;transform:scaleX(1)}}
+
+.ar-sh-c em .coin{display:inline-block;width:11px;height:11px;vertical-align:-1px;margin:0 2px 0 3px}
 </style>
 
 <div class="wrap" id="wrap">
@@ -18397,6 +18415,8 @@ async function arStartMatch(lobby){
   wtex.colorSpace = T.SRGBColorSpace; wtex.wrapS = wtex.wrapT = T.RepeatWrapping;
   sc.add(new T.Mesh(arMerge(T, tws), new T.MeshStandardMaterial({map: wtex, roughness: .85})));
   const clouds = arDecor(T, sc);
+  /* the world's own meshes, for the Ankara Messi trance to recolour */
+  const world = sc.children.filter(o => o.isMesh && o !== sky && o !== clouds && o.material && !o.material.transparent);
   /* the viewmodel lives in its own scene so it never clips into walls */
   const vsc = new T.Scene(), vcam = new T.PerspectiveCamera(60, innerWidth / innerHeight, .01, 10);
   vsc.environment = env;
@@ -18410,7 +18430,7 @@ async function arStartMatch(lobby){
   F.forEach(f => { if (f.me) return; f.B = arBotModel(T, arRankCol(f.rp), f.load[0], f.col, f.team, f.name); sc.add(f.B.g); });
   const fx = new T.Group(); sc.add(fx);
   AR = {T, R, sc, cam, vsc, vcam, vm, guns, flash, fx, me, F, lobby, mode: arMode(lobby.mode), score: [0, 0], round: 0, phase: 'load', t: 0, keys: {}, mdx: 0, mdy: 0, fire: false, ads: 0, adsHeld: false,
-    clouds, sun, sunDir, SR, mlight, blight, fxa: [], sky, env, prMax, pr: pr0, resT: 0, resN: 0, tracers: [], nums: [], proj: [], nades: [], parts: [], booms: [], streak: 0, land: 0, roll: 0, last: performance.now(), acc: 0, raf: 0, paused: false, side: Math.random() < .5 ? 1 : -1, bob: 0, shake: 0, hurt: 0, hitm: 0, fps: [], clock: 0, M};
+    clouds, world, sun, sunDir, SR, mlight, blight, fxa: [], sky, env, prMax, pr: pr0, resT: 0, resN: 0, tracers: [], nums: [], proj: [], nades: [], parts: [], booms: [], streak: 0, land: 0, roll: 0, last: performance.now(), acc: 0, raf: 0, paused: false, side: Math.random() < .5 ? 1 : -1, bob: 0, shake: 0, hurt: 0, hitm: 0, fps: [], clock: 0, M};
   arNetInit(AR, lobby); arHUD(); arBindInput(); arNewRound();
   AR.raf = requestAnimationFrame(arLoop);
 }
@@ -18491,7 +18511,7 @@ function arOnDeath(src, dst, head){
   if (N && N.host) arNetSend(null, 'ev', {k: 'kill', s: src ? src.nid : -1, d: dst.nid, h: head ? 1 : 0}, true);
   [0, 1].forEach(t => { if (A.phase === 'live' && !A.F.some(f => f.team === t && f.alive)) arEndRound(1 - t, A.mode.n === 1 ? (t === 1 ? 'You got ' + dst.name : dst.lastBy ? dst.lastBy.name + ' got you' : '') : (t === 1 ? 'Their team is down' : 'Your team is down')); });
 }
-function arSpeed(f){ const W = arWS(f.load[f.cur].it); let s = 8.2 * W.spd; if (f.st.slow > 0) s *= .6; if (f.st.haste > 0) s *= 1.3; if (f.st.speedy > 0) s *= 1.5; if (f.st.horn > 0) s *= 1.2; if (f.me && AR.ads > .5) s *= .64; return s; }
+function arSpeed(f){ const W = arWS(f.load[f.cur].it); let s = 8.2 * W.spd; if (f.st.slow > 0) s *= .6; if (f.st.haste > 0) s *= 1.3; if (f.st.speedy > 0) s *= 1.5; if (f.st.trans > 0) s *= 2; if (f.st.horn > 0) s *= 1.2; if (f.me && AR.ads > .5) s *= .64; return s; }
 const arFall = (W, d) => d <= W.fall[0] ? 1 : d >= W.fall[1] ? W.fall[2] : 1 - (1 - W.fall[2]) * (d - W.fall[0]) / (W.fall[1] - W.fall[0]);
 /* shooting: rays for you, aim rolls for the bots */
 function arShoot(f){
@@ -19076,6 +19096,7 @@ function arSpark(p){ const T = AR.T, m = new T.Mesh(new T.SphereGeometry(.06, 6,
 function arRender(dt){
   const A = AR, f = A.me, W = arWS(f.load[f.cur].it), cam = A.cam;
   dt = dt || 0;
+  arTransTick(dt);
   A.tracers = A.tracers.filter(t => { t.t -= dt; if (t.o.material) t.o.material.opacity = Math.max(0, t.t * 12); if (t.t <= 0) { A.fx.remove(t.o); if (!t.keep) t.o.geometry.dispose(); t.o.material.dispose(); return false; } return true; });
   /* if you're down in a team mode, the camera follows a living teammate */
   if (!f.alive && A.spec && !A.spec.alive) A.spec = arMates(f).find(o => o.alive) || null;
@@ -19177,6 +19198,7 @@ function arHUD(){
     + '<div class="ar-wp"><div class="ar-nade" id="arNade"></div><div class="ar-ammo" id="arAmmo"></div><div class="ar-wn" id="arWn"></div><div class="ar-slots" id="arSlots"></div></div>'
     + '<button type="button" class="ar-sk" id="arSk" hidden><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" class="bg"/><circle cx="20" cy="20" r="17" class="cd" id="arSkC"/></svg><i class="ar-ski" id="arSkI"></i><b>Q</b><span id="arSkN"></span></button>'
     + '<div class="ar-fxo ls" id="arFxL"><div class="ar-fxt">' + AR_IC.longshot + '<div><b>LONG SHOT</b><u><i id="arFxLt"></i></u></div></div></div>'
+    + '<div class="ar-fxo tr" id="arFxT"><i></i><div class="ar-fxt">' + AR_MIC.messi + '<div><b>ANKARA MESSI</b><u><i id="arFxTt"></i></u><small>' + (AR_MOBILE ? 'Tap again to leave' : 'G to leave') + '</small></div></div></div>'
     + '<div class="ar-fxo sp" id="arFxS"><i></i><div class="ar-fxt">' + AR_IC.speedster + '<div><b>SPEEDSTER</b><u><i id="arFxSt"></i></u></div></div></div>'
     + '<div class="ar-skpop" id="arSkPop" hidden></div>'
     + '<button type="button" class="ar-pausebtn" id="arPauseBtn" aria-label="Pause or leave">' + (AR_MOBILE ? AR_IC.pause : 'Leave') + '</button>'
@@ -19238,6 +19260,7 @@ function arHudUpdate(full){
     if (tsk) { tsk.classList.toggle('cust', !!S.ic); tsk.style.setProperty('--c', S.col || '#c084fc'); tsk.querySelector('.tbi').innerHTML = AR_IC[S.ic || 'skill']; } }
   arSkillPopTick();
   $('#arFxL').classList.toggle('on', f.st.long > 0 && f.alive); $('#arFxLt').style.width = Math.max(0, (f.st.long || 0) / 10 * 100) + '%';
+  $('#arFxT').classList.toggle('on', f.st.trans > 0 && f.alive); $('#arFxTt').style.width = Math.max(0, (f.st.trans || 0) / 5 * 100) + '%';
   $('#arFxS').classList.toggle('on', f.st.speedy > 0 && f.alive); $('#arFxSt').style.width = Math.max(0, (f.st.speedy || 0) / 7 * 100) + '%';
   const goatOn = arHasGoat(f), gb = $('#arGoat'); gb.hidden = !goatOn;
   if (goatOn) { const c = f.goatC || 0, k = `${c}|${f.goatK || 0}|${l.it.id === AR_GOAT_ID}`; if (gb.dataset.k !== k) { gb.dataset.k = k; [...gb.querySelectorAll('.ar-goat-b i')].forEach((s, i) => s.classList.toggle('on', i < c));
@@ -19877,10 +19900,11 @@ const AR_MISC = {
   pad:     {n: 'Jump Pad', d: 'Drop a pad that launches anyone who steps on it. Lasts the round.', uses: 1, price: 15000, rank: 8, col: '#3b9cff'},
   horn:    {n: 'War Horn', d: 'You and teammates near you: +20% speed and +15% damage for 6 seconds.', uses: 1, price: 25000, rank: 9, col: '#b07a3c'},
   /* chroma exclusives */
-  kick:    {n: 'Knuckleball', chroma: 'x5', d: 'A free kick that bends out around cover and curls back onto the spot you aimed at. Whoever it hits takes 50, gets knocked back and dazed. Rebounds off walls.', uses: 2, price: 50000, rank: 0, col: '#d22f3a'},
-  decoy:   {n: 'Golden Shadow', chroma: 'x4', d: 'A golden shadow of you sprints ahead for 5 seconds, leaving a trail of afterimages, and pulls enemy fire.', uses: 1, price: 50000, rank: 0, col: '#ffb81f'},
-  finesse: {n: 'Finesse', chroma: 'x3', d: 'Once a round: a golden free kick that swings out in a giant curve, curls back onto the exact spot you aimed at, then steers a little (20%) toward the closest enemy. 50 damage, knockback and daze.', uses: 1, price: 50000, rank: 0, col: '#ffc21a'}};
-const AR_MISC_ORDER = ['frag', 'med', 'smoke', 'flash', 'molotov', 'pad', 'horn', 'kick', 'decoy', 'finesse'];
+  kick:    {n: 'Knuckleball', chroma: 'x5', d: 'A free kick that bends out around cover and curls back onto the spot you aimed at. Whoever it hits takes 50, gets knocked back and dazed. Rebounds off walls.', uses: 2, price: 250000, rank: 0, col: '#d22f3a'},
+  decoy:   {n: 'Golden Shadow', chroma: 'x4', d: 'A golden shadow of you sprints ahead for 5 seconds, leaving a trail of afterimages, and pulls enemy fire.', uses: 1, price: 150000, rank: 0, col: '#ffb81f'},
+  messi:   {n: 'Ankara Messi', chroma: 'x6', d: 'Two charges a round. Each drops you into a trance world for 5 seconds: double speed, invisible to enemies, and everything turns blue and red, with enemies in dark red and teammates in dark blue. Use it again to leave early.', uses: 2, price: 1000000, rank: 0, col: '#a50044'},
+  finesse: {n: 'Finesse', chroma: 'x3', d: 'Once a round: a golden free kick that swings out in a giant curve, curls back onto the exact spot you aimed at, then steers a little (20%) toward the closest enemy. 50 damage, knockback and daze.', uses: 1, price: 400000, rank: 0, col: '#ffc21a'}};
+const AR_MISC_ORDER = ['frag', 'med', 'smoke', 'flash', 'molotov', 'pad', 'horn', 'kick', 'decoy', 'finesse', 'messi'];
 const AR_MIC = {
   frag: '<svg viewBox="0 0 48 48"><rect x="20" y="4" width="9" height="7" rx="2" fill="#7a8088" stroke="#1b2230" stroke-width="2.4"/><path d="M29 7 q9 0 9 9" fill="none" stroke="#1b2230" stroke-width="2.6"/><ellipse cx="24" cy="28" rx="13" ry="16" fill="#4f8a3a" stroke="#1b2230" stroke-width="2.8"/><path d="M11 24h26M11 32h26M19 13v30M29 13v30" stroke="#2f5a22" stroke-width="2"/><ellipse cx="19" cy="20" rx="3" ry="5" fill="#fff" opacity=".35"/></svg>',
   med: '<svg viewBox="0 0 48 48"><rect x="17" y="6" width="14" height="7" rx="2" fill="none" stroke="#1b2230" stroke-width="3"/><rect x="5" y="11" width="38" height="31" rx="6" fill="#fff" stroke="#1b2230" stroke-width="2.8"/><path d="M20 17h8v7h7v8h-7v7h-8v-7h-7v-8h7z" fill="#e5484d" stroke="#1b2230" stroke-width="2"/></svg>',
@@ -19893,6 +19917,9 @@ const AR_MIC = {
     + '<circle cx="32" cy="20" r="14" fill="#fff" stroke="#1b2230" stroke-width="2.8"/><path d="M32 13.5 l5.5 4 -2.1 6.5 h-6.8 l-2.1-6.5z" fill="#1b2230"/><path d="M32 13.5 V7 M37.5 17.5 l6-2.5 M35.4 24 l3.6 5.5 M28.6 24 l-3.6 5.5 M26.5 17.5 l-6-2.5" stroke="#1b2230" stroke-width="2"/>'
     + '<path d="M24.5 8.5 l2.5 3.5 M44 21 l-3 1 M40.5 31 l-2.5-2.5 M23.5 31 l2.5-2.5" stroke="#1b2230" stroke-width="3" stroke-linecap="round"/><circle cx="27" cy="14" r="2.5" fill="#fff" opacity=".9"/><path d="M41 6 l1.2 3 3 1.2 -3 1.2 -1.2 3 -1.2-3 -3-1.2 3-1.2z" fill="#ffd34d"/></svg>',
   decoy: '<svg viewBox="0 0 48 48"><path d="M2 16h8M1 24h7M2 32h8" stroke="#fff" stroke-width="3" stroke-linecap="round"/><g opacity=".5"><circle cx="20" cy="10" r="5" fill="#9fd4ff"/><path d="M13 17h14l2 13h-5l-1 13h-6l-1-13h-5z" fill="#9fd4ff"/></g><circle cx="31" cy="10" r="5" fill="#ffb81f" stroke="#1b2230" stroke-width="2.2"/><path d="M24 17h14l2 13h-5l-1 13h-6l-1-13h-5z" fill="#ffb81f" stroke="#1b2230" stroke-width="2.4" stroke-linejoin="round"/></svg>',
+  messi: '<svg viewBox="0 0 48 48"><path d="M2 14h9M1 22h7M2 30h8M4 38h7" stroke="#fff" stroke-width="2.8" stroke-linecap="round" opacity=".85"/><circle cx="27" cy="24" r="16" fill="#004d98"/>'
+    + '<path d="M16 12.4A16 16 0 0 1 22.4 8.7V39.3A16 16 0 0 1 16 35.6Z M28.8 8.1A16 16 0 0 1 35.2 10.3V37.7A16 16 0 0 1 28.8 39.9Z" fill="#a50044"/>'
+    + '<circle cx="27" cy="24" r="16" fill="none" stroke="#1b2230" stroke-width="2.8"/><text x="27" y="30.5" text-anchor="middle" font-family="Fredoka,Teko,sans-serif" font-weight="700" font-size="17" fill="#ffd23f" stroke="#1b2230" stroke-width="1.2">10</text></svg>',
   finesse: '<svg viewBox="0 0 48 48"><path d="M4 42 C2 22 14 6 30 8" fill="none" stroke="#ffe9a3" stroke-width="3.4" stroke-linecap="round" stroke-dasharray="1 5.5"/><path d="M9 44 C8 28 16 16 26 13" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".6"/>'
     + '<circle cx="33" cy="20" r="12.5" fill="#ffc21a" stroke="#1b2230" stroke-width="2.8"/><path d="M33 14.2 l4.9 3.6 -1.9 5.8 h-6 l-1.9-5.8z" fill="#8a5a00"/><path d="M33 14.2 V8.5 M37.9 17.8 l5.3-2.2 M36 23.6 l3.2 4.9 M30 23.6 l-3.2 4.9 M28.1 17.8 l-5.3-2.2" stroke="#8a5a00" stroke-width="1.8"/>'
     + '<circle cx="28.5" cy="14.5" r="2.4" fill="#fff6c2"/><path d="M43 33 l1.4 3.4 3.4 1.4 -3.4 1.4 -1.4 3.4 -1.4-3.4 -3.4-1.4 3.4-1.4z M14 4 l1 2.4 2.4 1 -2.4 1 -1 2.4 -1-2.4 -2.4-1 2.4-1z" fill="#fff6c2"/></svg>'};
@@ -19903,6 +19930,9 @@ const arMiscRankOk = k => arRankIdx(arS().rp) >= (AR_MISC[k].rank || 0);
 /* ---------- using one ---------- */
 function arUseMisc(f){
   const A = AR, id = f.miscId || 'frag', M = AR_MISC[id]; if (!M || !f.alive || A.phase !== 'live') return;
+  /* Ankara Messi: using it again while inside leaves the trance early, free */
+  if (id === 'messi' && f.st.trans > 0) { const N = AR.net, data = {exit: 1}; arMiscExec(f, id, data, !N || N.host);
+    if (N) { if (N.host) arNetSend(null, 'ev', {k: 'misc', o: f.nid, id, d: data}, true); else arNetSend(N.hostPid, 'misc', {id, d: data}, true); } arHudUpdate(true); return; }
   if (!(f.mu > 0)) { if (f.me) { arFeed('No ' + M.n + ' left this round', 'b'); tone(220, .08, 'square', .03); } return; }
   if (id === 'med' && f.medT > 0) return;
   f.mu--; const e = arEye(f), d = arFwd(f.yaw, f.pitch + .14);
@@ -19931,6 +19961,7 @@ function arMiscExec(f, id, d, real){
   }
   if (id === 'kick' || id === 'finesse') { arKickBall(f, d, real, id === 'finesse'); return; }
   if (id === 'decoy') { arDecoySpawn(f, d.yaw, real); return; }
+  if (id === 'messi') { if (d.exit) { if (f.st.trans > 0) { f.st.trans = 0; f.st.invis = 0; arTransFx(f, false); } return; } f.st.trans = 5; f.st.invis = 5; arTransFx(f, true); return; }
 }
 /* thrown items go off by kind */
 function arDetonate(g){
@@ -20052,7 +20083,7 @@ function arShop(){
     const act = own ? (ms.eq === k ? '<span class="ar-sh-eq">EQUIPPED</span>' : '<button type="button" class="ar-btn sm" data-eq="' + k + '">Equip</button>')
       : lock ? '<span class="ar-sh-lock">🔒 ' + lock + '</span>' : '<button type="button" class="ar-btn sm' + (afford ? '' : ' poor') + '" data-buy="' + k + '"><span class="coin"></span>' + fmt(M.price) + '</button>';
     return '<div class="ar-sh-c' + (M.chroma ? ' chroma' : '') + (own ? ' own' : '') + (lock ? ' locked' : '') + '" style="--tc:' + M.col + '">' + (M.chroma ? '<i class="ar-sh-tag">CHROMA EXCLUSIVE</i>' : M.rank ? '<i class="ar-sh-tag rk" style="--rc:' + arRankCol(M.rank * AR_DIV) + '">' + arRankName(M.rank * AR_DIV) + '</i>' : '')
-      + '<div class="ar-sh-ic">' + AR_MIC[k] + '</div><b>' + M.n + '</b><small>' + M.d + '</small><em>' + M.uses + ' per round</em><div class="ar-sh-act">' + act + '</div></div>'; };
+      + '<div class="ar-sh-ic">' + AR_MIC[k] + '</div><b>' + M.n + '</b><small>' + M.d + '</small><em>' + M.uses + ' per round' + (lock ? ' · <span class="coin"></span>' + fmt(M.price) : '') + '</em><div class="ar-sh-act">' + act + '</div></div>'; };
   const reg = AR_MISC_ORDER.filter(k => !AR_MISC[k].chroma), chr = AR_MISC_ORDER.filter(k => AR_MISC[k].chroma);
   box.innerHTML = '<div class="ar-shop"><div class="ar-sh-top"><div><b>RANKED SHOP</b><small>Misc items for Showdown · ' + arRankName(S.rp) + '</small></div><div class="ar-sh-bal"><span class="coin"></span>' + fmt(state.bal) + '</div><button type="button" class="ar-x2" aria-label="Close">✕</button></div>'
     + '<div class="ar-sh-h">Gear</div><div class="ar-sh-grid">' + reg.map(card).join('') + '</div>'
@@ -20166,6 +20197,47 @@ function arAfterimage(B, col, life, grow){
   const m = new T.MeshBasicMaterial({color: col, transparent: true, opacity: .5, blending: T.AdditiveBlending, depthWrite: false, fog: false}), me = new T.Mesh(geo, m);
   me.position.copy(c); me.renderOrder = 2; me.userData.geo = geo; A.fx.add(me); grow = grow || 1.06;
   A.fxa.push({m: me, t: 0, life: life || .45, upd: (mm, kk) => { m.opacity = .5 * (1 - kk) * (1 - kk); mm.scale.setScalar(1 + (grow - 1) * kk); if (kk >= 1) geo.dispose(); }});
+}
+
+/* ---------- Ankara Messi: the trance world ---------- */
+/* entering or leaving: a whoosh, a burst of blue and red, and (for you) the world's colours flip */
+function arTransFx(f, on){
+  const A = AR, at = {x: f.p.x, y: f.p.y + 1, z: f.p.z};
+  arBurst(at, '#004d98', 14, 6); arBurst(at, '#a50044', 14, 6); arBurst(at, '#ffd23f', 6, 4);
+  arSnd((a, o, t) => { arNz(a, o, t, .45, 'bandpass', on ? 500 : 2600, on ? 2800 : 400, .22, 2); arOsc(a, o, t, .4, 'sine', on ? 220 : 660, on ? 660 : 200, .05);
+    if (on) [523.25, 659.25, 783.99, 1046.5].forEach((fr, k) => arOsc(a, o, t + .08 + k * .06, .35, 'triangle', fr, fr, .03)); }, f.me ? null : f.p);
+  if (f.me) { const el = $('#arFxT'); if (el) restart(el, 'flip'); if (on) arFeed('Ankara Messi · ' + (AR_MOBILE ? 'tap again' : 'press G') + ' to leave', 'b'); }
+}
+/* blaugrana stripes over everything: blue and garnet bands with a thin gold seam, lit by the sun */
+function arTransMat(T){
+  return new T.ShaderMaterial({uniforms: {sun: {value: AR.sunDir.clone()}, t: {value: 0}},
+    vertexShader: 'varying vec3 vW; varying vec3 vN; void main(){ vec4 w = modelMatrix * vec4(position, 1.0); vW = w.xyz; vN = normalize(mat3(modelMatrix) * normal); gl_Position = projectionMatrix * viewMatrix * w; }',
+    fragmentShader: 'uniform vec3 sun; uniform float t; varying vec3 vW; varying vec3 vN;\n'
+      + 'void main(){ vec3 n = normalize(vN); float u = abs(n.x) > 0.7 ? vW.z : vW.x; float s = fract(u / 2.4);\n'
+      + ' vec3 c = s < 0.5 ? vec3(0.0, 0.074, 0.31) : vec3(0.37, 0.0, 0.06); float e = min(abs(s - 0.5), min(s, 1.0 - s));\n'
+      + ' c = mix(vec3(1.0, 0.62, 0.04), c, smoothstep(0.0, 0.018, e)); float l = 0.42 + 0.58 * max(dot(n, sun), 0.0) + 0.12 * n.y;\n'
+      + ' float w = 0.88 + 0.12 * sin(vW.y * 2.5 + u * 0.6 - t * 5.0); gl_FragColor = vec4(c * l * w, 1.0);\n #include <colorspace_fragment>\n}'});
+}
+/* a player in the trance: a dark body (red for enemies, blue for teammates) with a bright rim so they stand out on the stripes */
+function arTransBody(T, base, rim){
+  return new T.ShaderMaterial({uniforms: {base: {value: new T.Vector3(...base)}, rim: {value: new T.Vector3(...rim)}, sun: {value: AR.sunDir.clone()}},
+    vertexShader: 'varying vec3 vN; varying vec3 vV; void main(){ vec4 w = modelMatrix * vec4(position, 1.0); vN = normalize(mat3(modelMatrix) * normal); vV = normalize(cameraPosition - w.xyz); gl_Position = projectionMatrix * viewMatrix * w; }',
+    fragmentShader: 'uniform vec3 base; uniform vec3 rim; uniform vec3 sun; varying vec3 vN; varying vec3 vV;\n'
+      + 'void main(){ vec3 n = normalize(vN); float l = 0.55 + 0.45 * max(dot(n, sun), 0.0); float f = pow(1.0 - max(dot(n, normalize(vV)), 0.0), 2.2);\n'
+      + ' gl_FragColor = vec4(base * l + rim * f * 1.4, 1.0);\n #include <colorspace_fragment>\n}'});
+}
+/* switches the world into the trance (or back) to match your state, once per change */
+function arTransTick(dt){
+  const A = AR, f = A.me, on = !!(f.alive && f.st.trans > 0);
+  if (A.transMat) A.transMat.uniforms.t.value += dt || 0;
+  if (on === !!A.transOn) return; A.transOn = on; const T = A.T;
+  if (!A.transMat) { A.transMat = arTransMat(T); A.transRed = arTransBody(T, [.16, 0, .02], [1, .08, .2]); A.transBlue = arTransBody(T, [0, .03, .16], [.25, .55, 1]); }
+  const swap = (m, mat) => { if (on) { if (!m.userData.m0) m.userData.m0 = m.material; m.material = mat; } else if (m.userData.m0) { m.material = m.userData.m0; m.userData.m0 = null; } };
+  (A.world || []).forEach(m => swap(m, A.transMat));
+  A.F.forEach(o => { if (!o.B) return; const mat = o.team === f.team ? A.transBlue : A.transRed; o.B.g.traverse(x => { if (x.isMesh && x.material && !(x.userData.m0 ? x.userData.m0.transparent : x.material.transparent)) swap(x, mat); }); });
+  if (A.clouds) { if (!A.transCloud) A.transCloud = new T.MeshBasicMaterial({color: '#ffcf4a', fog: false}); swap(A.clouds, A.transCloud); }
+  const U = A.sky.material.uniforms; if (on) { A.sky0 = [U.top.value.clone(), U.hor.value.clone(), U.bot.value.clone(), A.sc.fog.color.clone()]; U.top.value.set('#0b1f5c'); U.hor.value.set('#a50044'); U.bot.value.set('#1a0830'); A.sc.fog.color.set('#2a0a3a'); }
+  else if (A.sky0) { U.top.value.copy(A.sky0[0]); U.hor.value.copy(A.sky0[1]); U.bot.value.copy(A.sky0[2]); A.sc.fog.color.copy(A.sky0[3]); }
 }
 $('#arBtn').onclick = () => { if (busy) return; arOpen(); };
 document.addEventListener('keydown', e => { const el = $('#arena'); if (!el || el.hidden) return; if (e.key === 'Escape') { e.stopImmediatePropagation(); if (!AR && $('#arGame').hidden && !document.querySelector('.ar-pick')) { if (arQ) { clearInterval(arQ.iv); arQ = null; arMenu(); } else arClose(); } else { const pk = document.querySelector('.ar-pick'); if (pk) pk.remove(); } } }, true);
