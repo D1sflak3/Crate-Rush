@@ -4277,6 +4277,10 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -4411,6 +4415,45 @@ body.ar-on{overflow:hidden}
 .ar-top2.many .ar-tp .ar-pips{gap:2px}.ar-top2.many .ar-tp .ar-pips i{width:6px;height:13px;border-radius:3px;border-width:1.5px}
 .ar-bcard{max-height:94vh;overflow:auto}
 @media (max-height:520px){.ar-bt td{padding:2px 10px;font-size:12px}.ar-bt th{padding:2px 10px}.ar-bh{padding-top:4px;padding-bottom:4px}.ar-board .ar-bcard{transform:none}}
+/* chroma skills: custom icons on the skill buttons */
+.ar-sk .ar-ski{display:none}.ar-sk.cust .ar-ski{display:grid;place-items:center}
+.ar-sk .ar-ski svg{position:static;inset:auto;width:46px;height:46px;transform:none;filter:drop-shadow(0 2px 0 rgba(27,34,48,.5))}
+.ar-sk.cust{background:#4a4f5c}.ar-sk.cust b{position:absolute;top:-8px;right:-8px;font-size:13px;background:#1b2230;border-radius:7px;padding:2px 6px;text-shadow:none;z-index:2}
+.ar-sk.cust.ready{background:radial-gradient(circle at 35% 28%,#fff6,transparent 55%),var(--c);box-shadow:0 4px 0 #1b2230,0 0 22px var(--c)}
+.ar-sk.cust .cd{stroke:var(--c)}
+.tb.skill .tbi{display:grid;place-items:center;width:100%;height:100%}.tb.skill .tbi svg{width:58%;height:58%}
+.tb.skill.cust .tbi svg{width:70%;height:70%}
+.tb.skill.cust{background:radial-gradient(circle at 35% 28%,rgba(255,255,255,.55),rgba(80,86,100,.75) 60%)}
+.tb.skill.cust.ready{background:radial-gradient(circle at 35% 28%,rgba(255,255,255,.7),var(--c) 55%);box-shadow:0 4px 0 rgba(27,34,48,.6),0 0 18px var(--c)}
+.ar-lslot em.cus{display:inline-flex;align-items:center;gap:5px;color:var(--c)}.ar-lslot em.cus svg{width:24px!important;height:24px!important;flex:none}
+/* skill screen effects: Long Shot paints the edges red with scanlines; Speedster adds speed lines and a gold glow */
+.ar-fxo{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s}
+.ar-fxo.on{opacity:1}
+.ar-fxo.ls{background:radial-gradient(ellipse at center,transparent 52%,rgba(255,25,25,.4) 100%)}
+.ar-fxo.ls::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,50,50,.08) 0 2px,transparent 2px 6px);animation:arScan .9s linear infinite}
+.ar-fxo.ls::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 60px rgba(255,0,0,.4);border:3px solid rgba(255,70,70,.55);animation:arPulseR 1s ease-in-out infinite}
+.ar-fxo.sp{background:radial-gradient(ellipse at center,transparent 42%,rgba(255,185,25,.5) 100%);overflow:hidden}
+.ar-fxo.sp>i{position:absolute;inset:-25%;background:repeating-conic-gradient(from 0deg at 50% 50%,transparent 0deg 6deg,rgba(255,248,210,.62) 6deg 6.8deg,transparent 6.7deg 14deg);-webkit-mask:radial-gradient(circle,transparent 34%,#000 72%);mask:radial-gradient(circle,transparent 34%,#000 72%);animation:arSpeedL .28s linear infinite}
+@keyframes arScan{to{background-position:0 12px}}
+@keyframes arPulseR{50%{box-shadow:inset 0 0 120px rgba(255,0,0,.55)}}
+@keyframes arSpeedL{from{transform:scale(1) rotate(0)}to{transform:scale(1.1) rotate(4deg)}}
+.ar-fxt{position:absolute;left:50%;top:120px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:4px 14px 4px 5px;border-radius:999px;border:3px solid #1b2230;color:#fff;box-shadow:0 4px 0 #1b2230}
+.ar-fxt svg{width:34px;height:34px}.ar-fxt b{display:block;font-size:14px;letter-spacing:.08em;text-shadow:var(--ol);line-height:1.1}
+.ar-fxt u{display:block;width:96px;height:7px;margin-top:3px;border-radius:9px;background:rgba(0,0,0,.35);overflow:hidden}.ar-fxt u i{display:block;height:100%;width:100%;background:#fff}
+.ls .ar-fxt{background:linear-gradient(180deg,#ff6060,#c81e1e)}.sp .ar-fxt{background:linear-gradient(180deg,#ffd84a,#ee9512)}
+.ar-skpop{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:4px;pointer-events:none;z-index:6;text-align:center;opacity:0}
+.ar-skpop .ic{position:relative;width:112px;height:112px;border-radius:50%;display:grid;place-items:center;border:4px solid #1b2230;background:radial-gradient(circle at 35% 28%,rgba(255,255,255,.6),transparent 55%),var(--c);box-shadow:0 6px 0 #1b2230,0 0 46px var(--c)}
+.ar-skpop .ic svg{width:76px;height:76px;filter:drop-shadow(0 3px 0 rgba(27,34,48,.5))}
+.ar-skpop .ic::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:6px solid var(--c);transform:scale(calc(.8 + var(--rk,1) * 1.8));opacity:calc(1 - var(--rk,1))}
+.ar-skpop b{font-size:40px;letter-spacing:.06em;color:#fff;text-shadow:var(--ol),0 0 22px var(--c);line-height:1}
+.ar-skpop small{max-width:360px;font-size:14px;font-weight:700;color:#fff;text-shadow:var(--ol)}
+
+
+
+@media (max-height:500px){.ar-skpop .ic{width:80px;height:80px}.ar-skpop .ic svg{width:54px;height:54px}.ar-skpop b{font-size:28px}.ar-skpop small{font-size:11px;max-width:300px}.ar-fxt{top:76px}}
+/* The Sui headshot label */
+.ar-num.ar-siu{font-size:46px;color:#ffd23f;font-style:italic;letter-spacing:.04em;text-shadow:var(--ol),0 0 18px #ff7a1a;animation:arSiu .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes arSiu{from{font-size:10px}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -17442,7 +17485,10 @@ const AR_SK = {
   b6: {n: 'Umbra Lunge', d: 'Lunge 10m. Hitting an enemy deals 80.', cd: 12},
   b7: {n: 'Hex Bind', d: 'Throw a hex: 20 damage and it roots the enemy for 1.6s.', cd: 16},
   x1: {n: 'Requiem', d: 'Heal 40 and your next 3 shots deal double.', cd: 22},
-  x2: {n: 'Kingmaker', d: 'A 50-point shield and 30% speed for 5s.', cd: 18}
+  x2: {n: 'Kingmaker', d: 'A 50-point shield and 30% speed for 5s.', cd: 18},
+  /* chroma skills */
+  x4: {n: 'Speedster', d: 'For 7s: a shot every 0.5s, near-instant reloads and 50% more speed.', cd: 30, ic: 'speedster', col: '#ffb81f'},
+  x5: {n: 'Long Shot', d: 'For 10s every enemy glows red through walls and your shots phase through walls.', cd: 45, ic: 'longshot', col: '#ff3b3b'}
 };
 const arSkillOf = it => it && AR_SK[it.id] ? it.id : null;
 const arSlotOf = it => AR_W[arType(it)].slot;
@@ -17455,6 +17501,8 @@ function arWS(it){
   const W = Object.assign({}, base, {chroma: 1, dmg: base.dmg * 1.75, rate: base.rate * .8, mag: base.mag ? Math.round(base.mag * 1.5) : 0, rl: base.rl * .6,
     sp: base.sp * .6, ads: base.ads * .6, kick: base.kick * .6, spd: base.spd * 1.1, fall: [base.fall[0] * 1.8, base.fall[1] * 1.8, Math.max(base.fall[2], .85)]});
   if (base.range) W.range = base.range * 1.3;
+  /* The Sui: 75 to the body anywhere, a headshot always kills and blows the target up */
+  if (it.id === 'x5') Object.assign(W, {dmg: 75, hm: 1.34, sui: 1});
   return (arWSCache[it.id] = W);
 }
 function arLoadout(){
@@ -18054,6 +18102,7 @@ async function arStartMatch(lobby){
   sun.shadow.mapSize.set(hi ? 2048 : 1024, hi ? 2048 : 1024); sun.shadow.bias = -.0004; sun.shadow.normalBias = .04; sun.shadow.radius = 3; sun.shadow.camera.updateProjectionMatrix(); sc.add(sun, sun.target);
   /* a light at the muzzle that flashes when you fire, always present so shaders never recompile */
   const mlight = new T.PointLight('#ffbf6b', 0, 10, 2); sc.add(mlight);
+  const blight = new T.PointLight('#ff8a2a', 0, 16, 2); sc.add(blight);
   const M = arMats(T);
   const flg = new T.PlaneGeometry(ARM.W + 2, ARM.D + 2, 1, 1); flg.rotateX(-Math.PI / 2); arBoxUV(flg, 0, 0, 0, 2);
   const fl = new T.Mesh(flg, M.floor); fl.receiveShadow = true; sc.add(fl);
@@ -18099,7 +18148,7 @@ async function arStartMatch(lobby){
   F.forEach(f => { if (f.me) return; f.B = arBotModel(T, arRankCol(f.rp), f.load[0], f.col, f.team, f.name); sc.add(f.B.g); });
   const fx = new T.Group(); sc.add(fx);
   AR = {T, R, sc, cam, vsc, vcam, vm, guns, flash, fx, me, F, lobby, mode: arMode(lobby.mode), score: [0, 0], round: 0, phase: 'load', t: 0, keys: {}, mdx: 0, mdy: 0, fire: false, ads: 0, adsHeld: false,
-    clouds, sun, sunDir, SR, mlight, sky, env, prMax, pr: pr0, resT: 0, resN: 0, tracers: [], nums: [], proj: [], nades: [], parts: [], booms: [], streak: 0, land: 0, roll: 0, last: performance.now(), acc: 0, raf: 0, paused: false, side: Math.random() < .5 ? 1 : -1, bob: 0, shake: 0, hurt: 0, hitm: 0, fps: [], clock: 0, M};
+    clouds, sun, sunDir, SR, mlight, blight, fxa: [], sky, env, prMax, pr: pr0, resT: 0, resN: 0, tracers: [], nums: [], proj: [], nades: [], parts: [], booms: [], streak: 0, land: 0, roll: 0, last: performance.now(), acc: 0, raf: 0, paused: false, side: Math.random() < .5 ? 1 : -1, bob: 0, shake: 0, hurt: 0, hitm: 0, fps: [], clock: 0, M};
   arHUD(); arBindInput(); arNewRound();
   AR.raf = requestAnimationFrame(arLoop);
 }
@@ -18164,12 +18213,12 @@ function arDamage(src, dst, dmg, head, at){
     [0, 1].forEach(t => { if (A.phase === 'live' && !A.F.some(f => f.team === t && f.alive)) arEndRound(1 - t, A.mode.n === 1 ? (t === 1 ? 'You got ' + dst.name : dst.lastBy ? dst.lastBy.name + ' got you' : '') : (t === 1 ? 'Their team is down' : 'Your team is down')); });
   }
 }
-function arSpeed(f){ const W = arWS(f.load[f.cur].it); let s = 8.2 * W.spd; if (f.st.slow > 0) s *= .6; if (f.st.haste > 0) s *= 1.3; if (f.me && AR.ads > .5) s *= .64; return s; }
+function arSpeed(f){ const W = arWS(f.load[f.cur].it); let s = 8.2 * W.spd; if (f.st.slow > 0) s *= .6; if (f.st.haste > 0) s *= 1.3; if (f.st.speedy > 0) s *= 1.5; if (f.me && AR.ads > .5) s *= .64; return s; }
 const arFall = (W, d) => d <= W.fall[0] ? 1 : d >= W.fall[1] ? W.fall[2] : 1 - (1 - W.fall[2]) * (d - W.fall[0]) / (W.fall[1] - W.fall[0]);
 /* shooting: rays for you, aim rolls for the bots */
 function arShoot(f){
   const A = AR, l = f.load[f.cur], W = arWS(l.it);
-  let rate = W.rate; if (f.st.od > 0) rate /= 1.6;
+  let rate = W.rate; if (f.st.od > 0) rate /= 1.6; if (f.st.speedy > 0) rate = Math.min(rate, .5);
   f.fireT = rate; f.lastShot = A.clock;
   if (W.melee) { arMelee(f, W); return; }
   if (!(f.st.od > 0)) f.mag[f.cur]--;
@@ -18180,12 +18229,13 @@ function arShoot(f){
     const spread = (A.ads > .5 ? W.ads : W.sp) * (1 + moving * 1.2), foes = arFoes(f);
     for (let k = 0; k < (W.pel || 1); k++) {
       const d = arFwd(f.yaw + (f.recY || 0) + (Math.random() - .5) * 2 * spread, f.pitch + (f.rec || 0) + (Math.random() - .5) * 2 * spread);
-      const wallT = f.st.void > 0 ? 300 : arRayMap(eye, d, 300); let best = {t: Infinity}, who = null;
+      const wallT = f.st.void > 0 || f.st.long > 0 ? 300 : arRayMap(eye, d, 300); let best = {t: Infinity}, who = null;
       foes.forEach(o => { const h = arRayFighter(eye, d, o); if (h.t < best.t) { best = h; who = o; } });
       const end = Math.min(wallT, best.t, 160);
       arTracer(arMuzzleWorld(), {x: eye.x + d.x * end, y: eye.y + d.y * end, z: eye.z + d.z * end}, W.pel ? .5 : 1);
       if (who && best.t < wallT) {
         arDamage(f, who, W.dmg * arFall(W, best.t) * (best.head ? W.hm : 1), best.head, {x: eye.x + d.x * best.t, y: eye.y + d.y * best.t + .2, z: eye.z + d.z * best.t});
+        if (W.sui && best.head && !who.alive) arSuiBlast(who, f);
         if (f.st.wraith > 0) who.st.burn = 3;
       } else if (wallT < 160) arDecal({x: eye.x + d.x * wallT, y: eye.y + d.y * wallT, z: eye.z + d.z * wallT});
     }
@@ -18195,11 +18245,11 @@ function arShoot(f){
     const spread = (W.scope ? .004 : W.sp * .85) * (1 + moving * .9), foes = arFoes(f);
     for (let k = 0; k < (W.pel || 1); k++) {
       const d = arFwd(f.aimY + (Math.random() - .5) * 2 * spread, f.aimP + (Math.random() - .5) * 2 * spread);
-      const wallT = f.st.void > 0 ? 300 : arRayMap(eye, d, 300); let best = {t: Infinity}, who = null;
+      const wallT = f.st.void > 0 || f.st.long > 0 ? 300 : arRayMap(eye, d, 300); let best = {t: Infinity}, who = null;
       foes.forEach(o => { if (o.st.invis > 0 && Math.random() < .7) return; const h = arRayFighter(eye, d, o); if (h.t < best.t) { best = h; who = o; } });
       const end = Math.min(wallT, best.t, 160), hp = {x: eye.x + d.x * end, y: eye.y + d.y * end, z: eye.z + d.z * end};
       if (k < 3) arTracer(arBotMuzzle(f), hp, W.pel ? .4 : .9);
-      if (who && best.t < wallT) { arDamage(f, who, W.dmg * arFall(W, best.t) * (best.head ? W.hm : 1), best.head, who.me ? null : hp); if (f.st.wraith > 0) who.st.burn = 3; }
+      if (who && best.t < wallT) { arDamage(f, who, W.dmg * arFall(W, best.t) * (best.head ? W.hm : 1), best.head, who.me ? null : hp); if (f.st.wraith > 0) who.st.burn = 3; if (W.sui && best.head && !who.alive) arSuiBlast(who, f); }
       else if (wallT < 160 && k < 2 && arDist(hp, A.me.p) < 30) arDecal(hp);
     }
   }
@@ -18212,7 +18262,7 @@ function arMelee(f, W){
   if (!hit) return;
   arDamage(f, hit.o, W.dmg, false, {x: hit.te.x, y: hit.te.y + .6, z: hit.te.z}); noise(.1, 400, 120, .14, 'lowpass');
 }
-function arReload(f){ const W = arWS(f.load[f.cur].it); if (W.melee || f.reload > 0 || f.mag[f.cur] >= W.mag) return; f.reload = W.rl; if (f.me) { arSnd(AR_SFX.click); setTimeout(() => { if (AR && f.reload > 0) arSnd(AR_SFX.click); }, W.rl * 700); } }
+function arReload(f){ const W = arWS(f.load[f.cur].it); if (W.melee || f.reload > 0 || f.mag[f.cur] >= W.mag) return; f.reload = f.st.speedy > 0 ? .18 : W.rl; if (f.me) { arSnd(AR_SFX.click); setTimeout(() => { if (AR && f.reload > 0) arSnd(AR_SFX.click); }, W.rl * 700); } }
 const arNearestFoe = f => arFoes(f).sort((a, b) => arDist(a.p, f.p) - arDist(b.p, f.p))[0];
 /* ---------- skills ---------- */
 function arUseSkill(f){
@@ -18231,8 +18281,32 @@ function arUseSkill(f){
     A.proj.push({p: {x: e.x + d.x * .6, y: e.y - .15, z: e.z + d.z * .6}, d, owner: f, life: 1.4, m}); }
   if (id === 'x1') { f.hp = Math.min(100, f.hp + 40); f.st.req = 3; }
   if (id === 'x2') { f.st.shield = 50; f.st.shT = 5; f.st.haste = 5; }
+  if (id === 'x4') { f.st.speedy = 7; if (f.reload > 0) f.reload = Math.min(f.reload, .15); }
+  if (id === 'x5') f.st.long = 10;
+  if (f.me && AR_SK[id].ic) arSkillPop(id);
   arFeed((f.me ? 'You' : f.name) + ' used ' + AR_SK[id].n, f.team === 0 ? 'b' : 'r');
   return true;
+}
+/* The Sui headshot: the target blows up. A white core, a fireball that cools from yellow to red, two shockwave
+   rings, a flash of light, sparks, debris and smoke, and 60 damage to any of their teammates within a metre. */
+function arSuiBlast(v, owner){
+  const A = AR, T = A.T, p = {x: v.p.x, y: v.p.y + 1.45, z: v.p.z};
+  arSnd(AR_SFX.boom, p); if (owner.me || arDist(p, A.me.p) < 30) { sweep(1600, 120, .55, 'sawtooth', .05); noise(.5, 3000, 200, .12); }
+  const geo = A.sphGeo || (A.sphGeo = new T.SphereGeometry(1, 24, 16)), rg = A.ringGeo || (A.ringGeo = new T.RingGeometry(.86, 1, 56));
+  const mb = (c, o) => new T.MeshBasicMaterial(Object.assign({color: c, transparent: true, blending: T.AdditiveBlending, depthWrite: false, fog: false}, o || {}));
+  const add = (m, life, upd) => { m.position.set(p.x, p.y, p.z); A.fx.add(m); A.fxa.push({m, t: 0, life, upd}); upd(m, 0); return m; };
+  add(new T.Mesh(geo, mb('#fff6d8')), .3, (m, k) => { m.scale.setScalar(.3 + k * 1.5); m.material.opacity = 1 - k; });
+  add(new T.Mesh(geo, mb('#ffb02e')), .8, (m, k) => { m.scale.setScalar(.35 + Math.sqrt(k) * 2.1); m.material.opacity = (1 - k) * .9; m.material.color.setHSL(.12 - k * .12, 1, .6 - k * .3); });
+  add(new T.Mesh(rg, mb('#ffd27a', {side: T.DoubleSide})), .65, (m, k) => { m.rotation.x = -Math.PI / 2; m.scale.setScalar(.3 + k * 5.5); m.material.opacity = 1 - k; });
+  add(new T.Mesh(rg, mb('#ff3b3b', {side: T.DoubleSide})), .42, (m, k) => { m.lookAt(A.cam.position); m.scale.setScalar(.2 + k * 3.6); m.material.opacity = 1 - k; });
+  for (let i = 0; i < 6; i++) { const o = {x: (Math.random() - .5) * .8, y: (Math.random() - .3) * .6, z: (Math.random() - .5) * .8};
+    add(new T.Mesh(geo, new T.MeshBasicMaterial({color: '#4d525c', transparent: true, depthWrite: false})), 1.3 + Math.random() * .5, (m, k) => { m.position.set(p.x + o.x * (1 + k), p.y + o.y + k * 1.4, p.z + o.z * (1 + k)); m.scale.setScalar(.25 + k * .9); m.material.opacity = .55 * (1 - k) * Math.min(1, k * 6); }); }
+  A.blight.position.set(p.x, p.y + .4, p.z); A.blight.intensity = 140;
+  arBurst(p, '#ffd27a', 26, 13); arBurst(p, '#ff4a2a', 16, 10); arBurst(p, '#2a2d33', 12, 7);
+  for (let i = 0; i < 16; i++) { const a = Math.random() * 6.28, s = 4 + Math.random() * 7; arPart({x: p.x, y: p.y - Math.random() * .8, z: p.z}, {x: Math.cos(a) * s, y: 3 + Math.random() * 7, z: Math.sin(a) * s}, Math.random() < .6 ? (v.col || '#ef4444') : '#1b2230', .1 + Math.random() * .16, 2.4, 12); }
+  const el = document.createElement('div'); el.className = 'ar-num ar-siu'; el.textContent = 'SIUUU!'; $('#arHud').append(el); A.nums.push({el, p: {x: p.x, y: p.y + .7, z: p.z}, t: 1.4});
+  const dm = arDist(p, A.me.p); if (dm < 26) A.shake = Math.min(1, A.shake + (1 - dm / 26) * .8);
+  A.F.forEach(o => { if (o === v || !o.alive || o.team === owner.team) return; if (Math.hypot(o.p.x - v.p.x, o.p.z - v.p.z) <= 1.4 && Math.abs(o.p.y - v.p.y) < 2) arDamage(owner, o, 60, false, {x: o.p.x, y: o.p.y + 2, z: o.p.z}); });
 }
 const arDirTo = (f, t) => { const dx = t.p.x - f.p.x, dz = t.p.z - f.p.z, L = Math.hypot(dx, dz) || 1; return {x: dx / L, z: dz / L}; };
 const arDirTo3 = (f, t) => { const a = arEye(f), b = {x: t.p.x, y: t.p.y + 1.1, z: t.p.z}, L = arDist(a, b) || 1; return {x: (b.x - a.x) / L, y: (b.y - a.y) / L, z: (b.z - a.z) / L}; };
@@ -18317,7 +18391,7 @@ function arBotThink(b, dt){
   /* skills: used when it makes sense */
   const sk = arSkillOf(b.load[0].it);
   if (sk && !(b.cd[sk] > 0) && Math.random() < dt * (.4 + s)) {
-    const ok = sk === 'x1' ? b.hp < 60 : sk === 'b6' ? see && dist < 10 : sk === 'b3' ? see && b.hp < 70 : sk === 'b5' ? see && dist < 12 : sk === 'b2' ? !see : see;
+    const ok = sk === 'x5' ? !see || dist > 16 : sk === 'x4' ? see && dist < 14 : sk === 'x1' ? b.hp < 60 : sk === 'b6' ? see && dist < 10 : sk === 'b3' ? see && b.hp < 70 : sk === 'b5' ? see && dist < 12 : sk === 'b2' ? !see : see;
     if (ok) arUseSkill(b);
   }
 }
@@ -18629,9 +18703,13 @@ function arAnimBot(b, dt){
   if (b.slide > 0) B.g.position.y = b.p.y - .15;
   if (!b.alive) { B.g.rotation.z = Math.min(1.5, (B.g.rotation.z || 0) + dt * 5); B.g.position.y = b.p.y + .2; } else B.g.rotation.z = 0;
   B.blob.visible = b.alive && AR_MOBILE;
-  b.flashT = Math.max(0, (b.flashT || 0) - dt); const fe = b.flashT > 0 ? 1.4 : 0; if (B.fe !== fe) { B.fe = fe; [B.mats[0], B.mats[1]].forEach(m => { m.emissive.set('#ffffff'); m.emissiveIntensity = fe; }); }
-  const inv = b.st.invis > 0, xr = A.me.st.void > 0 && b.team !== 0;
-  if (B.inv !== inv || B.xr !== xr) { B.inv = inv; B.xr = xr; B.mats.forEach(m => { m.transparent = inv || xr; m.opacity = inv ? .1 : 1; m.depthTest = !xr; }); B.g.renderOrder = xr ? 10 : 0; }
+  if (b.st.speedy > 0 && b.alive && Math.random() < dt * 30) arPart({x: b.p.x + (Math.random() - .5) * .5, y: b.p.y + .2 + Math.random() * 1.4, z: b.p.z + (Math.random() - .5) * .5}, {x: 0, y: 1, z: 0}, '#ffd84a', .06, .3, 6);
+  /* hit flash in white; under your Long Shot, enemies glow a pulsing red and show through walls */
+  b.flashT = Math.max(0, (b.flashT || 0) - dt); const lg = A.me.st.long > 0 && b.team !== A.me.team && b.alive, fl = b.flashT > 0;
+  const red = lg ? 1 + Math.sin(A.clock * 10) * .35 : 0, fk = fl ? 'w' : lg ? 'r' + red.toFixed(2) : '0';
+  if (B.fe !== fk) { B.fe = fk; [B.mats[0], B.mats[1]].forEach(m => { m.emissive.set(fl ? '#ffffff' : '#ff1e1e'); m.emissiveIntensity = fl ? 1.4 : red; }); }
+  const inv = b.st.invis > 0, xr = (A.me.st.void > 0 || lg) && b.team !== 0;
+  if (B.inv !== inv || B.xr !== xr) { B.inv = inv; B.xr = xr; B.mats.forEach((m, i) => { const body = i < 4; m.transparent = inv || (xr && body); m.opacity = inv ? .1 : 1; m.depthTest = !(xr && body); }); B.g.renderOrder = xr ? 10 : 0; }
 }
 function arMuzzleWorld(){ const A = AR, f = A.me, d = arFwd(f.yaw, f.pitch), e = arEye(f), r = {x: Math.cos(f.yaw), z: -Math.sin(f.yaw)};
   const ads = A.ads > .5; return {x: e.x + d.x * .7 + (ads ? 0 : r.x * .2), y: e.y + d.y * .7 - (ads ? .08 : .17), z: e.z + d.z * .7 + (ads ? 0 : r.z * .2)}; }
@@ -18665,7 +18743,7 @@ function arRender(dt){
     cam.position.set(e.x + (Math.random() - .5) * A.shake * .12, e.y + Math.sin(A.bob * 2) * .02 * Math.min(1, moving / 6) - A.land + (Math.random() - .5) * A.shake * .08, e.z);
     cam.rotation.set(f.pitch + (f.rec || 0), f.yaw + (f.recY || 0), A.roll);
     /* field of view widens with speed: slides and fast strafes feel fast */
-    A.fovK = (A.fovK || 0) + (Math.min(1, Math.max(0, (moving - 8.5) / 5)) - (A.fovK || 0)) * Math.min(1, dt * 6);
+    A.fovK = (A.fovK || 0) + (Math.max(f.st.speedy > 0 ? .8 : 0, Math.min(1, Math.max(0, (moving - 8.5) / 5))) - (A.fovK || 0)) * Math.min(1, dt * 6);
     const zoom = 1 + (W.zoom - 1) * A.ads, base = (AR_MOBILE ? 74 : 78) + A.fovK * 9; cam.fov = base / zoom; cam.updateProjectionMatrix();
   }
   /* viewmodel: hip vs ADS, bob, recoil, reload dip, swap raise, knife swing */
@@ -18684,6 +18762,8 @@ function arRender(dt){
   if (A.sun) { const c = cam.position, sn = A.SR * 2 / A.sun.shadow.mapSize.x, tx = Math.round(c.x / sn) * sn, tz = Math.round(c.z / sn) * sn;
     A.sun.target.position.set(tx, 0, tz); A.sun.position.set(tx + A.sunDir.x * 70, A.sunDir.y * 70, tz + A.sunDir.z * 70); A.sky.position.copy(c); }
   const sw = $('#arScope'); if (sw) sw.hidden = !(f.alive && W.scope && ads > .9);
+  if (A.fxa) A.fxa = A.fxa.filter(q => { q.t += dt; const k = Math.min(1, q.t / q.life); q.upd(q.m, k); if (k >= 1) { A.fx.remove(q.m); q.m.material.dispose(); return false; } return true; });
+  if (A.blight) A.blight.intensity = Math.max(0, A.blight.intensity - dt * 450);
   arPartsUpdate(dt); if (A.clouds) A.clouds.position.x = ((A.clock * .6) % 60) - 30;
   A.booms = A.booms.filter(b => { b.t -= dt; const k = 1 - b.t / .35; b.m.scale.setScalar(.5 + k * 5.5); b.m.material.opacity = Math.max(0, b.t / .35) * .85; if (b.t <= 0) { A.fx.remove(b.m); b.m.geometry.dispose(); b.m.material.dispose(); return false; } return true; });
   A.R.clear(); A.R.render(A.sc, cam); A.R.clearDepth(); if (f.alive) A.R.render(A.vsc, A.vcam);
@@ -18694,7 +18774,7 @@ function arRender(dt){
     if (n.t <= 0) { n.el.remove(); return false; } return true; });
   A.tagT = (A.tagT || 0) - dt; const losCheck = A.tagT <= 0; if (losCheck) A.tagT = .12;
   A.F.forEach(b => { if (!b.tag) return; v.set(b.p.x, b.p.y + 2.3, b.p.z).project(cam);
-    if (losCheck) b.tagVis = b.alive && (b.team === 0 || ((arLOS(e, {x: b.p.x, y: b.p.y + 1.5, z: b.p.z}) || f.st.void > 0) && !(b.st.invis > 0)));
+    if (losCheck) b.tagVis = b.alive && (b.team === 0 || ((arLOS(e, {x: b.p.x, y: b.p.y + 1.5, z: b.p.z}) || f.st.void > 0 || f.st.long > 0) && !(b.st.invis > 0)));
     /* tags shrink with distance; teammates far away drop their tags so a full lobby stays readable */
     const dist = Math.hypot(b.p.x - e.x, b.p.z - e.z), tsc = Math.max(.5, Math.min(1, 1.25 - dist / 36));
     const vis = b.tagVis && v.z < 1 && Math.abs(v.x) < 1.2 && Math.abs(v.y) < 1.2 && (b.team !== 0 || dist < (A.F.length > 8 ? 16 : 30));
@@ -18705,6 +18785,14 @@ function arFeed(msg, side){ const f = $('#arFeed'); if (!f) return; const d = do
 
 /* ---------- HUD ---------- */
 const AR_IC = {
+  /* Long Shot: a round punching through a brick wall into a red-dot reticle */
+  longshot: '<svg viewBox="0 0 48 48"><rect x="5" y="11" width="12" height="26" rx="2" fill="#b4533c" stroke="#1b2230" stroke-width="2.6"/><path d="M5 19.5h12M5 28h12M11 11v8.5M8 19.5V28M14 28v9" stroke="#1b2230" stroke-width="1.8"/>'
+    + '<path d="M3 24h13" stroke="#ffe9a8" stroke-width="3.4" stroke-linecap="round"/><path d="M17 24h8" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-dasharray="3.5 2.5"/>'
+    + '<circle cx="35" cy="24" r="9.5" fill="rgba(255,59,59,.25)" stroke="#fff" stroke-width="3.2"/><path d="M35 9.5v6M35 32.5v6M47 24h-4" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/><circle cx="35" cy="24" r="3.6" fill="#ff3b3b" stroke="#fff" stroke-width="1.8"/></svg>',
+  /* Speedster: a shotgun shell with a lightning bolt and speed lines */
+  speedster: '<svg viewBox="0 0 48 48"><path d="M2 15h9M1 24h8M2 33h9" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/>'
+    + '<g transform="rotate(-18 28 24)"><rect x="13" y="15" width="22" height="18" rx="3" fill="#e5322d" stroke="#1b2230" stroke-width="2.6"/><rect x="34" y="13" width="8" height="22" rx="2" fill="#f2c14e" stroke="#1b2230" stroke-width="2.6"/><path d="M16.5 19.5h14" stroke="#fff" stroke-opacity=".55" stroke-width="2.4" stroke-linecap="round"/></g>'
+    + '<path d="M28 4 L17 26 h8.5 l-4.5 18 L37 19 h-8.5 l5.5 -15 z" fill="#ffe14d" stroke="#1b2230" stroke-width="2.6" stroke-linejoin="round"/></svg>',
   fire: '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="13" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="24" cy="24" r="3.5" fill="currentColor"/><path d="M24 3v10M24 35v10M3 24h10M35 24h10" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>',
   ads: '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16" fill="none" stroke="currentColor" stroke-width="4"/><path d="M24 8v32M8 24h32" stroke="currentColor" stroke-width="2.5"/><circle cx="24" cy="24" r="6" fill="none" stroke="currentColor" stroke-width="3"/></svg>',
   jump: '<svg viewBox="0 0 48 48"><path d="M10 30 L24 15 L38 30" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 38h20" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>',
@@ -18729,12 +18817,15 @@ function arHUD(){
     + '<div class="ar-feed" id="arFeed"></div><div id="arTags"></div><div class="ar-kx" id="arKx"></div><div class="ar-kill" id="arKill" hidden><b></b><span></span></div>'
     + '<div class="ar-hp"><div class="ar-hpic"><svg viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z" fill="currentColor"/></svg></div><div class="ar-hpw"><div class="ar-hpb"><s id="arHpT"></s><i id="arHpB"></i><u id="arSh"></u><em></em><div class="ar-hpn" id="arHpN">100</div></div><div class="ar-st" id="arSt"></div></div></div>'
     + '<div class="ar-wp"><div class="ar-nade" id="arNade"></div><div class="ar-ammo" id="arAmmo"></div><div class="ar-wn" id="arWn"></div><div class="ar-slots" id="arSlots"></div></div>'
-    + '<button type="button" class="ar-sk" id="arSk" hidden><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" class="bg"/><circle cx="20" cy="20" r="17" class="cd" id="arSkC"/></svg><b>Q</b><span id="arSkN"></span></button>'
+    + '<button type="button" class="ar-sk" id="arSk" hidden><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" class="bg"/><circle cx="20" cy="20" r="17" class="cd" id="arSkC"/></svg><i class="ar-ski" id="arSkI"></i><b>Q</b><span id="arSkN"></span></button>'
+    + '<div class="ar-fxo ls" id="arFxL"><div class="ar-fxt">' + AR_IC.longshot + '<div><b>LONG SHOT</b><u><i id="arFxLt"></i></u></div></div></div>'
+    + '<div class="ar-fxo sp" id="arFxS"><i></i><div class="ar-fxt">' + AR_IC.speedster + '<div><b>SPEEDSTER</b><u><i id="arFxSt"></i></u></div></div></div>'
+    + '<div class="ar-skpop" id="arSkPop" hidden></div>'
     + '<button type="button" class="ar-pausebtn" id="arPauseBtn" aria-label="Pause or leave">' + (AR_MOBILE ? AR_IC.pause : 'Leave') + '</button>'
     + '<div class="ar-pause" id="arPause" hidden><div class="ar-pcard"><h3>Paused</h3><p id="arPauseP"></p><button type="button" class="ar-btn" id="arResume">Resume</button><button type="button" class="ar-btn ghost" id="arQuit">Leave match (counts as a loss)</button></div></div>'
     + (AR_MOBILE ? '<div class="ar-touch" id="arTouch"><div class="ar-stick" id="arStick"><i></i></div>'
       + [['fire', 'fire'], ['ads', 'ads'], ['nade', 'nade'], ['jump', 'jump'], ['reload', 'reload'], ['slide', 'slide'], ['swap', 'swap'], ['skill', 'skill']]
-        .map(([k, ic]) => '<button type="button" class="tb ' + k + '" data-t="' + k + '" aria-label="' + k + '">' + AR_IC[ic] + (k === 'skill' ? '<svg class="cdr" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" id="arTSkC"/></svg>' : '') + '</button>').join('') + '</div>' : '');
+        .map(([k, ic]) => '<button type="button" class="tb ' + k + '" data-t="' + k + '" aria-label="' + k + '">' + (k === 'skill' ? '<span class="tbi">' + AR_IC[ic] + '</span>' : AR_IC[ic]) + (k === 'skill' ? '<svg class="cdr" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" id="arTSkC"/></svg>' : '') + '</button>').join('') + '</div>' : '');
   $('#arSlots').innerHTML = A.me.load.map((l, i) => '<div class="ar-slot" data-i="' + i + '" style="--tc:' + TIERS[l.it.t].color + '"><small>' + (i + 1) + '</small><span></span></div>').join('');
   A.me.load.forEach((l, i) => { const s = $('#arSlots').children[i].querySelector('span'); s.append(thumb(l.it, wearIdx(l.fl))); });
   /* name tags over every bot: your team's always show, enemies only when you can see them */
@@ -18753,6 +18844,20 @@ const AR_STREAK = ['', '', 'DOUBLE KILL', 'TRIPLE KILL', 'QUAD KILL', 'RAMPAGE']
 function arKillBanner(name, head){ const k = $('#arKill'); if (!k) return; const st = AR.streak;
   k.querySelector('b').textContent = st >= 2 ? AR_STREAK[Math.min(5, st)] : 'ELIMINATED'; k.querySelector('span').textContent = (head ? 'HEADSHOT · ' : '') + name;
   k.className = 'ar-kill' + (st >= 2 ? ' big' : ''); k.hidden = false; restart(k, 'pop'); clearTimeout(arKillT); arKillT = setTimeout(() => k.hidden = true, 1600); }
+/* the big pop when you fire a chroma skill: its icon spins in with a ring burst, then floats away */
+let arSkPopT = 0;
+function arSkillPop(id){ const S = AR_SK[id], el = $('#arSkPop'); if (!el) return;
+  el.style.setProperty('--c', S.col); el.innerHTML = '<div class="ic">' + AR_IC[S.ic] + '</div><b>' + S.n.toUpperCase() + '</b><small>' + S.d + '</small>'; el.hidden = false; AR.popT0 = performance.now(); arSkillPopTick();
+  clearTimeout(arSkPopT); arSkPopT = setTimeout(() => { el.hidden = true; if (AR) AR.popT0 = 0; }, 1700);
+  if (id === 'x5') { sweep(180, 1400, .5, 'sawtooth', .05); [880, 1318.5].forEach((f, i) => tone(f, .25, 'square', .04, .18 + i * .1)); }
+  else { sweep(300, 2400, .25, 'square', .05); sweep(400, 3000, .25, 'sawtooth', .04); noise(.25, 6000, 1200, .08); } }
+/* driven from the frame loop so it plays the same everywhere: pop in, settle, float away; the icon spins in */
+function arSkillPopTick(){ const A = AR; if (!A || !A.popT0) return; const el = $('#arSkPop'); if (!el || el.hidden) return;
+  const t = (performance.now() - A.popT0) / 1600, ease = x => 1 - Math.pow(1 - x, 3);
+  let sc, op, dy; if (t < .14) { const k = ease(t / .14); sc = .3 + k * .82; op = k; dy = 0; } else if (t < .24) { sc = 1.12 - (t - .14) / .1 * .12; op = 1; dy = 0; } else if (t < .78) { sc = 1; op = 1; dy = 0; } else { const k = Math.min(1, (t - .78) / .22); sc = 1 - k * .1; op = 1 - k; dy = -k * 25; }
+  el.style.opacity = op; el.style.transform = 'translate(-50%,' + (-50 + dy) + '%) scale(' + sc.toFixed(3) + ')';
+  const ic = el.querySelector('.ic'), r = Math.min(1, t / .6); if (ic) ic.style.transform = 'rotate(' + ((1 - ease(r)) * -220).toFixed(1) + 'deg) scale(' + (.5 + ease(r) * .5).toFixed(3) + ')';
+  el.style.setProperty('--rk', Math.min(1, t / .5).toFixed(3)); }
 function arHudBanner(t, s, cls){ const b = $('#arBan'); if (!b) return; b.className = 'ar-ban ' + (cls || ''); b.querySelector('b').textContent = t; b.querySelector('span').textContent = s; b.hidden = false; clearTimeout(arBanT); arBanT = setTimeout(() => b.hidden = true, 2300); }
 function arHudCount(n){ const c = $('#arCount'); if (!c) return; if (c.dataset.n !== String(n)) { c.dataset.n = n; c.textContent = n > 0 ? n : ''; if (n > 0) { restart(c, 'pop'); tone(440, .1, 'square', .04); } } }
 function arHudUpdate(full){
@@ -18771,10 +18876,15 @@ function arHudUpdate(full){
     [...$('#arSlots').children].forEach((s, i) => s.classList.toggle('on', i === f.cur)); }
   const sk = arSkillOf(l.it), btn = $('#arSk'), tsk = document.querySelector('#arTouch .tb.skill');
   btn.hidden = !sk; if (tsk) tsk.hidden = !sk;
+  if (sk && btn.dataset.sk !== sk) { const S = AR_SK[sk]; btn.dataset.sk = sk; btn.classList.toggle('cust', !!S.ic); btn.style.setProperty('--c', S.col || '#c084fc'); $('#arSkI').innerHTML = S.ic ? AR_IC[S.ic] : '';
+    if (tsk) { tsk.classList.toggle('cust', !!S.ic); tsk.style.setProperty('--c', S.col || '#c084fc'); tsk.querySelector('.tbi').innerHTML = AR_IC[S.ic || 'skill']; } }
+  arSkillPopTick();
+  $('#arFxL').classList.toggle('on', f.st.long > 0 && f.alive); $('#arFxLt').style.width = Math.max(0, (f.st.long || 0) / 10 * 100) + '%';
+  $('#arFxS').classList.toggle('on', f.st.speedy > 0 && f.alive); $('#arFxSt').style.width = Math.max(0, (f.st.speedy || 0) / 7 * 100) + '%';
   if (sk) { const cd = f.cd[sk] || 0, p = cd / AR_SK[sk].cd; $('#arSkN').textContent = AR_SK[sk].n; btn.classList.toggle('ready', cd <= 0); $('#arSkC').style.strokeDashoffset = (106.8 * p).toFixed(1);
     if (tsk) { tsk.classList.toggle('ready', cd <= 0); $('#arTSkC').style.strokeDashoffset = (113.1 * p).toFixed(1); } }
   const st = []; if (f.st.abyss > 0) st.push('Abyss'); if (f.st.void > 0) st.push('Void Sight'); if (f.st.invis > 0) st.push('Invisible'); if (f.st.od > 0) st.push('Overdrive'); if (f.st.wraith > 0) st.push('Wraithfire');
-  if (f.st.req > 0) st.push('Requiem ×' + f.st.req); if (f.st.haste > 0) st.push('Haste'); if (f.st.slow > 0) st.push('Slowed'); if (f.st.root > 0) st.push('Rooted'); if (f.st.burn > 0) st.push('Burning');
+  if (f.st.req > 0) st.push('Requiem ×' + f.st.req); if (f.st.haste > 0) st.push('Haste'); if (f.st.long > 0) st.push('Long Shot'); if (f.st.speedy > 0) st.push('Speedster'); if (f.st.slow > 0) st.push('Slowed'); if (f.st.root > 0) st.push('Rooted'); if (f.st.burn > 0) st.push('Burning');
   $('#arSt').textContent = st.join(' · ');
   const spread = (A.ads > .5 ? W.ads : W.sp || .02) * (1 + Math.hypot(f.v.x, f.v.z) / 7 * 1.2 + (f.ground ? 0 : .8)), gap = W.melee ? 4 : Math.min(60, 4 + spread * 900);
   const X = $('#arX'); X.style.setProperty('--g', gap.toFixed(1) + 'px'); X.style.opacity = !f.alive || (W.scope && A.ads > .5) ? 0 : 1;
@@ -18932,7 +19042,7 @@ function arMenu(){
     + '<div class="ar-load"><div class="ar-lh">Loadout <small>tap a slot to change it</small></div>' + L.map((l, i) => {
         const sk = arSkillOf(l.it);
         return '<button type="button" class="ar-lslot" data-slot="' + i + '" style="--tc:' + TIERS[l.it.t].color + '"><small>' + AR_SLOTN[i] + '</small><span class="ar-lart"></span><b>' + (l.it.stock ? 'Stock ' + WNAME[l.it.w].replace('★ ', '') : WNAME[l.it.w] + ' | ' + l.it.name) + '</b>'
-          + (sk ? '<em>★ ' + AR_SK[sk].n + '</em>' : l.it.t === 7 ? '<em class="ch">Chroma · +75% damage, faster fire</em>' : '') + '</button>'; }).join('') + '</div>'
+          + (sk ? (AR_SK[sk].ic ? '<em class="cus" style="--c:' + AR_SK[sk].col + '">' + AR_IC[AR_SK[sk].ic] + AR_SK[sk].n + '</em>' : '<em>★ ' + AR_SK[sk].n + '</em>') : l.it.t === 7 ? '<em class="ch">Chroma · +75% damage, faster fire</em>' : '') + '</button>'; }).join('') + '</div>'
     + '<button type="button" class="ar-find" id="arFind">FIND MATCH · ' + M.id + '</button>'
     + '<p class="ar-note">G or the grenade button throws your grenade, one per round. Rank up to face tougher players with better weapons. Win: rank points and credits.</p></div>';
   [...document.querySelectorAll('#arMenu .ar-lslot')].forEach((b, i) => b.querySelector('.ar-lart').append(thumb(L[i].it, wearIdx(L[i].fl))));
