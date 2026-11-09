@@ -4301,6 +4301,9 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -17596,7 +17599,7 @@ const AR_SK = {
   x1: {n: 'Requiem', d: 'Heal 40 and your next 3 shots deal double.', cd: 22},
   x2: {n: 'Kingmaker', d: 'A 50-point shield and 30% speed for 5s.', cd: 18},
   /* chroma skills */
-  x3: {n: 'GOAT Mark', d: 'Every 3 GOAT kills: mark an enemy. Every 5th bullet becomes a golden round that curves toward your marks.', cd: 0, ic: 'goat', col: '#ffc21a'},
+  x3: {n: 'GOAT Mark', d: 'Every 3 GOAT kills: mark an enemy. Every 10th bullet becomes a golden round that curves toward your marks.', cd: 0, ic: 'goat', col: '#ffc21a'},
   x4: {n: 'Speedster', d: 'For 7s: a shot every 0.5s, near-instant reloads and 50% more speed.', cd: 30, ic: 'speedster', col: '#ffb81f'},
   x5: {n: 'Long Shot', d: 'For 10s every enemy glows red through walls and your shots phase through walls.', cd: 45, ic: 'longshot', col: '#ff3b3b'}
 };
@@ -18337,7 +18340,7 @@ function arDamage(src, dst, dmg, head, at, raw){
   const A = AR, N = A.net; if (!dst.alive || A.phase !== 'live' || (src && src.team === dst.team)) return;
   if (!raw && src && src.st.abyss > 0) { dmg *= 1.2; dst.st.slow = 1.5; }
   if (!raw && src && src.st.req > 0) { dmg *= 2; src.st.req--; }
-  if (!raw && src) { if (src.st.ghorn > 0) dmg *= 1.25; else if (src.st.horn > 0) dmg *= 1.15; }
+  if (!raw && src && src.st.horn > 0) dmg *= 1.15;
   /* in a party match only the host changes other players' health: you report your hits, the host reports theirs */
   if (N && !N.host && !dst.me) { if (src && src.me) { N.hits = (N.hits || 0) + 1; arNetSend(N.hostPid, 'hit', {d: dst.nid, dmg: Math.round(dmg * 10) / 10, h: head ? 1 : 0, sui: A.curSui ? 1 : 0, burn: src.st.wraith > 0 ? 1 : 0}, true);
       A.hitm = .18; arSnd(head ? AR_SFX.head : AR_SFX.hit); if (at) arNum(at, Math.round(dmg), head); dst.flashT = .09; if (at && dst.B) arBurst(at, arShade(dst.col || '#ffffff', 1.1), head ? 7 : 4, 3); }
@@ -18364,7 +18367,7 @@ function arOnDeath(src, dst, head){
   if (N && N.host) arNetSend(null, 'ev', {k: 'kill', s: src ? src.nid : -1, d: dst.nid, h: head ? 1 : 0}, true);
   [0, 1].forEach(t => { if (A.phase === 'live' && !A.F.some(f => f.team === t && f.alive)) arEndRound(1 - t, A.mode.n === 1 ? (t === 1 ? 'You got ' + dst.name : dst.lastBy ? dst.lastBy.name + ' got you' : '') : (t === 1 ? 'Their team is down' : 'Your team is down')); });
 }
-function arSpeed(f){ const W = arWS(f.load[f.cur].it); let s = 8.2 * W.spd; if (f.st.slow > 0) s *= .6; if (f.st.haste > 0) s *= 1.3; if (f.st.speedy > 0) s *= 1.5; if (f.st.ghorn > 0) s *= 1.25; else if (f.st.horn > 0) s *= 1.2; if (f.me && AR.ads > .5) s *= .64; return s; }
+function arSpeed(f){ const W = arWS(f.load[f.cur].it); let s = 8.2 * W.spd; if (f.st.slow > 0) s *= .6; if (f.st.haste > 0) s *= 1.3; if (f.st.speedy > 0) s *= 1.5; if (f.st.horn > 0) s *= 1.2; if (f.me && AR.ads > .5) s *= .64; return s; }
 const arFall = (W, d) => d <= W.fall[0] ? 1 : d >= W.fall[1] ? W.fall[2] : 1 - (1 - W.fall[2]) * (d - W.fall[0]) / (W.fall[1] - W.fall[0]);
 /* shooting: rays for you, aim rolls for the bots */
 function arShoot(f){
@@ -19601,12 +19604,12 @@ function arNetAbort(why){ const A = AR; if (!A || A.over) return; A.over = true;
 
 /* =====================================================================================================
    THE GOAT (chroma rifle). Every kill with it bleats, adds 5% damage for the rest of the match (up to +75%) and
-   fills a third of the GOAT bar. A full bar is a Mark: pick an enemy and from then on every fifth bullet is a
+   fills a third of the GOAT bar. A full bar is a Mark: pick an enemy and from then on every tenth bullet is a
    slow golden round worth 100 that curves toward your marks. One mark steers it a little (20%); mark the same
    player again and again and it turns into a heat-seeking missile. It is slow and glowing, so a quick player can
    dodge or jump it, and it dies on walls.
    ===================================================================================================== */
-const AR_GOAT_ID = 'x3', AR_GOAT_STEP = .05, AR_GOAT_MAX = .75, AR_GOLD_SPEED = 26, AR_GOLD_EVERY = 5;
+const AR_GOAT_ID = 'x3', AR_GOAT_STEP = .05, AR_GOAT_MAX = .75, AR_GOLD_SPEED = 26, AR_GOLD_EVERY = 10;
 const arHasGoat = f => f.load.some(l => l.it.id === AR_GOAT_ID);
 const arGoatMul = f => 1 + Math.min(AR_GOAT_MAX, (f.goatK || 0) * AR_GOAT_STEP);
 /* a synthesised bleat: a buzzy voice with fast vibrato through a nasal filter, "baa-aa" */
@@ -19631,7 +19634,7 @@ function arGoatKill(f){
 function arGoatMenu(){
   const A = AR, f = A.me; if (!f.alive || (f.goatC || 0) < 3) { if (f.alive) arFeed('Get ' + (3 - (f.goatC || 0)) + ' more kill' + (3 - (f.goatC || 0) === 1 ? '' : 's') + ' with the GOAT to mark someone', 'b'); return false; }
   const foes = A.F.filter(o => o.team !== f.team && !o.gone), m = $('#arGoatM'); if (!m) return false;
-  m.innerHTML = '<div class="ar-gm-card"><div class="ar-gm-h">' + AR_IC.goat + '<div><b>MARK OF THE GOAT</b><small>Every 5th bullet is a golden round that curves toward your marks. Mark the same player again to make it home in harder.</small></div><button type="button" class="ar-gm-x" aria-label="Close">✕</button></div>'
+  m.innerHTML = '<div class="ar-gm-card"><div class="ar-gm-h">' + AR_IC.goat + '<div><b>MARK OF THE GOAT</b><small>Every 10th bullet is a golden round that curves toward your marks. Mark the same player again to make it home in harder.</small></div><button type="button" class="ar-gm-x" aria-label="Close">✕</button></div>'
     + '<div class="ar-gm-list">' + foes.map((o, i) => { const mk = (f.marks || {})[o.nid] || 0; return '<button type="button" class="ar-gm-o' + (o.alive ? '' : ' dead') + '" data-nid="' + o.nid + '"><i>' + (i + 1) + '</i><b>' + esc(o.name) + '</b><small>' + (o.alive ? Math.round(o.hp) + ' HP' : 'down') + '</small>'
       + '<span class="ar-gm-mk">' + (mk ? '★'.repeat(Math.min(5, mk)) + ' ' + Math.min(100, mk * 20) + '% → ' + Math.min(100, (mk + 1) * 20) + '%' : 'not marked → 20%') + '</span></button>'; }).join('') + '</div>'
     + (AR_MOBILE ? '' : '<p class="ar-gm-k">Press 1–' + Math.min(9, foes.length) + ' to pick · Q to close</p>') + '</div>';
@@ -19700,8 +19703,8 @@ const AR_MISC = {
   /* chroma exclusives */
   kick:    {n: 'Knuckleball', chroma: 'x5', d: 'A free kick that bends out around cover and curls back onto the spot you aimed at. Whoever it hits takes 50, gets knocked back and dazed. Rebounds off walls.', uses: 2, price: 50000, rank: 0, col: '#d22f3a'},
   decoy:   {n: 'Golden Shadow', chroma: 'x4', d: 'A golden shadow of you sprints ahead for 5 seconds, leaving a trail of afterimages, and pulls enemy fire.', uses: 1, price: 50000, rank: 0, col: '#ffb81f'},
-  ghorn:   {n: 'Golden Horn', chroma: 'x3', d: 'Team +25% damage and speed for 8 seconds; enemies near you are stunned.', uses: 1, price: 50000, rank: 0, col: '#ffc21a'}};
-const AR_MISC_ORDER = ['frag', 'med', 'smoke', 'flash', 'molotov', 'pad', 'horn', 'kick', 'decoy', 'ghorn'];
+  finesse: {n: 'Finesse', chroma: 'x3', d: 'Once a round: a golden free kick that swings out in a giant curve, curls back onto the exact spot you aimed at, then steers a little (20%) toward the closest enemy. 50 damage, knockback and daze.', uses: 1, price: 50000, rank: 0, col: '#ffc21a'}};
+const AR_MISC_ORDER = ['frag', 'med', 'smoke', 'flash', 'molotov', 'pad', 'horn', 'kick', 'decoy', 'finesse'];
 const AR_MIC = {
   frag: '<svg viewBox="0 0 48 48"><rect x="20" y="4" width="9" height="7" rx="2" fill="#7a8088" stroke="#1b2230" stroke-width="2.4"/><path d="M29 7 q9 0 9 9" fill="none" stroke="#1b2230" stroke-width="2.6"/><ellipse cx="24" cy="28" rx="13" ry="16" fill="#4f8a3a" stroke="#1b2230" stroke-width="2.8"/><path d="M11 24h26M11 32h26M19 13v30M29 13v30" stroke="#2f5a22" stroke-width="2"/><ellipse cx="19" cy="20" rx="3" ry="5" fill="#fff" opacity=".35"/></svg>',
   med: '<svg viewBox="0 0 48 48"><rect x="17" y="6" width="14" height="7" rx="2" fill="none" stroke="#1b2230" stroke-width="3"/><rect x="5" y="11" width="38" height="31" rx="6" fill="#fff" stroke="#1b2230" stroke-width="2.8"/><path d="M20 17h8v7h7v8h-7v7h-8v-7h-7v-8h7z" fill="#e5484d" stroke="#1b2230" stroke-width="2"/></svg>',
@@ -19714,8 +19717,10 @@ const AR_MIC = {
     + '<circle cx="32" cy="20" r="14" fill="#fff" stroke="#1b2230" stroke-width="2.8"/><path d="M32 13.5 l5.5 4 -2.1 6.5 h-6.8 l-2.1-6.5z" fill="#1b2230"/><path d="M32 13.5 V7 M37.5 17.5 l6-2.5 M35.4 24 l3.6 5.5 M28.6 24 l-3.6 5.5 M26.5 17.5 l-6-2.5" stroke="#1b2230" stroke-width="2"/>'
     + '<path d="M24.5 8.5 l2.5 3.5 M44 21 l-3 1 M40.5 31 l-2.5-2.5 M23.5 31 l2.5-2.5" stroke="#1b2230" stroke-width="3" stroke-linecap="round"/><circle cx="27" cy="14" r="2.5" fill="#fff" opacity=".9"/><path d="M41 6 l1.2 3 3 1.2 -3 1.2 -1.2 3 -1.2-3 -3-1.2 3-1.2z" fill="#ffd34d"/></svg>',
   decoy: '<svg viewBox="0 0 48 48"><path d="M2 16h8M1 24h7M2 32h8" stroke="#fff" stroke-width="3" stroke-linecap="round"/><g opacity=".5"><circle cx="20" cy="10" r="5" fill="#9fd4ff"/><path d="M13 17h14l2 13h-5l-1 13h-6l-1-13h-5z" fill="#9fd4ff"/></g><circle cx="31" cy="10" r="5" fill="#ffb81f" stroke="#1b2230" stroke-width="2.2"/><path d="M24 17h14l2 13h-5l-1 13h-6l-1-13h-5z" fill="#ffb81f" stroke="#1b2230" stroke-width="2.4" stroke-linejoin="round"/></svg>',
-  ghorn: '<svg viewBox="0 0 48 48"><path d="M6 32 C10 15 26 9 40 9 l2 6 C30 17 20 23 16 38 Z" fill="#ffd34d" stroke="#1b2230" stroke-width="2.8" stroke-linejoin="round"/><path d="M9 33 C13 21 24 15 36 13" stroke="#fff6c2" stroke-width="2.4" fill="none" stroke-linecap="round"/><ellipse cx="41" cy="12" rx="4" ry="5" transform="rotate(-20 41 12)" fill="#c98a1c" stroke="#1b2230" stroke-width="2.4"/><path d="M6 8 l1.5 4 4 1.5 -4 1.5 -1.5 4 -1.5-4 -4-1.5 4-1.5z M38 30 l1.2 3 3 1.2 -3 1.2 -1.2 3 -1.2-3 -3-1.2 3-1.2z" fill="#fff6c2"/></svg>'};
-const arMiscState = () => { const S = arS(); S.misc = S.misc || {own: ['frag'], eq: 'frag'}; if (!S.misc.own.includes('frag')) S.misc.own.unshift('frag'); S.misc.own = S.misc.own.map(k => k === 'siu' ? 'kick' : k); if (S.misc.eq === 'siu') S.misc.eq = 'kick'; if (!AR_MISC[S.misc.eq] || !S.misc.own.includes(S.misc.eq)) S.misc.eq = 'frag'; return S.misc; };
+  finesse: '<svg viewBox="0 0 48 48"><path d="M4 42 C2 22 14 6 30 8" fill="none" stroke="#ffe9a3" stroke-width="3.4" stroke-linecap="round" stroke-dasharray="1 5.5"/><path d="M9 44 C8 28 16 16 26 13" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".6"/>'
+    + '<circle cx="33" cy="20" r="12.5" fill="#ffc21a" stroke="#1b2230" stroke-width="2.8"/><path d="M33 14.2 l4.9 3.6 -1.9 5.8 h-6 l-1.9-5.8z" fill="#8a5a00"/><path d="M33 14.2 V8.5 M37.9 17.8 l5.3-2.2 M36 23.6 l3.2 4.9 M30 23.6 l-3.2 4.9 M28.1 17.8 l-5.3-2.2" stroke="#8a5a00" stroke-width="1.8"/>'
+    + '<circle cx="28.5" cy="14.5" r="2.4" fill="#fff6c2"/><path d="M43 33 l1.4 3.4 3.4 1.4 -3.4 1.4 -1.4 3.4 -1.4-3.4 -3.4-1.4 3.4-1.4z M14 4 l1 2.4 2.4 1 -2.4 1 -1 2.4 -1-2.4 -2.4-1 2.4-1z" fill="#fff6c2"/></svg>'};
+const arMiscState = () => { const S = arS(); S.misc = S.misc || {own: ['frag'], eq: 'frag'}; if (!S.misc.own.includes('frag')) S.misc.own.unshift('frag'); const MV = {siu: 'kick', ghorn: 'finesse'}; S.misc.own = [...new Set(S.misc.own.map(k => MV[k] || k))]; if (MV[S.misc.eq]) S.misc.eq = MV[S.misc.eq]; if (!AR_MISC[S.misc.eq] || !S.misc.own.includes(S.misc.eq)) S.misc.eq = 'frag'; return S.misc; };
 const arOwnsChroma = id => state.inv.some(e => e.id === id);
 const arMiscRankOk = k => arRankIdx(arS().rp) >= (AR_MISC[k].rank || 0);
 
@@ -19740,19 +19745,15 @@ function arMiscExec(f, id, d, real){
   if (id === 'pad') { /* dropped a step ahead of you, on the floor or whatever you're standing on */
     const fw = arFwd(d.yaw, 0), q = {x: f.p.x + fw.x * 1.6, y: f.p.y + .3, z: f.p.z + fw.z * 1.6}, hitW = ARB.some(b => arOv({x: q.x, y: q.y, z: q.z}, b)); if (hitW) { q.x = f.p.x; q.z = f.p.z; }
     let y = 0; ARB.forEach(b => { if (q.x > b[0] && q.x < b[3] && q.z > b[2] && q.z < b[5] && b[4] <= f.p.y + .3 && b[4] > y) y = b[4]; }); q.y = y; arPadSpawn(f, q); return; }
-  if (id === 'horn' || id === 'ghorn') {
-    const gold = id === 'ghorn', R = gold ? 20 : 15, dur = gold ? 8 : 6;
+  if (id === 'horn') {
     arSnd((a, o, t) => { [146.8, 220, 293.7].forEach((fr, i) => { const os = a.createOscillator(), g = a.createGain(), fl = a.createBiquadFilter(); os.type = 'sawtooth'; os.frequency.setValueAtTime(fr * .9, t); os.frequency.linearRampToValueAtTime(fr, t + .25);
       fl.type = 'lowpass'; fl.frequency.value = 1400; g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.08, t + .2); g.gain.setValueAtTime(.08, t + 1); g.gain.exponentialRampToValueAtTime(.0001, t + 1.5); os.connect(fl); fl.connect(g); g.connect(o); os.start(t); os.stop(t + 1.6); }); }, f.me ? null : f.p);
-    if (gold) arSnd(AR_BLEAT, f.me ? null : f.p);
-    arRingFx({x: f.p.x, y: f.p.y + .1, z: f.p.z}, gold ? '#ffd34d' : '#ffcf7a', R, .8);
-    A.F.forEach(o => { if (!o.alive || arDist(o.p, f.p) > R) return;
-      if (o.team === f.team) { if (real || o.me) { if (gold) o.st.ghorn = dur; else o.st.horn = dur; } }
-      else if (gold && real && arDist(o.p, f.p) <= 10) { o.st.root = 1.2; o.st.slow = 2.5; } });
-    if (f.me) arFeed('You blew the ' + AR_MISC[id].n + (gold ? ' · team +25%' : ' · team +15% damage'), 'b');
+    arRingFx({x: f.p.x, y: f.p.y + .1, z: f.p.z}, '#ffcf7a', 15, .8);
+    A.F.forEach(o => { if (o.alive && o.team === f.team && arDist(o.p, f.p) <= 15 && (real || o.me)) o.st.horn = 6; });
+    if (f.me) arFeed('You blew the War Horn · team +15% damage', 'b');
     return;
   }
-  if (id === 'kick') { arKickBall(f, d, real); return; }
+  if (id === 'kick' || id === 'finesse') { arKickBall(f, d, real, id === 'finesse'); return; }
   if (id === 'decoy') { arDecoySpawn(f, d.yaw, real); return; }
 }
 /* thrown items go off by kind */
@@ -19890,49 +19891,76 @@ function arShop(){
 }
 
 /* ---------- Knuckleball: a free kick that wobbles off its line, swerves, and rebounds off walls ---------- */
-function arBallTex(T){ const A = AR; if (A.ballTex) return A.ballTex;
-  const t = new T.CanvasTexture(arCanvas(256, 128, (g, w, h) => { g.fillStyle = '#f7f7f2'; g.fillRect(0, 0, w, h);
+function arBallTex(T, gold){ const A = AR, key = gold ? 'ballTexG' : 'ballTex'; if (A[key]) return A[key];
+  const t = new T.CanvasTexture(arCanvas(256, 128, (g, w, h) => { g.fillStyle = gold ? '#ffcf3a' : '#f7f7f2'; g.fillRect(0, 0, w, h);
     const pent = (x, y, r) => { g.beginPath(); for (let i = 0; i < 5; i++) { const a = -Math.PI / 2 + i * Math.PI * 2 / 5; g[i ? 'lineTo' : 'moveTo'](x + Math.cos(a) * r, y + Math.sin(a) * r); } g.closePath(); g.fill(); };
-    g.fillStyle = '#d22f3a'; [[32, 30], [96, 70], [160, 30], [224, 70], [32, 104], [160, 104]].forEach(([x, y]) => pent(x, y, 15));
-    g.fillStyle = '#1b2230'; [[64, 64], [128, 22], [192, 64], [128, 108], [0, 64], [256, 64]].forEach(([x, y]) => pent(x, y, 9)); }));
-  t.colorSpace = T.SRGBColorSpace; return (A.ballTex = t); }
-function arKickBall(f, d, real){
+    g.fillStyle = gold ? '#fff3c4' : '#d22f3a'; [[32, 30], [96, 70], [160, 30], [224, 70], [32, 104], [160, 104]].forEach(([x, y]) => pent(x, y, 15));
+    g.fillStyle = gold ? '#8a5a00' : '#1b2230'; [[64, 64], [128, 22], [192, 64], [128, 108], [0, 64], [256, 64]].forEach(([x, y]) => pent(x, y, 9)); }));
+  t.colorSpace = T.SRGBColorSpace; return (A[key] = t); }
+function arKickBall(f, d, real, fin){
   const A = AR, T = A.T, e = arEye(f), dir = arFwd(d.yaw, (d.pitch || 0) + .03);
-  const m = new T.Mesh(A.ballGeo || (A.ballGeo = new T.SphereGeometry(.17, 24, 16)), new T.MeshStandardMaterial({map: arBallTex(T), roughness: .45}));
-  const trail = new T.Mesh(A.trailGeo || (A.trailGeo = new T.CylinderGeometry(.13, .01, 1, 10, 1, true).translate(0, -.5, 0).rotateX(-Math.PI / 2)), new T.MeshBasicMaterial({color: '#ff6b6b', transparent: true, opacity: .45, blending: T.AdditiveBlending, depthWrite: false}));
+  const m = new T.Mesh(A.ballGeo || (A.ballGeo = new T.SphereGeometry(.17, 24, 16)), new T.MeshStandardMaterial(fin ? {map: arBallTex(T, 1), roughness: .3, metalness: .55, emissive: '#5a3a00', emissiveIntensity: .6} : {map: arBallTex(T), roughness: .45}));
+  const trail = new T.Mesh(A.trailGeo || (A.trailGeo = new T.CylinderGeometry(.13, .01, 1, 10, 1, true).translate(0, -.5, 0).rotateX(-Math.PI / 2)), new T.MeshBasicMaterial({color: fin ? '#ffd84a' : '#ff6b6b', transparent: true, opacity: fin ? .6 : .45, blending: T.AdditiveBlending, depthWrite: false}));
   A.fx.add(trail); const p = {x: e.x + dir.x * .7, y: e.y - .25 + dir.y * .7, z: e.z + dir.z * .7}; m.position.set(p.x, p.y, p.z); A.fx.add(m);
   /* the bend: the ball leaves your line in an arc and comes back onto it right where you aimed (the first player or
-     wall under your crosshair), wobbling as it goes. So it curls around cover but still finds the spot you picked. */
+     wall under your crosshair). So it curls around cover but still finds the spot you picked. */
   const side = {x: -dir.z, z: dir.x}, sideL = Math.hypot(side.x, side.z) || 1, aimE = {x: e.x, y: e.y, z: e.z}, fd = arFwd(d.yaw, d.pitch || 0);
+  side.x /= sideL; side.z /= sideL;
   let D = Math.min(60, arRayMap(aimE, fd, 60)); A.F.forEach(o => { if (o.alive && o.team !== f.team) D = Math.min(D, arRayFighter(aimE, fd, o).t); });
-  D = Math.max(3, D - .7); const S = (Math.random() < .5 ? -1 : 1) * (1 + Math.random() * .7) * Math.min(1, D / 8);
-  (A.balls = A.balls || []).push({p, o: {x: p.x, y: p.y, z: p.z}, dir: {x: fd.x, y: fd.y, z: fd.z}, v: {x: dir.x * 31, y: dir.y * 31, z: dir.z * 31}, side: {x: side.x / sideL, z: side.z / sideL}, owner: f, m, trail, life: 3.2, bounces: 0, real, t: 0,
-    kin: true, T: D / 31, S, wob: 9 + Math.random() * 5, ph: Math.random() * 6.28});
-  arSnd((a, o, t) => { arOsc(a, o, t, .09, 'sine', 160, 60, .5); arNz(a, o, t, .06, 'lowpass', 1800, 400, .5); arOsc(a, o, t + .05, .5, 'sine', 1900, 1500, .025); }, f.me ? null : f.p);
+  D = Math.max(3, D - .7); let S, tg = null;
+  if (fin) { /* the assist target: the enemy nearest your aim line. If they stand before the spot you aimed at, the
+       destination becomes the point on your line level with them, and the last part of the curl leans 20% their way */
+    let bp = 3.5; A.F.forEach(o => { if (!o.alive || o.team === f.team) return; const c = {x: o.p.x - aimE.x, y: o.p.y + 1.1 - aimE.y, z: o.p.z - aimE.z}, al = c.x * fd.x + c.y * fd.y + c.z * fd.z;
+      const pp = Math.hypot(c.x - fd.x * al, c.y - fd.y * al, c.z - fd.z * al); if (al > 2 && al < D + 3 && pp < bp) { bp = pp; tg = o; if (al - .3 < D) D = Math.max(3, al - .3); } });
+  }
+  if (fin) { /* Finesse: a banana shot. It whips out wide (peak a third of the way), then curls back in and arrives on your
+       line heading straight at the spot you aimed. It swings out on whichever side has room, and as wide as that room allows. */
+    const want = 4.4 * Math.min(1, D / 12), room = sg => { let r = want; [[.15, .74], [.33, 1], [.55, .75], [.75, .32]].forEach(([u, g]) => {
+      const q = {x: p.x + fd.x * D * u, y: p.y + fd.y * D * u, z: p.z + fd.z * D * u}, c = arRayMap(q, {x: side.x * sg, y: 0, z: side.z * sg}, want + 1); r = Math.min(r, Math.max(0, c - .45) / g); }); return r; };
+    const rl = room(1), rr = room(-1), sg = rl > rr + .05 ? 1 : rr > rl + .05 ? -1 : (Math.random() < .5 ? 1 : -1); S = sg * Math.max(rl, rr); }
+  else S = (Math.random() < .5 ? -1 : 1) * (1 + Math.random() * .7) * Math.min(1, D / 8);
+  (A.balls = A.balls || []).push({p, o: {x: p.x, y: p.y, z: p.z}, dir: {x: fd.x, y: fd.y, z: fd.z}, v: {x: dir.x * 31, y: dir.y * 31, z: dir.z * 31}, side, owner: f, m, trail, life: fin ? 3.6 : 3.2, bounces: 0, real, t: 0,
+    kin: true, T: (fin ? Math.max(2, D - .7) : D) / 31, D: fin ? Math.max(2, D - .7) : D, S, fin: !!fin, tg, wob: 9 + Math.random() * 5, ph: Math.random() * 6.28, spark: 0});
+  arSnd((a, o, t) => { arOsc(a, o, t, .09, 'sine', 160, 60, .5); arNz(a, o, t, .06, 'lowpass', 1800, 400, .5); arOsc(a, o, t + .05, .5, 'sine', 1900, 1500, .025);
+    if (fin) { arNz(a, o, t + .04, .7, 'bandpass', 900, 2600, .18, 3); arOsc(a, o, t + .08, .35, 'triangle', 1318.5, 1568, .03); } }, f.me ? null : f.p);
+  if (fin && f.me) arFeed('Finesse!', 'b');
 }
-function arBallPop(b, at){ const A = AR; arBurst(at, '#ffffff', 12, 6); arBurst(at, '#d22f3a', 10, 5); A.fx.remove(b.m); A.fx.remove(b.trail); b.trail.material.dispose(); b.m.material.dispose(); }
+function arBallPop(b, at){ const A = AR; arBurst(at, '#ffffff', 12, 6); arBurst(at, b.fin ? '#ffd84a' : '#d22f3a', b.fin ? 16 : 10, 5); A.fx.remove(b.m); A.fx.remove(b.trail); b.trail.material.dispose(); b.m.material.dispose(); }
 function arBallStep(dt){
   const A = AR; if (!A.balls || !A.balls.length) return;
   A.balls = A.balls.filter(b => {
     b.life -= dt; b.t += dt;
     if (b.kin) { /* on its bent line: where it should be at this moment, as a velocity */
-      const t = Math.min(b.t, b.T), off = b.S * Math.sin(Math.PI * t / b.T) + .12 * Math.sin(b.t * b.wob + b.ph) * Math.sin(Math.PI * t / b.T), L = 31 * t;
-      const want = {x: b.o.x + b.dir.x * L + b.side.x * off, y: b.o.y + b.dir.y * L + .2 * Math.sin(b.t * b.wob * .7 + b.ph) * Math.sin(Math.PI * t / b.T), z: b.o.z + b.dir.z * L + b.side.z * off};
+      const t = Math.min(b.t, b.T), u = t / b.T, L = 31 * t, sn = Math.sin(Math.PI * u);
+      /* Knuckleball: a wobbling half-sine out and back. Finesse: out fast, peak at a third, then curl in tangent to your line */
+      const off = b.fin ? b.S * 6.75 * u * (1 - u) * (1 - u) : b.S * sn + .12 * Math.sin(b.t * b.wob + b.ph) * sn, up = b.fin ? .45 * sn : .2 * Math.sin(b.t * b.wob * .7 + b.ph) * sn;
+      const want = {x: b.o.x + b.dir.x * L + b.side.x * off, y: b.o.y + b.dir.y * L + up, z: b.o.z + b.dir.z * L + b.side.z * off};
+      if (b.fin && b.tg && b.tg.alive) { /* the 20% lean onto the target, easing in over the curl */
+        const w = .2 * (u < .45 ? 0 : (x => x * x * (3 - 2 * x))((u - .45) / .55)), E = {x: b.o.x + b.dir.x * b.D, y: b.o.y + b.dir.y * b.D, z: b.o.z + b.dir.z * b.D};
+        want.x += (b.tg.p.x - E.x) * w; want.y += (b.tg.p.y + 1.1 - E.y) * w; want.z += (b.tg.p.z - E.z) * w; }
       b.v.x = (want.x - b.p.x) / dt; b.v.y = (want.y - b.p.y) / dt; b.v.z = (want.z - b.p.z) / dt;
       if (b.t >= b.T) { b.kin = false; b.v.x = b.dir.x * 31; b.v.y = b.dir.y * 31; b.v.z = b.dir.z * 31; } }
+    else if (b.fin) { /* Finesse, past the spot you aimed at: a light 20% pull toward the closest enemy ahead, little drop */
+      b.v.y -= 3 * dt; const sp0 = Math.hypot(b.v.x, b.v.y, b.v.z) || 1, h = {x: b.v.x / sp0, y: b.v.y / sp0, z: b.v.z / sp0}; let tg = null, bd = Infinity;
+      A.F.forEach(o => { if (!o.alive || o.team === b.owner.team) return; const c = {x: o.p.x, y: o.p.y + 1.1, z: o.p.z}, L = arDist(b.p, c) || 1;
+        if (((c.x - b.p.x) * h.x + (c.y - b.p.y) * h.y + (c.z - b.p.z) * h.z) / L > .1 && L < bd) { bd = L; tg = c; } });
+      if (tg) { const a = .2, k = Math.min(1, (a * a * 9 + a * 1.2) * dt * (1 + 4 * a / Math.max(.5, bd)));
+        h.x += ((tg.x - b.p.x) / bd - h.x) * k; h.y += ((tg.y - b.p.y) / bd - h.y) * k; h.z += ((tg.z - b.p.z) / bd - h.z) * k; const n = Math.hypot(h.x, h.y, h.z) || 1;
+        b.v.x = h.x / n * sp0; b.v.y = h.y / n * sp0; b.v.z = h.z / n * sp0; } }
     else b.v.y -= 9 * dt;
     /* hit someone? */
     const sp = Math.hypot(b.v.x, b.v.y, b.v.z) || 1, d = {x: b.v.x / sp, y: b.v.y / sp, z: b.v.z / sp}, step = sp * dt;
     let hit = null, ht = Infinity;
     A.F.forEach(o => { if (!o.alive || o.team === b.owner.team) return; const r = arRayFighter(b.p, d, o);
       if (r.t <= step + .15 && r.t < ht) { ht = r.t; hit = {o, head: r.head}; }
-      else if (!hit && Math.hypot(b.p.x - o.p.x, b.p.z - o.p.z) < .5 && b.p.y > o.p.y - .1 && b.p.y < o.p.y + 1.95) { ht = 0; hit = {o, head: b.p.y > o.p.y + 1.45}; } });
+      else if (!hit && Math.hypot(b.p.x - o.p.x, b.p.z - o.p.z) < .55 && b.p.y > o.p.y - .1 && b.p.y < o.p.y + 1.95) { ht = 0; hit = {o, head: b.p.y > o.p.y + 1.45}; } });
     if (hit && ht < arRayMap(b.p, d, step + .2)) { const o = hit.o, at = {x: b.p.x + d.x * ht, y: b.p.y + d.y * ht, z: b.p.z + d.z * ht};
       if (b.real) { arDamage(b.owner, o, 50, hit.head, {x: at.x, y: at.y + .3, z: at.z});
         if (o.alive) { const L = Math.hypot(d.x, d.z) || 1; o.v.x += d.x / L * 9; o.v.z += d.z / L * 9; o.v.y = Math.max(o.v.y, 5); o.ground = false; o.st.slow = 2; o.st.blind = Math.max(o.st.blind || 0, .7); } }
       else if (o.me) { const L = Math.hypot(d.x, d.z) || 1; o.v.x += d.x / L * 9; o.v.z += d.z / L * 9; o.v.y = Math.max(o.v.y, 5); o.ground = false; }
       arSnd((a, ou, t) => { arOsc(a, ou, t, .12, 'sine', 220, 70, .5); arNz(a, ou, t, .1, 'bandpass', 1400, 600, .4, 2); }, at);
-      const el = document.createElement('div'); el.className = 'ar-num ar-kick'; el.textContent = 'GOLAZO!'; $('#arHud').append(el); A.nums.push({el, p: {x: at.x, y: at.y + 1.2, z: at.z}, t: 1.1});
+      if (b.fin) { tone(1318.5, .25, 'triangle', .05); tone(1760, .3, 'triangle', .04, .08); }
+      const el = document.createElement('div'); el.className = 'ar-num ar-kick' + (b.fin ? ' ar-fin' : ''); el.textContent = b.fin ? 'FINESSE!' : 'GOLAZO!'; $('#arHud').append(el); A.nums.push({el, p: {x: at.x, y: at.y + 1.2, z: at.z}, t: 1.1});
       arBallPop(b, at); return false; }
     /* move one axis at a time and rebound off whatever it meets */
     let bounced = false;
@@ -19940,7 +19968,8 @@ function arBallStep(dt){
       const inBox = ARB.some(q => b.p.x > q[0] - .17 && b.p.x < q[3] + .17 && b.p.y > q[1] - .17 && b.p.y < q[4] + .17 && b.p.z > q[2] - .17 && b.p.z < q[5] + .17);
       if (inBox || (ax === 'y' && b.p.y < .17)) { b.p[ax] = ax === 'y' && b.p.y < .17 && !inBox ? .17 : old; b.v[ax] *= ax === 'y' ? -.6 : -.85; bounced = true; } });
     if (bounced) { b.bounces++; b.kin = false; arSnd((a, o, t) => arOsc(a, o, t, .08, 'sine', 300, 120, .25), b.p); arBurst({x: b.p.x, y: b.p.y, z: b.p.z}, '#ffffff', 4, 2); }
-    b.m.position.set(b.p.x, b.p.y, b.p.z); b.m.rotation.x += dt * 14; b.m.rotation.y += dt * 9;
+    b.m.position.set(b.p.x, b.p.y, b.p.z); b.m.rotation.x += dt * 14; b.m.rotation.y += dt * (b.fin ? 26 : 9);
+    if (b.fin) { b.spark -= dt; if (b.spark <= 0) { b.spark = .02; arPart({x: b.p.x, y: b.p.y, z: b.p.z}, {x: (Math.random() - .5) * .8, y: .5, z: (Math.random() - .5) * .8}, Math.random() < .3 ? '#fff6c2' : '#ffcf3a', .05, .45, 0); } }
     /* the streak behind it points back along its flight */
     b.trail.position.copy(b.m.position); b.trail.quaternion.setFromUnitVectors(A.zAxis || (A.zAxis = new A.T.Vector3(0, 0, 1)), (A.tmpV || (A.tmpV = new A.T.Vector3())).set(-d.x, -d.y, -d.z)); b.trail.scale.set(1, 1, Math.min(2.4, sp / 13));
     if (b.life <= 0 || b.bounces > 3 || sp < 3) { arBallPop(b, b.p); return false; }
