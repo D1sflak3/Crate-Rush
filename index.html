@@ -4343,6 +4343,7 @@ body.ar-on{overflow:hidden}
 
 
 
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -5193,7 +5194,7 @@ const ITEMS = [
   {id:'x3', w:'rifle',     name:'The GOAT',       t:7, pat:'goat', pal:['#75bde9','#f4f7fb','#ffd23f'], m:45000000 / 935000, ex:true},
   {id:'x4', w:'shotgun',   name:'The SFOT',       t:7, pat:'sfot', pal:['#0b1736','#1f4fd1','#e1262d','#c9d2de'], m:15000000 / 935000, ex:true},
   {id:'x5', w:'sniper',    name:'The Sui',        t:7, pat:'sui', pal:['#070103','#da291c','#ffd23f','#046a38'], m:32000000 / 935000, ex:true},
-  {id:'x6', w:'smg',       name:'La Pulga',       t:7, pat:'pulga', pal:['#004d98','#a50044','#ffd23f','#75bde9'], m:40000000 / 935000, ex:true},
+  {id:'x6', w:'smg',       name:'La Pulga',       t:7, pat:'pulga', pal:['#004d98','#a50044','#ffd23f','#75bde9'], m:85000000 / 935000, ex:true},
   // Admin only for now: no way to earn it in the game yet
   {id:'x7', w:'butterfly', name:'The Prince',     t:7, pat:'prince', pal:['#ffdf00','#009c3b','#002776','#ffd23f'], m:25000000 / 935000, ex:true},
   // Ma Rust's Rusty Case: its own rusty legendaries and one Chroma. Nowhere else.
@@ -6224,10 +6225,10 @@ const wearIdx = fl => { const i = WEARS.findIndex(w => fl < w.hi); return i < 0 
 const BM_MIN = 50000;
 const priceOf = (it, wi) => it.t >= 6 ? bmAt(it, wi) : Math.max(it.t === 6 ? BM_MIN : 1, Math.round(TIERS[it.t].base * (it.t >= 5 ? 1 : ITEM_CASE[it.id].f) * it.m * WEARS[wi].m * (.95 + Math.random()*.1)));
 /* the footballers' chromas went up to tens of millions: reprice any already owned, once (runs after the price helpers exist) */
-(function(){ if (state.fbx) return; const FB = ['x3', 'x4', 'x5', 'x6', 'x7'];
+(function(){ if ((state.fbx || 0) >= 2) return; const FB = ['x3', 'x4', 'x5', 'x6', 'x7'];
   try { state.inv.forEach(e => { if (FB.includes(e.id)) e.v = Math.max(e.v || 0, priceOf(BY[e.id], wearIdx(e.fl))); });
     if (state.best && FB.includes(state.best.id)) state.best.v = Math.max(state.best.v, priceOf(BY[state.best.id], 0)); } catch (err) {}
-  state.fbx = 1; })();
+  state.fbx = 2; })();
 
 function roll(c){
   const {w, applied} = effWeights(c);
@@ -18100,7 +18101,10 @@ function arBotKit(rp){
   else pool = ITEMS.filter(i => i.t === t && !i.ex && arType(i) !== 'knife' && (ti >= 1 || i.w !== 'sniper'));
   if (!pool.length) pool = ITEMS.filter(i => i.t === t && arType(i) !== 'knife');
   if (!pool.length) pool = ITEMS.filter(i => i.t <= 4 && arType(i) !== 'knife');
-  const it = pickOne(pool), W = WEARS[pickW(WEAR_W)];
+  let it = pickOne(pool);
+  /* La Pulga is the rarest of them: a bot that rolls it keeps it only one time in five */
+  if (chroma && it.id === 'x6' && Math.random() < .8) it = pickOne(pool.filter(i => i.id !== 'x6')) || it;
+  const W = WEARS[pickW(WEAR_W)];
   return {it, fl: +(W.lo + Math.random() * (W.hi - W.lo)).toFixed(4)};
 }
 const arSkill = rp => Math.max(0, Math.min(.85, .04 + arRankIdx(rp) / 26 + (Math.random() - .5) * .08));
