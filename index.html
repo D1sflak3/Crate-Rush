@@ -4328,6 +4328,8 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -20469,7 +20471,7 @@ function arStadTick(dt){
    a striped shirt with the name and number on the back, blue shorts, garnet socks, and a flat face decal on the
    head. Neymar's face is the one from his film; Suárez gets his own, big front teeth and all. */
 const AR_STARS = {
-  ney: {name: 'NEYMAR JR', num: '11', skin: '#c99572', hair: '#3a2616', tip: '#e8c27a', boot: '#ffd23f', face: () => bdoP('neymar', {hair: 'none', skin: 'rgba(0,0,0,0)', shade: 'rgba(0,0,0,0)'})},
+  ney: {name: 'NEYMAR JR', num: '11', skin: '#d4a07a', hair: '#3a2616', tip: '#e8c27a', boot: '#ffd23f', face: () => bdoP('neymar', {hair: 'none', tape: false, skin: 'rgba(0,0,0,0)', shade: 'rgba(0,0,0,0)'})},
   sua: {name: 'SUÁREZ', num: '9', skin: '#d6a07a', hair: '#1c130c', boot: '#15171c', face: () => ({skin: '#d6a07a', shade: 'rgba(110,55,25,.2)', head: 'long', hair: 'part', hc: '#1c130c', beard: 'stubble', brow: 'thick', iris: '#4a3020', mouth: 'none', lip: false}),
     /* the teeth: a wide grin with two huge front teeth that hang below the lip */
     extra: '<path d="M-10.5 27.4 Q0 42 10.5 27.4 Q0 30.4 -10.5 27.4 Z" fill="#4a1410"/>'
@@ -20560,7 +20562,7 @@ function arStarHead(T, head, who, skinM, hairM){
     for (let i = 0; i < pp.count; i++) uv.setXY(i, .5 + pp.getX(i) / FW, .5 + pp.getY(i) / FH);
     const fm = new T.MeshStandardMaterial({map: ft, transparent: true, alphaTest: .04, roughness: .6, polygonOffset: true, polygonOffsetFactor: -2});
     add(pg, fm, 0, cy, 0).castShadow = false;
-    return [fm].concat(arNeyHawk(T, add, sph, R, cy, P));
+    return [fm].concat(arNeyHair(T, add, sph, R, cy, P, skinM, skull.userData.pts));
   }
   /* where the face is: cast a ray at the head from the front */
   const ray = new T.Raycaster(), tmp = new T.Mesh(skull); tmp.position.y = cy; tmp.updateMatrixWorld(true);
@@ -20602,25 +20604,43 @@ function arStarHead(T, head, who, skinM, hairM){
   return [whiteM, irisM, darkM, lipM, mouthM, browM];
 }
 
-/* Neymar's mohawk: short faded sides, then a tall ridge from his forehead over the crown to the back, built from
-   overlapping fluffy lumps in a few browns, dotted with little curls for texture and topped with spiky tufts whose
-   tips are bleached. Taller at the front, like his. */
-function arNeyHawk(T, add, sph, R, cy, P){
-  const keep = [], top = cy + .165, rnd = seeded(2222);
-  const hm = ['#2a1a0e', '#3a2616', '#4a301c', '#5a3a20'].map(c => { const m = new T.MeshStandardMaterial({color: c, roughness: .95}); keep.push(m); return m; });
-  const tipM = new T.MeshStandardMaterial({color: P.tip, roughness: .85}); keep.push(tipM);
-  const fade = new T.MeshStandardMaterial({color: P.hair, transparent: true, opacity: .55, roughness: 1, depthWrite: false}); fade.userData.keep = true;
-  /* the faded sides: a thin dark layer over the crown only */
-  add(new T.SphereGeometry(R * 1.01, 40, 12, 0, Math.PI * 2, 0, Math.PI * .36), fade, 0, cy + .11, 0, 1, .42, .95);
-  /* the ridge: a solid strip of hair from the front edge over to the back, tallest at the front */
-  const N = 16;
-  for (let i = 0; i < N; i++) { const t = i / (N - 1), z = (-.9 + t * 1.8) * R * .95, h = .11 + .09 * Math.pow(1 - t, 1.3), w = .062 - t * .014, y = top - .015;
-    add(sph(1, 12, 10), hm[1 + (i % 2)], 0, y + h * .3, z, w, h * .55, .045);
-    for (let k = 0; k < 2; k++) { const s = .02 + rnd() * .012; add(sph(s, 9, 7), hm[Math.floor(rnd() * hm.length)], (rnd() - .5) * w, y + h * (.2 + rnd() * .5), z + (rnd() - .5) * .03, 1, 1.1, 1); }
-    /* spikes on top, leaning back, bleached at the tips */
-    for (let k = 0; k < 3; k++) { const lean = -.28 - t * .45 + (rnd() - .5) * .25, side = (k - 1) * .28 + (rnd() - .5) * .15, hh = h * (.6 + rnd() * .35);
-      const c = add(new T.ConeGeometry(.019, hh, 7), hm[Math.floor(rnd() * 3)], (k - 1) * w * .35, y + h * .55, z); c.rotation.set(lean, 0, -side);
-      const up = new T.Vector3(0, hh * .34, 0).applyEuler(c.rotation), tp = add(new T.ConeGeometry(.0115, hh * .4, 6), tipM, c.position.x + up.x, c.position.y + up.y, c.position.z + up.z); tp.rotation.copy(c.rotation); } }
+/* Neymar, from the side of a pitch: a serious face with tape across the nose, and spiky hair everywhere, short over
+   the sides, a fringe of spikes over the forehead, rising to a tall pointed crest in the middle, bleached blond at
+   the tips. Also ears, sideburns and a real nose for the tape to sit on. */
+function arNeyHair(T, add, sph, R, cy, P, skinM, pts){
+  const keep = [], rnd = seeded(3131), up = new T.Vector3(0, 1, 0);
+  const brown = ['#2b1a0e', '#3a2616', '#4a301c'].map(c => { const m = new T.MeshStandardMaterial({color: c, roughness: .95}); keep.push(m); return m; });
+  const light = new T.MeshStandardMaterial({color: '#8a6238', roughness: .9}), blond = new T.MeshStandardMaterial({color: '#f0d08a', roughness: .8}), tapeM = new T.MeshStandardMaterial({color: '#f4f0e6', roughness: .6});
+  keep.push(light, blond, tapeM);
+  /* ears and sideburns */
+  [-1, 1].forEach(s => { add(sph(.04, 14, 10), skinM, s * R * .99, cy - .005, .015, .42, 1, .7); add(new T.BoxGeometry(.012, .07, .03), brown[0], s * R * 1.0, cy + .025, -.052); });
+  /* the nose, with white tape across the bridge */
+  const nz = -R * .94 - .004;
+  add(sph(.024, 16, 12), skinM, 0, cy - .02, nz - .012, .78, 1.6, 1.15); add(sph(.017, 14, 10), skinM, 0, cy - .047, nz - .016, 1.55, .8, 1);
+  add(new T.TorusGeometry(.026, .009, 6, 18, Math.PI), tapeM, 0, cy - .012, nz - .006, 1.25, .7, 1.6).rotation.set(-Math.PI / 2 + .25, 0, 0);
+  /* the hair cap: the top of the head and the sides down to the temples, open over the face */
+  const top = pts.filter(p => p.y > .03).map(p => new T.Vector2(p.x * 1.04, p.y * 1.03 + .004));
+  const capTop = new T.LatheGeometry([new T.Vector2(top[0].x, .07)].concat(top.filter(p => p.y > .07)), 48); capTop.scale(1, 1, .94); add(capTop, brown[1], 0, cy, 0);
+  const sides = new T.LatheGeometry(top, 48, Math.PI + .78, Math.PI * 2 - 1.56); sides.scale(1, 1, .94); add(sides, brown[1], 0, cy, 0);
+  /* spikes: short over the sides and back, a fringe over the forehead, longer toward the crown */
+  const spike = (x, y, z, dir, len, rad, mat, tip) => { const c = add(new T.ConeGeometry(rad, len, 6), mat, x + dir.x * len / 2, y + dir.y * len / 2, z + dir.z * len / 2);
+    c.quaternion.setFromUnitVectors(up, dir);
+    if (tip) { const tl = tip === blond ? .6 : .42, t = add(new T.ConeGeometry(rad * (1 - tl) * 1.05 + .002, len * tl, 6), tip, x + dir.x * len * (1 - tl / 2), y + dir.y * len * (1 - tl / 2), z + dir.z * len * (1 - tl / 2)); t.quaternion.copy(c.quaternion); } };
+  const H2 = .165;
+  for (let i = 0; i < 150; i++) { const a = rnd() * Math.PI * 2, f = rnd(), front = Math.cos(a - Math.PI) > .35;
+    if (front && f < .55) continue; /* keep the face clear */
+    const r0 = R * (f < .55 ? 1.03 : (1 - (f - .55) / .45 * .9) * 1.02), y = f < .55 ? cy + .04 + f / .55 * .1 : cy + H2 + .006;
+    const x = Math.sin(a) * r0, z = Math.cos(a) * r0 * .94, toC = 1 - Math.min(1, Math.hypot(x, z) / R);
+    const out = new T.Vector3(Math.sin(a), 0, Math.cos(a)), dir = out.clone().multiplyScalar(f < .55 ? .85 : .35 * (1 - toC)).add(new T.Vector3(0, f < .55 ? .45 : 1, 0)).add(new T.Vector3((rnd() - .5) * .35, 0, (rnd() - .5) * .35 + .12)).normalize();
+    const len = f < .55 ? .035 + rnd() * .025 : .05 + toC * .07 + rnd() * .03;
+    spike(x, y, z, dir, len, .016 + rnd() * .008, brown[Math.floor(rnd() * 3)], toC > .45 && rnd() < .5 ? light : null); }
+  /* the fringe: spikes over the forehead, pointing forward and up */
+  for (let i = 0; i < 9; i++) { const x = (i - 4) * .034 + (rnd() - .5) * .01, z = -R * .9, y = cy + H2 - .01;
+    spike(x, y, z, new T.Vector3(x * 1.5, .75, -.6).normalize(), .05 + rnd() * .025, .017, brown[Math.floor(rnd() * 3)], null); }
+  /* the crest: a tall cluster in the middle, front of the crown, leaning together to a point, bleached at the tips */
+  for (let i = 0; i < 26; i++) { const a = rnd() * Math.PI * 2, rr = Math.sqrt(rnd()) * .075, x = Math.cos(a) * rr * .9 - .008, z = -.035 + Math.sin(a) * rr, y = cy + H2;
+    const dir = new T.Vector3(-x * 2.4 - .04, 1, -(z + .035) * 1.8 + .12).normalize(), len = .2 + rnd() * .11 - rr * 1.2;
+    spike(x, y, z, dir, len, .03 + rnd() * .01, i % 3 ? light : brown[1], blond); }
   return keep;
 }
 $('#arBtn').onclick = () => { if (busy) return; arOpen(); };
