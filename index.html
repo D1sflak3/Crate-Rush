@@ -4324,6 +4324,8 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -20541,42 +20543,35 @@ function arStarHead(T, head, who, skinM, hairM){
   const sph = (r, a, b) => new T.SphereGeometry(r, a || 20, b || 14);
   let skull, R;
   if (!ney) { R = .27; skull = new T.SphereGeometry(R, 48, 36); }
-  else { /* the cranium and the jaw in one surface: round on top, flat at the temples, a jaw that angles in to a squared chin */
-    R = .19; skull = new T.SphereGeometry(R, 56, 44); const p = skull.attributes.position;
-    for (let i = 0; i < p.count; i++) { let x = p.getX(i) / R, y = p.getY(i) / R, z = p.getZ(i) / R;
-      x *= .82; z *= .95; y *= 1.2;
-      if (y > .3) x *= 1 - .06 * (y - .3);
-      if (y < -.05) { const t = Math.min(1, (-.05 - y) / 1.15);
-        const w = t < .55 ? 1 - .12 * (t / .55) : .88 - .5 * Math.pow((t - .55) / .45, 1.35); x *= w;
-        if (z > 0) z *= 1 - .55 * t; else z *= 1 - .08 * t;
-        if (t > .8 && z < 0) z -= .1 * (t - .8) / .2 * Math.max(0, 1 - Math.abs(x) * 2.2); }
-      if (z < -.6 && y > -.3 && y < .45) z += .1 * (-.6 - z);
-      if (y > -.25 && y < .05 && Math.abs(x) > .55 && z < 0) { x *= 1.04; z -= .02; }
-      p.setXYZ(i, x * R, y * R, z * R); }
-    skull.computeVertexNormals(); }
+  else { /* the classic blocky-game head: a short, wide cylinder with rounded top and bottom edges */
+    R = .205; const H = .33, e = .075, pts = [new T.Vector2(0, -H / 2)];
+    for (let i = 0; i <= 8; i++) { const a = -Math.PI / 2 + i / 8 * Math.PI / 2; pts.push(new T.Vector2(R - e + Math.cos(a) * e, -H / 2 + e + Math.sin(a) * e)); }
+    for (let i = 0; i <= 8; i++) { const a = i / 8 * Math.PI / 2; pts.push(new T.Vector2(R - e + Math.cos(a) * e, H / 2 - e + Math.sin(a) * e)); }
+    pts.push(new T.Vector2(0, H / 2)); skull = new T.LatheGeometry(pts, 56); skull.scale(1, 1, .94); skull.computeVertexNormals(); }
   const cy = ney ? .2 : .24, sk = add(skull, skinM, 0, cy, 0);
   /* where the face is: cast a ray at the head from the front */
   const ray = new T.Raycaster(), tmp = new T.Mesh(skull); tmp.position.y = cy; tmp.updateMatrixWorld(true);
   const fz = (x, y) => { ray.set(new T.Vector3(x, y, -2), new T.Vector3(0, 0, 1)); const h = ray.intersectObject(tmp); return h.length ? h[0].point.z : -R * .9; };
-  const k = ney ? 1 : 1.55, ey = cy + (ney ? .045 : .05), ex = (ney ? .052 : .085);
+  const k = ney ? 1.15 : 1.55, ey = cy + (ney ? .03 : .05), ex = (ney ? .066 : .085);
   /* ears */
-  [-1, 1].forEach(s => add(sph(.042 * k, 14, 10), skinM, s * (ney ? .152 : R * .98), cy + (ney ? .02 : 0), .01, .45, 1, .72));
+  if (!ney) [-1, 1].forEach(s => add(sph(.042 * k, 14, 10), skinM, s * R * .98, cy, .01, .45, 1, .72));
+  else [-1, 1].forEach(s => add(sph(.011, 10, 8), whiteM, s * R * 1.0, cy - .02, -.02)); /* diamond studs */
   /* eyes: white, iris, pupil, a lid, a brow */
   [-1, 1].forEach(s => { const x = s * ex, z = fz(x, ey);
     add(sph(.025 * k, 18, 12), whiteM, x, ey, z + .006 * k, 1.2, .78, .62);
     add(sph(.0135 * k, 14, 10), irisM, x, ey - .001, z - .006 * k, 1, 1, .5); add(sph(.0065 * k, 10, 8), darkM, x, ey - .001, z - .011 * k, 1, 1, .5);
     const lid = add(new T.BoxGeometry(.058 * k, .008 * k, .016 * k), lipM, x, ey + .017 * k, z - .002, 1, 1, 1); lid.rotation.z = s * -.08;
-    const by = ey + (ney ? .04 : .036 * k), bz = fz(s * (ex + .004), by);
+    const by = ey + (ney ? .042 : .036 * k), bz = fz(s * (ex + .004), by);
     const br = add(new T.BoxGeometry(.062 * k, (ney ? .009 : .02) * k, .018 * k), browM, s * (ex + .004), by, bz - .004, 1, 1, 1); br.rotation.z = s * (ney ? -.18 : -.05); });
   /* the nose */
-  const ny = cy - (ney ? .012 : .02), nz = fz(0, ny);
+  const ny = cy - (ney ? .022 : .02), nz = fz(0, ny);
   add(sph(.022 * k, 16, 12), skinM, 0, ny, nz - .008 * k, ney ? .85 : 1.05, 1.55, 1.15);
   add(sph(.016 * k, 14, 10), skinM, 0, ny - .026 * k, nz - .012 * k, 1.5, .8, 1);
-  const my = cy - (ney ? .085 : .1), mz = fz(0, my);
+  const my = cy - (ney ? .078 : .1), mz = fz(0, my);
   if (ney) { /* a smile, a hint of teeth, a chin tuft */
     const sm = add(new T.TorusGeometry(.032, .006, 6, 18, Math.PI), lipM, 0, my + .008, mz - .002); sm.rotation.z = Math.PI; sm.scale.set(1, .8, 1);
     add(new T.BoxGeometry(.04, .008, .01), whiteM, 0, my - .004, mz - .002);
-    const cz = fz(0, cy - .2); add(sph(.016, 10, 8), browM, 0, cy - .2, cz + .002, 1, .7, .6);
+    const cz = fz(0, cy - .128); add(sph(.016, 10, 8), browM, 0, cy - .128, cz + .002, 1, .7, .6);
   } else { /* the grin: a dark open mouth and two huge front teeth hanging over the lower lip, smaller teeth either side */
     add(sph(.05, 20, 12), mouthM, 0, my, mz + .012, 1.35, .62, .42);
     [-1, 1].forEach(s => { const t = add(new T.BoxGeometry(.034, .062, .014), whiteM, s * .018, my - .016, mz - .012); t.rotation.x = -.15;
@@ -20584,18 +20579,21 @@ function arStarHead(T, head, who, skinM, hairM){
     const lip = add(new T.TorusGeometry(.052, .0065, 6, 20, Math.PI), lipM, 0, my + .01, mz - .002); lip.scale.set(1.15, .5, 1);
   }
   /* hair */
-  if (ney) { /* shaved sides (a thin dark shell) and a mohawk: a ridge of hair front to back, spiky, bleached at the tips */
-    const keep = []; hg.scale.setScalar(1.25); hg.position.y = .01;
-    const cap = new T.SphereGeometry(R * 1.02, 44, 20, 0, Math.PI * 2, 0, Math.PI * .42); const cp = cap.attributes.position;
-    for (let i = 0; i < cp.count; i++) cp.setXYZ(i, cp.getX(i) * .84, cp.getY(i) * 1.2, cp.getZ(i) * .96); cap.computeVertexNormals();
-    const capM = new T.MeshStandardMaterial({color: arShade(P.hair, 1.25), roughness: 1}); add(cap, capM, 0, cy + .004, .002); keep.push(capM);
-    const tipM = new T.MeshStandardMaterial({color: P.tip, roughness: .8}); keep.push(tipM);
-    for (let i = 0; i < 11; i++) { const a = -.95 + i * .19, z = Math.sin(a) * R * .96, y = cy + Math.cos(a) * R * 1.2 - .006, h = .07 + .05 * Math.max(0, 1 - Math.abs(a + .25) * 1.1);
-      [-1, 0, 1].forEach(s => { if (s && (i % 2)) return;
-        const c = add(new T.ConeGeometry(.026, h, 8), hairM, s * .02, y + h * .35, z); c.rotation.set(a - .25, 0, s * .32);
-        const t = add(new T.ConeGeometry(.013, h * .4, 7), tipM, 0, 0, 0); t.rotation.copy(c.rotation);
-        const up = new T.Vector3(0, h * .36, 0).applyEuler(c.rotation); t.position.set(c.position.x + up.x, c.position.y + up.y, c.position.z + up.z); });
-      add(sph(.034, 12, 10), hairM, 0, y + .012, z, .8, .7, 1.1); }
+  if (ney) { /* a white headband, then a big fluffy mop of curls piled over it: a dark base cap and dozens of lumps in mixed
+       browns with blond highlights, each lump dotted with smaller curls so it reads as texture, not a helmet */
+    const keep = [], top = cy + .165, hm = ['#2e1c10', '#3a2616', '#4a301c', '#5a3a20'].map(c => { const m = new T.MeshStandardMaterial({color: c, roughness: .95}); keep.push(m); return m; });
+    const hl = new T.MeshStandardMaterial({color: P.tip, roughness: .85}); keep.push(hl);
+    const band = new T.MeshStandardMaterial({color: '#f4f4f0', roughness: .7, side: T.DoubleSide}); keep.push(band);
+    add(new T.CylinderGeometry(R * 1.035, R * 1.035, .055, 48, 1, true), band, 0, cy + .1, 0, 1, 1, .95);
+    add(new T.SphereGeometry(R * 1.02, 40, 20, 0, Math.PI * 2, 0, Math.PI * .5), hm[1], 0, cy + .12, 0, 1, .55, .95);
+    const rnd = seeded(1111);
+    for (let i = 0; i < 70; i++) { const a = rnd() * Math.PI * 2, rr = Math.sqrt(rnd()) * R * 1.02, x = Math.cos(a) * rr, z = Math.sin(a) * rr * .95, edge = rr / (R * 1.02);
+      const y = top - .02 + (1 - edge * edge) * .07 + rnd() * .03, s = .04 + rnd() * .03 - edge * .008;
+      const m = rnd() < .16 && edge < .8 ? hl : hm[Math.floor(rnd() * hm.length)];
+      add(sph(s, 10, 8), m, x, y, z, 1 + rnd() * .3, .75 + rnd() * .3, 1 + rnd() * .3);
+      for (let c = 0; c < 2; c++) { const b = rnd() * Math.PI * 2; add(sph(s * .45, 7, 6), m, x + Math.cos(b) * s * .8, y + s * .45, z + Math.sin(b) * s * .8); } }
+    /* a few curls spilling over the band at the front and sides */
+    for (let i = 0; i < 16; i++) { const a = Math.PI * (1.08 + i / 15 * .84) + (rnd() - .5) * .1; add(sph(.03 + rnd() * .012, 9, 7), hm[Math.floor(rnd() * hm.length)], Math.cos(a) * R * 1.03, cy + .135 + rnd() * .02, Math.sin(a) * R * .98, 1, .8, 1); }
     return [whiteM, irisM, darkM, lipM, mouthM, browM].concat(keep);
   }
   /* Suárez: slicked back with a little height at the front, sideburns, stubble on the jaw and chin */
