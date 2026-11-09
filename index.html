@@ -4317,6 +4317,8 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -17658,7 +17660,7 @@ const AR_SK = {
   x3: {n: 'GOAT Mark', d: 'Every 3 GOAT kills: mark an enemy. Every 10th bullet becomes a golden round that curves toward your marks.', cd: 0, ic: 'goat', col: '#ffc21a'},
   x4: {n: 'Speedster', d: 'For 7s: a shot every 0.5s, near-instant reloads and 50% more speed.', cd: 30, ic: 'speedster', col: '#ffb81f'},
   x5: {n: 'Long Shot', d: 'For 10s every enemy glows red through walls and your shots phase through walls.', cd: 45, ic: 'longshot', col: '#ff3b3b'},
-  x6: {n: 'MSN', d: 'Messi and Suárez join your team for the rest of the round. Then it rests for 2 rounds.', cd: 0, ic: 'msn', col: '#a50044'},
+  x6: {n: 'MSN', d: 'You are the M: Neymar and Suárez join your team for the rest of the round. Then it rests for 2 rounds.', cd: 0, ic: 'msn', col: '#a50044'},
   drib: {n: 'Driblero', d: '4 kills this round: your bullets ricochet off walls up to 3 times and curl toward enemies.', cd: 0, ic: 'drib', col: '#ffd23f'}
 };
 const arSkillOf = it => it && AR_SK[it.id] ? it.id : null;
@@ -19123,7 +19125,7 @@ function arAnimBot(b, dt){
   /* hit flash in white; under your Long Shot, enemies glow a pulsing red and show through walls */
   b.flashT = Math.max(0, (b.flashT || 0) - dt); const lg = A.me.st.long > 0 && b.team !== A.me.team && b.alive, fl = b.flashT > 0;
   const red = lg ? 1 + Math.sin(A.clock * 10) * .35 : 0, fk = fl ? 'w' : lg ? 'r' + red.toFixed(2) : '0';
-  if (B.fe !== fk) { B.fe = fk; [B.mats[0], B.mats[1]].forEach(m => { m.emissive.set(fl ? '#ffffff' : '#ff1e1e'); m.emissiveIntensity = fl ? 1.4 : red; }); }
+  if (B.fe !== fk) { B.fe = fk; (B.flashMats || [B.mats[0], B.mats[1]]).forEach(m => { m.emissive.set(fl ? '#ffffff' : '#ff1e1e'); m.emissiveIntensity = fl ? 1.4 : red; }); }
   const inv = b.st.invis > 0, xr = (A.me.st.void > 0 || lg) && b.team !== 0;
   if (B.inv !== inv || B.xr !== xr) { B.inv = inv; B.xr = xr; B.mats.forEach((m, i) => { const body = i < 4; m.transparent = inv || (xr && body); m.opacity = inv ? .1 : 1; m.depthTest = !(xr && body); }); B.g.renderOrder = xr ? 10 : 0; }
 }
@@ -20301,7 +20303,7 @@ function arTransTick(dt){
 
 /* =====================================================================================================
    LA PULGA (chroma SMG). Three things of its own:
-   - MSN, the skill: Messi and Suárez join your team for the rest of the round. Then it rests for 2 rounds.
+   - MSN, the skill: you're the M. Neymar and Suárez join your team for the rest of the round. Then it rests for 2 rounds.
    - Driblero: a 4th kill in one round and, for the rest of that round, every La Pulga bullet that hits a wall
      ricochets up to 3 times, bending a little toward an enemy it can see after each bounce.
    - The stadium: a 5th kill in one round takes you and one random enemy to a stadium. Whoever wins the 1v1
@@ -20316,20 +20318,21 @@ const arMsnReady = f => (f.msnNext || 0) <= AR.round;
 function arMsnSpawn(o){
   const A = AR, T = A.T; if (!o || A.phase === 'end') return;
   const rifle = ITEMS.find(i => i.id === 'b1') || ITEMS.find(i => i.w === 'rifle'), fw = arFwd(o.yaw, 0), sd = {x: -fw.z, z: fw.x};
-  [['Messi', BY[AR_PULGA], '#004d98', 1], ['Suárez', rifle, '#a50044', -1]].forEach(([nm, it, col, s]) => {
+  const smg = ITEMS.find(i => i.id === 'b4') || BY[AR_PULGA];
+  [['Neymar', smg, '#004d98', 1, 'ney'], ['Suárez', rifle, '#a50044', -1, 'sua']].forEach(([nm, it, col, s, who]) => {
     const b = arFighter(false, o.team, [{it, fl: .0001}], nm);
     Object.assign(b, {summon: o, skill: .82, rp: o.rp || arS().rp, col, nid: A.F.length, kills: 0, deaths: 0, st: {}, cd: {}, acq: 0, burst: 0, strafe: 1, strafeT: 0, lastSeen: -9, jumpT: 2, route: null, routeT: 0,
       path: [], pathT: 0, tgt: null, tgtT: 0, known: null, nade: 0, rec: 0, recY: 0, slideCd: 0, wob: Math.random() * 9, cover: null, coverT: 0, nadeT: 9, mag: [arWS(it).mag]});
     let p = null; for (const r of [1.6, 2.4, 1, 3.2, .6]) { const q = {x: o.p.x + sd.x * s * r - fw.x * .6, y: o.p.y, z: o.p.z + sd.z * s * r - fw.z * .6}; if (!ARB.some(c => arOv(q, c))) { p = q; break; } }
     b.p = p || {x: o.p.x, y: o.p.y, z: o.p.z}; b.v = {x: 0, y: 0, z: 0}; b.yaw = b.aimY = o.yaw; b.pitch = b.aimP = 0;
     A.F.push(b);
-    b.B = arBotModel(T, arRankCol(b.rp), {it, fl: .0001}, col, b.team, nm); A.sc.add(b.B.g);
+    b.B = arStarModel(T, who, {it, fl: .0001}, b.team); A.sc.add(b.B.g);
     if (A.transOn) { const mat = b.team === A.me.team ? A.transBlue : A.transRed; b.B.g.traverse(x => { if (x.isMesh && x.material && !x.material.transparent) { x.userData.m0 = x.material; x.material = mat; } }); }
-    const t = document.createElement('div'); t.className = 'ar-tag t' + b.team + ' msn'; t.hidden = true; t.innerHTML = '<b class="ar-tmk"></b><span>' + esc(nm) + (s > 0 ? ' 10' : ' 9') + '</span><em><i></i></em>'; $('#arTags').append(t); b.tag = t; b.tagBar = t.querySelector('i');
+    const t = document.createElement('div'); t.className = 'ar-tag t' + b.team + ' msn'; t.hidden = true; t.innerHTML = '<b class="ar-tmk"></b><span>' + esc(nm) + ' ' + AR_STARS[who].num + '</span><em><i></i></em>'; $('#arTags').append(t); b.tag = t; b.tagBar = t.querySelector('i');
     const at = {x: b.p.x, y: b.p.y + 1, z: b.p.z}; arBurst(at, '#004d98', 14, 6); arBurst(at, '#a50044', 14, 6); arBurst(at, '#ffd23f', 8, 4); arRingFx({x: b.p.x, y: b.p.y + .05, z: b.p.z}, s > 0 ? '#4f8bff' : '#ff4f8b', 2.4, .6);
   });
   arSnd((a, ou, t) => { [523.25, 659.25, 783.99, 1046.5].forEach((fr, k) => arOsc(a, ou, t + k * .07, .4, 'triangle', fr, fr, .04)); arNz(a, ou, t, .6, 'bandpass', 600, 1800, .12, 1.5); }, o.me ? null : o.p);
-  arFeed((o.me ? 'You' : o.name) + ' called Messi and Suárez', o.team === A.me.team ? 'b' : 'r');
+  arFeed((o.me ? 'You' : o.name) + ' called Neymar and Suárez · MSN', o.team === A.me.team ? 'b' : 'r');
   if (A.net && A.net.host) arNetSend(null, 'ev', {k: 'msn', o: o.nid}, true);
 }
 /* they leave when the round does */
@@ -20450,6 +20453,81 @@ function arStadium(){
 function arStadTick(dt){
   const A = AR; if (!A.duel || !A.stadCrowd) return; A.stadPh = (A.stadPh || 0) + dt;
   A.stadCrowd.position.y = Math.max(0, Math.sin(A.stadPh * 9)) * .08;
+}
+
+/* ---------- Neymar and Suárez, as blocky avatars in blaugrana kits ----------
+   Built like the other player models (same pivots, so they animate the same) but out of Roblox-style blocks:
+   a striped shirt with the name and number on the back, blue shorts, garnet socks, and a flat face decal on the
+   head. Neymar's face is the one from his film; Suárez gets his own, big front teeth and all. */
+const AR_STARS = {
+  ney: {name: 'NEYMAR JR', num: '11', skin: '#c99572', hair: '#3a2616', tip: '#e8c27a', boot: '#ffd23f', face: () => bdoP('neymar', {mouth: 'grin'})},
+  sua: {name: 'SUÁREZ', num: '9', skin: '#d6a07a', hair: '#1c130c', boot: '#15171c', face: () => ({skin: '#d6a07a', shade: 'rgba(110,55,25,.2)', head: 'long', hair: 'part', hc: '#1c130c', beard: 'stubble', brow: 'thick', iris: '#4a3020', mouth: 'none', lip: false}),
+    /* the teeth: a wide grin with two huge front teeth that hang below the lip */
+    extra: '<path d="M-10.5 27.4 Q0 42 10.5 27.4 Q0 30.4 -10.5 27.4 Z" fill="#4a1410"/>'
+      + '<path d="M-9 28.2 H-5.2 V32.6 Q-7.4 33.4 -8.8 31.8 Z M5.2 28.2 H9 V31.8 Q7.4 33.4 5.2 32.6 Z" fill="#f2ebd6" stroke="#cbbf9f" stroke-width=".5"/>'
+      + '<path d="M-5 28.2 H-.25 V37.6 Q-2.8 38.8 -5 37.2 Z M.25 28.2 H5 V37.2 Q2.8 38.8 .25 37.6 Z" fill="#fffdf2" stroke="#cbbf9f" stroke-width=".6"/>'
+      + '<path d="M-10.5 27.4 Q0 25.6 10.5 27.4" stroke="#8a3a2a" stroke-width="1.3" fill="none"/>'}
+};
+const arStarTex = {};
+/* canvas textures: shirt faces (striped; the back carries the name and number), the face decal */
+function arStarCanvas(kind, who){
+  const P = AR_STARS[who], key = kind + who; if (arStarTex[key]) return arStarTex[key];
+  const stripes = (g, w, h, n) => { for (let i = 0; i < n; i++) { g.fillStyle = i % 2 ? '#a50044' : '#004d98'; g.fillRect(i * w / n, 0, w / n + 1, h); } };
+  let c;
+  if (kind === 'front') c = arCanvas(256, 256, (g, w, h) => { stripes(g, w, h, 5); g.fillStyle = '#ffd23f'; g.beginPath(); g.moveTo(w * .36, 0); g.lineTo(w * .5, h * .16); g.lineTo(w * .64, 0); g.lineTo(w * .58, 0); g.lineTo(w * .5, h * .1); g.lineTo(w * .42, 0); g.fill();
+    g.fillStyle = '#ffd23f'; g.font = '700 40px Fredoka, Teko, sans-serif'; g.textAlign = 'center'; g.fillText(P.num, w * .72, h * .36); });
+  else if (kind === 'back') c = arCanvas(256, 256, (g, w, h) => { stripes(g, w, h, 5); g.fillStyle = '#ffd23f'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.strokeStyle = '#0b1f3a'; g.lineWidth = 5;
+    g.font = '700 ' + (P.name.length > 7 ? 30 : 36) + 'px Fredoka, Teko, sans-serif'; g.strokeText(P.name, w / 2, h * .2); g.fillText(P.name, w / 2, h * .2);
+    g.font = '700 128px Fredoka, Teko, sans-serif'; g.lineWidth = 7; g.strokeText(P.num, w / 2, h * .6); g.fillText(P.num, w / 2, h * .6); });
+  else if (kind === 'side') c = arCanvas(128, 256, (g, w, h) => stripes(g, w, h, 2));
+  else if (kind === 'sleeve') c = arCanvas(128, 128, (g, w, h) => { stripes(g, w, h, 2); g.fillStyle = '#ffd23f'; g.fillRect(0, h * .84, w, h * .16); });
+  else if (kind === 'shorts' || kind === 'shorts2') c = arCanvas(128, 128, (g, w, h) => { g.fillStyle = '#004d98'; g.fillRect(0, 0, w, h); g.fillStyle = '#a50044'; g.fillRect(0, h * .86, w, h * .14); if (kind === 'shorts') { g.fillStyle = '#ffd23f'; g.font = '700 30px Fredoka, Teko, sans-serif'; g.fillText(P.num, w * .55, h * .5); } });
+  else if (kind === 'socks') c = arCanvas(128, 128, (g, w, h) => { g.fillStyle = '#a50044'; g.fillRect(0, 0, w, h); g.fillStyle = '#004d98'; g.fillRect(0, 0, w, h * .2); g.fillStyle = '#ffd23f'; g.fillRect(0, h * .2, w, h * .05); });
+  else if (kind === 'face') { /* the face drawing, cropped to the face, onto a transparent canvas; drawn once its picture loads */
+    const W = 352, H = 506; c = arCanvas(W, H, () => {});
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -7 32 46" width="' + W + '" height="' + H + '">' + bdoFace(P.face()) + (P.extra || '') + '</svg>';
+    const img = new Image(); img.onload = () => { c.getContext('2d').drawImage(img, 0, 0, W, H); const t = arStarTex[key + 't']; if (t) t.needsUpdate = true; };
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  }
+  return (arStarTex[key] = c);
+}
+function arStarModel(T, who, kit, team){
+  const P = AR_STARS[who], U = .355, g = new T.Group(), hue = AR_TEAMHUE[team || 0];
+  const tex = k => { const key = k + who + 't'; if (arStarTex[key]) return arStarTex[key]; const t = new T.CanvasTexture(arStarCanvas(k, who)); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4; return (arStarTex[key] = t); };
+  const std = o => new T.MeshStandardMaterial(Object.assign({roughness: .7, metalness: 0}, o));
+  const skinM = std({color: P.skin}), hairM = std({color: P.hair, roughness: .9}), sideM = std({map: tex('side')}), garM = std({color: '#a50044'}), sleeveM = std({map: tex('sleeve')}),
+    shortsM = std({map: tex('shorts')}), shorts2M = std({map: tex('shorts2')}), sockM = std({map: tex('socks')}), bootM = std({color: P.boot, roughness: .35, metalness: .3}), faceM = new T.MeshStandardMaterial({map: tex('face'), transparent: true, roughness: .8, alphaTest: .05}),
+    shirt = [sideM, sideM, garM, garM, std({map: tex('back')}), std({map: tex('front')})];
+  const mesh = (geo, m, x, y, z, parent) => { const o = new T.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = !AR_MOBILE; (parent || g).add(o); return o; };
+  const B = (w, h, d) => new T.BoxGeometry(w * U, h * U, d * U);
+  const torso = new T.Group(); torso.position.set(0, 2 * U, 0); g.add(torso);
+  mesh(B(2, 2, 1), shirt, 0, U, 0, torso);
+  /* head: a skin block, the face decal on the front, hair blocks on top */
+  const head = new T.Group(); head.position.set(0, 2.64 * U, 0); torso.add(head);
+  mesh(B(.62, .3, .62), skinM, 0, -.66 * U, 0, head);
+  mesh(new T.BoxGeometry(1.24 * U, 1.56 * U, 1.2 * U), skinM, 0, .26 * U, 0, head);
+  const face = mesh(new T.PlaneGeometry(1.16 * U, 1.59 * U), faceM, 0, .25 * U, -.61 * U, head); face.rotation.y = Math.PI; face.castShadow = false;
+  if (who === 'ney') { /* short sides, a tall faux-hawk with bleached tips */
+    mesh(B(1.28, .22, 1.24), hairM, 0, 1.08 * U, .02 * U, head); mesh(B(1.28, 1.1, .3), hairM, 0, .6 * U, .5 * U, head);
+    mesh(B(.46, .5, 1.0), hairM, 0, 1.4 * U, .05 * U, head); mesh(B(.4, .24, .9), std({color: P.tip, roughness: .8}), 0, 1.74 * U, .0, head);
+  } else { /* slicked back, dark, with a little height at the front */
+    mesh(B(1.3, .3, 1.26), hairM, 0, 1.1 * U, .03 * U, head); mesh(B(1.3, 1.3, .32), hairM, 0, .5 * U, .5 * U, head); mesh(B(1.1, .2, .4), hairM, 0, 1.3 * U, -.38 * U, head);
+    [-1, 1].forEach(s => mesh(B(.08, .5, .3), hairM, s * .64 * U, .5 * U, -.2 * U, head)); }
+  [-1, 1].forEach(s => mesh(B(.12, .3, .26), skinM, s * .66 * U, .26 * U, 0, head));
+  /* legs: shorts, socks, boots */
+  const legL = new T.Group(), legR = new T.Group(); legL.position.set(-.5 * U, 2 * U, 0); legR.position.set(.5 * U, 2 * U, 0); g.add(legL, legR);
+  [legL, legR].forEach(L => { mesh(B(1, .9, 1), L === legR ? shortsM : shorts2M, 0, -.45 * U, 0, L); mesh(B(.9, .3, .9), skinM, 0, -1.05 * U, 0, L); mesh(B(.94, .62, .94), sockM, 0, -1.5 * U, 0, L); mesh(B(1, .32, 1.16), bootM, 0, -1.86 * U, -.08 * U, L); });
+  /* arms: striped sleeves, skin, the gun in the right hand */
+  const armR = new T.Group(); armR.position.set(1.5 * U, 1.88 * U, 0); torso.add(armR);
+  const armL = new T.Group(); armL.position.set(-1.5 * U, 1.88 * U, 0); torso.add(armL);
+  [armR, armL].forEach(A => { mesh(B(.98, .9, .98), sleeveM, 0, -.32 * U, 0, A); mesh(B(.92, 1.12, .92), skinM, 0, -1.3 * U, 0, A); });
+  const gun = arGun(T, kit.it, kit.fl); if (AR_MOBILE) gun.traverse(o => { if (o.isMesh) o.castShadow = false; }); gun.scale.setScalar(1.15); gun.position.set(0, -1.72 * U, -.55 * U); gun.rotation.set(-Math.PI / 2, 0, 0); armR.add(gun);
+  const blob = new T.Mesh(new T.CircleGeometry(.5, 24).rotateX(-Math.PI / 2), new T.MeshBasicMaterial({color: '#000', transparent: true, opacity: .22, depthWrite: false})); blob.position.y = .02; g.add(blob);
+  const ring = new T.Mesh(new T.RingGeometry(.5, .6, 32).rotateX(-Math.PI / 2), new T.MeshBasicMaterial({color: hue, transparent: true, opacity: .8, depthWrite: false})); ring.position.y = .03; g.add(ring);
+  /* mats: the first four are "the body" for the see-through effects; flashMats light up when they're hit */
+  const all = [skinM, sideM, shirt[4], shirt[5], hairM, garM, sleeveM, shortsM, shorts2M, sockM, bootM, faceM], mats = all.slice();
+  g.traverse(o => { if (o.material && !Array.isArray(o.material) && !mats.includes(o.material)) mats.push(o.material); });
+  return {g, torso, head, legL, legR, armR, armL, gun, mats, blob, flashMats: all.filter(m => m.emissive)};
 }
 $('#arBtn').onclick = () => { if (busy) return; arOpen(); };
 document.addEventListener('keydown', e => { const el = $('#arena'); if (!el || el.hidden) return; if (e.key === 'Escape') { e.stopImmediatePropagation(); if (!AR && $('#arGame').hidden && !document.querySelector('.ar-pick')) { if (arQ) { clearInterval(arQ.iv); arQ = null; arMenu(); } else arClose(); } else { const pk = document.querySelector('.ar-pick'); if (pk) pk.remove(); } } }, true);
