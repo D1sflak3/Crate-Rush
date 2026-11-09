@@ -4319,6 +4319,9 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -20492,42 +20495,107 @@ function arStarCanvas(kind, who){
   return (arStarTex[key] = c);
 }
 function arStarModel(T, who, kit, team){
-  const P = AR_STARS[who], U = .355, g = new T.Group(), hue = AR_TEAMHUE[team || 0];
-  const tex = k => { const key = k + who + 't'; if (arStarTex[key]) return arStarTex[key]; const t = new T.CanvasTexture(arStarCanvas(k, who)); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4; return (arStarTex[key] = t); };
-  const std = o => new T.MeshStandardMaterial(Object.assign({roughness: .7, metalness: 0}, o));
-  const skinM = std({color: P.skin}), hairM = std({color: P.hair, roughness: .9}), sideM = std({map: tex('side')}), garM = std({color: '#a50044'}), sleeveM = std({map: tex('sleeve')}),
-    shortsM = std({map: tex('shorts')}), shorts2M = std({map: tex('shorts2')}), sockM = std({map: tex('socks')}), bootM = std({color: P.boot, roughness: .35, metalness: .3}), faceM = new T.MeshStandardMaterial({map: tex('face'), transparent: true, roughness: .8, alphaTest: .05}),
-    shirt = [sideM, sideM, garM, garM, std({map: tex('back')}), std({map: tex('front')})];
-  const mesh = (geo, m, x, y, z, parent) => { const o = new T.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = !AR_MOBILE; (parent || g).add(o); return o; };
-  const B = (w, h, d) => new T.BoxGeometry(w * U, h * U, d * U);
-  const torso = new T.Group(); torso.position.set(0, 2 * U, 0); g.add(torso);
-  mesh(B(2, 2, 1), shirt, 0, U, 0, torso);
-  /* head: a skin block, the face decal on the front, hair blocks on top */
-  const head = new T.Group(); head.position.set(0, 2.64 * U, 0); torso.add(head);
-  mesh(B(.62, .3, .62), skinM, 0, -.66 * U, 0, head);
-  mesh(new T.BoxGeometry(1.24 * U, 1.56 * U, 1.2 * U), skinM, 0, .26 * U, 0, head);
-  const face = mesh(new T.PlaneGeometry(1.16 * U, 1.59 * U), faceM, 0, .25 * U, -.61 * U, head); face.rotation.y = Math.PI; face.castShadow = false;
-  if (who === 'ney') { /* short sides, a tall faux-hawk with bleached tips */
-    mesh(B(1.28, .22, 1.24), hairM, 0, 1.08 * U, .02 * U, head); mesh(B(1.28, 1.1, .3), hairM, 0, .6 * U, .5 * U, head);
-    mesh(B(.46, .5, 1.0), hairM, 0, 1.4 * U, .05 * U, head); mesh(B(.4, .24, .9), std({color: P.tip, roughness: .8}), 0, 1.74 * U, .0, head);
-  } else { /* slicked back, dark, with a little height at the front */
-    mesh(B(1.3, .3, 1.26), hairM, 0, 1.1 * U, .03 * U, head); mesh(B(1.3, 1.3, .32), hairM, 0, .5 * U, .5 * U, head); mesh(B(1.1, .2, .4), hairM, 0, 1.3 * U, -.38 * U, head);
-    [-1, 1].forEach(s => mesh(B(.08, .5, .3), hairM, s * .64 * U, .5 * U, -.2 * U, head)); }
-  [-1, 1].forEach(s => mesh(B(.12, .3, .26), skinM, s * .66 * U, .26 * U, 0, head));
-  /* legs: shorts, socks, boots */
-  const legL = new T.Group(), legR = new T.Group(); legL.position.set(-.5 * U, 2 * U, 0); legR.position.set(.5 * U, 2 * U, 0); g.add(legL, legR);
-  [legL, legR].forEach(L => { mesh(B(1, .9, 1), L === legR ? shortsM : shorts2M, 0, -.45 * U, 0, L); mesh(B(.9, .3, .9), skinM, 0, -1.05 * U, 0, L); mesh(B(.94, .62, .94), sockM, 0, -1.5 * U, 0, L); mesh(B(1, .32, 1.16), bootM, 0, -1.86 * U, -.08 * U, L); });
-  /* arms: striped sleeves, skin, the gun in the right hand */
-  const armR = new T.Group(); armR.position.set(1.5 * U, 1.88 * U, 0); torso.add(armR);
-  const armL = new T.Group(); armL.position.set(-1.5 * U, 1.88 * U, 0); torso.add(armL);
-  [armR, armL].forEach(A => { mesh(B(.98, .9, .98), sleeveM, 0, -.32 * U, 0, A); mesh(B(.92, 1.12, .92), skinM, 0, -1.3 * U, 0, A); });
-  const gun = arGun(T, kit.it, kit.fl); if (AR_MOBILE) gun.traverse(o => { if (o.isMesh) o.castShadow = false; }); gun.scale.setScalar(1.15); gun.position.set(0, -1.72 * U, -.55 * U); gun.rotation.set(-Math.PI / 2, 0, 0); armR.add(gun);
+  const P = AR_STARS[who], g = new T.Group(), hue = AR_TEAMHUE[team || 0], ney = who === 'ney';
+  const std = o => new T.MeshStandardMaterial(Object.assign({roughness: .65, metalness: 0}, o));
+  const ctex = (w, h, draw, rep) => { const t = new T.CanvasTexture(arCanvas(w, h, draw)); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4; if (rep) { t.wrapS = T.RepeatWrapping; t.repeat.set(rep, 1); } return t; };
+  const key = 'm3' + who, C = arStarTex[key] || (arStarTex[key] = {
+    stripes: ctex(64, 64, (c, w, h) => { c.fillStyle = '#004d98'; c.fillRect(0, 0, w, h); c.fillStyle = '#a50044'; c.fillRect(w / 2, 0, w / 2, h); }, 7),
+    /* the name and number for the back */
+    back: ctex(256, 256, (c, w, h) => { c.fillStyle = '#ffd23f'; c.strokeStyle = '#0b1f3a'; c.textAlign = 'center'; c.textBaseline = 'middle';
+      c.lineWidth = 6; c.font = '700 ' + (P.name.length > 7 ? 34 : 40) + 'px Fredoka, Teko, sans-serif'; c.strokeText(P.name, w / 2, h * .2); c.fillText(P.name, w / 2, h * .2);
+      c.lineWidth = 8; c.font = '700 140px Fredoka, Teko, sans-serif'; c.strokeText(P.num, w / 2, h * .62); c.fillText(P.num, w / 2, h * .62); }),
+    chest: ctex(128, 128, (c, w, h) => { c.fillStyle = '#ffd23f'; c.font = '700 54px Fredoka, Teko, sans-serif'; c.textAlign = 'center'; c.fillText(P.num, w * .7, h * .55); })});
+  const skinM = std({color: P.skin, roughness: .55}), hairM = std({color: P.hair, roughness: .85}), shirtM = std({map: C.stripes}), blueM = std({color: '#004d98'}), garM = std({color: '#a50044'}),
+    goldM = std({color: '#ffd23f', roughness: .4, metalness: .3}), bootM = std({color: P.boot, roughness: .3, metalness: .35}), whiteM = std({color: '#f7f4ec', roughness: .3}), irisM = std({color: '#4a3020', roughness: .2}),
+    darkM = std({color: '#141010', roughness: .3}), lipM = std({color: arShade(P.skin, .78), roughness: .5}), mouthM = std({color: '#3a0e0c', roughness: .7}),
+    decB = new T.MeshStandardMaterial({map: C.back, transparent: true, roughness: .6, alphaTest: .05}), decF = new T.MeshStandardMaterial({map: C.chest, transparent: true, roughness: .6, alphaTest: .05});
+  const add = (geo, m, x, y, z, parent, sx, sy, sz) => { const o = new T.Mesh(geo, m); o.position.set(x, y, z); if (sx) o.scale.set(sx, sy, sz); o.castShadow = !AR_MOBILE; (parent || g).add(o); return o; };
+  const cap = (r, l) => new T.CapsuleGeometry(r, l, 6, 18), sph = (r, a, b) => new T.SphereGeometry(r, a || 18, b || 14);
+  /* body: hips at 0.71 m like every other model, so the same walk and aim animation drives it */
+  const torso = new T.Group(); torso.position.set(0, .71, 0); g.add(torso);
+  add(cap(.165, .26), shirtM, 0, .36, 0, torso, 1.3, 1, .78);
+  add(new T.CylinderGeometry(.205, .215, .17, 24), blueM, 0, .06, 0, torso, 1.06, 1, .8);
+  /* collar, name and number on the back, number on the chest */
+  add(new T.TorusGeometry(.06, .013, 8, 20).rotateX(Math.PI / 2), goldM, 0, .62, 0, torso, 1, 1, .9);
+  add(new T.CylinderGeometry(.168, .168, .36, 24, 1, true, -.62, 1.24), decB, 0, .37, 0, torso, 1.31, 1, .8);
+  add(new T.CylinderGeometry(.168, .168, .14, 16, 1, true, Math.PI - .95, .5), decF, 0, .47, 0, torso, 1.31, 1, .8);
+  add(new T.CylinderGeometry(.05, .058, .1, 14), skinM, 0, .64, 0, torso);
+  /* the head */
+  const head = new T.Group(); head.position.set(0, .66, 0); torso.add(head);
+  arStarHead(T, head, who, {skinM, hairM, whiteM, irisM, darkM, lipM, mouthM, add, sph, P});
+  /* legs: shorts, bare knees, socks, boots */
+  const legL = new T.Group(), legR = new T.Group(); legL.position.set(-.1, .71, 0); legR.position.set(.1, .71, 0); g.add(legL, legR);
+  [legL, legR].forEach(L => { add(cap(.088, .2), blueM, 0, -.17, 0, L); add(new T.TorusGeometry(.08, .012, 6, 16).rotateX(Math.PI / 2), garM, 0, -.3, 0, L);
+    add(cap(.064, .12), skinM, 0, -.4, 0, L); add(cap(.062, .2), garM, 0, -.56, 0, L); add(new T.CylinderGeometry(.066, .066, .05, 14), blueM, 0, -.44, 0, L);
+    add(sph(.07, 16, 10), bootM, 0, -.68, -.04, L, .9, .55, 1.65); });
+  /* arms: striped sleeves with a gold cuff, bare forearms, hands */
+  const armR = new T.Group(); armR.position.set(.25, .58, 0); torso.add(armR);
+  const armL = new T.Group(); armL.position.set(-.25, .58, 0); torso.add(armL);
+  [armR, armL].forEach(A => { add(cap(.066, .1), shirtM, 0, -.08, 0, A); add(new T.TorusGeometry(.062, .01, 6, 14).rotateX(Math.PI / 2), goldM, 0, -.17, 0, A);
+    add(cap(.05, .26), skinM, 0, -.33, 0, A); add(sph(.05, 12, 10), skinM, 0, -.5, 0, A, 1, 1.1, .9); });
+  const gun = arGun(T, kit.it, kit.fl); if (AR_MOBILE) gun.traverse(o => { if (o.isMesh) o.castShadow = false; }); gun.scale.setScalar(1.15); gun.position.set(0, -.56, -.16); gun.rotation.set(-Math.PI / 2, 0, 0); armR.add(gun);
   const blob = new T.Mesh(new T.CircleGeometry(.5, 24).rotateX(-Math.PI / 2), new T.MeshBasicMaterial({color: '#000', transparent: true, opacity: .22, depthWrite: false})); blob.position.y = .02; g.add(blob);
   const ring = new T.Mesh(new T.RingGeometry(.5, .6, 32).rotateX(-Math.PI / 2), new T.MeshBasicMaterial({color: hue, transparent: true, opacity: .8, depthWrite: false})); ring.position.y = .03; g.add(ring);
-  /* mats: the first four are "the body" for the see-through effects; flashMats light up when they're hit */
-  const all = [skinM, sideM, shirt[4], shirt[5], hairM, garM, sleeveM, shortsM, shorts2M, sockM, bootM, faceM], mats = all.slice();
-  g.traverse(o => { if (o.material && !Array.isArray(o.material) && !mats.includes(o.material)) mats.push(o.material); });
-  return {g, torso, head, legL, legR, armR, armL, gun, mats, blob, flashMats: all.filter(m => m.emissive)};
+  const all = [skinM, shirtM, blueM, garM, hairM, goldM, bootM, whiteM, irisM, darkM, lipM, mouthM, decB, decF], mats = all.slice();
+  /* (the stubble keeps its own see-through look, so it stays out of the list the visibility effects rewrite) */
+  g.traverse(o => { if (o.material && !mats.includes(o.material) && !o.material.userData.keep) mats.push(o.material); });
+  return {g, torso, head, legL, legR, armR, armL, gun, mats, blob, flashMats: all};
+}
+/* a sculpted head: a sphere pushed into a skull with a tapering jaw and chin, then eyes, brows, ears, nose, mouth
+   and hair built on it. The face points down -z like the rest of the model. */
+function arStarHead(T, head, who, K){
+  const {skinM, hairM, whiteM, irisM, darkM, lipM, mouthM, add, sph, P} = K, ney = who === 'ney';
+  const R = .118, cy = .16;
+  /* the skull: narrower jaw, a squared chin (Suárez's is longer), cheekbones, a flatter face */
+  const shape = (geo, grow) => { const p = geo.attributes.position, jaw = ney ? .7 : .62, chinL = ney ? 1.0 : 1.1;
+    for (let i = 0; i < p.count; i++) { let x = p.getX(i) / R, y = p.getY(i) / R, z = p.getZ(i) / R;
+      x *= .86; z *= .94; y *= 1.12;
+      if (y < -.15) { const t = Math.min(1, (-.15 - y) / .97); x *= 1 - (1 - jaw) * t * t; z *= 1 - .18 * t; y = -.15 + (y + .15) * chinL; }
+      if (z < -.55 && y > -.4 && y < .5) z += .06 * (-.55 - z);
+      if (y > .25 && Math.abs(x) > .5) x *= .97;
+      p.setXYZ(i, x * R * (grow || 1), y * R * (grow || 1), z * R * (grow || 1)); }
+    geo.computeVertexNormals(); return geo; };
+  add(shape(new T.SphereGeometry(R, 40, 30)), skinM, 0, cy, 0, head);
+  /* ears */
+  [-1, 1].forEach(s => add(sph(.028, 12, 10), skinM, s * .1, cy + .005, .005, head, .45, 1, .75));
+  /* eyes: white, iris, pupil, a lid line */
+  const ey = cy + .03, ez = -.1;
+  [-1, 1].forEach(s => { add(sph(.019, 16, 12), whiteM, s * .038, ey, ez, head, 1.15, .78, .7);
+    add(sph(.0105, 14, 10), irisM, s * .038, ey - .001, ez - .011, head, 1, 1, .55); add(sph(.005, 10, 8), darkM, s * .038, ey - .001, ez - .0155, head, 1, 1, .5);
+    add(new T.BoxGeometry(.044, .006, .012), lipM, s * .038, ey + .013, ez - .006, head).rotation.z = s * -.08;
+    /* brows: Neymar's are thin and groomed, Suárez's are thick and low */
+    const br = add(new T.BoxGeometry(.046, ney ? .007 : .012, .014), hairM, s * .04, ey + (ney ? .028 : .024), ez - .006, head); br.rotation.z = s * (ney ? -.16 : -.06); });
+  /* the nose */
+  add(sph(.017, 14, 12), skinM, 0, cy - .012, -.115, head, ney ? .9 : 1.05, 1.5, 1.1);
+  add(sph(.012, 12, 10), skinM, 0, cy - .03, -.118, head, 1.5, .8, 1);
+  /* the mouth */
+  const my = cy - .062;
+  if (ney) { /* a pleased, closed-mouth smile with a little chin tuft */
+    const sm = add(new T.TorusGeometry(.024, .0045, 6, 18, Math.PI), lipM, 0, my + .006, -.098, head); sm.rotation.set(0, 0, Math.PI);
+    add(new T.BoxGeometry(.03, .006, .01), whiteM, 0, my - .004, -.1, head);
+    add(sph(.012, 10, 8), hairM, 0, my - .042, -.083, head, 1, .7, .6);
+  } else { /* the grin: a dark open mouth and two big front teeth hanging over the lip, smaller teeth either side */
+    add(sph(.03, 18, 12), mouthM, 0, my, -.1, head, 1.3, .66, .45);
+    [-1, 1].forEach(s => { add(new T.BoxGeometry(.021, .036, .01), whiteM, s * .0112, my - .008, -.114, head).rotation.x = -.18;
+      add(new T.BoxGeometry(.013, .018, .008), whiteM, s * .03, my, -.108, head).rotation.y = s * .45; });
+    const lip = add(new T.TorusGeometry(.033, .0045, 6, 20, Math.PI), lipM, 0, my + .006, -.104, head); lip.scale.set(1.15, .55, 1);
+  }
+  /* hair */
+  if (ney) { /* short sides and back, then a faux-hawk: a ridge of spikes with bleached tips */
+    const cap = shape(new T.SphereGeometry(R, 40, 18, 0, Math.PI * 2, 0, Math.PI * .44), 1.04); add(cap, hairM, 0, cy + .004, .004, head);
+    const tipM = new T.MeshStandardMaterial({color: P.tip, roughness: .8});
+    for (let k = 0; k < 7; k++) { const z = -.07 + k * .024, h = .05 + Math.sin(k / 6 * Math.PI) * .035 + (k < 2 ? .01 : 0), y = cy + .128 - Math.abs(z) * .25;
+      [-1, 0, 1].forEach(s => { const c = add(new T.ConeGeometry(.016, h, 7), hairM, s * .012, y + h / 2 - .01, z, head); c.rotation.set(-.35 - (z < 0 ? .25 : -.1), 0, s * .35);
+        const t = add(new T.ConeGeometry(.008, h * .38, 6), tipM, s * .012, y + h - .016, z - .006, head); t.rotation.copy(c.rotation); }); }
+  } else { /* slicked back with some volume at the front, sideburns, and stubble on the jaw */
+    const cap = shape(new T.SphereGeometry(R, 40, 20, 0, Math.PI * 2, 0, Math.PI * .5), 1.06); add(cap, hairM, 0, cy + .01, .01, head);
+    add(sph(.06, 16, 12), hairM, 0, cy + .1, -.04, head, 1.45, .55, 1.2);
+    const back = shape(new T.SphereGeometry(R, 30, 20, Math.PI * .15, Math.PI * .7, Math.PI * .3, Math.PI * .35), 1.05); add(back, hairM, 0, cy, 0, head);
+    [-1, 1].forEach(s => add(new T.BoxGeometry(.008, .035, .02), hairM, s * .099, cy + .005, -.035, head));
+    /* stubble along the jaw and under the mouth, leaving the grin clear */
+    const stM = new T.MeshStandardMaterial({color: P.hair, transparent: true, opacity: .2, roughness: 1, depthWrite: false}); stM.userData.keep = true;
+    [[1.04, .34, .56, .4], [1.62, .34, .56, .4], [1.38, .24, .84, .14]].forEach(([a, l, t0, tl]) => add(shape(new T.SphereGeometry(R, 24, 16, Math.PI * a, Math.PI * l, Math.PI * t0, Math.PI * tl), 1.012), stM, 0, cy, 0, head));
+  }
 }
 $('#arBtn').onclick = () => { if (busy) return; arOpen(); };
 document.addEventListener('keydown', e => { const el = $('#arena'); if (!el || el.hidden) return; if (e.key === 'Escape') { e.stopImmediatePropagation(); if (!AR && $('#arGame').hidden && !document.querySelector('.ar-pick')) { if (arQ) { clearInterval(arQ.iv); arQ = null; arMenu(); } else arClose(); } else { const pk = document.querySelector('.ar-pick'); if (pk) pk.remove(); } } }, true);
