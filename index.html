@@ -4281,6 +4281,9 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -4454,6 +4457,29 @@ body.ar-on{overflow:hidden}
 /* The Sui headshot label */
 .ar-num.ar-siu{font-size:46px;color:#ffd23f;font-style:italic;letter-spacing:.04em;text-shadow:var(--ol),0 0 18px #ff7a1a;animation:arSiu .5s cubic-bezier(.2,1.6,.4,1)}
 @keyframes arSiu{from{font-size:10px}}
+/* parties */
+.ar-party{position:relative;z-index:1;max-width:880px;margin:4px auto 8px;padding:12px 14px;box-sizing:border-box;width:calc(100% - 32px);background:#fff;border:3px solid #1b2230;border-radius:18px;box-shadow:0 5px 0 #1b2230;color:#1b2230;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
+.ar-party.on{background:linear-gradient(180deg,#eef6ff,#dcebff)}
+.ar-pt-h b{display:block;font-size:20px;letter-spacing:.08em;line-height:1}.ar-pt-h small{display:block;max-width:150px;font-size:11px;font-weight:700;color:#5b6676;margin-top:3px}
+.ar-pt-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;min-width:0}
+.ar-pt-m{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-width:0;height:96px;padding:4px 4px 6px;border:3px solid #1b2230;border-radius:14px;background:radial-gradient(circle at 50% 30%,#fff,#e7edf6);box-shadow:0 3px 0 #1b2230;font:inherit;color:inherit}
+.ar-pt-m.me{border-color:#3b82f6;background:radial-gradient(circle at 50% 30%,#fff,#d6e8ff)}
+.ar-pt-av{width:44px;height:52px}
+.ar-pt-m b{max-width:100%;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ar-pt-m small{font-size:10px;font-weight:700;color:var(--rc,#5b6676);white-space:nowrap;overflow:hidden;max-width:100%;text-overflow:ellipsis;text-shadow:0 1px 0 rgba(0,0,0,.15)}
+.ar-pt-m.empty{cursor:pointer;border-style:dashed;background:#f4f6fa;justify-content:center;gap:2px}.ar-pt-m.empty span{font-size:30px;font-weight:700;line-height:1;color:#8a95a6}.ar-pt-m.empty small{color:#8a95a6}
+.ar-pt-m.empty:hover{background:#eaf3ff}
+.ar-pt-crown{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-style:normal;font-size:20px;color:#ffcb2e;text-shadow:0 0 0 #1b2230,-1.5px 0 #1b2230,1.5px 0 #1b2230,0 -1.5px #1b2230,0 1.5px #1b2230}
+.ar-pt-acts{display:flex;flex-direction:column;gap:6px;align-items:stretch;min-width:150px}
+.ar-pt-acts .ar-btn.sm{padding:8px 14px;font-size:14px;margin:0}
+.ar-pt-code{text-align:center;border:3px dashed #1b2230;border-radius:12px;padding:3px 8px;background:#fff}.ar-pt-code small{display:block;font-size:9px;font-weight:700;letter-spacing:.14em;color:#5b6676}.ar-pt-code b{font-size:22px;letter-spacing:.18em;line-height:1.1}
+.ar-pt-join{display:flex;gap:6px}.ar-pt-join input{width:84px;min-width:0;flex:1;padding:6px 8px;border:3px solid #1b2230;border-radius:10px;font:inherit;font-weight:700;font-size:15px;letter-spacing:.14em;text-transform:uppercase;text-align:center;color:#1b2230;background:#fff}
+.ar-pt-join .ar-btn{flex:none}
+.ar-mode.off{filter:grayscale(.85) brightness(.85);opacity:.6}.ar-mode.lock{cursor:default}
+.ar-find.wait{background:linear-gradient(180deg,#9aa4b2,#7a8494);animation:none;cursor:default;font-size:18px}
+.ar-ptag{display:inline-block;margin-right:5px;padding:1px 5px;border-radius:5px;background:#3b82f6;color:#fff;font-style:normal;font-size:9px;letter-spacing:.08em;vertical-align:2px}
+.ar-qfill i.pt{background:#6ab8ff}
+@media (max-width:760px){.ar-party{grid-template-columns:1fr;gap:8px}.ar-pt-h small{max-width:none}.ar-pt-acts{flex-direction:row;flex-wrap:wrap;min-width:0}.ar-pt-acts>*{flex:1}}
+@media (max-height:500px){.ar-pt-m{height:74px}.ar-pt-av{width:34px;height:40px}}
 </style>
 
 <div class="wrap" id="wrap">
@@ -18076,8 +18102,13 @@ const arMates = f => AR.F.filter(o => o.team === f.team && o !== f);
 async function arStartMatch(lobby){
   const T = await arThree();
   arSetMap(lobby.map);
-  const L = arLoadout(), me = arFighter(true, 0, L, 'You'), F = [me];
-  lobby.teams.forEach((tm, ti) => tm.forEach((p, i) => { if (p.me) return; const b = arFighter(false, ti, [p.kit], p.name); b.skill = p.skill; b.rp = p.rp; b.col = AR_TEAMCOL[ti][i % AR_TEAMCOL[ti].length]; F.push(b); }));
+  /* fighters in lobby order, so every player in a party agrees on who is who */
+  const L = arLoadout(), F = []; let me = null;
+  lobby.teams.forEach((tm, ti) => tm.forEach((p, i) => {
+    if (p.me) { me = arFighter(true, ti, L, 'You'); me.col = AR_TEAMCOL[ti][i % AR_TEAMCOL[ti].length]; F.push(me); return; }
+    const ld = p.pid ? p.load.map(x => ({it: arItemById(x[0]), fl: x[1]})) : [p.kit], b = arFighter(false, ti, ld, p.name);
+    b.skill = p.skill == null ? .5 : p.skill; b.rp = p.rp; b.col = AR_TEAMCOL[ti][i % AR_TEAMCOL[ti].length]; if (p.pid) { b.pid = p.pid; b.remote = true; } F.push(b); }));
+  F.forEach((f, i) => f.nid = i);
   const LK = arMapLook(), hi = !AR_MOBILE;
   const R = new T.WebGLRenderer({antialias: true, powerPreference: 'high-performance'});
   /* sharp on phones too: start near the screen's real resolution and let arAdaptRes trade it for frame rate */
@@ -18149,7 +18180,7 @@ async function arStartMatch(lobby){
   const fx = new T.Group(); sc.add(fx);
   AR = {T, R, sc, cam, vsc, vcam, vm, guns, flash, fx, me, F, lobby, mode: arMode(lobby.mode), score: [0, 0], round: 0, phase: 'load', t: 0, keys: {}, mdx: 0, mdy: 0, fire: false, ads: 0, adsHeld: false,
     clouds, sun, sunDir, SR, mlight, blight, fxa: [], sky, env, prMax, pr: pr0, resT: 0, resN: 0, tracers: [], nums: [], proj: [], nades: [], parts: [], booms: [], streak: 0, land: 0, roll: 0, last: performance.now(), acc: 0, raf: 0, paused: false, side: Math.random() < .5 ? 1 : -1, bob: 0, shake: 0, hurt: 0, hitm: 0, fps: [], clock: 0, M};
-  arHUD(); arBindInput(); arNewRound();
+  arNetInit(AR, lobby); arHUD(); arBindInput(); arNewRound();
   AR.raf = requestAnimationFrame(arLoop);
 }
 function arSkyDome(T, LK, sunDir){
@@ -18170,8 +18201,8 @@ function arSpawnSpot(team, i, n){
   }
   return {x: sx, y: 0, z: 0};
 }
-function arNewRound(){
-  const A = AR; A.round++; A.side = -A.side;
+function arNewRound(ev){
+  const A = AR; A.round++; A.side = -A.side; if (ev) A.side = ev.side;
   [0, 1].forEach(team => { const tm = A.F.filter(f => f.team === team); tm.forEach((f, i) => {
     Object.assign(f, {hp: 100, alive: true, reload: 0, fireT: 0, swap: 0, slide: 0, st: {}, cd: {}, cur: 0, acq: 0, burst: 0, strafe: 1, strafeT: 0, lastSeen: -9, jumpT: 2 + Math.random() * 2, path: [], pathT: Math.random() * .5, tgt: null, tgtT: 0, known: null});
     f.p = arSpawnSpot(team, i, tm.length); f.v = {x: 0, y: 0, z: 0}; f.yaw = f.p.x > 0 ? Math.PI / 2 : -Math.PI / 2; f.pitch = 0;
@@ -18181,6 +18212,10 @@ function arNewRound(){
   }); });
   A.proj.forEach(p => A.fx.remove(p.m)); A.proj = []; A.nades.forEach(g => A.fx.remove(g.m)); A.nades = [];
   A.phase = 'count'; A.t = 3.2; A.roundT = AR_ROUND_T; A.spec = null;
+  if (ev) { A.round = ev.rd; if (ev.sc) A.score = ev.sc; ev.sp.forEach((s, i) => { const f = A.F[i]; if (!f) return; f.p = {x: s[0], y: 0, z: s[1]}; f.yaw = s[2]; if (f.net) Object.assign(f.net, {x: s[0], y: 0, z: s[1], yaw: s[2]}); });
+    if (ev.ph === 'count') A.t = ev.t; }
+  A.F.forEach(f => { if (f.gone) { f.alive = false; if (f.B) f.B.g.visible = false; } });
+  if (A.net && A.net.host && !A.waitReady) arNetRoundEv();
   arShowWeapon(); arHudBanner('ROUND ' + A.round, A.score[0] + ' – ' + A.score[1]); arHudUpdate(true);
 }
 function arShowWeapon(){ const A = AR; A.guns.forEach((g, i) => g.visible = i === A.me.cur); A.me.swap = .32; arHudUpdate(true); }
@@ -18188,30 +18223,41 @@ function arEndRound(winner, why){
   const A = AR; if (A.phase !== 'live') return;
   A.phase = 'end'; A.t = 2.8;
   if (winner >= 0) A.score[winner]++;
+  if (A.net && A.net.host) arNetSend(null, 'ev', {k: 'end', w: winner, why: why || '', sc: A.score}, true);
   const won = winner === 0;
   arHudBanner(winner < 0 ? 'DRAW' : won ? 'ROUND WON' : 'ROUND LOST', why || '', winner < 0 ? '' : won ? 'win' : 'lose');
   if (won) [523.25, 659.25, 783.99].forEach((f, i) => tone(f, .35, 'triangle', .07, i * .08)); else if (winner === 1) [392, 311.1, 261.6].forEach((f, i) => tone(f, .4, 'sawtooth', .04, i * .1));
   arHudUpdate(true);
 }
-function arDamage(src, dst, dmg, head, at){
-  const A = AR; if (!dst.alive || A.phase !== 'live' || (src && src.team === dst.team)) return;
-  if (src && src.st.abyss > 0) { dmg *= 1.2; dst.st.slow = 1.5; }
-  if (src && src.st.req > 0) { dmg *= 2; src.st.req--; }
+function arDamage(src, dst, dmg, head, at, raw){
+  const A = AR, N = A.net; if (!dst.alive || A.phase !== 'live' || (src && src.team === dst.team)) return;
+  if (!raw && src && src.st.abyss > 0) { dmg *= 1.2; dst.st.slow = 1.5; }
+  if (!raw && src && src.st.req > 0) { dmg *= 2; src.st.req--; }
+  /* in a party match only the host changes other players' health: you report your hits, the host reports theirs */
+  if (N && !N.host && !dst.me) { if (src && src.me) { N.hits = (N.hits || 0) + 1; arNetSend(N.hostPid, 'hit', {d: dst.nid, dmg: Math.round(dmg * 10) / 10, h: head ? 1 : 0, sui: A.curSui ? 1 : 0, burn: src.st.wraith > 0 ? 1 : 0}, true);
+      A.hitm = .18; arSnd(head ? AR_SFX.head : AR_SFX.hit); if (at) arNum(at, Math.round(dmg), head); dst.flashT = .09; if (at && dst.B) arBurst(at, arShade(dst.col || '#ffffff', 1.1), head ? 7 : 4, 3); }
+    return; }
+  if (N && N.host && dst.remote) { if (!dst.gone) arNetSend(dst.pid, 'dmg', {s: src ? src.nid : -1, dmg: Math.round(dmg * 10) / 10, h: head ? 1 : 0, sui: A.curSui ? 1 : 0}, true); dst.flashT = .09; return; }
   if (dst.st.shield > 0) { const a = Math.min(dst.st.shield, dmg); dst.st.shield -= a; dmg -= a; }
   dmg = Math.round(dmg); dst.hp -= dmg; dst.lastHit = A.clock; if (src) dst.lastBy = src;
   if (dst.me) { A.hurt = Math.min(1, A.hurt + dmg / 45); A.shake = Math.min(.5, A.shake + dmg / 120); arSnd(AR_SFX.hurt); if (src) A.hurtFrom = {x: src.p.x, z: src.p.z, t: 1}; }
   else if (src && src.me) { A.hitm = .18; arSnd(head ? AR_SFX.head : AR_SFX.hit); if (at) arNum(at, dmg, head); }
   dst.flashT = .09; if (at && dst.B) arBurst(at, arShade(dst.col || '#ffffff', 1.1), head ? 7 : 4, 3);
-  if (dst.hp <= 0) {
-    dst.hp = 0; dst.alive = false; dst.deaths = (dst.deaths || 0) + 1; if (src) src.kills++;
-    if (dst.B) { arGibs(dst); dst.B.g.visible = false; }
-    if (src && src.me) { A.streak++; A.killX = .5; arSnd(AR_SFX.kill); arKillBanner(dst.name, head); }
-    if (dst.me) A.streak = 0;
-    const who = src ? (src.me ? 'You' : src.name) : 'The fire', whom = dst.me ? 'you' : dst.name;
-    arFeed(who + ' eliminated ' + whom + (head ? ' · headshot' : ''), src && src.team === 0 ? 'b' : 'r');
-    if (dst.me) { const m = arMates(dst).find(o => o.alive); A.spec = m || null; }
-    [0, 1].forEach(t => { if (A.phase === 'live' && !A.F.some(f => f.team === t && f.alive)) arEndRound(1 - t, A.mode.n === 1 ? (t === 1 ? 'You got ' + dst.name : dst.lastBy ? dst.lastBy.name + ' got you' : '') : (t === 1 ? 'Their team is down' : 'Your team is down')); });
-  }
+  if (dst.hp <= 0) arOnDeath(src, dst, head);
+}
+/* someone goes down: the gibs, the kill feed, spectating, and (for the host) whether the round is over */
+function arOnDeath(src, dst, head){
+  const A = AR, N = A.net;
+  dst.hp = 0; dst.alive = false; dst.deaths = (dst.deaths || 0) + 1; if (src) src.kills = (src.kills || 0) + 1;
+  if (dst.B) { arGibs(dst); dst.B.g.visible = false; }
+  if (src && src.me) { A.streak++; A.killX = .5; arSnd(AR_SFX.kill); arKillBanner(dst.name, head); }
+  if (dst.me) A.streak = 0;
+  const who = src ? (src.me ? 'You' : src.name) : 'The fire', whom = dst.me ? 'you' : dst.name;
+  arFeed(who + ' eliminated ' + whom + (head ? ' · headshot' : ''), src && src.team === 0 ? 'b' : 'r');
+  if (dst.me) { const m = arMates(dst).find(o => o.alive); A.spec = m || null; }
+  if (N && !N.host) { if (dst.me) { arNetSend(N.hostPid, 'died', {s: src ? src.nid : -1, h: head ? 1 : 0, sui: A.curSui ? 1 : 0}, true); if (A.curSui && src) arSuiBlast(dst, src, true); } return; }
+  if (N && N.host) arNetSend(null, 'ev', {k: 'kill', s: src ? src.nid : -1, d: dst.nid, h: head ? 1 : 0}, true);
+  [0, 1].forEach(t => { if (A.phase === 'live' && !A.F.some(f => f.team === t && f.alive)) arEndRound(1 - t, A.mode.n === 1 ? (t === 1 ? 'You got ' + dst.name : dst.lastBy ? dst.lastBy.name + ' got you' : '') : (t === 1 ? 'Their team is down' : 'Your team is down')); });
 }
 function arSpeed(f){ const W = arWS(f.load[f.cur].it); let s = 8.2 * W.spd; if (f.st.slow > 0) s *= .6; if (f.st.haste > 0) s *= 1.3; if (f.st.speedy > 0) s *= 1.5; if (f.me && AR.ads > .5) s *= .64; return s; }
 const arFall = (W, d) => d <= W.fall[0] ? 1 : d >= W.fall[1] ? W.fall[2] : 1 - (1 - W.fall[2]) * (d - W.fall[0]) / (W.fall[1] - W.fall[0]);
@@ -18219,7 +18265,7 @@ const arFall = (W, d) => d <= W.fall[0] ? 1 : d >= W.fall[1] ? W.fall[2] : 1 - (
 function arShoot(f){
   const A = AR, l = f.load[f.cur], W = arWS(l.it);
   let rate = W.rate; if (f.st.od > 0) rate /= 1.6; if (f.st.speedy > 0) rate = Math.min(rate, .5);
-  f.fireT = rate; f.lastShot = A.clock;
+  f.fireT = rate; f.lastShot = A.clock; f.shots = (f.shots || 0) + 1;
   if (W.melee) { arMelee(f, W); return; }
   if (!(f.st.od > 0)) f.mag[f.cur]--;
   arSnd(AR_SFX.shot(W), f.me ? null : f.p);
@@ -18234,8 +18280,8 @@ function arShoot(f){
       const end = Math.min(wallT, best.t, 160);
       arTracer(arMuzzleWorld(), {x: eye.x + d.x * end, y: eye.y + d.y * end, z: eye.z + d.z * end}, W.pel ? .5 : 1);
       if (who && best.t < wallT) {
-        arDamage(f, who, W.dmg * arFall(W, best.t) * (best.head ? W.hm : 1), best.head, {x: eye.x + d.x * best.t, y: eye.y + d.y * best.t + .2, z: eye.z + d.z * best.t});
-        if (W.sui && best.head && !who.alive) arSuiBlast(who, f);
+        A.curSui = !!(W.sui && best.head); arDamage(f, who, W.dmg * arFall(W, best.t) * (best.head ? W.hm : 1), best.head, {x: eye.x + d.x * best.t, y: eye.y + d.y * best.t + .2, z: eye.z + d.z * best.t}); A.curSui = false;
+        if (W.sui && best.head && !who.alive) { arSuiBlast(who, f); if (A.net) arNetSend(null, 'ev', {k: 'sui', d: who.nid}, true); }
         if (f.st.wraith > 0) who.st.burn = 3;
       } else if (wallT < 160) arDecal({x: eye.x + d.x * wallT, y: eye.y + d.y * wallT, z: eye.z + d.z * wallT});
     }
@@ -18249,7 +18295,7 @@ function arShoot(f){
       foes.forEach(o => { if (o.st.invis > 0 && Math.random() < .7) return; const h = arRayFighter(eye, d, o); if (h.t < best.t) { best = h; who = o; } });
       const end = Math.min(wallT, best.t, 160), hp = {x: eye.x + d.x * end, y: eye.y + d.y * end, z: eye.z + d.z * end};
       if (k < 3) arTracer(arBotMuzzle(f), hp, W.pel ? .4 : .9);
-      if (who && best.t < wallT) { arDamage(f, who, W.dmg * arFall(W, best.t) * (best.head ? W.hm : 1), best.head, who.me ? null : hp); if (f.st.wraith > 0) who.st.burn = 3; if (W.sui && best.head && !who.alive) arSuiBlast(who, f); }
+      if (who && best.t < wallT) { A.curSui = !!(W.sui && best.head); arDamage(f, who, W.dmg * arFall(W, best.t) * (best.head ? W.hm : 1), best.head, who.me ? null : hp); A.curSui = false; if (f.st.wraith > 0) who.st.burn = 3; if (W.sui && best.head && !who.alive) { arSuiBlast(who, f); if (A.net) arNetSend(null, 'ev', {k: 'sui', d: who.nid}, true); } }
       else if (wallT < 160 && k < 2 && arDist(hp, A.me.p) < 30) arDecal(hp);
     }
   }
@@ -18285,11 +18331,12 @@ function arUseSkill(f){
   if (id === 'x5') f.st.long = 10;
   if (f.me && AR_SK[id].ic) arSkillPop(id);
   arFeed((f.me ? 'You' : f.name) + ' used ' + AR_SK[id].n, f.team === 0 ? 'b' : 'r');
+  if (A.net && !A.net.host && f.me) arNetSend(A.net.hostPid, 'skill', id, true);
   return true;
 }
 /* The Sui headshot: the target blows up. A white core, a fireball that cools from yellow to red, two shockwave
    rings, a flash of light, sparks, debris and smoke, and 60 damage to any of their teammates within a metre. */
-function arSuiBlast(v, owner){
+function arSuiBlast(v, owner, vis){
   const A = AR, T = A.T, p = {x: v.p.x, y: v.p.y + 1.45, z: v.p.z};
   arSnd(AR_SFX.boom, p); if (owner.me || arDist(p, A.me.p) < 30) { sweep(1600, 120, .55, 'sawtooth', .05); noise(.5, 3000, 200, .12); }
   const geo = A.sphGeo || (A.sphGeo = new T.SphereGeometry(1, 24, 16)), rg = A.ringGeo || (A.ringGeo = new T.RingGeometry(.86, 1, 56));
@@ -18306,6 +18353,7 @@ function arSuiBlast(v, owner){
   for (let i = 0; i < 16; i++) { const a = Math.random() * 6.28, s = 4 + Math.random() * 7; arPart({x: p.x, y: p.y - Math.random() * .8, z: p.z}, {x: Math.cos(a) * s, y: 3 + Math.random() * 7, z: Math.sin(a) * s}, Math.random() < .6 ? (v.col || '#ef4444') : '#1b2230', .1 + Math.random() * .16, 2.4, 12); }
   const el = document.createElement('div'); el.className = 'ar-num ar-siu'; el.textContent = 'SIUUU!'; $('#arHud').append(el); A.nums.push({el, p: {x: p.x, y: p.y + .7, z: p.z}, t: 1.4});
   const dm = arDist(p, A.me.p); if (dm < 26) A.shake = Math.min(1, A.shake + (1 - dm / 26) * .8);
+  if (vis) return;
   A.F.forEach(o => { if (o === v || !o.alive || o.team === owner.team) return; if (Math.hypot(o.p.x - v.p.x, o.p.z - v.p.z) <= 1.4 && Math.abs(o.p.y - v.p.y) < 2) arDamage(owner, o, 60, false, {x: o.p.x, y: o.p.y + 2, z: o.p.z}); });
 }
 const arDirTo = (f, t) => { const dx = t.p.x - f.p.x, dz = t.p.z - f.p.z, L = Math.hypot(dx, dz) || 1; return {x: dx / L, z: dz / L}; };
@@ -18458,14 +18506,19 @@ function arPartsUpdate(dt){
     if (q.life <= 0) { A.fx.remove(q.m); return false; } return true; });
 }
 /* ---------- grenades: one per player per round ---------- */
+function arNadeSpawn(f, p, v, vis){
+  const A = AR, T = A.T, m = new T.Mesh(new T.IcosahedronGeometry(.13, 1), new T.MeshStandardMaterial({color: '#3f6b3a', roughness: .5, flatShading: true}));
+  p = {x: p.x, y: p.y, z: p.z}; m.position.set(p.x, p.y, p.z); A.fx.add(m); A.nades.push({p, v: {x: v.x, y: v.y, z: v.z}, t: 2.0, owner: f, m, vis});
+}
 function arThrow(f, at){
   const A = AR; if (!f.alive || A.phase !== 'live' || !(f.nade > 0)) return;
   f.nade--; const e = arEye(f); let d;
   if (at) { const dx = at.x - f.p.x, dz = at.z - f.p.z, D = Math.hypot(dx, dz), v = 17, th = .5 * Math.asin(Math.min(1, 20 * D / (v * v))) + .05; d = {x: dx / D * Math.cos(th), y: Math.sin(th), z: dz / D * Math.cos(th)}; }
   else d = arFwd(f.yaw, f.pitch + .14);
-  const T = A.T, m = new T.Mesh(new T.IcosahedronGeometry(.13, 1), new T.MeshStandardMaterial({color: '#3f6b3a', roughness: .5, flatShading: true}));
-  const p = {x: e.x + d.x * .5, y: e.y - .1, z: e.z + d.z * .5}; m.position.set(p.x, p.y, p.z); A.fx.add(m);
-  A.nades.push({p, v: {x: d.x * 17 + f.v.x * .4, y: d.y * 17 + 2, z: d.z * 17 + f.v.z * .4}, t: 2.0, owner: f, m});
+  const p = {x: e.x + d.x * .5, y: e.y - .1, z: e.z + d.z * .5}, v = {x: d.x * 17 + f.v.x * .4, y: d.y * 17 + 2, z: d.z * 17 + f.v.z * .4}, N = A.net;
+  /* in a party match the host runs every grenade; everyone else sees a copy that does no damage */
+  if (N && !N.host) { arNadeSpawn(f, p, v, true); arNetSend(N.hostPid, 'nade', {p, v}, true); }
+  else { arNadeSpawn(f, p, v, false); if (N) arNetSend(null, 'ev', {k: 'nade', o: f.nid, p, v}, true); }
   arSnd(AR_SFX.pin, f.me ? null : f.p);
   if (!f.me) arFeed(f.name + ' threw a grenade', f.team === 0 ? 'b' : 'r');
 }
@@ -18477,16 +18530,17 @@ function arNadesStep(dt){
       const inBox = ARB.some(b => g.p.x > b[0] - .12 && g.p.x < b[3] + .12 && g.p.y > b[1] - .12 && g.p.y < b[4] + .12 && g.p.z > b[2] - .12 && g.p.z < b[5] + .12);
       if (inBox || (ax === 'y' && g.p.y < .13)) { g.p[ax] = ax === 'y' && g.p.y < .13 && !inBox ? .13 : old; g.v[ax] *= -.42; ['x', 'y', 'z'].forEach(o => { if (o !== ax) g.v[o] *= .78; }); if (s0 > 3) arSnd(AR_SFX.bounce, g.p); } });
     g.m.position.set(g.p.x, g.p.y, g.p.z); g.m.rotation.x += dt * 8; g.m.rotation.z += dt * 6;
-    if (g.t <= 0) { arBoom(g.p, g.owner); A.fx.remove(g.m); return false; }
+    if (g.t <= 0) { arBoom(g.p, g.owner, g.vis); A.fx.remove(g.m); return false; }
     return true;
   });
 }
-function arBoom(p, owner){
+function arBoom(p, owner, vis){
   const A = AR, T = A.T;
   arSnd(AR_SFX.boom, p);
   const fl = new T.Mesh(new T.SphereGeometry(1, 16, 12), new T.MeshBasicMaterial({color: '#ffd27a', transparent: true, opacity: .9})); fl.position.set(p.x, p.y, p.z); A.fx.add(fl); A.booms.push({m: fl, t: .35});
   arBurst(p, '#ffb040', 18, 9); arBurst(p, '#4a4f58', 12, 6);
   const dm = arDist(p, A.me.p); if (dm < 22) A.shake = Math.min(1, A.shake + (1 - dm / 22) * .9);
+  if (vis) return;
   A.F.forEach(o => { if (!o.alive || (o.team === owner.team && o !== owner)) return;
     const c = {x: o.p.x, y: o.p.y + 1, z: o.p.z}, d = arDist(p, c); if (d > 6.5 || !arLOS({x: p.x, y: p.y + .3, z: p.z}, c)) return;
     const dmg = 95 * Math.pow(1 - d / 6.5, .8) * (o === owner ? .5 : 1); if (o === owner) { o.hp -= Math.round(dmg); if (o.hp <= 0) { o.hp = 1; } return; }
@@ -18556,11 +18610,12 @@ function arLoop(now){
   A.raf = requestAnimationFrame(arLoop);
   const frame = Math.min(.25, (now - A.last) / 1000); A.last = now;
   A.fps.push(frame); if (A.fps.length > 90) A.fps.shift();
-  if (A.paused) { arRender(0); return; }
+  if (A.paused && !A.net) { arRender(0); return; }
   arLook(frame);
   A.acc += frame; let n = 0;
   while (A.acc >= AR_STEP && n < 6) { arStep(AR_STEP); A.acc -= AR_STEP; n++; if (!AR || A.over) return; }
   if (n === 6) A.acc = 0;
+  arNetTick(frame); if (!AR) return;
   A.F.forEach(f => { if (f.B) arAnimBot(f, frame); });
   arRender(frame); arHudUpdate(); arAdaptRes(frame);
 }
@@ -18573,7 +18628,11 @@ function arAdaptRes(frame){
 }
 function arStep(dt){
   const A = AR; A.clock += dt;
-  if (A.phase === 'count') { A.t -= dt; arHudCount(Math.ceil(A.t)); if (A.t <= 0) { A.phase = 'live'; arHudCount(0); tone(880, .2, 'square', .05); } }
+  const guest = A.net && !A.net.host;
+  /* in a party match the host's game runs the clock and the rounds; everyone else follows its snapshots */
+  if (guest) { A.t -= dt; if (A.phase === 'live') A.roundT -= dt; if (A.phase === 'count') { arHudCount(Math.max(0, Math.ceil(A.t))); if (A.t <= 0 && !A.goT) { A.goT = 1; arHudCount(0); tone(880, .2, 'square', .05); } } else A.goT = 0; }
+  else if (A.waitReady) { A.t = 3.2; arHudCount(0); }
+  else if (A.phase === 'count') { A.t -= dt; arHudCount(Math.ceil(A.t)); if (A.t <= 0) { A.phase = 'live'; arHudCount(0); tone(880, .2, 'square', .05); } }
   else if (A.phase === 'live') { A.roundT -= dt; if (A.roundT <= 0) { const hp = t => A.F.filter(f => f.team === t).reduce((a, f) => a + Math.max(0, f.hp), 0); const w = hp(0) > hp(1) ? 0 : hp(1) > hp(0) ? 1 : -1; arEndRound(w, 'Time · more health wins'); } }
   else if (A.phase === 'end') { A.t -= dt; if (A.t <= 0) { if (A.score[0] >= AR_WIN || A.score[1] >= AR_WIN) { arFinish(); return; } arNewRound(); return; } }
   const live = A.phase === 'live';
@@ -18586,8 +18645,9 @@ function arStep(dt){
     if (f.st.burn > 0 && live && f.alive) { f.burnAcc = (f.burnAcc || 0) + 6 * dt; if (f.burnAcc >= 2) { f.burnAcc -= 2; arDamage(null, f, 2, false); } }
   });
   if (live || A.phase === 'count') arPlayer(dt, live);
-  A.F.forEach(f => { if (f.me) return; if (live && f.alive) arBotThink(f, dt); else { f.v.x *= .8; f.v.z *= .8; } });
+  A.F.forEach(f => { if (f.me || f.remote || guest) return; if (live && f.alive) arBotThink(f, dt); else { f.v.x *= .8; f.v.z *= .8; } });
   A.F.forEach(f => {
+    if (!f.me && (guest || f.remote)) { if (!f.alive) { f.v.x = f.v.z = 0; } return; }
     if (!f.alive) { f.v.x = f.v.z = 0; }
     if (f.st.dash > 0) { f.v.x = f.st.dashV.x; f.v.z = f.st.dashV.z; }
     if (f.st.root > 0) { f.v.x = 0; f.v.z = 0; }
@@ -18967,10 +19027,13 @@ function arCleanup(){
   if (document.pointerLockElement) document.exitPointerLock();
   A.sc.traverse(o => { if (o.geometry) o.geometry.dispose(); });
   A.R.dispose(); A.R.domElement.remove(); $('#arHud').innerHTML = ''; AR = null;
+  if (arP) setTimeout(arPartyUI2, 50);
 }
 /* ---------- results ---------- */
 function arFinish(){
-  const A = AR; if (!A || A.over) return; A.over = true; A.paused = true;
+  const A = AR; if (!A || A.over) return;
+  if (A.net) { if (A.net.host) arNetSend(null, 'ev', A.quit ? {k: 'abort', why: 'The party leader left the match.'} : {k: 'fin', sc: A.score}, true); else if (A.quit) arNetSend(A.net.hostPid, 'bye', 1, true); }
+  A.over = true; A.paused = true;
   const won = A.score[0] >= AR_WIN && !A.quit, S = arS(), before = S.rp, ri = arRankIdx(before), ti = Math.floor(ri / 3);
   const diff = A.score[0] - A.score[1];
   const d = won ? 20 + 2 * diff : -Math.max(8, 18 - 2 * A.score[0]);
@@ -18988,7 +19051,9 @@ function arFinish(){
     + '<div class="ar-racts"><button type="button" class="ar-btn" id="arAgain">Play again</button><button type="button" class="ar-btn ghost" id="arMenuB">Menu</button></div></div>';
   res.hidden = false;
   if (won) { goldSound && goldSound(); } else [330, 262, 196].forEach((f, i) => tone(f, .5, 'triangle', .05, i * .15));
-  $('#arAgain').onclick = () => { arCleanup(); res.hidden = true; arQueue(); };
+  const inParty = arP && arPartyHumans().length > 1;
+  if (inParty) $('#arAgain').textContent = arPartyIsLeader() ? 'Back to party' : 'Back to party';
+  $('#arAgain').onclick = () => { arCleanup(); res.hidden = true; if (inParty) arMenu(); else arQueue(); };
   $('#arMenuB').onclick = () => { arCleanup(); res.hidden = true; arMenu(); };
 }
 
@@ -19032,23 +19097,29 @@ function arOpen(){
 function arClose(){ arCleanup(); clearInterval(arQ && arQ.iv); arQ = null; $('#arena').hidden = true; document.body.classList.remove('ar-on'); }
 function arScreen(id){ ['arMenu', 'arQ', 'arGame', 'arRes'].forEach(k => $('#' + k).hidden = k !== id); }
 function arMenu(){
-  arScreen('arMenu'); const S = arS(), L = arLoadout(), M = arMode(S.mode);
+  arScreen('arMenu'); const S = arS(), L = arLoadout(), pn = arP ? Math.max(1, arPartyHumans().length) : 1, follow = pn > 1 && !arPartyIsLeader();
+  if (pn > arMode(S.mode).n) S.mode = (AR_MODES.find(m => m.n >= pn) || AR_MODES[0]).id;
+  const M = arMode(S.mode);
   if (S.map !== 'any' && !M.maps.includes(S.map)) S.map = 'any';
   $('#arMenu').innerHTML = '<div class="ar-bgfx"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="ar-mtop"><button type="button" class="ar-back" id="arBack">‹ Crate Rush</button><div class="ar-logo">SHOW<b>DOWN</b><small>ARENA · SEASON 1</small></div>'
     + '<div class="ar-rmini" style="--rc:' + arRankCol(S.rp) + '"><svg class="ar-av" viewBox="-30 -48 60 70">' + arFig(0, 18, 1, '#3b82f6', false) + '</svg>' + arEmblem(S.rp) + '<div><b>' + arRankName(S.rp) + '</b><div class="ar-rbar"><i style="width:' + (S.rp % AR_DIV) + '%"></i></div><span>' + S.w + 'W ' + S.l + 'L</span></div></div>'
     + '<button type="button" class="ar-gear" id="arGear" aria-label="Settings"><svg viewBox="0 0 24 24"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm8.6 4.9-1.9 1.1.1 2.2-2.2 1.3-1.9-1.1-1.9 1.1h-1.6l-1.9-1.1-1.9 1.1L3.2 16.7l.1-2.2-1.9-1.1V10.6l1.9-1.1-.1-2.2L5.4 6l1.9 1.1L9.2 6h1.6l1.9 1.1L14.6 6l2.2 1.3-.1 2.2 1.9 1.1z" fill="currentColor"/></svg></button></div>'
-    + '<div class="ar-mgrid"><div class="ar-modes">' + AR_MODES.map((m, i) => '<button type="button" class="ar-mode' + (m.id === S.mode ? ' on' : '') + (i < 2 ? ' big' : '') + '" data-mode="' + m.id + '">' + arModeArt(m) + '<span class="ar-mpl">' + (m.n * 2) + ' PLAYERS</span><span class="ar-shine"></span><span class="ar-mlab"><b>' + m.id + '</b><em>' + m.name.toUpperCase() + '</em><small>' + m.sub + '</small></span></button>').join('') + '</div>'
+    + arPartyBar()
+    + '<div class="ar-mgrid"><div class="ar-modes">' + AR_MODES.map((m, i) => '<button type="button" class="ar-mode' + (m.id === S.mode ? ' on' : '') + (i < 2 ? ' big' : '') + (pn > m.n ? ' off' : '') + (follow ? ' lock' : '') + '" data-mode="' + m.id + '">' + arModeArt(m) + '<span class="ar-mpl">' + (m.n * 2) + ' PLAYERS</span><span class="ar-shine"></span><span class="ar-mlab"><b>' + m.id + '</b><em>' + m.name.toUpperCase() + '</em><small>' + m.sub + '</small></span></button>').join('') + '</div>'
     + '<div class="ar-maps"><span>Map</span>' + ['any'].concat(M.maps).map(id => '<button type="button" class="ar-chip' + (S.map === id ? ' on' : '') + '" data-map="' + id + '">' + (id === 'any' ? '<span class="ar-mapq">?</span>Random' : arMapSVG(id) + AR_MAPS[id].name + ' <small>' + AR_MAPS[id].W + '×' + AR_MAPS[id].D + '</small>') + '</button>').join('') + '</div>'
     + '<div class="ar-load"><div class="ar-lh">Loadout <small>tap a slot to change it</small></div>' + L.map((l, i) => {
         const sk = arSkillOf(l.it);
         return '<button type="button" class="ar-lslot" data-slot="' + i + '" style="--tc:' + TIERS[l.it.t].color + '"><small>' + AR_SLOTN[i] + '</small><span class="ar-lart"></span><b>' + (l.it.stock ? 'Stock ' + WNAME[l.it.w].replace('★ ', '') : WNAME[l.it.w] + ' | ' + l.it.name) + '</b>'
           + (sk ? (AR_SK[sk].ic ? '<em class="cus" style="--c:' + AR_SK[sk].col + '">' + AR_IC[AR_SK[sk].ic] + AR_SK[sk].n + '</em>' : '<em>★ ' + AR_SK[sk].n + '</em>') : l.it.t === 7 ? '<em class="ch">Chroma · +75% damage, faster fire</em>' : '') + '</button>'; }).join('') + '</div>'
-    + '<button type="button" class="ar-find" id="arFind">FIND MATCH · ' + M.id + '</button>'
+    + '<button type="button" class="ar-find' + (follow ? ' wait' : '') + '" id="arFind"' + (follow ? ' disabled' : '') + '>' + (follow ? 'THE PARTY LEADER STARTS THE MATCH' : 'FIND MATCH · ' + M.id + (pn > 1 ? ' · PARTY OF ' + pn : '')) + '</button>'
     + '<p class="ar-note">G or the grenade button throws your grenade, one per round. Rank up to face tougher players with better weapons. Win: rank points and credits.</p></div>';
   [...document.querySelectorAll('#arMenu .ar-lslot')].forEach((b, i) => b.querySelector('.ar-lart').append(thumb(L[i].it, wearIdx(L[i].fl))));
-  $('#arBack').onclick = arClose; $('#arFind').onclick = arQueue; $('#arGear').onclick = arSettings;
-  $('#arMenu').querySelectorAll('.ar-mode').forEach(b => b.onclick = () => { S.mode = b.dataset.mode; save(); tone(660, .05, 'triangle', .04); arMenu(); });
-  $('#arMenu').querySelectorAll('.ar-chip').forEach(b => b.onclick = () => { S.map = b.dataset.map; save(); tone(720, .04, 'triangle', .04); arMenu(); });
+  $('#arBack').onclick = arClose; $('#arFind').onclick = () => { if (follow) return; if (pn > 1) arPartyFind(); else arQueue(); }; $('#arGear').onclick = arSettings;
+  const share = () => { if (arP && arPartyIsLeader()) { arP.cfg = {mode: S.mode, map: S.map}; arPartySend(null, 'cfg', arP.cfg); } };
+  $('#arMenu').querySelectorAll('.ar-mode').forEach(b => b.onclick = () => { if (follow) { toast('The party leader picks the mode.'); return; } if (pn > arMode(b.dataset.mode).n) { toast('Your party of ' + pn + ' needs a mode with at least ' + pn + ' a side.'); return; }
+    S.mode = b.dataset.mode; save(); tone(660, .05, 'triangle', .04); share(); arMenu(); });
+  $('#arMenu').querySelectorAll('.ar-chip').forEach(b => b.onclick = () => { if (follow) { toast('The party leader picks the map.'); return; } S.map = b.dataset.map; save(); tone(720, .04, 'triangle', .04); share(); arMenu(); });
+  arPartyBind($('#arMenu')); arPartyUI2();
   $('#arMenu').querySelectorAll('.ar-lslot').forEach(b => b.onclick = () => arPick(+b.dataset.slot));
 }
 function arSettings(){
@@ -19076,35 +19147,322 @@ function arPick(slot){
     else if (e.target === box || e.target.closest('.ar-x2')) box.remove(); };
 }
 let arQ = null;
-/* matchmaking: 15-30 seconds, with the lobby filling up as players are found */
-function arQueue(){
-  arScreen('arQ'); const S = arS(), M = arMode(S.mode), need = M.n * 2 - 1, wait = 15000 + Math.random() * 15000, t0 = Date.now();
+/* matchmaking: bigger modes take longer to fill. The lobby fills up as players are found; your party starts in it. */
+const AR_QWAITS = {1: [15, 30], 2: [20, 35], 3: [30, 50], 4: [40, 65], 6: [50, 80], 8: [60, 95]};
+const arQWait = n => AR_QWAITS[n] || [15 + n * 7, 30 + n * 9];
+const arMMSS = s => Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+function arQueue(net){
+  arScreen('arQ'); const S = arS(); if (net && net.mode) { S.mode = net.mode; S.map = net.map; }
+  const M = arMode(S.mode), [lo, hi] = arQWait(M.n), party = net && net.wait ? arPartyHumans().length : 1, need = M.n * 2 - party;
+  const wait = net && net.wait ? net.wait : (lo + Math.random() * (hi - lo)) * 1000, t0 = Date.now(), lead = !net || arPartyIsLeader();
   const at = Array.from({length: need}, () => Math.random()).sort((a, b) => a - b).map((r, i) => i === need - 1 ? 1 : .15 + r * .8);
   $('#arQ').innerHTML = '<div class="ar-radar"><i></i><i></i><i></i><b></b></div><h2>' + (M.n === 1 ? 'FINDING AN OPPONENT' : 'FINDING PLAYERS') + '</h2><div class="ar-qt" id="arQt">0:00</div>'
-    + (M.n > 1 ? '<div class="ar-qfill" id="arQf">' + Array.from({length: M.n * 2}, (_, i) => '<i class="' + (i === 0 ? 'on me' : '') + '"></i>').join('') + '</div>' : '')
-    + '<p>' + M.id + ' ' + M.name + ' · usually takes 0:15 – 0:30 · ' + arRankName(S.rp) + '</p><button type="button" class="ar-btn ghost" id="arQx">Cancel</button>';
+    + (M.n > 1 ? '<div class="ar-qfill" id="arQf">' + Array.from({length: M.n * 2}, (_, i) => '<i class="' + (i === 0 ? 'on me' : i < party ? 'on pt' : '') + '"></i>').join('') + '</div>' : '')
+    + '<p>' + M.id + ' ' + M.name + (party > 1 ? ' · party of ' + party : '') + ' · usually takes ' + arMMSS(lo) + ' – ' + arMMSS(hi) + ' · ' + arRankName(S.rp) + '</p><button type="button" class="ar-btn ghost" id="arQx">' + (lead ? 'Cancel' : 'Leave queue') + '</button>';
   arThree().catch(() => {});
   arQ = {iv: setInterval(() => {
-    const e = Date.now() - t0, s = Math.floor(e / 1000), q = $('#arQt'); if (q) q.textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
-    const qf = $('#arQf'); if (qf) { const got = at.filter(a => a * wait <= e).length; [...qf.children].forEach((c, i) => { const on = i === 0 || i <= got; if (on && !c.classList.contains('on')) { c.classList.add('on'); tone(900, .05, 'triangle', .03); } }); }
-    if (e >= wait) { clearInterval(arQ.iv); arFound(); }
+    const e = Date.now() - t0, s = Math.floor(e / 1000), q = $('#arQt'); if (q) q.textContent = arMMSS(s);
+    const qf = $('#arQf'); if (qf) { const got = at.filter(a => a * wait <= e).length; [...qf.children].forEach((c, i) => { const on = i < party || i < party + got; if (on && !c.classList.contains('on')) { c.classList.add('on'); tone(900, .05, 'triangle', .03); } }); }
+    if (e >= wait) { clearInterval(arQ.iv);
+      if (!net) arFound();
+      else if (lead) { const lb = arPartyLobby(); arPartySend(null, 'go', lb); arFoundNet(lb); }
+      else { const h = $('#arQ h2'); if (h) h.textContent = 'JOINING YOUR PARTY…'; arQ.to = setTimeout(() => { if (!AR) { arMenu(); toast('Couldn’t join the party’s match. Try again.'); } }, 15000); } }
   }, 250)};
-  $('#arQx').onclick = () => { clearInterval(arQ.iv); arQ = null; arMenu(); };
+  $('#arQx').onclick = () => { clearInterval(arQ.iv); clearTimeout(arQ.to); arQ = null; if (net && lead) arPartySend(null, 'qx', 1); arMenu(); };
 }
 async function arFound(){
   const S = arS(), M = arMode(S.mode), map = S.map !== 'any' && M.maps.includes(S.map) ? S.map : pickOne(M.maps);
   const used = new Set(); const uname = () => { let nm = arBotName(), k = 0; while (used.has(nm.toLowerCase()) && k++ < 20) nm = arBotName(); used.add(nm.toLowerCase()); return nm; };
   const bot = () => ({name: uname(), rp: Math.max(0, S.rp + Math.round((Math.random() - .5) * 60)), kit: arBotKit(S.rp), skill: arSkill(S.rp)});
   const teams = [[{me: true, name: 'You', rp: S.rp}].concat(Array.from({length: M.n - 1}, bot)), Array.from({length: M.n}, bot)];
+  return arFoundShow({mode: M.id, map, teams});
+}
+async function arFoundNet(lb){ if (arQ) { clearInterval(arQ.iv); clearTimeout(arQ.to); arQ = null; } if (AR) return; arScreen('arQ'); return arFoundShow(arLobbyIn(lb)); }
+async function arFoundShow(lobby){
+  const M = arMode(lobby.mode), map = lobby.map, teams = lobby.teams;
   [523.25, 783.99, 1046.5].forEach((f, i) => tone(f, .3, 'triangle', .06, i * .09));
   const card = (p, t) => { const sk = p.kit && arSkillOf(p.kit.it);
-    return '<div class="ar-vsc' + (M.n > 1 ? ' sm' : '') + ' t' + t + '" style="--rc:' + arRankCol(p.rp) + '">' + arEmblem(p.rp) + '<div class="ar-vsi"><b>' + esc(p.name) + '</b><span>' + arRankName(p.rp) + '</span>' + (p.kit ? '<em>' + WNAME[p.kit.it.w] + ' | ' + p.kit.it.name + (sk ? ' · ★ ' + AR_SK[sk].n : '') + '</em>' : '') + '</div>' + (p.kit && M.n === 1 ? '<div class="ar-vsg"></div>' : '') + '</div>'; };
+    return '<div class="ar-vsc' + (M.n > 1 ? ' sm' : '') + ' t' + t + '" style="--rc:' + arRankCol(p.rp) + '">' + arEmblem(p.rp) + '<div class="ar-vsi"><b>' + (p.pid ? '<i class="ar-ptag">PARTY</i>' : '') + esc(p.me ? 'You' : p.name) + '</b><span>' + arRankName(p.rp) + '</span>' + (p.kit ? '<em>' + WNAME[p.kit.it.w] + ' | ' + p.kit.it.name + (sk ? ' · ★ ' + AR_SK[sk].n : '') + '</em>' : '') + '</div>' + (p.kit && M.n === 1 ? '<div class="ar-vsg"></div>' : '') + '</div>'; };
   $('#arQ').innerHTML = '<div class="ar-found"><small>' + (M.n === 1 ? 'OPPONENT FOUND' : 'MATCH FOUND') + ' · ' + M.id + ' ' + M.name.toUpperCase() + ' · ' + esc(AR_MAPS[map].name.toUpperCase()) + '</small><div class="ar-vs' + (M.n > 1 ? ' teams' : '') + (M.n >= 6 ? ' xl' : '') + '"><div class="ar-team">' + teams[0].map(p => card(p, 0)).join('') + '</div><div class="ar-vsx">VS</div><div class="ar-team">' + teams[1].map(p => card(p, 1)).join('') + '</div></div><p id="arLd">Loading the arena…</p></div>';
   const g = $('#arQ .ar-vsg'); if (g) g.append(thumb(teams[1][0].kit.it, wearIdx(teams[1][0].kit.fl)));
   try { await Promise.all([arThree(), wait(2800)]); } catch (e) { $('#arLd').textContent = 'Couldn’t load the 3D engine. Check your connection and try again.'; setTimeout(arMenu, 2500); return; }
   arScreen('arGame'); $('#arRes').hidden = true;
-  try { await arStartMatch({mode: M.id, map, teams}); } catch (e) { console.error(e); arCleanup(); arMenu(); toast('The arena failed to start on this device.'); }
+  try { await arStartMatch(lobby); } catch (e) { console.error(e); arCleanup(); arMenu(); toast('The arena failed to start on this device.'); }
 }
+
+/* =====================================================================================================
+   PARTIES: play Showdown with friends. A party is a Supabase Realtime channel: presence says who is in it,
+   broadcast carries invites, the queue and connection set-up. In a match the party leader hosts: their game
+   runs the bots, the rounds and the score and streams snapshots; every other player runs their own character
+   and sends its state, hits and grenades to the leader. Match traffic goes straight between browsers over
+   WebRTC data channels; when a direct link can't be made it falls back to the Supabase channel at a lower rate.
+   ===================================================================================================== */
+const AR_PMAX = 4;
+const AR_ICE = [{urls: 'stun:stun.l.google.com:19302'}, {urls: 'stun:stun.cloudflare.com:3478'}];
+const AR_NET_HZ = 15, AR_RELAY_HZ = 5;
+let arP = null;
+function arPid(){ try { let v = sessionStorage.getItem('sd-pid'); if (!v) { v = Math.random().toString(36).slice(2, 10); sessionStorage.setItem('sd-pid', v); } return v; }
+  catch (e) { return arPid.v || (arPid.v = Math.random().toString(36).slice(2, 10)); } }
+const arMyName = () => String(state.name || ('Player' + arPid().slice(0, 4).toUpperCase())).slice(0, 18);
+const arItemById = id => BY[id] || AR_STOCK.find(s => s.id === id) || AR_STOCK[0];
+const arPartyCode = () => Array.from({length: 6}, () => 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'[Math.floor(Math.random() * 31)]).join('');
+const arPartyIsLeader = () => !!arP && arP.leader === arP.pid;
+const arPartyHumans = () => arP ? [...arP.members.values()].sort((a, b) => a.at - b.at || (a.pid < b.pid ? -1 : 1)) : [];
+function arPartyMe(extra){ const S = arS(); return Object.assign({pid: arPid(), name: arMyName(), rp: S.rp, at: arP ? arP.at : Date.now(),
+  load: arLoadout().map(l => [l.it.id, +(+l.fl).toFixed(4)]), busy: !!AR}, extra || {}); }
+
+/* ---------- joining, leaving, who leads ---------- */
+async function arPartyJoin(code, create){
+  if (!sb) { toast('Parties need the account server. Check your connection and try again.'); return; }
+  code = String(code || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+  if (code.length < 6) { toast('Party codes have 6 letters and numbers.'); return; }
+  if (arP && arP.code === code) return;
+  await arPartyLeave(true);
+  const pid = arPid(), ch = sb.channel('sd-party-' + code, {config: {broadcast: {self: false}, presence: {key: pid}}});
+  arP = {code, ch, pid, members: new Map(), leader: create ? pid : null, peers: new Map(), at: create ? 1 : Date.now(), created: !!create, cfg: null, joined: false, relayT: {}};
+  ch.on('presence', {event: 'sync'}, () => arPartySync());
+  ch.on('broadcast', {event: 'm'}, ({payload}) => arPartyMsg(payload));
+  ch.subscribe(async st => {
+    if (!arP || arP.ch !== ch) return;
+    if (st === 'SUBSCRIBED') { arP.joined = true; try { await ch.track(arPartyMe()); } catch (e) {} arPartyUI(); if (create) toast('Party made. Send your friends the code ' + code + '.'); }
+    else if (st === 'CHANNEL_ERROR' || st === 'TIMED_OUT') { toast('Couldn’t reach the party server. Try again in a moment.'); }
+  });
+  arPartyUI();
+}
+async function arPartyLeave(quiet){
+  const P = arP; if (!P) return; arP = null;
+  P.peers.forEach(p => { try { p.pc.close(); } catch (e) {} });
+  try { await P.ch.untrack(); } catch (e) {} try { await sb.removeChannel(P.ch); } catch (e) {}
+  if (!quiet) { toast('You left the party.'); arPartyUI(); }
+}
+function arPartySync(){
+  const P = arP; if (!P) return; const st = P.ch.presenceState(), seen = new Map();
+  Object.keys(st).forEach(k => { const m = st[k] && st[k][0]; if (m && m.pid) seen.set(m.pid, m); });
+  const before = new Set(P.members.keys()); P.members = seen;
+  const hs = arPartyHumans();
+  /* a full party: the newest arrival steps back out */
+  if (hs.length > AR_PMAX && hs.findIndex(m => m.pid === P.pid) >= AR_PMAX) { toast('That party is full (' + AR_PMAX + ' players).'); arPartyLeave(true).then(arPartyUI); return; }
+  const lead = hs[0] ? hs[0].pid : P.pid, changed = lead !== P.leader; P.leader = lead;
+  hs.forEach(m => { if (!before.has(m.pid) && m.pid !== P.pid && P.joined) arPartyNote(m.name + ' joined the party'); });
+  before.forEach(pid => { if (!seen.has(pid) && pid !== P.pid) { const p = P.peers.get(pid); if (p) { try { p.pc.close(); } catch (e) {} P.peers.delete(pid); } arNetGone(pid); } });
+  if (changed) { P.peers.forEach(p => { try { p.pc.close(); } catch (e) {} }); P.peers.clear(); if (AR && AR.net && AR.net.hostPid !== lead) arNetAbort('The party leader left the match.'); }
+  /* the leader opens a direct link to every member */
+  if (arPartyIsLeader()) hs.forEach(m => { if (m.pid !== P.pid) arPeerEnsure(m.pid); });
+  else arPeerAsk();
+  if (arPartyIsLeader() && P.cfg) arPartySend(null, 'cfg', P.cfg);
+  arPartyUI();
+}
+function arPartyNote(msg){ if (AR && AR.F) arFeed(msg, 'b'); else toast(msg); }
+/* party messages ride the Supabase channel; `to` limits who acts on them */
+function arPartySend(to, t, d){ const P = arP; if (!P || !P.joined) return;
+  P.ch.send({type: 'broadcast', event: 'm', payload: {f: P.pid, to: to ? (Array.isArray(to) ? to : [to]) : null, t, d}}).catch(() => {}); }
+function arPartyMsg(m){
+  const P = arP; if (!P || !m || m.f === P.pid || (m.to && !m.to.includes(P.pid))) return;
+  const d = m.d;
+  if (m.t === 'sig') return arPeerSignal(m.f, d);
+  if (m.t === 'g') return arNetRecv(m.f, d.t, d.d);
+  if (m.f !== P.leader) return;
+  if (m.t === 'cfg') { P.cfg = d; const S = arS(); S.mode = d.mode; S.map = d.map; if (!AR && !$('#arMenu').hidden) arMenu(); }
+  if (m.t === 'q') { if (!AR) arQueue(d); }
+  if (m.t === 'qx') { if (arQ) { clearInterval(arQ.iv); arQ = null; } if (!AR) { arMenu(); toast('The party leader cancelled the search.'); } }
+  if (m.t === 'go') { if (!AR) arFoundNet(d); }
+}
+
+/* ---------- direct links: the leader offers, members answer ---------- */
+function arPeerMake(pid){
+  const P = arP, pc = new RTCPeerConnection({iceServers: AR_ICE}), peer = {pc, u: null, r: null};
+  P.peers.set(pid, peer);
+  pc.onicecandidate = e => { if (e.candidate) arPartySend(pid, 'sig', {ice: e.candidate.toJSON ? e.candidate.toJSON() : e.candidate}); };
+  const hook = c => { c.onmessage = ev => { let o; try { o = JSON.parse(ev.data); } catch (e) { return; } arNetRecv(pid, o.t, o.d); }; if (c.label === 'u') peer.u = c; else peer.r = c; };
+  pc.ondatachannel = e => hook(e.channel);
+  pc.onconnectionstatechange = () => { if (['failed', 'closed'].includes(pc.connectionState)) { peer.dead = true; } };
+  peer.hook = hook; return peer;
+}
+async function arPeerEnsure(pid){
+  const P = arP; if (!P || P.peers.has(pid) || typeof RTCPeerConnection === 'undefined') return;
+  const peer = arPeerMake(pid), pc = peer.pc;
+  peer.hook(pc.createDataChannel('u', {ordered: false, maxRetransmits: 0})); peer.hook(pc.createDataChannel('r', {ordered: true}));
+  try { await pc.setLocalDescription(await pc.createOffer()); arPartySend(pid, 'sig', {sdp: pc.localDescription.toJSON ? pc.localDescription.toJSON() : pc.localDescription}); } catch (e) {}
+}
+function arPeerAsk(){ const P = arP; if (!P || !P.joined || arPartyIsLeader() || !P.leader || typeof RTCPeerConnection === 'undefined') return;
+  if (arPeerOpen(P.leader)) return; const now = Date.now(); if (now - (P.askT || 0) < 4000) return; P.askT = now; arPartySend(P.leader, 'sig', {req: 1}); }
+setInterval(() => { try { arPeerAsk(); } catch (e) {} }, 5000);
+async function arPeerSignal(from, d){
+  const P = arP; if (!P || typeof RTCPeerConnection === 'undefined') return;
+  let peer = P.peers.get(from);
+  if (d.req) { if (!arPartyIsLeader() || !P.members.has(from)) return; if (peer && !arPeerOpen(from)) { try { peer.pc.close(); } catch (e) {} P.peers.delete(from); } if (!arPeerOpen(from)) arPeerEnsure(from); return; }
+  try {
+    if (d.sdp) {
+      if (d.sdp.type === 'offer') { if (P.leader && from !== P.leader) return; if (peer) { try { peer.pc.close(); } catch (e) {} } peer = arPeerMake(from);
+        await peer.pc.setRemoteDescription(d.sdp); (peer.ice || []).forEach(c => peer.pc.addIceCandidate(c).catch(() => {}));
+        await peer.pc.setLocalDescription(await peer.pc.createAnswer()); arPartySend(from, 'sig', {sdp: peer.pc.localDescription.toJSON ? peer.pc.localDescription.toJSON() : peer.pc.localDescription}); }
+      else if (peer) await peer.pc.setRemoteDescription(d.sdp);
+    } else if (d.ice) {
+      if (!peer) return;
+      if (peer.pc.remoteDescription) await peer.pc.addIceCandidate(d.ice); else (peer.ice = peer.ice || []).push(d.ice);
+    }
+  } catch (e) {}
+}
+const arPeerOpen = pid => { const p = arP && arP.peers.get(pid); return !!(p && !p.dead && p.r && p.r.readyState === 'open'); };
+/* send to one player (pid) or everyone else (null). Unreliable messages are the ones a newer copy replaces. */
+function arNetSend(to, t, d, reliable){
+  const P = arP; if (!P) return;
+  const targets = to ? [to] : [...P.members.keys()].filter(k => k !== P.pid), msg = JSON.stringify({t, d}), relay = [];
+  targets.forEach(pid => { const p = P.peers.get(pid), c = p && !p.dead && (reliable ? p.r : p.u);
+    if (c && c.readyState === 'open') { try { c.send(msg); return; } catch (e) {} } relay.push(pid); });
+  if (!relay.length) return;
+  if (!reliable) { const now = performance.now(); if (now - (P.relayT[t] || 0) < 1000 / AR_RELAY_HZ) return; P.relayT[t] = now; }
+  arPartySend(relay, 'g', {t, d});
+}
+
+/* ---------- the party bar in the menu ---------- */
+function arPartyBar(){
+  const P = arP, hs = arPartyHumans(), lead = P && P.leader;
+  const fig = (col) => '<svg class="ar-pt-av" viewBox="-30 -48 60 70">' + arFig(0, 18, 1, col, false) + '</svg>';
+  let slots = '';
+  for (let i = 0; i < AR_PMAX; i++) { const m = P ? hs[i] : (i === 0 ? {pid: arPid(), name: arMyName(), rp: arS().rp} : null);
+    slots += m ? '<div class="ar-pt-m' + (m.pid === arPid() ? ' me' : '') + '" style="--rc:' + arRankCol(m.rp) + '">' + fig(AR_TEAMCOL[0][i]) + (P && m.pid === lead ? '<i class="ar-pt-crown" title="Party leader">♛</i>' : '')
+      + '<b>' + esc(m.pid === arPid() ? m.name + ' (you)' : m.name) + '</b><small>' + arRankName(m.rp) + (m.busy ? ' · in a match' : '') + '</small></div>'
+      : '<button type="button" class="ar-pt-m empty" data-pt="' + (P ? 'copy' : 'make') + '"><span>+</span><small>' + (P ? 'Invite' : 'Add friends') + '</small></button>'; }
+  const acts = P ? '<div class="ar-pt-code"><small>PARTY CODE</small><b>' + P.code + '</b></div><button type="button" class="ar-btn sm" data-pt="copy">Copy invite link</button><button type="button" class="ar-btn sm ghost" data-pt="leave">Leave</button>'
+    : '<button type="button" class="ar-btn sm" data-pt="make">Create party</button><div class="ar-pt-join"><input id="arPtIn" maxlength="6" placeholder="CODE" autocomplete="off" spellcheck="false"><button type="button" class="ar-btn sm ghost" data-pt="join">Join</button></div>';
+  return '<div class="ar-party' + (P ? ' on' : '') + '"><div class="ar-pt-h"><b>PARTY</b><small>' + (P ? (hs.length > 1 ? hs.length + ' players · ' + (arPartyIsLeader() ? 'you lead: pick a mode and find a match' : 'the leader picks the mode and starts') : 'Waiting for friends to join…') : 'Team up with friends · up to ' + AR_PMAX) + '</small></div>'
+    + '<div class="ar-pt-slots">' + slots + '</div><div class="ar-pt-acts">' + acts + '</div></div>';
+}
+function arPartyBind(root){
+  root.querySelectorAll('[data-pt]').forEach(b => b.onclick = () => {
+    const k = b.dataset.pt; tone(700, .05, 'triangle', .04);
+    if (k === 'make') arPartyJoin(arPartyCode(), true);
+    if (k === 'join') { const v = ($('#arPtIn') || {}).value; arPartyJoin(v, false); }
+    if (k === 'leave') arPartyLeave(false);
+    if (k === 'copy' && arP) { const url = location.origin + location.pathname + '?party=' + arP.code; const done = () => toast('Invite link copied. Code: ' + arP.code);
+      if (navigator.share && AR_MOBILE) navigator.share({title: 'Crate Rush Showdown', text: 'Join my Showdown party! Code ' + arP.code, url}).catch(() => {});
+      else if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, () => toast('Party code: ' + arP.code)); else toast('Party code: ' + arP.code); }
+  });
+  const inp = $('#arPtIn'); if (inp) inp.onkeydown = e => { e.stopPropagation(); if (e.key === 'Enter') arPartyJoin(inp.value, false); };
+}
+function arPartyUI(){ if (!AR && !$('#arena').hidden && !$('#arMenu').hidden) arMenu(); else arPartyUI2(); }
+/* keep what the party sees about you (name, rank, loadout) up to date */
+function arPartyUI2(){ if (arP && arP.joined) { const meta = arPartyMe(); const k = JSON.stringify(meta); if (k !== arP.lastMeta) { arP.lastMeta = k; arP.ch.track(meta).catch(() => {}); } } }
+/* a link with ?party=CODE opens Showdown and joins that party once the game has started up */
+(function arPartyFromLink(){
+  let code = null; try { code = new URLSearchParams(location.search).get('party'); } catch (e) {}
+  if (!code) return; let tries = 0;
+  const go = () => { if (booted && sb && $('#arena')) { try { history.replaceState(null, '', location.pathname); } catch (e) {} arOpen(); arPartyJoin(code, false); return; } if (++tries < 120) setTimeout(go, 500); };
+  setTimeout(go, 800);
+})();
+
+/* ---------- the party's road into a match ---------- */
+function arPartyFind(){
+  const S = arS(), M = arMode(S.mode), hs = arPartyHumans();
+  if (hs.length > M.n) { toast('Your party has ' + hs.length + ' players. Pick a mode with at least ' + hs.length + ' a side.'); return; }
+  const [lo, hi] = arQWait(M.n), d = {mode: M.id, map: S.map, wait: (lo + Math.random() * (hi - lo)) * 1000};
+  arPartySend(null, 'q', d); arQueue(d);
+}
+function arPartyLobby(){
+  const S = arS(), M = arMode(S.mode), map = S.map !== 'any' && M.maps.includes(S.map) ? S.map : pickOne(M.maps), hs = arPartyHumans();
+  const rp = Math.round(hs.reduce((a, m) => a + (m.rp || 0), 0) / Math.max(1, hs.length));
+  const used = new Set(hs.map(m => m.name.toLowerCase())); const uname = () => { let nm = arBotName(), k = 0; while (used.has(nm.toLowerCase()) && k++ < 20) nm = arBotName(); used.add(nm.toLowerCase()); return nm; };
+  const bot = () => { const kit = arBotKit(rp); return {name: uname(), rp: Math.max(0, rp + Math.round((Math.random() - .5) * 60)), kit: [kit.it.id, kit.fl], skill: arSkill(rp)}; };
+  const t0 = hs.map(m => ({pid: m.pid, name: m.name, rp: m.rp, load: m.load})).concat(Array.from({length: M.n - hs.length}, bot));
+  return {mode: M.id, map, teams: [t0, Array.from({length: M.n}, bot)], host: arP.pid};
+}
+/* turn a lobby that came over the network back into game objects */
+function arLobbyIn(lb){
+  const teams = lb.teams.map(tm => tm.map(p => p.pid ? Object.assign({}, p, {me: p.pid === arPid(), kit: {it: arItemById(p.load[0][0]), fl: p.load[0][1]}})
+    : Object.assign({}, p, {kit: {it: arItemById(p.kit[0]), fl: p.kit[1]}})));
+  return {mode: lb.mode, map: lb.map, teams, net: {host: lb.host === arPid(), hostPid: lb.host, pid: arPid()}};
+}
+
+/* ---------- in a match ---------- */
+function arNetInit(A, lobby){
+  if (!lobby.net) return; const N = A.net = Object.assign({}, lobby.net, {sendT: 0, rx: performance.now(), ready: new Set(), started: performance.now(), shots: 0});
+  A.F.forEach(f => { if (f.pid) f.netRx = performance.now(); });
+  if (arP) arP.ch.track(arPartyMe({busy: true})).catch(() => {});
+  if (!N.host) { A.paused = false; setTimeout(() => AR && AR.net && arNetSend(N.hostPid, 'ready', 1, true), 300); }
+  else A.waitReady = true;
+}
+const arR2 = v => Math.round(v * 100) / 100, arR3 = v => Math.round(v * 1000) / 1000;
+const arNetFlags = f => (f.st.invis > 0 ? 1 : 0) | (f.st.speedy > 0 ? 2 : 0) | (f.slide > 0 ? 4 : 0) | (f.ground ? 8 : 0) | (f.st.shield > 0 ? 16 : 0);
+/* every frame: send our side, move everyone else toward what the network last said */
+function arNetTick(dt){
+  const A = AR, N = A && A.net; if (!N) return; const now = performance.now();
+  /* if this tab was busy (loading, or in the background) nobody gets marked as gone for it */
+  if (now - (N.tickT || now) > 2000) { N.rx = now; A.F.forEach(f => { if (f.pid) f.netRx = now; }); } N.tickT = now;
+  N.sendT -= dt;
+  if (N.sendT <= 0) { N.sendT = 1 / AR_NET_HZ;
+    if (N.host) arNetSend(null, 's', {ph: A.phase, t: arR2(A.t), rt: arR2(A.roundT || 0), sc: A.score, rd: A.round,
+      f: A.F.map(f => [arR2(f.p.x), arR2(f.p.y), arR2(f.p.z), arR3(f.yaw), arR3(f.pitch), Math.round(Math.max(0, f.hp)), f.alive ? 1 : 0, f.shots || 0, f.cur, arNetFlags(f), f.kills || 0, f.deaths || 0])});
+    else { const f = A.me; arNetSend(N.hostPid, 'p', [arR2(f.p.x), arR2(f.p.y), arR2(f.p.z), arR3(f.yaw), arR3(f.pitch), Math.round(Math.max(0, f.hp)), f.alive ? 1 : 0, f.shots || 0, f.cur, arNetFlags(f)]); }
+  }
+  /* smooth everyone we don't simulate toward their last reported spot */
+  A.F.forEach(f => { const q = f.net; if (!q || f.me) return; const k = Math.min(1, dt * 14), ox = f.p.x, oz = f.p.z;
+    f.p.x += (q.x - f.p.x) * k; f.p.y += (q.y - f.p.y) * k; f.p.z += (q.z - f.p.z) * k;
+    if (dt > 0) { f.v.x = (f.p.x - ox) / dt; f.v.z = (f.p.z - oz) / dt; }
+    let dy = q.yaw - f.yaw; while (dy > Math.PI) dy -= Math.PI * 2; while (dy < -Math.PI) dy += Math.PI * 2; f.yaw += dy * k; f.pitch += (q.pitch - f.pitch) * k; f.aimY = f.yaw; f.aimP = f.pitch; });
+  /* drop-outs */
+  if (N.host) A.F.forEach(f => { if (f.pid && !f.gone && now - (f.netRx || now) > 9000) arNetGone(f.pid); });
+  else if (now - N.rx > 9000) arNetAbort('Lost the connection to the party leader.');
+  if (N.host && A.waitReady) { const need = A.F.filter(f => f.pid && !f.gone).length; if (N.ready.size >= need || now - N.started > 12000) { A.waitReady = false; arNetRoundEv(); } }
+}
+function arNetPuppet(f, a){ f.net = {x: a[0], y: a[1], z: a[2], yaw: a[3], pitch: a[4]}; const fl = a[9] || 0;
+  f.st.invis = fl & 1 ? .25 : 0; f.st.speedy = fl & 2 ? .25 : 0; f.slide = fl & 4 ? .2 : 0; f.ground = !!(fl & 8);
+  if (a[8] !== f.cur && f.load[a[8]]) f.cur = a[8];
+  const sh = a[7] || 0; if (f.shots == null) f.shots = sh; else if (sh > f.shots) { arNetShotFx(f, Math.min(2, sh - f.shots)); f.shots = sh; } }
+/* someone else fired: a tracer from their gun and the sound */
+function arNetShotFx(f, n){
+  const A = AR, W = arWS(f.load[f.cur].it); f.lastShot = A.clock;
+  if (W.melee) { arSnd(AR_SFX.swing, f.p); return; }
+  arSnd(AR_SFX.shot(W), f.p);
+  const e = arEye(f), m = arBotMuzzle(f);
+  for (let i = 0; i < n; i++) { const d = arFwd(f.yaw + (Math.random() - .5) * (W.sp || .02), f.pitch + (Math.random() - .5) * (W.sp || .02)), L = Math.min(160, arRayMap(e, d, 160));
+    arTracer(m, {x: e.x + d.x * L, y: e.y + d.y * L, z: e.z + d.z * L}, W.pel ? .5 : .9); }
+}
+function arNetRecv(from, t, d){
+  const A = AR, N = A && A.net; if (!N) return;
+  if (N.host) {
+    const f = A.F.find(x => x.pid === from); if (!f || f.gone) return; f.netRx = performance.now();
+    if (t === 'ready') { N.ready.add(from); if (!A.waitReady) arNetRoundEv(from); }
+    else if (t === 'p') { arNetPuppet(f, d); f.hp = d[5]; }
+    else if (t === 'hit') { const o = A.F[d.d]; if (!o || o.team === f.team) return; arDamage(f, o, d.dmg, !!d.h, d.at || null, true); if (d.burn) o.st.burn = 3; if (d.sui && !o.alive) { arSuiBlast(o, f); arNetSend(null, 'ev', {k: 'sui', d: o.nid}, true); } }
+    else if (t === 'died') { if (!f.alive) return; const s = d.s >= 0 ? A.F[d.s] : null; f.hp = 0; arOnDeath(s, f, !!d.h); if (d.sui && s) { arSuiBlast(f, s); arNetSend(null, 'ev', {k: 'sui', d: f.nid}, true); } }
+    else if (t === 'nade') { if (!f.alive || A.phase !== 'live') return; arNadeSpawn(f, d.p, d.v, false); arNetSend(null, 'ev', {k: 'nade', o: f.nid, p: d.p, v: d.v}, true); }
+    else if (t === 'skill') { arFeed(f.name + ' used ' + (AR_SK[d] ? AR_SK[d].n : 'a skill'), f.team === 0 ? 'b' : 'r'); }
+    else if (t === 'bye') arNetGone(from);
+    return;
+  }
+  if (from !== N.hostPid) return; N.rx = performance.now();
+  if (t === 's') {
+    A.phase = d.ph; A.t = d.t; A.roundT = d.rt; A.score = d.sc;
+    if (d.rd > A.round && !N.askT) { N.askT = 1; arNetSend(N.hostPid, 'ready', 1, true); setTimeout(() => { if (AR && AR.net) AR.net.askT = 0; }, 1500); }
+    d.f.forEach((a, i) => { const f = A.F[i]; if (!f) return; f.kills = a[10]; f.deaths = a[11]; if (f.me) return;
+      arNetPuppet(f, a); f.hp = a[5]; if (!a[6] && f.alive) { f.alive = false; if (f.B) { arGibs(f); f.B.g.visible = false; } } });
+  }
+  else if (t === 'dmg') { const s = d.s >= 0 ? A.F[d.s] : null; A.curSui = !!d.sui; arDamage(s, A.me, d.dmg, !!d.h, null); A.curSui = false; }
+  else if (t === 'ev') arNetEvent(d);
+}
+function arNetEvent(e){
+  const A = AR;
+  if (e.k === 'round') { arNewRound(e); }
+  else if (e.k === 'end') { A.phase = 'live'; arEndRound(e.w, e.why); if (e.sc) A.score = e.sc; }
+  else if (e.k === 'fin') { A.score = e.sc; arFinish(); }
+  else if (e.k === 'kill') { const s = e.s >= 0 ? A.F[e.s] : null, d = A.F[e.d]; if (!d || d.me) return;
+    if (d.alive) { d.alive = false; d.hp = 0; if (d.B) { arGibs(d); d.B.g.visible = false; } }
+    if (s && s.me) { A.streak++; A.killX = .5; arSnd(AR_SFX.kill); arKillBanner(d.name, e.h); }
+    arFeed((s ? (s.me ? 'You' : s.name) : 'The fire') + ' eliminated ' + d.name + (e.h ? ' · headshot' : ''), s && s.team === 0 ? 'b' : 'r'); }
+  else if (e.k === 'nade') { const o = A.F[e.o]; if (o && !o.me) arNadeSpawn(o, e.p, e.v, true); }
+  else if (e.k === 'sui') { const d = A.F[e.d]; if (d) arSuiBlast(d, d, true); }
+  else if (e.k === 'gone') { const f = A.F[e.d]; if (f && !f.me) { f.gone = true; f.alive = false; if (f.B) f.B.g.visible = false; arFeed(f.name + ' left the match', 'b'); } }
+  else if (e.k === 'abort') arNetAbort(e.why || 'The party leader left the match.');
+}
+/* the host tells everyone where the round starts (and repeats it to anyone who joins late) */
+function arNetRoundEv(to){ const A = AR; if (!A || !A.net || !A.net.host) return;
+  arNetSend(to || null, 'ev', {k: 'round', rd: A.round, side: A.side, sp: A.F.map(f => [arR2(f.p.x), arR2(f.p.z), arR3(f.yaw)]), sc: A.score, ph: A.phase, t: A.t}, true); }
+function arNetGone(pid){ const A = AR; if (!A || !A.net) return; const f = A.F.find(x => x.pid === pid); if (!f || f.gone) return;
+  if (A.net.host) { f.gone = true; if (f.alive) { f.alive = false; if (f.B) f.B.g.visible = false; } arFeed(f.name + ' left the match', 'b'); arNetSend(null, 'ev', {k: 'gone', d: f.nid}, true);
+    [0, 1].forEach(t => { if (A.phase === 'live' && !A.F.some(o => o.team === t && o.alive)) arEndRound(1 - t, t === 1 ? 'Their team is down' : 'Your team is down'); }); }
+  else if (pid === A.net.hostPid) arNetAbort('The party leader left the match.'); }
+function arNetAbort(why){ const A = AR; if (!A || A.over) return; A.over = true; arCleanup(); $('#arRes').hidden = true; arMenu(); toast(why); }
 $('#arBtn').onclick = () => { if (busy) return; arOpen(); };
 document.addEventListener('keydown', e => { const el = $('#arena'); if (!el || el.hidden) return; if (e.key === 'Escape') { e.stopImmediatePropagation(); if (!AR && $('#arGame').hidden && !document.querySelector('.ar-pick')) { if (arQ) { clearInterval(arQ.iv); arQ = null; arMenu(); } else arClose(); } else { const pk = document.querySelector('.ar-pick'); if (pk) pk.remove(); } } }, true);
 })();
