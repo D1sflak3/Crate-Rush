@@ -4313,6 +4313,7 @@ body.ar-on{overflow:hidden}
 
 
 
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -15457,7 +15458,7 @@ async function tobiasGoat(e){
   el.classList.add('black'); el.innerHTML = '<div class="bdo-panel crh-msg"><div class="bdo-eyebrow">Some time later</div><p class="bdo-line">Madeira. A very white house.</p></div>';
   await wait(2200);
   actBusy = false; leaveRoom();
-  crN = 0; suiPat = 3; crHouse('You’re awake. Good. Tobias says you have something I want.');
+  crN = 0; suiPat = 3; pulgaPat = 3; crSeq = 0; crHouse('You’re awake. Good. Tobias says you have something I want.');
 }
 /* ---- Ronaldo's living room ---- */
 /* Ronaldo's house: a Madeira penthouse at sunset. Glass wall onto the sea and an infinity pool, white marble,
@@ -15610,41 +15611,49 @@ function crFan(){
     }
   });
 }
-/* C, then R, then 7: the marble panel with the shirt on it slides up into the ceiling */
-let crRev = [];
+/* C, then R, then 7: the marble panel with the shirt on it slides up into the ceiling. Spell it three times in a
+   row and Ronaldo, a little rattled, offers you something from the back wall without saying what it is. */
+let crSeq = 0;
 function crLetter(i, g){
   const el = bdoEl(), open = el.classList.contains('cr-open');
   restart(g, 'press'); tone([392, 523.25, 659.25][i], .25, 'triangle', .05);
-  const fwd = !open && i === crPress.length, rev = !state.pulga && i === 2 - crRev.length;
-  crPress = fwd ? crPress.concat(i) : (!open && i === 0 ? [0] : []);
-  crRev = rev ? crRev.concat(i) : (!state.pulga && i === 2 ? [2] : []);
-  if (!fwd && !rev) { tone(150, .3, 'square', .05); el.querySelectorAll('.cr-l').forEach(x => x.classList.remove('on')); return; }
-  g.classList.add('on');
-  if (crRev.length === 3) { crRev = []; crPress = []; pulgaFlip(); return; }
+  const ok = i === crPress.length;
+  crPress = ok ? crPress.concat(i) : (i === 0 ? [0] : []);
+  if (!ok) crSeq = 0;
+  if (!crPress.length) { tone(150, .3, 'square', .05); el.querySelectorAll('.cr-l').forEach(x => x.classList.remove('on')); return; }
+  el.querySelectorAll('.cr-l').forEach((x, k) => x.classList.toggle('on', k < crPress.length));
   if (crPress.length < 3) return;
-  crPress = []; state.crDoor = true; save();
+  crPress = []; crSeq++;
+  setTimeout(() => el.querySelectorAll('.cr-l').forEach(x => x.classList.remove('on')), 650);
+  if (crSeq >= 3 && !state.pulga) { crSeq = 0; [523.25, 659.25, 783.99, 1046.5].forEach((f, k) => tone(f, .4, 'triangle', .05, .1 + k * .1)); setTimeout(pulgaAsk, 500); return; }
+  if (open) { [523.25, 659.25, 783.99].slice(0, crSeq).forEach((f, k) => tone(f * 1.5, .25, 'triangle', .04, .1 + k * .1)); return; }
+  state.crDoor = true; save();
   [523.25, 659.25, 783.99].forEach((f, k) => tone(f, .5, 'triangle', .05, .1 + k * .12));
   setTimeout(() => { el.classList.add('cr-open'); noise(1.6, 300, 900, .1, 'lowpass'); for (let k = 0; k < 8; k++) tone(90 + k * 6, .12, 'square', .03, k * .18); }, 450);
   setTimeout(() => { const s2 = el.querySelector('.bdo-sub'); if (s2) s2.textContent = 'A hidden doorway, lit sky blue. Tap it.'; tone(98, .8, 'sine', .2); }, 2200);
 }
-/* 7, R, C: the case on the back wall turns round. On the other side, hidden behind his own rifle: La Pulga. */
-async function pulgaFlip(){
-  const el = bdoEl(), c = el.querySelector('.cr-sui'); if (!c || state.pulga || el.querySelector('.msi-ov')) return;
-  if (bagBlock(1)) return;
-  el.querySelectorAll('.cr-l').forEach(x => x.classList.add('on'));
+/* the third CR7: he offers you a gun from the back wall and won't say whose it is */
+function pulgaAsk(){
+  const el = bdoEl(); if (!el || el.hidden || state.pulga || el.querySelector('.msi-ov') || !el.classList.contains('k-house')) return;
+  const p = $('#crPanel');
+  if (pulgaPat <= 0) { if (p) p.innerHTML = '<div class="bdo-eyebrow">Cristiano Ronaldo</div><p class="bdo-line">I said no more. The gun stays in the dark.</p><div class="bdo-row"><button class="ghost" data-cr="back">Back</button></div>'; tone(150, .3, 'square', .05); return; }
+  const st = el.querySelector('.crx-stage'); if (st) st.classList.add('zoom-sui');
+  noise(.6, 400, 150, .05); sweep(300, 120, .8, 'sine', .04);
+  if (p) p.innerHTML = '<div class="bdo-eyebrow">Cristiano Ronaldo</div><p class="bdo-line">CR7. CR7. CR7. Okay, okay, I hear you. You want something special. I have a gun on that wall nobody has seen. I won’t tell you what it is. Make me an offer.</p>';
+  setTimeout(() => { offerKind = 'pulga'; suiOfferOpen(); }, 1600);
+}
+/* sold: the case on the back wall turns round, and on the other side, hidden behind his own rifle, is La Pulga */
+async function pulgaFlip(r){
+  const el = bdoEl(), c = el.querySelector('.cr-sui');
   const st = el.querySelector('.crx-stage'); if (st) st.classList.add('zoom-sui');
   noise(1.2, 300, 900, .08, 'lowpass'); for (let k = 0; k < 6; k++) tone(90 + k * 8, .12, 'square', .03, k * .16);
-  const p = $('#crPanel'); if (p) p.innerHTML = '<div class="bdo-eyebrow no">Cristiano Ronaldo</div><p class="bdo-line" id="crSay">…7. R. C. Backwards. Who told you?</p>';
-  await wait(900); if (el.hidden) return;
-  c.classList.add('flip'); sweep(200, 900, 1.2, 'sine', .05);
-  await wait(1500); if (el.hidden) return;
+  const p = $('#crPanel'); if (p) p.innerHTML = '<div class="bdo-eyebrow ok">Cristiano Ronaldo</div><p class="bdo-line" id="crSay">Deal. He walks to the back wall and turns the case round.</p>';
+  await wait(900);
+  if (c) c.classList.add('flip'); sweep(200, 900, 1.2, 'sine', .05);
+  await wait(1500);
   [587.33, 739.99, 880, 1174.66].forEach((f, i) => tone(f, .8, 'triangle', .04, i * .1));
-  const say = $('#crSay'); if (say) say.textContent = 'No. NO. Not that side. Nobody sees that side.';
-  await wait(2200); if (el.hidden) return;
-  const r = {uid: uid(), id: PULGA_ID, fl: .0001, v: priceOf(BY[PULGA_ID], 0), at: Date.now(), hk: [], src: 'pulga', from: 'ronaldo'};
-  state.inv.unshift(r); state.pulga = 'owned';
-  if (!state.best || r.v > state.best.v) state.best = {id: r.id, v: r.v};
-  save();
+  const say = $('#crSay'); if (say) say.textContent = 'Messi’s SMG. La Pulga. Don’t look at me like that. Everyone has a secret.';
+  await wait(2200);
   bdoClose();
   busy = true; lockRack(true);
   $('#reveal').style.zIndex = '81';
@@ -15663,12 +15672,20 @@ function crTake(){
   toast('Penaldo bottle: you can take a penalty when a bluff fails');
 }
 /* ---- The Sui, in its case on Ronaldo's back wall: tap it, the camera leans in, and you make him an offer ---- */
-let suiPat = 3, suiSel = new Set(), suiCr = 0, suiBand = -1, suiT = 0;
+let suiPat = 3, pulgaPat = 3, offerKind = 'sui', suiSel = new Set(), suiCr = 0, suiBand = -1, suiT = 0;
+/* the mystery gun: La Pulga, but the window never says so. He wants four million and won't say that either. */
+const PULGA_ASK = 4000000;
+const PULGA_BANDS = [[.5, 'Ha. No.', 'mad'], [.8, 'You don’t even know what it is, and you offer that?', ''], [.95, 'Hmm. Closer.', ''], [1, 'Almost. Trust me, it’s worth it.', 'happy'], [Infinity, 'Now that is respect.', 'happy']];
+const offerAsk = () => offerKind === 'pulga' ? PULGA_ASK : SUI_ASK, offerPat = () => offerKind === 'pulga' ? pulgaPat : suiPat;
+const mysterySVG = () => '<svg viewBox="0 0 200 80" aria-hidden="true"><defs><radialGradient id="myG"><stop offset="0" stop-color="#ffd23f" stop-opacity=".35"/><stop offset="1" stop-color="#ffd23f" stop-opacity="0"/></radialGradient></defs><ellipse cx="100" cy="40" rx="90" ry="36" fill="url(#myG)"/>'
+  + '<path d="M28 34 H150 L164 30 H176 V44 H160 L150 48 H112 L104 66 H88 L94 48 H60 L52 58 H40 L44 46 H28 Z" fill="#0b0f18" stroke="#ffd23f" stroke-width="1.4" stroke-dasharray="3 3"/>'
+  + '<text x="100" y="52" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="40" fill="#ffd23f">?</text></svg>';
 const suiVal = () => priceOf(BY[SUI_ID], 0);
 const SUI_BANDS = [[.5, 'You insult me. In my own house.', 'mad'], [.8, 'Warmer. Still an insult.', ''], [.95, 'Close. I can smell it.', ''], [1, 'One more touch. Like a free kick.', 'happy'], [Infinity, 'SIUUU. Now we talk.', 'happy']];
 function crSuiTap(){
   const el = bdoEl(); if (state.sui || el.querySelector('.msi-ov') || !el.classList.contains('k-house')) return;
   const p = $('#crPanel');
+  offerKind = 'sui';
   if (suiPat <= 0) { if (p) p.innerHTML = '<div class="bdo-eyebrow">Cristiano Ronaldo</div><p class="bdo-line">No more offers. Not today. Not ever.</p><div class="bdo-row"><button class="ghost" data-cr="back">Back</button></div>'; tone(150, .3, 'square', .05); return; }
   const st = el.querySelector('.crx-stage'); if (st) st.classList.add('zoom-sui');
   tone(98, .8, 'sawtooth', .04); tone(146.83, .8, 'triangle', .04, .1); noise(.5, 800, 200, .05, 'lowpass');
@@ -15676,14 +15693,14 @@ function crSuiTap(){
   setTimeout(suiOfferOpen, 700);
 }
 function suiOfferOpen(){
-  const el = bdoEl(), it = BY[SUI_ID]; if (!el || el.hidden || state.sui || el.querySelector('.msi-ov')) return;
+  const el = bdoEl(), my = offerKind === 'pulga', it = BY[my ? PULGA_ID : SUI_ID]; if (!el || el.hidden || (my ? state.pulga : state.sui) || el.querySelector('.msi-ov')) return;
   const have = new Set(state.inv.map(e => e.uid)); suiSel.forEach(u => { if (!have.has(u)) suiSel.delete(u); });
   suiCr = Math.min(suiCr, state.bal); suiBand = -1;
   const ov = document.createElement('div'); ov.className = 'msi-ov';
-  ov.innerHTML = '<div class="vx vx-msi vx-sui"><div class="vx-top"><span class="tag">RONALDO’S WALL · ONE OF ONE</span><span class="vx-one">Patience ' + [0, 1, 2].map(i => '<i class="' + (i < suiPat ? 'on' : '') + '"></i>').join('') + '</span><button class="icon-btn vx-x" data-cr="suclose" aria-label="Close">✕</button></div>'
-    + '<div class="vx-main"><div class="vx-art" id="suArt"></div><div class="vx-info"><div class="t">' + WNAME[it.w] + ' | ' + it.name + '</div>'
-    + '<div class="s">Chroma, one of one. Black as a red card, struck with lightning. It does not miss. It celebrates.</div>'
-    + '<div class="s">Mint · Worth about <b>' + fmt(suiVal()) + ' cr</b></div></div></div>'
+  ov.innerHTML = '<div class="vx vx-msi vx-sui"><div class="vx-top"><span class="tag">' + (my ? 'RONALDO’S WALL · ???' : 'RONALDO’S WALL · ONE OF ONE') + '</span><span class="vx-one">Patience ' + [0, 1, 2].map(i => '<i class="' + (i < offerPat() ? 'on' : '') + '"></i>').join('') + '</span><button class="icon-btn vx-x" data-cr="suclose" aria-label="Close">✕</button></div>'
+    + '<div class="vx-main"><div class="vx-art" id="suArt"></div><div class="vx-info"><div class="t">' + (my ? 'Mystery gun' : WNAME[it.w] + ' | ' + it.name) + '</div>'
+    + '<div class="s">' + (my ? 'Something under a cloth on his back wall. He won’t say what it is, whose it was, or what it’s worth.' : 'Chroma, one of one. Black as a red card, struck with lightning. It does not miss. It celebrates.') + '</div>'
+    + '<div class="s">' + (my ? 'Worth: <b>???</b>' : 'Mint · Worth about <b>' + fmt(suiVal()) + ' cr</b>') + '</div></div></div>'
     + '<div class="vx-build"><div class="lab">Credits</div><div class="vx-cr"><button class="ghost sm" data-cr="sucr" data-v="-100000">−100k</button><input id="suCr" type="number" inputmode="numeric" min="0" step="1000" aria-label="Credits to offer" value="' + (suiCr || '') + '"><button class="ghost sm" data-cr="sucr" data-v="100000">+100k</button><button class="ghost sm" data-cr="sucr" data-v="1000000">+1M</button><button class="ghost sm" data-cr="sucr" data-v="all">All in</button></div>'
     + '<div class="lab">Items <small>tap to add or take back · shown at market value</small></div><div class="vx-items" id="suItems"></div>'
     + '<div class="vx-sum"><span>Your offer, the way he sees it</span><b id="suSum">0 cr</b></div>'
@@ -15691,8 +15708,8 @@ function suiOfferOpen(){
     + '<div class="vx-act"><button class="gold-btn" id="suGo" data-cr="suoffer">Make the offer</button></div>'
     + '<p class="vx-note">If he says no, you lose a bit of his patience. You keep everything you offered.</p></div></div>';
   el.append(ov);
-  ov.querySelector('#suArt').append(imgOf(artHi(it, 0)));
-  const box = ov.querySelector('#suItems'), list = state.inv.filter(e => e.id !== SUI_ID).sort((a, b) => b.v - a.v).slice(0, 150);
+  if (my) ov.querySelector('#suArt').innerHTML = mysterySVG(); else ov.querySelector('#suArt').append(imgOf(artHi(it, 0)));
+  const box = ov.querySelector('#suItems'), list = state.inv.filter(e => e.id !== SUI_ID && e.id !== PULGA_ID).sort((a, b) => b.v - a.v).slice(0, 150);
   if (!list.length) box.innerHTML = '<div class="pr-empty" style="grid-column:1/-1">No items. Credits only, then.</div>';
   list.forEach(e => {
     const x = BY[e.id], b = document.createElement('button');
@@ -15709,33 +15726,36 @@ function suiUpdate(quiet){
   const v = suiValue(); sum.textContent = fmt(v) + ' cr';
   const go = $('#suGo'); if (go) go.disabled = v <= 0;
   if (quiet || !v) return;
-  const band = SUI_BANDS.findIndex(b => v / SUI_ASK < b[0]);
+  const BANDS = offerKind === 'pulga' ? PULGA_BANDS : SUI_BANDS, band = BANDS.findIndex(b => v / offerAsk() < b[0]);
   if (band === suiBand) return;
   clearTimeout(suiT);
-  suiT = setTimeout(() => { suiBand = band; const vs = $('#suSay'); if (vs) { vs.textContent = SUI_BANDS[band][1]; vs.className = SUI_BANDS[band][2]; restart(vs.parentNode, 'vx-say'); } tone(band >= 3 ? 660 : 220, .12, 'triangle', .04); }, 380);
+  suiT = setTimeout(() => { suiBand = band; const vs = $('#suSay'); if (vs) { vs.textContent = BANDS[band][1]; vs.className = BANDS[band][2]; restart(vs.parentNode, 'vx-say'); } tone(band >= 3 ? 660 : 220, .12, 'triangle', .04); }, 380);
 }
 function suiOfferClose(){
   const el = bdoEl(), ov = el && el.querySelector('.msi-ov'); if (ov) ov.remove();
   const st = el && el.querySelector('.crx-stage'); if (st) st.classList.remove('zoom-sui');
 }
 async function suiOffer(){
-  if (state.sui || suiPat <= 0) return;
+  const my = offerKind === 'pulga', ASK = offerAsk(); if ((my ? state.pulga : state.sui) || offerPat() <= 0) return;
   const cr = Math.min(suiCr, state.bal), items = state.inv.filter(e => suiSel.has(e.uid)), tot = cr + items.reduce((a, e) => a + e.v, 0);
   if (tot <= 0) return;
   if (bagFree() + items.length < 1) { bagBlock(1); return; }
-  if (tot < SUI_ASK) {
-    suiPat--;
-    const r = tot / SUI_ASK, line = suiPat <= 0 ? 'Enough. Get out of my sight. The Sui is not for you.' : r < .5 ? 'You insult me. In my own house. No.' : r < .8 ? 'No. Seven. Million. Can you count?' : r < .95 ? 'Close. Still no. I said SEVEN.' : 'So close. One more touch.';
+  if (tot < ASK) {
+    if (my) pulgaPat--; else suiPat--; const pat = offerPat();
+    const r = tot / ASK, line = my ? (pat <= 0 ? 'Enough. The gun stays in the dark. You will never know what it was.' : r < .5 ? 'For a gun I hid from the whole world? No.' : r < .8 ? 'No. Think bigger. Much bigger.' : r < .95 ? 'Closer. Still no.' : 'So close. One more touch.') : pat <= 0 ? 'Enough. Get out of my sight. The Sui is not for you.' : r < .5 ? 'You insult me. In my own house. No.' : r < .8 ? 'No. Seven. Million. Can you count?' : r < .95 ? 'Close. Still no. I said SEVEN.' : 'So close. One more touch.';
     tone(r < .8 ? 140 : 300, .3, 'sawtooth', .045);
-    if (suiPat <= 0) { suiOfferClose(); const p = $('#crPanel'); if (p) p.innerHTML = '<div class="bdo-eyebrow no">Cristiano Ronaldo</div><p class="bdo-line">' + line + '</p><div class="bdo-row"><button class="ghost" data-cr="back">Back</button></div>'; return; }
+    if (pat <= 0) { suiOfferClose(); const p = $('#crPanel'); if (p) p.innerHTML = '<div class="bdo-eyebrow no">Cristiano Ronaldo</div><p class="bdo-line">' + line + '</p><div class="bdo-row"><button class="ghost" data-cr="back">Back</button></div>'; return; }
     const vs = $('#suSay'); if (vs) { vs.textContent = line; vs.className = 'mad'; restart(vs.parentNode, 'vx-say'); }
-    bdoEl().querySelectorAll('.vx-sui .vx-one i').forEach((p, i) => p.classList.toggle('on', i < suiPat));
+    bdoEl().querySelectorAll('.vx-sui .vx-one i').forEach((p, i) => p.classList.toggle('on', i < pat));
     const go = $('#suGo'); if (go) { clearTimeout(armTimers.get(go)); go.classList.remove('armed'); go.textContent = 'Make the offer'; }
     return;
   }
   suiOfferClose(); suiSel.clear(); suiCr = 0;
   const ids = new Set(items.map(e => e.uid));
   state.inv = state.inv.filter(e => !ids.has(e.uid)); state.bal -= cr;
+  if (my) { const r = {uid: uid(), id: PULGA_ID, fl: .0001, v: priceOf(BY[PULGA_ID], 0), at: Date.now(), hk: [], src: 'pulga', from: 'ronaldo'};
+    state.inv.unshift(r); state.pulga = 'owned'; if (!state.best || r.v > state.best.v) state.best = {id: r.id, v: r.v};
+    save(); if (cr) setBal(-cr); kaching(); return pulgaFlip(r); }
   const r = {uid: uid(), id: SUI_ID, fl: .0007, v: suiVal(), at: Date.now(), hk: [], src: 'sui', from: 'ronaldo'};
   state.inv.unshift(r); state.sui = 'owned';
   if (!state.best || r.v > state.best.v) state.best = {id: r.id, v: r.v};
