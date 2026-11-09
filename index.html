@@ -4342,6 +4342,9 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -4726,6 +4729,9 @@ body.ar-on{overflow:hidden}
 .ar-pausebtn.sure{background:linear-gradient(180deg,#ff3b3b,#b81d1d);animation:arPulse .6s infinite alternate}
 @keyframes arPulse{to{filter:brightness(1.25)}}
 .ar-lockhint{position:absolute;left:50%;top:58%;transform:translateX(-50%);z-index:2;pointer-events:none;padding:8px 14px;border-radius:10px;background:rgba(27,34,48,.7);color:#fff;font:600 14px Fredoka,sans-serif;text-align:center;max-width:90vw}
+
+/* controller highlight */
+body.pad .pad-focus{outline:4px solid #ffd23f !important;outline-offset:3px;box-shadow:0 0 0 7px rgba(255,210,63,.35),0 0 22px rgba(255,210,63,.6) !important}
 </style>
 
 <div class="wrap" id="wrap">
@@ -19166,7 +19172,7 @@ function arLook(frame){
   if (A.ads > .5) sens /= Math.max(1, W.zoom * .8);
   /* phone aim assist: the aim slows over an enemy and drifts gently onto them while you fight */
   let pull = null;
-  if (AR_MOBILE && S.assist && f.alive && A.phase === 'live') {
+  if ((AR_MOBILE || arPadOn) && S.assist && f.alive && A.phase === 'live') {
     const e = arEye(f), fw = arFwd(f.yaw, f.pitch); let best = .16;
     arFoes(f).forEach(o => { if (o.st.invis > 0) return; const c = {x: o.p.x, y: o.p.y + 1.2, z: o.p.z}, d = arDist(e, c); if (d > 60) return;
       const ang = Math.acos(Math.max(-1, Math.min(1, ((c.x - e.x) * fw.x + (c.y - e.y) * fw.y + (c.z - e.z) * fw.z) / d)));
@@ -19175,7 +19181,7 @@ function arLook(frame){
   }
   f.yaw -= A.mdx * sens; f.pitch = Math.max(-1.45, Math.min(1.45, f.pitch - A.mdy * sens));
   const rk = Math.exp(-frame * (A.fire ? 6 : 10)); f.rec = (f.rec || 0) * rk; f.recY = (f.recY || 0) * rk;
-  const active = A.mdx || A.mdy || A.fire || A.stick;
+  const active = A.mdx || A.mdy || A.fire || A.stick || A.padAim || A.padMv;
   A.mdx = 0; A.mdy = 0;
   if (pull && active) {
     const e = arEye(f), wy = Math.atan2(-(pull.c.x - e.x), -(pull.c.z - e.z)), wp = Math.atan2(pull.c.y - e.y, Math.hypot(pull.c.x - e.x, pull.c.z - e.z));
@@ -19191,6 +19197,7 @@ function arPlayer(dt, live){
   if (A.duel && !A.duel.set.has(f)) { f.wish = null; A.fire = false; return; }
   let mx = (K.d ? 1 : 0) - (K.a ? 1 : 0), mz = (K.s ? 1 : 0) - (K.w ? 1 : 0);
   if (A.stick) { mx += A.stick.x; mz += A.stick.y; }
+  if (A.padMv) { mx += A.padMv.x; mz += A.padMv.y; }
   const ml = Math.hypot(mx, mz); if (ml > 1) { mx /= ml; mz /= ml; }
   if (!live) { mx = 0; mz = 0; }
   A.strafe = mx;
@@ -19395,7 +19402,7 @@ function arHUD(){
     + '<div class="ar-pulga" id="arPulga" hidden></div><div class="ar-duelo" id="arDuelO" hidden></div>'
     + '<div class="ar-skpop" id="arSkPop" hidden></div>'
     + '<button type="button" class="ar-pausebtn" id="arPauseBtn" aria-label="Leave match">Leave</button>'
-    + (AR_MOBILE ? '' : '<div class="ar-lockhint" id="arLockHint">Click to aim · WASD move · Space jump · Shift slide · R reload · G grenade · 1/2/3 weapons · Q skill</div>')
+    + (AR_MOBILE ? '' : '<div class="ar-lockhint" id="arLockHint">Click to aim (or use a controller) · WASD move · Space jump · Shift slide · R reload · G grenade · 1/2/3 weapons · Q skill</div>')
     + (AR_MOBILE ? '<div class="ar-touch" id="arTouch"><div class="ar-stick" id="arStick"><i></i></div>'
       + [['fire', 'fire'], ['ads', 'ads'], ['nade', 'nade'], ['jump', 'jump'], ['reload', 'reload'], ['slide', 'slide'], ['swap', 'swap'], ['skill', 'skill']]
         .map(([k, ic]) => '<button type="button" class="tb ' + k + '" data-t="' + k + '" aria-label="' + k + '">' + (k === 'skill' || k === 'nade' ? '<span class="tbi">' + AR_IC[ic] + '</span>' : AR_IC[ic]) + (k === 'skill' ? '<svg class="cdr" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" id="arTSkC"/></svg>' : '') + '</button>').join('') + '</div>' : '');
@@ -19501,7 +19508,7 @@ function arBindInput(){
   A.onMd = e => { if (AR_MOBILE) return; if (document.pointerLockElement !== cv) { cv.requestPointerLock && cv.requestPointerLock(); return; } if (e.button === 0) A.fire = true; if (e.button === 2) A.adsHeld = true; };
   A.onMu = e => { if (e.button === 0) A.fire = false; if (e.button === 2) A.adsHeld = false; };
   A.onWheel = e => { if (document.pointerLockElement === cv) arSwap((A.me.cur + (e.deltaY > 0 ? 1 : 2)) % 3); };
-  A.onPl = () => { if (AR_MOBILE || !AR) return; const locked = document.pointerLockElement === cv, h = $('#arLockHint'); if (h) h.hidden = locked || !!A.over; if (!locked) { A.fire = false; A.adsHeld = false; A.keys = {}; } else A.last = performance.now(); };
+  A.onPl = () => { if (AR_MOBILE || !AR) return; const locked = document.pointerLockElement === cv, h = $('#arLockHint'); if (h) h.hidden = locked || !!A.over || arPadOn; if (!locked) { A.fire = false; A.adsHeld = false; A.keys = {}; } else A.last = performance.now(); };
   A.onResize = () => { A.R.setSize(innerWidth, innerHeight); A.cam.aspect = A.vcam.aspect = innerWidth / innerHeight; A.cam.updateProjectionMatrix(); A.vcam.updateProjectionMatrix(); };
   addEventListener('mousemove', A.onMm); cv.addEventListener('mousedown', A.onMd); addEventListener('mouseup', A.onMu); addEventListener('wheel', A.onWheel, {passive: true});
   document.addEventListener('pointerlockchange', A.onPl); addEventListener('resize', A.onResize); cv.addEventListener('contextmenu', e => e.preventDefault());
@@ -20990,6 +20997,117 @@ function arRankUpFx(before, after, done){
   const T3 = setTimeout(close, 7000);
   ov.onclick = () => { if (ov.classList.contains('tapok')) close(); };
 }
+
+/* =====================================================================================================
+   CONTROLLERS: PlayStation (DualShock 4 / DualSense) and any other pad the browser reports with the standard layout
+   (W3C Gamepad API): 0 ✕  1 ○  2 □  3 △  4 L1  5 R1  6 L2  7 R2  8 Create/Share  9 Options  10 L3  11 R3
+   12–15 d-pad up/down/left/right · axes 0/1 left stick, 2/3 right stick.
+   In a match: left stick move, right stick look, R2 shoot, L2 aim, ✕ jump, ○ slide, □ reload, △ next weapon,
+   L1 skill, R1 item, d-pad ← ↑ → weapons 1/2/3, d-pad ↓ GOAT marks, Options scoreboard, Create leave.
+   Everywhere else the d-pad or left stick moves a highlight between buttons, ✕ presses, ○ goes back, right stick scrolls.
+   ===================================================================================================== */
+let arPadOn = false, arPadRaf = 0, arPadPrev = [], arPadT = 0, arPadRep = 0, arPadFoc = null;
+const AR_PAD_DZ = .15;
+function arPadGet(){
+  let ps = []; try { ps = [...(navigator.getGamepads ? navigator.getGamepads() : [])]; } catch (e) {}
+  return ps.find(p => p && p.connected !== false && p.mapping === 'standard') || ps.find(p => p && p.connected !== false) || null;
+}
+function arPadStart(){ if (!arPadRaf) { arPadT = 0; arPadRaf = requestAnimationFrame(arPadLoop); } }
+addEventListener('gamepadconnected', arPadStart);
+addEventListener('gamepaddisconnected', () => { if (!arPadGet()) arPadUse(false); });
+/* the mouse or a touch takes over again: hide the controller highlight */
+addEventListener('mousemove', e => { if (arPadOn && (Math.abs(e.movementX) + Math.abs(e.movementY) > 6) && !document.pointerLockElement) arPadFocus(null); }, {passive: true});
+function arPadUse(on){
+  if (on === arPadOn) return; arPadOn = on; document.body.classList.toggle('pad', on);
+  if (!on) { arPadFocus(null); const A = AR; if (A) { A.padMv = null; A.padAim = false; A.fire = false; A.adsHeld = false; A.keys.jump = false; } return; }
+  toast('Controller connected');
+  const h = $('#arLockHint'); if (h) h.hidden = true;
+}
+function arRumble(ms, weak, strong){
+  if (!arPadOn) return; const p = arPadGet(), v = p && p.vibrationActuator; if (!v || !v.playEffect) return;
+  try { v.playEffect('dual-rumble', {duration: ms, weakMagnitude: weak, strongMagnitude: strong}).catch(() => {}); } catch (e) {}
+}
+function arPadLoop(now){
+  const p = arPadGet(); if (!p) { arPadRaf = 0; arPadUse(false); return; }
+  arPadRaf = requestAnimationFrame(arPadLoop);
+  const dt = arPadT ? Math.min(.1, (now - arPadT) / 1000) : 0; arPadT = now;
+  const b = p.buttons.map(x => x == null ? 0 : typeof x === 'number' ? x : (x.pressed ? Math.max(.6, x.value || 0) : x.value || 0)), was = arPadPrev; arPadPrev = b;
+  const hit = i => b[i] > .5 && !((was[i] || 0) > .5);
+  const ax = i => { const v = p.axes[i] || 0; return Math.abs(v) < AR_PAD_DZ ? 0 : Math.sign(v) * (Math.abs(v) - AR_PAD_DZ) / (1 - AR_PAD_DZ); };
+  if (!arPadOn) { if (b.some(v => v > .5) || p.axes.some(v => Math.abs(v) > .6)) arPadUse(true); else return; }
+  const A = AR, inGame = A && !$('#arGame').hidden && !A.over && !document.querySelector('.ar-ru');
+  if (inGame && !A.goatMenu) { arPadFocus(null); arPadGame(A, b, was, hit, ax, dt); }
+  else { if (A && (A.fire || A.padMv)) { A.fire = false; A.adsHeld = false; A.padMv = null; A.padAim = false; } arPadUI(b, hit, ax, dt); }
+}
+function arPadGame(A, b, was, hit, ax, dt){
+  const f = A.me, edge = (i, th, on, off) => { const n = b[i] > th, o = (was[i] || 0) > th; if (n && !o) on(); else if (!n && o) off(); };
+  const h = $('#arLockHint'); if (h && !h.hidden) h.hidden = true;
+  /* move */
+  const mx = ax(0), my = ax(1); A.padMv = mx || my ? {x: mx, y: my} : null;
+  /* look: a curve so small pushes aim finely and a full push turns fast; slower while aiming down sights */
+  const rx = ax(2), ry = ax(3); A.padAim = !!(rx || ry);
+  if (A.padAim && f.alive) { const W = arWS(f.load[f.cur].it), S = arS(), cv = v => Math.sign(v) * Math.pow(Math.abs(v), 1.7);
+    let r = 3.6 * (S.sens && S.sens.pc || 1); if (A.ads > .5) r /= Math.max(1, W.zoom * .8);
+    f.yaw -= cv(rx) * r * dt; f.pitch = Math.max(-1.45, Math.min(1.45, f.pitch - cv(ry) * r * .7 * dt)); }
+  edge(7, .3, () => A.fire = true, () => A.fire = false);              // R2 shoot
+  edge(6, .3, () => A.adsHeld = true, () => A.adsHeld = false);        // L2 aim
+  edge(0, .5, () => A.keys.jump = true, () => A.keys.jump = false);    // ✕ jump
+  if (hit(1) || hit(11)) A.keys.slide = true;                            // ○ / R3 slide
+  if (hit(2)) arReload(f);                                               // □ reload
+  if (hit(3)) arSwap((f.cur + 1) % 3);                                   // △ next weapon
+  if (hit(4)) arUseSkill(f);                                             // L1 skill
+  if (hit(5)) arUseMisc(f);                                              // R1 item
+  if (hit(14)) arSwap(0); if (hit(12)) arSwap(1); if (hit(15)) arSwap(2);
+  if (hit(13)) { const g = $('#arGoat'); if (g && g.offsetParent) g.click(); }
+  edge(9, .5, () => { const bd = $('#arBoard'); bd.hidden = false; arBoard(); }, () => { $('#arBoard').hidden = true; });  // Options: scoreboard while held
+  if (hit(8)) { const l = $('#arPauseBtn'); if (l) l.click(); }        // Create: leave (press twice)
+}
+/* ---------- menus: move a highlight between whatever can be pressed on screen ---------- */
+function arPadTargets(){
+  const out = [], seen = new Set(), vw = innerWidth, vh = innerHeight;
+  const ok = el => { if (seen.has(el) || el.disabled || el.closest('[hidden],[aria-hidden="true"]')) return false; const r = el.getBoundingClientRect();
+    if (r.width < 6 || r.height < 6 || r.bottom < 0 || r.right < 0 || r.top > vh || r.left > vw) return false;
+    const x = Math.min(vw - 1, Math.max(0, r.left + r.width / 2)), y = Math.min(vh - 1, Math.max(0, r.top + r.height / 2)), t = document.elementFromPoint(x, y);
+    return !!t && (t === el || el.contains(t) || t.contains(el)); };
+  document.querySelectorAll('button, a[href], input:not([type=hidden]), select, textarea, [tabindex]:not([tabindex="-1"]), [onclick], [role=button]').forEach(el => { if (ok(el)) { seen.add(el); out.push(el); } });
+  /* cards and tiles that only have a click handler show a pointer cursor */
+  document.querySelectorAll('body *').forEach(el => { if (seen.has(el) || el.closest('button, a[href]') || !el.parentElement) return;
+    const c = getComputedStyle(el).cursor; if (c !== 'pointer' || getComputedStyle(el.parentElement).cursor === 'pointer') return; if (ok(el)) { seen.add(el); out.push(el); } });
+  return out;
+}
+function arPadFocus(el){
+  if (arPadFoc && arPadFoc !== el) arPadFoc.classList.remove('pad-focus'); arPadFoc = el;
+  if (!el) return; el.classList.add('pad-focus'); try { el.focus({preventScroll: true}); } catch (e) {}
+  const r = el.getBoundingClientRect(); if (r.top < 0 || r.bottom > innerHeight) el.scrollIntoView({block: 'nearest', inline: 'nearest'});
+}
+function arPadMove(dx, dy){
+  const all = arPadTargets(); if (!all.length) return;
+  const cur = arPadFoc && arPadFoc.isConnected && all.includes(arPadFoc) ? arPadFoc : null;
+  if (!cur) { arPadFocus(all.slice().sort((a, b) => { const p = a.getBoundingClientRect(), q = b.getBoundingClientRect(); return (p.top - q.top) * 3 + (p.left - q.left); })[0]); tone(700, .03, 'triangle', .02); return; }
+  const c = cur.getBoundingClientRect(), cx = c.left + c.width / 2, cy = c.top + c.height / 2; let best = null, bs = 1e9;
+  all.forEach(el => { if (el === cur || el.contains(cur) || cur.contains(el)) return; const r = el.getBoundingClientRect(), vx = r.left + r.width / 2 - cx, vy = r.top + r.height / 2 - cy;
+    const along = vx * dx + vy * dy, side = Math.abs(vx * dy - vy * dx); if (along < 4) return; const s = along + side * 2.5; if (s < bs) { bs = s; best = el; } });
+  if (best) { arPadFocus(best); tone(700, .03, 'triangle', .02); }
+}
+function arPadUI(b, hit, ax, dt){
+  let dx = 0, dy = 0;
+  if (hit(12)) dy = -1; else if (hit(13)) dy = 1; else if (hit(14)) dx = -1; else if (hit(15)) dx = 1;
+  const sx = ax(0), sy = ax(1);
+  if (Math.abs(sx) > .55 || Math.abs(sy) > .55) { arPadRep -= dt; if (arPadRep <= 0) { arPadRep = arPadRep < -1 ? .12 : .24; if (Math.abs(sx) > Math.abs(sy)) dx = Math.sign(sx); else dy = Math.sign(sy); } } else arPadRep = 0;
+  if (dx || dy) arPadMove(dx, dy);
+  /* right stick scrolls whatever is under the highlight (or the page) */
+  const ry = ax(3), rx = ax(2);
+  if (ry || rx) { let s = arPadFoc && arPadFoc.isConnected ? arPadFoc.parentElement : document.elementFromPoint(innerWidth / 2, innerHeight / 2);
+    while (s && s !== document.body && !(s.scrollHeight > s.clientHeight + 2 && /auto|scroll/.test(getComputedStyle(s).overflowY)) && !(s.scrollWidth > s.clientWidth + 2 && /auto|scroll/.test(getComputedStyle(s).overflowX))) s = s.parentElement;
+    (s && s !== document.body ? s : document.scrollingElement).scrollBy(rx * 900 * dt, ry * 900 * dt); }
+  if (hit(0)) { const el = arPadFoc && arPadFoc.isConnected ? arPadFoc : null; if (el) { el.click(); if (/^(input|select|textarea)$/i.test(el.tagName)) el.focus(); } else arPadMove(0, 1); }
+  if (hit(1)) { if (AR && AR.goatMenu) arGoatMenuClose(); else { const ru = document.querySelector('.ar-ru'); if (ru) ru.click(); else document.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', code: 'Escape', bubbles: true})); } }
+  if (hit(0) && document.querySelector('.ar-ru.tapok')) document.querySelector('.ar-ru').click();
+}
+/* rumble: a tap when you fire, a thump when you're hit */
+{ const shoot0 = arShoot; arShoot = function(f){ const r = shoot0.apply(this, arguments); if (f && f.me && arPadOn) arRumble(70, .35, .12); return r; };
+  const dmg0 = arDamage; arDamage = function(src, dst, dmg){ const r = dmg0.apply(this, arguments); if (dst && dst.me && arPadOn && dmg > 0) arRumble(160, .5, .8); return r; }; }
+if (arPadGet()) arPadStart();
 $('#arBtn').onclick = () => { if (busy) return; arOpen(); };
 document.addEventListener('keydown', e => { const el = $('#arena'); if (!el || el.hidden) return; if (e.key === 'Escape') { e.stopImmediatePropagation(); if (!AR && $('#arGame').hidden && !document.querySelector('.ar-pick')) { if (arQ) { clearInterval(arQ.iv); arQ = null; arMenu(); } else arClose(); } else { const pk = document.querySelector('.ar-pick'); if (pk) pk.remove(); } } }, true);
 })();
