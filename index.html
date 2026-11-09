@@ -4289,6 +4289,12 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
+
+
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -4515,6 +4521,41 @@ body.ar-on{overflow:hidden}
 /* marked players: gold stars over their name */
 .ar-tag .ar-tmk{display:none;font-size:13px;color:#ffd34d;letter-spacing:1px;text-shadow:var(--ol),0 0 8px #ffc21a}.ar-tag.mk .ar-tmk{display:block}
 .ar-tag.mk span{color:#ffe38a}
+/* misc slot, picker and the Ranked Shop */
+.ar-load{grid-template-columns:repeat(4,1fr)}
+@media (max-width:760px){.ar-load{grid-template-columns:1fr 1fr}}
+.ar-lslot.misc em.ms{color:#5b6676}
+.ar-mart2{display:grid;place-items:center}.ar-mart2 svg{width:64px;height:64px;filter:drop-shadow(0 3px 0 rgba(27,34,48,.35))}
+.ar-shopb{margin-left:auto;align-self:center;display:inline-flex;align-items:center;gap:6px;padding:6px 12px 6px 6px;border:3px solid #1b2230;border-radius:12px;background:linear-gradient(180deg,#ffd84a,#f0a92e);box-shadow:0 3px 0 #1b2230;font:inherit;font-size:14px;font-weight:700;letter-spacing:.06em;color:#1b2230;cursor:pointer}
+.ar-shopb svg{width:24px;height:24px}
+.ar-mpick .ar-lh{font-size:22px}
+.ar-mlist{display:grid;gap:8px;margin:6px 0 10px}
+.ar-mi{display:grid;grid-template-columns:52px 1fr auto;grid-template-rows:auto auto;column-gap:10px;align-items:center;text-align:left;padding:8px 10px;border:3px solid #1b2230;border-radius:14px;background:radial-gradient(120% 120% at 0% 0%,color-mix(in srgb,var(--tc) 25%,#fff),#f4f6f9 70%);box-shadow:0 3px 0 #1b2230;cursor:pointer;font:inherit;color:#1b2230}
+.ar-mi.on{outline:3px solid #ffd23f;outline-offset:2px}
+.ar-mi span{grid-row:1/3}.ar-mi span svg{width:48px;height:48px}.ar-mi b{font-size:16px}.ar-mi small{grid-column:2;font-size:12px;color:#5b6676;font-weight:600}.ar-mi em{grid-column:3;grid-row:1/3;font-style:normal;font-size:12px;font-weight:700;color:#5b6676;white-space:nowrap}
+.ar-shop{width:min(880px,100%);max-height:88vh;overflow:auto;padding:14px;background:#f4f6f9;border:4px solid #1b2230;border-radius:20px;box-shadow:0 6px 0 #1b2230;color:#1b2230}
+.ar-sh-top{display:flex;align-items:center;gap:12px;margin-bottom:6px}.ar-sh-top b{display:block;font-size:28px;letter-spacing:.06em;line-height:1}.ar-sh-top small{font-size:12px;font-weight:700;color:#5b6676}
+.ar-sh-bal{margin-left:auto;display:flex;align-items:center;gap:6px;padding:6px 12px;border:3px solid #1b2230;border-radius:12px;background:#fff;font-weight:700;font-size:18px}
+.ar-sh-top .ar-x2{margin-left:0}
+.ar-sh-h{margin:12px 2px 8px;font-size:18px;font-weight:700;letter-spacing:.04em}.ar-sh-h small{font-size:12px;color:#5b6676;margin-left:6px}.ar-sh-h.ch{color:#c0359a}
+.ar-sh-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.ar-sh-c{position:relative;display:flex;flex-direction:column;gap:4px;padding:12px;border:3px solid #1b2230;border-radius:16px;background:radial-gradient(120% 80% at 50% 0%,color-mix(in srgb,var(--tc) 28%,#fff),#fff 75%);box-shadow:0 4px 0 #1b2230}
+.ar-sh-c.chroma{background:radial-gradient(120% 80% at 50% 0%,color-mix(in srgb,var(--tc) 35%,#fff),#fff4fb 75%);border-color:#c0359a;box-shadow:0 4px 0 #1b2230,0 0 16px rgba(255,107,213,.35)}
+.ar-sh-c.locked{filter:grayscale(.55)}.ar-sh-c.locked .ar-sh-ic{opacity:.6}
+.ar-sh-ic{display:grid;place-items:center;height:76px}.ar-sh-ic svg{width:70px;height:70px;filter:drop-shadow(0 3px 0 rgba(27,34,48,.3))}
+.ar-sh-c b{font-size:17px}.ar-sh-c small{font-size:12px;font-weight:600;color:#4a5568;min-height:44px}.ar-sh-c em{font-style:normal;font-size:12px;font-weight:700;color:#5b6676}
+.ar-sh-tag{position:absolute;top:8px;left:8px;padding:2px 7px;border-radius:7px;background:#c0359a;color:#fff;font-style:normal;font-size:9px;font-weight:700;letter-spacing:.06em}
+.ar-sh-tag.rk{background:var(--rc);color:#1b2230}
+.ar-sh-act{margin-top:auto;padding-top:6px}.ar-sh-act .ar-btn{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:6px;margin:0}
+.ar-sh-act .ar-btn.poor{filter:grayscale(.7) brightness(.95)}
+.ar-sh-eq{display:block;text-align:center;padding:8px;border-radius:10px;background:#1b2230;color:#ffd23f;font-weight:700;font-size:13px;letter-spacing:.08em}
+.ar-sh-lock{display:block;text-align:center;padding:8px;border-radius:10px;background:#e3e8ef;color:#5b6676;font-weight:700;font-size:12px}
+/* the misc item in the HUD and on the phone button; the flashbang whiteout */
+.ar-nade svg{width:28px;height:28px;color:inherit}
+.tb.nade .tbi{display:grid;place-items:center;width:100%;height:100%}.tb.nade .tbi svg{width:62%;height:62%}
+.tb .tbn{position:absolute;right:-2px;bottom:-2px;min-width:20px;height:20px;padding:0 4px;border-radius:10px;background:#1b2230;color:#fff;font-size:12px;display:grid;place-items:center;border:2px solid #fff}
+.ar-flasho{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:7}
+.ar-pt-acts{min-width:200px}.ar-pt-join input{flex:none;width:96px}.ar-pt-join .ar-btn{flex:1}
 </style>
 
 <div class="wrap" id="wrap">
@@ -17705,7 +17746,7 @@ function arRayMap(o, d, max){ let t = max; for (const b of ARB) { const h = arRa
 function arRaySphere(o, d, c, r){ const ox = o.x - c.x, oy = o.y - c.y, oz = o.z - c.z, b = ox * d.x + oy * d.y + oz * d.z, cc = ox * ox + oy * oy + oz * oz - r * r, h = b * b - cc; if (h < 0) return Infinity; const t = -b - Math.sqrt(h); return t >= 0 ? t : Infinity; }
 const arEye = f => ({x: f.p.x, y: f.p.y + (f.slide > 0 ? 1.05 : AR_EYE), z: f.p.z});
 const arDist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z);
-const arLOS = (a, b) => { const d = {x: b.x - a.x, y: b.y - a.y, z: b.z - a.z}, L = Math.hypot(d.x, d.y, d.z); d.x /= L; d.y /= L; d.z /= L; return arRayMap(a, d, L) >= L - .05; };
+const arLOS = (a, b) => { const d = {x: b.x - a.x, y: b.y - a.y, z: b.z - a.z}, L = Math.hypot(d.x, d.y, d.z); d.x /= L; d.y /= L; d.z /= L; return arRayMap(a, d, L) >= L - .05 && !arSmoked(a, b); };
 const arFwd = (yaw, pitch) => ({x: -Math.sin(yaw) * Math.cos(pitch), y: Math.sin(pitch), z: -Math.cos(yaw) * Math.cos(pitch)});
 /* hit a fighter: head sphere first, then the body box */
 function arRayFighter(o, d, f){
@@ -17779,7 +17820,7 @@ function arBotKit(rp){
   const it = pickOne(pool), W = WEARS[pickW(WEAR_W)];
   return {it, fl: +(W.lo + Math.random() * (W.hi - W.lo)).toFixed(4)};
 }
-const arSkill = rp => Math.max(0, Math.min(1, arRankIdx(rp) / 20 + (Math.random() - .5) * .08));
+const arSkill = rp => Math.max(0, Math.min(.85, .04 + arRankIdx(rp) / 26 + (Math.random() - .5) * .08));
 
 /* ---------- 3D: loading, surfaces, the gun models, the player models ---------- */
 let AR_T = null, AR = null;
@@ -18266,7 +18307,7 @@ function arNewRound(ev){
     f.nade = 1; f.rec = 0; f.recY = 0; f.flashT = 0; f.slideCd = 0; f.aimY = f.yaw; f.aimP = 0; f.wob = Math.random() * 9; f.cover = null; f.coverT = 0; f.nadeT = 3 + Math.random() * 6;
     if (f.B) { f.B.g.rotation.z = 0; f.B.g.visible = true; }
   }); });
-  A.proj.forEach(p => A.fx.remove(p.m)); A.proj = []; (A.gold || []).forEach(g => A.fx.remove(g.mesh)); A.gold = []; arGoatMenuClose(); A.nades.forEach(g => A.fx.remove(g.m)); A.nades = [];
+  A.proj.forEach(p => A.fx.remove(p.m)); A.proj = []; (A.gold || []).forEach(g => A.fx.remove(g.mesh)); A.gold = []; arGoatMenuClose(); arMiscRound(); A.nades.forEach(g => A.fx.remove(g.m)); A.nades = [];
   A.phase = 'count'; A.t = 3.2; A.roundT = Math.round(AR_ROUND_T * (1 + .3 * ((ARM.k || 1) - 1))); A.spec = null;
   if (ev) { A.round = ev.rd; if (ev.sc) A.score = ev.sc; ev.sp.forEach((s, i) => { const f = A.F[i]; if (!f) return; f.p = {x: s[0], y: 0, z: s[1]}; f.yaw = s[2]; if (f.net) Object.assign(f.net, {x: s[0], y: 0, z: s[1], yaw: s[2]}); });
     if (ev.ph === 'count') A.t = ev.t; }
@@ -18289,6 +18330,7 @@ function arDamage(src, dst, dmg, head, at, raw){
   const A = AR, N = A.net; if (!dst.alive || A.phase !== 'live' || (src && src.team === dst.team)) return;
   if (!raw && src && src.st.abyss > 0) { dmg *= 1.2; dst.st.slow = 1.5; }
   if (!raw && src && src.st.req > 0) { dmg *= 2; src.st.req--; }
+  if (!raw && src) { if (src.st.ghorn > 0) dmg *= 1.25; else if (src.st.horn > 0) dmg *= 1.15; }
   /* in a party match only the host changes other players' health: you report your hits, the host reports theirs */
   if (N && !N.host && !dst.me) { if (src && src.me) { N.hits = (N.hits || 0) + 1; arNetSend(N.hostPid, 'hit', {d: dst.nid, dmg: Math.round(dmg * 10) / 10, h: head ? 1 : 0, sui: A.curSui ? 1 : 0, burn: src.st.wraith > 0 ? 1 : 0}, true);
       A.hitm = .18; arSnd(head ? AR_SFX.head : AR_SFX.hit); if (at) arNum(at, Math.round(dmg), head); dst.flashT = .09; if (at && dst.B) arBurst(at, arShade(dst.col || '#ffffff', 1.1), head ? 7 : 4, 3); }
@@ -18315,7 +18357,7 @@ function arOnDeath(src, dst, head){
   if (N && N.host) arNetSend(null, 'ev', {k: 'kill', s: src ? src.nid : -1, d: dst.nid, h: head ? 1 : 0}, true);
   [0, 1].forEach(t => { if (A.phase === 'live' && !A.F.some(f => f.team === t && f.alive)) arEndRound(1 - t, A.mode.n === 1 ? (t === 1 ? 'You got ' + dst.name : dst.lastBy ? dst.lastBy.name + ' got you' : '') : (t === 1 ? 'Their team is down' : 'Your team is down')); });
 }
-function arSpeed(f){ const W = arWS(f.load[f.cur].it); let s = 8.2 * W.spd; if (f.st.slow > 0) s *= .6; if (f.st.haste > 0) s *= 1.3; if (f.st.speedy > 0) s *= 1.5; if (f.me && AR.ads > .5) s *= .64; return s; }
+function arSpeed(f){ const W = arWS(f.load[f.cur].it); let s = 8.2 * W.spd; if (f.st.slow > 0) s *= .6; if (f.st.haste > 0) s *= 1.3; if (f.st.speedy > 0) s *= 1.5; if (f.st.ghorn > 0) s *= 1.25; else if (f.st.horn > 0) s *= 1.2; if (f.me && AR.ads > .5) s *= .64; return s; }
 const arFall = (W, d) => d <= W.fall[0] ? 1 : d >= W.fall[1] ? W.fall[2] : 1 - (1 - W.fall[2]) * (d - W.fall[0]) / (W.fall[1] - W.fall[0]);
 /* shooting: rays for you, aim rolls for the bots */
 function arShoot(f){
@@ -18424,14 +18466,14 @@ function arBotThink(b, dt){
   /* pick a target: the nearest enemy it can see, otherwise the nearest one */
   b.tgtT -= dt;
   if (b.tgtT <= 0 || !b.tgt || !b.tgt.alive) {
-    b.tgtT = .4 + Math.random() * .3; const foes = arFoes(b);
-    const vis = foes.filter(o => !(o.st.invis > 0) && arLOS(eye, {x: o.p.x, y: o.p.y + 1.1, z: o.p.z})).sort((x, y) => arDist(x.p, b.p) - arDist(y.p, b.p));
+    b.tgtT = .4 + Math.random() * .3; const foes = arFoes(b).concat(arDecoysFor(b));
+    const vis = b.st.blind > 0 ? [] : foes.filter(o => !(o.st.invis > 0) && arLOS(eye, {x: o.p.x, y: o.p.y + 1.1, z: o.p.z})).sort((x, y) => arDist(x.p, b.p) - arDist(y.p, b.p));
     const nt = vis[0] || foes.sort((x, y) => arDist(x.p, b.p) - arDist(y.p, b.p))[0] || null;
     if (nt !== b.tgt) { b.tgt = nt; b.acq = 0; }
   }
   const me = b.tgt; if (!me) { b.v.x *= .8; b.v.z *= .8; return; }
   const meC = {x: me.p.x, y: me.p.y + 1.1, z: me.p.z};
-  const see = me.alive && !(me.st.invis > 0) && (arLOS(eye, meC) || arLOS(eye, arEye(me)));
+  const see = !(b.st.blind > 0) && me.alive && !(me.st.invis > 0) && (arLOS(eye, meC) || arLOS(eye, arEye(me)));
   if (see) { if (!b.acq) b.acq = A.clock + (.75 - .58 * s) + Math.random() * .15; b.lastSeen = A.clock; b.known = {x: me.p.x, z: me.p.z}; }
   else if (A.clock - b.lastSeen > .4) b.acq = 0;
   if (!b.known || !see && Math.random() < dt * (.3 + s)) b.known = {x: me.p.x, z: me.p.z};
@@ -18565,9 +18607,10 @@ function arPartsUpdate(dt){
     if (q.life <= 0) { A.fx.remove(q.m); return false; } return true; });
 }
 /* ---------- grenades: one per player per round ---------- */
-function arNadeSpawn(f, p, v, vis){
-  const A = AR, T = A.T, m = new T.Mesh(new T.IcosahedronGeometry(.13, 1), new T.MeshStandardMaterial({color: '#3f6b3a', roughness: .5, flatShading: true}));
-  p = {x: p.x, y: p.y, z: p.z}; m.position.set(p.x, p.y, p.z); A.fx.add(m); A.nades.push({p, v: {x: v.x, y: v.y, z: v.z}, t: 2.0, owner: f, m, vis});
+function arNadeSpawn(f, p, v, vis, kind){
+  kind = kind || 'frag'; const A = AR, T = A.T, col = {frag: '#3f6b3a', flash: '#d9dee6', smoke: '#8a93a3', molotov: '#3f8f5a'}[kind] || '#3f6b3a';
+  const m = new T.Mesh(kind === 'molotov' ? new T.CylinderGeometry(.06, .09, .3, 10) : new T.IcosahedronGeometry(.13, 1), new T.MeshStandardMaterial({color: col, roughness: .5, flatShading: true}));
+  p = {x: p.x, y: p.y, z: p.z}; m.position.set(p.x, p.y, p.z); A.fx.add(m); A.nades.push({p, v: {x: v.x, y: v.y, z: v.z}, t: kind === 'flash' ? 1.2 : 2.0, owner: f, m, vis, kind});
 }
 function arThrow(f, at){
   const A = AR; if (!f.alive || A.phase !== 'live' || !(f.nade > 0)) return;
@@ -18589,7 +18632,8 @@ function arNadesStep(dt){
       const inBox = ARB.some(b => g.p.x > b[0] - .12 && g.p.x < b[3] + .12 && g.p.y > b[1] - .12 && g.p.y < b[4] + .12 && g.p.z > b[2] - .12 && g.p.z < b[5] + .12);
       if (inBox || (ax === 'y' && g.p.y < .13)) { g.p[ax] = ax === 'y' && g.p.y < .13 && !inBox ? .13 : old; g.v[ax] *= -.42; ['x', 'y', 'z'].forEach(o => { if (o !== ax) g.v[o] *= .78; }); if (s0 > 3) arSnd(AR_SFX.bounce, g.p); } });
     g.m.position.set(g.p.x, g.p.y, g.p.z); g.m.rotation.x += dt * 8; g.m.rotation.z += dt * 6;
-    if (g.t <= 0) { arBoom(g.p, g.owner, g.vis); A.fx.remove(g.m); return false; }
+    if ((g.kind === 'smoke' || g.kind === 'molotov') && g.p.y <= .16 && g.t < 1.92) g.t = 0;
+    if (g.t <= 0) { arDetonate(g); A.fx.remove(g.m); return false; }
     return true;
   });
 }
@@ -18717,7 +18761,7 @@ function arStep(dt){
     if (f.st.lunge && f.st.dash > 0) { const o = arFoes(f).find(o => Math.hypot(o.p.x - f.p.x, o.p.z - f.p.z) < 1.3); if (o) { f.st.lunge = 0; arDamage(f, o, 80, false, {x: o.p.x, y: o.p.y + 1.9, z: o.p.z}); noise(.2, 300, 90, .2, 'lowpass'); } }
     else if (!(f.st.dash > 0)) f.st.lunge = 0;
   });
-  arNadesStep(dt); arGoldStep(dt);
+  arNadesStep(dt); arGoldStep(dt); arMiscStep(dt);
   /* projectiles */
   A.proj = A.proj.filter(pr => {
     pr.life -= dt; const step = 32 * dt, w = arRayMap(pr.p, pr.d, step);
@@ -18941,7 +18985,7 @@ function arHUD(){
     + '<div class="ar-feed" id="arFeed"></div><div id="arTags"></div><div class="ar-kx" id="arKx"></div><div class="ar-kill" id="arKill" hidden><b></b><span></span></div>'
     + '<div class="ar-hp"><div class="ar-hpic"><svg viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z" fill="currentColor"/></svg></div><div class="ar-hpw"><div class="ar-hpb"><s id="arHpT"></s><i id="arHpB"></i><u id="arSh"></u><em></em><div class="ar-hpn" id="arHpN">100</div></div><div class="ar-st" id="arSt"></div></div></div>'
     + '<div class="ar-goat" id="arGoat" hidden><span class="ar-goat-ic">' + AR_IC.goat + '</span><div class="ar-goat-w"><div class="ar-goat-b"><i></i><i></i><i></i></div><small id="arGoatS">GOAT BAR</small></div><b id="arGoatT">+0%</b></div>'
-    + '<div class="ar-gm" id="arGoatM" hidden></div>'
+    + '<div class="ar-gm" id="arGoatM" hidden></div><div class="ar-flasho" id="arFlashO"></div>'
     + '<div class="ar-wp"><div class="ar-nade" id="arNade"></div><div class="ar-ammo" id="arAmmo"></div><div class="ar-wn" id="arWn"></div><div class="ar-slots" id="arSlots"></div></div>'
     + '<button type="button" class="ar-sk" id="arSk" hidden><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" class="bg"/><circle cx="20" cy="20" r="17" class="cd" id="arSkC"/></svg><i class="ar-ski" id="arSkI"></i><b>Q</b><span id="arSkN"></span></button>'
     + '<div class="ar-fxo ls" id="arFxL"><div class="ar-fxt">' + AR_IC.longshot + '<div><b>LONG SHOT</b><u><i id="arFxLt"></i></u></div></div></div>'
@@ -18951,7 +18995,7 @@ function arHUD(){
     + '<div class="ar-pause" id="arPause" hidden><div class="ar-pcard"><h3>Paused</h3><p id="arPauseP"></p><button type="button" class="ar-btn" id="arResume">Resume</button><button type="button" class="ar-btn ghost" id="arQuit">Leave match (counts as a loss)</button></div></div>'
     + (AR_MOBILE ? '<div class="ar-touch" id="arTouch"><div class="ar-stick" id="arStick"><i></i></div>'
       + [['fire', 'fire'], ['ads', 'ads'], ['nade', 'nade'], ['jump', 'jump'], ['reload', 'reload'], ['slide', 'slide'], ['swap', 'swap'], ['skill', 'skill']]
-        .map(([k, ic]) => '<button type="button" class="tb ' + k + '" data-t="' + k + '" aria-label="' + k + '">' + (k === 'skill' ? '<span class="tbi">' + AR_IC[ic] + '</span>' : AR_IC[ic]) + (k === 'skill' ? '<svg class="cdr" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" id="arTSkC"/></svg>' : '') + '</button>').join('') + '</div>' : '');
+        .map(([k, ic]) => '<button type="button" class="tb ' + k + '" data-t="' + k + '" aria-label="' + k + '">' + (k === 'skill' || k === 'nade' ? '<span class="tbi">' + AR_IC[ic] + '</span>' : AR_IC[ic]) + (k === 'skill' ? '<svg class="cdr" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" id="arTSkC"/></svg>' : '') + '</button>').join('') + '</div>' : '');
   $('#arSlots').innerHTML = A.me.load.map((l, i) => '<div class="ar-slot" data-i="' + i + '" style="--tc:' + TIERS[l.it.t].color + '"><small>' + (i + 1) + '</small><span></span></div>').join('');
   A.me.load.forEach((l, i) => { const s = $('#arSlots').children[i].querySelector('span'); s.append(thumb(l.it, wearIdx(l.fl))); });
   /* name tags over every bot: your team's always show, enemies only when you can see them */
@@ -19020,7 +19064,9 @@ function arHudUpdate(full){
   const X = $('#arX'); X.style.setProperty('--g', gap.toFixed(1) + 'px'); X.style.opacity = !f.alive || (W.scope && A.ads > .5) ? 0 : 1;
   A.hitm = Math.max(0, (A.hitm || 0) - .016); $('#arHm').style.opacity = A.hitm > 0 ? 1 : 0;
   A.killX = Math.max(0, (A.killX || 0) - .016); $('#arKx').style.opacity = A.killX > 0 ? Math.min(1, A.killX * 3) : 0; $('#arKx').style.transform = 'translate(-50%,-50%) scale(' + (1 + A.killX * .6).toFixed(2) + ')';
-  const nd = $('#arNade'); if (nd.dataset.n !== String(f.nade)) { nd.dataset.n = f.nade; nd.innerHTML = AR_IC.nade + '<b>' + (f.nade || 0) + '</b>'; nd.classList.toggle('none', !(f.nade > 0)); const tn = document.querySelector('#arTouch .tb.nade'); if (tn) tn.classList.toggle('none', !(f.nade > 0)); }
+  const nd = $('#arNade'), mk = (f.miscId || 'frag') + '|' + (f.mu || 0); if (nd.dataset.n !== mk) { nd.dataset.n = mk; const mic = AR_MIC[f.miscId || 'frag']; nd.innerHTML = mic + '<b>' + (f.mu || 0) + '</b>'; nd.classList.toggle('none', !(f.mu > 0));
+    const tn = document.querySelector('#arTouch .tb.nade'); if (tn) { tn.classList.toggle('none', !(f.mu > 0)); const ti = tn.querySelector('.tbi'); if (ti) ti.innerHTML = mic; let c = tn.querySelector('.tbn'); if (!c) { c = document.createElement('b'); c.className = 'tbn'; tn.append(c); } c.textContent = f.mu || 0; } }
+  const fo = $('#arFlashO'); if (fo) fo.style.opacity = Math.min(1, (A.flashW || 0) / .7).toFixed(2);
   A.hurt = Math.max(0, (A.hurt || 0) - .012); $('#arHurt').style.opacity = A.hurt + (f.alive && f.hp < 30 ? .25 : 0);
 }
 /* ---------- input ---------- */
@@ -19037,7 +19083,7 @@ function arBindInput(){
     if (!down) return;
     if (k === 'r') arReload(A.me);
     if (k === 'q' || k === 'e' || k === 'f') arUseSkill(A.me);
-    if (k === 'g') arThrow(A.me);
+    if (k === 'g') arUseMisc(A.me);
     if (k === 'tab') { e.preventDefault(); }
     if (A.goatMenu && /^[1-9]$/.test(k)) { const nid = A.goatMenu[+k - 1]; if (nid != null) arGoatMark(nid); return; }
     if (['1', '2', '3'].includes(k)) arSwap(+k - 1);
@@ -19074,7 +19120,7 @@ function arTouch(){
       if (b && !b.hidden) { const k = b.dataset.t; ids[t.identifier] = {k, x: t.clientX, y: t.clientY, b}; b.classList.add('on');
         if (k === 'fire') A.fire = true; if (k === 'fire2') A.fire2 = true; if (k === 'jump') A.keys.jump = true;
         if (k === 'ads') { A.adsHeld = !A.adsHeld; b.classList.toggle('lock', A.adsHeld); }
-        if (k === 'reload') arReload(A.me); if (k === 'slide') A.keys.slide = true; if (k === 'swap') arSwap((A.me.cur + 1) % 3); if (k === 'skill') arUseSkill(A.me); if (k === 'nade') arThrow(A.me); }
+        if (k === 'reload') arReload(A.me); if (k === 'slide') A.keys.slide = true; if (k === 'swap') arSwap((A.me.cur + 1) % 3); if (k === 'skill') arUseSkill(A.me); if (k === 'nade') arUseMisc(A.me); }
       else if (t.clientX < innerWidth * .45) { ids[t.identifier] = {k: 'stick', x: t.clientX, y: t.clientY}; stick.style.left = t.clientX + 'px'; stick.style.top = t.clientY + 'px'; stick.classList.add('on'); A.stick = {x: 0, y: 0}; }
       else ids[t.identifier] = {k: 'look', x: t.clientX, y: t.clientY};
     }
@@ -19108,7 +19154,12 @@ function arFinish(){
   A.over = true; A.paused = true;
   const won = A.score[0] >= AR_WIN && !A.quit, S = arS(), before = S.rp, ri = arRankIdx(before), ti = Math.floor(ri / 3);
   const diff = A.score[0] - A.score[1];
-  const d = won ? 20 + 2 * diff : -Math.max(8, 18 - 2 * A.score[0]);
+  /* rank points: wins pay well (more for a big score line and your eliminations), losses cost little,
+     nothing is lost in Bronze, and a loss never drops you out of the tier you've reached */
+  const tierFloor = ti * 3 * AR_DIV, kb = Math.min(15, 2 * A.me.kills);
+  let d = won ? Math.min(75, 30 + 5 * diff + kb) : A.quit ? -10 : -Math.max(3, 10 - 2 * A.score[0]);
+  if (!won && ti === 0) d = 0;
+  if (!won && S.rp + d < tierFloor) d = -(S.rp - tierFloor);
   S.rp = Math.max(0, S.rp + d); if (won) S.w++; else S.l++;
   const cr = won ? 200 + 150 * ti + 30 * A.score[0] + 25 * A.me.kills : A.quit ? 0 : 50 + 20 * A.score[0] + 15 * A.me.kills;
   state.bal += cr; save(); setBal(cr);
@@ -19179,20 +19230,21 @@ function arMenu(){
     + arPartyBar()
     + '<div class="ar-mgrid"><div class="ar-modes">' + AR_MODES.map((m, i) => '<button type="button" class="ar-mode' + (m.id === S.mode ? ' on' : '') + (i < 2 ? ' big' : '') + (pn > m.n ? ' off' : '') + (follow ? ' lock' : '') + '" data-mode="' + m.id + '">' + arModeArt(m) + '<span class="ar-mpl">' + (m.n * 2) + ' PLAYERS</span><span class="ar-shine"></span><span class="ar-mlab"><b>' + m.id + '</b><em>' + m.name.toUpperCase() + '</em><small>' + m.sub + '</small></span></button>').join('') + '</div>'
     + '<div class="ar-maps"><span>Map</span>' + ['any'].concat(M.maps).map(id => '<button type="button" class="ar-chip' + (S.map === id ? ' on' : '') + '" data-map="' + id + '">' + (id === 'any' ? '<span class="ar-mapq">?</span>Random' : arMapSVG(id, M.n) + AR_MAPS[id].name + ' <small>' + (() => { const t = arTilesFor(id, M.n); return AR_MAPS[id].W * t.c + '×' + AR_MAPS[id].D * t.r; })() + '</small>') + '</button>').join('') + '</div>'
-    + '<div class="ar-load"><div class="ar-lh">Loadout <small>tap a slot to change it</small></div>' + L.map((l, i) => {
+    + '<div class="ar-load"><div class="ar-lh">Loadout <small>tap a slot to change it</small><button type="button" class="ar-shopb" id="arShopB"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z" fill="#fff" stroke="#1b2230" stroke-width="2"/><path d="M9 10V7a3 3 0 0 1 6 0v3" fill="none" stroke="#1b2230" stroke-width="2"/></svg>RANKED SHOP</button></div>' + L.map((l, i) => {
         const sk = arSkillOf(l.it);
         return '<button type="button" class="ar-lslot" data-slot="' + i + '" style="--tc:' + TIERS[l.it.t].color + '"><small>' + AR_SLOTN[i] + '</small><span class="ar-lart"></span><b>' + (l.it.stock ? 'Stock ' + WNAME[l.it.w].replace('★ ', '') : WNAME[l.it.w] + ' | ' + l.it.name) + '</b>'
-          + (sk ? (AR_SK[sk].ic ? '<em class="cus" style="--c:' + AR_SK[sk].col + '">' + AR_IC[AR_SK[sk].ic] + AR_SK[sk].n + '</em>' : '<em>★ ' + AR_SK[sk].n + '</em>') : l.it.t === 7 ? '<em class="ch">Chroma · +75% damage, faster fire</em>' : '') + '</button>'; }).join('') + '</div>'
+          + (sk ? (AR_SK[sk].ic ? '<em class="cus" style="--c:' + AR_SK[sk].col + '">' + AR_IC[AR_SK[sk].ic] + AR_SK[sk].n + '</em>' : '<em>★ ' + AR_SK[sk].n + '</em>') : l.it.t === 7 ? '<em class="ch">Chroma · +75% damage, faster fire</em>' : '') + '</button>'; }).join('') + arMiscSlot() + '</div>'
     + '<button type="button" class="ar-find' + (follow ? ' wait' : '') + '" id="arFind"' + (follow ? ' disabled' : '') + '>' + (follow ? 'THE PARTY LEADER STARTS THE MATCH' : 'FIND MATCH · ' + M.id + (pn > 1 ? ' · PARTY OF ' + pn : '')) + '</button>'
-    + '<p class="ar-note">G or the grenade button throws your grenade, one per round. Rank up to face tougher players with better weapons. Win: rank points and credits.</p></div>';
-  [...document.querySelectorAll('#arMenu .ar-lslot')].forEach((b, i) => b.querySelector('.ar-lart').append(thumb(L[i].it, wearIdx(L[i].fl))));
+    + '<p class="ar-note">G or the grenade button uses your misc item; more come from the Ranked Shop. Rank up to face tougher players with better weapons. Win: rank points and credits.</p></div>';
+  [...document.querySelectorAll('#arMenu .ar-lslot:not(.misc)')].forEach((b, i) => b.querySelector('.ar-lart').append(thumb(L[i].it, wearIdx(L[i].fl))));
   $('#arBack').onclick = arClose; $('#arFind').onclick = () => { if (follow) return; if (pn > 1) arPartyFind(); else arQueue(); }; $('#arGear').onclick = arSettings;
   const share = () => { if (arP && arPartyIsLeader()) { arP.cfg = {mode: S.mode, map: S.map}; arPartySend(null, 'cfg', arP.cfg); } };
   $('#arMenu').querySelectorAll('.ar-mode').forEach(b => b.onclick = () => { if (follow) { toast('The party leader picks the mode.'); return; } if (pn > arMode(b.dataset.mode).n) { toast('Your party of ' + pn + ' needs a mode with at least ' + pn + ' a side.'); return; }
     S.mode = b.dataset.mode; save(); tone(660, .05, 'triangle', .04); share(); arMenu(); });
   $('#arMenu').querySelectorAll('.ar-chip').forEach(b => b.onclick = () => { if (follow) { toast('The party leader picks the map.'); return; } S.map = b.dataset.map; save(); tone(720, .04, 'triangle', .04); share(); arMenu(); });
   arPartyBind($('#arMenu')); arPartyUI2();
-  $('#arMenu').querySelectorAll('.ar-lslot').forEach(b => b.onclick = () => arPick(+b.dataset.slot));
+  $('#arMenu').querySelectorAll('.ar-lslot:not(.misc)').forEach(b => b.onclick = () => arPick(+b.dataset.slot));
+  $('#arMiscSlot').onclick = arMiscPick; $('#arShopB').onclick = arShop;
 }
 function arSettings(){
   const S = arS(), box = document.createElement('div'); box.className = 'ar-pick';
@@ -19499,6 +19551,7 @@ function arNetRecv(from, t, d){
     else if (t === 'hit') { const o = A.F[d.d]; if (!o || o.team === f.team) return; arDamage(f, o, d.dmg, !!d.h, d.at || null, true); if (d.burn) o.st.burn = 3; if (d.sui && !o.alive) { arSuiBlast(o, f); arNetSend(null, 'ev', {k: 'sui', d: o.nid}, true); } }
     else if (t === 'died') { if (!f.alive) return; const s = d.s >= 0 ? A.F[d.s] : null; f.hp = 0; arOnDeath(s, f, !!d.h); if (d.sui && s) { arSuiBlast(f, s); arNetSend(null, 'ev', {k: 'sui', d: f.nid}, true); } }
     else if (t === 'nade') { if (!f.alive || A.phase !== 'live') return; arNadeSpawn(f, d.p, d.v, false); arNetSend(null, 'ev', {k: 'nade', o: f.nid, p: d.p, v: d.v}, true); }
+    else if (t === 'misc') { if (!f.alive || A.phase !== 'live' || !AR_MISC[d.id]) return; arMiscExec(f, d.id, d.d, true); arNetSend(null, 'ev', {k: 'misc', o: f.nid, id: d.id, d: d.d}, true); }
     else if (t === 'skill') { arFeed(f.name + ' used ' + (AR_SK[d] ? AR_SK[d].n : 'a skill'), f.team === 0 ? 'b' : 'r'); }
     else if (t === 'bye') arNetGone(from);
     return;
@@ -19523,6 +19576,7 @@ function arNetEvent(e){
     if (s && s.me) { A.streak++; A.killX = .5; arSnd(AR_SFX.kill); arKillBanner(d.name, e.h); arGoatKill(s); }
     arFeed((s ? (s.me ? 'You' : s.name) : 'The fire') + ' eliminated ' + d.name + (e.h ? ' · headshot' : ''), s && s.team === 0 ? 'b' : 'r'); }
   else if (e.k === 'nade') { const o = A.F[e.o]; if (o && !o.me) arNadeSpawn(o, e.p, e.v, true); }
+  else if (e.k === 'misc') { const o = A.F[e.o]; if (o && !o.me && AR_MISC[e.id]) arMiscExec(o, e.id, e.d, false); }
   else if (e.k === 'sui') { const d = A.F[e.d]; if (d) arSuiBlast(d, d, true); }
   else if (e.k === 'gone') { const f = A.F[e.d]; if (f && !f.me) { f.gone = true; f.alive = false; if (f.B) f.B.g.visible = false; arFeed(f.name + ' left the match', 'b'); } }
   else if (e.k === 'abort') arNetAbort(e.why || 'The party leader left the match.');
@@ -19619,6 +19673,210 @@ function arGoldStep(dt){
     g.trail -= dt; if (g.trail <= 0) { g.trail = .025; arPart({x: g.p.x, y: g.p.y, z: g.p.z}, {x: 0, y: .6, z: 0}, '#ffcf3a', .045, .35, 0); }
     return true;
   });
+}
+
+/* =====================================================================================================
+   MISC ITEMS: a fourth loadout slot, like RIVALS utilities. Bought in the Ranked Shop with credits; better items
+   unlock at higher ranks, and each chroma that has a skill also has its own misc item that only its owners can
+   buy. G (or the grenade button) uses it; each item has a few uses per round.
+   ===================================================================================================== */
+const AR_MISC = {
+  frag:    {n: 'Frag Grenade', d: 'Bounces once or twice, then blows up for up to 95.', uses: 1, price: 0, rank: 0, col: '#4f8a3a'},
+  med:     {n: 'Medkit', d: 'Patch yourself up: 50 HP over a second.', uses: 1, price: 4000, rank: 0, col: '#e5484d'},
+  smoke:   {n: 'Smoke Grenade', d: 'A thick cloud for 9 seconds. Nobody sees through it.', uses: 1, price: 6000, rank: 3, col: '#8a93a3'},
+  flash:   {n: 'Flashbang', d: 'Blinds anyone looking at it for up to 2.5 seconds.', uses: 2, price: 8000, rank: 5, col: '#f2c14e'},
+  molotov: {n: 'Molotov', d: 'Bursts into a pool of fire for 5 seconds: 15 damage a second.', uses: 1, price: 12000, rank: 6, col: '#ff7a1a'},
+  pad:     {n: 'Jump Pad', d: 'Drop a pad that launches anyone who steps on it. Lasts the round.', uses: 1, price: 15000, rank: 8, col: '#3b9cff'},
+  horn:    {n: 'War Horn', d: 'You and teammates near you: +20% speed and +15% damage for 6 seconds.', uses: 1, price: 25000, rank: 9, col: '#b07a3c'},
+  /* chroma exclusives */
+  siu:     {n: 'SIUUU Leap', chroma: 'x5', d: 'Leap high, hang in the air, then slam down: 45 damage around you.', uses: 1, price: 50000, rank: 0, col: '#e5322d'},
+  decoy:   {n: 'Mirage Decoy', chroma: 'x4', d: 'A copy of you sprints ahead for 5 seconds and pulls enemy fire.', uses: 1, price: 50000, rank: 0, col: '#ffb81f'},
+  ghorn:   {n: 'Golden Horn', chroma: 'x3', d: 'Team +25% damage and speed for 8 seconds; enemies near you are stunned.', uses: 1, price: 50000, rank: 0, col: '#ffc21a'}};
+const AR_MISC_ORDER = ['frag', 'med', 'smoke', 'flash', 'molotov', 'pad', 'horn', 'siu', 'decoy', 'ghorn'];
+const AR_MIC = {
+  frag: '<svg viewBox="0 0 48 48"><rect x="20" y="4" width="9" height="7" rx="2" fill="#7a8088" stroke="#1b2230" stroke-width="2.4"/><path d="M29 7 q9 0 9 9" fill="none" stroke="#1b2230" stroke-width="2.6"/><ellipse cx="24" cy="28" rx="13" ry="16" fill="#4f8a3a" stroke="#1b2230" stroke-width="2.8"/><path d="M11 24h26M11 32h26M19 13v30M29 13v30" stroke="#2f5a22" stroke-width="2"/><ellipse cx="19" cy="20" rx="3" ry="5" fill="#fff" opacity=".35"/></svg>',
+  med: '<svg viewBox="0 0 48 48"><rect x="17" y="6" width="14" height="7" rx="2" fill="none" stroke="#1b2230" stroke-width="3"/><rect x="5" y="11" width="38" height="31" rx="6" fill="#fff" stroke="#1b2230" stroke-width="2.8"/><path d="M20 17h8v7h7v8h-7v7h-8v-7h-7v-8h7z" fill="#e5484d" stroke="#1b2230" stroke-width="2"/></svg>',
+  smoke: '<svg viewBox="0 0 48 48"><circle cx="16" cy="13" r="8" fill="#d6dbe3" stroke="#1b2230" stroke-width="2.2"/><circle cx="28" cy="10" r="7" fill="#e8ebf0" stroke="#1b2230" stroke-width="2.2"/><circle cx="36" cy="17" r="6" fill="#c9cfd8" stroke="#1b2230" stroke-width="2.2"/><rect x="15" y="20" width="18" height="24" rx="4" fill="#8a93a3" stroke="#1b2230" stroke-width="2.8"/><rect x="15" y="27" width="18" height="5" fill="#5b6472"/></svg>',
+  flash: '<svg viewBox="0 0 48 48"><path d="M24 2 l4 9 10-4-4 10 10 4-10 4 4 10-10-4-4 9-4-9-10 4 4-10-10-4 10-4-4-10 10 4z" fill="#fff6c2" stroke="#f2c14e" stroke-width="2"/><rect x="17" y="18" width="14" height="22" rx="4" fill="#d9dee6" stroke="#1b2230" stroke-width="2.8"/><rect x="17" y="24" width="14" height="4" fill="#f2c14e"/></svg>',
+  molotov: '<svg viewBox="0 0 48 48"><path d="M24 2 c6 6 8 10 3 14 c5-1 6 3 4 6 h-13 c-2-4 0-7 3-7 c-3-4 1-9 3-13z" fill="#ff7a1a" stroke="#1b2230" stroke-width="2.2" stroke-linejoin="round"/><path d="M24 9 c2 3 2 6-1 8 c-2-2-1-5 1-8z" fill="#ffd84a"/><rect x="20" y="20" width="8" height="7" fill="#c9a77a" stroke="#1b2230" stroke-width="2.2"/><path d="M20 27 h8 l6 8 v8 a3 3 0 0 1 -3 3 h-14 a3 3 0 0 1 -3-3 v-8z" fill="#3f8f5a" stroke="#1b2230" stroke-width="2.8" stroke-linejoin="round"/><rect x="16" y="35" width="16" height="6" fill="#e8d7a8" opacity=".85"/></svg>',
+  pad: '<svg viewBox="0 0 48 48"><path d="M24 4 l11 12 h-7 v9 h-8 v-9 h-7z" fill="#fff" stroke="#1b2230" stroke-width="2.6" stroke-linejoin="round"/><path d="M14 30 q5-4 10 0 t10 0" fill="none" stroke="#1b2230" stroke-width="2.6"/><ellipse cx="24" cy="38" rx="20" ry="7" fill="#3b9cff" stroke="#1b2230" stroke-width="2.8"/><ellipse cx="24" cy="36.5" rx="13" ry="3.5" fill="#9fd4ff"/></svg>',
+  horn: '<svg viewBox="0 0 48 48"><path d="M6 30 C10 14 26 8 40 8 l2 6 C30 16 20 22 16 36 Z" fill="#c98f55" stroke="#1b2230" stroke-width="2.8" stroke-linejoin="round"/><ellipse cx="41" cy="11" rx="4" ry="5" transform="rotate(-20 41 11)" fill="#7a4a24" stroke="#1b2230" stroke-width="2.4"/><path d="M12 24 l6 6 M17 18 l6 6 M23 14 l5 6" stroke="#7a4a24" stroke-width="2.4"/><path d="M4 38 q4-4 8 0 M2 44 q6-6 12 0" fill="none" stroke="#ffd34d" stroke-width="2.6" stroke-linecap="round"/></svg>',
+  siu: '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="#e5322d" stroke="#1b2230" stroke-width="2.8"/><circle cx="24" cy="11" r="4.5" fill="#fff"/><path d="M8 17 L19 20 L18 31 L13 41 M40 17 L29 20 L30 31 L35 41 M19 20 h10 l1 11 h-12z" fill="#fff" stroke="#fff" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><text x="24" y="30" font-size="8" font-weight="700" text-anchor="middle" fill="#e5322d" font-family="Fredoka, sans-serif">7</text></svg>',
+  decoy: '<svg viewBox="0 0 48 48"><path d="M2 16h8M1 24h7M2 32h8" stroke="#fff" stroke-width="3" stroke-linecap="round"/><g opacity=".5"><circle cx="20" cy="10" r="5" fill="#9fd4ff"/><path d="M13 17h14l2 13h-5l-1 13h-6l-1-13h-5z" fill="#9fd4ff"/></g><circle cx="31" cy="10" r="5" fill="#ffb81f" stroke="#1b2230" stroke-width="2.2"/><path d="M24 17h14l2 13h-5l-1 13h-6l-1-13h-5z" fill="#ffb81f" stroke="#1b2230" stroke-width="2.4" stroke-linejoin="round"/></svg>',
+  ghorn: '<svg viewBox="0 0 48 48"><path d="M6 32 C10 15 26 9 40 9 l2 6 C30 17 20 23 16 38 Z" fill="#ffd34d" stroke="#1b2230" stroke-width="2.8" stroke-linejoin="round"/><path d="M9 33 C13 21 24 15 36 13" stroke="#fff6c2" stroke-width="2.4" fill="none" stroke-linecap="round"/><ellipse cx="41" cy="12" rx="4" ry="5" transform="rotate(-20 41 12)" fill="#c98a1c" stroke="#1b2230" stroke-width="2.4"/><path d="M6 8 l1.5 4 4 1.5 -4 1.5 -1.5 4 -1.5-4 -4-1.5 4-1.5z M38 30 l1.2 3 3 1.2 -3 1.2 -1.2 3 -1.2-3 -3-1.2 3-1.2z" fill="#fff6c2"/></svg>'};
+const arMiscState = () => { const S = arS(); S.misc = S.misc || {own: ['frag'], eq: 'frag'}; if (!S.misc.own.includes('frag')) S.misc.own.unshift('frag'); if (!AR_MISC[S.misc.eq] || !S.misc.own.includes(S.misc.eq)) S.misc.eq = 'frag'; return S.misc; };
+const arOwnsChroma = id => state.inv.some(e => e.id === id);
+const arMiscRankOk = k => arRankIdx(arS().rp) >= (AR_MISC[k].rank || 0);
+
+/* ---------- using one ---------- */
+function arUseMisc(f){
+  const A = AR, id = f.miscId || 'frag', M = AR_MISC[id]; if (!M || !f.alive || A.phase !== 'live') return;
+  if (!(f.mu > 0)) { if (f.me) { arFeed('No ' + M.n + ' left this round', 'b'); tone(220, .08, 'square', .03); } return; }
+  if (id === 'med' && f.medT > 0) return;
+  f.mu--; const e = arEye(f), d = arFwd(f.yaw, f.pitch + .14);
+  const data = {p: {x: arR2(e.x + d.x * .5), y: arR2(e.y - .1), z: arR2(e.z + d.z * .5)}, v: {x: arR2(d.x * 17 + f.v.x * .4), y: arR2(d.y * 17 + 2), z: arR2(d.z * 17 + f.v.z * .4)}, yaw: arR3(f.yaw)};
+  const N = A.net, real = !N || N.host;
+  arMiscExec(f, id, data, real);
+  if (N) { if (N.host) arNetSend(null, 'ev', {k: 'misc', o: f.nid, id, d: data}, true); else arNetSend(N.hostPid, 'misc', {id, d: data}, true); }
+  arHudUpdate(true);
+}
+/* run an item. `real` means this game decides what happens to other players (solo, or the party host);
+   otherwise it is a copy for show, and only effects on your own player happen here */
+function arMiscExec(f, id, d, real){
+  const A = AR, T = A.T;
+  if (['frag', 'smoke', 'flash', 'molotov'].includes(id)) { arNadeSpawn(f, d.p, d.v, !real, id); arSnd(AR_SFX.pin, f.me ? null : f.p); return; }
+  if (id === 'med') { if (f.me) { f.medT = .9; arSnd((a, o, t) => { [523.25, 659.25, 783.99].forEach((fr, i) => arOsc(a, o, t + i * .1, .3, 'sine', fr, fr * 1.01, .07)); }); } return; }
+  if (id === 'pad') { /* dropped a step ahead of you, on the floor or whatever you're standing on */
+    const fw = arFwd(d.yaw, 0), q = {x: f.p.x + fw.x * 1.6, y: f.p.y + .3, z: f.p.z + fw.z * 1.6}, hitW = ARB.some(b => arOv({x: q.x, y: q.y, z: q.z}, b)); if (hitW) { q.x = f.p.x; q.z = f.p.z; }
+    let y = 0; ARB.forEach(b => { if (q.x > b[0] && q.x < b[3] && q.z > b[2] && q.z < b[5] && b[4] <= f.p.y + .3 && b[4] > y) y = b[4]; }); q.y = y; arPadSpawn(f, q); return; }
+  if (id === 'horn' || id === 'ghorn') {
+    const gold = id === 'ghorn', R = gold ? 20 : 15, dur = gold ? 8 : 6;
+    arSnd((a, o, t) => { [146.8, 220, 293.7].forEach((fr, i) => { const os = a.createOscillator(), g = a.createGain(), fl = a.createBiquadFilter(); os.type = 'sawtooth'; os.frequency.setValueAtTime(fr * .9, t); os.frequency.linearRampToValueAtTime(fr, t + .25);
+      fl.type = 'lowpass'; fl.frequency.value = 1400; g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.08, t + .2); g.gain.setValueAtTime(.08, t + 1); g.gain.exponentialRampToValueAtTime(.0001, t + 1.5); os.connect(fl); fl.connect(g); g.connect(o); os.start(t); os.stop(t + 1.6); }); }, f.me ? null : f.p);
+    if (gold) arSnd(AR_BLEAT, f.me ? null : f.p);
+    arRingFx({x: f.p.x, y: f.p.y + .1, z: f.p.z}, gold ? '#ffd34d' : '#ffcf7a', R, .8);
+    A.F.forEach(o => { if (!o.alive || arDist(o.p, f.p) > R) return;
+      if (o.team === f.team) { if (real || o.me) { if (gold) o.st.ghorn = dur; else o.st.horn = dur; } }
+      else if (gold && real && arDist(o.p, f.p) <= 10) { o.st.root = 1.2; o.st.slow = 2.5; } });
+    if (f.me) arFeed('You blew the ' + AR_MISC[id].n + (gold ? ' · team +25%' : ' · team +15% damage'), 'b');
+    return;
+  }
+  if (id === 'siu') { if (f.me) { const fw = arFwd(f.yaw, 0); f.v.y = 15.5; f.v.x = fw.x * 6; f.v.z = fw.z * 6; f.ground = false; f.siu = {t: 0, hover: 1.1}; arSnd((a, o, t) => arOsc(a, o, t, .5, 'sawtooth', 220, 880, .06)); } return; }
+  if (id === 'decoy') { arDecoySpawn(f, d.yaw, real); return; }
+}
+/* thrown items go off by kind */
+function arDetonate(g){
+  const A = AR, k = g.kind || 'frag', real = !g.vis;
+  if (k === 'frag') { arBoom(g.p, g.owner, g.vis); return; }
+  if (k === 'flash') {
+    arSnd((a, o, t) => { arNz(a, o, t, .35, 'highpass', 4000, 1500, .5); arOsc(a, o, t, .9, 'sine', 3800, 3700, .05); }, g.p);
+    const T = A.T, m = new T.Mesh(A.sphGeo || (A.sphGeo = new T.SphereGeometry(1, 24, 16)), new T.MeshBasicMaterial({color: '#ffffff', transparent: true, blending: T.AdditiveBlending, depthWrite: false, fog: false}));
+    m.position.set(g.p.x, g.p.y, g.p.z); A.fx.add(m); A.fxa.push({m, t: 0, life: .35, upd: (mm, k2) => { mm.scale.setScalar(.5 + k2 * 4); mm.material.opacity = 1 - k2; }});
+    A.F.forEach(o => { if (!o.alive) return; const e = arEye(o), dd = arDist(e, g.p); if (dd > 18 || !arLOS(e, g.p)) return;
+      const fw = arFwd(o.yaw, o.pitch), dot = ((g.p.x - e.x) * fw.x + (g.p.y - e.y) * fw.y + (g.p.z - e.z) * fw.z) / (dd || 1), str = Math.max(0, Math.min(1, (dot + .2) / 1.0)) * (1 - dd / 22);
+      const s2 = o === g.owner ? str * .35 : str; if (s2 <= .05) return; const dur = .6 + 2 * s2;
+      if (o.me) { A.flashW = Math.max(A.flashW || 0, dur); }
+      else if (real && o.team !== g.owner.team) { o.st.blind = Math.max(o.st.blind || 0, dur); } });
+    return;
+  }
+  if (k === 'smoke') { arSmokeSpawn({x: g.p.x, y: 0, z: g.p.z}); return; }
+  if (k === 'molotov') { arFireSpawn({x: g.p.x, y: Math.max(0, g.p.y - .13), z: g.p.z}, g.owner, real); arSnd(AR_SFX.boom, g.p); }
+}
+function arRingFx(p, col, R, life){ const A = AR, T = A.T, rg = A.ringGeo || (A.ringGeo = new T.RingGeometry(.86, 1, 56));
+  const m = new T.Mesh(rg, new T.MeshBasicMaterial({color: col, transparent: true, blending: T.AdditiveBlending, depthWrite: false, side: T.DoubleSide}));
+  m.position.set(p.x, p.y, p.z); m.rotation.x = -Math.PI / 2; A.fx.add(m); A.fxa.push({m, t: 0, life, upd: (mm, k) => { mm.rotation.x = -Math.PI / 2; mm.scale.setScalar(.3 + k * R); mm.material.opacity = 1 - k; }}); }
+/* smoke: puffs that swell and drift, and a sphere that blocks line of sight */
+function arSmokeSpawn(p){
+  const A = AR, T = A.T, tex = A.puffTex || (A.puffTex = new T.CanvasTexture(arCanvas(128, 128, (g, w, h) => { const rg = g.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 2); rg.addColorStop(0, 'rgba(235,238,243,1)'); rg.addColorStop(.6, 'rgba(210,214,222,.75)'); rg.addColorStop(1, 'rgba(200,205,214,0)'); g.fillStyle = rg; g.fillRect(0, 0, w, h); })));
+  const puffs = []; for (let i = 0; i < 22; i++) { const s = new T.Sprite(new T.SpriteMaterial({map: tex, color: '#e2e6ec', transparent: true, depthWrite: false, opacity: 0}));
+    const a = Math.random() * 6.28, r = Math.random() * 3.6; s.position.set(p.x + Math.cos(a) * r, .6 + Math.random() * 3.4, p.z + Math.sin(a) * r); s.userData.s = 2.5 + Math.random() * 2.5; A.fx.add(s); puffs.push(s); }
+  (A.smokes = A.smokes || []).push({p: {x: p.x, y: 1.8, z: p.z}, r: 5, t: 9, puffs});
+  arSnd((a, o, t) => arNz(a, o, t, 1.2, 'lowpass', 1200, 300, .25), p);
+}
+/* molotov: a burning patch that hurts the thrower's enemies */
+function arFireSpawn(p, owner, real){
+  const A = AR, T = A.T, tex = A.flameTex || (A.flameTex = new T.CanvasTexture(arCanvas(64, 128, (g, w, h) => { const rg = g.createRadialGradient(w / 2, h * .7, 2, w / 2, h * .6, h * .55); rg.addColorStop(0, 'rgba(255,250,200,1)'); rg.addColorStop(.3, 'rgba(255,170,40,.95)'); rg.addColorStop(.7, 'rgba(255,70,0,.5)'); rg.addColorStop(1, 'rgba(255,40,0,0)'); g.fillStyle = rg; g.beginPath(); g.ellipse(w / 2, h * .6, w * .45, h * .45, 0, 0, 7); g.fill(); })));
+  const fl = []; for (let i = 0; i < 18; i++) { const s = new T.Sprite(new T.SpriteMaterial({map: tex, transparent: true, blending: T.AdditiveBlending, depthWrite: false})); const a = Math.random() * 6.28, r = Math.sqrt(Math.random()) * 2.8;
+    s.position.set(p.x + Math.cos(a) * r, p.y + .5, p.z + Math.sin(a) * r); s.userData.ph = Math.random() * 6; A.fx.add(s); fl.push(s); }
+  const scorch = new T.Mesh(new T.CircleGeometry(3.1, 32).rotateX(-Math.PI / 2), new T.MeshBasicMaterial({color: '#2a1408', transparent: true, opacity: .55, depthWrite: false})); scorch.position.set(p.x, p.y + .02, p.z); A.fx.add(scorch);
+  (A.fires = A.fires || []).push({p, r: 3, t: 5, owner, real, fl, scorch, acc: new Map()});
+}
+function arPadSpawn(f, p){
+  const A = AR, T = A.T, g = new T.Group();
+  const base = new T.Mesh(new T.CylinderGeometry(.75, .85, .14, 32), new T.MeshStandardMaterial({color: '#2a3140', roughness: .4, metalness: .6})); base.position.y = .07; g.add(base);
+  const top = new T.Mesh(new T.CylinderGeometry(.62, .62, .05, 32), new T.MeshStandardMaterial({color: '#3b9cff', emissive: '#3b9cff', emissiveIntensity: 1.2})); top.position.y = .16; g.add(top);
+  const arrow = new T.Mesh(new T.ConeGeometry(.22, .35, 4), new T.MeshBasicMaterial({color: '#ffffff', transparent: true, opacity: .85})); arrow.position.y = .55; g.add(arrow);
+  g.position.set(p.x, p.y, p.z); A.fx.add(g); (A.pads = A.pads || []).push({p, g, arrow, top, cd: new Map(), arm: A.clock + .5});
+  arSnd((a, o, t) => arOsc(a, o, t, .2, 'square', 300, 600, .05), f.me ? null : p);
+}
+/* the decoy: a see-through copy of you running ahead; enemies within sight go after it */
+function arDecoySpawn(f, yaw, real){
+  const A = AR, T = A.T, fw = arFwd(yaw, 0);
+  const dc = {decoy: true, team: f.team, name: f.name, p: {x: f.p.x + fw.x * .8, y: f.p.y, z: f.p.z + fw.z * .8}, v: {x: fw.x * 7.5, y: 0, z: fw.z * 7.5}, yaw, pitch: 0, aimY: yaw, aimP: 0, alive: true, ground: true, st: {}, cd: {}, slide: 0, hp: 100,
+    load: f.load, cur: 0, life: 5, col: f.col || AR_TEAMCOL[f.team][0], walk: 0, flashT: 0, lastShot: -9, acq: 0, real};
+  dc.B = arBotModel(T, '#ffb81f', f.load[0], dc.col, f.team, f.name + '~');
+  dc.B.mats.slice(0, 4).forEach(m => { m.transparent = true; m.opacity = .55; m.emissive && m.emissive.set && (m.emissive.set('#9fd4ff'), m.emissiveIntensity = .5); });
+  dc.B.fe = '0'; dc.B.inv = false; dc.B.xr = false; A.sc.add(dc.B.g); (A.decoys = A.decoys || []).push(dc);
+  arSnd((a, o, t) => { arOsc(a, o, t, .3, 'sine', 900, 300, .05); arOsc(a, o, t + .08, .3, 'sine', 1200, 400, .04); }, f.me ? null : f.p);
+}
+const arDecoysFor = b => (AR.decoys || []).filter(d => d.alive && d.team !== b.team);
+/* does a sight line pass through smoke? */
+function arSmoked(a, b){ const S = AR && AR.smokes; if (!S || !S.length) return false;
+  for (const s of S) { if (s.t <= .6) continue; const dx = b.x - a.x, dy = b.y - a.y, dz = b.z - a.z, L2 = dx * dx + dy * dy + dz * dz || 1;
+    let k = ((s.p.x - a.x) * dx + (s.p.y - a.y) * dy + (s.p.z - a.z) * dz) / L2; k = Math.max(0, Math.min(1, k));
+    const cx = a.x + dx * k - s.p.x, cy = a.y + dy * k - s.p.y, cz = a.z + dz * k - s.p.z; if (cx * cx + cy * cy * .6 + cz * cz < s.r * s.r) return true; }
+  return false; }
+/* every physics step: medkits, the SIUUU landing, pads, fire, smoke and decoys */
+function arMiscStep(dt){
+  const A = AR, me = A.me, real = !A.net || A.net.host;
+  if (me.medT > 0) { me.medT -= dt; if (Math.random() < dt * 30) arPart({x: me.p.x + (Math.random() - .5) * .8, y: me.p.y + .4 + Math.random() * 1.2, z: me.p.z + (Math.random() - .5) * .8}, {x: 0, y: 2, z: 0}, '#5fe36a', .06, .5, 4);
+    if (me.medT <= 0 && me.alive) { me.hp = Math.min(100, me.hp + 50); tone(1046.5, .2, 'triangle', .05); arFeed('Medkit: +50 HP', 'b'); } }
+  if (me.siu) { const s = me.siu; s.t += dt; if (me.v.y < 0 && s.hover > 0) { s.hover -= dt; me.v.y = Math.max(me.v.y, -1.2); }
+    if (s.t > .35 && me.ground) { me.siu = null; const p = {x: me.p.x, y: me.p.y + .1, z: me.p.z};
+      arRingFx(p, '#ff3b3b', 5, .5); arRingFx(p, '#ffd27a', 3.5, .35); arBurst(p, '#ff4a2a', 18, 9); arBurst(p, '#ffd27a', 12, 7); A.shake = Math.min(1, A.shake + .5); arSnd(AR_SFX.boom);
+      const el = document.createElement('div'); el.className = 'ar-num ar-siu'; el.textContent = 'SIUUU!'; $('#arHud').append(el); A.nums.push({el, p: {x: p.x, y: p.y + 2.6, z: p.z}, t: 1.4});
+      A.F.forEach(o => { if (o.team === me.team || !o.alive) return; const dd = Math.hypot(o.p.x - me.p.x, o.p.z - me.p.z); if (dd <= 4 && Math.abs(o.p.y - me.p.y) < 2.5) arDamage(me, o, 45 * (1 - dd / 8), false, {x: o.p.x, y: o.p.y + 2, z: o.p.z}); }); } }
+  if (A.pads) A.pads.forEach(pd => { pd.arrow.position.y = .55 + Math.sin(A.clock * 5) * .08; pd.arrow.rotation.y += dt * 2; if (A.clock < pd.arm) return;
+    A.F.forEach(o => { if (!o.alive || (!o.me && !(real && !o.remote))) return; const cd = pd.cd.get(o) || 0; if (A.clock < cd) return;
+      if (Math.hypot(o.p.x - pd.p.x, o.p.z - pd.p.z) < .85 && Math.abs(o.p.y - pd.p.y) < .45) { pd.cd.set(o, A.clock + .6); o.v.y = 17; const L = Math.hypot(o.v.x, o.v.z); if (L > .5) { o.v.x *= 1.35; o.v.z *= 1.35; } o.ground = false;
+        arSnd((a, ou, t) => arOsc(a, ou, t, .25, 'square', 200, 900, .05), o.me ? null : o.p); arBurst({x: pd.p.x, y: pd.p.y + .2, z: pd.p.z}, '#9fd4ff', 8, 4); } }); });
+  if (A.fires) A.fires = A.fires.filter(fz => { fz.t -= dt;
+    fz.fl.forEach(s => { s.userData.ph += dt * 9; const k = Math.max(0, Math.min(1, fz.t / .8)); s.scale.set((.7 + Math.sin(s.userData.ph) * .15) * k, (1.2 + Math.sin(s.userData.ph * 1.3) * .3) * k, 1); });
+    if (fz.real && A.phase === 'live') A.F.forEach(o => { if (!o.alive || o.team === fz.owner.team) return; if (Math.hypot(o.p.x - fz.p.x, o.p.z - fz.p.z) > fz.r || o.p.y - fz.p.y > 1.2) return;
+      const v = (fz.acc.get(o) || 0) + 15 * dt; if (v >= 3) { fz.acc.set(o, v - 3); arDamage(fz.owner, o, 3, false, null); } else fz.acc.set(o, v); });
+    if (fz.t <= 0) { fz.fl.forEach(s => A.fx.remove(s)); A.fx.remove(fz.scorch); return false; } return true; });
+  if (A.smokes) A.smokes = A.smokes.filter(sm => { sm.t -= dt; const life = 9 - sm.t, a = Math.min(1, life / .6) * Math.min(1, sm.t / 1.2);
+    sm.puffs.forEach(s => { s.material.opacity = .92 * a; const sc = s.userData.s * (.4 + Math.min(1, life / 1.2) * .6); s.scale.set(sc, sc, 1); s.position.y += dt * .05; });
+    if (sm.t <= 0) { sm.puffs.forEach(s => A.fx.remove(s)); return false; } return true; });
+  if (A.decoys) A.decoys = A.decoys.filter(dc => { dc.life -= dt;
+    if (dc.alive) { arMoveBody(dc, dt); const L = Math.hypot(dc.v.x, dc.v.z); if (L < 2) { const t = arFwd(dc.yaw + (Math.random() < .5 ? 1.2 : -1.2), 0); dc.yaw = Math.atan2(-t.x, -t.z); dc.v.x = t.x * 7.5; dc.v.z = t.z * 7.5; } arAnimBot(dc, dt); }
+    if (dc.life <= 0) { dc.alive = false; arBurst({x: dc.p.x, y: dc.p.y + 1, z: dc.p.z}, '#9fd4ff', 16, 5); A.sc.remove(dc.B.g); return false; } return true; });
+  if (A.flashW > 0) A.flashW = Math.max(0, A.flashW - dt);
+}
+/* a new round: refill uses, clear what's on the floor */
+function arMiscRound(){
+  const A = AR; A.F.forEach(f => { if (!f.miscId) f.miscId = f.me ? arMiscState().eq : 'frag'; f.mu = (AR_MISC[f.miscId] || AR_MISC.frag).uses; f.medT = 0; f.siu = null; });
+  (A.fires || []).forEach(fz => { fz.fl.forEach(s => A.fx.remove(s)); A.fx.remove(fz.scorch); }); A.fires = [];
+  (A.smokes || []).forEach(sm => sm.puffs.forEach(s => A.fx.remove(s))); A.smokes = [];
+  (A.pads || []).forEach(pd => A.fx.remove(pd.g)); A.pads = [];
+  (A.decoys || []).forEach(dc => A.sc.remove(dc.B.g)); A.decoys = [];
+  A.flashW = 0;
+}
+
+/* ---------- the menu: the misc slot, the picker and the Ranked Shop ---------- */
+function arMiscSlot(){
+  const ms = arMiscState(), M = AR_MISC[ms.eq];
+  return '<button type="button" class="ar-lslot misc" id="arMiscSlot" style="--tc:' + M.col + '"><small>MISC</small><span class="ar-lart ar-mart2">' + AR_MIC[ms.eq] + '</span><b>' + M.n + '</b><em class="ms">' + M.uses + ' per round' + (M.chroma ? ' · chroma exclusive' : '') + '</em></button>';
+}
+function arMiscPick(){
+  const ms = arMiscState(), box = document.createElement('div'); box.className = 'ar-pick';
+  box.innerHTML = '<div class="ar-pcard2 ar-mpick"><div class="ar-lh">Misc item <button type="button" class="ar-x2" aria-label="Close">✕</button></div><div class="ar-mlist">'
+    + ms.own.filter(k => AR_MISC[k]).map(k => { const M = AR_MISC[k]; return '<button type="button" class="ar-mi' + (k === ms.eq ? ' on' : '') + '" data-k="' + k + '" style="--tc:' + M.col + '"><span>' + AR_MIC[k] + '</span><b>' + M.n + '</b><small>' + M.d + '</small><em>' + M.uses + ' per round</em></button>'; }).join('')
+    + '</div><button type="button" class="ar-btn" id="arToShop">Open the Ranked Shop</button></div>';
+  $('#arena').append(box); const close = () => box.remove();
+  box.querySelector('.ar-x2').onclick = close; box.onclick = e => { if (e.target === box) close(); };
+  box.querySelectorAll('.ar-mi').forEach(b => b.onclick = () => { ms.eq = b.dataset.k; save(); tone(700, .05, 'triangle', .04); close(); arMenu(); });
+  box.querySelector('#arToShop').onclick = () => { close(); arShop(); };
+}
+function arShop(){
+  const ms = arMiscState(), S = arS(), box = document.createElement('div'); box.className = 'ar-pick ar-shopwrap';
+  const card = k => { const M = AR_MISC[k], own = ms.own.includes(k), rk = arMiscRankOk(k), ch = !M.chroma || arOwnsChroma(M.chroma), afford = state.bal >= M.price;
+    const lock = !ch ? 'Own ' + (BY[M.chroma] ? BY[M.chroma].name : 'the chroma') + ' to buy' : !rk ? 'Reach ' + arRankName(M.rank * AR_DIV) : '';
+    const act = own ? (ms.eq === k ? '<span class="ar-sh-eq">EQUIPPED</span>' : '<button type="button" class="ar-btn sm" data-eq="' + k + '">Equip</button>')
+      : lock ? '<span class="ar-sh-lock">🔒 ' + lock + '</span>' : '<button type="button" class="ar-btn sm' + (afford ? '' : ' poor') + '" data-buy="' + k + '"><span class="coin"></span>' + fmt(M.price) + '</button>';
+    return '<div class="ar-sh-c' + (M.chroma ? ' chroma' : '') + (own ? ' own' : '') + (lock ? ' locked' : '') + '" style="--tc:' + M.col + '">' + (M.chroma ? '<i class="ar-sh-tag">CHROMA EXCLUSIVE</i>' : M.rank ? '<i class="ar-sh-tag rk" style="--rc:' + arRankCol(M.rank * AR_DIV) + '">' + arRankName(M.rank * AR_DIV) + '</i>' : '')
+      + '<div class="ar-sh-ic">' + AR_MIC[k] + '</div><b>' + M.n + '</b><small>' + M.d + '</small><em>' + M.uses + ' per round</em><div class="ar-sh-act">' + act + '</div></div>'; };
+  const reg = AR_MISC_ORDER.filter(k => !AR_MISC[k].chroma), chr = AR_MISC_ORDER.filter(k => AR_MISC[k].chroma);
+  box.innerHTML = '<div class="ar-shop"><div class="ar-sh-top"><div><b>RANKED SHOP</b><small>Misc items for Showdown · ' + arRankName(S.rp) + '</small></div><div class="ar-sh-bal"><span class="coin"></span>' + fmt(state.bal) + '</div><button type="button" class="ar-x2" aria-label="Close">✕</button></div>'
+    + '<div class="ar-sh-h">Gear</div><div class="ar-sh-grid">' + reg.map(card).join('') + '</div>'
+    + '<div class="ar-sh-h ch">Chroma exclusives <small>only for players who own that chroma</small></div><div class="ar-sh-grid">' + chr.map(card).join('') + '</div></div>';
+  $('#arena').append(box); const close = () => { box.remove(); if (!AR && !$('#arMenu').hidden) arMenu(); };
+  box.querySelector('.ar-x2').onclick = close; box.onclick = e => { if (e.target === box) close(); };
+  box.querySelectorAll('[data-buy]').forEach(b => b.onclick = () => { const k = b.dataset.buy, M = AR_MISC[k];
+    if (ms.own.includes(k) || !arMiscRankOk(k) || (M.chroma && !arOwnsChroma(M.chroma))) return;
+    if (state.bal < M.price) { toast('You need ' + fmt(M.price - state.bal) + ' more credits.'); return; }
+    state.bal -= M.price; setBal(-M.price); ms.own.push(k); ms.eq = k; save(); goldSound && goldSound(); toast(M.n + ' bought and equipped.'); box.remove(); arShop(); });
+  box.querySelectorAll('[data-eq]').forEach(b => b.onclick = () => { ms.eq = b.dataset.eq; save(); tone(700, .05, 'triangle', .04); box.remove(); arShop(); });
 }
 $('#arBtn').onclick = () => { if (busy) return; arOpen(); };
 document.addEventListener('keydown', e => { const el = $('#arena'); if (!el || el.hidden) return; if (e.key === 'Escape') { e.stopImmediatePropagation(); if (!AR && $('#arGame').hidden && !document.querySelector('.ar-pick')) { if (arQ) { clearInterval(arQ.iv); arQ = null; arMenu(); } else arClose(); } else { const pk = document.querySelector('.ar-pick'); if (pk) pk.remove(); } } }, true);
