@@ -1,10 +1,3 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0c1117">
-<meta name="description" content="Open crates, trade up, sell to The Prestige. A case-opening game with accounts and cloud saves.">
 <title>Crate Rush</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -4347,6 +4340,8 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -4387,7 +4382,7 @@ body.ar-on{overflow:hidden}
 .tb.skill .cdr{position:absolute;inset:-4px;width:calc(100% + 8px);height:calc(100% + 8px);transform:rotate(-90deg)}.tb.skill .cdr circle{fill:none;stroke:#fff;stroke-width:3;stroke-dasharray:113.1}
 .tb.swap{--s:16;right:4vmin;top:20vmin}
 .ar-stick{width:34vmin;height:34vmin;margin:-17vmin 0 0 -17vmin;left:22vmin;top:68%}.ar-stick i{width:15vmin;height:15vmin;margin:-7.5vmin 0 0 -7.5vmin}
-@media (pointer:coarse){.ar-pausebtn{top:10px;bottom:auto;left:10px;transform:none;width:46px;height:46px;padding:0;display:grid;place-items:center}.ar-pausebtn svg{width:24px;height:24px}
+@media (pointer:coarse){.ar-pausebtn{top:10px;bottom:auto;left:10px;transform:none;height:38px;padding:0 12px;font-size:14px;display:grid;place-items:center}.ar-pausebtn svg{width:24px;height:24px}
   .ar-hp{top:66px}.ar-wp{top:60px}.ar-spec{bottom:auto;top:30%}}
 @media (max-width:700px){.ar-rmini{margin-left:0}.ar-mode.big{height:130px}.ar-mlab b{font-size:34px}}
 /* kill feedback and grenades */
@@ -4708,6 +4703,29 @@ body.ar-on{overflow:hidden}
 .ar-res .ar-rcard{position:relative;max-height:none;display:block;z-index:auto;flex:none}
 @media (max-height:500px){.ru-stage{top:31%;width:30vmin;height:30vmin}.ar-ru .rays,.ru-ring{top:31%}.ar-ru .rays{margin-top:-120vmax}.ru-txt{top:calc(31% + 17vmin)}
   .ru-title{font-size:38px}.ru-tier{font-size:15px;margin:2px 0}.ru-name{font-size:26px}.ru-from{font-size:14px}.ru-tap{bottom:6px;font-size:12px}}
+
+/* the side you're on is shown red in half the matches */
+.ar-top2.flip .ar-tp.b{background:linear-gradient(180deg,#ff7a8e,#e23b55)}
+.ar-top2.flip .ar-tp.r{background:linear-gradient(180deg,#5fb4ff,#2f7de0)}
+.ar-tag.t1 span{color:#ffd0d8}
+/* stats board on the red tab */
+.ar-sb.red{background:linear-gradient(160deg,#a8102a,#e8263f 55%,#b8122e)}
+.ar-sb.red .ar-sb-r{background:linear-gradient(90deg,#8a0c22,#b3142e)}
+.ar-sb.red .ar-sb-r.alt{background:linear-gradient(90deg,#d01e3a,#ef3a52)}
+.ar-sb.red .ar-sb-r.me{background:linear-gradient(90deg,#6e0a1c,#c8183a)}
+.ar-sb.red .ar-sb-tabs button.on,.ar-sb.red .ar-sb-r .pl em.you{color:#c8183a}
+.ar-sb.red .ar-sb-crumb,.ar-sb.red .ar-sb-r .n{color:#ffe8ec}
+.ar-sb.red .ar-sb-h,.ar-sb.red .ar-sb-foot{color:#ffd6dd}
+.ar-sb.red .ar-sb-tabs button{color:#ffe0e5}
+.ar-sb.red .ar-sb-r.t1{border-left-color:#ffb3c0}
+/* the small red Leave button on the stats screen */
+.ar-res .ar-leave{position:fixed;left:14px;top:12px;z-index:3;height:38px;padding:0 16px;border-radius:10px;border:3px solid #1b2230;background:linear-gradient(180deg,#ff6b6b,#e23b3b);color:#fff;font:700 16px Fredoka,sans-serif;cursor:pointer;box-shadow:0 3px 0 #1b2230;text-shadow:0 2px 0 #1b2230}
+.ar-res .ar-leave:active{transform:translateY(2px);box-shadow:0 1px 0 #1b2230}
+.ar-res .ar-resw{padding-top:44px}
+/* in a match: Leave asks once more instead of pausing */
+.ar-pausebtn.sure{background:linear-gradient(180deg,#ff3b3b,#b81d1d);animation:arPulse .6s infinite alternate}
+@keyframes arPulse{to{filter:brightness(1.25)}}
+.ar-lockhint{position:absolute;left:50%;top:58%;transform:translateX(-50%);z-index:2;pointer-events:none;padding:8px 14px;border-radius:10px;background:rgba(27,34,48,.7);color:#fff;font:600 14px Fredoka,sans-serif;text-align:center;max-width:90vw}
 </style>
 
 <div class="wrap" id="wrap">
@@ -18076,9 +18094,9 @@ const AR_UN_FIRST = ['jayden', 'kai', 'liam', 'noah', 'ethan', 'mason', 'aiden',
   'diego', 'mateo', 'luis', 'carlos', 'kenji', 'hiro', 'minh', 'arjun', 'rohan', 'dev', 'ivan', 'nikita', 'luca', 'marco', 'jonas', 'finn', 'theo', 'oscar', 'milo', 'eli'];
 const AR_UN_WORD = ['gamer', 'plays', 'pro', 'yt', 'ttv', 'lol', 'xd', 'gg', 'og', 'irl', 'fr', 'bro', 'kid', 'boi', 'mane', 'gaming', 'real', 'official', 'alt', 'main'];
 const AR_UN_NICK = ['potato', 'noodle', 'bacon', 'nugget', 'pickle', 'waffle', 'taco', 'mango', 'cheeto', 'burrito', 'goober', 'sweaty', 'lowkey', 'notsus', 'bigchungus', 'dababy',
-  'sigma', 'skibidi', 'mrbeastfan', 'fortnitekid', 'robloxian', 'minecraftguy', 'cs2enjoyer', 'aimlock', 'nolife', 'tryhard', 'bot', 'idk', 'just', 'its', 'not', 'the', 'smol', 'big', 'lil', 'fat', 'dark', 'shadow', 'king', 'goat'];
-const AR_UN_FULL = ['jayden2011', 'xXHamzaXx', 'zaynplayz', 'noobmaster69', 'ItzKai', 'sweatyboi77', 'Ali_YT', 'ethan.k', 'lil_bilal', 'OmarTTV', 'potato_king', 'not_a_bot_fr',
-  'mia_gaming', 'idk_what2put', 'jakeyyy', 'mxson', 'luc4s', 'kenji_jp', 'its_noor', 'aimbot_jk', 'carlos2009', 'theo_w', 'bigmilo', 'rohan.exe', 'imsofast', 'quietkid',
+  'sigma', 'skibidi', 'mrbeastfan', 'fortnitekid', 'robloxian', 'minecraftguy', 'cs2enjoyer', 'aimlock', 'nolife', 'tryhard', 'idk', 'just', 'its', 'not', 'the', 'smol', 'big', 'lil', 'fat', 'dark', 'shadow', 'king', 'goat'];
+const AR_UN_FULL = ['jayden2011', 'xXHamzaXx', 'zaynplayz', 'noobmaster69', 'ItzKai', 'sweatyboi77', 'Ali_YT', 'ethan.k', 'lil_bilal', 'OmarTTV', 'potato_king',
+  'mia_gaming', 'idk_what2put', 'jakeyyy', 'mxson', 'luc4s', 'kenji_jp', 'its_noor', 'carlos2009', 'theo_w', 'bigmilo', 'rohan.exe', 'imsofast', 'quietkid',
   'dannyboi07', 'usman_xd', 'saad123', 'goober_gamer', 'hiro.4', 'faizan_pk', 'zxrah', 'wavyy', 'eli_irl', 'Arham_OP', 'skrrt', 'lowkey_cracked', 'Hxris', 'minh2k', 'oscarr', 'gg_ez_rayan'];
 function arBotName(){
   const r = Math.random(), f = pickOne(AR_UN_FIRST), F = f[0].toUpperCase() + f.slice(1), yr = 2005 + Math.floor(Math.random() * 10), n2 = Math.floor(Math.random() * 99), n3 = Math.floor(Math.random() * 999);
@@ -18421,6 +18439,8 @@ function arGun(T, it, fl){
 /* team colours: your side in cool colours, theirs in warm ones */
 const AR_TEAMCOL = [['#3b82f6', '#0ea5e9', '#14b8a6', '#6366f1', '#22c55e', '#2563eb', '#06b6d4', '#4f46e5'], ['#ef4444', '#f97316', '#ec4899', '#a855f7', '#eab308', '#dc2626', '#fb7185', '#d946ef']];
 const AR_TEAMHUE = ['#3b9cff', '#ff4d6d'];
+/* half the matches your side is the red one: arVT turns a team (0 = yours) into the colour it's shown in (0 blue, 1 red) */
+let arRedSide = false; const arVT = t => arRedSide ? 1 - t : t;
 /* a player model: a chunky blocky build with rounded edges and gear. Jacket, chest plate, belt and pouches,
    shoulder pads, gloves, boots and knee pads, a backpack, a team stripe, a glossy visor, and one of six pieces of
    headgear picked from the name. Arms and legs swing from shoulder and hip pivots. Parts are merged per limb and
@@ -18428,7 +18448,7 @@ const AR_TEAMHUE = ['#3b9cff', '#ff4d6d'];
 const AR_SKIN = ['#f2c9a0', '#e0ac7e', '#c68a5a', '#a86f45', '#7a4b2c', '#5c3820'];
 const AR_HAIR = ['#2a1d14', '#4a2f1c', '#8a5a2b', '#d8b26a', '#1b1b1f', '#a33b2b'];
 function arBotModel(T, col, kit, body, team, name){
-  const g = new T.Group(), hue = AR_TEAMHUE[team || 0], gear = hash(name || 'x');
+  const g = new T.Group(), hue = AR_TEAMHUE[arVT(team || 0)], gear = hash(name || 'x');
   /* four materials per player, coloured per vertex: cloth and skin, armour and metal, the glossy visor, glowing bits */
   const baseM = new T.MeshStandardMaterial({vertexColors: true, roughness: .8, metalness: 0}), shinyM = new T.MeshStandardMaterial({vertexColors: true, roughness: .34, metalness: .55}),
     glossM = new T.MeshStandardMaterial({vertexColors: true, roughness: .06, metalness: .95, envMapIntensity: 1.6}), glowM = new T.MeshBasicMaterial({vertexColors: true});
@@ -18496,13 +18516,13 @@ const arFoes = f => AR.F.filter(o => o.team !== f.team && o.alive && (!AR.duel |
 const arMates = f => AR.F.filter(o => o.team === f.team && o !== f);
 async function arStartMatch(lobby){
   const T = await arThree();
-  arSetMap(lobby.map, arMode(lobby.mode).n);
+  arSetMap(lobby.map, arMode(lobby.mode).n); arRedSide = !!lobby.red;
   /* fighters in lobby order, so every player in a party agrees on who is who */
   const L = arLoadout(), F = []; let me = null;
   lobby.teams.forEach((tm, ti) => tm.forEach((p, i) => {
-    if (p.me) { me = arFighter(true, ti, L, 'You'); me.col = AR_TEAMCOL[ti][i % AR_TEAMCOL[ti].length]; F.push(me); return; }
+    if (p.me) { me = arFighter(true, ti, L, 'You'); me.col = AR_TEAMCOL[arVT(ti)][i % 8]; F.push(me); return; }
     const ld = p.pid ? p.load.map(x => ({it: arItemById(x[0]), fl: x[1]})) : [p.kit], b = arFighter(false, ti, ld, p.name);
-    b.skill = p.skill == null ? .5 : p.skill; b.rp = p.rp; b.col = AR_TEAMCOL[ti][i % AR_TEAMCOL[ti].length]; if (p.pid) { b.pid = p.pid; b.remote = true; } F.push(b); }));
+    b.skill = p.skill == null ? .5 : p.skill; b.rp = p.rp; b.col = AR_TEAMCOL[arVT(ti)][i % 8]; if (p.pid) { b.pid = p.pid; b.remote = true; } F.push(b); }));
   F.forEach((f, i) => f.nid = i);
   const LK = arMapLook(), hi = !AR_MOBILE;
   const R = new T.WebGLRenderer({antialias: true, powerPreference: 'high-performance'});
@@ -19318,7 +19338,7 @@ function arRender(dt){
     b.tag.hidden = !vis; if (vis) { b.tag.style.transform = 'translate(' + ((v.x * .5 + .5) * sx) + 'px,' + ((-v.y * .5 + .5) * sy) + 'px) translate(-50%,-100%) scale(' + tsc.toFixed(2) + ')'; b.tagBar.style.width = b.hp + '%'; } });
 }
 function arNum(p, dmg, head){ const el = document.createElement('div'); el.className = 'ar-num' + (head ? ' hd' : ''); el.textContent = dmg; $('#arHud').append(el); AR.nums.push({el, p: {x: p.x, y: p.y, z: p.z}, t: .9}); }
-function arFeed(msg, side){ const f = $('#arFeed'); if (!f) return; const d = document.createElement('div'); d.className = side || ''; d.textContent = msg; f.prepend(d); setTimeout(() => d.remove(), 3500); while (f.children.length > 5) f.lastChild.remove(); }
+function arFeed(msg, side){ const f = $('#arFeed'); if (!f) return; const d = document.createElement('div'); d.className = arRedSide && (side === 'b' || side === 'r') ? (side === 'b' ? 'r' : 'b') : side || ''; d.textContent = msg; f.prepend(d); setTimeout(() => d.remove(), 3500); while (f.children.length > 5) f.lastChild.remove(); }
 
 /* ---------- HUD ---------- */
 const AR_IC = {
@@ -19354,8 +19374,8 @@ function arHUD(){
   const A = AR, n = A.mode.n, pips = t => '<div class="ar-pips">' + A.F.filter(f => f.team === t).map(f => '<i data-id="' + A.F.indexOf(f) + '"></i>').join('') + '</div>';
   const oppName = n === 1 ? A.F.find(f => f.team === 1).name : 'RED';
   const wins = t => '<div class="ar-wins">' + Array.from({length: AR_WIN}, (_, i) => '<i data-t="' + t + '" data-i="' + i + '"></i>').join('') + '</div>';
-  const myName = n === 1 ? 'YOU' : 'BLUE TEAM', thName = n === 1 ? esc(oppName) : 'RED TEAM';
-  $('#arHud').innerHTML = '<div class="ar-top2' + (n > 4 ? ' many' : '') + '" id="arTop"><div class="ar-tp b"><div class="ar-tpi"><small>' + myName + '</small>' + wins(0) + (n > 1 ? pips(0) : '') + '</div><b id="arS0">0</b></div>'
+  const myName = n === 1 ? 'YOU' : arRedSide ? 'RED TEAM' : 'BLUE TEAM', thName = n === 1 ? esc(oppName) : arRedSide ? 'BLUE TEAM' : 'RED TEAM';
+  $('#arHud').innerHTML = '<div class="ar-top2' + (n > 4 ? ' many' : '') + (arRedSide ? ' flip' : '') + '" id="arTop"><div class="ar-tp b"><div class="ar-tpi"><small>' + myName + '</small>' + wins(0) + (n > 1 ? pips(0) : '') + '</div><b id="arS0">0</b></div>'
     + '<div class="ar-tmid"><div class="ar-rd" id="arRd">ROUND 1</div><div class="ar-clock" id="arClock">1:30</div><div class="ar-to">' + A.mode.id + ' · ' + esc(ARM.name) + '</div></div>'
     + '<div class="ar-tp r"><b id="arS1">0</b><div class="ar-tpi"><small>' + thName + '</small>' + wins(1) + (n > 1 ? pips(1) : '') + '</div></div></div>'
     + '<div class="ar-board" id="arBoard" hidden></div>'
@@ -19374,15 +19394,15 @@ function arHUD(){
     + '<div class="ar-fxo db" id="arFxD"><div class="ar-fxt">' + AR_IC.drib + '<div><b>DRIBLERO</b><small>Ricochets on</small></div></div></div>'
     + '<div class="ar-pulga" id="arPulga" hidden></div><div class="ar-duelo" id="arDuelO" hidden></div>'
     + '<div class="ar-skpop" id="arSkPop" hidden></div>'
-    + '<button type="button" class="ar-pausebtn" id="arPauseBtn" aria-label="Pause or leave">' + (AR_MOBILE ? AR_IC.pause : 'Leave') + '</button>'
-    + '<div class="ar-pause" id="arPause" hidden><div class="ar-pcard"><h3>Paused</h3><p id="arPauseP"></p><button type="button" class="ar-btn" id="arResume">Resume</button><button type="button" class="ar-btn ghost" id="arQuit">Leave match (counts as a loss)</button></div></div>'
+    + '<button type="button" class="ar-pausebtn" id="arPauseBtn" aria-label="Leave match">Leave</button>'
+    + (AR_MOBILE ? '' : '<div class="ar-lockhint" id="arLockHint">Click to aim · WASD move · Space jump · Shift slide · R reload · G grenade · 1/2/3 weapons · Q skill</div>')
     + (AR_MOBILE ? '<div class="ar-touch" id="arTouch"><div class="ar-stick" id="arStick"><i></i></div>'
       + [['fire', 'fire'], ['ads', 'ads'], ['nade', 'nade'], ['jump', 'jump'], ['reload', 'reload'], ['slide', 'slide'], ['swap', 'swap'], ['skill', 'skill']]
         .map(([k, ic]) => '<button type="button" class="tb ' + k + '" data-t="' + k + '" aria-label="' + k + '">' + (k === 'skill' || k === 'nade' ? '<span class="tbi">' + AR_IC[ic] + '</span>' : AR_IC[ic]) + (k === 'skill' ? '<svg class="cdr" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" id="arTSkC"/></svg>' : '') + '</button>').join('') + '</div>' : '');
   $('#arSlots').innerHTML = A.me.load.map((l, i) => '<div class="ar-slot" data-i="' + i + '" style="--tc:' + TIERS[l.it.t].color + '"><small>' + (i + 1) + '</small><span></span></div>').join('');
   A.me.load.forEach((l, i) => { const s = $('#arSlots').children[i].querySelector('span'); s.append(thumb(l.it, wearIdx(l.fl))); });
   /* name tags over every bot: your team's always show, enemies only when you can see them */
-  A.F.forEach(f => { if (f.me) return; const t = document.createElement('div'); t.className = 'ar-tag t' + f.team; t.hidden = true; t.innerHTML = '<b class="ar-tmk"></b><span>' + esc(f.name) + '</span><em><i></i></em>'; $('#arTags').append(t); f.tag = t; f.tagBar = t.querySelector('i'); });
+  A.F.forEach(f => { if (f.me) return; const t = document.createElement('div'); t.className = 'ar-tag t' + arVT(f.team); t.hidden = true; t.innerHTML = '<b class="ar-tmk"></b><span>' + esc(f.name) + '</span><em><i></i></em>'; $('#arTags').append(t); f.tag = t; f.tagBar = t.querySelector('i'); });
 }
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 let arBanT = 0, arKillT = 0;
@@ -19390,7 +19410,7 @@ let arBanT = 0, arKillT = 0;
 function arBoard(){
   const A = AR; if (!A) return;
   const row = f => '<tr class="' + (f.me ? 'me' : '') + (f.alive ? '' : ' dead') + '"><td><span class="ar-bdot" style="background:' + (f.me ? '#ffd23f' : f.col) + '"></span>' + esc(f.me ? 'You' : f.name) + '</td><td>' + arRankName(f.me ? arS().rp : f.rp) + '</td><td>' + (f.me ? WNAME[f.load[f.cur].it.w] : WNAME[f.load[0].it.w]) + '</td><td><b>' + f.kills + '</b></td><td>' + (f.deaths || 0) + '</td><td>' + (f.alive ? Math.max(0, Math.ceil(f.hp)) : '—') + '</td></tr>';
-  const team = t => { const list = A.F.filter(f => f.team === t && !f.summon).sort((a, b) => b.kills - a.kills); return '<div class="ar-bt t' + t + '"><div class="ar-bh"><b>' + (t === 0 ? (A.mode.n === 1 ? 'YOU' : 'BLUE TEAM') : (A.mode.n === 1 ? 'OPPONENT' : 'RED TEAM')) + '</b><span>' + A.score[t] + '</span></div><table><tr><th>Player</th><th>Rank</th><th>Weapon</th><th>K</th><th>D</th><th>HP</th></tr>' + list.map(row).join('') + '</table></div>'; };
+  const team = t => { const list = A.F.filter(f => f.team === t && !f.summon).sort((a, b) => b.kills - a.kills); return '<div class="ar-bt t' + arVT(t) + '"><div class="ar-bh"><b>' + (A.mode.n === 1 ? (t === 0 ? 'YOU' : 'OPPONENT') : arVT(t) ? 'RED TEAM' : 'BLUE TEAM') + '</b><span>' + A.score[t] + '</span></div><table><tr><th>Player</th><th>Rank</th><th>Weapon</th><th>K</th><th>D</th><th>HP</th></tr>' + list.map(row).join('') + '</table></div>'; };
   $('#arBoard').innerHTML = '<div class="ar-bcard"><div class="ar-btop">' + A.mode.id + ' ' + A.mode.name.toUpperCase() + ' · ' + esc(ARM.name) + ' · ROUND ' + A.round + '</div>' + team(0) + team(1) + '</div>';
 }
 const AR_STREAK = ['', '', 'DOUBLE KILL', 'TRIPLE KILL', 'QUAD KILL', 'RAMPAGE'];
@@ -19481,20 +19501,19 @@ function arBindInput(){
   A.onMd = e => { if (AR_MOBILE) return; if (document.pointerLockElement !== cv) { cv.requestPointerLock && cv.requestPointerLock(); return; } if (e.button === 0) A.fire = true; if (e.button === 2) A.adsHeld = true; };
   A.onMu = e => { if (e.button === 0) A.fire = false; if (e.button === 2) A.adsHeld = false; };
   A.onWheel = e => { if (document.pointerLockElement === cv) arSwap((A.me.cur + (e.deltaY > 0 ? 1 : 2)) % 3); };
-  A.onPl = () => { if (AR_MOBILE || !AR) return; const locked = document.pointerLockElement === cv; A.paused = !locked && !A.over; $('#arPause').hidden = locked || !!A.over; if (!locked) { A.fire = false; A.adsHeld = false; A.keys = {}; } else A.last = performance.now(); };
+  A.onPl = () => { if (AR_MOBILE || !AR) return; const locked = document.pointerLockElement === cv, h = $('#arLockHint'); if (h) h.hidden = locked || !!A.over; if (!locked) { A.fire = false; A.adsHeld = false; A.keys = {}; } else A.last = performance.now(); };
   A.onResize = () => { A.R.setSize(innerWidth, innerHeight); A.cam.aspect = A.vcam.aspect = innerWidth / innerHeight; A.cam.updateProjectionMatrix(); A.vcam.updateProjectionMatrix(); };
   addEventListener('mousemove', A.onMm); cv.addEventListener('mousedown', A.onMd); addEventListener('mouseup', A.onMu); addEventListener('wheel', A.onWheel, {passive: true});
   document.addEventListener('pointerlockchange', A.onPl); addEventListener('resize', A.onResize); cv.addEventListener('contextmenu', e => e.preventDefault());
-  $('#arResume').onclick = () => { if (AR_MOBILE) { A.paused = false; A.last = performance.now(); $('#arPause').hidden = true; } else cv.requestPointerLock(); };
-  $('#arPause').onclick = e => { if (e.target.id === 'arPause') $('#arResume').click(); };
-  $('#arQuit').onclick = () => { A.score[1] = AR_WIN; A.quit = true; arFinish(); };
   $('#arGoat').onclick = () => { if (A.goatMenu) arGoatMenuClose(); else if (A.phase === 'live') arGoatMenu(); };
-  $('#arPauseBtn').onclick = () => { if (AR_MOBILE) { A.paused = true; $('#arPause').hidden = false; } else document.exitPointerLock(); };
+  /* leaving takes two taps (the second within 3 seconds) so a stray tap can't throw the match; nothing pauses */
+  $('#arPauseBtn').onclick = e => { e.stopPropagation(); const b = $('#arPauseBtn');
+    if (b.classList.contains('sure')) { A.score[1] = AR_WIN; A.quit = true; arFinish(); return; }
+    b.classList.add('sure'); b.textContent = 'Leave? (loss)'; clearTimeout(A.leaveT); A.leaveT = setTimeout(() => { if (AR && b.isConnected) { b.classList.remove('sure'); b.textContent = 'Leave'; } }, 3000); };
   $('#arSk').onclick = () => arUseSkill(A.me);
   $('#arTop').onclick = () => { const b = $('#arBoard'); b.hidden = !b.hidden; if (!b.hidden) arBoard(); };
   $('#arSlots').onclick = e => { const s = e.target.closest('.ar-slot'); if (s) arSwap(+s.dataset.i); };
-  if (!AR_MOBILE) { A.paused = true; $('#arPause').hidden = false; $('#arPauseP').textContent = 'Click to lock your mouse and start. WASD move · mouse aim · click shoot · right-click aim · Space jump · Shift slide (jump out of it to keep the speed) · R reload · G grenade · 1/2/3 weapons · Q skill · Esc pause'; $('#arResume').textContent = 'Start'; }
-  else arTouch();
+  if (AR_MOBILE) arTouch();
 }
 function arSwap(i){ const A = AR; if (!A || i === A.me.cur || !A.me.alive) return; A.me.cur = i; A.me.reload = 0; A.ads = 0; arShowWeapon(); tone(500, .04, 'square', .03); }
 /* phone controls: a floating stick on the left, drag anywhere on the right to aim, big icon buttons */
@@ -19554,18 +19573,12 @@ function arFinish(){
   if (document.pointerLockElement) document.exitPointerLock();
   cancelAnimationFrame(A.raf);
   const res = $('#arRes'), opp = A.F.filter(f => f.team === 1 && !f.summon);
-  res.innerHTML = '<div class="ar-resw"><div class="ar-rcard ' + (won ? 'win' : 'lose') + '"><div class="ar-rtop">' + (won ? 'VICTORY' : A.quit ? 'YOU LEFT' : 'DEFEAT') + '</div><div class="ar-rsc">' + A.score[0] + ' – ' + A.score[1] + '</div>'
-    + '<div class="ar-rvs">' + A.mode.id + ' ' + A.mode.name + ' · ' + esc(ARM.name) + ' · ' + A.me.kills + ' elimination' + (A.me.kills === 1 ? '' : 's') + (A.mode.n === 1 ? ' · vs ' + esc(opp[0].name) : '') + '</div>'
-    + '<div class="ar-rrank" style="--rc:' + arRankCol(after) + '">' + arEmblem(after) + '<div><b>' + arRankName(after) + (up ? ' <em>RANK UP!</em>' : down ? ' <em class="dn">RANK DOWN</em>' : '') + '</b><div class="ar-rbar"><i style="width:' + (after % AR_DIV) + '%"></i></div><small>' + (d >= 0 ? '+' : '') + d + ' RP · ' + (after % AR_DIV) + ' / ' + AR_DIV + '</small></div></div>'
-    + '<div class="ar-rcr"><span class="coin"></span>+' + fmt(cr) + ' credits</div>'
-    + '<div class="ar-racts"><button type="button" class="ar-btn" id="arAgain">Play again</button><button type="button" class="ar-btn ghost" id="arMenuB">Menu</button></div></div></div>';
+  /* no result card: just the stats board and a small red Leave button in the corner */
+  res.innerHTML = '<button type="button" class="ar-leave" id="arMenuB">Leave</button><div class="ar-resw"></div>';
   res.querySelector('.ar-resw').append(arStatsBoard(A));
-  /* ranking up: the cinematic first, then the results */
+  /* ranking up: the cinematic first, then the stats */
   res.hidden = !!up; if (up) arRankUpFx(before, after, () => { res.hidden = false; });
   if (won) { goldSound && goldSound(); } else [330, 262, 196].forEach((f, i) => tone(f, .5, 'triangle', .05, i * .15));
-  const inParty = arP && arPartyHumans().length > 1;
-  if (inParty) $('#arAgain').textContent = arPartyIsLeader() ? 'Back to party' : 'Back to party';
-  $('#arAgain').onclick = () => { arCleanup(); res.hidden = true; if (inParty) arMenu(); else arQueue(); };
   $('#arMenuB').onclick = () => { arCleanup(); res.hidden = true; arMenu(); };
 }
 
@@ -19688,14 +19701,14 @@ async function arFound(){
   const used = new Set(); const uname = () => { let nm = arBotName(), k = 0; while (used.has(nm.toLowerCase()) && k++ < 20) nm = arBotName(); used.add(nm.toLowerCase()); return nm; };
   const bot = () => ({name: uname(), rp: Math.max(0, S.rp + Math.round((Math.random() - .5) * 60)), kit: arBotKit(S.rp), skill: arSkill(S.rp)});
   const teams = [[{me: true, name: 'You', rp: S.rp}].concat(Array.from({length: M.n - 1}, bot)), Array.from({length: M.n}, bot)];
-  return arFoundShow({mode: M.id, map, teams});
+  return arFoundShow({mode: M.id, map, teams, red: Math.random() < .5});
 }
 async function arFoundNet(lb){ if (arQ) { clearInterval(arQ.iv); clearTimeout(arQ.to); arQ = null; } if (AR) return; arScreen('arQ'); return arFoundShow(arLobbyIn(lb)); }
 async function arFoundShow(lobby){
   const M = arMode(lobby.mode), map = lobby.map, teams = lobby.teams;
   [523.25, 783.99, 1046.5].forEach((f, i) => tone(f, .3, 'triangle', .06, i * .09));
   const card = (p, t) => { const sk = p.kit && arSkillOf(p.kit.it);
-    return '<div class="ar-vsc' + (M.n > 1 ? ' sm' : '') + ' t' + t + '" style="--rc:' + arRankCol(p.rp) + '">' + arEmblem(p.rp) + '<div class="ar-vsi"><b>' + (p.pid ? '<i class="ar-ptag">PARTY</i>' : '') + esc(p.me ? 'You' : p.name) + '</b><span>' + arRankName(p.rp) + '</span>' + (p.kit ? '<em>' + WNAME[p.kit.it.w] + ' | ' + p.kit.it.name + (sk ? ' · ★ ' + AR_SK[sk].n : '') + '</em>' : '') + '</div>' + (p.kit && M.n === 1 ? '<div class="ar-vsg"></div>' : '') + '</div>'; };
+    return '<div class="ar-vsc' + (M.n > 1 ? ' sm' : '') + ' t' + (lobby.red ? 1 - t : t) + '" style="--rc:' + arRankCol(p.rp) + '">' + arEmblem(p.rp) + '<div class="ar-vsi"><b>' + (p.pid ? '<i class="ar-ptag">PARTY</i>' : '') + esc(p.me ? 'You' : p.name) + '</b><span>' + arRankName(p.rp) + '</span>' + (p.kit ? '<em>' + WNAME[p.kit.it.w] + ' | ' + p.kit.it.name + (sk ? ' · ★ ' + AR_SK[sk].n : '') + '</em>' : '') + '</div>' + (p.kit && M.n === 1 ? '<div class="ar-vsg"></div>' : '') + '</div>'; };
   $('#arQ').innerHTML = '<div class="ar-found"><small>' + (M.n === 1 ? 'OPPONENT FOUND' : 'MATCH FOUND') + ' · ' + M.id + ' ' + M.name.toUpperCase() + ' · ' + esc(AR_MAPS[map].name.toUpperCase()) + '</small><div class="ar-vs' + (M.n > 1 ? ' teams' : '') + (M.n >= 6 ? ' xl' : '') + '"><div class="ar-team">' + teams[0].map(p => card(p, 0)).join('') + '</div><div class="ar-vsx">VS</div><div class="ar-team">' + teams[1].map(p => card(p, 1)).join('') + '</div></div><p id="arLd">Loading the arena…</p></div>';
   const g = $('#arQ .ar-vsg'); if (g) g.append(thumb(teams[1][0].kit.it, wearIdx(teams[1][0].kit.fl)));
   try { await Promise.all([arThree(), wait(2800)]); } catch (e) { $('#arLd').textContent = 'Couldn’t load the 3D engine. Check your connection and try again.'; setTimeout(arMenu, 2500); return; }
@@ -19878,13 +19891,13 @@ function arPartyLobby(){
   const used = new Set(hs.map(m => m.name.toLowerCase())); const uname = () => { let nm = arBotName(), k = 0; while (used.has(nm.toLowerCase()) && k++ < 20) nm = arBotName(); used.add(nm.toLowerCase()); return nm; };
   const bot = () => { const kit = arBotKit(rp); return {name: uname(), rp: Math.max(0, rp + Math.round((Math.random() - .5) * 60)), kit: [kit.it.id, kit.fl], skill: arSkill(rp)}; };
   const t0 = hs.map(m => ({pid: m.pid, name: m.name, rp: m.rp, load: m.load})).concat(Array.from({length: M.n - hs.length}, bot));
-  return {mode: M.id, map, teams: [t0, Array.from({length: M.n}, bot)], host: arP.pid};
+  return {mode: M.id, map, teams: [t0, Array.from({length: M.n}, bot)], host: arP.pid, red: Math.random() < .5};
 }
 /* turn a lobby that came over the network back into game objects */
 function arLobbyIn(lb){
   const teams = lb.teams.map(tm => tm.map(p => p.pid ? Object.assign({}, p, {me: p.pid === arPid(), kit: {it: arItemById(p.load[0][0]), fl: p.load[0][1]}})
     : Object.assign({}, p, {kit: {it: arItemById(p.kit[0]), fl: p.kit[1]}})));
-  return {mode: lb.mode, map: lb.map, teams, net: {host: lb.host === arPid(), hostPid: lb.host, pid: arPid()}};
+  return {mode: lb.mode, map: lb.map, teams, red: !!lb.red, net: {host: lb.host === arPid(), hostPid: lb.host, pid: arPid()}};
 }
 
 /* ---------- in a match ---------- */
@@ -20193,7 +20206,7 @@ function arPadSpawn(f, p){
 function arDecoySpawn(f, yaw, real){
   const A = AR, T = A.T, fw = arFwd(yaw, 0);
   const dc = {decoy: true, team: f.team, name: f.name, p: {x: f.p.x + fw.x * .8, y: f.p.y, z: f.p.z + fw.z * .8}, v: {x: fw.x * 7.5, y: 0, z: fw.z * 7.5}, yaw, pitch: 0, aimY: yaw, aimP: 0, alive: true, ground: true, st: {}, cd: {}, slide: 0, hp: 100,
-    load: f.load, cur: 0, life: 5, col: f.col || AR_TEAMCOL[f.team][0], walk: 0, flashT: 0, lastShot: -9, acq: 0, real};
+    load: f.load, cur: 0, life: 5, col: f.col || AR_TEAMCOL[arVT(f.team)][0], walk: 0, flashT: 0, lastShot: -9, acq: 0, real};
   dc.B = arBotModel(T, '#ffb81f', f.load[0], dc.col, f.team, f.name + '~');
   dc.B.mats.slice(0, 4).forEach(m => { m.transparent = true; m.opacity = .72; if (m.color) m.color.set('#ffd34d'); if (m.emissive) { m.emissive.set('#ffb000'); m.emissiveIntensity = .9; } });
   dc.B.blob.material = new T.MeshBasicMaterial({color: '#7a4d00', transparent: true, opacity: .45, depthWrite: false}); dc.B.blob.visible = true; dc.B.blob.scale.setScalar(1.3);
@@ -20448,7 +20461,7 @@ function arMsnSpawn(o){
     A.F.push(b);
     b.B = arStarModel(T, who, {it, fl: .0001}, b.team); A.sc.add(b.B.g);
     if (A.transOn) { const mat = b.team === A.me.team ? A.transBlue : A.transRed; b.B.g.traverse(x => { if (x.isMesh && x.material && !x.material.transparent) { x.userData.m0 = x.material; x.material = mat; } }); }
-    const t = document.createElement('div'); t.className = 'ar-tag t' + b.team + ' msn'; t.hidden = true; t.innerHTML = '<b class="ar-tmk"></b><span>' + esc(nm) + ' ' + AR_STARS[who].num + '</span><em><i></i></em>'; $('#arTags').append(t); b.tag = t; b.tagBar = t.querySelector('i');
+    const t = document.createElement('div'); t.className = 'ar-tag t' + arVT(b.team) + ' msn'; t.hidden = true; t.innerHTML = '<b class="ar-tmk"></b><span>' + esc(nm) + ' ' + AR_STARS[who].num + '</span><em><i></i></em>'; $('#arTags').append(t); b.tag = t; b.tagBar = t.querySelector('i');
     const at = {x: b.p.x, y: b.p.y + 1, z: b.p.z}; arBurst(at, '#004d98', 14, 6); arBurst(at, '#a50044', 14, 6); arBurst(at, '#ffd23f', 8, 4); arRingFx({x: b.p.x, y: b.p.y + .05, z: b.p.z}, s > 0 ? '#4f8bff' : '#ff4f8b', 2.4, .6);
   });
   arSnd((a, ou, t) => { [523.25, 659.25, 783.99, 1046.5].forEach((fr, k) => arOsc(a, ou, t + k * .07, .4, 'triangle', fr, fr, .04)); arNz(a, ou, t, .6, 'bandpass', 600, 1800, .12, 1.5); }, o.me ? null : o.p);
@@ -20612,7 +20625,7 @@ function arStarCanvas(kind, who){
   return (arStarTex[key] = c);
 }
 function arStarModel(T, who, kit, team){
-  const P = AR_STARS[who], U = .355, g = new T.Group(), hue = AR_TEAMHUE[team || 0];
+  const P = AR_STARS[who], U = .355, g = new T.Group(), hue = AR_TEAMHUE[arVT(team || 0)];
   const tex = k => { const key = k + who + 't'; if (arStarTex[key]) return arStarTex[key]; const t = new T.CanvasTexture(arStarCanvas(k, who)); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4; return (arStarTex[key] = t); };
   const std = o => new T.MeshStandardMaterial(Object.assign({roughness: .7, metalness: 0}, o));
   const skinM = std({color: P.skin}), hairM = std({color: P.hair, roughness: .9}), sideM = std({map: tex('side')}), garM = std({color: '#a50044'}), sleeveM = std({map: tex('sleeve')}),
@@ -20915,7 +20928,7 @@ const arStatPack = A => A.F.map(f => [Math.round(f.dmg || 0), f.hs || 0, f.hitSh
 function arStatUnpack(A, st){ (st || []).forEach((a, i) => { const f = A.F[i]; if (!f || f.summon) return; [f.dmg, f.hs, f.hitShots, f.shots, f.assists, f.kills, f.deaths, f.hsk] = a; }); }
 const arStatScore = r => Math.round(r.k * 100 + r.a * 40 + r.dmg + r.hsk * 15);
 
-/* the board: a blue sheet of slanted rows, you outlined in white, sortable by any column */
+/* the board: a blue sheet (red while showing the red team) of slanted rows, you outlined in white, sortable by any column */
 function arStatsBoard(A){
   const rows = A.F.filter(f => !f.summon).map(f => { const r = {f, k: f.kills || 0, d: f.deaths || 0, a: f.assists || 0, dmg: Math.round(f.dmg || 0), hs: f.hs || 0, hsk: f.hsk || 0,
     acc: f.shots ? Math.min(100, Math.round(100 * (f.hitShots || 0) / f.shots)) : 0}; r.kd = r.d ? r.k / r.d : r.k; r.score = arStatScore(r); return r; });
@@ -20924,11 +20937,12 @@ function arStatsBoard(A){
   const el = document.createElement('div'); el.className = 'ar-sb'; let sortK = 'score', team = 'all';
   const cell = (r, k) => k === 'kd' ? r.kd.toFixed(2) : k === 'acc' ? r.acc + '%' : fmt(r[k]);
   const draw = () => {
+    el.className = 'ar-sb' + (team !== 'all' && arVT(+team) === 1 ? ' red' : '');
     const list = rows.filter(r => team === 'all' || r.f.team === +team).sort((x, y) => y[sortK] - x[sortK] || y.score - x.score);
     el.innerHTML = '<div class="ar-sb-top"><div class="ar-sb-crumb">SHOWDOWN <i>/</i> ' + esc(A.mode.id.toUpperCase() + ' ' + A.mode.name.toUpperCase()) + ' <i>/</i> ' + esc(ARM.name.toUpperCase()) + ' <i>/</i> <b>MATCH STATS</b></div>'
-      + '<div class="ar-sb-tabs">' + [['all', 'ALL'], ['0', A.mode.n === 1 ? 'YOU' : 'BLUE'], ['1', A.mode.n === 1 ? 'THEM' : 'RED']].map(([v, n]) => '<button type="button" data-t="' + v + '" class="' + (team === v ? 'on' : '') + '">' + n + '</button>').join('') + '</div></div>'
+      + '<div class="ar-sb-tabs">' + [['all', 'ALL'], ['0', A.mode.n === 1 ? 'YOU' : arVT(0) ? 'RED' : 'BLUE'], ['1', A.mode.n === 1 ? 'THEM' : arVT(1) ? 'RED' : 'BLUE']].map(([v, n]) => '<button type="button" data-t="' + v + '" class="' + (team === v ? 'on' : '') + '">' + n + '</button>').join('') + '</div></div>'
       + '<div class="ar-sb-scroll"><div class="ar-sb-tab"><div class="ar-sb-h"><span>#</span><span class="pl">PLAYER</span>' + cols.map(([k, n]) => '<button type="button" data-k="' + k + '" class="' + (sortK === k ? 'on' : '') + '">' + n + (sortK === k ? ' ▾' : '') + '</button>').join('') + '</div>'
-      + list.map((r, i) => '<div class="ar-sb-r t' + r.f.team + (r.f.me ? ' me' : '') + (i % 2 ? ' alt' : '') + '" style="animation-delay:' + (i * .05) + 's"><span class="n">' + (i + 1) + '</span><span class="pl"><b>' + esc(r.f.me ? arMyName() : r.f.name) + '</b>' + (r === mvp ? '<em>MVP</em>' : '') + (r.f.me ? '<em class="you">YOU</em>' : '') + '</span>'
+      + list.map((r, i) => '<div class="ar-sb-r t' + arVT(r.f.team) + (r.f.me ? ' me' : '') + (i % 2 ? ' alt' : '') + '" style="animation-delay:' + (i * .05) + 's"><span class="n">' + (i + 1) + '</span><span class="pl"><b>' + esc(r.f.me ? arMyName() : r.f.name) + '</b>' + (r === mvp ? '<em>MVP</em>' : '') + (r.f.me ? '<em class="you">YOU</em>' : '') + '</span>'
         + cols.map(([k]) => '<span class="' + (sortK === k ? 'on' : '') + '">' + cell(r, k) + '</span>').join('') + '</div>').join('') + '</div></div>'
       + '<div class="ar-sb-foot"><span>Score = elims × 100 + assists × 40 + damage + headshot elims × 15</span><span>Tap a column to sort</span></div>';
     el.querySelectorAll('[data-t]').forEach(b => b.onclick = () => { team = b.dataset.t; tone(700, .05, 'triangle', .03); draw(); });
