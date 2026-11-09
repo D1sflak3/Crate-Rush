@@ -4284,6 +4284,8 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -17542,13 +17544,32 @@ function arLoadout(){
 }
 
 /* ---------- maps: each one is a list of boxes [x0, y0, z0, x1, y1, z1, kind], mirrored left/right ---------- */
+/* bigger modes get bigger arenas: a map's layout is laid down once per tile, so twice the players means
+   about twice the floor and twice the cover. AR_TILE is the grid of tiles for the map being built. */
+let AR_TILE = {c: 1, r: 1};
+/* tiles across (c) and deep (r) per mode and map: 2v2 maps are about twice a 1v1, 4v4 about twice a 2v2,
+   8v8 about twice a 4v4 */
+const AR_MAPTILES = {
+  1: {yard: [1, 1], overpass: [1, 1]},
+  2: {yard: [1, 2], overpass: [1, 1], court: [1, 1]},
+  3: {overpass: [1, 2], court: [1, 1], docks: [1, 1]},
+  4: {docks: [1, 2], court: [1, 2]},
+  6: {docks: [1, 3], court: [2, 2]},
+  8: {docks: [2, 2], court: [2, 2]}};
+function arTilesFor(id, n){ const t = (AR_MAPTILES[n] || {})[id] || [1, Math.max(1, Math.round(n / 2))]; return {c: t[0], r: t[1]}; }
 function arBuild(W, D, wallH, fill){
-  const B = [], box = (cx, cz, w, d, h, k, y0) => B.push([cx - w / 2, y0 || 0, cz - d / 2, cx + w / 2, (y0 || 0) + h, cz + d / 2, k]);
-  const both = (cx, cz, w, d, h, k, y0) => { box(cx, cz, w, d, h, k, y0); if (cx) box(-cx, cz, w, d, h, k, y0); };
-  box(0, -D / 2 - .5, W + 2, 1, wallH, 'wall'); box(0, D / 2 + .5, W + 2, 1, wallH, 'wall'); box(-W / 2 - .5, 0, 1, D, wallH, 'wall'); box(W / 2 + .5, 0, 1, D, wallH, 'wall');
-  fill(box, both);
+  const B = [], TW = W * AR_TILE.c, TD = D * AR_TILE.r, raw = (cx, cz, w, d, h, k, y0) => B.push([cx - w / 2, y0 || 0, cz - d / 2, cx + w / 2, (y0 || 0) + h, cz + d / 2, k]);
+  raw(0, -TD / 2 - .5, TW + 2, 1, wallH, 'wall'); raw(0, TD / 2 + .5, TW + 2, 1, wallH, 'wall'); raw(-TW / 2 - .5, 0, 1, TD, wallH, 'wall'); raw(TW / 2 + .5, 0, 1, TD, wallH, 'wall');
+  for (let ci = 0; ci < AR_TILE.c; ci++) for (let ri = 0; ri < AR_TILE.r; ri++) {
+    const ox = (ci - (AR_TILE.c - 1) / 2) * W, oz = (ri - (AR_TILE.r - 1) / 2) * D;
+    const box = (cx, cz, w, d, h, k, y0) => raw(cx + ox, cz + oz, w, d, h, k, y0);
+    const both = (cx, cz, w, d, h, k, y0) => { box(cx, cz, w, d, h, k, y0); if (cx) box(-cx, cz, w, d, h, k, y0); };
+    fill(box, both);
+  }
   return B;
 }
+/* the tiles' centres, for dressing that belongs to each copy of the layout */
+const arTileCentres = () => { const out = [], W = ARM.W / ARM.tile.c, D = ARM.D / ARM.tile.r; for (let ci = 0; ci < ARM.tile.c; ci++) for (let ri = 0; ri < ARM.tile.r; ri++) out.push([(ci - (ARM.tile.c - 1) / 2) * W, (ri - (ARM.tile.r - 1) / 2) * D]); return out; };
 /* a flight of steps from the ground up to height h, running along +z or -z from z0 */
 function arStairs(box, cx, z0, dir, w, h){ const n = Math.round(h / .4); for (let i = 0; i < n; i++) box(cx, z0 + dir * (i + .5) * .8, w, .8, h - .4 * (i + 1) + .4, 'stair'); }
 const AR_MAPS = {
@@ -17603,8 +17624,9 @@ const AR_MAPS = {
 };
 /* the live map: boxes, bounds and the bots' walking grid */
 let ARB = [], AR_GX0 = -22, AR_GZ0 = -15, AR_GW = 44, AR_GH = 30, AR_GRID = new Uint8Array(1), ARM = null;
-function arSetMap(id){
-  ARM = Object.assign({id}, AR_MAPS[id]); ARB = ARM.boxes();
+function arSetMap(id, n){
+  AR_TILE = arTilesFor(id, n || 1); ARM = Object.assign({id}, AR_MAPS[id]); ARB = ARM.boxes();
+  ARM.tile = AR_TILE; ARM.k = AR_TILE.c * AR_TILE.r; ARM.W = AR_MAPS[id].W * AR_TILE.c; ARM.D = AR_MAPS[id].D * AR_TILE.r; AR_TILE = {c: 1, r: 1};
   AR_GW = ARM.W; AR_GH = ARM.D; AR_GX0 = -ARM.W / 2; AR_GZ0 = -ARM.D / 2;
   AR_GRID = new Uint8Array(AR_GW * AR_GH);
   for (let i = 0; i < AR_GW; i++) for (let j = 0; j < AR_GH; j++) {
@@ -18101,7 +18123,7 @@ const arFoes = f => AR.F.filter(o => o.team !== f.team && o.alive);
 const arMates = f => AR.F.filter(o => o.team === f.team && o !== f);
 async function arStartMatch(lobby){
   const T = await arThree();
-  arSetMap(lobby.map);
+  arSetMap(lobby.map, arMode(lobby.mode).n);
   /* fighters in lobby order, so every player in a party agrees on who is who */
   const L = arLoadout(), F = []; let me = null;
   lobby.teams.forEach((tm, ti) => tm.forEach((p, i) => {
@@ -18194,9 +18216,9 @@ function arSkyDome(T, LK, sunDir){
   const me = new T.Mesh(new T.SphereGeometry(150, 32, 16), m); me.frustumCulled = false; me.renderOrder = -10; return me;
 }
 function arSpawnSpot(team, i, n){
-  const sx = (team === 0 ? 1 : -1) * AR.side * (ARM.W / 2 - 3.5);
+  const sx = (team === 0 ? 1 : -1) * AR.side * (ARM.W / 2 - 3.5), gap = Math.max(3, Math.min(8, (ARM.D - 10) / Math.max(1, n)));
   for (let tries = 0; tries < 30; tries++) {
-    const z = (i - (n - 1) / 2) * 3 + (tries ? (Math.random() - .5) * tries * .6 : 0), x = sx - Math.sign(sx) * (tries ? Math.random() * tries * .3 : 0), p = {x, y: 0, z};
+    const z = (i - (n - 1) / 2) * gap + (tries ? (Math.random() - .5) * tries * .6 : 0), x = sx - Math.sign(sx) * (tries ? Math.random() * tries * .3 : 0), p = {x, y: 0, z};
     if (!ARB.some(b => arOv(p, b))) return p;
   }
   return {x: sx, y: 0, z: 0};
@@ -18211,7 +18233,7 @@ function arNewRound(ev){
     if (f.B) { f.B.g.rotation.z = 0; f.B.g.visible = true; }
   }); });
   A.proj.forEach(p => A.fx.remove(p.m)); A.proj = []; A.nades.forEach(g => A.fx.remove(g.m)); A.nades = [];
-  A.phase = 'count'; A.t = 3.2; A.roundT = AR_ROUND_T; A.spec = null;
+  A.phase = 'count'; A.t = 3.2; A.roundT = Math.round(AR_ROUND_T * (1 + .3 * ((ARM.k || 1) - 1))); A.spec = null;
   if (ev) { A.round = ev.rd; if (ev.sc) A.score = ev.sc; ev.sp.forEach((s, i) => { const f = A.F[i]; if (!f) return; f.p = {x: s[0], y: 0, z: s[1]}; f.yaw = s[2]; if (f.net) Object.assign(f.net, {x: s[0], y: 0, z: s[1], yaw: s[2]}); });
     if (ev.ph === 'count') A.t = ev.t; }
   A.F.forEach(f => { if (f.gone) { f.alive = false; if (f.B) f.B.g.visible = false; } });
@@ -18556,7 +18578,7 @@ function arDecor(T, sc){
   /* floor: lane lines, team zones by the spawns, a centre ring */
   for (let x = -W / 2 + 4; x <= W / 2 - 4; x += 8) bx('paintW', x, .012, 0, .14, .01, D - 2);
   bx('paintW', 0, .013, -D / 2 + 1.2, W - 2, .01, .18); bx('paintW', 0, .013, D / 2 - 1.2, W - 2, .01, .18);
-  [-1, 1].forEach(s => { bx(s > 0 ? 'zoneB' : 'zoneR', s * (W / 2 - 3.5), .011, 0, 6, .01, Math.min(D - 4, 16)); });
+  [-1, 1].forEach(s => { bx(s > 0 ? 'zoneB' : 'zoneR', s * (W / 2 - 3.5), .011, 0, 6, .01, Math.min(D - 4, Math.max(16, D * .55))); });
   const ring = new T.RingGeometry(3.2, 3.6, 48).rotateX(-Math.PI / 2); ring.translate(0, .014, 0); put('paintY', ring);
   /* walls: a hazard band along the bottom, a glowing strip along the top, light posts and banners */
   const band = (x, z, w, d) => { bx('hazard', x, .45, z, w, .9, d); bx('glow', x, wh - .25, z, w + .02, .12, d + .02); };
@@ -18570,14 +18592,14 @@ function arDecor(T, sc){
   const cone = (x, z) => { if (!free(x, z, .3)) return; const g = new T.ConeGeometry(.22, .6, 10); g.translate(x, .3, z); put('cone', g); bx('paintW', x, .32, z, .32, .07, .32); bx('cone', x, .03, z, .5, .06, .5); };
   const tree = (x, z, s) => { if (!free(x, z, 1)) return; bx('trunk', x, 1.1 * s, z, .4 * s, 2.2 * s, .4 * s); bx('leaf', x, 2.6 * s, z, 2 * s, 1.4 * s, 2 * s); bx('leaf2', x, 3.5 * s, z, 1.3 * s, 1 * s, 1.3 * s); bx('leaf', x + .5 * s, 2.2 * s, z - .4 * s, 1 * s, .8 * s, 1 * s); };
   const tires = (x, z) => { if (!free(x, z, .6)) return; for (let i = 0; i < 3; i++) { const t = new T.TorusGeometry(.42, .16, 8, 16).rotateX(Math.PI / 2); t.translate(x, .16 + i * .3, z); put('tire', t); } };
-  const edgeProps = (fn, n) => { for (let i = 0; i < n; i++) { const side = R() < .5 ? -1 : 1, along = (R() - .5) * (W - 8); const z = side * (D / 2 - 1.3 - R() * .8); fn(along, z); } };
+  const TC = arTileCentres(), edgeProps = (fn, n) => { n *= ARM.k || 1; for (let i = 0; i < n; i++) { const side = R() < .5 ? -1 : 1, along = (R() - .5) * (W - 8); const z = side * (D / 2 - 1.3 - R() * .8); fn(along, z); } };
   if (id === 'yard') { edgeProps(barrel, 10); edgeProps(tires, 6); }
   if (id === 'overpass') { edgeProps(cone, 14); edgeProps(barrel, 6);
-    [-1, 1].forEach(sx => bx('metal', sx * 1.95, 3.1, 0, .08, .9, 24)); for (let z = -11.5; z <= 11.5; z += 2.3) [-1, 1].forEach(sx => bx('metal', sx * 1.95, 2.85, z, .1, .5, .1)); }
-  if (id === 'court') { [[-20, -20], [20, -20], [-20, 20], [20, 20], [-26, 4], [26, -4], [-4, 26], [4, -26], [-9, 13], [9, -13]].forEach(([x, z]) => tree(x, z, .9 + R() * .3));
-    const wat = new T.BoxGeometry(5, .1, 5); wat.translate(0, .86, 0); put('water', wat); }
+    TC.forEach(([ox, oz]) => { [-1, 1].forEach(sx => bx('metal', ox + sx * 1.95, 3.1, oz, .08, .9, 24)); for (let z = -11.5; z <= 11.5; z += 2.3) [-1, 1].forEach(sx => bx('metal', ox + sx * 1.95, 2.85, oz + z, .1, .5, .1)); }); }
+  if (id === 'court') TC.forEach(([ox, oz]) => { [[-20, -20], [20, -20], [-20, 20], [20, 20], [-26, 4], [26, -4], [-4, 26], [4, -26], [-9, 13], [9, -13]].forEach(([x, z]) => tree(ox + x, oz + z, .9 + R() * .3));
+    const wat = new T.BoxGeometry(5, .1, 5); wat.translate(ox, .86, oz); put('water', wat); });
   if (id === 'docks') { edgeProps(barrel, 12); for (let x = -W / 2 + 3; x < W / 2; x += 6) { cyl('metal', x, .35, -D / 2 + 1, .22, .7, 10); cyl('metal', x, .35, D / 2 - 1, .22, .7, 10); }
-    const hook = new T.CylinderGeometry(.03, .03, 3, 6); hook.translate(0, 5.9, 7); put('metal', hook); bx('hazard', 0, 4.3, 7, .5, .5, .5); }
+    TC.forEach(([ox, oz]) => { const hook = new T.CylinderGeometry(.03, .03, 3, 6); hook.translate(ox, 5.9, oz + 7); put('metal', hook); bx('hazard', ox, 4.3, oz + 7, .5, .5, .5); }); }
   /* the sky: a pale sun and slow blocky clouds */
   const mats = {paintW: '#ffffff', paintY: '#ffd23f', zoneB: '#3b9cff', zoneR: '#ff4d6d', hazard: null, glow: '#7fd8ff', metal: '#59606c', lamp: '#fffbe8', banB: '#3b82f6', banR: '#ef4444',
     barrelB: '#3b82f6', barrelR: '#e5484d', cone: '#ff7a1a', trunk: '#8a5a34', leaf: '#5fbf4a', leaf2: '#7fd65c', tire: '#2a2d33', water: '#4fc3f7'};
@@ -19084,9 +19106,9 @@ function arModeArt(m){
 }
 /* a little top-down plan of each map for the map picker */
 const arMapCache = {};
-function arMapSVG(id){
-  if (arMapCache[id]) return arMapCache[id]; const m = AR_MAPS[id], B = m.boxes(), col = {wall: '#1b2230', crate: '#c7ccd4', barrier: '#ffd23f', pillar: '#8d949f', cont: '#7fb3e8', plat: '#b9a6e8', stair: '#a7aeb8'};
-  return arMapCache[id] = '<svg class="ar-mapsvg" viewBox="' + (-m.W / 2 - 1) + ' ' + (-m.D / 2 - 1) + ' ' + (m.W + 2) + ' ' + (m.D + 2) + '" aria-hidden="true"><rect x="' + (-m.W / 2) + '" y="' + (-m.D / 2) + '" width="' + m.W + '" height="' + m.D + '" fill="' + m.pal[0] + '"/>'
+function arMapSVG(id, n){
+  const key = id + '|' + (n || 1); if (arMapCache[key]) return arMapCache[key]; AR_TILE = arTilesFor(id, n || 1); const B = AR_MAPS[id].boxes(), m = Object.assign({}, AR_MAPS[id], {W: AR_MAPS[id].W * AR_TILE.c, D: AR_MAPS[id].D * AR_TILE.r}); AR_TILE = {c: 1, r: 1}; const col = {wall: '#1b2230', crate: '#c7ccd4', barrier: '#ffd23f', pillar: '#8d949f', cont: '#7fb3e8', plat: '#b9a6e8', stair: '#a7aeb8'};
+  return arMapCache[key] = '<svg class="ar-mapsvg" viewBox="' + (-m.W / 2 - 1) + ' ' + (-m.D / 2 - 1) + ' ' + (m.W + 2) + ' ' + (m.D + 2) + '" aria-hidden="true"><rect x="' + (-m.W / 2) + '" y="' + (-m.D / 2) + '" width="' + m.W + '" height="' + m.D + '" fill="' + m.pal[0] + '"/>'
     + '<rect x="' + (m.W / 2 - 6.5) + '" y="-4" width="6" height="8" fill="#3b9cff" opacity=".5"/><rect x="' + (-m.W / 2 + .5) + '" y="-4" width="6" height="8" fill="#ff4d6d" opacity=".5"/>'
     + B.map(b => '<rect x="' + b[0].toFixed(1) + '" y="' + b[2].toFixed(1) + '" width="' + (b[3] - b[0]).toFixed(1) + '" height="' + (b[5] - b[2]).toFixed(1) + '" fill="' + (col[b[6]] || '#aaa') + '"/>').join('') + '</svg>';
 }
@@ -19106,7 +19128,7 @@ function arMenu(){
     + '<button type="button" class="ar-gear" id="arGear" aria-label="Settings"><svg viewBox="0 0 24 24"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm8.6 4.9-1.9 1.1.1 2.2-2.2 1.3-1.9-1.1-1.9 1.1h-1.6l-1.9-1.1-1.9 1.1L3.2 16.7l.1-2.2-1.9-1.1V10.6l1.9-1.1-.1-2.2L5.4 6l1.9 1.1L9.2 6h1.6l1.9 1.1L14.6 6l2.2 1.3-.1 2.2 1.9 1.1z" fill="currentColor"/></svg></button></div>'
     + arPartyBar()
     + '<div class="ar-mgrid"><div class="ar-modes">' + AR_MODES.map((m, i) => '<button type="button" class="ar-mode' + (m.id === S.mode ? ' on' : '') + (i < 2 ? ' big' : '') + (pn > m.n ? ' off' : '') + (follow ? ' lock' : '') + '" data-mode="' + m.id + '">' + arModeArt(m) + '<span class="ar-mpl">' + (m.n * 2) + ' PLAYERS</span><span class="ar-shine"></span><span class="ar-mlab"><b>' + m.id + '</b><em>' + m.name.toUpperCase() + '</em><small>' + m.sub + '</small></span></button>').join('') + '</div>'
-    + '<div class="ar-maps"><span>Map</span>' + ['any'].concat(M.maps).map(id => '<button type="button" class="ar-chip' + (S.map === id ? ' on' : '') + '" data-map="' + id + '">' + (id === 'any' ? '<span class="ar-mapq">?</span>Random' : arMapSVG(id) + AR_MAPS[id].name + ' <small>' + AR_MAPS[id].W + '×' + AR_MAPS[id].D + '</small>') + '</button>').join('') + '</div>'
+    + '<div class="ar-maps"><span>Map</span>' + ['any'].concat(M.maps).map(id => '<button type="button" class="ar-chip' + (S.map === id ? ' on' : '') + '" data-map="' + id + '">' + (id === 'any' ? '<span class="ar-mapq">?</span>Random' : arMapSVG(id, M.n) + AR_MAPS[id].name + ' <small>' + (() => { const t = arTilesFor(id, M.n); return AR_MAPS[id].W * t.c + '×' + AR_MAPS[id].D * t.r; })() + '</small>') + '</button>').join('') + '</div>'
     + '<div class="ar-load"><div class="ar-lh">Loadout <small>tap a slot to change it</small></div>' + L.map((l, i) => {
         const sk = arSkillOf(l.it);
         return '<button type="button" class="ar-lslot" data-slot="' + i + '" style="--tc:' + TIERS[l.it.t].color + '"><small>' + AR_SLOTN[i] + '</small><span class="ar-lart"></span><b>' + (l.it.stock ? 'Stock ' + WNAME[l.it.w].replace('★ ', '') : WNAME[l.it.w] + ' | ' + l.it.name) + '</b>'
