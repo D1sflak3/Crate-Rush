@@ -4337,6 +4337,7 @@ body.ar-on{overflow:hidden}
 
 
 
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -20732,7 +20733,8 @@ function arNeyHead(T, add, skinM, P){
    the film on the flat front of it, small and neat: thick brows, narrow eyes under a dark lash line, a small nose
    with tape across it, small closed lips, diamond studs. Spiky brown hair with a gold crest on top. */
 function arNeyRoblox(T, add, skinM, P){
-  const R = .205, H = .33, e = .075, cy = -.025, rnd = seeded(6262), keep = [];
+  /* 30% narrower than the round version, with tighter (sharper) edges */
+  const F = .7, R = .205 * F, H = .33, e = .05, cy = -.025, rnd = seeded(6262), keep = [];
   const M = o => { const m = new T.MeshStandardMaterial(Object.assign({roughness: .55, metalness: 0}, o)); keep.push(m); return m; };
   const whiteM = M({color: '#f6f1e6', roughness: .25}), irisM = M({color: '#5a3a1c', roughness: .15}), pupilM = M({color: '#0e0a08', roughness: .1}), lashM = M({color: '#1e1410', roughness: .6}),
     browM = M({color: '#2b1a10', roughness: .9}), lipU = M({color: '#a86650'}), lipL = M({color: '#b97560', roughness: .4}), lineM = M({color: '#5a2418'}), tapeM = M({color: '#f4f1ea', roughness: .7}),
@@ -20749,35 +20751,35 @@ function arNeyRoblox(T, add, skinM, P){
   const at = (geo, m, x, y, out, sx, sy, sz) => add(geo, m, x, y, fz(x, y) - out, sx, sy, sz);
   const sp = r => new T.SphereGeometry(r, 18, 12);
   /* eyes */
-  [-1, 1].forEach(k => { const x = k * .062, y = cy + .03;
-    at(sp(.0105), whiteM, x, y, -.002, 2.7, 1.15, .8);
+  [-1, 1].forEach(k => { const x = k * .047, y = cy + .03;
+    at(sp(.0105), whiteM, x, y, -.002, 2.25, 1.1, .8);
     at(sp(.0095), irisM, x - k * .002, y + .001, .004, 1, 1, .5); at(sp(.0045), pupilM, x - k * .002, y + .001, .0078, 1, 1, .4);
-    const l = at(new T.BoxGeometry(.054, .0075, .008), lashM, x, y + .011, .002); l.rotation.z = k * -.08;
+    const l = at(new T.BoxGeometry(.045, .0075, .008), lashM, x, y + .011, .002); l.rotation.z = k * -.08;
     /* brows: thick, straight, a little lift at the outer end */
-    const b1 = at(new T.BoxGeometry(.044, .018, .012), browM, k * .043, cy + .067, .001); b1.rotation.z = k * -.03;
-    const b2 = at(new T.BoxGeometry(.04, .015, .012), browM, k * .083, cy + .062, .001); b2.rotation.z = k * -.17; });
+    const b1 = at(new T.BoxGeometry(.034, .017, .012), browM, k * .031, cy + .066, .001); b1.rotation.z = k * -.03;
+    const b2 = at(new T.BoxGeometry(.03, .014, .012), browM, k * .062, cy + .061, .001); b2.rotation.z = k * -.2; });
   /* a small nose, the tape across it */
   at(sp(.006), skinM, 0, cy + .0, .002, 1.5, 4, 1.8); at(sp(.012), skinM, 0, cy - .027, .005, 1.1, .85, .9); [-1, 1].forEach(k => at(sp(.007), skinM, k * .012, cy - .03, .002, 1, .8, .9));
-  const tp = at(new T.TorusGeometry(.017, .0045, 8, 20, Math.PI), tapeM, 0, cy - .01, .006, 1, 1, 1); tp.rotation.set(-Math.PI / 2, 0, 0); tp.scale.set(1.9, 1, 3.4);
+  const tp = at(new T.TorusGeometry(.017, .0045, 8, 20, Math.PI), tapeM, 0, cy - .01, .006, 1, 1, 1); tp.rotation.set(-Math.PI / 2, 0, 0); tp.scale.set(1.55, 1, 3.4);
   /* small closed lips, a hint of a smile */
-  at(sp(.01), lipU, 0, cy - .068, .0, 2.6, .55, .8); at(new T.BoxGeometry(.05, .0028, .004), lineM, 0, cy - .0725, .003);
-  at(sp(.01), lipL, 0, cy - .079, .0, 2.1, .7, .85);
-  [-1, 1].forEach(k => { const c = at(new T.BoxGeometry(.008, .0028, .004), lineM, k * .027, cy - .07, .002); c.rotation.z = k * .45; });
+  at(sp(.01), lipU, 0, cy - .068, .0, 2.1, .55, .8); at(new T.BoxGeometry(.04, .0028, .004), lineM, 0, cy - .0725, .003);
+  at(sp(.01), lipL, 0, cy - .079, .0, 1.7, .7, .85);
+  [-1, 1].forEach(k => { const c = at(new T.BoxGeometry(.007, .0028, .004), lineM, k * .022, cy - .07, .002); c.rotation.z = k * .45; });
   /* diamond studs where the ears would be */
   [-1, 1].forEach(k => add(sp(.009), studM, k * R * 1.005, cy - .01, 0));
   /* hair: a cap over the top and the sides, open over the face, then spikes */
   const top = pts.filter(p => p.y > .02).map(p => new T.Vector2(p.x * 1.035, p.y * 1.03 + .004));
   const capTop = new T.LatheGeometry([new T.Vector2(top[0].x, .095)].concat(top.filter(p => p.y > .095)), 56); capTop.scale(1, 1, .94); add(capTop, hairM, 0, cy, 0);
   const sides = new T.LatheGeometry(top, 56, Math.PI + .85, Math.PI * 2 - 1.7); sides.scale(1, 1, .94); add(sides, hairM, 0, cy, 0);
-  [-1, 1].forEach(k => add(new T.BoxGeometry(.012, .06, .03), hairD, k * R * 1.01, cy + .03, -.06));
+  [-1, 1].forEach(k => add(new T.BoxGeometry(.012, .06, .03), hairD, k * R * 1.01, cy + .03, -.042));
   const up = new T.Vector3(0, 1, 0), HT = cy + H / 2 + .005;
   const spike = (x, y, z, dir, len, rad, m, tipM, tl) => { const c = add(new T.ConeGeometry(rad, len, 7), m, x + dir.x * len / 2, y + dir.y * len / 2, z + dir.z * len / 2); c.quaternion.setFromUnitVectors(up, dir);
     if (tipM) { const t = add(new T.ConeGeometry(rad * tl * 1.08, len * tl * 1.01, 7), tipM, x + dir.x * len * (1 - tl / 2), y + dir.y * len * (1 - tl / 2), z + dir.z * len * (1 - tl / 2)); t.quaternion.copy(c.quaternion); } };
   /* the fringe along the front edge, pointing up and forward */
-  for (let i = 0; i < 11; i++) { const x = -.16 + i * .032, z = -Math.sqrt(Math.max(0, R * R - x * x)) * .94 * 1.02;
+  for (let i = 0; i < 9; i++) { const x = -.112 + i * .028, z = -Math.sqrt(Math.max(0, R * R - x * x)) * .94 * 1.02;
     spike(x, HT - .025, z, new T.Vector3(x * .6, 1, -.5).normalize(), .065 + rnd() * .03, .017, i % 2 ? hairM : hairD, null, 0); }
   /* spiky texture over the top and around the sides */
-  for (let i = 0; i < 70; i++) { const a = rnd() * Math.PI * 2, rr = Math.sqrt(rnd()), x = Math.cos(a) * rr * R, z = Math.sin(a) * rr * R * .94, side = rr > .85;
+  for (let i = 0; i < 55; i++) { const a = rnd() * Math.PI * 2, rr = Math.sqrt(rnd()), x = Math.cos(a) * rr * R, z = Math.sin(a) * rr * R * .94, side = rr > .85;
     const front = Math.sin(a) < -.55 && side; if (front) continue;
     const y = side ? HT - .03 - rnd() * .08 : HT, dir = new T.Vector3(Math.cos(a) * (side ? .9 : rr * .45), side ? .5 : 1, Math.sin(a) * (side ? .9 : rr * .45) + .15).normalize();
     spike(x * (side ? 1.03 : 1), y, z * (side ? 1.03 : 1), dir, (side ? .045 : .06 + (1 - rr) * .07) + rnd() * .025, .016, rnd() < .5 ? hairM : hairD, !side && rr < .5 && rnd() < .35 ? goldM : null, .45); }
