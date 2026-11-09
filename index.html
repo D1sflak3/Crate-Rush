@@ -4298,6 +4298,9 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -18870,7 +18873,9 @@ function arAnimBot(b, dt){
   if (b.slide > 0) B.g.position.y = b.p.y - .15;
   if (!b.alive) { B.g.rotation.z = Math.min(1.5, (B.g.rotation.z || 0) + dt * 5); B.g.position.y = b.p.y + .2; } else B.g.rotation.z = 0;
   B.blob.visible = b.alive && AR_MOBILE;
-  if (b.st.speedy > 0 && b.alive && Math.random() < dt * 30) arPart({x: b.p.x + (Math.random() - .5) * .5, y: b.p.y + .2 + Math.random() * 1.4, z: b.p.z + (Math.random() - .5) * .5}, {x: 0, y: 1, z: 0}, '#ffd84a', .06, .3, 6);
+  /* Speedster: golden afterimages peel off behind them, with gold sparks */
+  if (b.st.speedy > 0 && b.alive && Math.hypot(b.v.x, b.v.z) > 1.5) { b.aiT = (b.aiT || 0) - dt; if (b.aiT <= 0) { b.aiT = .07; arAfterimage(B, '#ffa800', .42); }
+    if (Math.random() < dt * 30) arPart({x: b.p.x + (Math.random() - .5) * .5, y: b.p.y + .2 + Math.random() * 1.4, z: b.p.z + (Math.random() - .5) * .5}, {x: 0, y: 1, z: 0}, '#ffd84a', .06, .3, 6); }
   /* hit flash in white; under your Long Shot, enemies glow a pulsing red and show through walls */
   b.flashT = Math.max(0, (b.flashT || 0) - dt); const lg = A.me.st.long > 0 && b.team !== A.me.team && b.alive, fl = b.flashT > 0;
   const red = lg ? 1 + Math.sin(A.clock * 10) * .35 : 0, fk = fl ? 'w' : lg ? 'r' + red.toFixed(2) : '0';
@@ -18929,7 +18934,7 @@ function arRender(dt){
   if (A.sun) { const c = cam.position, sn = A.SR * 2 / A.sun.shadow.mapSize.x, tx = Math.round(c.x / sn) * sn, tz = Math.round(c.z / sn) * sn;
     A.sun.target.position.set(tx, 0, tz); A.sun.position.set(tx + A.sunDir.x * 70, A.sunDir.y * 70, tz + A.sunDir.z * 70); A.sky.position.copy(c); }
   const sw = $('#arScope'); if (sw) sw.hidden = !(f.alive && W.scope && ads > .9);
-  if (A.fxa) A.fxa = A.fxa.filter(q => { q.t += dt; const k = Math.min(1, q.t / q.life); q.upd(q.m, k); if (k >= 1) { A.fx.remove(q.m); q.m.material.dispose(); return false; } return true; });
+  if (A.fxa) A.fxa = A.fxa.filter(q => { q.t += dt; const k = Math.min(1, q.t / q.life); q.upd(q.m, k); if (k >= 1) { A.fx.remove(q.m); if (q.m.material) q.m.material.dispose(); if (q.m.userData.mat) q.m.userData.mat.dispose(); return false; } return true; });
   if (A.blight) A.blight.intensity = Math.max(0, A.blight.intensity - dt * 450);
   arPartsUpdate(dt); if (A.clouds) A.clouds.position.x = ((A.clock * .6) % 60) - 30;
   A.booms = A.booms.filter(b => { b.t -= dt; const k = 1 - b.t / .35; b.m.scale.setScalar(.5 + k * 5.5); b.m.material.opacity = Math.max(0, b.t / .35) * .85; if (b.t <= 0) { A.fx.remove(b.m); b.m.geometry.dispose(); b.m.material.dispose(); return false; } return true; });
@@ -19694,7 +19699,7 @@ const AR_MISC = {
   horn:    {n: 'War Horn', d: 'You and teammates near you: +20% speed and +15% damage for 6 seconds.', uses: 1, price: 25000, rank: 9, col: '#b07a3c'},
   /* chroma exclusives */
   kick:    {n: 'Knuckleball', chroma: 'x5', d: 'A free kick that bends out around cover and curls back onto the spot you aimed at. Whoever it hits takes 50, gets knocked back and dazed. Rebounds off walls.', uses: 2, price: 50000, rank: 0, col: '#d22f3a'},
-  decoy:   {n: 'Mirage Decoy', chroma: 'x4', d: 'A copy of you sprints ahead for 5 seconds and pulls enemy fire.', uses: 1, price: 50000, rank: 0, col: '#ffb81f'},
+  decoy:   {n: 'Golden Shadow', chroma: 'x4', d: 'A golden shadow of you sprints ahead for 5 seconds, leaving a trail of afterimages, and pulls enemy fire.', uses: 1, price: 50000, rank: 0, col: '#ffb81f'},
   ghorn:   {n: 'Golden Horn', chroma: 'x3', d: 'Team +25% damage and speed for 8 seconds; enemies near you are stunned.', uses: 1, price: 50000, rank: 0, col: '#ffc21a'}};
 const AR_MISC_ORDER = ['frag', 'med', 'smoke', 'flash', 'molotov', 'pad', 'horn', 'kick', 'decoy', 'ghorn'];
 const AR_MIC = {
@@ -19801,7 +19806,8 @@ function arDecoySpawn(f, yaw, real){
   const dc = {decoy: true, team: f.team, name: f.name, p: {x: f.p.x + fw.x * .8, y: f.p.y, z: f.p.z + fw.z * .8}, v: {x: fw.x * 7.5, y: 0, z: fw.z * 7.5}, yaw, pitch: 0, aimY: yaw, aimP: 0, alive: true, ground: true, st: {}, cd: {}, slide: 0, hp: 100,
     load: f.load, cur: 0, life: 5, col: f.col || AR_TEAMCOL[f.team][0], walk: 0, flashT: 0, lastShot: -9, acq: 0, real};
   dc.B = arBotModel(T, '#ffb81f', f.load[0], dc.col, f.team, f.name + '~');
-  dc.B.mats.slice(0, 4).forEach(m => { m.transparent = true; m.opacity = .55; m.emissive && m.emissive.set && (m.emissive.set('#9fd4ff'), m.emissiveIntensity = .5); });
+  dc.B.mats.slice(0, 4).forEach(m => { m.transparent = true; m.opacity = .72; if (m.color) m.color.set('#ffd34d'); if (m.emissive) { m.emissive.set('#ffb000'); m.emissiveIntensity = .9; } });
+  dc.B.blob.material = new T.MeshBasicMaterial({color: '#7a4d00', transparent: true, opacity: .45, depthWrite: false}); dc.B.blob.visible = true; dc.B.blob.scale.setScalar(1.3);
   dc.B.fe = '0'; dc.B.inv = false; dc.B.xr = false; A.sc.add(dc.B.g); (A.decoys = A.decoys || []).push(dc);
   arSnd((a, o, t) => { arOsc(a, o, t, .3, 'sine', 900, 300, .05); arOsc(a, o, t + .08, .3, 'sine', 1200, 400, .04); }, f.me ? null : f.p);
 }
@@ -19831,8 +19837,9 @@ function arMiscStep(dt){
     sm.puffs.forEach(s => { s.material.opacity = .92 * a; const sc = s.userData.s * (.4 + Math.min(1, life / 1.2) * .6); s.scale.set(sc, sc, 1); s.position.y += dt * .05; });
     if (sm.t <= 0) { sm.puffs.forEach(s => A.fx.remove(s)); return false; } return true; });
   if (A.decoys) A.decoys = A.decoys.filter(dc => { dc.life -= dt;
-    if (dc.alive) { arMoveBody(dc, dt); const L = Math.hypot(dc.v.x, dc.v.z); if (L < 2) { const t = arFwd(dc.yaw + (Math.random() < .5 ? 1.2 : -1.2), 0); dc.yaw = Math.atan2(-t.x, -t.z); dc.v.x = t.x * 7.5; dc.v.z = t.z * 7.5; } arAnimBot(dc, dt); }
-    if (dc.life <= 0) { dc.alive = false; arBurst({x: dc.p.x, y: dc.p.y + 1, z: dc.p.z}, '#9fd4ff', 16, 5); A.sc.remove(dc.B.g); return false; } return true; });
+    if (dc.alive) { dc.aiT = (dc.aiT || 0) - dt; if (dc.aiT <= 0) { dc.aiT = .06; arAfterimage(dc.B, '#ffa800', .5); } if (Math.random() < dt * 40) arPart({x: dc.p.x + (Math.random() - .5) * .6, y: dc.p.y + .1 + Math.random() * 1.6, z: dc.p.z + (Math.random() - .5) * .6}, {x: 0, y: .8, z: 0}, '#ffd84a', .05, .4, 6);
+      arMoveBody(dc, dt); const L = Math.hypot(dc.v.x, dc.v.z); if (L < 2) { const t = arFwd(dc.yaw + (Math.random() < .5 ? 1.2 : -1.2), 0); dc.yaw = Math.atan2(-t.x, -t.z); dc.v.x = t.x * 7.5; dc.v.z = t.z * 7.5; } arAnimBot(dc, dt); }
+    if (dc.life <= 0) { dc.alive = false; arBurst({x: dc.p.x, y: dc.p.y + 1, z: dc.p.z}, '#ffd84a', 22, 6); arAfterimage(dc.B, '#fff1b0', .7, 1.25); A.sc.remove(dc.B.g); return false; } return true; });
   if (A.flashW > 0) A.flashW = Math.max(0, A.flashW - dt);
 }
 /* a new round: refill uses, clear what's on the floor */
@@ -19939,6 +19946,21 @@ function arBallStep(dt){
     if (b.life <= 0 || b.bounces > 3 || sp < 3) { arBallPop(b, b.p); return false; }
     return true;
   });
+}
+/* an afterimage: a frozen glowing copy of a model in its current pose that fades and drifts apart. The pose is
+   baked into one mesh so each afterimage is a single draw. */
+function arAfterimage(B, col, life, grow){
+  const A = AR, T = A.T; if (!B || !B.g) return; B.g.updateMatrixWorld(true);
+  const parts = [], v = new T.Vector3(); let n = 0;
+  B.g.traverse(o => { if (!o.isMesh || !o.visible) return; const ty = o.geometry && o.geometry.type; if (ty === 'CircleGeometry' || ty === 'RingGeometry') return; let par = o.parent, vis = true; while (par) { if (!par.visible) vis = false; par = par.parent; } if (!vis) return;
+    const g = o.geometry, pos = g.attributes.position, idx = g.index; parts.push({o, pos, idx}); n += idx ? idx.count : pos.count; });
+  if (!n) return; const P = new Float32Array(n * 3); let k = 0;
+  parts.forEach(({o, pos, idx}) => { const cnt = idx ? idx.count : pos.count; for (let i = 0; i < cnt; i++) { const j = idx ? idx.getX(i) : i; v.fromBufferAttribute(pos, j).applyMatrix4(o.matrixWorld); P[k++] = v.x; P[k++] = v.y; P[k++] = v.z; } });
+  const geo = new T.BufferGeometry(); geo.setAttribute('position', new T.BufferAttribute(P, 3));
+  const c = new T.Vector3(B.g.position.x, B.g.position.y + 1, B.g.position.z); geo.translate(-c.x, -c.y, -c.z);
+  const m = new T.MeshBasicMaterial({color: col, transparent: true, opacity: .5, blending: T.AdditiveBlending, depthWrite: false, fog: false}), me = new T.Mesh(geo, m);
+  me.position.copy(c); me.renderOrder = 2; me.userData.geo = geo; A.fx.add(me); grow = grow || 1.06;
+  A.fxa.push({m: me, t: 0, life: life || .45, upd: (mm, kk) => { m.opacity = .5 * (1 - kk) * (1 - kk); mm.scale.setScalar(1 + (grow - 1) * kk); if (kk >= 1) geo.dispose(); }});
 }
 $('#arBtn').onclick = () => { if (busy) return; arOpen(); };
 document.addEventListener('keydown', e => { const el = $('#arena'); if (!el || el.hidden) return; if (e.key === 'Escape') { e.stopImmediatePropagation(); if (!AR && $('#arGame').hidden && !document.querySelector('.ar-pick')) { if (arQ) { clearInterval(arQ.iv); arQ = null; arMenu(); } else arClose(); } else { const pk = document.querySelector('.ar-pick'); if (pk) pk.remove(); } } }, true);
