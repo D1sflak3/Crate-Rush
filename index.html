@@ -4286,6 +4286,9 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -4482,6 +4485,36 @@ body.ar-on{overflow:hidden}
 .ar-qfill i.pt{background:#6ab8ff}
 @media (max-width:760px){.ar-party{grid-template-columns:1fr;gap:8px}.ar-pt-h small{max-width:none}.ar-pt-acts{flex-direction:row;flex-wrap:wrap;min-width:0}.ar-pt-acts>*{flex:1}}
 @media (max-height:500px){.ar-pt-m{height:74px}.ar-pt-av{width:34px;height:40px}}
+/* the GOAT bar */
+.ar-goat{position:absolute;left:18px;bottom:72px;display:flex;align-items:center;gap:8px;padding:5px 12px 5px 5px;border:3px solid #1b2230;border-radius:999px;background:linear-gradient(180deg,#3a2f12,#1f1a0c);box-shadow:0 4px 0 #1b2230;color:#fff;pointer-events:auto;cursor:pointer;opacity:.82;transition:opacity .2s}
+.ar-goat.act{opacity:1}
+.ar-goat-ic{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3c4,#ffc21a 60%,#c98a1c);border:3px solid #1b2230}
+.ar-goat-ic svg{width:34px;height:34px}
+.ar-goat-w{display:flex;flex-direction:column;gap:3px}
+.ar-goat-b{display:flex;gap:4px}.ar-goat-b i{width:40px;height:12px;border-radius:5px;background:rgba(255,255,255,.14);border:2px solid #0e0b04;transition:background .2s}
+.ar-goat-b i.on{background:linear-gradient(180deg,#fff0a8,#ffc21a);box-shadow:0 0 10px #ffc21a}
+.ar-goat small{font-size:10px;font-weight:700;letter-spacing:.08em;color:#ffe38a}
+.ar-goat b{font-size:18px;color:#ffd34d;text-shadow:var(--ol)}
+.ar-goat.full{animation:arGoatGlow 1s ease-in-out infinite}.ar-goat.full .ar-goat-ic{box-shadow:0 0 22px #ffc21a}
+@keyframes arGoatGlow{50%{box-shadow:0 4px 0 #1b2230,0 0 26px #ffc21a}}
+.ar-goat.pop{animation:arGoatPop .45s cubic-bezier(.2,1.6,.4,1)}@keyframes arGoatPop{40%{transform:scale(1.15)}}
+@media (pointer:coarse){.ar-goat{top:112px;bottom:auto;left:16px;padding:3px 10px 3px 3px}.ar-goat-ic{width:34px;height:34px}.ar-goat-ic svg{width:27px;height:27px}.ar-goat-b i{width:30px;height:10px}.ar-goat b{font-size:15px}}
+/* the mark menu */
+.ar-gm{position:absolute;inset:0;display:grid;place-items:center;background:rgba(20,14,2,.45);z-index:8;pointer-events:auto}
+.ar-gm-card,.ar-gm-card *{text-shadow:none}
+.ar-gm-card{width:min(520px,92vw);max-height:86vh;overflow:auto;padding:14px;border:4px solid #1b2230;border-radius:20px;background:linear-gradient(180deg,#fff7d6,#ffe7a0);box-shadow:0 6px 0 #1b2230,0 0 40px rgba(255,194,26,.6);color:#1b2230}
+.ar-gm-h{display:flex;gap:10px;align-items:center;margin-bottom:10px}.ar-gm-h svg{width:54px;height:54px;flex:none}.ar-gm-h b{font-size:22px;letter-spacing:.05em}.ar-gm-h small{display:block;font-size:12px;font-weight:600;color:#5a4a1c}
+.ar-gm-x{margin-left:auto;align-self:flex-start;width:34px;height:34px;border-radius:10px;border:3px solid #1b2230;background:#fff;font-weight:700;cursor:pointer}
+.ar-gm-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.ar-gm-o{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:8px 10px 8px 34px;border:3px solid #1b2230;border-radius:12px;background:#fff;box-shadow:0 3px 0 #1b2230;cursor:pointer;font:inherit;color:inherit;text-align:left}
+.ar-gm-o:hover{background:#fff3c4}.ar-gm-o.dead{opacity:.55}
+.ar-gm-o i{position:absolute;left:8px;top:8px;width:20px;height:20px;border-radius:6px;background:#1b2230;color:#ffd34d;font-style:normal;font-size:12px;font-weight:700;display:grid;place-items:center}
+.ar-gm-o b{font-size:14px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ar-gm-o small{font-size:11px;color:#8a7a4a;font-weight:700}
+.ar-gm-mk{font-size:11px;font-weight:700;color:#c98a1c}
+.ar-gm-k{margin:8px 0 0;text-align:center;font-size:12px;font-weight:700;color:#5a4a1c}
+/* marked players: gold stars over their name */
+.ar-tag .ar-tmk{display:none;font-size:13px;color:#ffd34d;letter-spacing:1px;text-shadow:var(--ol),0 0 8px #ffc21a}.ar-tag.mk .ar-tmk{display:block}
+.ar-tag.mk span{color:#ffe38a}
 </style>
 
 <div class="wrap" id="wrap">
@@ -17515,6 +17548,7 @@ const AR_SK = {
   x1: {n: 'Requiem', d: 'Heal 40 and your next 3 shots deal double.', cd: 22},
   x2: {n: 'Kingmaker', d: 'A 50-point shield and 30% speed for 5s.', cd: 18},
   /* chroma skills */
+  x3: {n: 'GOAT Mark', d: 'Every 3 GOAT kills: mark an enemy. Every 5th bullet becomes a golden round that curves toward your marks.', cd: 0, ic: 'goat', col: '#ffc21a'},
   x4: {n: 'Speedster', d: 'For 7s: a shot every 0.5s, near-instant reloads and 50% more speed.', cd: 30, ic: 'speedster', col: '#ffb81f'},
   x5: {n: 'Long Shot', d: 'For 10s every enemy glows red through walls and your shots phase through walls.', cd: 45, ic: 'longshot', col: '#ff3b3b'}
 };
@@ -18232,7 +18266,7 @@ function arNewRound(ev){
     f.nade = 1; f.rec = 0; f.recY = 0; f.flashT = 0; f.slideCd = 0; f.aimY = f.yaw; f.aimP = 0; f.wob = Math.random() * 9; f.cover = null; f.coverT = 0; f.nadeT = 3 + Math.random() * 6;
     if (f.B) { f.B.g.rotation.z = 0; f.B.g.visible = true; }
   }); });
-  A.proj.forEach(p => A.fx.remove(p.m)); A.proj = []; A.nades.forEach(g => A.fx.remove(g.m)); A.nades = [];
+  A.proj.forEach(p => A.fx.remove(p.m)); A.proj = []; (A.gold || []).forEach(g => A.fx.remove(g.mesh)); A.gold = []; arGoatMenuClose(); A.nades.forEach(g => A.fx.remove(g.m)); A.nades = [];
   A.phase = 'count'; A.t = 3.2; A.roundT = Math.round(AR_ROUND_T * (1 + .3 * ((ARM.k || 1) - 1))); A.spec = null;
   if (ev) { A.round = ev.rd; if (ev.sc) A.score = ev.sc; ev.sp.forEach((s, i) => { const f = A.F[i]; if (!f) return; f.p = {x: s[0], y: 0, z: s[1]}; f.yaw = s[2]; if (f.net) Object.assign(f.net, {x: s[0], y: 0, z: s[1], yaw: s[2]}); });
     if (ev.ph === 'count') A.t = ev.t; }
@@ -18272,7 +18306,7 @@ function arOnDeath(src, dst, head){
   const A = AR, N = A.net;
   dst.hp = 0; dst.alive = false; dst.deaths = (dst.deaths || 0) + 1; if (src) src.kills = (src.kills || 0) + 1;
   if (dst.B) { arGibs(dst); dst.B.g.visible = false; }
-  if (src && src.me) { A.streak++; A.killX = .5; arSnd(AR_SFX.kill); arKillBanner(dst.name, head); }
+  if (src && src.me) { A.streak++; A.killX = .5; arSnd(AR_SFX.kill); arKillBanner(dst.name, head); arGoatKill(src); }
   if (dst.me) A.streak = 0;
   const who = src ? (src.me ? 'You' : src.name) : 'The fire', whom = dst.me ? 'you' : dst.name;
   arFeed(who + ' eliminated ' + whom + (head ? ' · headshot' : ''), src && src.team === 0 ? 'b' : 'r');
@@ -18294,7 +18328,9 @@ function arShoot(f){
   const eye = arEye(f), moving = Math.hypot(f.v.x, f.v.z) / 7 + (f.ground ? 0 : .8);
   if (f.me) {
     f.kick += W.kick; A.flashT = .05; f.rec = Math.min(.25, (f.rec || 0) + W.kick * .55 * (A.ads > .5 ? .6 : 1)); f.recY = (f.recY || 0) + (Math.random() - .5) * W.kick * .5;
-    const spread = (A.ads > .5 ? W.ads : W.sp) * (1 + moving * 1.2), foes = arFoes(f);
+    const goat = l.it.id === AR_GOAT_ID;
+    if (goat) { f.goatN = (f.goatN || 0) + 1; if (f.goatN % AR_GOLD_EVERY === 0 && f.marks && Object.keys(f.marks).length) { arGoldFire(f, arFwd(f.yaw + (f.recY || 0), f.pitch + (f.rec || 0))); return; } }
+    const spread = f.st.long > 0 ? 0 : (A.ads > .5 ? W.ads : W.sp) * (1 + moving * 1.2), foes = arFoes(f);
     for (let k = 0; k < (W.pel || 1); k++) {
       const d = arFwd(f.yaw + (f.recY || 0) + (Math.random() - .5) * 2 * spread, f.pitch + (f.rec || 0) + (Math.random() - .5) * 2 * spread);
       const wallT = f.st.void > 0 || f.st.long > 0 ? 300 : arRayMap(eye, d, 300); let best = {t: Infinity}, who = null;
@@ -18302,7 +18338,7 @@ function arShoot(f){
       const end = Math.min(wallT, best.t, 160);
       arTracer(arMuzzleWorld(), {x: eye.x + d.x * end, y: eye.y + d.y * end, z: eye.z + d.z * end}, W.pel ? .5 : 1);
       if (who && best.t < wallT) {
-        A.curSui = !!(W.sui && best.head); arDamage(f, who, W.dmg * arFall(W, best.t) * (best.head ? W.hm : 1), best.head, {x: eye.x + d.x * best.t, y: eye.y + d.y * best.t + .2, z: eye.z + d.z * best.t}); A.curSui = false;
+        A.curSui = !!(W.sui && best.head); arDamage(f, who, W.dmg * (goat ? arGoatMul(f) : 1) * arFall(W, best.t) * (best.head ? W.hm : 1), best.head, {x: eye.x + d.x * best.t, y: eye.y + d.y * best.t + .2, z: eye.z + d.z * best.t}); A.curSui = false;
         if (W.sui && best.head && !who.alive) { arSuiBlast(who, f); if (A.net) arNetSend(null, 'ev', {k: 'sui', d: who.nid}, true); }
         if (f.st.wraith > 0) who.st.burn = 3;
       } else if (wallT < 160) arDecal({x: eye.x + d.x * wallT, y: eye.y + d.y * wallT, z: eye.z + d.z * wallT});
@@ -18335,6 +18371,7 @@ const arNearestFoe = f => arFoes(f).sort((a, b) => arDist(a.p, f.p) - arDist(b.p
 /* ---------- skills ---------- */
 function arUseSkill(f){
   const A = AR, l = f.load[f.cur], id = arSkillOf(l.it); if (!id || A.phase !== 'live' || !f.alive) return false;
+  if (id === AR_GOAT_ID) { if (!f.me) return false; if (A.goatMenu) { arGoatMenuClose(); return false; } return arGoatMenu(); }
   if ((f.cd[id] || 0) > 0) return false;
   f.cd[id] = AR_SK[id].cd; const fw = arFwd(f.yaw, 0), tgt = f.tgt || arNearestFoe(f);
   if (f.me || arDist(f.p, A.me.p) < 30) { sweep(300, 1200, .35, 'sawtooth', .04); noise(.3, 2000, 400, .06); }
@@ -18680,7 +18717,7 @@ function arStep(dt){
     if (f.st.lunge && f.st.dash > 0) { const o = arFoes(f).find(o => Math.hypot(o.p.x - f.p.x, o.p.z - f.p.z) < 1.3); if (o) { f.st.lunge = 0; arDamage(f, o, 80, false, {x: o.p.x, y: o.p.y + 1.9, z: o.p.z}); noise(.2, 300, 90, .2, 'lowpass'); } }
     else if (!(f.st.dash > 0)) f.st.lunge = 0;
   });
-  arNadesStep(dt);
+  arNadesStep(dt); arGoldStep(dt);
   /* projectiles */
   A.proj = A.proj.filter(pr => {
     pr.life -= dt; const step = 32 * dt, w = arRayMap(pr.p, pr.d, step);
@@ -18700,7 +18737,7 @@ function arLook(frame){
     const e = arEye(f), fw = arFwd(f.yaw, f.pitch); let best = .16;
     arFoes(f).forEach(o => { if (o.st.invis > 0) return; const c = {x: o.p.x, y: o.p.y + 1.2, z: o.p.z}, d = arDist(e, c); if (d > 60) return;
       const ang = Math.acos(Math.max(-1, Math.min(1, ((c.x - e.x) * fw.x + (c.y - e.y) * fw.y + (c.z - e.z) * fw.z) / d)));
-      if (ang < best && arLOS(e, c)) { best = ang; pull = {c, ang, d}; } });
+      if (ang < best && (f.st.long > 0 || arLOS(e, c))) { best = ang; pull = {c, ang, d}; } });
     if (pull) sens *= .65;
   }
   f.yaw -= A.mdx * sens; f.pitch = Math.max(-1.45, Math.min(1.45, f.pitch - A.mdy * sens));
@@ -18867,6 +18904,11 @@ function arFeed(msg, side){ const f = $('#arFeed'); if (!f) return; const d = do
 
 /* ---------- HUD ---------- */
 const AR_IC = {
+  /* the GOAT: a gold goat head with curled horns */
+  goat: '<svg viewBox="0 0 48 48"><path d="M14 13 C6 9 4 20 10 23 C8 17 11 14 15 17 Z M34 13 C42 9 44 20 38 23 C40 17 37 14 33 17 Z" fill="#c98a1c" stroke="#1b2230" stroke-width="2.4" stroke-linejoin="round"/>'
+    + '<path d="M15 16 C15 11 33 11 33 16 L32 29 C31 36 27 41 24 41 C21 41 17 36 16 29 Z" fill="#ffd34d" stroke="#1b2230" stroke-width="2.6" stroke-linejoin="round"/>'
+    + '<path d="M9 21 L15 20 L15 24 Z M39 21 L33 20 L33 24 Z" fill="#ffd34d" stroke="#1b2230" stroke-width="2.2" stroke-linejoin="round"/><circle cx="19.5" cy="23" r="2.2" fill="#1b2230"/><circle cx="28.5" cy="23" r="2.2" fill="#1b2230"/>'
+    + '<path d="M21 34 h6 l-3 3 z" fill="#1b2230"/><path d="M22 41 L24 47 L26 41" fill="#fff1c2" stroke="#1b2230" stroke-width="2" stroke-linejoin="round"/><path d="M18 18 Q24 15 30 18" stroke="#fff6d6" stroke-width="2" fill="none" stroke-linecap="round" opacity=".8"/></svg>',
   /* Long Shot: a round punching through a brick wall into a red-dot reticle */
   longshot: '<svg viewBox="0 0 48 48"><rect x="5" y="11" width="12" height="26" rx="2" fill="#b4533c" stroke="#1b2230" stroke-width="2.6"/><path d="M5 19.5h12M5 28h12M11 11v8.5M8 19.5V28M14 28v9" stroke="#1b2230" stroke-width="1.8"/>'
     + '<path d="M3 24h13" stroke="#ffe9a8" stroke-width="3.4" stroke-linecap="round"/><path d="M17 24h8" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-dasharray="3.5 2.5"/>'
@@ -18898,6 +18940,8 @@ function arHUD(){
     + '<div class="ar-ban" id="arBan" hidden><b></b><span></span></div><div class="ar-count" id="arCount"></div><div class="ar-spec" id="arSpec" hidden></div>'
     + '<div class="ar-feed" id="arFeed"></div><div id="arTags"></div><div class="ar-kx" id="arKx"></div><div class="ar-kill" id="arKill" hidden><b></b><span></span></div>'
     + '<div class="ar-hp"><div class="ar-hpic"><svg viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z" fill="currentColor"/></svg></div><div class="ar-hpw"><div class="ar-hpb"><s id="arHpT"></s><i id="arHpB"></i><u id="arSh"></u><em></em><div class="ar-hpn" id="arHpN">100</div></div><div class="ar-st" id="arSt"></div></div></div>'
+    + '<div class="ar-goat" id="arGoat" hidden><span class="ar-goat-ic">' + AR_IC.goat + '</span><div class="ar-goat-w"><div class="ar-goat-b"><i></i><i></i><i></i></div><small id="arGoatS">GOAT BAR</small></div><b id="arGoatT">+0%</b></div>'
+    + '<div class="ar-gm" id="arGoatM" hidden></div>'
     + '<div class="ar-wp"><div class="ar-nade" id="arNade"></div><div class="ar-ammo" id="arAmmo"></div><div class="ar-wn" id="arWn"></div><div class="ar-slots" id="arSlots"></div></div>'
     + '<button type="button" class="ar-sk" id="arSk" hidden><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" class="bg"/><circle cx="20" cy="20" r="17" class="cd" id="arSkC"/></svg><i class="ar-ski" id="arSkI"></i><b>Q</b><span id="arSkN"></span></button>'
     + '<div class="ar-fxo ls" id="arFxL"><div class="ar-fxt">' + AR_IC.longshot + '<div><b>LONG SHOT</b><u><i id="arFxLt"></i></u></div></div></div>'
@@ -18911,7 +18955,7 @@ function arHUD(){
   $('#arSlots').innerHTML = A.me.load.map((l, i) => '<div class="ar-slot" data-i="' + i + '" style="--tc:' + TIERS[l.it.t].color + '"><small>' + (i + 1) + '</small><span></span></div>').join('');
   A.me.load.forEach((l, i) => { const s = $('#arSlots').children[i].querySelector('span'); s.append(thumb(l.it, wearIdx(l.fl))); });
   /* name tags over every bot: your team's always show, enemies only when you can see them */
-  A.F.forEach(f => { if (f.me) return; const t = document.createElement('div'); t.className = 'ar-tag t' + f.team; t.hidden = true; t.innerHTML = '<span>' + esc(f.name) + '</span><em><i></i></em>'; $('#arTags').append(t); f.tag = t; f.tagBar = t.querySelector('i'); });
+  A.F.forEach(f => { if (f.me) return; const t = document.createElement('div'); t.className = 'ar-tag t' + f.team; t.hidden = true; t.innerHTML = '<b class="ar-tmk"></b><span>' + esc(f.name) + '</span><em><i></i></em>'; $('#arTags').append(t); f.tag = t; f.tagBar = t.querySelector('i'); });
 }
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 let arBanT = 0, arKillT = 0;
@@ -18963,7 +19007,11 @@ function arHudUpdate(full){
   arSkillPopTick();
   $('#arFxL').classList.toggle('on', f.st.long > 0 && f.alive); $('#arFxLt').style.width = Math.max(0, (f.st.long || 0) / 10 * 100) + '%';
   $('#arFxS').classList.toggle('on', f.st.speedy > 0 && f.alive); $('#arFxSt').style.width = Math.max(0, (f.st.speedy || 0) / 7 * 100) + '%';
-  if (sk) { const cd = f.cd[sk] || 0, p = cd / AR_SK[sk].cd; $('#arSkN').textContent = AR_SK[sk].n; btn.classList.toggle('ready', cd <= 0); $('#arSkC').style.strokeDashoffset = (106.8 * p).toFixed(1);
+  const goatOn = arHasGoat(f), gb = $('#arGoat'); gb.hidden = !goatOn;
+  if (goatOn) { const c = f.goatC || 0, k = `${c}|${f.goatK || 0}|${l.it.id === AR_GOAT_ID}`; if (gb.dataset.k !== k) { gb.dataset.k = k; [...gb.querySelectorAll('.ar-goat-b i')].forEach((s, i) => s.classList.toggle('on', i < c));
+    gb.classList.toggle('full', c >= 3); gb.classList.toggle('act', l.it.id === AR_GOAT_ID); $('#arGoatT').textContent = '+' + Math.round((arGoatMul(f) - 1) * 100) + '%';
+    $('#arGoatS').textContent = c >= 3 ? 'MARK READY · ' + (AR_MOBILE ? 'TAP THE GOAT' : 'PRESS Q') : (3 - c) + ' KILL' + (3 - c === 1 ? '' : 'S') + ' TO A MARK'; } }
+  if (sk) { const isG = sk === AR_GOAT_ID, cd = isG ? ((f.goatC || 0) >= 3 ? 0 : 1) : (f.cd[sk] || 0), p = isG ? 1 - (f.goatC || 0) / 3 : cd / AR_SK[sk].cd; $('#arSkN').textContent = AR_SK[sk].n; btn.classList.toggle('ready', cd <= 0); $('#arSkC').style.strokeDashoffset = (106.8 * p).toFixed(1);
     if (tsk) { tsk.classList.toggle('ready', cd <= 0); $('#arTSkC').style.strokeDashoffset = (113.1 * p).toFixed(1); } }
   const st = []; if (f.st.abyss > 0) st.push('Abyss'); if (f.st.void > 0) st.push('Void Sight'); if (f.st.invis > 0) st.push('Invisible'); if (f.st.od > 0) st.push('Overdrive'); if (f.st.wraith > 0) st.push('Wraithfire');
   if (f.st.req > 0) st.push('Requiem ×' + f.st.req); if (f.st.haste > 0) st.push('Haste'); if (f.st.long > 0) st.push('Long Shot'); if (f.st.speedy > 0) st.push('Speedster'); if (f.st.slow > 0) st.push('Slowed'); if (f.st.root > 0) st.push('Rooted'); if (f.st.burn > 0) st.push('Burning');
@@ -18991,6 +19039,7 @@ function arBindInput(){
     if (k === 'q' || k === 'e' || k === 'f') arUseSkill(A.me);
     if (k === 'g') arThrow(A.me);
     if (k === 'tab') { e.preventDefault(); }
+    if (A.goatMenu && /^[1-9]$/.test(k)) { const nid = A.goatMenu[+k - 1]; if (nid != null) arGoatMark(nid); return; }
     if (['1', '2', '3'].includes(k)) arSwap(+k - 1);
   };
   A.onKd = e => key(e, true); A.onKu = e => key(e, false);
@@ -19006,6 +19055,7 @@ function arBindInput(){
   $('#arResume').onclick = () => { if (AR_MOBILE) { A.paused = false; A.last = performance.now(); $('#arPause').hidden = true; } else cv.requestPointerLock(); };
   $('#arPause').onclick = e => { if (e.target.id === 'arPause') $('#arResume').click(); };
   $('#arQuit').onclick = () => { A.score[1] = AR_WIN; A.quit = true; arFinish(); };
+  $('#arGoat').onclick = () => { if (A.goatMenu) arGoatMenuClose(); else if (A.phase === 'live') arGoatMenu(); };
   $('#arPauseBtn').onclick = () => { if (AR_MOBILE) { A.paused = true; $('#arPause').hidden = false; } else document.exitPointerLock(); };
   $('#arSk').onclick = () => arUseSkill(A.me);
   $('#arTop').onclick = () => { const b = $('#arBoard'); b.hidden = !b.hidden; if (!b.hidden) arBoard(); };
@@ -19470,7 +19520,7 @@ function arNetEvent(e){
   else if (e.k === 'fin') { A.score = e.sc; arFinish(); }
   else if (e.k === 'kill') { const s = e.s >= 0 ? A.F[e.s] : null, d = A.F[e.d]; if (!d || d.me) return;
     if (d.alive) { d.alive = false; d.hp = 0; if (d.B) { arGibs(d); d.B.g.visible = false; } }
-    if (s && s.me) { A.streak++; A.killX = .5; arSnd(AR_SFX.kill); arKillBanner(d.name, e.h); }
+    if (s && s.me) { A.streak++; A.killX = .5; arSnd(AR_SFX.kill); arKillBanner(d.name, e.h); arGoatKill(s); }
     arFeed((s ? (s.me ? 'You' : s.name) : 'The fire') + ' eliminated ' + d.name + (e.h ? ' · headshot' : ''), s && s.team === 0 ? 'b' : 'r'); }
   else if (e.k === 'nade') { const o = A.F[e.o]; if (o && !o.me) arNadeSpawn(o, e.p, e.v, true); }
   else if (e.k === 'sui') { const d = A.F[e.d]; if (d) arSuiBlast(d, d, true); }
@@ -19485,6 +19535,91 @@ function arNetGone(pid){ const A = AR; if (!A || !A.net) return; const f = A.F.f
     [0, 1].forEach(t => { if (A.phase === 'live' && !A.F.some(o => o.team === t && o.alive)) arEndRound(1 - t, t === 1 ? 'Their team is down' : 'Your team is down'); }); }
   else if (pid === A.net.hostPid) arNetAbort('The party leader left the match.'); }
 function arNetAbort(why){ const A = AR; if (!A || A.over) return; A.over = true; arCleanup(); $('#arRes').hidden = true; arMenu(); toast(why); }
+
+/* =====================================================================================================
+   THE GOAT (chroma rifle). Every kill with it bleats, adds 5% damage for the rest of the match (up to +75%) and
+   fills a third of the GOAT bar. A full bar is a Mark: pick an enemy and from then on every fifth bullet is a
+   slow golden round worth 100 that curves toward your marks. One mark steers it a little (20%); mark the same
+   player again and again and it turns into a heat-seeking missile. It is slow and glowing, so a quick player can
+   dodge or jump it, and it dies on walls.
+   ===================================================================================================== */
+const AR_GOAT_ID = 'x3', AR_GOAT_STEP = .05, AR_GOAT_MAX = .75, AR_GOLD_SPEED = 26, AR_GOLD_EVERY = 5;
+const arHasGoat = f => f.load.some(l => l.it.id === AR_GOAT_ID);
+const arGoatMul = f => 1 + Math.min(AR_GOAT_MAX, (f.goatK || 0) * AR_GOAT_STEP);
+/* a synthesised bleat: a buzzy voice with fast vibrato through a nasal filter, "baa-aa" */
+const AR_BLEAT = (a, o, t) => {
+  [[0, .26, 1], [.22, .42, .8]].forEach(([d, len, v]) => {
+    const os = a.createOscillator(), lfo = a.createOscillator(), lg = a.createGain(), f = a.createBiquadFilter(), f2 = a.createBiquadFilter(), g = a.createGain(), s = t + d;
+    os.type = 'sawtooth'; os.frequency.setValueAtTime(420, s); os.frequency.linearRampToValueAtTime(380, s + len);
+    lfo.frequency.value = 22; lg.gain.value = 38; lfo.connect(lg); lg.connect(os.frequency);
+    f.type = 'bandpass'; f.frequency.value = 1150; f.Q.value = 3; f2.type = 'bandpass'; f2.frequency.value = 2600; f2.Q.value = 4;
+    g.gain.setValueAtTime(.0001, s); g.gain.exponentialRampToValueAtTime(.22 * v, s + .03); g.gain.setValueAtTime(.2 * v, s + len * .7); g.gain.exponentialRampToValueAtTime(.0001, s + len);
+    os.connect(f); os.connect(f2); f.connect(g); f2.connect(g); g.connect(o); os.start(s); lfo.start(s); os.stop(s + len + .05); lfo.stop(s + len + .05);
+  });
+};
+/* a GOAT kill: the bleat, a damage stack, a third of the bar */
+function arGoatKill(f){
+  if (!f || !f.me || f.load[f.cur].it.id !== AR_GOAT_ID) return;
+  f.goatK = (f.goatK || 0) + 1; f.goatC = Math.min(3, (f.goatC || 0) + 1);
+  arSnd(AR_BLEAT); const g = $('#arGoat'); if (g) restart(g, 'pop');
+  if (f.goatC >= 3) { arFeed('GOAT bar full: press Q to mark someone', 'b'); tone(1046.5, .2, 'triangle', .05); tone(1318.5, .25, 'triangle', .05, .1); }
+}
+/* the mark menu: tap a name (or press its number) to mark them */
+function arGoatMenu(){
+  const A = AR, f = A.me; if (!f.alive || (f.goatC || 0) < 3) { if (f.alive) arFeed('Get ' + (3 - (f.goatC || 0)) + ' more kill' + (3 - (f.goatC || 0) === 1 ? '' : 's') + ' with the GOAT to mark someone', 'b'); return false; }
+  const foes = A.F.filter(o => o.team !== f.team && !o.gone), m = $('#arGoatM'); if (!m) return false;
+  m.innerHTML = '<div class="ar-gm-card"><div class="ar-gm-h">' + AR_IC.goat + '<div><b>MARK OF THE GOAT</b><small>Every 5th bullet is a golden round that curves toward your marks. Mark the same player again to make it home in harder.</small></div><button type="button" class="ar-gm-x" aria-label="Close">✕</button></div>'
+    + '<div class="ar-gm-list">' + foes.map((o, i) => { const mk = (f.marks || {})[o.nid] || 0; return '<button type="button" class="ar-gm-o' + (o.alive ? '' : ' dead') + '" data-nid="' + o.nid + '"><i>' + (i + 1) + '</i><b>' + esc(o.name) + '</b><small>' + (o.alive ? Math.round(o.hp) + ' HP' : 'down') + '</small>'
+      + '<span class="ar-gm-mk">' + (mk ? '★'.repeat(Math.min(5, mk)) + ' ' + Math.min(100, mk * 20) + '% → ' + Math.min(100, (mk + 1) * 20) + '%' : 'not marked → 20%') + '</span></button>'; }).join('') + '</div>'
+    + (AR_MOBILE ? '' : '<p class="ar-gm-k">Press 1–' + Math.min(9, foes.length) + ' to pick · Q to close</p>') + '</div>';
+  m.hidden = false; A.goatMenu = foes.map(o => o.nid);
+  m.querySelectorAll('.ar-gm-o').forEach(b => b.onclick = () => arGoatMark(+b.dataset.nid));
+  m.querySelector('.ar-gm-x').onclick = () => arGoatMenuClose();
+  tone(784, .12, 'triangle', .05); clearTimeout(A.goatMT); A.goatMT = setTimeout(arGoatMenuClose, 9000);
+  return true;
+}
+function arGoatMenuClose(){ const A = AR; if (!A) return; A.goatMenu = null; const m = $('#arGoatM'); if (m) m.hidden = true; }
+function arGoatMark(nid){
+  const A = AR, f = A.me, o = A.F[nid]; if (!o || (f.goatC || 0) < 3) return;
+  f.goatC = 0; f.marks = f.marks || {}; f.marks[nid] = (f.marks[nid] || 0) + 1; arGoatMenuClose();
+  const mk = f.marks[nid]; if (o.tag) { o.tag.classList.add('mk'); o.tag.querySelector('.ar-tmk').textContent = '★'.repeat(Math.min(5, mk)); }
+  arFeed('You marked ' + o.name + (mk > 1 ? ' ×' + mk + ' · golden rounds home ' + Math.min(100, mk * 20) + '%' : ''), 'b');
+  arSkillPop(AR_GOAT_ID); arSnd(AR_BLEAT);
+}
+/* a golden round: slow, glowing, worth 100, steering toward the marked enemy nearest its path */
+function arGoldFire(f, d){
+  const A = AR, T = A.T, e = arEye(f), m = A.goldGeo || (A.goldGeo = new T.SphereGeometry(.09, 16, 12));
+  const mesh = new T.Mesh(m, new T.MeshBasicMaterial({color: '#ffd84a', fog: false}));
+  const glow = new T.Sprite(new T.SpriteMaterial({map: A.goldTex || (A.goldTex = new T.CanvasTexture(arCanvas(64, 64, (g, w, h) => { const rg = g.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 2); rg.addColorStop(0, 'rgba(255,240,170,1)'); rg.addColorStop(.35, 'rgba(255,200,60,.7)'); rg.addColorStop(1, 'rgba(255,170,0,0)'); g.fillStyle = rg; g.fillRect(0, 0, w, h); }))),
+    color: '#ffffff', transparent: true, blending: T.AdditiveBlending, depthWrite: false})); glow.scale.setScalar(.75); mesh.add(glow);
+  const mz = f.me ? arMuzzleWorld() : arBotMuzzle(f), p = {x: mz.x, y: mz.y, z: mz.z};
+  mesh.position.set(p.x, p.y, p.z); A.fx.add(mesh);
+  (A.gold = A.gold || []).push({p, d: {x: d.x, y: d.y, z: d.z}, owner: f, mesh, life: 4.5, trail: 0});
+  arSnd(AR_SFX.shot(arWS(f.load[f.cur].it))); tone(1568, .18, 'triangle', .04); tone(2093, .22, 'sine', .03, .05);
+}
+function arGoldStep(dt){
+  const A = AR; if (!A.gold || !A.gold.length) return;
+  A.gold = A.gold.filter(g => {
+    g.life -= dt; const f = g.owner, marks = f.marks || {};
+    /* steer toward the marked enemy closest to where the round is heading; each mark on them adds 20% */
+    let tgt = null, best = -2;
+    A.F.forEach(o => { const mk = marks[o.nid]; if (!mk || !o.alive || o.team === f.team) return; const c = {x: o.p.x, y: o.p.y + 1.1, z: o.p.z}, L = arDist(g.p, c) || 1;
+      const dot = ((c.x - g.p.x) * g.d.x + (c.y - g.p.y) * g.d.y + (c.z - g.p.z) * g.d.z) / L; if (dot > best && dot > -.2) { best = dot; tgt = {c, L, a: Math.min(1, mk * .2)}; } });
+    /* steering gets sharper up close, so a strongly marked round closes in instead of circling its target */
+    if (tgt) { const k = Math.min(1, (tgt.a * tgt.a * 9 + tgt.a * 1.2) * dt * (1 + 4 * tgt.a / Math.max(.5, tgt.L))), want = {x: (tgt.c.x - g.p.x) / tgt.L, y: (tgt.c.y - g.p.y) / tgt.L, z: (tgt.c.z - g.p.z) / tgt.L};
+      g.d.x += (want.x - g.d.x) * k; g.d.y += (want.y - g.d.y) * k; g.d.z += (want.z - g.d.z) * k; const n = Math.hypot(g.d.x, g.d.y, g.d.z) || 1; g.d.x /= n; g.d.y /= n; g.d.z /= n; }
+    const step = AR_GOLD_SPEED * dt, w = arRayMap(g.p, g.d, step);
+    let hit = null, ht = Infinity; A.F.forEach(o => { if (!o.alive || o.team === f.team) return; const r = arRayFighter(g.p, g.d, o); if (r.t <= step && r.t < ht && r.t < w) { ht = r.t; hit = {o, head: r.head}; }
+      /* the round is big and glowing: brushing past someone counts */
+      else if (!hit && Math.hypot(g.p.x - o.p.x, g.p.z - o.p.z) < .5 && g.p.y > o.p.y - .1 && g.p.y < o.p.y + 1.95) { ht = 0; hit = {o, head: g.p.y > o.p.y + 1.45}; } });
+    if (hit) { const at = {x: g.p.x + g.d.x * ht, y: g.p.y + g.d.y * ht, z: g.p.z + g.d.z * ht};
+      arDamage(f, hit.o, 100, hit.head, {x: at.x, y: at.y + .3, z: at.z}); arBurst(at, '#ffd84a', 16, 7); tone(1318.5, .3, 'triangle', .05); A.fx.remove(g.mesh); g.mesh.material.dispose(); return false; }
+    if (w < step || g.life <= 0) { const at = {x: g.p.x + g.d.x * Math.min(w, step), y: g.p.y + g.d.y * Math.min(w, step), z: g.p.z + g.d.z * Math.min(w, step)}; arBurst(at, '#ffd84a', 10, 4); arDecal(at); A.fx.remove(g.mesh); g.mesh.material.dispose(); return false; }
+    g.p.x += g.d.x * step; g.p.y += g.d.y * step; g.p.z += g.d.z * step; g.mesh.position.set(g.p.x, g.p.y, g.p.z);
+    g.trail -= dt; if (g.trail <= 0) { g.trail = .025; arPart({x: g.p.x, y: g.p.y, z: g.p.z}, {x: 0, y: .6, z: 0}, '#ffcf3a', .045, .35, 0); }
+    return true;
+  });
+}
 $('#arBtn').onclick = () => { if (busy) return; arOpen(); };
 document.addEventListener('keydown', e => { const el = $('#arena'); if (!el || el.hidden) return; if (e.key === 'Escape') { e.stopImmediatePropagation(); if (!AR && $('#arGame').hidden && !document.querySelector('.ar-pick')) { if (arQ) { clearInterval(arQ.iv); arQ = null; arMenu(); } else arClose(); } else { const pk = document.querySelector('.ar-pick'); if (pk) pk.remove(); } } }, true);
 })();
