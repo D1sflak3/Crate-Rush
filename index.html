@@ -4348,6 +4348,19 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -4738,6 +4751,123 @@ body.pad .pad-focus{outline:4px solid #ffd23f !important;outline-offset:3px;box-
 
 /* Prince assassin mode: Brazil-coloured edges */
 .ar-princev{position:absolute;inset:0;pointer-events:none;z-index:1;box-shadow:inset 0 0 70px 30px rgba(0,156,59,.75),inset 0 0 180px 70px rgba(255,223,0,.3),inset 0 0 0 5px rgba(0,39,118,.8)}
+
+/* ---------- Black Cargo: the banner on the modes tab ---------- */
+.ar-mode.heist{grid-column:span 12;height:176px;background:#04060a;border-color:#000;box-shadow:0 5px 0 #000,inset 0 0 0 1px #2a0c0c;color:#fff;text-align:left}
+.ar-mode.heist>*{position:absolute;pointer-events:none}
+.hb-sky{inset:0;background:radial-gradient(120% 90% at 78% 8%,#27313c 0%,#121820 38%,#05070b 75%)}
+.hb-bolt{inset:0;background:radial-gradient(60% 80% at 74% 0%,rgba(190,215,255,.75),transparent 70%);opacity:0;animation:hbBolt 7s infinite}
+@keyframes hbBolt{0%,91%,100%{opacity:0}92%{opacity:.9}93%{opacity:.1}94.5%{opacity:.6}97%{opacity:0}}
+.hb-art{left:0;right:0;bottom:0;width:100%;height:100%}
+.hb-lamps circle{fill:#ffb766;filter:drop-shadow(0 0 5px #ff9a3a);animation:hbLamp 4s infinite}
+.hb-lamps circle:nth-child(2){animation-delay:-1.3s}.hb-lamps circle:nth-child(3){animation-delay:-2.2s;fill:#ff3b3b;filter:drop-shadow(0 0 5px #ff2b2b)}
+@keyframes hbLamp{0%,100%{opacity:1}47%{opacity:1}50%{opacity:.25}53%{opacity:1}}
+.hb-fog{left:-30%;right:-30%;bottom:-10%;height:75%;background:radial-gradient(40% 60% at 20% 70%,rgba(140,155,170,.3),transparent 70%),radial-gradient(35% 55% at 55% 80%,rgba(120,135,150,.26),transparent 70%),radial-gradient(40% 60% at 85% 65%,rgba(140,155,170,.24),transparent 70%);animation:hbFog 18s linear infinite alternate;filter:blur(6px)}
+.hb-fog.f2{animation-duration:27s;animation-direction:alternate-reverse;opacity:.7;bottom:-25%}
+@keyframes hbFog{from{transform:translateX(-9%)}to{transform:translateX(9%)}}
+.hb-rain{inset:0;overflow:hidden;opacity:.5}
+.hb-rain i{position:absolute;top:-30%;width:1px;height:26%;background:linear-gradient(transparent,rgba(190,205,220,.7));transform:rotate(9deg);animation:hbRain 1s linear infinite}
+@keyframes hbRain{to{transform:translate(-40px,560%) rotate(9deg)}}
+.hb-crate{left:34%;bottom:6px;width:132px;height:106px;transform:skewX(4deg);filter:drop-shadow(0 0 16px rgba(255,43,43,.35))}
+.hb-crate svg{width:100%;height:100%}
+.hb-seam,.hb-q{animation:hbSeam 2.4s ease-in-out infinite}
+@keyframes hbSeam{0%,100%{opacity:.45}50%{opacity:1;filter:drop-shadow(0 0 4px #ff2b2b)}}
+.hb-beam{top:0;bottom:0;width:26%;left:-30%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.07) 45%,rgba(255,255,255,.13) 50%,transparent 60%);animation:hbBeam 6.5s ease-in-out infinite}
+@keyframes hbBeam{0%{left:-30%}55%,100%{left:110%}}
+.hb-txt{left:22px;top:20px;bottom:14px;display:flex;flex-direction:column;justify-content:center;gap:2px;transform:skewX(4deg);z-index:2}
+.hb-txt small{font:700 11px Fredoka,sans-serif;letter-spacing:.32em;color:#ff5a5a;display:flex;align-items:center;gap:8px}
+.hb-txt small i{width:7px;height:7px;border-radius:50%;background:#ff2b2b;box-shadow:0 0 8px #ff2b2b;animation:hbSeam 1.2s infinite}
+.hb-txt b{position:relative;font:700 54px/0.95 Teko,Fredoka,sans-serif;letter-spacing:.14em;color:#e9edf2;text-shadow:0 0 22px rgba(255,255,255,.18),0 3px 0 #000}
+.hb-txt b::after{content:attr(data-t);position:absolute;left:2px;top:0;color:#ff2b2b;opacity:0;clip-path:inset(40% 0 35% 0);animation:hbGlitch 5s infinite}
+@keyframes hbGlitch{0%,94%,100%{opacity:0;transform:none}95%{opacity:.8;transform:translateX(-4px)}96.5%{opacity:.5;transform:translateX(5px)}98%{opacity:0}}
+.hb-txt em{font:700 15px Fredoka,sans-serif;font-style:normal;letter-spacing:.22em;color:#aeb7c2}
+.hb-txt em u{text-decoration:none;color:#ff5a5a;font-size:12px;margin:0 3px}
+.hb-txt span{font:500 13px Fredoka,sans-serif;color:#7d8793;letter-spacing:.03em}
+.ar-mode.heist .ar-mpl{position:absolute;background:rgba(255,43,43,.16);border:1px solid rgba(255,43,43,.5);color:#ffd0d0}
+.ar-mode.heist.on{outline-color:#ff2b2b}
+.ar-mode.heist.on::after{left:auto;right:12px;top:40px;background:#ff2b2b;color:#fff;border-color:#000}
+@media(max-width:640px){.ar-mode.heist{height:148px}.hb-txt b{font-size:38px}.hb-crate{left:auto;right:6%;width:104px;height:84px}.hb-txt span{display:none}}
+@media(prefers-reduced-motion:reduce){.ar-mode.heist *{animation:none!important}}
+/* ---------- Black Cargo: in the match ---------- */
+#arHud.heist .ar-wins,#arHud.heist #arS0,#arHud.heist #arS1{display:none}
+#arHud.heist .ar-tp{min-width:150px}
+#arHs{position:absolute;inset:0;pointer-events:none;z-index:3}
+.hs-bar{position:absolute;left:0;right:0;height:0;background:#000;transition:height .5s}
+.hs-bar.t{top:0}.hs-bar.b{bottom:0}
+#arHud.cine .hs-bar{height:11vh}
+#arHud.cine>*:not(#arHs),#arHud.cine .hs-obj,#arHud.cine .hs-mark,#arHud.cine .hs-use{opacity:0!important;visibility:hidden}
+.hs-title{position:absolute;left:6vw;bottom:15vh;opacity:0;color:#fff;text-shadow:0 2px 12px #000}
+#arHud:not(.cine) .hs-title,#arHud:not(.cine) .hs-skip{display:none}
+.hs-title b{display:block;font:700 clamp(30px,6vw,68px)/1 Teko,Fredoka,sans-serif;letter-spacing:.16em}
+.hs-title span{display:block;margin-top:4px;font:500 clamp(13px,1.6vw,18px) Fredoka,sans-serif;letter-spacing:.2em;color:#ff6b6b;text-transform:uppercase}
+.hs-skip{position:absolute;right:18px;bottom:calc(11vh + 14px);pointer-events:auto;padding:6px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.4);background:rgba(0,0,0,.5);color:#fff;font:600 14px Fredoka,sans-serif;cursor:pointer}
+.hs-obj{position:absolute;left:50%;top:86px;transform:translateX(-50%);padding:6px 16px 7px;border-radius:10px;background:rgba(8,10,14,.78);border:1px solid rgba(255,255,255,.14);text-align:center;color:#fff;white-space:nowrap}
+.hs-obj b{display:block;font:700 19px/1.1 Teko,Fredoka,sans-serif;letter-spacing:.14em}
+.hs-obj span{display:block;font:500 12px Fredoka,sans-serif;color:#b9c2cd}
+.hs-obj.raid b{color:#ff6b6b}.hs-obj.def b{color:#7fc4ff}
+.hs-mark{position:absolute;left:0;top:0;display:flex;flex-direction:column;align-items:center;gap:3px;will-change:transform}
+.hs-mark i{width:16px;height:16px;transform:rotate(45deg);background:#ffd23f;border:2px solid #0b0d11;box-shadow:0 0 10px rgba(255,210,63,.8)}
+.hs-mark span{padding:1px 7px;border-radius:6px;background:rgba(8,10,14,.75);color:#fff;font:700 11px Fredoka,sans-serif;letter-spacing:.06em;white-space:nowrap}
+.hs-mark.bad i{background:#ff2b2b;box-shadow:0 0 12px #ff2b2b;animation:hbSeam .6s infinite}
+.hs-mark.ship i{background:#ff7a2a;border-radius:50%;transform:none;box-shadow:0 0 10px #ff7a2a}
+.hs-use{position:absolute;left:50%;bottom:24%;transform:translateX(-50%);pointer-events:auto;padding:10px 20px;border-radius:12px;border:3px solid #0b0d11;background:linear-gradient(180deg,#ffe07a,#ffc21f);color:#1b2230;font:700 17px Fredoka,sans-serif;box-shadow:0 4px 0 #0b0d11;cursor:pointer;white-space:nowrap}
+.hs-use:active{transform:translateX(-50%) translateY(3px);box-shadow:0 1px 0 #0b0d11}
+.hs-carry{position:absolute;left:50%;bottom:calc(24% + 58px);transform:translateX(-50%);padding:4px 12px;border-radius:8px;background:rgba(8,10,14,.75);color:#ffd23f;font:700 12px Fredoka,sans-serif;letter-spacing:.06em;white-space:nowrap}
+.hs-resp{position:absolute;left:50%;top:38%;transform:translateX(-50%);padding:8px 22px;border-radius:12px;background:rgba(8,10,14,.8);color:#fff;font:700 30px Teko,Fredoka,sans-serif;letter-spacing:.12em}
+@media(pointer:coarse){.hs-obj{top:64px;padding:4px 12px}.hs-obj b{font-size:15px}.hs-obj span{font-size:10px}.hs-use{bottom:34%;padding:12px 22px}.hs-carry{bottom:calc(34% + 62px)}}
+
+/* Blackout and Blackout Rumble sit side by side on wide screens */
+@media(min-width:900px){.ar-mode.heist{grid-column:span 6}.ar-mode.heist .hb-txt b{font-size:44px}.ar-mode.heist.rumble .hb-txt b{font-size:35px;letter-spacing:.09em}.ar-mode.heist .hb-crate{left:auto;right:5%}}
+.ar-mode.heist.rumble{box-shadow:0 5px 0 #000,inset 0 0 0 1px #2a1040}
+.ar-mode.heist.rumble .hb-crate,.ar-mode.heist.rumble .hb-txt small,.ar-mode.heist.rumble .hb-txt em u{filter:hue-rotate(275deg) saturate(1.3)}
+.ar-mode.heist.rumble .hb-sky{background:radial-gradient(120% 90% at 78% 8%,#2f2440 0%,#161222 38%,#06050b 75%)}
+@media(max-width:640px){.ar-mode.heist.rumble .hb-txt b{font-size:30px;letter-spacing:.06em}}
+/* ---------- Blackout: money and the gear shop ---------- */
+.hs-cash{position:absolute;left:18px;bottom:66px;pointer-events:auto;display:flex;align-items:center;gap:8px;padding:5px 10px 5px 12px;border-radius:10px;border:2px solid #0b0d11;background:rgba(8,10,14,.82);color:#fff;cursor:pointer;font-family:Fredoka,sans-serif;text-shadow:none}
+.hs-cash b{font:700 20px Teko,Fredoka,sans-serif;letter-spacing:.06em;color:#7dff9b}
+.hs-cash i{font:700 10px Fredoka,sans-serif;font-style:normal;letter-spacing:.1em;padding:2px 6px;border-radius:6px;background:#ffd23f;color:#1b2230}
+.hs-cash span{font:600 10px Fredoka,sans-serif;letter-spacing:.06em;color:#b9c2cd}
+.hs-shop{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(720px,94vw);pointer-events:auto;padding:12px 14px 10px;border-radius:14px;border:2px solid #000;background:rgba(9,11,16,.95);box-shadow:0 0 0 1px rgba(255,255,255,.08) inset,0 14px 40px rgba(0,0,0,.6);color:#fff;text-shadow:none;z-index:4}
+.hs-shop-h{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.hs-shop-h b{font:700 26px Teko,Fredoka,sans-serif;letter-spacing:.2em}
+.hs-shop-h span{font:700 22px Teko,Fredoka,sans-serif;color:#7dff9b;margin-left:auto}
+.hs-shop-h button{width:30px;height:30px;border-radius:8px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;font-size:14px;cursor:pointer}
+.hs-shop-g{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.hs-it{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:9px 10px 9px;min-height:96px;border-radius:10px;border:1px solid rgba(255,255,255,.16);background:linear-gradient(180deg,#1a1f29,#10141b);color:#fff;text-align:left;cursor:pointer;font-family:Fredoka,sans-serif}
+.hs-it:hover,.hs-it.pad-focus{border-color:#ffd23f}
+.hs-it kbd{position:absolute;right:7px;top:6px;font:700 11px Fredoka,sans-serif;color:#8792a0;border:1px solid #3a4250;border-radius:5px;padding:0 5px}
+.hs-it b{font:700 14px Fredoka,sans-serif;padding-right:22px}
+.hs-it em{font:700 17px Teko,Fredoka,sans-serif;font-style:normal;color:#7dff9b;letter-spacing:.05em}
+.hs-it span{font:500 11px/1.25 Fredoka,sans-serif;color:#aab3bf}
+.hs-it.no{opacity:.45}.hs-it.no em{color:#ff7b7b}
+.hs-shop p{margin:8px 0 0;font:500 11px Fredoka,sans-serif;color:#8792a0;text-align:center}
+#arHud.cine .hs-cash,#arHud.cine .hs-shop{display:none}
+@media(pointer:coarse){.hs-cash{left:14px;top:150px;bottom:auto}.hs-shop{padding:8px 10px}.hs-it{min-height:70px;padding:6px 8px}.hs-it span{font-size:10px}.hs-it kbd{display:none}.hs-shop-h b{font-size:20px}.hs-shop p{display:none}}
+@media(pointer:coarse) and (max-height:430px){.hs-it span{display:none}.hs-it{min-height:52px}}
+
+/* ---------- settings: phone layout editor and controller bindings ---------- */
+.ar-seth{margin:14px 0 6px;font:700 13px Fredoka,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6b7686}
+.ar-setb{width:100%;margin:4px 0}
+.ar-setp{margin:6px 0;font:500 12px Fredoka,sans-serif;color:#6b7686}
+.ar-padmap{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+.ar-pm{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:2px solid #1b2230;background:#fff;color:#1b2230;font:600 13px Fredoka,sans-serif;cursor:pointer;text-align:left}
+.ar-pm b{padding:2px 8px;border-radius:7px;background:#1b2230;color:#fff;font:700 12px Fredoka,sans-serif;white-space:nowrap}
+.ar-pm.wait{background:#fff6cf;border-color:#e0a800}.ar-pm.wait b{background:#e0a800;color:#1b2230}
+@media(max-width:520px){.ar-padmap{grid-template-columns:1fr}}
+.ar-tled{position:fixed;inset:0;z-index:60;background:#141a24 linear-gradient(#1c2431 1px,transparent 1px) 0 0/100% 8vmin;touch-action:none;user-select:none}
+.ar-tled-stage{position:absolute;inset:0}
+.ar-tled .ar-touch{pointer-events:auto}
+.ar-tled .tb,.ar-tled .ar-stick{cursor:grab;opacity:1}
+.ar-tled .sel{outline:3px dashed #ffd23f;outline-offset:4px}
+.ar-tled-bar{position:absolute;left:50%;top:6px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:6px 10px;border-radius:12px;background:rgba(9,11,16,.92);color:#fff;font:600 13px Fredoka,sans-serif;white-space:nowrap;z-index:2}
+.ar-tled-bar b{min-width:150px}
+.ar-tled-bar label{display:flex;align-items:center;gap:6px}.ar-tled-bar input{width:110px}
+.ar-tled-bar button{padding:6px 12px;border-radius:9px;border:2px solid #000;background:#ffd23f;color:#1b2230;font:700 13px Fredoka,sans-serif;cursor:pointer}
+.ar-tled-bar #tlReset{background:#e9edf2}
+@media(max-width:560px){.ar-tled-bar b{min-width:0;max-width:90px;overflow:hidden;text-overflow:ellipsis}.ar-tled-bar input{width:70px}}
+
+/* Blackout: a soft vignette for the storm light */
+#arHud.heist::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 95% at 50% 45%,transparent 55%,rgba(6,9,14,.42) 100%)}
 </style>
 
 <div class="wrap" id="wrap">
@@ -17802,13 +17932,13 @@ const AR_SK = {
   x6: {n: 'MSN', d: 'You are the M: Neymar and Suárez join your team for the rest of the round. Then it rests for 2 rounds.', cd: 0, ic: 'msn', col: '#a50044'},
   drib: {n: 'Driblero', d: '4 kills this round: your bullets ricochet off walls up to 3 times and curl toward enemies.', cd: 0, ic: 'drib', col: '#ffd23f'}
 };
-const arSkillOf = it => it && AR_SK[it.id] ? it.id : null;
+const arSkillOf = it => it && AR_SK[it.id] && !arPlain() ? it.id : null;
 const arSlotOf = it => AR_W[arType(it)].slot;
 /* weapon stats for one item. Chromas are the top tier, so they hit far harder than anything else:
    75% more damage, 25% faster fire, half again the magazine, quicker reloads, tighter spread and little falloff */
 const arWSCache = {};
 function arWS(it){
-  const base = AR_W[arType(it)]; if (!it || it.t !== 7) return base;
+  const base = AR_W[arType(it)]; if (!it || it.t !== 7 || arPlain()) return base;
   if (arWSCache[it.id]) return arWSCache[it.id];
   const W = Object.assign({}, base, {chroma: 1, dmg: base.dmg * 1.75, rate: base.rate * .8, mag: base.mag ? Math.round(base.mag * 1.5) : 0, rl: base.rl * .6,
     sp: base.sp * .6, ads: base.ads * .6, kick: base.kick * .6, spd: base.spd * 1.1, fall: [base.fall[0] * 1.8, base.fall[1] * 1.8, Math.max(base.fall[2], .85)]});
@@ -18039,7 +18169,7 @@ function arMoveBody(f, dt){
   stepAxis('x', v.x * dt); stepAxis('z', v.z * dt);
   /* ladders: push into one to climb it, let go to slide down slowly, push away (or jump) to drop off */
   f.climb = false;
-  for (const L of ARL) { const b = L.b; if (p.x + AR_R > b[0] && p.x - AR_R < b[3] && p.z + AR_R > b[2] && p.z - AR_R < b[5] && p.y < b[4] - .05 && p.y + AR_H > b[1]) {
+  for (const L of ARL) { if (f.carry) break; const b = L.b; if (p.x + AR_R > b[0] && p.x - AR_R < b[3] && p.z + AR_R > b[2] && p.z - AR_R < b[5] && p.y < b[4] - .05 && p.y + AR_H > b[1]) {
     const w = f.wish || {x: 0, z: 0}, into = -(w.x * L.n.x + w.z * L.n.z);
     if (into > .3) { if (v.y < 4.6) v.y = 4.6 + AR_G * dt; f.climb = true; }
     else if (into > -.3 && p.y > b[1] + .05 && v.y < 0) { v.y = Math.max(v.y, -2.2); f.climb = true; }
@@ -18062,7 +18192,7 @@ function arRayBox(o, d, b){
   }
   return t0;
 }
-function arRayMap(o, d, max){ let t = max; for (const q of arBuckets()) { if (arRayBox(o, d, q.b) >= t) continue; for (const b of q.list) { const h = arRayBox(o, d, b); if (h < t) t = h; } } if (d.y < 0) { const g = -o.y / d.y; if (g < t) t = g; } return t; }
+function arRayMap(o, d, max){ let t = max; for (const q of arBuckets()) { if (arRayBox(o, d, q.b) >= t) continue; for (const b of q.list) { if (b[6] === 'void') continue; const h = arRayBox(o, d, b); if (h < t) t = h; } } if (d.y < 0) { const g = -o.y / d.y; if (g < t) t = g; } return t; }
 function arRaySphere(o, d, c, r){ const ox = o.x - c.x, oy = o.y - c.y, oz = o.z - c.z, b = ox * d.x + oy * d.y + oz * d.z, cc = ox * ox + oy * oy + oz * oz - r * r, h = b * b - cc; if (h < 0) return Infinity; const t = -b - Math.sqrt(h); return t >= 0 ? t : Infinity; }
 const arEye = f => ({x: f.p.x, y: f.p.y + (f.slide > 0 ? 1.05 : AR_EYE), z: f.p.z});
 const arDist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z);
@@ -18078,12 +18208,13 @@ function arRayFighter(o, d, f){
 const arCell = p => [Math.max(0, Math.min(AR_GW - 1, Math.floor(p.x - AR_GX0))), Math.max(0, Math.min(AR_GH - 1, Math.floor(p.z - AR_GZ0)))];
 function arPath(a, b){
   const [ax, az] = arCell(a), [bx, bz] = arCell(b), N = AR_GW * AR_GH, start = az * AR_GW + ax, goal = bz * AR_GW + bx;
-  const gS = new Float32Array(N).fill(1e9), from = new Int32Array(N).fill(-1), closed = new Uint8Array(N), heap = [], hf = [];
+  if (!arPath.g || arPath.g.length !== N) { arPath.g = new Float32Array(N); arPath.f = new Int32Array(N); arPath.c = new Uint8Array(N); }
+  const gS = arPath.g.fill(1e9), from = arPath.f.fill(-1), closed = arPath.c.fill(0), heap = [], hf = [];
   const h = i => { const dx = Math.abs(i % AR_GW - bx), dz = Math.abs(Math.floor(i / AR_GW) - bz); return dx + dz - .586 * Math.min(dx, dz); };
   const push = (n, f) => { heap.push(n); hf.push(f); let i = heap.length - 1; while (i > 0) { const p = (i - 1) >> 1; if (hf[p] <= hf[i]) break; [heap[p], heap[i]] = [heap[i], heap[p]]; [hf[p], hf[i]] = [hf[i], hf[p]]; i = p; } };
   const pop = () => { const top = heap[0], ln = heap.pop(), lf = hf.pop(); if (heap.length) { heap[0] = ln; hf[0] = lf; let i = 0; for (;;) { const l = 2 * i + 1, r = l + 1; let m = i; if (l < heap.length && hf[l] < hf[m]) m = l; if (r < heap.length && hf[r] < hf[m]) m = r; if (m === i) break; [heap[m], heap[i]] = [heap[i], heap[m]]; [hf[m], hf[i]] = [hf[i], hf[m]]; i = m; } } return top; };
   gS[start] = 0; push(start, h(start)); let guard = 0;
-  while (heap.length && guard++ < 6000) {
+  while (heap.length && guard++ < Math.max(6000, N * 2)) {
     const cur = pop(); if (closed[cur]) continue; if (cur === goal) break; closed[cur] = 1;
     const cx = cur % AR_GW, cz = Math.floor(cur / AR_GW);
     for (let dx = -1; dx <= 1; dx++) for (let dz = -1; dz <= 1; dz++) {
@@ -18094,7 +18225,7 @@ function arPath(a, b){
     }
   }
   const out = []; let c = goal; if (from[c] < 0 && c !== start) return out;
-  while (c !== start && c >= 0 && out.length < 300) { out.unshift({x: AR_GX0 + c % AR_GW + .5, z: AR_GZ0 + Math.floor(c / AR_GW) + .5}); c = from[c]; }
+  while (c !== start && c >= 0 && out.length < 1500) { out.unshift({x: AR_GX0 + c % AR_GW + .5, z: AR_GZ0 + Math.floor(c / AR_GW) + .5}); c = from[c]; }
   return out;
 }
 
@@ -18274,7 +18405,7 @@ function arMats(T){
     trim: new T.MeshStandardMaterial({color: '#ffffff', emissive: '#7fd8ff', emissiveIntensity: 1.6}),
     bwall: S(L.bwall || L.wall), roof: S(L.roofs || L.plat), slab: S(L.slab || L.plat), rail: new T.MeshStandardMaterial({color: '#5d6573', roughness: .35, metalness: .85}),
     car: new T.MeshStandardMaterial({color: L.car || '#d94a4a', roughness: .28, metalness: .45}), bus: new T.MeshStandardMaterial({color: L.bus || '#f2b632', roughness: .35, metalness: .3}),
-    hedge: arSurfMat(T, 'asphalt', L.hedge || '#4f9a3c', null, {roughness: .95})};
+    hedge: L.fence ? S(L.fence) : arSurfMat(T, 'asphalt', L.hedge || '#4f9a3c', null, {roughness: .95})};
   L.cont.forEach((c, i) => M['cont' + i] = arSurfMat(T, 'corrug', c, null));
   M.ncont = L.cont.length; return M;
 }
@@ -18459,7 +18590,7 @@ let arRedSide = false; const arVT = t => arRedSide ? 1 - t : t;
    material so a full lobby stays cheap to draw. */
 const AR_SKIN = ['#f2c9a0', '#e0ac7e', '#c68a5a', '#a86f45', '#7a4b2c', '#5c3820'];
 const AR_HAIR = ['#2a1d14', '#4a2f1c', '#8a5a2b', '#d8b26a', '#1b1b1f', '#a33b2b'];
-function arBotModel(T, col, kit, body, team, name){
+function arBotModel(T, col, kit, body, team, name, fit){
   const g = new T.Group(), hue = AR_TEAMHUE[arVT(team || 0)], gear = hash(name || 'x');
   /* four materials per player, coloured per vertex: cloth and skin, armour and metal, the glossy visor, glowing bits */
   const baseM = new T.MeshStandardMaterial({vertexColors: true, roughness: .8, metalness: 0}), shinyM = new T.MeshStandardMaterial({vertexColors: true, roughness: .34, metalness: .55}),
@@ -18469,6 +18600,7 @@ function arBotModel(T, col, kit, body, team, name){
     goldM = P('#f2c14e', shinyM), visorM = P('#0b0f16', glossM), eyeM = P(arMix('#ffffff', hue, .25), glowM), rankM = P(col, glowM),
     skinM = P(AR_SKIN[gear % AR_SKIN.length]), hairM = P(AR_HAIR[(gear >> 3) % AR_HAIR.length]), pantsM = P(arMix(body, '#20242c', .6));
   const mats = [baseM, shinyM, glossM, glowM];
+  const PAL = {mat, limbM, darkM, plateM, hueM, goldM, visorM, eyeM, rankM, skinM, hairM, pantsM, P, baseM, shinyM, glossM, glowM}; if (fit) arOutfitPal(fit, PAL, gear);
   const U = .355, bins = new Map();
   const put = (geo, pt, x, y, z, parent) => { geo.translate(x, y, z); const m = pt.k, n = geo.attributes.position.count, ca = new Float32Array(n * 3);
     for (let i = 0; i < n; i++) { ca[i * 3] = pt.c.r; ca[i * 3 + 1] = pt.c.g; ca[i * 3 + 2] = pt.c.b; } geo.setAttribute('color', new T.BufferAttribute(ca, 3));
@@ -18494,7 +18626,7 @@ function arBotModel(T, col, kit, body, team, name){
   put(box(1.06, .42, .14, .1), visorM, 0, .04 * U, -.6 * U, head);
   [-1, 1].forEach(sx => { put(box(.2, .1, .04, .03), eyeM, sx * .22 * U, .05 * U, -.69 * U, head); put(box(.14, .28, .24, .06), skinM, sx * .64 * U, -.02 * U, 0, head); });
   put(box(.36, .06, .04, .02), darkM, 0, -.3 * U, -.61 * U, head);
-  const hg = gear % 6;
+  const hg = fit ? -1 : gear % 6;
   if (hg === 0) { put(box(1.34, .34, 1.34, .14), hueM, 0, .74 * U, 0, head); put(box(1.14, .1, .66, .05), hueM, 0, .6 * U, -.9 * U, head); }
   if (hg === 1) { put(box(1.36, .6, 1.36, .24), plateM, 0, .8 * U, 0, head); put(box(1.38, .12, 1.38, .05), hueM, 0, .56 * U, 0, head); put(new T.SphereGeometry(.06, 14, 10), hueM, 0, 1.18 * U, 0, head); }
   if (hg === 2) { [-1, 1].forEach(sx => { put(box(.28, .7, .52, .12), darkM, sx * .72 * U, 0, 0, head); put(box(.08, .2, .2, .03), hueM, sx * .87 * U, 0, 0, head); }); put(box(1.56, .14, .22, .06), darkM, 0, .74 * U, 0, head); }
@@ -18510,6 +18642,7 @@ function arBotModel(T, col, kit, body, team, name){
   const armL = new T.Group(); armL.position.set(-1.54 * U, 1.88 * U, 0); torso.add(armL);
   [armR, armL].forEach(A => { put(box(.96, 1.62, .98, .14), limbM, 0, -.72 * U, 0, A); put(box(1.16, .5, 1.16, .2), plateM, 0, -.04 * U, 0, A); put(box(1.18, .1, 1.18, .04), hueM, 0, -.32 * U, 0, A);
     put(box(1.02, .5, 1.04, .14), darkM, 0, -1.68 * U, 0, A); put(box(.98, .36, .98, .12), skinM, 0, -1.36 * U, 0, A); });
+  if (fit) arOutfitGear(fit, T, PAL, put, box, U, {torso, head, legL, legR, armR, armL}, gear);
   bins.forEach((b, parent) => b.forEach((gs, m) => { const me = new T.Mesh(arMerge(T, gs), m); me.castShadow = !AR_MOBILE; parent.add(me); }));
   const gun = arGun(T, kit.it, kit.fl); if (AR_MOBILE) gun.traverse(o => { if (o.isMesh) o.castShadow = false; }); gun.scale.setScalar(1.15); gun.position.set(0, -1.72 * U, -.55 * U); gun.rotation.set(-Math.PI / 2, 0, 0); armR.add(gun);
   const blob = new T.Mesh(new T.CircleGeometry(.5, 24).rotateX(-Math.PI / 2), new T.MeshBasicMaterial({color: '#000', transparent: true, opacity: .22, depthWrite: false})); blob.position.y = .02; g.add(blob);
@@ -18536,33 +18669,36 @@ async function arStartMatch(lobby){
     const ld = p.pid ? p.load.map(x => ({it: arItemById(x[0]), fl: x[1]})) : [p.kit], b = arFighter(false, ti, ld, p.name);
     b.skill = p.skill == null ? .5 : p.skill; b.rp = p.rp; b.col = AR_TEAMCOL[arVT(ti)][i % 8]; if (p.pid) { b.pid = p.pid; b.remote = true; } F.push(b); }));
   F.forEach((f, i) => f.nid = i);
+  { const md = arMode(lobby.mode); if (md.heist && !md.rumble) F.forEach(f => f.miscId = null); }
   const LK = arMapLook(), hi = !AR_MOBILE;
   const R = new T.WebGLRenderer({antialias: true, powerPreference: 'high-performance'});
   /* sharp on phones too: start near the screen's real resolution and let arAdaptRes trade it for frame rate */
   const prMax = Math.min(devicePixelRatio || 1, 2), pr0 = Math.min(prMax, AR_MOBILE ? 1.6 : 1.75);
   R.setPixelRatio(pr0); R.setSize(innerWidth, innerHeight);
-  R.outputColorSpace = T.SRGBColorSpace; R.toneMapping = T.ACESFilmicToneMapping; R.toneMappingExposure = 1.0;
+  R.outputColorSpace = T.SRGBColorSpace; R.toneMapping = T.ACESFilmicToneMapping; R.toneMappingExposure = LK.exp || 1.0;
   R.shadowMap.enabled = true; R.shadowMap.type = hi ? T.PCFSoftShadowMap : T.PCFShadowMap; R.autoClear = false;
   const cv = R.domElement; cv.className = 'ar-cv'; $('#arGame').prepend(cv);
   const sc = new T.Scene(), big = Math.max(ARM.W, ARM.D);
   /* sky: a gradient dome with a sun, also used to light and reflect off every surface */
-  const sunDir = new T.Vector3(.42, .78, .46).normalize();
+  const sunDir = (LK.sunDir ? new T.Vector3(LK.sunDir[0], LK.sunDir[1], LK.sunDir[2]) : new T.Vector3(.42, .78, .46)).normalize();
   const sky = arSkyDome(T, LK, sunDir); sc.add(sky);
   const envSc = new T.Scene(); envSc.add(arSkyDome(T, LK, sunDir));
   const gnd = new T.Mesh(new T.PlaneGeometry(400, 400).rotateX(-Math.PI / 2), new T.MeshBasicMaterial({color: LK.floor[1]})); gnd.position.y = -1; envSc.add(gnd);
   const pm = new T.PMREMGenerator(R), env = pm.fromScene(envSc, .02).texture; pm.dispose();
   sc.environment = env;
-  sc.fog = new T.Fog(LK.fog, big * .75, big * 2.4);
+  sc.fog = new T.Fog(LK.fog, LK.fogN || big * .75, LK.fogF || big * 2.4);
   const cam = new T.PerspectiveCamera(AR_MOBILE ? 74 : 78, innerWidth / innerHeight, .05, 400); cam.rotation.order = 'YXZ';
-  sc.add(new T.HemisphereLight(LK.hemi[0], LK.hemi[1], .55));
-  const sun = new T.DirectionalLight(LK.sun, 2.7); sun.castShadow = true;
-  const SR = hi ? 30 : 22; Object.assign(sun.shadow.camera, {left: -SR, right: SR, top: SR, bottom: -SR, near: 1, far: 160});
-  sun.shadow.mapSize.set(hi ? 2048 : 1024, hi ? 2048 : 1024); sun.shadow.bias = -.0004; sun.shadow.normalBias = .04; sun.shadow.radius = 3; sun.shadow.camera.updateProjectionMatrix(); sc.add(sun, sun.target);
+  const hemiL = new T.HemisphereLight(LK.hemi[0], LK.hemi[1], LK.hemiI || .55); sc.add(hemiL);
+  const sun = new T.DirectionalLight(LK.sun, LK.sunI || 2.7); sun.castShadow = true;
+  const SR = LK.shadowR ? (hi ? LK.shadowR : LK.shadowR * .55) : hi ? 30 : 22; Object.assign(sun.shadow.camera, {left: -SR, right: SR, top: SR, bottom: -SR, near: 1, far: 160});
+  sun.shadow.mapSize.set(hi ? (LK.shadowR > 40 ? 4096 : 2048) : 1024, hi ? (LK.shadowR > 40 ? 4096 : 2048) : 1024); sun.shadow.bias = -.0004; sun.shadow.normalBias = .04; sun.shadow.radius = 3; sun.shadow.camera.updateProjectionMatrix(); sc.add(sun, sun.target);
   /* a light at the muzzle that flashes when you fire, always present so shaders never recompile */
   const mlight = new T.PointLight('#ffbf6b', 0, 10, 2); sc.add(mlight);
   const blight = new T.PointLight('#ff8a2a', 0, 16, 2); sc.add(blight);
   const M = arMats(T);
-  const flg = new T.PlaneGeometry(ARM.W + 2, ARM.D + 2, 1, 1); flg.rotateX(-Math.PI / 2); arBoxUV(flg, 0, 0, 0, 2);
+  /* a map can give its floor as pieces (a quay and a deck with water between) instead of one sheet */
+  const flg = ARM.floorRects ? arMerge(T, ARM.floorRects.map(r => { const g = new T.PlaneGeometry(r[2] - r[0], r[3] - r[1], 1, 1); g.rotateX(-Math.PI / 2); g.translate((r[0] + r[2]) / 2, 0, (r[1] + r[3]) / 2); return arBoxUV(g, 0, 0, 0, 2); }))
+    : arBoxUV(new T.PlaneGeometry(ARM.W + 2, ARM.D + 2, 1, 1).rotateX(-Math.PI / 2), 0, 0, 0, 2);
   const fl = new T.Mesh(flg, M.floor); fl.receiveShadow = true; sc.add(fl);
   /* every box goes into one merged mesh per material; edges are rounded so they catch the light */
   const groups = {}; let ci = 0;
@@ -18571,6 +18707,7 @@ async function arStartMatch(lobby){
   const ao = [];
   ARB.forEach(b => {
     const w = b[3] - b[0], h = b[4] - b[1], d = b[5] - b[2], k = b[6], cx = (b[0] + b[3]) / 2, cy = (b[1] + b[4]) / 2, cz = (b[2] + b[5]) / 2;
+    if (k === 'void') return;   /* an invisible blocker (open water) */
     if (k === 'rail') { /* a railing: a top bar, a middle bar and posts, not a solid panel */
       const bar = (yy, th) => { const g = new T.BoxGeometry(w > d ? w : .07, th, w > d ? .07 : d); g.translate(cx, yy, cz); put('rail', g); };
       bar(b[4] - .04, .07); bar(b[1] + .5, .04); const L = Math.max(w, d), n = Math.max(1, Math.round(L / 1.2));
@@ -18586,18 +18723,18 @@ async function arStartMatch(lobby){
   if (ao.length) { const at = new T.CanvasTexture(arCanvas(128, 128, (g, w, h) => { g.fillStyle = '#000'; g.fillRect(0, 0, w, h); g.shadowColor = '#fff'; g.shadowBlur = 22; g.shadowOffsetX = 1000; g.fillStyle = '#fff'; g.beginPath(); g.roundRect(-1000 + 26, 26, w - 52, h - 52, 10); g.fill(); }));
     const am = new T.Mesh(arMerge(T, ao), new T.MeshBasicMaterial({color: '#000000', alphaMap: at, transparent: true, opacity: .5, depthWrite: false})); am.renderOrder = 1; sc.add(am); }
   /* spawn pads */
-  [-1, 1].forEach(sx => { const pad = new T.Mesh(new T.CylinderGeometry(2.2, 2.2, .04, 48), new T.MeshStandardMaterial({color: sx > 0 ? '#7fd8ff' : '#ff9ad0', emissive: sx > 0 ? '#3ab8ff' : '#ff5aa8', emissiveIntensity: .9, transparent: true, opacity: .5}));
+  [-1, 1].forEach(sx => { if (ARM.open) return; const pad = new T.Mesh(new T.CylinderGeometry(2.2, 2.2, .04, 48), new T.MeshStandardMaterial({color: sx > 0 ? '#7fd8ff' : '#ff9ad0', emissive: sx > 0 ? '#3ab8ff' : '#ff5aa8', emissiveIntensity: .9, transparent: true, opacity: .5}));
     pad.position.set(sx * (ARM.W / 2 - 3.5), .02, 0); sc.add(pad); });
   /* a skyline of buildings with lit windows outside the walls */
   const tws = [], R2 = seeded(77 + ARM.W);
-  for (let i = 0; i < 30; i++) { const a = i / 30 * Math.PI * 2, rr = 1.3 + R2() * .5, h = 9 + R2() * 22, ww = 6 + R2() * 8;
+  for (let i = 0; i < (ARM.open ? 0 : 30); i++) { const a = i / 30 * Math.PI * 2, rr = 1.3 + R2() * .5, h = 9 + R2() * 22, ww = 6 + R2() * 8;
     const x = Math.cos(a) * ARM.W * .55 * rr + Math.sign(Math.cos(a)) * 16, z = Math.sin(a) * ARM.D * .55 * rr + Math.sign(Math.sin(a)) * 16;
     const t = arBoxUV(arRBox(T, ww, h, ww, .25, 1), x, h / 2, z, 8); t.translate(x, h / 2, z); tws.push(t); }
   const wtex = new T.CanvasTexture(arCanvas(128, 128, (g, w, h) => { g.fillStyle = LK.tower; g.fillRect(0, 0, w, h); const r = seeded(5);
     for (let y = 8; y < h; y += 32) for (let x = 6; x < w; x += 16) { g.fillStyle = r() < .2 ? '#fff6d8' : arShade(LK.tower, .8); g.fillRect(x, y, 10, 18); } g.fillStyle = arShade(LK.tower, 1.06); for (let y = 0; y < h; y += 32) g.fillRect(0, y, w, 4); }));
   wtex.colorSpace = T.SRGBColorSpace; wtex.wrapS = wtex.wrapT = T.RepeatWrapping;
-  sc.add(new T.Mesh(arMerge(T, tws), new T.MeshStandardMaterial({map: wtex, roughness: .85})));
-  const clouds = arDecor(T, sc);
+  if (tws.length) sc.add(new T.Mesh(arMerge(T, tws), new T.MeshStandardMaterial({map: wtex, roughness: .85})));
+  const clouds = arDecor(T, sc); if (LK.skyFx) clouds.visible = false; const mapFx = ARM.decor ? ARM.decor(T, sc, M, hemiL) : null;
   /* the world's own meshes, for the Ankara Messi trance to recolour */
   const world = sc.children.filter(o => o.isMesh && o !== sky && o !== clouds && o.material && !o.material.transparent);
   /* the viewmodel lives in its own scene so it never clips into walls */
@@ -18610,10 +18747,10 @@ async function arStartMatch(lobby){
   const ftex = new T.CanvasTexture(arCanvas(128, 128, (g, w, h) => { g.translate(w / 2, h / 2); const rg = g.createRadialGradient(0, 0, 0, 0, 0, w / 2); rg.addColorStop(0, 'rgba(255,255,240,1)'); rg.addColorStop(.25, 'rgba(255,210,120,.9)'); rg.addColorStop(1, 'rgba(255,140,40,0)');
     g.fillStyle = rg; for (let i = 0; i < 6; i++) { g.rotate(Math.PI / 3); g.beginPath(); g.moveTo(0, -8); g.lineTo(w * .48, 0); g.lineTo(0, 8); g.fill(); } g.beginPath(); g.arc(0, 0, w * .2, 0, 7); g.fill(); }));
   const flash = new T.Sprite(new T.SpriteMaterial({map: ftex, color: '#ffffff', transparent: true, opacity: 0, blending: T.AdditiveBlending, depthWrite: false, depthTest: false})); flash.scale.setScalar(.16); vm.add(flash);
-  F.forEach(f => { if (f.me) return; f.B = arBotModel(T, arRankCol(f.rp), f.load[0], f.col, f.team, f.name); sc.add(f.B.g); });
+  F.forEach(f => { if (f.me) return; f.B = arBotModel(T, arRankCol(f.rp), f.load[0], f.col, f.team, f.name, arMode(lobby.mode).heist ? (f.team === (lobby.red ? 0 : 1) ? 'raider' : 'defender') : null); sc.add(f.B.g); });
   const fx = new T.Group(); sc.add(fx);
   AR = {T, R, sc, cam, vsc, vcam, vm, guns, flash, fx, me, F, lobby, mode: arMode(lobby.mode), score: [0, 0], round: 0, phase: 'load', t: 0, keys: {}, mdx: 0, mdy: 0, fire: false, ads: 0, adsHeld: false,
-    clouds, world, sun, sunDir, SR, mlight, blight, fxa: [], sky, env, prMax, pr: pr0, resT: 0, resN: 0, tracers: [], nums: [], proj: [], nades: [], parts: [], booms: [], streak: 0, land: 0, roll: 0, last: performance.now(), acc: 0, raf: 0, paused: false, side: Math.random() < .5 ? 1 : -1, bob: 0, shake: 0, hurt: 0, hitm: 0, fps: [], clock: 0, M};
+    clouds, world, mapFx, hemiL, sun, sunDir, SR, mlight, blight, fxa: [], sky, env, prMax, pr: pr0, resT: 0, resN: 0, tracers: [], nums: [], proj: [], nades: [], parts: [], booms: [], streak: 0, land: 0, roll: 0, last: performance.now(), acc: 0, raf: 0, paused: false, side: Math.random() < .5 ? 1 : -1, bob: 0, shake: 0, hurt: 0, hitm: 0, fps: [], clock: 0, M};
   arNetInit(AR, lobby); arHUD(); arBindInput(); arNewRound();
   AR.raf = requestAnimationFrame(arLoop);
 }
@@ -18714,7 +18851,7 @@ function arShoot(f){
   const eye = arEye(f), moving = Math.hypot(f.v.x, f.v.z) / 7 + (f.ground ? 0 : .8);
   if (f.me) {
     f.kick += W.kick; A.flashT = .05; f.rec = Math.min(.25, (f.rec || 0) + W.kick * .55 * (A.ads > .5 ? .6 : 1)); f.recY = (f.recY || 0) + (Math.random() - .5) * W.kick * .5;
-    const goat = l.it.id === AR_GOAT_ID;
+    const goat = l.it.id === AR_GOAT_ID && !arPlain();
     if (goat) { f.goatN = (f.goatN || 0) + 1; if (f.goatN % AR_GOLD_EVERY === 0 && f.marks && Object.keys(f.marks).length) { arGoldFire(f, arFwd(f.yaw + (f.recY || 0), f.pitch + (f.rec || 0))); return; } }
     const spread = f.st.long > 0 ? 0 : (A.ads > .5 ? W.ads : W.sp) * (1 + moving * 1.2), foes = arFoes(f);
     for (let k = 0; k < (W.pel || 1); k++) {
@@ -19038,18 +19175,19 @@ function arDecor(T, sc){
     [-1, 1].forEach(sd => bx('ladder', fx + (ax === 'x' ? sd * .4 : 0), y0 + hh / 2, fz + (ax === 'z' ? sd * .4 : 0), ax === 'x' ? .07 : .09, hh, ax === 'z' ? .07 : .09));
     for (let y = y0 + .3; y < top - .05; y += .32) bx('ladder', fx, y, fz, ax === 'x' ? .8 : .05, .05, ax === 'z' ? .8 : .05); });
   /* inside every building: a lamp on the ceiling and a rug on the floor */
-  (ARM.houses || []).forEach(h => { const cx = (h.x0 + h.x1) / 2, cz = (h.z0 + h.z1) / 2, w = h.x1 - h.x0, d = h.z1 - h.z0;
+  (ARM.houses || []).forEach(h => { if (h.bare) return; const cx = (h.x0 + h.x1) / 2, cz = (h.z0 + h.z1) / 2, w = h.x1 - h.x0, d = h.z1 - h.z0;
     if (h.roof) { bx('lamp', cx, h.y1 - .3, cz, Math.min(2.4, w * .3), .06, .5); if (w > 9) [-1, 1].forEach(s => bx('lamp', cx + s * w * .3, h.y1 - .3, cz, 1.4, .06, .4)); }
     bx('rug', cx, h.y0 + .012, cz, Math.min(5, w * .45), .01, Math.min(3.4, d * .45)); });
   /* floor: lane lines, team zones by the spawns, a centre ring */
-  for (let x = -W / 2 + 4; x <= W / 2 - 4; x += 8) bx('paintW', x, .012, 0, .14, .01, D - 2);
-  bx('paintW', 0, .013, -D / 2 + 1.2, W - 2, .01, .18); bx('paintW', 0, .013, D / 2 - 1.2, W - 2, .01, .18);
-  [-1, 1].forEach(s => { bx(s > 0 ? 'zoneB' : 'zoneR', s * (W / 2 - 3.5), .011, 0, 6, .01, Math.min(D - 4, Math.max(16, D * .55))); });
-  const ring = new T.RingGeometry(3.2, 3.6, 48).rotateX(-Math.PI / 2); ring.translate(0, .014, 0); put('paintY', ring);
+  const open = !!ARM.open;
+  if (!open) for (let x = -W / 2 + 4; x <= W / 2 - 4; x += 8) bx('paintW', x, .012, 0, .14, .01, D - 2);
+  if (!open) bx('paintW', 0, .013, -D / 2 + 1.2, W - 2, .01, .18); bx('paintW', 0, .013, D / 2 - 1.2, W - 2, .01, .18);
+  if (!open) [-1, 1].forEach(s => { bx(s > 0 ? 'zoneB' : 'zoneR', s * (W / 2 - 3.5), .011, 0, 6, .01, Math.min(D - 4, Math.max(16, D * .55))); });
+  if (!open) { const ring = new T.RingGeometry(3.2, 3.6, 48).rotateX(-Math.PI / 2); ring.translate(0, .014, 0); put('paintY', ring); }
   /* walls: a hazard band along the bottom, a glowing strip along the top, light posts and banners */
   const band = (x, z, w, d) => { bx('hazard', x, .45, z, w, .9, d); bx('glow', x, wh - .25, z, w + .02, .12, d + .02); };
-  band(0, -D / 2 + .03, W, .08); band(0, D / 2 - .03, W, .08); band(-W / 2 + .03, 0, .08, D); band(W / 2 - .03, 0, .08, D);
-  for (let x = -W / 2 + 6; x < W / 2 - 3; x += 10) [-1, 1].forEach(sz => {
+  if (!open) { band(0, -D / 2 + .03, W, .08); band(0, D / 2 - .03, W, .08); band(-W / 2 + .03, 0, .08, D); band(W / 2 - .03, 0, .08, D); }
+  for (let x = -W / 2 + 6; x < (open ? -1e9 : W / 2 - 3); x += 10) [-1, 1].forEach(sz => {
     const z = sz * (D / 2 - .45); bx('metal', x, wh / 2 + 1, z, .25, wh + 2, .25); bx('metal', x, wh + 1.9, z - sz * .5, .2, .2, 1.1); bx('lamp', x, wh + 1.7, z - sz * 1, .7, .18, .5);
     const blue = x < 0; bx(blue ? 'banB' : 'banR', x + 5, wh * .55, z - sz * .07, 2.2, 3.2, .06); bx('metal', x + 5, wh * .55 + 1.7, z - sz * .1, 2.6, .12, .12);
   });
@@ -19105,10 +19243,10 @@ function arDecor(T, sc){
     g.fillStyle = 'rgba(255,255,255,.85)'; g.font = '700 68px Fredoka, Teko, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('SD', 0, 4);
     for (let i = 0; i < 4; i++) { g.rotate(Math.PI / 2); g.fillRect(-8, -126, 16, 22); } }));
   em.colorSpace = T.SRGBColorSpace;
-  const emb = new T.Mesh(new T.PlaneGeometry(6, 6).rotateX(-Math.PI / 2), new T.MeshBasicMaterial({map: em, transparent: true, depthWrite: false})); emb.position.y = .015; sc.add(emb);
+  const emb = new T.Mesh(new T.PlaneGeometry(6, 6).rotateX(-Math.PI / 2), new T.MeshBasicMaterial({map: em, transparent: true, depthWrite: false})); emb.position.y = .015; if (!open) sc.add(emb);
   const cl = []; for (let i = 0; i < 16; i++) { const x = (R() - .5) * W * 3, z = (R() - .5) * D * 3, y = 34 + R() * 14;
     for (let k = 0; k < 3; k++) { const g = arRBox(T, 6 + R() * 8, 2 + R() * 2, 4 + R() * 6, .9, 2); g.translate(x + k * 4 - 4, y + R() * 1.5, z + (R() - .5) * 3); cl.push(g); } }
-  const clouds = new T.Mesh(arMerge(T, cl), new T.MeshStandardMaterial({color: '#ffffff', emissive: '#ffffff', emissiveIntensity: .55, roughness: 1, fog: false})); sc.add(clouds);
+  const clouds = new T.Mesh(arMerge(T, cl), new T.MeshStandardMaterial({color: arMapLook().cloud || '#ffffff', emissive: arMapLook().cloud || '#ffffff', emissiveIntensity: arMapLook().cloud ? .5 : .55, roughness: 1, fog: false})); sc.add(clouds);
   return clouds;
 }
 
@@ -19349,6 +19487,7 @@ function arRender(dt){
   if (A.blight) A.blight.intensity = Math.max(0, A.blight.intensity - dt * 450);
   arPartsUpdate(dt); if (A.clouds) A.clouds.position.x = ((A.clock * .6) % 60) - 30;
   A.booms = A.booms.filter(b => { b.t -= dt; const k = 1 - b.t / .35; b.m.scale.setScalar(.5 + k * 5.5); b.m.material.opacity = Math.max(0, b.t / .35) * .85; if (b.t <= 0) { A.fx.remove(b.m); b.m.geometry.dispose(); b.m.material.dispose(); return false; } return true; });
+  if (A.heist) arHeistView(dt);
   A.R.clear(); A.R.render(A.sc, cam); A.R.clearDepth(); if (f.alive && !watching) A.R.render(A.vsc, A.vcam);
   /* floating damage numbers and the name tags */
   const T = A.T, v = new T.Vector3(), e = cam.position, sx = innerWidth, sy = innerHeight;
@@ -19402,7 +19541,7 @@ function arHUD(){
   const wins = t => '<div class="ar-wins">' + Array.from({length: AR_WIN}, (_, i) => '<i data-t="' + t + '" data-i="' + i + '"></i>').join('') + '</div>';
   const myName = n === 1 ? 'YOU' : arRedSide ? 'RED TEAM' : 'BLUE TEAM', thName = n === 1 ? esc(oppName) : arRedSide ? 'BLUE TEAM' : 'RED TEAM';
   $('#arHud').innerHTML = '<div class="ar-top2' + (n > 4 ? ' many' : '') + (arRedSide ? ' flip' : '') + '" id="arTop"><div class="ar-tp b"><div class="ar-tpi"><small>' + myName + '</small>' + wins(0) + (n > 1 ? pips(0) : '') + '</div><b id="arS0">0</b></div>'
-    + '<div class="ar-tmid"><div class="ar-rd" id="arRd">ROUND 1</div><div class="ar-clock" id="arClock">1:30</div><div class="ar-to">' + A.mode.id + ' · ' + esc(ARM.name) + '</div></div>'
+    + '<div class="ar-tmid"><div class="ar-rd" id="arRd">ROUND 1</div><div class="ar-clock" id="arClock">1:30</div><div class="ar-to">' + (A.mode.tag || A.mode.id) + ' · ' + esc(ARM.name) + '</div></div>'
     + '<div class="ar-tp r"><b id="arS1">0</b><div class="ar-tpi"><small>' + thName + '</small>' + wins(1) + (n > 1 ? pips(1) : '') + '</div></div></div>'
     + '<div class="ar-board" id="arBoard" hidden></div>'
     + '<div class="ar-x" id="arX"><i></i><i></i><i></i><i></i></div><div class="ar-hm" id="arHm"></div>'
@@ -19422,9 +19561,7 @@ function arHUD(){
     + '<div class="ar-skpop" id="arSkPop" hidden></div><div class="ar-princev" id="arPrinceV" hidden></div>'
     + '<button type="button" class="ar-pausebtn" id="arPauseBtn" aria-label="Leave match">Leave</button>'
     + (AR_MOBILE ? '' : '<div class="ar-lockhint" id="arLockHint">Click to aim (or use a controller) · WASD move · Space jump · Shift slide · R reload · G grenade · 1/2/3 weapons · Q skill</div>')
-    + (AR_MOBILE ? '<div class="ar-touch" id="arTouch"><div class="ar-stick" id="arStick"><i></i></div>'
-      + [['fire', 'fire'], ['ads', 'ads'], ['nade', 'nade'], ['jump', 'jump'], ['reload', 'reload'], ['slide', 'slide'], ['swap', 'swap'], ['skill', 'skill']]
-        .map(([k, ic]) => '<button type="button" class="tb ' + k + '" data-t="' + k + '" aria-label="' + k + '">' + (k === 'skill' || k === 'nade' ? '<span class="tbi">' + AR_IC[ic] + '</span>' : AR_IC[ic]) + (k === 'skill' ? '<svg class="cdr" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" id="arTSkC"/></svg>' : '') + '</button>').join('') + '</div>' : '');
+    + (AR_MOBILE ? arTouchHTML() : '');
   $('#arSlots').innerHTML = A.me.load.map((l, i) => '<div class="ar-slot" data-i="' + i + '" style="--tc:' + TIERS[l.it.t].color + '"><small>' + (i + 1) + '</small><span></span></div>').join('');
   A.me.load.forEach((l, i) => { const s = $('#arSlots').children[i].querySelector('span'); s.append(thumb(l.it, wearIdx(l.fl))); });
   /* name tags over every bot: your team's always show, enemies only when you can see them */
@@ -19437,7 +19574,7 @@ function arBoard(){
   const A = AR; if (!A) return;
   const row = f => '<tr class="' + (f.me ? 'me' : '') + (f.alive ? '' : ' dead') + '"><td><span class="ar-bdot" style="background:' + (f.me ? '#ffd23f' : f.col) + '"></span>' + esc(f.me ? 'You' : f.name) + '</td><td>' + arRankName(f.me ? arS().rp : f.rp) + '</td><td>' + (f.me ? WNAME[f.load[f.cur].it.w] : WNAME[f.load[0].it.w]) + '</td><td><b>' + f.kills + '</b></td><td>' + (f.deaths || 0) + '</td><td>' + (f.alive ? Math.max(0, Math.ceil(f.hp)) : '—') + '</td></tr>';
   const team = t => { const list = A.F.filter(f => f.team === t && !f.summon).sort((a, b) => b.kills - a.kills); return '<div class="ar-bt t' + arVT(t) + '"><div class="ar-bh"><b>' + (A.mode.n === 1 ? (t === 0 ? 'YOU' : 'OPPONENT') : arVT(t) ? 'RED TEAM' : 'BLUE TEAM') + '</b><span>' + A.score[t] + '</span></div><table><tr><th>Player</th><th>Rank</th><th>Weapon</th><th>K</th><th>D</th><th>HP</th></tr>' + list.map(row).join('') + '</table></div>'; };
-  $('#arBoard').innerHTML = '<div class="ar-bcard"><div class="ar-btop">' + A.mode.id + ' ' + A.mode.name.toUpperCase() + ' · ' + esc(ARM.name) + ' · ROUND ' + A.round + '</div>' + team(0) + team(1) + '</div>';
+  $('#arBoard').innerHTML = '<div class="ar-bcard"><div class="ar-btop">' + (A.mode.tag ? '' : A.mode.id + ' ') + A.mode.name.toUpperCase() + ' · ' + esc(ARM.name) + ' · ROUND ' + A.round + '</div>' + team(0) + team(1) + '</div>';
 }
 const AR_STREAK = ['', '', 'DOUBLE KILL', 'TRIPLE KILL', 'QUAD KILL', 'RAMPAGE'];
 function arKillBanner(name, head){ const k = $('#arKill'); if (!k) return; const st = AR.streak;
@@ -19514,7 +19651,9 @@ function arBindInput(){
     if (k === 'tab') { e.preventDefault(); $('#arBoard').hidden = !down; if (down) arBoard(); }
     if ((k === 'c' || k === 'control' || k === 'shift') && down) A.keys.slide = true;
     if (!down) return;
+    if (A.heist && arShopKey(k)) { e.preventDefault(); return; }
     if (k === 'r') arReload(A.me);
+    if (A.heist && k === 'f') { arHeistUse(A.me); return; }
     if (k === 'q' || k === 'e' || k === 'f') arUseSkill(A.me);
     if (k === 'g') arUseMisc(A.me);
     if (k === 'tab') { e.preventDefault(); }
@@ -19544,6 +19683,7 @@ function arBindInput(){
 function arSwap(i){ const A = AR; if (!A || i === A.me.cur || !A.me.alive) return; A.me.cur = i; A.me.reload = 0; A.ads = 0; arShowWeapon(); tone(500, .04, 'square', .03); }
 /* phone controls: a floating stick on the left, drag anywhere on the right to aim, big icon buttons */
 function arTouch(){
+  arTouchApply($('#arHud'));
   const A = AR, pad = $('#arTouch'), stick = $('#arStick'), knob = stick.querySelector('i'); const ids = {};
   const btnOf = el => el && el.closest && el.closest('.tb');
   pad.addEventListener('touchstart', e => {
@@ -19639,7 +19779,7 @@ function arMapSVG(id, n){
   const key = id + '|' + (n || 1); if (arMapCache[key]) return arMapCache[key]; AR_TILE = arTilesFor(id, n || 1); const B = AR_MAPS[id].boxes(), m = Object.assign({}, AR_MAPS[id], {W: AR_MAPS[id].W * AR_TILE.c, D: AR_MAPS[id].D * AR_TILE.r}); AR_TILE = {c: 1, r: 1}; const col = {wall: '#1b2230', crate: '#c7ccd4', barrier: '#ffd23f', pillar: '#8d949f', cont: '#7fb3e8', plat: '#b9a6e8', stair: '#a7aeb8', bwall: '#4a5466', roof: '#8e97a5', slab: '#a99bd6', rail: '#59606c', car: '#e5484d', bus: '#f2b632', hedge: '#5fbf4a'};
   return arMapCache[key] = '<svg class="ar-mapsvg" viewBox="' + (-m.W / 2 - 1) + ' ' + (-m.D / 2 - 1) + ' ' + (m.W + 2) + ' ' + (m.D + 2) + '" aria-hidden="true"><rect x="' + (-m.W / 2) + '" y="' + (-m.D / 2) + '" width="' + m.W + '" height="' + m.D + '" fill="' + m.pal[0] + '"/>'
     + '<rect x="' + (m.W / 2 - 6.5) + '" y="-4" width="6" height="8" fill="#3b9cff" opacity=".5"/><rect x="' + (-m.W / 2 + .5) + '" y="-4" width="6" height="8" fill="#ff4d6d" opacity=".5"/>'
-    + B.slice().sort((a, b) => a[4] - b[4]).map(b => '<rect x="' + b[0].toFixed(1) + '" y="' + b[2].toFixed(1) + '" width="' + (b[3] - b[0]).toFixed(1) + '" height="' + (b[5] - b[2]).toFixed(1) + '" fill="' + (col[b[6]] || '#aaa') + '"/>').join('') + '</svg>';
+    + B.filter(b => b[6] !== 'void').sort((a, b) => a[4] - b[4]).map(b => '<rect x="' + b[0].toFixed(1) + '" y="' + b[2].toFixed(1) + '" width="' + (b[3] - b[0]).toFixed(1) + '" height="' + (b[5] - b[2]).toFixed(1) + '" fill="' + (col[b[6]] || '#aaa') + '"/>').join('') + '</svg>';
 }
 function arOpen(){
   const el = $('#arena'); el.hidden = false; document.body.classList.add('ar-on'); arMenu();
@@ -19650,24 +19790,26 @@ function arScreen(id){ ['arMenu', 'arQ', 'arGame', 'arRes'].forEach(k => $('#' +
 function arMenu(){
   arScreen('arMenu'); const S = arS(), L = arLoadout(), pn = arP ? Math.max(1, arPartyHumans().length) : 1, follow = pn > 1 && !arPartyIsLeader();
   if (pn > arMode(S.mode).n) S.mode = (AR_MODES.find(m => m.n >= pn) || AR_MODES[0]).id;
+  if (pn > 1 && arMode(S.mode).heist) S.mode = '4v4';
   const M = arMode(S.mode);
   if (S.map !== 'any' && !M.maps.includes(S.map)) S.map = 'any';
   $('#arMenu').innerHTML = '<div class="ar-bgfx"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="ar-mtop"><button type="button" class="ar-back" id="arBack">‹ Crate Rush</button><div class="ar-logo">SHOW<b>DOWN</b><small>ARENA · SEASON 1</small></div>'
     + '<div class="ar-rmini" style="--rc:' + arRankCol(S.rp) + '"><svg class="ar-av" viewBox="-30 -48 60 70">' + arFig(0, 18, 1, '#3b82f6', false) + '</svg>' + arEmblem(S.rp) + '<div><b>' + arRankName(S.rp) + '</b><div class="ar-rbar"><i style="width:' + (S.rp % AR_DIV) + '%"></i></div><span>' + S.w + 'W ' + S.l + 'L</span></div></div>'
     + '<button type="button" class="ar-gear" id="arGear" aria-label="Settings"><svg viewBox="0 0 24 24"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm8.6 4.9-1.9 1.1.1 2.2-2.2 1.3-1.9-1.1-1.9 1.1h-1.6l-1.9-1.1-1.9 1.1L3.2 16.7l.1-2.2-1.9-1.1V10.6l1.9-1.1-.1-2.2L5.4 6l1.9 1.1L9.2 6h1.6l1.9 1.1L14.6 6l2.2 1.3-.1 2.2 1.9 1.1z" fill="currentColor"/></svg></button></div>'
     + arPartyBar()
-    + '<div class="ar-mgrid"><div class="ar-modes">' + AR_MODES.map((m, i) => '<button type="button" class="ar-mode' + (m.id === S.mode ? ' on' : '') + (i < 2 ? ' big' : '') + (pn > m.n ? ' off' : '') + (follow ? ' lock' : '') + '" data-mode="' + m.id + '">' + arModeArt(m) + '<span class="ar-mpl">' + (m.n * 2) + ' PLAYERS</span><span class="ar-shine"></span><span class="ar-mlab"><b>' + m.id + '</b><em>' + m.name.toUpperCase() + '</em><small>' + m.sub + '</small></span></button>').join('') + '</div>'
+    + '<div class="ar-mgrid"><div class="ar-modes">' + AR_MODES.map((m, i) => m.heist ? arHeistBanner(m, S, pn, follow) : '<button type="button" class="ar-mode' + (m.id === S.mode ? ' on' : '') + (i < 2 ? ' big' : '') + (pn > m.n ? ' off' : '') + (follow ? ' lock' : '') + '" data-mode="' + m.id + '">' + arModeArt(m) + '<span class="ar-mpl">' + (m.n * 2) + ' PLAYERS</span><span class="ar-shine"></span><span class="ar-mlab"><b>' + m.id + '</b><em>' + m.name.toUpperCase() + '</em><small>' + m.sub + '</small></span></button>').join('') + '</div>'
     + '<div class="ar-maps"><span>Map</span>' + ['any'].concat(M.maps).map(id => '<button type="button" class="ar-chip' + (S.map === id ? ' on' : '') + '" data-map="' + id + '">' + (id === 'any' ? '<span class="ar-mapq">?</span>Random' : arMapSVG(id, M.n) + AR_MAPS[id].name + ' <small>' + (() => { const t = arTilesFor(id, M.n); return AR_MAPS[id].W * t.c + '×' + AR_MAPS[id].D * t.r; })() + '</small>') + '</button>').join('') + '</div>'
     + '<div class="ar-load"><div class="ar-lh">Loadout <small>tap a slot to change it</small><button type="button" class="ar-shopb" id="arShopB"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z" fill="#fff" stroke="#1b2230" stroke-width="2"/><path d="M9 10V7a3 3 0 0 1 6 0v3" fill="none" stroke="#1b2230" stroke-width="2"/></svg>RANKED SHOP</button></div>' + L.map((l, i) => {
         const sk = arSkillOf(l.it);
         return '<button type="button" class="ar-lslot" data-slot="' + i + '" style="--tc:' + TIERS[l.it.t].color + '"><small>' + AR_SLOTN[i] + '</small><span class="ar-lart"></span><b>' + (l.it.stock ? 'Stock ' + WNAME[l.it.w].replace('★ ', '') : WNAME[l.it.w] + ' | ' + l.it.name) + '</b>'
           + (sk ? (AR_SK[sk].ic ? '<em class="cus" style="--c:' + AR_SK[sk].col + '">' + AR_IC[AR_SK[sk].ic] + AR_SK[sk].n + '</em>' : '<em>★ ' + AR_SK[sk].n + '</em>') : l.it.t === 7 ? '<em class="ch">Chroma · +75% damage, faster fire</em>' : '') + '</button>'; }).join('') + arMiscSlot() + '</div>'
-    + '<button type="button" class="ar-find' + (follow ? ' wait' : '') + '" id="arFind"' + (follow ? ' disabled' : '') + '>' + (follow ? 'THE PARTY LEADER STARTS THE MATCH' : 'FIND MATCH · ' + M.id + (pn > 1 ? ' · PARTY OF ' + pn : '')) + '</button>'
+    + '<button type="button" class="ar-find' + (follow ? ' wait' : '') + '" id="arFind"' + (follow ? ' disabled' : '') + '>' + (follow ? 'THE PARTY LEADER STARTS THE MATCH' : 'FIND MATCH · ' + (M.tag || M.id) + (pn > 1 ? ' · PARTY OF ' + pn : '')) + '</button>'
     + '<p class="ar-note">G or the grenade button uses your misc item; more come from the Ranked Shop. Rank up to face tougher players with better weapons. Win: rank points and credits.</p></div>';
   [...document.querySelectorAll('#arMenu .ar-lslot:not(.misc)')].forEach((b, i) => b.querySelector('.ar-lart').append(thumb(L[i].it, wearIdx(L[i].fl))));
   $('#arBack').onclick = arClose; $('#arFind').onclick = () => { if (follow) return; if (pn > 1) arPartyFind(); else arQueue(); }; $('#arGear').onclick = arSettings;
   const share = () => { if (arP && arPartyIsLeader()) { arP.cfg = {mode: S.mode, map: S.map}; arPartySend(null, 'cfg', arP.cfg); } };
   $('#arMenu').querySelectorAll('.ar-mode').forEach(b => b.onclick = () => { if (follow) { toast('The party leader picks the mode.'); return; } if (pn > arMode(b.dataset.mode).n) { toast('Your party of ' + pn + ' needs a mode with at least ' + pn + ' a side.'); return; }
+    if (pn > 1 && arMode(b.dataset.mode).heist) { toast('Black Cargo can’t be played in a party yet.'); return; }
     S.mode = b.dataset.mode; save(); tone(660, .05, 'triangle', .04); share(); arMenu(); });
   $('#arMenu').querySelectorAll('.ar-chip').forEach(b => b.onclick = () => { if (follow) { toast('The party leader picks the map.'); return; } S.map = b.dataset.map; save(); tone(720, .04, 'triangle', .04); share(); arMenu(); });
   arPartyBind($('#arMenu')); arPartyUI2();
@@ -19679,11 +19821,11 @@ function arSettings(){
   const row = (id, lab, v, min, max) => '<label class="ar-set"><span>' + lab + ' <b id="' + id + 'V">' + v.toFixed(2) + '×</b></span><input type="range" id="' + id + '" min="' + min + '" max="' + max + '" step=".05" value="' + v + '"></label>';
   box.innerHTML = '<div class="ar-pcard2"><div class="ar-lh">Settings <button type="button" class="ar-x2" aria-label="Close">✕</button></div>'
     + row('arSm', 'Phone look speed', S.sens.mob, .4, 3) + row('arSp', 'Mouse look speed', S.sens.pc, .3, 3)
-    + '<label class="ar-set tog"><span>Phone aim assist</span><input type="checkbox" id="arAs"' + (S.assist ? ' checked' : '') + '></label></div>';
+    + '<label class="ar-set tog"><span>Phone aim assist</span><input type="checkbox" id="arAs"' + (S.assist ? ' checked' : '') + '></label>' + arSetExtra() + '</div>';
   $('#arena').append(box);
   const bind = (id, key) => { const i = $('#' + id); i.oninput = () => { S.sens[key] = +i.value; $('#' + id + 'V').textContent = (+i.value).toFixed(2) + '×'; save(); }; };
-  bind('arSm', 'mob'); bind('arSp', 'pc'); $('#arAs').onchange = e => { S.assist = e.target.checked; save(); };
-  box.onclick = e => { if (e.target === box || e.target.closest('.ar-x2')) box.remove(); };
+  bind('arSm', 'mob'); bind('arSp', 'pc'); $('#arAs').onchange = e => { S.assist = e.target.checked; save(); }; arSetExtraBind(box);
+  box.onclick = e => { if (e.target === box || e.target.closest('.ar-x2')) { arPadBind = null; box.remove(); } };
 }
 function arPick(slot){
   const list = state.inv.filter(e => BY[e.id] && arSlotOf(BY[e.id]) === slot).sort((a, b) => BY[b.id].t - BY[a.id].t || b.v - a.v);
@@ -19710,7 +19852,7 @@ function arQueue(net){
   const at = Array.from({length: need}, () => Math.random()).sort((a, b) => a - b).map((r, i) => i === need - 1 ? 1 : .15 + r * .8);
   $('#arQ').innerHTML = '<div class="ar-radar"><i></i><i></i><i></i><b></b></div><h2>' + (M.n === 1 ? 'FINDING AN OPPONENT' : 'FINDING PLAYERS') + '</h2><div class="ar-qt" id="arQt">0:00</div>'
     + (M.n > 1 ? '<div class="ar-qfill" id="arQf">' + Array.from({length: M.n * 2}, (_, i) => '<i class="' + (i === 0 ? 'on me' : i < party ? 'on pt' : '') + '"></i>').join('') + '</div>' : '')
-    + '<p>' + M.id + ' ' + M.name + (party > 1 ? ' · party of ' + party : '') + ' · ' + arRankName(S.rp) + '</p><button type="button" class="ar-btn ghost" id="arQx">' + (lead ? 'Cancel' : 'Leave queue') + '</button>';
+    + '<p>' + (M.tag ? '' : M.id + ' ') + M.name + (party > 1 ? ' · party of ' + party : '') + ' · ' + arRankName(S.rp) + '</p><button type="button" class="ar-btn ghost" id="arQx">' + (lead ? 'Cancel' : 'Leave queue') + '</button>';
   arThree().catch(() => {});
   arQ = {iv: setInterval(() => {
     const e = Date.now() - t0, s = Math.floor(e / 1000), q = $('#arQt'); if (q) q.textContent = arMMSS(s);
@@ -19735,7 +19877,7 @@ async function arFoundShow(lobby){
   [523.25, 783.99, 1046.5].forEach((f, i) => tone(f, .3, 'triangle', .06, i * .09));
   const card = (p, t) => { const sk = p.kit && arSkillOf(p.kit.it);
     return '<div class="ar-vsc' + (M.n > 1 ? ' sm' : '') + ' t' + (lobby.red ? 1 - t : t) + '" style="--rc:' + arRankCol(p.rp) + '">' + arEmblem(p.rp) + '<div class="ar-vsi"><b>' + (p.pid ? '<i class="ar-ptag">PARTY</i>' : '') + esc(p.me ? 'You' : p.name) + '</b><span>' + arRankName(p.rp) + '</span>' + (p.kit ? '<em>' + WNAME[p.kit.it.w] + ' | ' + p.kit.it.name + (sk ? ' · ★ ' + AR_SK[sk].n : '') + '</em>' : '') + '</div>' + (p.kit && M.n === 1 ? '<div class="ar-vsg"></div>' : '') + '</div>'; };
-  $('#arQ').innerHTML = '<div class="ar-found"><small>' + (M.n === 1 ? 'OPPONENT FOUND' : 'MATCH FOUND') + ' · ' + M.id + ' ' + M.name.toUpperCase() + ' · ' + esc(AR_MAPS[map].name.toUpperCase()) + '</small><div class="ar-vs' + (M.n > 1 ? ' teams' : '') + (M.n >= 6 ? ' xl' : '') + '"><div class="ar-team">' + teams[0].map(p => card(p, 0)).join('') + '</div><div class="ar-vsx">VS</div><div class="ar-team">' + teams[1].map(p => card(p, 1)).join('') + '</div></div><p id="arLd">Loading the arena…</p></div>';
+  $('#arQ').innerHTML = '<div class="ar-found"><small>' + (M.n === 1 ? 'OPPONENT FOUND' : 'MATCH FOUND') + ' · ' + (M.tag ? '' : M.id + ' ') + M.name.toUpperCase() + ' · ' + esc(AR_MAPS[map].name.toUpperCase()) + '</small><div class="ar-vs' + (M.n > 1 ? ' teams' : '') + (M.n >= 6 ? ' xl' : '') + '"><div class="ar-team">' + teams[0].map(p => card(p, 0)).join('') + '</div><div class="ar-vsx">VS</div><div class="ar-team">' + teams[1].map(p => card(p, 1)).join('') + '</div></div><p id="arLd">Loading the arena…</p></div>';
   const g = $('#arQ .ar-vsg'); if (g) g.append(thumb(teams[1][0].kit.it, wearIdx(teams[1][0].kit.fl)));
   try { await Promise.all([arThree(), wait(2800)]); } catch (e) { $('#arLd').textContent = 'Couldn’t load the 3D engine. Check your connection and try again.'; setTimeout(arMenu, 2500); return; }
   arScreen('arGame'); $('#arRes').hidden = true;
@@ -20029,7 +20171,7 @@ function arNetAbort(why){ const A = AR; if (!A || A.over) return; A.over = true;
    dodge or jump it, and it dies on walls.
    ===================================================================================================== */
 const AR_GOAT_ID = 'x3', AR_GOAT_STEP = .05, AR_GOAT_MAX = .75, AR_GOLD_SPEED = 26, AR_GOLD_EVERY = 10;
-const arHasGoat = f => f.load.some(l => l.it.id === AR_GOAT_ID);
+const arHasGoat = f => !arPlain() && f.load.some(l => l.it.id === AR_GOAT_ID);
 const arGoatMul = f => 1 + Math.min(AR_GOAT_MAX, (f.goatK || 0) * AR_GOAT_STEP);
 /* a synthesised bleat: a buzzy voice with fast vibrato through a nasal filter, "baa-aa" */
 const AR_BLEAT = (a, o, t) => {
@@ -20469,7 +20611,7 @@ function arTransTick(dt){
      wins the round for their team. Everyone else waits, frozen, and watches.
    ===================================================================================================== */
 const AR_PULGA = 'x6';
-const arHasPulga = f => !!f && !f.summon && f.load.some(l => l.it.id === AR_PULGA);
+const arHasPulga = f => !!f && !f.summon && !arPlain() && f.load.some(l => l.it.id === AR_PULGA);
 
 /* ---------- MSN ---------- */
 const arMsnReady = f => (f.msnNext || 0) <= AR.round;
@@ -20509,7 +20651,7 @@ function arPulgaKill(src){
   if (src.rk === 4 && !src.drib) { src.drib = true;
     if (src.me) { arSkillPop('drib'); arFeed('Driblero: your bullets ricochet off walls this round', 'b'); [659.25, 880, 1174.66].forEach((f, i) => tone(f, .3, 'triangle', .05, i * .08)); }
     else arFeed(src.name + ' unlocked Driblero', src.team === A.me.team ? 'b' : 'r'); }
-  if (src.rk === 5 && !A.duel && (!A.net || A.net.host)) setTimeout(() => { if (AR === A && A.phase === 'live' && !A.duel && src.alive) arDuelStart(src); }, 650);
+  if (src.rk === 5 && !A.duel && !A.heist && (!A.net || A.net.host)) setTimeout(() => { if (AR === A && A.phase === 'live' && !A.duel && src.alive) arDuelStart(src); }, 650);
 }
 /* a ricochet: off the wall it hit, a little bent toward a visible enemy, up to 3 times */
 function arDribble(f, from, d, done, W, foes, vis){
@@ -20965,7 +21107,7 @@ function arStatsBoard(A){
   const draw = () => {
     el.className = 'ar-sb' + (team !== 'all' && arVT(+team) === 1 ? ' red' : '');
     const list = rows.filter(r => team === 'all' || r.f.team === +team).sort((x, y) => y[sortK] - x[sortK] || y.score - x.score);
-    el.innerHTML = '<div class="ar-sb-top"><div class="ar-sb-crumb">SHOWDOWN <i>/</i> ' + esc(A.mode.id.toUpperCase() + ' ' + A.mode.name.toUpperCase()) + ' <i>/</i> ' + esc(ARM.name.toUpperCase()) + ' <i>/</i> <b>MATCH STATS</b></div>'
+    el.innerHTML = '<div class="ar-sb-top"><div class="ar-sb-crumb">SHOWDOWN <i>/</i> ' + esc((A.mode.tag ? '' : A.mode.id.toUpperCase() + ' ') + A.mode.name.toUpperCase()) + ' <i>/</i> ' + esc(ARM.name.toUpperCase()) + ' <i>/</i> <b>MATCH STATS</b></div>'
       + '<div class="ar-sb-tabs">' + [['all', 'ALL'], ['0', A.mode.n === 1 ? 'YOU' : arVT(0) ? 'RED' : 'BLUE'], ['1', A.mode.n === 1 ? 'THEM' : arVT(1) ? 'RED' : 'BLUE']].map(([v, n]) => '<button type="button" data-t="' + v + '" class="' + (team === v ? 'on' : '') + '">' + n + '</button>').join('') + '</div></div>'
       + '<div class="ar-sb-scroll"><div class="ar-sb-tab"><div class="ar-sb-h"><span>#</span><span class="pl">PLAYER</span>' + cols.map(([k, n]) => '<button type="button" data-k="' + k + '" class="' + (sortK === k ? 'on' : '') + '">' + n + (sortK === k ? ' ▾' : '') + '</button>').join('') + '</div>'
       + list.map((r, i) => '<div class="ar-sb-r t' + arVT(r.f.team) + (r.f.me ? ' me' : '') + (i % 2 ? ' alt' : '') + '" style="animation-delay:' + (i * .05) + 's"><span class="n">' + (i + 1) + '</span><span class="pl"><b>' + esc(r.f.me ? arMyName() : r.f.name) + '</b>' + (r === mvp ? '<em>MVP</em>' : '') + (r.f.me ? '<em class="you">YOU</em>' : '') + '</span>'
@@ -21054,32 +21196,10 @@ function arPadLoop(now){
   const hit = i => b[i] > .5 && !((was[i] || 0) > .5);
   const ax = i => { const v = p.axes[i] || 0; return Math.abs(v) < AR_PAD_DZ ? 0 : Math.sign(v) * (Math.abs(v) - AR_PAD_DZ) / (1 - AR_PAD_DZ); };
   if (!arPadOn) { if (b.some(v => v > .5) || p.axes.some(v => Math.abs(v) > .6)) arPadUse(true); else return; }
+  if (arPadBind) { for (let i = 0; i < b.length; i++) if (hit(i)) { arPadAssign(arPadBind, i); break; } return; }
   const A = AR, inGame = A && !$('#arGame').hidden && !A.over && !document.querySelector('.ar-ru');
-  if (inGame && !A.goatMenu) { arPadFocus(null); arPadGame(A, b, was, hit, ax, dt); }
+  if (inGame && !A.goatMenu && !A.shopOpen) { arPadFocus(null); arPadGame(A, b, was, hit, ax, dt); }
   else { if (A && (A.fire || A.padMv)) { A.fire = false; A.adsHeld = false; A.padMv = null; A.padAim = false; } arPadUI(b, hit, ax, dt); }
-}
-function arPadGame(A, b, was, hit, ax, dt){
-  const f = A.me, edge = (i, th, on, off) => { const n = b[i] > th, o = (was[i] || 0) > th; if (n && !o) on(); else if (!n && o) off(); };
-  const h = $('#arLockHint'); if (h && !h.hidden) h.hidden = true;
-  /* move */
-  const mx = ax(0), my = ax(1); A.padMv = mx || my ? {x: mx, y: my} : null;
-  /* look: a curve so small pushes aim finely and a full push turns fast; slower while aiming down sights */
-  const rx = ax(2), ry = ax(3); A.padAim = !!(rx || ry);
-  if (A.padAim && f.alive) { const W = arWS(f.load[f.cur].it), S = arS(), cv = v => Math.sign(v) * Math.pow(Math.abs(v), 1.7);
-    let r = 3.6 * (S.sens && S.sens.pc || 1); if (A.ads > .5) r /= Math.max(1, W.zoom * .8);
-    f.yaw -= cv(rx) * r * dt; f.pitch = Math.max(-1.45, Math.min(1.45, f.pitch - cv(ry) * r * .7 * dt)); }
-  edge(7, .3, () => A.fire = true, () => A.fire = false);              // R2 shoot
-  edge(6, .3, () => A.adsHeld = true, () => A.adsHeld = false);        // L2 aim
-  edge(0, .5, () => A.keys.jump = true, () => A.keys.jump = false);    // ✕ jump
-  if (hit(1) || hit(11)) A.keys.slide = true;                            // ○ / R3 slide
-  if (hit(2)) arReload(f);                                               // □ reload
-  if (hit(3)) arSwap((f.cur + 1) % 3);                                   // △ next weapon
-  if (hit(4)) arUseSkill(f);                                             // L1 skill
-  if (hit(5)) arUseMisc(f);                                              // R1 item
-  if (hit(14)) arSwap(0); if (hit(12)) arSwap(1); if (hit(15)) arSwap(2);
-  if (hit(13)) { const g = $('#arGoat'); if (g && g.offsetParent) g.click(); }
-  edge(9, .5, () => { const bd = $('#arBoard'); bd.hidden = false; arBoard(); }, () => { $('#arBoard').hidden = true; });  // Options: scoreboard while held
-  if (hit(8)) { const l = $('#arPauseBtn'); if (l) l.click(); }        // Create: leave (press twice)
 }
 /* ---------- menus: move a highlight between whatever can be pressed on screen ---------- */
 function arPadTargets(){
@@ -21120,7 +21240,7 @@ function arPadUI(b, hit, ax, dt){
     while (s && s !== document.body && !(s.scrollHeight > s.clientHeight + 2 && /auto|scroll/.test(getComputedStyle(s).overflowY)) && !(s.scrollWidth > s.clientWidth + 2 && /auto|scroll/.test(getComputedStyle(s).overflowX))) s = s.parentElement;
     (s && s !== document.body ? s : document.scrollingElement).scrollBy(rx * 900 * dt, ry * 900 * dt); }
   if (hit(0)) { const el = arPadFoc && arPadFoc.isConnected ? arPadFoc : null; if (el) { el.click(); if (/^(input|select|textarea)$/i.test(el.tagName)) el.focus(); } else arPadMove(0, 1); }
-  if (hit(1)) { if (AR && AR.goatMenu) arGoatMenuClose(); else { const ru = document.querySelector('.ar-ru'); if (ru) ru.click(); else document.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', code: 'Escape', bubbles: true})); } }
+  if (hit(1)) { if (AR && AR.shopOpen) arShopToggle(false); else if (AR && AR.goatMenu) arGoatMenuClose(); else { const ru = document.querySelector('.ar-ru'); if (ru) ru.click(); else document.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', code: 'Escape', bubbles: true})); } }
   if (hit(0) && document.querySelector('.ar-ru.tapok')) document.querySelector('.ar-ru').click();
 }
 /* rumble: a tap when you fire, a thump when you're hit */
@@ -21184,6 +21304,829 @@ function arPrinceTick(dt){
   if (g) { const o = g.userData.o; if (!o.alive || f.pmark !== o) { arPrinceMarkFx(null); if (f.pmark === o && !o.alive) f.pmark = null; } else { g.position.set(o.p.x, o.p.y + 2.45 + Math.sin(A.clock * 4) * .08, o.p.z); g.rotation.y += dt * 3; } }
   const v = $('#arPrinceV'); if (v) { const on = f.st.assassin > 0; v.hidden = !on; if (on) v.style.opacity = Math.min(1, f.st.assassin * 1.5) * (.75 + Math.sin(A.clock * 6) * .1); }
   if (A.princeT > 0) A.princeT -= dt;
+}
+
+/* =====================================================================================================
+   BLACKWATER PORT: the map for Blackout. A big container port under a storm, 220 m by 140 m.
+   Land side (west, x = -110): a raised road with steps down, the port office, customs and the delivery pad
+   under a portal crane. Middle: the container yard, rows of full-size 12 m containers stacked up to three
+   high, eight of them open to walk into. North: two warehouses (one with a mezzanine). South: twin sheds with
+   a fenced compound. East: the quay apron with two more cranes, then the sea, with the Raiders' ship moored
+   alongside (deck x 79..99). Everything you can hide the package in is at ground level.
+   ===================================================================================================== */
+AR_MODES.push({id: 'heist', tag: 'BLACKOUT', n: 4, name: 'Blackout', sub: 'Raiders vs Defenders. Guns are looks only; buy gear mid-match.', maps: ['harbor'], g: ['#10141c', '#000000'], heist: true},
+  {id: 'rumble', tag: 'BLACKOUT RUMBLE', n: 4, name: 'Blackout Rumble', sub: 'The same heist with your guns and abilities switched on.', maps: ['harbor'], g: ['#1a1024', '#000000'], heist: true, rumble: true});
+AR_MAPTILES[4].harbor = [1, 1];
+AR_LOOK.harbor = {sky: ['#2a3038', '#a9b1b8', '#7f8890'], sun: '#ffe6c8', fog: '#8a939b', hemi: ['#aebccc', '#4a4f56'], sunI: 2.7, hemiI: .5, exp: 1.0, fogN: 60, fogF: 340, cloud: '#39414c', sunDir: [.6, .36, -.72], shadowR: 58, skyFx: 1,
+  floor: ['asphalt', '#464b53'], wall: ['concrete', '#69707a', '#d6a21c'], crate: ['wood', '#667049'], barrier: ['barrier', '#b4b8bd', '#d6a21c'],
+  pillar: ['plate', '#38414d'], plat: ['plate', '#d6a21c'], stair: ['plate', '#7b848f'], cont: ['#3d6c9b', '#a3472f', '#b6bbc1', '#c47a2c', '#2e6b66', '#7b302b', '#d3d6d9', '#2f4a3a', '#5d8fb8'], tower: '#30373f',
+  bwall: ['corrug', '#c4c9ce', '#3d6c9b'], roofs: ['plate', '#878f98'], slab: ['concrete', '#7a818a'], rug: '#39414c', car: '#3d6c9b', bus: '#d6a21c', hedge: '#2f66b0', fence: ['corrug', '#2f66b0']};
+const HCL = 12, HCW = 3.2, HCH = 3.2;      /* one container: 12 m long, 3.2 wide, 3.2 high */
+let AR_HB = {c: [], trucks: [], lifts: [], drums: [], tyres: [], pitched: []};
+const AR_HARBOR_MASTS = [[-72, -26], [-72, 26], [-47.5, -40.5], [-47.5, 43], [13, -12.5], [13, 12.5], [45, -41], [45, 15], [71, -33], [71, 33], [-20, 61], [46, 61]];
+function arHarborBoxes(){
+  const B = [], raw = (cx, cz, w, d, h, k, y0) => B.push([cx - w / 2, y0 || 0, cz - d / 2, cx + w / 2, (y0 || 0) + h, cz + d / 2, k]);
+  B.ladders = []; B.routes = []; B.houses = [];
+  const K = arKit(raw, 0, 0, B), box = K.box, V = (cx, cz, w, d, h) => raw(cx, cz, w, d, h || 10, 'void');
+  const X = AR_HB = {c: [], trucks: [], lifts: [], drums: [], tyres: [], pitched: []}, NC = AR_LOOK.harbor.cont.length; let seq = 0;
+  /* a stack of closed containers (ax = the long axis), and a walk-in one open at one end with its doors swung out */
+  const C = (cx, cz, ax, lv, col, y0) => { for (let i = 0; i < lv; i++) { const c = (col + i * 4) % NC, y = (y0 || 0) + i * HCH; box(cx, cz, ax === 'x' ? HCL : HCW, ax === 'x' ? HCW : HCL, HCH, 'cont' + c, y); X.c.push({cx, cz, ax, y, col: c, n: seq++}); } };
+  const O = (cx, cz, ax, end, col, lv) => { const k = 'cont' + col % NC, sd = ax === 'x' ? (end > 0 ? 'e' : 'w') : (end > 0 ? 's' : 'n');
+    K.house(cx, cz, ax === 'x' ? HCL : HCW, ax === 'x' ? HCW : HCL, HCH, {kind: k, roofK: k, t: .15, doorH: 9, doors: [[sd, 0, HCW - .5]]}); B.houses[B.houses.length - 1].bare = 1;
+    [-1, 1].forEach(s => ax === 'x' ? box(cx + end * (HCL / 2 + .8), cz + s * (HCW / 2 - .05), 1.6, .1, HCH - .2, k) : box(cx + s * (HCW / 2 - .05), cz + end * (HCL / 2 + .8), .1, 1.6, HCH - .2, k));
+    X.c.push({cx, cz, ax, y: 0, col: col % NC, open: end, n: seq++}); if (lv > 1) C(cx, cz, ax, lv - 1, col + 2, HCH); };
+  const H = (cx, cz, w, d, h, o, pitch) => { K.house(cx, cz, w, d, h, o); if (pitch) X.pitched.push([cx, cz, w + .9, d + .9, h, pitch]); };
+  const drums = (x, z, n) => { for (let i = 0; i < n; i++) { const dx = (i % 3) * .75, dz = Math.floor(i / 3) * .75; V(x + dx, z + dz, .7, .7, 1); X.drums.push([x + dx, z + dz, i]); } };
+  const tyres = (x, z, n) => { V(x, z, 1, 1, n * .28); X.tyres.push([x, z, n]); };
+  /* the port wall on three sides; open water (invisible blockers) on the fourth and around the ship */
+  raw(-18.5, -70.5, 185, 1, 10, 'wall'); raw(-18.5, 70.5, 185, 1, 10, 'wall'); raw(-110.5, 0, 1, 142, 10, 'wall');
+  V(92, -70.5, 36, 1); V(92, 70.5, 36, 1); V(110.5, 0, 1, 142);
+  V(76.5, -47, 5, 46); V(76.5, 0, 5, 40); V(76.5, 47, 5, 46); V(89, -58, 20, 24); V(89, 58, 20, 24); V(104.5, 0, 11, 140);
+  /* the ship: bulwarks with a gap at each gangway, the bridge at the stern, containers at the bow, a deck crane */
+  box(79.15, -35, .3, 22, 1.1, 'pillar'); box(79.15, 0, .3, 40, 1.1, 'pillar'); box(79.15, 35, .3, 22, 1.1, 'pillar');
+  box(98.85, 0, .3, 92, 1.1, 'pillar'); box(89, -45.85, 20, .3, 1.1, 'pillar'); box(89, 45.85, 20, .3, 1.1, 'pillar');
+  [-1, 1].forEach(s => { K.rail(74, s * 24, 79, s * 24, 0); K.rail(74, s * 20, 79, s * 20, 0); });
+  H(89, 37.5, 14, 12, 3.6, {doors: [['n', 0, 2.8]], wins: [['w', 0, 2.2], ['e', 0, 2.2]], sign: 'MV NOX', signSide: 'n'});
+  C(85.6, -36, 'z', 2, 1); C(88.8, -36, 'z', 1, 6); C(92, -36, 'z', 2, 4); C(95.2, -22, 'z', 1, 0);
+  box(96.6, 16, 1.6, 1.6, 5, 'pillar'); box(84, -18, 1.6, 1.6, 1.4, 'crate'); box(93, 14, 2.4, 1.6, 1.4, 'crate'); box(82.5, 12, 1.6, 1.6, 1.4, 'crate');
+  /* the land side: a raised road with two flights of steps, containers on it and under it */
+  box(-104, 0, 12, 124, 3.2, 'slab'); K.stairs(-93.2, -34, 'x', -1, 3, 3.2); K.stairs(-93.2, 34, 'x', -1, 3, 3.2);
+  K.rail(-98, -62, -98, -35.6, 3.2); K.rail(-98, -32.4, -98, 32.4, 3.2); K.rail(-98, 35.6, -98, 62, 3.2); K.rail(-110, -62, -98, -62, 3.2); K.rail(-110, 62, -98, 62, 3.2);
+  C(-107, -48, 'z', 1, 0, 3.2); C(-107, 18, 'z', 2, 6, 3.2); C(-107, 50, 'z', 1, 3, 3.2); box(-102, -10, 1.6, 1.6, 1.4, 'crate', 3.2); box(-103, 2, 3, 1.4, 1.2, 'crate', 3.2); box(-101, 44, 1.6, 1.6, 1.4, 'crate', 3.2);
+  C(-96.3, -52, 'z', 1, 5); C(-96.3, -14, 'z', 2, 0); C(-96.3, 14, 'z', 1, 2); C(-96.3, 54, 'z', 2, 8);
+  H(-84, -52, 10, 8, 3.4, {doors: [['s', 0, 2.6], ['e', 0, 2.2]], wins: [['n', 0, 2]], sign: 'CUSTOMS', signSide: 's'});
+  H(-82, 47, 18, 14, 3.8, {doors: [['n', -4, 2.8], ['e', 2, 2.6]], wins: [['n', 4, 2.2], ['s', -4, 2], ['s', 4, 2]], sign: 'PORT OFFICE', signSide: 'n'});
+  K.ladder(-73, 43, 1, 0, 3.8); box(-86, 51, 3, 1.2, 1, 'crate'); box(-78, 50, 1.2, 3, 1, 'crate');
+  /* a lorry by the gate with a container on its trailer, and two forklifts */
+  box(-80, -30, 13, 2.4, 1.1, 'pillar'); C(-80.5, -30, 'x', 1, 3, 1.1); box(-72.1, -30, 2.8, 2.8, 3.1, 'plat'); X.trucks.push([-80, -30]);
+  [[-52, 24, 0], [42, -10, 1], [62, 38, 0]].forEach(([x, z, r]) => { box(x, z, r ? 1.4 : 2.6, r ? 2.6 : 1.4, 2.1, 'plat'); X.lifts.push([x, z, r]); });
+  /* the delivery crane straddles the pad; two more cranes stand on the quay */
+  [[-68, -9], [-52, -9], [-68, 9], [-52, 9], [56, 12], [68, 12], [56, 28], [68, 28], [56, -52], [68, -52], [56, -38], [68, -38]].forEach(([x, z]) => box(x, z, 1.8, 1.8, 15, 'plat'));
+  box(-45, 0, 1, 8, 1.2, 'barrier'); box(-60, -15, 8, 1, 1.2, 'barrier'); box(-60, 15, 8, 1, 1.2, 'barrier');
+  /* the container yard: three rows north of the road, three south, in pairs with 6 m cross lanes */
+  C(-38, -36, 'x', 2, 0); C(-26, -36, 'x', 2, 3); C(-8, -36, 'x', 1, 2); O(4, -36, 'x', 1, 6, 1); C(22, -36, 'x', 2, 1); C(34, -36, 'x', 1, 8);
+  C(-38, -28, 'x', 1, 4); C(-26, -28, 'x', 3, 6); O(-8, -28, 'x', -1, 0, 1); C(4, -28, 'x', 3, 5); C(22, -28, 'x', 2, 2); C(34, -28, 'x', 2, 7);
+  O(-38, -20, 'x', -1, 3, 1); C(-26, -20, 'x', 1, 1); C(-8, -20, 'x', 2, 8); C(4, -20, 'x', 1, 4); C(22, -20, 'x', 1, 0); O(34, -20, 'x', 1, 2, 2);
+  box(22, -32, 2.6, 4.8, .25, 'slab', 6.15); K.ladder(22, -37.6, 0, -1, 6.4); K.ladder(-8, -18.4, 0, 1, 6.4); K.ladder(-26, -18.4, 0, 1, 3.2);
+  C(-38, 20, 'x', 2, 5); C(-26, 20, 'x', 1, 2); O(-8, 20, 'x', -1, 4, 2); C(4, 20, 'x', 2, 0);
+  C(-38, 28, 'x', 1, 7); C(-26, 28, 'x', 3, 1); C(-8, 28, 'x', 2, 6);
+  O(-38, 36, 'x', -1, 8, 1); C(-26, 36, 'x', 2, 3); C(-8, 36, 'x', 1, 5); K.ladder(-26, 37.6, 0, 1, 6.4); K.ladder(4, 18.4, 0, -1, 6.4);
+  /* clusters on the road through the middle, by the pad and on the quay apron */
+  C(-11.2, -2, 'z', 2, 2); C(-8, -2, 'z', 2, 7); C(-4.8, -2, 'z', 1, 1); O(26, 2, 'x', 1, 5, 1); C(26, 5.2, 'x', 2, 0);
+  C(-54, 36, 'z', 1, 6); C(-50.8, 36, 'z', 2, 4); C(-52, -30, 'z', 1, 8);
+  C(50, -30, 'z', 2, 3); C(53.2, -30, 'z', 3, 0); C(50, -6, 'z', 1, 7); C(61, 2, 'x', 2, 2); C(50, 34, 'z', 1, 1);
+  /* north: the big warehouse (racks, a mezzanine with a container tucked under it) and the green-roofed one */
+  H(-34, -55, 44, 22, 9, {doors: [['s', -12, 5.4], ['s', 10, 5.4], ['e', 3, 2.8]], doorH: 5, sign: 'WAREHOUSE 3', signSide: 's'});
+  box(-40, -62.6, 30, 6, .3, 'slab', 4); K.stairs(-18.4, -62.6, 'x', -1, 2.6, 4.3); K.rail(-55, -59.6, -25.4, -59.6, 4.3);
+  O(-44, -62.6, 'x', 1, 7, 1); [[-50, -52], [-40, -52], [-30, -50]].forEach(([x, z]) => box(x, z, 8, 1.3, 5, 'pillar'));
+  box(-20, -48.5, 3, 1.6, 1.6, 'crate'); box(-52, -47, 1.6, 1.6, 1.6, 'crate'); box(-52, -47, 1.4, 1.4, 1.4, 'crate', 1.6); box(-46, -63, 2, 1.6, 1.4, 'crate', 4.3); box(-30, -63.5, 1.6, 1.6, 1.4, 'crate', 4.3);
+  K.ladder(-56, -50, -1, 0, 9); box(-40, -56, 2.4, 2.4, 1.2, 'crate', 9); box(-24, -60, 3, 2, 1, 'crate', 9);
+  H(22, -56, 36, 18, 7, {doors: [['s', -9, 5], ['s', 9, 5], ['e', 0, 2.8]], doorH: 4.6, sign: 'COLD STORE', signSide: 's'}, 2.2);
+  [[10, -60], [22, -60], [34, -60]].forEach(([x, z]) => box(x, z, 7, 1.3, 4, 'pillar')); box(14, -51, 3, 1.6, 1.6, 'crate'); box(30, -52, 1.6, 1.6, 1.6, 'crate'); box(30, -52, 1.4, 1.4, 1.2, 'crate', 1.6);
+  /* south: twin sheds joined by a doorway, a blue fenced compound beside them, a white shed by the quay, a bunker */
+  H(34, 29, 20, 14, 5.6, {doors: [['n', 0, 4.4], ['s', 0, 3], ['w', 2, 2.6]], doorH: 4, sign: 'DRY STORE', signSide: 'n'}, 1.8);
+  H(34, 43, 20, 14, 5.6, {doors: [['n', 0, 3], ['w', 0, 2.6], ['e', 0, 2.6]], doorH: 4}, 1.8);
+  box(28, 26, 3, 1.6, 1.6, 'crate'); box(40, 32, 1.6, 1.6, 1.6, 'crate'); box(40, 46, 4, 1.3, 3, 'pillar'); box(28, 47, 1.6, 1.6, 1.6, 'crate');
+  box(13, 26, 2, .15, 2.4, 'hedge'); box(21.5, 26, 5, .15, 2.4, 'hedge'); box(12, 38, .15, 24, 2.4, 'hedge'); box(18, 50, 12, .15, 2.4, 'hedge');
+  box(15, 47, 3.6, 1.8, 1.3, 'plat'); C(19.8, 33, 'z', 1, 7); box(14.5, 31, 1.6, 1.6, 1.4, 'crate');
+  H(58, 51, 16, 12, 5, {doors: [['n', 0, 3.4], ['w', 0, 2.6]], doorH: 3.6, wins: [['e', 0, 2.2]], sign: 'HARBOUR MASTER', signSide: 'n'}, 1.6);
+  H(-56, 60, 14, 10, 3.2, {doors: [['n', 0, 2.6]], kind: 'wall', wins: [['e', 0, 1.8]]});
+  /* cover: barriers, crate stacks, drums, tyres, and the lamp masts */
+  [[-30, -9.5, 8, 1], [-30, 9.5, 8, 1], [10, -9, 8, 1], [8, 10, 1, 7], [40, 0, 1, 8], [44, -22, 1, 8], [50, 24, 8, 1], [66, -16, 1, 7], [66, 16.5, 1, 6], [70, -8, 6, 1], [70, 6, 6, 1], [-64, -40, 8, 1], [-64, 30, 1, 8], [60, -24, 8, 1], [-2, 46, 8, 1], [-16, -41, 1, 5]]
+    .forEach(([x, z, w, d]) => box(x, z, w, d, 1.2, 'barrier'));
+  [[-48, 52, 3.4, 1.6, 1.6], [-44.6, 52, 3.4, 1.6, 1.6], [-46.3, 52, 3.4, 1.6, 1.4, 1.6], [-40, 60, 3.4, 1.6, 1.6], [-62, -24, 1.6, 1.6, 1.6], [-70, 36, 3.4, 1.6, 1.6], [-70, 36, 1.6, 1.6, 1.4, 1.6], [0, -10, 1.6, 1.6, 1.6], [18, 12, 3.4, 1.6, 1.6], [44, 8, 1.6, 1.6, 1.6],
+    [62, -10, 3.4, 1.6, 1.6], [62, -10, 1.6, 1.6, 1.4, 1.6], [70, 40, 1.6, 1.6, 1.6], [-20, 46, 1.6, 1.6, 1.6], [0, 60, 3.4, 1.6, 1.6], [-76, 8, 1.6, 1.6, 1.6], [-4, -47, 1.6, 1.6, 1.6], [44, -52, 3.4, 1.6, 1.6], [70, -58, 3.4, 1.6, 1.6], [24, -12, 1.6, 1.6, 1.6]]
+    .forEach(([x, z, w, d, h, y]) => box(x, z, w, d, h, 'crate', y || 0));
+  drums(-68, -48, 6); drums(42, 56, 5); drums(-2, -66, 6); drums(68, -24, 4); drums(-20, 12, 3); drums(46, -62, 5); drums(96.2, 28.6, 3);
+  tyres(-62, 44, 4); tyres(-60.8, 44.6, 3); tyres(40, 18, 4); tyres(6, 56, 3); tyres(-46, -14, 4);
+  AR_HARBOR_MASTS.forEach(([x, z]) => box(x, z, .5, .5, 9, 'pillar'));
+  return B;
+}
+AR_MAPS.harbor = {name: 'Blackwater Port', W: 220, D: 140, wallH: 10, pal: ['#59626c', '#69727c', '#79828c'], sky: '#57616c', open: true,
+  floorRects: [[-111, -71, 74, 71], [74, -24, 79, -20], [74, 20, 79, 24]],
+  pad: {x: -60, z: 0}, zone: [82, -9, 96, 9], hookY: 14.4,
+  cam1: [[152, 30, -74], [128, 15, -42], [56, 7, 0]],
+  spawnD: [[-88, -4], [-88, 4], [-84, -7.5], [-84, 7.5]], spawnR: [[86, 26.5], [90, 26.5], [94, 26.5], [90, 29]],
+  /* where the Defenders' own players hide it when you are a Raider, and where Raiders go looking */
+  hides: [[.5, -36], [-4.5, -28], [-34.5, -20], [30.5, -20], [-4.5, 20], [-34.5, 36], [22.5, 2], [-47.5, -62.6], [-52, -50], [10, -51], [38, 40], [17, 43], [-87, 49], [-4, -64], [60, 52], [-56, 61]],
+  search: [[-60, 0], [-20, -8], [20, -8], [0, 12], [-44, -41], [-44, 44], [46, 0], [46, -44], [47, 42], [-76, -40], [-74, 30], [14, -44], [-18, 54], [64, -30]],
+  boxes: arHarborBoxes, decor: arHarborDecor};
+
+/* everything you can see but not touch: the sea, the ship's hull and upper works, the cranes, container lettering and
+   door bars, pitched roofs, lane paint, lorry wheels, lamps, rain and lightning */
+function arHarborDecor(T, sc, M, hemiL){
+  const G = {}, put = (k, g) => (G[k] = G[k] || []).push(g), R = seeded(4219), Q = 74, X = AR_HB;
+  const bx = (k, x, y, z, w, h, d, rz, ry) => { const g = new T.BoxGeometry(w, h, d); if (rz) g.rotateZ(rz); if (ry) g.rotateY(ry); g.translate(x, y, z); put(k, g); };
+  const cyl = (k, x, y, z, r, h, seg, r2, rx) => { const g = new T.CylinderGeometry(r2 == null ? r : r2, r, h, seg || 10); if (rx) g.rotateX(Math.PI / 2); g.translate(x, y, z); put(k, g); };
+  const flat = (k, x, z, w, d, y, ry) => { const g = new T.PlaneGeometry(w, d).rotateX(-Math.PI / 2); if (ry) g.rotateY(ry); g.translate(x, y || .014, z); put(k, g); };
+  M.floor.roughness = .5; M.floor.metalness = .12;                       /* wet tarmac */
+  /* the sky: storm cloud overhead that drifts, a bright hazy band at the horizon and a low sun burning through it */
+  const skyM = sc.children.find(o => o.isMesh && o.renderOrder === -10), sd = arMapLook().sunDir, skyU = {sunDir: {value: new T.Vector3(sd[0], sd[1], sd[2]).normalize()}, time: {value: 0}, fogC: {value: new T.Color(arMapLook().fog)}};
+  if (skyM) skyM.material = new T.ShaderMaterial({side: T.BackSide, depthWrite: false, fog: false, uniforms: skyU, defines: {OCT: AR_MOBILE ? 3 : 5},
+    vertexShader: 'varying vec3 vD; void main(){ vD = position; vec4 p = projectionMatrix * modelViewMatrix * vec4(position, 1.0); gl_Position = p.xyww; }',
+    fragmentShader: 'uniform vec3 sunDir; uniform float time; uniform vec3 fogC; varying vec3 vD;\n'
+      + 'float h(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }\n'
+      + 'float n(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f); return mix(mix(h(i), h(i + vec2(1.0, 0.0)), f.x), mix(h(i + vec2(0.0, 1.0)), h(i + vec2(1.0, 1.0)), f.x), f.y); }\n'
+      + 'float fbm(vec2 p){ float a = 0.5, s = 0.0; for (int i = 0; i < OCT; i++) { s += a * n(p); p = p * 2.03 + vec2(17.0, 9.0); a *= 0.5; } return s; }\n'
+      + 'void main(){ vec3 d = normalize(vD); float y = max(d.y, 0.0); vec2 p = d.xz / (y + 0.16) * 1.5 + vec2(time * 0.012, time * 0.004);\n'
+      + ' float c = fbm(p), c2 = fbm(p * 2.7 + 5.0 - time * 0.01); float dens = smoothstep(0.36, 0.74, c * 0.78 + c2 * 0.34 + y * 0.28);\n'
+      + ' float s = max(dot(d, sunDir), 0.0); vec3 hor = mix(vec3(0.62, 0.65, 0.67), vec3(1.0, 0.94, 0.82), pow(s, 3.0)); vec3 sky = mix(hor, vec3(0.30, 0.34, 0.39), pow(y, 0.45));\n'
+      + ' vec3 cl = mix(mix(vec3(0.46, 0.49, 0.52), vec3(0.98, 0.90, 0.78), pow(s, 2.0)), vec3(0.06, 0.075, 0.095), smoothstep(0.1, 0.95, dens * 0.8 + y * 0.45 + c2 * 0.2));\n'
+      + ' vec3 col = mix(sky, cl, dens); col += vec3(1.0, 0.9, 0.72) * (pow(s, 60.0) * 1.6 + pow(s, 8.0) * 0.35) * (1.0 - dens * 0.75);\n'
+      + ' col = mix(fogC, col, smoothstep(0.0, 0.14, d.y + 0.015)); gl_FragColor = vec4(col, 1.0);\n #include <colorspace_fragment>\n}'});
+  /* quay: its face down to the water, a yellow kerb, bollards, crane rails */
+  bx('quay', Q - .25, -1.9, 0, .5, 3.8, 142); bx('yellow', Q - .3, .07, 0, .34, .14, 140);
+  for (let z = -66; z <= 66; z += 6) { if (Math.abs(Math.abs(z) - 22) < 3.5) continue; cyl('dark', Q - 1, .32, z, .26, .64); cyl('dark', Q - 1, .68, z, .36, .1); }
+  [56, 68].forEach(x => bx('dark', x, .03, 0, .16, .06, 138));
+  /* the ship */
+  bx('hull', 89, -1.5, 0, 20, 3, 92); bx('hullR', 89, -1.15, 0, 20.1, .6, 92.1); bx('deck', 89, .012, 0, 19.7, .024, 91.7);
+  { const sh = new T.Shape(); sh.moveTo(79, 46); sh.lineTo(99, 46); sh.lineTo(89, 62); sh.closePath(); const eg = new T.ExtrudeGeometry(sh, {depth: 4.1, bevelEnabled: false}); eg.rotateX(-Math.PI / 2); eg.translate(0, -3, 0); put('hull', eg); }
+  bx('white', 89, 5.1, 38, 12, 3, 9); bx('winLit', 89, 5.4, 33.48, 11, .9, .05); bx('white', 89, 8, 38.5, 9, 2.8, 7); bx('winLit', 89, 8.3, 34.98, 8.2, 1, .05); [-1, 1].forEach(s => bx('winLit', 89 + s * 4.52, 8.3, 38.5, .05, 1, 5.4));
+  bx('dark', 89, 9.5, 38.5, 9.8, .2, 7.8); cyl('dark', 89, 12.6, 38.5, .16, 6); bx('white', 89, 13.6, 38.5, 3, .14, .4); cyl('dark', 92.6, 9, 42, 1.1, 5.6, 16); cyl('red', 92.6, 10.8, 42, 1.14, .8, 16);
+  bx('lightR', 79.3, 1.4, 44.5, .22, .22, .22); bx('lightG', 98.7, 1.4, 44.5, .22, .22, .22); bx('lampH', 89, 15.7, 38.5, .26, .26, .26); cyl('orange', 84.4, 7.2, 41.6, .6, 3, 10, null, 1);
+  cyl('dark', 96.6, 7, 16, .5, 4, 10); bx('craneY', 92.6, 9.4, 16, 9, .5, .5, .32); bx('white', 96.6, 9, 16, 1.6, 1.4, 1.6);
+  [-1, 1].forEach(s => bx('wood', 76.5, .03, s * 22, 5.6, .06, 3.8));
+  /* the drop zone on deck and the delivery pad on the dock */
+  const Z = ARM.zone, zc = [(Z[0] + Z[2]) / 2, (Z[1] + Z[3]) / 2];
+  bx('zoneGlow', zc[0], .05, Z[1], Z[2] - Z[0], .05, .22); bx('zoneGlow', zc[0], .05, Z[3], Z[2] - Z[0], .05, .22); bx('zoneGlow', Z[0], .05, zc[1], .22, .05, Z[3] - Z[1]); bx('zoneGlow', Z[2], .05, zc[1], .22, .05, Z[3] - Z[1]);
+  { const ring = new T.RingGeometry(3.6, 4, 44).rotateX(-Math.PI / 2); ring.translate(ARM.pad.x, .02, ARM.pad.z); put('paintY', ring); flat('paintY', ARM.pad.x, ARM.pad.z, 4.4, .26, .02); flat('paintY', ARM.pad.x, ARM.pad.z, .26, 4.4, .02); }
+  /* lane paint: the road through the middle, bays by the office, a turning arc, arrows, hatching */
+  for (let x = -42; x < 42; x += 6) { flat('paintY', x + 1.5, -12.6, 3, .2); flat('paintY', x + 1.5, 12.6, 3, .2); }
+  for (let z = -62; z < 62; z += 6) flat('paintY', 46.5, z + 1.5, .2, 3); for (let z = -40; z < 40; z += 6) flat('paintY', -44.6, z + 1.5, .2, 3);
+  { const arc = new T.RingGeometry(13, 13.3, 40, 1, 0, Math.PI / 2).rotateX(-Math.PI / 2); arc.translate(-58, .015, 26); put('paintY', arc); const a2 = new T.RingGeometry(9, 9.3, 40, 1, Math.PI, Math.PI / 2).rotateX(-Math.PI / 2); a2.translate(44, .015, -12); put('paintY', a2); }
+  [[-30, 0, 0], [0, 15, Math.PI], [30, -15, 0], [46.5, -50, Math.PI / 2]].forEach(([x, z, r]) => { const s = new T.Shape(); s.moveTo(-1.6, -.25); s.lineTo(.4, -.25); s.lineTo(.4, -.8); s.lineTo(1.8, 0); s.lineTo(.4, .8); s.lineTo(.4, .25); s.lineTo(-1.6, .25); s.closePath();
+    const g = new T.ShapeGeometry(s).rotateX(-Math.PI / 2); g.rotateY(r); g.translate(x, .015, z); put('paintY', g); });
+  for (let i = 0; i < 7; i++) flat('paintW', -74 + i * 3.2, 37.4, .16, 5); for (let i = 0; i < 9; i++) flat('paintY', -70 + i * 1.1, -8 + 0, .3, 5, .014, .6);
+  /* cranes: frame on four legs, machine house, tower, a long jib and its stays */
+  const crane = (cx, cz, lx, lz, dir) => {
+    [-1, 1].forEach(s => { bx('craneY', cx, 15.5, cz + s * lz, 2 * lx + 2, 1.1, 1.9); bx('craneY', cx + s * lx, 15.5, cz, 1.9, 1.1, 2 * lz); bx('craneY', cx + s * lx, 8, cz, .45, .45, 2 * lz - 1.6); bx('craneY', cx, 11.6, cz + s * lz, 2 * lx - 1.6, .45, .45);
+      bx('craneY', cx + s * lx, 11.5, cz, .35, .35, Math.hypot(2 * lz, 7), 0, 0); });
+    bx('white', cx, 18.4, cz, 7, 4.6, 6); bx('winDark', cx + dir * 3.53, 19, cz, .06, 1.6, 4.4); bx('dark', cx, 20.8, cz, 7.6, .25, 6.6);
+    bx('craneY', cx - dir * 1, 26, cz, 1.6, 10.4, 1.6); bx('craneY', cx + dir * 17, 29.6, cz, 38, 1.2, 1.2, dir * .42); bx('craneY', cx - dir * 6.4, 21.4, cz, 9, 1.2, 3.2); bx('dark', cx - dir * 9.6, 20, cz, 2.6, 2.6, 3);
+    bx('dark', cx + dir * 14, 32.6, cz, 31, .14, .14, dir * .2); bx('dark', cx + dir * 34.3, 37.2, cz, .12, 3, .12); bx('dark', cx, 14.7, cz, 2.2, .6, 2.2); };
+  crane(-60, 0, 8, 9, 1); crane(62, 20, 6, 8, 1); crane(62, -45, 6, 7, 1);
+  /* containers: locking bars on a closed end, lettering along the sides */
+  const NAMES = ['NOX LINE', 'BLKWTR', 'HALDEN', 'MERIDIAN', 'CARGO·13'];
+  X.c.forEach(c => { const yc = c.y + HCH / 2, e = HCL / 2 + .035;
+    if (!c.open) [-1.05, -.4, .4, 1.05].forEach(o => c.ax === 'x' ? bx('dark', c.cx + e, yc, c.cz + o, .05, HCH - .5, .07) : bx('dark', c.cx + o, yc, c.cz + e, .07, HCH - .5, .05));
+    if (c.n % 2 === 0) { const k = 'txt' + c.n % NAMES.length; [-1, 1].forEach(s => { const g = new T.PlaneGeometry(6.4, 1.5); if (c.ax === 'x') { if (s < 0) g.rotateY(Math.PI); g.translate(c.cx, yc + .3, c.cz + s * (HCW / 2 + .03)); } else { g.rotateY(s * Math.PI / 2); g.translate(c.cx + s * (HCW / 2 + .03), yc + .3, c.cz); } put(k, g); }); } });
+  /* pitched roofs over the sheds */
+  X.pitched.forEach(([cx, cz, w, d, h, rise]) => { const alongX = w >= d, span = alongX ? d : w, len = alongX ? w : d, s = new T.Shape(); s.moveTo(-span / 2, 0); s.lineTo(span / 2, 0); s.lineTo(0, rise); s.closePath();
+    const g = new T.ExtrudeGeometry(s, {depth: len, bevelEnabled: false}); g.translate(0, 0, -len / 2); if (alongX) g.rotateY(Math.PI / 2); g.translate(cx, h, cz); put('roofP', g); });
+  /* lorry cab glass and wheels, forklift masts, drums, tyre stacks */
+  X.trucks.forEach(([x, z]) => { bx('winDark', x + 9.32, 2.3, z, .06, 1, 2.3); [-5, -3.4, 2.6, 7.6].forEach(o => [-1, 1].forEach(s => cyl('tyre', x + o, .52, z + s * 1.15, .52, .4, 14, null, 1))); bx('lampH', x + 9.33, 1, z - 1, .05, .2, .4); bx('lampH', x + 9.33, 1, z + 1, .05, .2, .4); });
+  X.lifts.forEach(([x, z, r]) => { const f = (a, b) => r ? [x + b, z + a] : [x + a, z + b]; [[-.5], [.5]].forEach(([o]) => { const p = f(1.45, o); bx('dark', p[0], 1.7, p[1], .12, 3.4, .12); const q = f(2.1, o); bx('dark', q[0], .12, q[1], r ? .14 : 1.3, .08, r ? 1.3 : .14); });
+    const t = f(-.2, 0); bx('dark', t[0], 2.6, t[1], r ? 1.3 : 1.6, .08, r ? 1.6 : 1.3); [[-.8, -.72], [-.8, .72], [.8, -.72], [.8, .72]].forEach(([a, b]) => { const p = f(a, b); const g = new T.CylinderGeometry(.34, .34, .3, 12); r ? g.rotateZ(Math.PI / 2) : g.rotateX(Math.PI / 2); g.translate(p[0], .34, p[1]); put('tyre', g); }); });
+  X.drums.forEach(([x, z, i]) => { cyl(['drumB', 'drumR', 'dark'][i % 3], x, .5, z, .33, 1, 12); cyl('dark', x, 1.01, z, .3, .03, 12); });
+  X.tyres.forEach(([x, z, n]) => { for (let i = 0; i < n; i++) { const g = new T.TorusGeometry(.36, .15, 8, 16).rotateX(Math.PI / 2); g.translate(x, .15 + i * .28, z); put('tyre', g); } });
+  /* lamp masts */
+  AR_HARBOR_MASTS.forEach(([x, z]) => { cyl('dark', x, 11.5, z, .16, 5); bx('dark', x, 14, z, 3, .16, .6); bx('lampH', x - 1, 13.88, z, .8, .1, .4); bx('lampH', x + 1, 13.88, z, .8, .1, .4); });
+  /* puddles and litter */
+  const blocked = (x, z, r) => ARB.some(b => x + r > b[0] && x - r < b[3] && z + r > b[2] && z - r < b[5] && b[1] < .5);
+  for (let i = 0; i < 46; i++) { const x = -94 + R() * 164, z = -66 + R() * 132, r = .6 + R() * 1.3; if (blocked(x, z, r)) continue; const g = new T.CircleGeometry(r, 18).rotateX(-Math.PI / 2); g.scale(1, 1, .5 + R() * .45); g.translate(x, .011, z); put('puddle', g); }
+  for (let i = 0; i < 90; i++) { const x = -94 + R() * 164, z = -66 + R() * 132; if (blocked(x, z, .3)) continue; flat('paper', x, z, .2 + R() * .22, .28 + R() * .16, .013, R() * 3); }
+  /* far off: the rest of the port, a fire on the far shore with its smoke, another ship out at sea */
+  for (let i = 0; i < 26; i++) { const land = i < 14, x = land ? -128 - R() * 60 : -100 + R() * 150, z = land ? -90 + R() * 180 : (i % 2 ? 1 : -1) * (84 + R() * 40), h = 9 + R() * 26, w = 10 + R() * 16; bx('far', x, h / 2, z, w, h, w); }
+  bx('far', 190, 1.6, -110, 60, 6, 13); bx('far', 208, 8, -110, 10, 7, 10); bx('winLit', 203, 9, -103.4, 6, 1, .1);
+  bx('fire', -150, 3, -84, 5, 6, 5); for (let i = 0; i < 9; i++) { const g = new T.SphereGeometry(4 + i * 1.3, 8, 6); g.translate(-150 + i * 3.2, 9 + i * 6, -84 - i * 1.5); put('smoke', g); }
+  const mats = {quay: ['#4a4f57', .9, 0], yellow: ['#d6a21c', .6, .1], dark: ['#242932', .4, .7], hull: ['#1b2027', .55, .5], hullR: ['#6e1f1c', .6, .3], deck: ['#3a4843', .65, .35], white: ['#c5cacf', .6, .1], orange: ['#d9611e', .5, .1],
+    winDark: ['#0e131a', .1, .6], red: ['#b3261e', .5, .2], wood: ['#6b5137', .85, 0], craneY: ['#d6a21c', .45, .35], puddle: ['#11161c', .04, .7], far: ['#3d454e', 1, 0], roofP: ['#8a929b', .55, .45], tyre: ['#15171b', .9, 0],
+    drumB: ['#2f5f8f', .5, .5], drumR: ['#8f3a2a', .5, .5], paintY: ['#d9b22a', .7, 0], paintW: ['#c9ced3', .7, 0], paper: ['#d8dadc', .9, 0], smoke: ['#1c2026', 1, 0]};
+  const glow = {winLit: ['#ffd58a', 1.5], lampH: ['#ffd9a0', 2.4], zoneGlow: ['#ff7a2a', 1.8], lightR: ['#ff2a2a', 3], lightG: ['#3bff7a', 3], fire: ['#ff8a2a', 3]};
+  const soft = {puddle: .5, paintY: .8, paintW: .6, smoke: .26};
+  Object.keys(G).forEach(k => { let m;
+    if (k.startsWith('txt')) { const tx = new T.CanvasTexture(arCanvas(512, 120, (g, w, h) => { g.clearRect(0, 0, w, h); g.fillStyle = 'rgba(255,255,255,.92)'; g.font = '700 92px Teko, Fredoka, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(NAMES[+k.slice(3)], w / 2, h / 2 + 6, w - 20); }));
+      tx.colorSpace = T.SRGBColorSpace; m = new T.MeshStandardMaterial({map: tx, alphaTest: .4, roughness: .8, transparent: false}); }
+    else m = glow[k] ? new T.MeshStandardMaterial({color: glow[k][0], emissive: glow[k][0], emissiveIntensity: glow[k][1], roughness: .6, fog: k !== 'fire'})
+      : new T.MeshStandardMaterial({color: mats[k][0], roughness: mats[k][1], metalness: mats[k][2], transparent: k in soft, opacity: soft[k] || 1, depthWrite: !(k in soft), polygonOffset: k in soft, polygonOffsetFactor: -2, polygonOffsetUnits: -2});
+    const me = new T.Mesh(arMerge(T, G[k]), m); me.castShadow = !glow[k] && !(k in soft) && k !== 'far' && k !== 'deck' && k !== 'paper' && !k.startsWith('txt'); me.receiveShadow = !glow[k] && k !== 'smoke'; sc.add(me); });
+  /* the sea */
+  const wtx = new T.CanvasTexture(arCanvas(256, 256, (g, w, h) => { g.fillStyle = '#808080'; g.fillRect(0, 0, w, h); const r = seeded(31);
+    for (let i = 0; i < 900; i++) { const x = r() * w, y = r() * h, L = 8 + r() * 30, a = r() * .5; g.strokeStyle = r() < .5 ? 'rgba(255,255,255,' + a + ')' : 'rgba(0,0,0,' + a + ')'; g.lineWidth = 1 + r() * 2; g.beginPath(); g.moveTo(x, y); g.quadraticCurveTo(x + L / 2, y + (r() - .5) * 6, x + L, y); g.stroke(); } }));
+  wtx.wrapS = wtx.wrapT = T.RepeatWrapping; wtx.repeat.set(90, 90);
+  const sea = new T.Mesh(new T.PlaneGeometry(900, 900).rotateX(-Math.PI / 2), new T.MeshStandardMaterial({color: '#3a4852', roughness: .22, metalness: .6, bumpMap: wtx, bumpScale: 2.2, envMapIntensity: 1.5})); sea.position.y = -1.5; sc.add(sea);
+  /* lamps that really light the ground: the pad, the yard and the two gangways (fewer on phones) */
+  { const halo = new T.CanvasTexture(arCanvas(64, 64, (g, w) => { const gr = g.createRadialGradient(w / 2, w / 2, 0, w / 2, w / 2, w / 2); gr.addColorStop(0, 'rgba(255,225,170,.9)'); gr.addColorStop(.3, 'rgba(255,200,130,.28)'); gr.addColorStop(1, 'rgba(255,190,120,0)'); g.fillStyle = gr; g.fillRect(0, 0, w, w); }));
+    const hm = new T.SpriteMaterial({map: halo, blending: T.AdditiveBlending, depthWrite: false, transparent: true, fog: false, opacity: .55});
+    AR_HARBOR_MASTS.forEach(([x, z]) => [-1, 1].forEach(s => { const sp = new T.Sprite(hm); sp.position.set(x + s, 13.8, z); sp.scale.setScalar(4.4); sc.add(sp); })); }
+  /* rain: streaks in a box that follows the camera */
+  const NR = AR_MOBILE ? 320 : 850, rp = new Float32Array(NR * 6), drop = [];
+  for (let i = 0; i < NR; i++) drop.push({x: (Math.random() - .5) * 46, y: Math.random() * 24 - 6, z: (Math.random() - .5) * 46, s: 24 + Math.random() * 9});
+  const rgeo = new T.BufferGeometry(); rgeo.setAttribute('position', new T.BufferAttribute(rp, 3));
+  const rain = new T.LineSegments(rgeo, new T.LineBasicMaterial({color: '#b3c2d2', transparent: true, opacity: .3, fog: false, depthWrite: false})); rain.frustumCulled = false; sc.add(rain);
+  const base = hemiL.intensity; let bolt = 5 + Math.random() * 8, flash = 0, amb = 0;
+  return {tick(dt, cam){
+    for (let i = 0; i < NR; i++) { const d = drop[i]; d.y -= d.s * dt; if (d.y < -6) d.y += 24; const o = i * 6; rp[o] = d.x; rp[o + 1] = d.y; rp[o + 2] = d.z; rp[o + 3] = d.x + .16; rp[o + 4] = d.y + .85; rp[o + 5] = d.z + .05; }
+    rgeo.attributes.position.needsUpdate = true; rain.position.set(cam.position.x, cam.position.y, cam.position.z);
+    const c = cam.position, inside = ARM.houses.some(h => h.roof && c.x > h.x0 && c.x < h.x1 && c.z > h.z0 && c.z < h.z1 && c.y < h.y1);
+    rain.material.opacity += ((inside ? .05 : .3) - rain.material.opacity) * Math.min(1, dt * 5);
+    wtx.offset.x += dt * .012; wtx.offset.y += dt * .02; skyU.time.value += dt;
+    /* lightning lights the whole port for a blink, thunder follows */
+    bolt -= dt; if (bolt <= 0) { bolt = 9 + Math.random() * 16; flash = .34; const A0 = AR; setTimeout(() => { if (AR === A0) { noise(1.8, 260, 40, .1, 'lowpass'); tone(48, 1.2, 'sine', .08); } }, 500 + Math.random() * 1400); }
+    flash = Math.max(0, flash - dt); hemiL.intensity = base + (flash > .26 ? 2.4 : flash > .2 ? .2 : flash > .1 ? 1.5 : flash > 0 ? flash * 6 : 0);
+    amb -= dt; if (amb <= 0) { amb = 3.6; noise(4, 5200, 4600, inside ? .006 : .011, 'bandpass'); }
+  }};
+}
+
+/* the mode's own banner on the modes tab: black water, cranes in the fog, and a crate nobody will open */
+function arHeistBanner(m, S, pn, follow){
+  const rain = Array.from({length: 26}, (_, i) => '<i style="left:' + ((i * 37) % 100) + '%;animation-delay:-' + ((i * .23) % 1.4).toFixed(2) + 's;animation-duration:' + (.7 + (i % 5) * .12).toFixed(2) + 's"></i>').join('');
+  return '<button type="button" class="ar-mode heist' + (m.rumble ? ' rumble' : '') + (m.id === S.mode ? ' on' : '') + (pn > 1 ? ' off' : '') + (follow ? ' lock' : '') + '" data-mode="' + m.id + '">'
+    + '<span class="hb-sky"></span><span class="hb-bolt"></span>'
+    + '<svg class="hb-art" viewBox="0 0 900 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true">'
+    + '<g fill="#0b0f15"><path d="M500 150 L500 78 L512 78 L512 150 Z M562 150 L562 78 L574 78 L574 150 Z M494 78 H580 V70 H494 Z M522 70 V44 H552 V70 Z M532 44 L536 14 L542 14 L546 44 Z M540 20 L660 2 L662 8 L544 30 Z M540 16 L470 34 L472 40 L544 26 Z"/>'
+    + '<path d="M760 150 V96 H770 V150 Z M812 150 V96 H822 V150 Z M754 96 H828 V89 H754 Z M778 89 V68 H804 V89 Z M790 68 L793 44 H798 L801 68 Z M795 50 L890 36 L891 41 L797 58 Z"/></g>'
+    + '<g fill="#10151d"><rect x="0" y="128" width="900" height="42"/><rect x="40" y="104" width="70" height="26"/><rect x="112" y="104" width="70" height="26"/><rect x="76" y="78" width="70" height="26"/><rect x="200" y="110" width="64" height="20"/>'
+    + '<rect x="640" y="102" width="74" height="28"/><rect x="668" y="76" width="74" height="26"/><rect x="330" y="112" width="60" height="18"/></g>'
+    + '<g fill="#0a0d12"><path d="M596 132 L880 132 L900 112 L900 150 L610 150 Z"/><rect x="800" y="92" width="60" height="22"/><rect x="822" y="76" width="26" height="16"/></g>'
+    + '<g class="hb-lamps"><circle cx="537" cy="56" r="2.4"/><circle cx="791" cy="78" r="2"/><circle cx="834" cy="84" r="1.8"/><circle cx="94" cy="100" r="1.6"/></g>'
+    + '<rect x="0" y="148" width="900" height="22" fill="#05080c"/><g stroke="#1a2531" stroke-width="1.2" opacity=".8"><path d="M20 156 h60 M130 162 h90 M300 155 h70 M460 163 h110 M640 157 h80 M780 164 h70"/></g></svg>'
+    + '<span class="hb-fog f1"></span><span class="hb-fog f2"></span><span class="hb-rain">' + rain + '</span>'
+    + '<span class="hb-crate"><svg viewBox="0 0 120 96" aria-hidden="true"><ellipse cx="60" cy="88" rx="52" ry="7" fill="#000" opacity=".7"/><path d="M14 30 L60 14 L106 30 L106 74 L60 90 L14 74 Z" fill="#0d1016" stroke="#000" stroke-width="3" stroke-linejoin="round"/>'
+    + '<path d="M14 30 L60 46 L106 30 M60 46 V90" fill="none" stroke="#000" stroke-width="3"/><path class="hb-seam" d="M17 42 L60 58 L103 42 M17 62 L60 78 L103 62" fill="none" stroke="#ff2b2b" stroke-width="2.2"/>'
+    + '<text class="hb-q" x="37" y="74" font-family="Teko, Fredoka, sans-serif" font-size="30" font-weight="700" fill="#ff2b2b" transform="skewY(20)">?</text><path d="M72 52 l22 -8 v14 l-22 8 z" fill="#161a22" stroke="#ff2b2b" stroke-width="1.2" opacity=".9"/></svg></span>'
+    + '<span class="hb-beam"></span><span class="ar-mpl">8 PLAYERS</span>'
+    + '<span class="hb-txt"><small><i></i>' + (m.rumble ? 'ALL POWERS ON' : 'NEW MODE · CLASSIFIED') + '</small><b data-t="' + m.tag + '">' + m.tag + '</b><em>RAIDERS <u>vs</u> DEFENDERS</em><span>' + (m.rumble ? 'The same heist. Your guns and abilities work.' : 'Guns are looks only. Buy your gear mid-match.') + '</span></span></button>';
+}
+
+/* =====================================================================================================
+   BLACK CARGO: Raiders against Defenders, four a side, one match-long round.
+   A cutscene cranes a sealed package onto the dock. For the hide phase only the Defenders can move, to carry it
+   wherever they like. Then the raid: the Raiders come off their ship, find the package and haul it back aboard.
+   The package takes two to carry (one on each end, like carrying a pane of glass), at half speed, with no
+   weapons. Raiders win by carrying it into the marked hold on their deck; Defenders win when the clock runs out.
+   Everyone comes back a few seconds after going down. Your side is the Raiders when your team is the red one.
+   ===================================================================================================== */
+const AR_HS = {prep: 40, raid: 210, ot: 30, respR: 8, respD: 6, ping: 25, L: 2.7, reach: 2.9, cine: 7.6, see: 55};
+const arHsD = (a, b) => Math.hypot(a.x - b.x, a.z - b.z);
+function arHeistInit(){
+  const A = AR, raid = arRedSide ? 0 : 1;
+  A.heist = {raid, def: 1 - raid, rumble: !!A.mode.rumble, ph: 'cine', t: 0, pk: {p: {x: ARM.pad.x, y: 0, z: ARM.pad.z}, yaw: 0, car: [], team: -1, lead: 0, known: null, seenT: -9, air: 0},
+    pingT: 0, hide: null, hidden: false, otEnd: 0, brainT: 0, seeT: 0, hudT: 0, ending: false};
+  arHeistMesh(); arHeistHud(); arShopInit();
+}
+const arHeistRole = t => t === AR.heist.raid ? 'RAIDERS' : 'DEFENDERS';
+function arHeistSpawn(team, i){ const L = team === AR.heist.raid ? ARM.spawnR : ARM.spawnD, s = L[((i % L.length) + L.length) % L.length]; return {x: s[0], y: 0, z: s[1]}; }
+/* the match opens on the delivery */
+function arHeistRound(){
+  const A = AR, H = A.heist; A.phase = 'cine'; H.ph = 'cine'; H.t = 0; H.skip = false; A.roundT = AR_HS.prep;
+  const b = $('#arBan'); if (b) b.hidden = true; $('#arHud').classList.add('cine');
+  sweep(70, 42, 5, 'sine', .07); sweep(190, 130, 3.4, 'sawtooth', .012);
+  H.onSkip = e => { if (H.ph === 'cine' && H.t > .9) H.skip = true; };
+  addEventListener('keydown', H.onSkip); addEventListener('pointerdown', H.onSkip);
+  arHudUpdate(true);
+}
+function arHeistPrep(){
+  const A = AR, H = A.heist, pk = H.pk; H.ph = 'prep'; A.phase = 'live'; A.roundT = AR_HS.prep; pk.air = 0; A.last = performance.now();
+  removeEventListener('keydown', H.onSkip); removeEventListener('pointerdown', H.onSkip);
+  $('#arHud').classList.remove('cine'); if (H.cable) H.cable.visible = false;
+  const def = A.me.team === H.def;
+  arHudBanner(def ? 'YOU ARE A DEFENDER' : 'YOU ARE A RAIDER', def ? 'Hide the package. It takes two of you to carry it.' : 'They are hiding the package. You move in 0:' + AR_HS.prep + '. Press B to buy gear.', def ? 'win' : 'lose');
+  tone(196, .5, 'sawtooth', .04); tone(98, .7, 'sine', .1);
+  arHudUpdate(true);
+}
+function arHeistRaid(){
+  const A = AR, H = A.heist; H.ph = 'live'; A.roundT = AR_HS.raid; H.pingT = 12; H.hidden = true; H.home = {x: H.pk.p.x, y: H.pk.p.y, z: H.pk.p.z};
+  const def = A.me.team === H.def;
+  arHudBanner(def ? 'THE RAIDERS ARE COMING' : 'THE RAID IS ON', def ? 'Keep the package off their ship for 3:30' : 'Find the package and carry it to your ship', def ? 'lose' : 'win');
+  [146.8, 146.8, 110].forEach((f, i) => tone(f, .45, 'sawtooth', .06, i * .5)); sweep(300, 90, 1.2, 'sawtooth', .03);
+  arHudUpdate(true);
+}
+function arHeistEnd(w, why){
+  const A = AR, H = A.heist; if (H.ph === 'over' || A.phase !== 'live') return; H.ph = 'over';
+  H.pk.car.slice().forEach(f => f.carry = false); H.pk.car = [];
+  H.ending = true; A.score[w] = AR_WIN - 1; arEndRound(w, why); H.ending = false;
+  arHudBanner(arHeistRole(w) + ' WIN', why, w === 0 ? 'win' : 'lose');
+}
+/* back on your feet at your side's spawn a few seconds after going down */
+function arHeistDeath(dst){
+  const A = AR, H = A.heist; if (!H || dst.summon) return;
+  if (dst.carry) arHeistRelease(dst);
+  dst.respT = A.clock + (dst.team === H.raid ? AR_HS.respR : AR_HS.respD); arShopDeath(dst);
+}
+function arHeistRespawn(f){
+  const A = AR, tm = A.F.filter(o => o.team === f.team && !o.summon);
+  Object.assign(f, {hp: 100, alive: true, reload: 0, fireT: 0, swap: 0, slide: 0, st: {}, acq: 0, burst: 0, route: null, desc: null, wish: null, path: [], pathT: 0, tgt: null, tgtT: 0, known: null, cover: null, dmgFrom: {}, carry: false, lastSeen: -9, respT: null, job: null, hsee: null});
+  f.p = arHeistSpawn(f.team, tm.indexOf(f)); f.v = {x: 0, y: 0, z: 0}; f.yaw = f.p.x > 0 ? Math.PI / 2 : -Math.PI / 2; f.pitch = 0; f.aimY = f.yaw; f.aimP = 0;
+  f.mag = f.load.map(l => arWS(l.it).mag); f.nade = Math.max(f.nade || 0, 1); f.st.shield = 0;
+  if (f.B) { f.B.g.visible = true; f.B.g.rotation.z = 0; }
+  if (f.me) { A.spec = null; A.hurt = 0; arShowWeapon(); tone(660, .12, 'triangle', .05); }
+  arHudUpdate(true);
+}
+
+/* ---------- the package ---------- */
+function arHeistCan(f){
+  const H = AR.heist, pk = H.pk; if (!f.alive || f.carry || f.summon || AR.phase !== 'live' || pk.car.length > 1) return false;
+  if (pk.car.length && pk.team !== f.team) return false;
+  if (H.ph !== 'live' && f.team !== H.def) return false;
+  return arHsD(f.p, pk.p) < AR_HS.reach && Math.abs(f.p.y - pk.p.y) < 1.4;
+}
+/* grab an end, or let go of the one you hold */
+function arHeistUse(f){
+  const A = AR, H = A.heist; if (!H || !f.alive || A.phase !== 'live') return false; const pk = H.pk;
+  if (f.carry) { arHeistRelease(f); return true; }
+  if (!arHeistCan(f)) { if (f.me && arHsD(f.p, pk.p) < AR_HS.reach + 1) { tone(200, .08, 'square', .03); if (pk.car.length && pk.team !== f.team) arFeed('The other side is holding it', 'b'); else if (pk.car.length > 1) arFeed('Two players are already carrying it', 'b'); else if (H.ph !== 'live' && f.team !== H.def) arFeed('Only the Defenders can touch it yet', 'b'); } return false; }
+  pk.car.push(f); pk.team = f.team; f.carry = true; f.slide = 0; f.reload = 0; f.holdT = A.clock;
+  if (f.me) { A.fire = false; A.adsHeld = false; }
+  if (pk.car.length === 2) { pk.lead = 0; if (f.team === H.def && !H.hide && !pk.car.some(o => o.me)) H.hide = pickOne(ARM.hides);
+    arSnd(AR_SFX.land, pk.p); if (f.team === H.raid && H.ph === 'live') { arFeed(f.team === A.me.team ? 'Your team has the package' : 'The Raiders have the package!', f.team === A.me.team ? 'b' : 'r'); if (f.team !== A.me.team) [392, 311].forEach((q, i) => tone(q, .25, 'square', .04, i * .16)); } }
+  else if (f.me) tone(520, .08, 'triangle', .04);
+  arHudUpdate(true); return true;
+}
+function arHeistRelease(f){
+  const A = AR, H = A.heist, pk = H.pk, i = pk.car.indexOf(f); f.carry = false; if (i < 0) return;
+  const was2 = pk.car.length === 2; pk.car.splice(i, 1); pk.lead = 0;
+  if (was2) { pk.p.y = Math.min(f.p.y, pk.car[0].p.y); arSnd(AR_SFX.land, pk.p); if (pk.team === H.def && H.ph === 'live' && (f.me || f.remote || pk.car[0].me || pk.car[0].remote)) H.home = {x: pk.p.x, y: pk.p.y, z: pk.p.z}; if (pk.team === H.raid && H.ph === 'live') arFeed('The package was dropped', pk.team === A.me.team ? 'b' : 'r'); }
+  if (!pk.car.length) pk.team = -1;
+  arHudUpdate(true);
+}
+/* shift a body sideways without walking it through anything; steps up a stair if that is all that's in the way */
+function arHeistNudge(f, mx, mz){
+  const tryP = (x, z) => { const q = {x, y: f.p.y, z}, hit = arNear(q, 1).filter(b => arOv(q, b)); if (!hit.length) return q;
+    const top = Math.max(...hit.map(b => b[4])); if (top - q.y <= .5) { q.y = top; if (!arNear(q, 1).some(b => arOv(q, b))) return q; } return null; };
+  const q = tryP(f.p.x + mx, f.p.z + mz) || (mx ? tryP(f.p.x + mx, f.p.z) : null) || (mz ? tryP(f.p.x, f.p.z + mz) : null); if (!q) return;
+  f.p.x = q.x; f.p.y = q.y; f.p.z = q.z;
+}
+/* the two carriers are tied together by the box: whoever leads, the other end is pulled or pushed along */
+function arHeistCarry(dt){
+  const A = AR, H = A.heist, pk = H.pk, c = pk.car, L = AR_HS.L;
+  for (let i = c.length - 1; i >= 0; i--) if (!c[i].alive) arHeistRelease(c[i]);
+  if (c.length < 2) return;
+  const lead = c[0].me ? c[0] : c[1].me ? c[1] : c[pk.lead], fol = lead === c[0] ? c[1] : c[0];
+  if (Math.abs(fol.p.y - lead.p.y) > 1.9 || arHsD(fol.p, lead.p) > L + 3.5) { arHeistRelease(fol); return; }
+  for (let k = 0; k < 2; k++) {
+    const dx = fol.p.x - lead.p.x, dz = fol.p.z - lead.p.z, d = Math.hypot(dx, dz) || .001, err = d - L; if (Math.abs(err) < .02) break;
+    const s = Math.sign(err) * Math.min(Math.abs(err), Math.max(.03, 9 * dt)), who = k ? lead : fol, dir = k ? 1 : -1;
+    arHeistNudge(who, dir * dx / d * s, dir * dz / d * s);
+  }
+  pk.p.x = (lead.p.x + fol.p.x) / 2; pk.p.z = (lead.p.z + fol.p.z) / 2; pk.p.y = Math.min(lead.p.y, fol.p.y); pk.yaw = Math.atan2(fol.p.x - lead.p.x, fol.p.z - lead.p.z);
+  const Z = ARM.zone;
+  if (pk.team === H.raid && H.ph === 'live' && pk.p.x > Z[0] && pk.p.x < Z[2] && pk.p.z > Z[1] && pk.p.z < Z[3]) arHeistEnd(H.raid, 'The package is aboard their ship');
+}
+/* Raiders only know where it is while one of them can see it, or for a moment after a signal ping */
+function arHeistSight(){
+  const A = AR, H = A.heist, pk = H.pk, c = {x: pk.p.x, y: pk.p.y + (pk.car.length === 2 ? 1.1 : .6), z: pk.p.z};
+  if (H.ph !== 'live') return;
+  if (pk.team === H.raid && pk.car.length) { pk.known = {x: pk.p.x, y: pk.p.y, z: pk.p.z}; pk.seenT = A.clock + 1; return; }
+  const rs = A.F.filter(f => f.team === H.raid && f.alive);
+  if (rs.some(f => arDist(f.p, pk.p) < AR_HS.see && arLOS(arEye(f), c))) { if (A.clock > pk.seenT + 6 && A.me.team === H.raid) { arFeed('Package spotted', 'b'); tone(988, .1, 'triangle', .05); tone(1318, .14, 'triangle', .04, .09); }
+    pk.known = {x: pk.p.x, y: pk.p.y, z: pk.p.z}; pk.seenT = A.clock + 5; }
+  else if (pk.known && arHsD(pk.known, pk.p) > 3.5 && rs.some(f => arHsD(f.p, pk.known) < 5 && Math.abs(f.p.y - pk.known.y) < 1.5)) pk.known = null;   /* it isn't where they thought */
+}
+function arHeistPing(){
+  const A = AR, H = A.heist, pk = H.pk; pk.known = {x: pk.p.x, y: pk.p.y, z: pk.p.z}; pk.seenT = Math.max(pk.seenT, A.clock + 4.5);
+  arRingFx({x: pk.p.x, y: pk.p.y + .1, z: pk.p.z}, '#ff2b2b', 7, .9);
+  if (A.me.team === H.raid) { arFeed('Signal ping · package located', 'b'); tone(1480, .09, 'sine', .05); tone(1480, .09, 'sine', .05, .18); }
+  else { arFeed('The Raiders pinged the package', 'r'); tone(740, .12, 'square', .03); }
+}
+/* runs after every game step */
+function arHeistStep(dt){
+  const A = AR, H = A.heist, pk = H.pk;
+  if (H.ph === 'cine') { H.t += dt; if (!H.thud && H.t >= 6.3) { H.thud = true; tone(52, .6, 'sine', .25); noise(.35, 500, 70, .18, 'lowpass'); arBurst({x: pk.p.x, y: .2, z: pk.p.z}, '#9aa1a9', 22, 5); A.shake = .35; }
+    if (H.t >= AR_HS.cine || H.skip) arHeistPrep(); return; }
+  if (A.phase !== 'live') return;
+  A.F.forEach(f => { if (!f.alive && !f.summon && !f.gone && f.respT != null && A.clock >= f.respT) arHeistRespawn(f); });
+  if (H.ph === 'prep') { A.F.forEach(f => { if (f.team === H.raid) f.st.root = .25; }); if (A.roundT <= 0) arHeistRaid(); }
+  else if (H.ph === 'live') {
+    H.pingT -= dt; if (H.pingT <= 0) { H.pingT = AR_HS.ping; arHeistPing(); }
+    if (A.roundT <= 0) { const hauling = pk.car.length === 2 && pk.team === H.raid;
+      if (!hauling || (H.otEnd && A.clock >= H.otEnd)) { arHeistEnd(H.def, 'Time ran out · the package is safe'); return; }
+      if (!H.otEnd) { H.otEnd = A.clock + AR_HS.ot; arHudBanner('OVERTIME', 'The Raiders are still carrying it'); tone(220, .5, 'sawtooth', .05); } }
+  }
+  arHeistCarry(dt); if (H.ph === 'over') return; arShopStep(dt);
+  H.seeT -= dt; if (H.seeT <= 0) { H.seeT = .25; arHeistSight(); }
+  H.brainT -= dt; if (H.brainT <= 0) { H.brainT = .35; arHeistBrain(); }
+}
+
+/* ---------- the computer players ---------- */
+/* a free spot on a ring round a point, preferring one that can see it */
+function arHeistRing(c, r0, seed){
+  let fall = null;
+  for (let k = 0; k < 14; k++) { const a = seed * 2.4 + k * .9, r = r0 + (k % 3) * 1.6, p = {x: c.x + Math.cos(a) * r, y: 0, z: c.z + Math.sin(a) * r};
+    if (Math.abs(p.x) > ARM.W / 2 - 1 || Math.abs(p.z) > ARM.D / 2 - 1) continue; const cc = arCell(p); if (AR_GRID[cc[1] * AR_GW + cc[0]]) continue;
+    if (arLOS({x: p.x, y: 1.5, z: p.z}, {x: c.x, y: (c.y || 0) + .8, z: c.z})) return p; fall = fall || p; }
+  return fall || {x: c.x, y: 0, z: c.z};
+}
+function arHeistBrain(){
+  const A = AR, H = A.heist, pk = H.pk, c = pk.car;
+  [H.def, H.raid].forEach(team => {
+    const bots = A.F.filter(f => f.team === team && !f.me && !f.remote && !f.summon && f.alive), isDef = team === H.def, human = A.F.some(f => f.team === team && (f.me || f.remote));
+    bots.forEach(b => { if (!b.carry) b.job = null; });
+    const free = () => bots.filter(b => !b.carry && !b.job), near = (list, p) => list.slice().sort((x, y) => arHsD(x.p, p) - arHsD(y.p, p));
+    const mine = c.length && pk.team === team, theirs = c.length && pk.team !== team;
+    /* someone holds one end: the nearest free teammate takes the other (Defenders with a real player only help that player) */
+    if (mine && c.length === 1 && (c[0].me || c[0].remote || !isDef || !human || H.ph === 'live')) { const h = near(free(), pk.p)[0]; if (h) h.job = {k: 'help', pt: pk.p}; }
+    if (isDef) {
+      if (H.ph === 'prep' && !human && !H.hidden && !c.length) near(free(), pk.p).slice(0, 2).forEach(b => b.job = {k: 'help', pt: pk.p});
+      /* during the raid: if it was dragged off and left lying with no Raider near, two of them carry it back */
+      if (H.ph === 'live' && !c.length && H.home && arHsD(pk.p, H.home) > 6 && !A.F.some(f => f.team === H.raid && f.alive && arHsD(f.p, pk.p) < 13)) near(free(), pk.p).slice(0, 2).forEach(b => b.job = {k: 'help', pt: pk.p});
+      free().forEach(b => { if (theirs) { b.job = {k: 'chase', pt: pk.p}; return; }
+        if (!b.post || arHsD(b.post.c, pk.p) > 3) b.post = {c: {x: pk.p.x, z: pk.p.z}, pt: arHeistRing(pk.p, 5.5, b.nid)}; b.job = {k: 'guard', pt: b.post.pt}; });
+    } else {
+      if (H.ph !== 'live') return;
+      if (theirs) free().forEach(b => b.job = {k: 'chase', pt: pk.p});
+      else if (pk.known) { if (!c.length) near(free(), pk.known).slice(0, 2).forEach(b => b.job = {k: 'help', pt: pk.known});
+        free().forEach(b => { if (!b.post || arHsD(b.post.c, pk.known) > 4) b.post = {c: {x: pk.known.x, z: pk.known.z}, pt: arHeistRing(pk.known, 4.5, b.nid)}; b.job = {k: 'escort', pt: mine ? {x: pk.p.x + (b.nid % 2 ? 3 : -3), y: 0, z: pk.p.z + (b.nid % 3 - 1) * 3} : b.post.pt}; }); }
+      else free().forEach(b => { if (!b.srch || arHsD(b.p, b.srch) < 2.6 || A.clock > b.srchT) { const s = pickOne(ARM.search.concat(ARM.hides)); b.srch = {x: s[0], y: 0, z: s[1]}; b.srchT = A.clock + 14; } b.job = {k: 'search', pt: b.srch}; });
+    }
+  });
+}
+/* walk somewhere: the ground grid, stairs and ladders up, stairs back down */
+function arHeistGo(b, pt, dt, o){
+  o = o || {}; const A = AR, ty = pt.y || 0, dist = arHsD(pt, b.p); let mx = 0, mz = 0;
+  const aim = (x, z) => { const L = Math.hypot(x - b.p.x, z - b.p.z); if (L > .12) { mx = (x - b.p.x) / L; mz = (z - b.p.z) / L; } return L; };
+  if (b.p.y > 1.2 && ty < b.p.y - 1 && b.ground) {
+    if (!b.desc || Math.abs(b.desc.top.y - b.p.y) > 1) { let best = null, bs = 1e9; ARR.forEach(r => { if (r.pts.some(q => q.lad) || Math.abs(r.top.y - b.p.y) > .8) return; const s = arHsD(r.top, b.p); if (s < bs) { bs = s; best = r; } }); b.desc = best ? {top: best.top, foot: best.pts[0], st: 0} : {none: 1, top: {y: b.p.y}}; }
+    if (b.desc.none) aim(pt.x, pt.z); else { if (!b.desc.st && aim(b.desc.top.x, b.desc.top.z) < .5) b.desc.st = 1; if (b.desc.st) aim(b.desc.foot.x, b.desc.foot.z); }
+    b.route = null;
+  } else if (b.desc && b.desc.st && b.p.y > .45) aim(b.desc.foot.x, b.desc.foot.z);
+  else { b.desc = null;
+    if (!o.carry && !b.route && ty > b.p.y + 1.3 && ARR.length && A.clock > (b.routeT || 0)) { b.routeT = A.clock + 1.5; let best = null, bs = 1e9;
+      ARR.forEach(r => { if (Math.abs(r.top.y - ty) > 1.4) return; const s = arHsD(r.pts[0], b.p) + 1.6 * arHsD(r.top, pt); if (s < bs) { bs = s; best = r; } });
+      if (best) { b.route = best; b.ri = 0; b.routeEnd = A.clock + 18; b.path = []; } }
+    if (b.route && (A.clock > b.routeEnd || ty <= b.p.y + 1.3 && b.ri === 0)) b.route = null;
+    if (b.route) { const wp = b.route.pts[b.ri], hd = arHsD(wp, b.p);
+      if (b.ri === 0) { b.pathT -= dt; if (b.pathT <= 0) { b.path = arPath(b.p, wp); b.pathT = .5; } while (b.path.length && arHsD(b.path[0], b.p) < .6) b.path.shift(); const q = b.path[0] || wp; aim(q.x, q.z); }
+      else if (wp.lad) { const nx = b.route.pts[b.ri + 1] || wp; aim(nx.x, nx.z); }
+      else if (hd > .15) { aim(wp.x, wp.z); if (wp.y > b.p.y + .55 && hd < 1.9 && b.ground) b.v.y = 8; }
+      if (hd < (b.ri === 0 ? .7 : wp.lad ? .9 : .6) && b.p.y >= wp.y - (wp.lad ? .3 : .45)) { b.ri++; if (b.ri >= b.route.pts.length) { b.route = null; b.path = []; } }
+    } else if (dist > (o.stop || .35)) {
+      const direct = dist < 1.6 || b.p.y > 1 && Math.abs(ty - b.p.y) < 1.2;
+      b.pathT = (b.pathT || 0) - dt; if (!direct && (b.pathT <= 0 || !b.path)) { b.path = arPath(b.p, pt); b.pathT = .5 + Math.random() * .25; }
+      while (b.path && b.path.length && arHsD(b.path[0], b.p) < .6) b.path.shift();
+      const wp = direct ? pt : (b.path && b.path[0]) || pt; aim(wp.x, wp.z);
+    }
+  }
+  if (!o.carry) arMates(b).forEach(m => { if (!m.alive) return; const dx = b.p.x - m.p.x, dz = b.p.z - m.p.z, dd = Math.hypot(dx, dz); if (dd < 1.4 && dd > .01) { mx += dx / dd * (1.4 - dd); mz += dz / dd * (1.4 - dd); } });
+  const ml = Math.hypot(mx, mz); if (ml > 1) { mx /= ml; mz /= ml; } if (b.st.root > 0) { mx = 0; mz = 0; }
+  b.wish = {x: mx, z: mz}; const spd = arSpeed(b) * (o.k || .9), kk = Math.min(1, dt * 10); b.v.x += (mx * spd - b.v.x) * kk; b.v.z += (mz * spd - b.v.z) * kk;
+  if (ml > .15) arHeistFace(b, Math.atan2(-mx, -mz), dt);
+  return dist;
+}
+function arHeistFace(b, wy, dt){ let dy = wy - b.yaw; while (dy > Math.PI) dy -= Math.PI * 2; while (dy < -Math.PI) dy += Math.PI * 2; b.yaw += dy * Math.min(1, dt * 7); b.aimY = b.yaw; b.pitch *= .85; b.aimP = b.pitch; }
+function arHeistBot(b, dt, think){
+  const A = AR, H = A.heist, pk = H.pk; if (b.summon) return think(b, dt);
+  if (b.carry) return arHeistCarryBot(b, dt);
+  if (H.ph === 'prep' && b.team === H.raid) { b.v.x *= .8; b.v.z *= .8; return; }
+  const job = b.job || {k: 'idle'};
+  /* everyone fights what they can see and otherwise does their job; the ones going for the box only stop to fight someone close */
+  if (A.clock >= (b.hsT || 0)) { b.hsT = A.clock + .25 + Math.random() * .1; const e = arEye(b);
+    b.hsee = H.ph !== 'live' || b.st.blind > 0 ? null : arFoes(b).filter(o => !(o.st.invis > 0) && arDist(o.p, b.p) < 70 && arLOS(e, {x: o.p.x, y: o.p.y + 1.1, z: o.p.z}))[0] || null; if (b.hsee) b.hseeAt = A.clock; }
+  if (job.k === 'help') { if (b.hsee && arDist(b.hsee.p, b.p) < 13 && arHsD(b.p, job.pt) > 4) return think(b, dt);
+    arHeistGo(b, job.pt, dt, {stop: 1.2, k: 1}); if (arHeistCan(b)) arHeistUse(b); return; }
+  if (b.hsee || A.clock - (b.hseeAt || -9) < 1.3) return think(b, dt);
+  const W = arWS(b.load[0].it); if (b.reload <= 0 && !W.melee && b.mag[0] < W.mag * .6) arReload(b);
+  if (!job.pt) { b.v.x *= .8; b.v.z *= .8; return; }
+  const d = arHeistGo(b, job.pt, dt, {stop: job.k === 'chase' ? 2 : .6});
+  if (d < 1 && job.k === 'guard') arHeistFace(b, Math.atan2(-(b.p.x - pk.p.x), -(b.p.z - pk.p.z)) + Math.sin(A.clock * .7 + b.nid) * .9, dt * .5);
+}
+function arHeistCarryBot(b, dt){
+  const A = AR, H = A.heist, pk = H.pk, c = pk.car;
+  if (c.length < 2) { b.v.x *= .7; b.v.z *= .7; b.wish = null;
+    /* holding one end alone: wait a while for a second pair of hands, then give up */
+    const coming = A.F.some(f => f.team === b.team && f.alive && !f.carry && (f.job && f.job.k === 'help' || (f.me || f.remote) && arHsD(f.p, pk.p) < 7));
+    if (!b.holdAlone) b.holdAlone = A.clock; if (A.clock - b.holdAlone > (coming ? 12 : .6)) { b.holdAlone = 0; arHeistRelease(b); } return; }
+  b.holdAlone = 0;
+  const lead = c[0].me ? c[0] : c[1].me ? c[1] : c[pk.lead], L = AR_HS.L;
+  if (b === lead) {
+    const back = H.ph === 'live', dest = b.team === H.raid ? {x: (ARM.zone[0] + ARM.zone[2]) / 2, y: 0, z: (ARM.zone[1] + ARM.zone[3]) / 2} : back ? H.home : H.hide && !H.hidden ? {x: H.hide[0], y: 0, z: H.hide[1]} : null;
+    if (!dest) { c.slice().forEach(arHeistRelease); return; }
+    const d = arHeistGo(b, dest, dt, {carry: 1, stop: .5, k: 1});
+    if (b.team === H.def && (back ? arHsD(pk.p, dest) < 1.6 : d < 1)) { H.hidden = true; c.slice().forEach(arHeistRelease); return; }
+    /* wedged on a corner: let the other end lead for a bit; if that fails too, put it down and start again */
+    if (!b.hsS || A.clock > b.hsS.t) { if (b.hsS && arHsD(b.hsS, b.p) < .7) { pk.lead = 1 - pk.lead; pk.swaps = (pk.swaps || 0) + 1; if (pk.swaps > 3) { pk.swaps = 0; c.slice().forEach(arHeistRelease); return; } } else if (b.hsS) pk.swaps = 0;
+      b.hsS = {x: b.p.x, z: b.p.z, t: A.clock + 2.6}; }
+  } else {
+    const lv = Math.hypot(lead.v.x, lead.v.z), rx = b.p.x - lead.p.x, rz = b.p.z - lead.p.z, rd = Math.hypot(rx, rz) || 1; let tx = b.p.x, tz = b.p.z;
+    if (lv > .6) { const vx = lead.v.x / lv, vz = lead.v.z / lv;
+      if ((rx * vx + rz * vz) / rd > .3) { tx = b.p.x + vx * 2; tz = b.p.z + vz * 2; }       /* ahead of the push: keep walking ahead of it */
+      else { tx = lead.p.x - vx * L; tz = lead.p.z - vz * L; } }                             /* otherwise fall in behind */
+    const dx = tx - b.p.x, dz = tz - b.p.z, dd = Math.hypot(dx, dz), spd = arSpeed(b) * 1.2, kk = Math.min(1, dt * 10), mx = dd > .12 ? dx / dd : 0, mz = dd > .12 ? dz / dd : 0;
+    b.wish = {x: mx, z: mz}; b.v.x += (mx * spd - b.v.x) * kk; b.v.z += (mz * spd - b.v.z) * kk; b.hsS = null;
+    arHeistFace(b, Math.atan2(rx, rz), dt);
+  }
+}
+
+/* ---------- what you see: the package, the cutscene, markers and the mode's HUD ---------- */
+function arHeistMesh(){
+  const A = AR, T = A.T, H = A.heist, g = new T.Group();
+  const body = new T.Mesh(arRBox(T, 1.05, .95, 1.9, .05, 1), new T.MeshStandardMaterial({color: '#0c0e13', roughness: .42, metalness: .75})); body.position.y = .5; body.castShadow = true; g.add(body);
+  const dark = new T.MeshStandardMaterial({color: '#1c2028', roughness: .5, metalness: .8}), seam = new T.MeshStandardMaterial({color: '#ff2b2b', emissive: '#ff2b2b', emissiveIntensity: 2.4});
+  [-1, 1].forEach(sx => [-1, 1].forEach(sz => { const p = new T.Mesh(new T.BoxGeometry(.12, 1.02, .12), dark); p.position.set(sx * .5, .5, sz * .93); g.add(p); }));
+  [.26, .74].forEach(y => { const s1 = new T.Mesh(new T.BoxGeometry(1.08, .035, 1.93), seam); s1.position.y = y; g.add(s1); });
+  [-1, 1].forEach(sz => { const h = new T.Mesh(new T.TorusGeometry(.16, .03, 6, 12, Math.PI), dark); h.position.set(0, .62, sz * .96); h.rotation.x = Math.PI / 2 * -sz; h.rotation.z = Math.PI; g.add(h); });
+  const lab = new T.CanvasTexture(arCanvas(256, 128, (c, w, h) => { c.fillStyle = '#0c0e13'; c.fillRect(0, 0, w, h); c.strokeStyle = '#ff2b2b'; c.lineWidth = 5; c.strokeRect(8, 8, w - 16, h - 16);
+    c.fillStyle = '#ff2b2b'; c.font = '700 58px Teko, Fredoka, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('?', 46, 68); c.font = '700 30px Teko, Fredoka, sans-serif'; c.fillText('CARGO 13', 156, 50); c.font = '600 17px Teko, Fredoka, sans-serif'; c.fillText('DO NOT OPEN', 156, 86); }));
+  lab.colorSpace = T.SRGBColorSpace; const lm = new T.MeshBasicMaterial({map: lab});
+  [-1, 1].forEach(sx => { const p = new T.Mesh(new T.PlaneGeometry(1.1, .5), lm); p.position.set(sx * .531, .5, 0); p.rotation.y = sx * Math.PI / 2; g.add(p); });
+  if (!AR_MOBILE) { const L = new T.PointLight('#ff2b2b', 5, 7, 2); L.position.y = 1; g.add(L); H.pkLight = L; }
+  g.position.set(H.pk.p.x, 10, H.pk.p.z); A.sc.add(g); H.mesh = g; H.seam = seam;
+  const cable = new T.Mesh(new T.CylinderGeometry(.035, .035, 1, 6), dark); A.sc.add(cable); H.cable = cable;
+}
+function arHeistHud(){
+  const A = AR, H = A.heist, hud = $('#arHud'); hud.classList.add('heist');
+  const d = document.createElement('div'); d.id = 'arHs';
+  d.innerHTML = '<div class="hs-bar t"></div><div class="hs-bar b"></div><div class="hs-title" id="hsTitle"><b></b><span></span></div><button type="button" class="hs-skip" id="hsSkip">Skip ▸</button>'
+    + '<div class="hs-obj" id="hsObj"><b></b><span></span></div><div class="hs-mark" id="hsMark" hidden><i></i><span></span></div><div class="hs-mark ship" id="hsShip" hidden><i></i><span></span></div>'
+    + '<button type="button" class="hs-use" id="hsUse" hidden></button><div class="hs-resp" id="hsResp" hidden></div><div class="hs-carry" id="hsCarry" hidden></div>';
+  hud.append(d);
+  $('#hsSkip').onclick = () => { if (H.ph === 'cine') H.skip = true; };
+  const use = e => { e.preventDefault(); e.stopPropagation(); arHeistUse(A.me); };
+  $('#hsUse').addEventListener('touchstart', use, {passive: false}); $('#hsUse').addEventListener('click', use);
+  const mine = arHeistRole(0), theirs = arHeistRole(1), s = hud.querySelectorAll('#arTop .ar-tpi small'); if (s[0]) s[0].textContent = mine; if (s[1]) s[1].textContent = theirs;
+}
+function arHeistHudTop(){ const A = AR, H = A.heist, r = $('#arRd'); if (r) r.textContent = H.ph === 'cine' ? 'DELIVERY' : H.ph === 'prep' ? 'HIDE PHASE' : H.otEnd ? 'OVERTIME' : 'THE RAID'; }
+function arHeistView(dt){
+  const A = AR, H = A.heist, pk = H.pk, cam = A.cam, T = A.T, me = A.me, c = pk.car;
+  if (A.mapFx && A.mapFx.tick) A.mapFx.tick(dt, cam);
+  /* the package: on the hook during the delivery, on the ground, or held between two carriers */
+  const g = H.mesh; let ty = pk.p.y + (c.length === 2 ? .55 : 0);
+  if (H.ph === 'cine') { const k = Math.max(0, Math.min(1, (H.t - 3.3) / 3)), e = 1 - Math.pow(1 - k, 2.2); const hy = ARM.hookY || 9.4; ty = (hy - 1) * (1 - e); g.position.set(pk.p.x, ty, pk.p.z); g.rotation.y = (1 - e) * 1.1;
+    const top = H.t < 6.5 ? ty + 1 : ty + 1 + (H.t - 6.5) * 14; H.cable.visible = top < hy - .1; H.cable.position.set(pk.p.x, (hy + top) / 2, pk.p.z); H.cable.scale.y = Math.max(.01, hy - top); }
+  else { const k = Math.min(1, dt * 14); g.position.x += (pk.p.x - g.position.x) * k; g.position.y += (ty - g.position.y) * k; g.position.z += (pk.p.z - g.position.z) * k;
+    if (c.length === 2) { let dy = pk.yaw - g.rotation.y; while (dy > Math.PI) dy -= Math.PI * 2; while (dy < -Math.PI) dy += Math.PI * 2; g.rotation.y += dy * k; } }
+  const pulse = .5 + .5 * Math.sin(A.clock * 3.2); H.seam.emissiveIntensity = 1.4 + pulse * 2; if (H.pkLight) H.pkLight.intensity = 3 + pulse * 4;
+  if (H.ph === 'cine') {
+    const t = H.t, L = (a, b, k) => a + (b - a) * k; A.vm.visible = false;
+    if (t < 3.2) { const k = t / 3.2, e = k * k * (3 - 2 * k); const c1 = ARM.cam1; cam.position.set(L(c1[0][0], c1[1][0], e), L(c1[0][1], c1[1][1], e), L(c1[0][2], c1[1][2], e)); cam.lookAt(c1[2][0], c1[2][1], c1[2][2]); }
+    else { const k = (t - 3.2) / (AR_HS.cine - 3.2), e = k * k * (3 - 2 * k); cam.position.set(pk.p.x + L(11.6, 9.4, e), L(1.5, 3.4, e), pk.p.z + L(3, 1.2, e)); cam.lookAt(pk.p.x, Math.max(1.1, g.position.y + .5) * (1 - e * .25), pk.p.z); }
+    if (A.shake > 0) { cam.position.x += (Math.random() - .5) * A.shake * .3; cam.position.y += (Math.random() - .5) * A.shake * .3; A.shake = Math.max(0, A.shake - dt * 1.2); }
+    cam.fov = 52; cam.updateProjectionMatrix(); A.sky.position.copy(cam.position);
+    if (A.sun) { A.sun.target.position.set(cam.position.x, 0, cam.position.z); A.sun.position.set(cam.position.x + A.sunDir.x * 70, A.sunDir.y * 70, cam.position.z + A.sunDir.z * 70); }
+    const tt = $('#hsTitle'), first = t < 3.2; if (tt) { tt.dataset.s = first ? 1 : 2; tt.querySelector('b').textContent = first ? 'BLACKWATER PORT' : 'THE PACKAGE HAS ARRIVED'; tt.querySelector('span').textContent = first ? (H.rumble ? 'Blackout Rumble · all powers on' : 'Blackout · Pier 9 · 02:13') : 'Nobody will say what is inside.';
+      tt.style.opacity = first ? Math.min(1, t * 2, (3.2 - t) * 3) : Math.min(1, (t - 3.5) * 2, (AR_HS.cine - t) * 3); }
+    return;
+  }
+  A.vm.visible = !(me.carry && me.alive);
+  /* markers and text, a few times a second */
+  const v = new T.Vector3(), place = (el, p, y, txt) => { v.set(p.x, y, p.z).project(cam); const on = v.z < 1; let x = (v.x * .5 + .5) * innerWidth, yy = (-v.y * .5 + .5) * innerHeight;
+    if (!on) { x = innerWidth - x; yy = innerHeight - 40; } x = Math.max(34, Math.min(innerWidth - 34, x)); yy = Math.max(92, Math.min(innerHeight - 120, yy));
+    el.hidden = false; el.style.transform = 'translate(' + x.toFixed(0) + 'px,' + yy.toFixed(0) + 'px) translate(-50%,-100%)'; el.querySelector('span').textContent = txt + ' · ' + Math.round(arHsD(me.p, p)) + 'm'; };
+  const iDef = me.team === H.def, mk = $('#hsMark'), sh = $('#hsShip'); if (!mk) return;
+  const over = H.ph === 'over' || A.phase !== 'live', known = iDef || (pk.team === H.raid && c.length) || A.clock < pk.seenT;
+  if (!over && known && !(me.carry && c.length === 2)) { mk.classList.toggle('bad', iDef ? pk.team === H.raid && c.length > 0 : false); place(mk, pk.p, g.position.y + 1.5, 'PACKAGE'); } else mk.hidden = true;
+  if (!over && pk.team === H.raid && c.length === 2) place(sh, {x: (ARM.zone[0] + ARM.zone[2]) / 2, z: (ARM.zone[1] + ARM.zone[3]) / 2}, 2.2, iDef ? 'THEIR SHIP' : 'YOUR SHIP'); else sh.hidden = true;
+  H.hudT -= dt; if (H.hudT > 0) return; H.hudT = .12;
+  const ob = $('#hsObj'), clock = t => { t = Math.max(0, Math.ceil(t)); return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0'); }; let a = '', b = '';
+  if (over) { a = ''; }
+  else if (H.ph === 'prep') { a = iDef ? 'HIDE THE PACKAGE' : 'THE DEFENDERS ARE HIDING IT'; b = (iDef ? 'The Raiders move in ' : 'You move in ') + clock(A.roundT); }
+  else if (iDef) { const st = pk.team === H.raid && c.length; a = st ? 'STOP THE CARRIERS' : 'PROTECT THE PACKAGE'; b = st ? 'The Raiders are taking it to their ship' : 'Hold out until the clock hits 0:00'; }
+  else if (me.carry) { a = c.length === 2 ? 'GET IT TO YOUR SHIP' : 'WAIT FOR A SECOND CARRIER'; b = c.length === 2 ? 'Carry it into the marked hold on deck' : 'It takes two to move it'; }
+  else if (pk.team === H.raid && c.length) { a = 'ESCORT THE PACKAGE'; b = 'Keep the carriers alive'; }
+  else if (pk.known && A.clock < pk.seenT) { a = 'STEAL THE PACKAGE'; b = 'Two of you must carry it to your ship'; }
+  else { a = 'FIND THE PACKAGE'; b = 'Next signal ping in ' + clock(H.pingT); }
+  ob.hidden = !a; ob.querySelector('b').textContent = a; ob.querySelector('span').textContent = b; ob.className = 'hs-obj' + (iDef ? ' def' : ' raid');
+  const use = $('#hsUse'), key = AR_MOBILE ? '' : arPadOn ? 'L3 · ' : 'F · ';
+  if (me.alive && me.carry) { use.hidden = false; use.textContent = key + 'Let go'; }
+  else if (me.alive && !over && arHeistCan(me)) { use.hidden = false; use.textContent = key + (c.length ? 'Take the other end' : 'Grab the package'); }
+  else use.hidden = true;
+  const cr = $('#hsCarry'); cr.hidden = !(me.carry && me.alive); if (!cr.hidden) { const o = c.find(f => f !== me); cr.textContent = c.length === 2 ? 'CARRYING with ' + (o ? o.name : '') + ' · half speed · no weapons' : 'HOLDING ONE END · waiting for a second carrier'; }
+  const rs = $('#hsResp'); rs.hidden = me.alive || me.respT == null || over; if (!rs.hidden) rs.textContent = 'BACK IN ' + Math.max(1, Math.ceil(me.respT - A.clock));
+}
+
+/* ---------- hooking the mode into the game ---------- */
+{ const sp0 = arSpeed; arSpeed = function(f){ let s = sp0(f); if (!AR.heist) return s; if (f.gear && f.gear.stim > 0) s *= 1.2; return f.carry ? (AR.heist.pk.car.length === 2 ? s * (f.gear && f.gear.harness ? .7 : .5) : 0) : s; };
+  const sh0 = arShoot; arShoot = function(f){ if (f && f.carry) return; return sh0.apply(this, arguments); };
+  const sk0 = arUseSkill; arUseSkill = function(f){ if (f && f.carry) return false; return sk0.apply(this, arguments); };
+  const mi0 = arUseMisc; arUseMisc = function(f){ if (f && f.carry) return false; return mi0.apply(this, arguments); };
+  const th0 = arThrow; arThrow = function(f){ if (f && f.carry) return; return th0.apply(this, arguments); };
+  const ss0 = arSpawnSpot; arSpawnSpot = function(team, i, n){ return AR.heist ? arHeistSpawn(team, i) : ss0(team, i, n); };
+  const nr0 = arNewRound; arNewRound = function(ev){ if (AR.mode.heist && !AR.heist) arHeistInit(); nr0(ev); if (AR.heist) arHeistRound(); };
+  const dm0 = arDamage; arDamage = function(){ if (AR.heist && AR.heist.ph !== 'live') return; return dm0.apply(this, arguments); };
+  const od0 = arOnDeath; arOnDeath = function(src, dst){ od0.apply(this, arguments); if (AR && AR.heist) arHeistDeath(dst); };
+  const er0 = arEndRound; arEndRound = function(){ if (AR.heist && !AR.heist.ending) return; return er0.apply(this, arguments); };
+  const st0 = arStep; arStep = function(dt){ st0(dt); if (AR && AR.heist && !AR.over) arHeistStep(dt); };
+  const bt0 = arBotThink; arBotThink = function(b, dt){ return AR.heist ? arHeistBot(b, dt, bt0) : bt0(b, dt); };
+  const pl0 = arPlayer; arPlayer = function(dt, live){ const A = AR; if (A.heist && A.me.carry) { A.keys.jump = false; A.keys.slide = false; A.fire = false; A.adsHeld = false; A.me.jbuf = 0; } return pl0(dt, live); };
+  const hu0 = arHudUpdate; arHudUpdate = function(full){ hu0(full); if (AR && AR.heist) arHeistHudTop(); };
+}
+
+/* =====================================================================================================
+   BLACKOUT extras.
+   1. Two variants: in plain Blackout your guns are looks only (no chroma stats, skills, perks or special
+      items), so everyone is on level terms; in Blackout Rumble they all work as in the rest of Showdown.
+   2. Uniforms: Raiders are black-ops (black kit, low helmet, four-tube night vision, chest rig);
+      Defenders are port security in navy with heavy armour (big helmet, thick vest, pauldrons, leg plates).
+   3. A gear shop, open any time you are alive (B, the cash chip, or d-pad down). Money comes from
+      eliminations, assists and a small wage every half minute.
+   ===================================================================================================== */
+function arPlain(){ const A = AR; return !!(A && A.mode && A.mode.heist && !A.mode.rumble); }
+
+/* ---------- uniforms ---------- */
+function arOutfitPal(fit, p){
+  const set = (m, c) => m.c.set(c);
+  if (fit === 'raider') { set(p.mat, '#17191e'); set(p.limbM, '#121419'); set(p.pantsM, '#0e1014'); set(p.plateM, '#23262d'); set(p.darkM, '#08090c'); set(p.skinM, '#0c0d10'); set(p.hairM, '#0c0d10'); set(p.goldM, '#3a3f48'); set(p.eyeM, '#3dff86'); set(p.visorM, '#050608'); }
+  else { set(p.mat, '#1c2f5a'); set(p.limbM, '#18284f'); set(p.pantsM, '#14213f'); set(p.plateM, '#2b4174'); set(p.darkM, '#0e172e'); set(p.goldM, '#c9d2e3'); set(p.hairM, '#14213f'); }
+}
+function arOutfitGear(fit, T, p, put, box, U, B){
+  const {torso, head, legL, legR, armR, armL} = B;
+  if (fit === 'raider') {
+    /* low-cut helmet with side rails, headset, a night-vision mount and four tubes with green lenses */
+    put(box(1.34, .56, 1.38, .22), p.plateM, 0, .72 * U, .02 * U, head); put(box(1.4, .1, 1.0, .04), p.darkM, 0, .5 * U, .1 * U, head);
+    [-1, 1].forEach(s => { put(box(.26, .62, .56, .12), p.darkM, s * .72 * U, -.02 * U, .04 * U, head); put(box(.1, .12, .9, .03), p.darkM, s * .7 * U, .62 * U, 0, head); });
+    put(box(.34, .3, .26, .06), p.darkM, 0, .5 * U, -.74 * U, head);
+    [-.5, -.18, .18, .5].forEach(o => { put(new T.CylinderGeometry(.05, .058, .2, 10).rotateX(Math.PI / 2), p.darkM, o * U, .1 * U, -.84 * U, head); put(new T.CylinderGeometry(.04, .04, .02, 10).rotateX(Math.PI / 2), p.eyeM, o * U, .1 * U, -1.14 * U, head); });
+    /* plate carrier, three magazine pouches, a radio with an aerial, a drop-leg holster */
+    put(box(1.9, 1.3, .3, .08), p.plateM, 0, 1.22 * U, -.58 * U, torso); [-.58, 0, .58].forEach(o => put(box(.44, .62, .24, .06), p.darkM, o * U, .82 * U, -.76 * U, torso));
+    put(box(.26, .52, .22, .05), p.darkM, -.74 * U, 1.86 * U, -.5 * U, torso); put(new T.CylinderGeometry(.008, .008, .34, 6), p.darkM, -.74 * U, 2.6 * U, -.5 * U, torso);
+    put(box(1.6, .5, .3, .08), p.darkM, 0, 1.5 * U, .98 * U, torso);
+    put(box(.3, .82, .72, .08), p.darkM, .58 * U, -.72 * U, 0, legR); put(box(.34, .12, 1.04, .03), p.darkM, .5 * U, -.36 * U, 0, legR);
+    [armR, armL].forEach(A => put(box(1.04, .4, 1.06, .1), p.darkM, 0, -.98 * U, 0, A));
+  } else {
+    /* heavy helmet with a raised visor and a neck guard */
+    put(box(1.5, .8, 1.5, .3), p.plateM, 0, .66 * U, 0, head); put(box(1.54, .14, 1.54, .05), p.hueM, 0, .36 * U, 0, head);
+    { const v = box(1.3, .52, .08, .04); v.rotateX(-.95); put(v, p.visorM, 0, .92 * U, -.7 * U, head); } [-1, 1].forEach(s => put(box(.2, .5, .56, .1), p.plateM, s * .74 * U, -.1 * U, .02 * U, head));
+    put(box(1.56, .56, 1.1, .16), p.darkM, 0, 2.1 * U, .12 * U, torso);
+    /* a thick vest front and back, side plates, a groin plate, a pale name strip */
+    put(box(2.24, 1.5, .52, .14), p.plateM, 0, 1.12 * U, -.6 * U, torso); put(box(2.16, 1.4, .3, .12), p.plateM, 0, 1.14 * U, .5 * U, torso);
+    [-1, 1].forEach(s => put(box(.3, 1.2, 1.16, .1), p.plateM, s * 1.08 * U, 1.0 * U, 0, torso));
+    put(box(1.0, .62, .3, .1), p.plateM, 0, -.14 * U, -.56 * U, torso); put(box(.96, .26, .05, .03), p.goldM, 0, 1.56 * U, -.88 * U, torso);
+    [-.6, .6].forEach(o => put(box(.5, .5, .26, .08), p.darkM, o * U, .62 * U, -.9 * U, torso));
+    /* big pauldrons, forearm guards, thigh plates and shin guards */
+    [armR, armL].forEach(A => { put(box(1.52, .72, 1.52, .26), p.plateM, 0, .06 * U, 0, A); put(box(1.36, .4, 1.36, .14), p.plateM, 0, -.44 * U, 0, A); put(box(1.12, .62, 1.14, .14), p.plateM, 0, -1.0 * U, 0, A); });
+    [legL, legR].forEach(L => { put(box(1.1, .84, .3, .1), p.plateM, 0, -.5 * U, -.5 * U, L); put(box(.94, .72, .26, .1), p.plateM, 0, -1.36 * U, -.54 * U, L); put(box(1.12, .5, .3, .1), p.plateM, 0, -.4 * U, .5 * U, L); });
+  }
+}
+
+/* ---------- the gear shop ---------- */
+const AR_CASH = {start: 800, kill: 300, assist: 100, wage: 150, every: 30};
+const AR_SHOP = [
+  {id: 'vest', n: 'Plate Carrier', p: 650, d: '50 armour. Soaks up half of every hit until it breaks.'},
+  {id: 'helmet', n: 'Ballistic Helmet', p: 400, d: 'Headshots hurt 40% less until you go down.'},
+  {id: 'med', n: 'Med Kit', p: 300, d: 'Back to full health, now.'},
+  {id: 'frag', n: 'Frag Grenade', p: 250, d: 'One more grenade. You can hold three.'},
+  {id: 'rounds', n: 'AP Rounds', p: 900, d: '25% more damage until you go down.'},
+  {id: 'stim', n: 'Stim Shot', p: 350, d: '20% faster for 25 seconds.'},
+  {id: 'harness', n: 'Carry Harness', p: 500, d: 'Lead the package at 0.7x speed, not 0.5x. Kept all match.'},
+  {id: 'role', n: ['Signal Scanner', 'Signal Jammer'], p: 700, d: ['Shows your team the package for 8 seconds, now.', 'The Raiders’ next signal ping fails.']}];
+const arShopIt = id => AR_SHOP.find(s => s.id === id);
+const arMoney = n => '$' + Math.round(n).toLocaleString('en-US');
+function arShopInit(){
+  const A = AR, H = A.heist; A.F.forEach(f => { f.cash = AR_CASH.start; f.gear = {armor: 0, helmet: false, rounds: false, stim: 0, harness: false}; });
+  H.wageT = AR_CASH.every; H.jam = false; A.shopOpen = false;
+  const d = $('#arHs'), def = A.me.team === H.def, w = document.createElement('div'); w.id = 'hsShopW';
+  w.innerHTML = '<button type="button" class="hs-cash" id="hsCash"><b id="hsCashN"></b><i>' + (AR_MOBILE ? 'SHOP' : 'SHOP · B') + '</i><span id="hsGear"></span></button>'
+    + '<div class="hs-shop" id="hsShop" hidden><div class="hs-shop-h"><b>GEAR</b><span id="hsShopCash"></span><button type="button" id="hsShopX" aria-label="Close">✕</button></div><div class="hs-shop-g">'
+    + AR_SHOP.map((s, i) => '<button type="button" class="hs-it" data-buy="' + s.id + '"><kbd>' + (i + 1) + '</kbd><b>' + (Array.isArray(s.n) ? s.n[def ? 1 : 0] : s.n) + '</b><em>' + arMoney(s.p) + '</em><span>' + (Array.isArray(s.d) ? s.d[def ? 1 : 0] : s.d) + '</span></button>').join('')
+    + '</div><p>' + arMoney(AR_CASH.kill) + ' per elimination · ' + arMoney(AR_CASH.assist) + ' per assist · ' + arMoney(AR_CASH.wage) + ' every ' + AR_CASH.every + ' seconds' + (AR_MOBILE ? '' : ' · press 1 to 8 to buy') + '</p></div>';
+  d.append(w);
+  const stop = fn => e => { e.preventDefault(); e.stopPropagation(); fn(e); };
+  ['touchstart', 'click'].forEach(ev => { $('#hsCash').addEventListener(ev, stop(() => arShopToggle()), {passive: false}); $('#hsShopX').addEventListener(ev, stop(() => arShopToggle(false)), {passive: false});
+    w.querySelectorAll('[data-buy]').forEach(b => b.addEventListener(ev, stop(() => arShopBuy(A.me, b.dataset.buy)), {passive: false})); });
+  arShopDraw();
+}
+/* why you can't buy something right now, or '' if you can */
+function arShopWhy(f, id){
+  const A = AR, H = A.heist, s = arShopIt(id), g = f.gear; if (!s || !g) return 'x';
+  if (!f.alive) return 'You can buy again when you are back up'; if (H.ph === 'cine' || H.ph === 'over') return 'Not now';
+  if (id === 'vest' && g.armor >= 50) return 'Your armour is full'; if (id === 'helmet' && g.helmet) return 'You are wearing one'; if (id === 'med' && f.hp >= 100) return 'You are at full health';
+  if (id === 'frag' && (f.nade || 0) >= 3) return 'You can only hold three'; if (id === 'rounds' && g.rounds) return 'Already loaded'; if (id === 'harness' && g.harness) return 'You have one';
+  if (id === 'role' && H.ph !== 'live') return 'Wait for the raid to start'; if (id === 'role' && f.team === H.def && H.jam) return 'A jammer is already running';
+  if (f.cash < s.p) return 'Not enough money';
+  return '';
+}
+function arShopBuy(f, id){
+  const A = AR, H = A.heist, pk = H.pk, s = arShopIt(id), why = arShopWhy(f, id), g = f.gear;
+  if (why) { if (f.me) { tone(200, .08, 'square', .03); arFeed(why, 'b'); } return false; }
+  f.cash -= s.p;
+  if (id === 'vest') g.armor = 50; if (id === 'helmet') g.helmet = true; if (id === 'med') f.hp = 100; if (id === 'frag') f.nade = (f.nade || 0) + 1; if (id === 'rounds') g.rounds = true; if (id === 'stim') g.stim = 25; if (id === 'harness') g.harness = true;
+  if (id === 'role') { if (f.team === H.raid) { pk.known = {x: pk.p.x, y: pk.p.y, z: pk.p.z}; pk.seenT = Math.max(pk.seenT, A.clock + 8); arRingFx({x: pk.p.x, y: pk.p.y + .1, z: pk.p.z}, '#3dff86', 7, .9);
+      arFeed(A.me.team === H.raid ? (f.me ? 'Scanner: package located' : f.name + ' scanned for the package') : 'The Raiders scanned for the package', A.me.team === H.raid ? 'b' : 'r'); if (A.me.team === H.raid) tone(1480, .09, 'sine', .05); }
+    else { H.jam = true; if (A.me.team === H.def) arFeed(f.me ? 'Jammer on: their next ping will fail' : f.name + ' switched on a jammer', 'b'); } }
+  if (f.me) { tone(880, .07, 'triangle', .05); tone(1320, .1, 'triangle', .04, .07); const nm = Array.isArray(s.n) ? s.n[f.team === H.def ? 1 : 0] : s.n; if (id !== 'role') arFeed('Bought ' + nm, 'b'); arHudUpdate(true); arShopDraw(); }
+  return true;
+}
+function arShopDeath(f){ if (f.gear) Object.assign(f.gear, {armor: 0, helmet: false, rounds: false, stim: 0}); }
+function arShopToggle(on){ const A = AR; if (!A || !A.heist) return; A.shopOpen = on == null ? !A.shopOpen : !!on; const p = $('#hsShop'); if (p) p.hidden = !A.shopOpen; if (A.shopOpen) { arShopDraw(); tone(600, .05, 'triangle', .03); } }
+/* B opens and closes it; while it is open the number keys buy */
+function arShopKey(k){
+  const A = AR; if (k === 'b') { arShopToggle(); return true; }
+  if (!A.shopOpen) return false; if (k === 'escape') { arShopToggle(false); return true; }
+  const n = +k; if (n >= 1 && n <= AR_SHOP.length) { arShopBuy(A.me, AR_SHOP[n - 1].id); return true; }
+  return false;
+}
+function arShopDraw(){
+  const A = AR, me = A.me, g = me.gear; if (!g || !$('#hsCashN')) return;
+  $('#hsCashN').textContent = arMoney(me.cash); $('#hsShopCash').textContent = arMoney(me.cash);
+  $('#hsGear').textContent = [g.armor > 0 ? 'ARMOUR ' + Math.ceil(g.armor) : '', g.helmet ? 'HELMET' : '', g.rounds ? 'AP' : '', g.stim > 0 ? 'STIM ' + Math.ceil(g.stim) + 's' : '', g.harness ? 'HARNESS' : ''].filter(Boolean).join(' · ');
+  if (A.shopOpen) document.querySelectorAll('#hsShop [data-buy]').forEach(b => { const why = arShopWhy(me, b.dataset.buy); b.classList.toggle('no', !!why); b.title = why; });
+}
+function arShopStep(dt){
+  const A = AR, H = A.heist, pk = H.pk;
+  H.wageT -= dt; if (H.wageT <= 0) { H.wageT = AR_CASH.every; A.F.forEach(f => { if (!f.summon) f.cash += AR_CASH.wage; }); }
+  A.F.forEach(f => { const g = f.gear; if (!g) return; if (g.stim > 0) g.stim -= dt;
+    /* the computer players shop too: armour first, then a helmet, better rounds, and a scan when they are lost */
+    if (f.me || f.remote || f.summon || !f.alive || A.clock < (f.buyT || 0)) return; f.buyT = A.clock + 3 + Math.random() * 4;
+    const want = !g.armor ? 'vest' : f.hp < 45 ? 'med' : !g.helmet ? 'helmet' : !g.rounds ? 'rounds' : f.team === H.raid && H.ph === 'live' && !pk.known && !pk.car.length ? 'role' : (f.nade || 0) < 1 ? 'frag' : null;
+    if (want && !arShopWhy(f, want)) arShopBuy(f, want); });
+  H.shopT = (H.shopT || 0) - dt; if (H.shopT <= 0) { H.shopT = .25; arShopDraw(); }
+}
+/* gear changes what a hit does; eliminations and assists pay */
+{ const dm1 = arDamage; arDamage = function(src, dst, dmg, head){
+    if (AR && AR.heist && dst && dst.gear && dmg > 0) { let d = dmg; if (src && src !== dst && src.gear && src.gear.rounds) d *= 1.25; if (head && dst.gear.helmet) d *= .6;
+      if (dst.gear.armor > 0) { const a = Math.min(dst.gear.armor, d * .5); dst.gear.armor -= a; d -= a; } arguments[2] = d; }
+    return dm1.apply(this, arguments); };
+  const od1 = arOnDeath; arOnDeath = function(src, dst){
+    const A = AR, pay = A && A.heist && dst && !dst.summon, helpers = pay ? Object.keys(dst.dmgFrom || {}).map(n => A.F[+n]).filter(o => o && o !== src && o.team !== dst.team && A.clock - dst.dmgFrom[o.nid] < 12) : [];
+    od1.apply(this, arguments);
+    if (pay && src && src !== dst && src.team !== dst.team && src.cash != null) { src.cash += AR_CASH.kill; if (src.me) arFeed('+' + arMoney(AR_CASH.kill) + ' elimination', 'b'); }
+    helpers.forEach(o => { if (o.cash != null) { o.cash += AR_CASH.assist; if (o.me) arFeed('+' + arMoney(AR_CASH.assist) + ' assist', 'b'); } }); };
+  const pg0 = arHeistPing; arHeistPing = function(){ const A = AR, H = A.heist; if (H.jam) { H.jam = false; arFeed(A.me.team === H.raid ? 'Signal jammed · no ping' : 'Your jammer blocked their ping', A.me.team === H.raid ? 'r' : 'b'); tone(180, .3, 'sawtooth', .04); return; } return pg0.apply(this, arguments); };
+}
+
+/* =====================================================================================================
+   YOUR CONTROLS. Two things you can change in Showdown's settings:
+   1. Phone buttons: drag any button (and the move stick) to where you want it and set its size.
+      Saved as an offset in screen units and a size factor per button, so it carries across phones.
+   2. Controller: rebind every action to any button (binding one that is in use swaps the two, as in FIFA),
+      swap the sticks, invert the look, and set the look speed.
+   ===================================================================================================== */
+const AR_TB_NAMES = {stick: 'Move stick', fire: 'Shoot', ads: 'Aim', nade: 'Grenade', jump: 'Jump', reload: 'Reload', slide: 'Slide', swap: 'Swap weapon', skill: 'Skill'};
+function arTouchHTML(){
+  return '<div class="ar-touch" id="arTouch"><div class="ar-stick" id="arStick"><i></i></div>'
+    + [['fire', 'fire'], ['ads', 'ads'], ['nade', 'nade'], ['jump', 'jump'], ['reload', 'reload'], ['slide', 'slide'], ['swap', 'swap'], ['skill', 'skill']]
+      .map(([k, ic]) => '<button type="button" class="tb ' + k + '" data-t="' + k + '" aria-label="' + k + '">' + (k === 'skill' || k === 'nade' ? '<span class="tbi">' + AR_IC[ic] + '</span>' : AR_IC[ic]) + (k === 'skill' ? '<svg class="cdr" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" id="arTSkC"/></svg>' : '') + '</button>').join('') + '</div>';
+}
+/* put every button where the player's layout says */
+function arTouchApply(root){
+  const tl = arS().tl || {};
+  (root || document).querySelectorAll('.ar-touch .tb, .ar-touch .ar-stick').forEach(el => { const k = el.dataset.t || 'stick', L = tl[k] || {x: 0, y: 0, k: 1};
+    if (k === 'stick') { el.style.left = 'calc(22vmin + ' + L.x + 'vmin)'; el.style.top = 'calc(68% + ' + L.y + 'vmin)'; el.style.scale = L.k; }
+    else { el.style.translate = L.x + 'vmin ' + L.y + 'vmin'; el.style.scale = L.k; } });
+}
+function arTouchEdit(){
+  const S = arS(); S.tl = S.tl || {}; const ov = document.createElement('div'); ov.className = 'ar-tled';
+  ov.innerHTML = '<div class="ar-tled-stage">' + arTouchHTML().replace('id="arTouch"', '').replace('id="arStick"', '').replace('id="arTSkC"', '') + '</div>'
+    + '<div class="ar-tled-bar"><b id="tlName">Drag a button to move it</b><label>Size <input type="range" id="tlSize" min=".6" max="1.8" step=".05" value="1" disabled></label><button type="button" id="tlReset">Reset</button><button type="button" id="tlDone">Done</button></div>';
+  $('#arena').append(ov); arTouchApply(ov);
+  let sel = null; const vm = () => Math.min(innerWidth, innerHeight) / 100, get = k => S.tl[k] || (S.tl[k] = {x: 0, y: 0, k: 1});
+  const inView = el => { const r = el.getBoundingClientRect(); return r.left >= 0 && r.top >= 50 && r.right <= innerWidth && r.bottom <= innerHeight; };
+  const pick = el => { ov.querySelectorAll('.sel').forEach(e => e.classList.remove('sel')); sel = el; el.classList.add('sel'); const k = el.dataset.t || 'stick'; $('#tlName').textContent = AR_TB_NAMES[k] || k; const sz = $('#tlSize'); sz.disabled = false; sz.value = get(k).k; };
+  ov.querySelectorAll('.tb, .ar-stick').forEach(el => { el.style.touchAction = 'none'; el.classList.remove('on');
+    el.addEventListener('pointerdown', e => { e.preventDefault(); pick(el); const L = get(el.dataset.t || 'stick'), x0 = e.clientX, y0 = e.clientY, lx = L.x, ly = L.y; try { el.setPointerCapture(e.pointerId); } catch (er) {}
+      const mv = ev => { const px = L.x, py = L.y; L.x = +(lx + (ev.clientX - x0) / vm()).toFixed(1); L.y = +(ly + (ev.clientY - y0) / vm()).toFixed(1); arTouchApply(ov); if (!inView(el)) { L.x = px; L.y = py; arTouchApply(ov); } };
+      const up = () => { el.removeEventListener('pointermove', mv); el.removeEventListener('pointerup', up); el.removeEventListener('pointercancel', up); save(); };
+      el.addEventListener('pointermove', mv); el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up); }); });
+  $('#tlSize').oninput = e => { if (!sel) return; const L = get(sel.dataset.t || 'stick'), was = L.k; L.k = +e.target.value; arTouchApply(ov); if (!inView(sel)) { L.k = was; e.target.value = was; arTouchApply(ov); } save(); };
+  $('#tlReset').onclick = () => { S.tl = {}; save(); arTouchApply(ov); sel = null; ov.querySelectorAll('.sel').forEach(e => e.classList.remove('sel')); $('#tlName').textContent = 'Back to the standard layout'; $('#tlSize').disabled = true; $('#tlSize').value = 1; };
+  $('#tlDone').onclick = () => { save(); ov.remove(); };
+}
+
+/* ---------- controller bindings ---------- */
+const AR_PAD_DEF = {fire: 7, ads: 6, jump: 0, slide: 1, reload: 2, swap: 3, skill: 4, item: 5, w1: 14, w2: 12, w3: 15, extra: 13, grab: 10, board: 9, leave: 8};
+const AR_PAD_ACT = [['fire', 'Shoot'], ['ads', 'Aim'], ['jump', 'Jump'], ['slide', 'Slide'], ['reload', 'Reload'], ['swap', 'Next weapon'], ['skill', 'Skill'], ['item', 'Item'], ['w1', 'Weapon 1'], ['w2', 'Weapon 2'], ['w3', 'Weapon 3'],
+  ['extra', 'GOAT marks / Blackout shop'], ['grab', 'Grab the package'], ['board', 'Scoreboard (hold)'], ['leave', 'Leave match']];
+const AR_PAD_BTN = ['✕', '○', '□', '△', 'L1', 'R1', 'L2', 'R2', 'Create', 'Options', 'L3', 'R3', 'D-pad ↑', 'D-pad ↓', 'D-pad ←', 'D-pad →', 'PS', 'Touchpad'];
+let arPadBind = null;
+function arPadMap(){ return Object.assign({}, AR_PAD_DEF, arS().padMap || {}); }
+const arPadOpt = () => Object.assign({swap: false, inv: false, sens: 1}, arS().padOpt || {});
+/* give an action a button; if another action had it, that one takes this action's old button */
+function arPadAssign(act, i){
+  const S = arS(), M = arPadMap(), other = Object.keys(M).find(k => M[k] === i && k !== act); if (other) M[other] = M[act]; M[act] = i; S.padMap = M; save(); arPadBind = null; arPadRows(); tone(900, .06, 'triangle', .04);
+}
+function arPadRows(){
+  const el = $('#arPadMap'); if (!el) return; const M = arPadMap();
+  el.innerHTML = AR_PAD_ACT.map(([k, n]) => '<button type="button" class="ar-pm' + (arPadBind === k ? ' wait' : '') + '" data-act="' + k + '"><span>' + n + '</span><b>' + (arPadBind === k ? 'Press a button…' : AR_PAD_BTN[M[k]] || 'Button ' + M[k]) + '</b></button>').join('');
+  el.querySelectorAll('[data-act]').forEach(b => b.onclick = () => { arPadBind = arPadBind === b.dataset.act ? null : b.dataset.act; arPadRows(); if (arPadBind && !arPadGet()) toast('Press any button on your controller first so the game can see it'); });
+}
+function arSetExtra(){
+  const O = arPadOpt();
+  return '<div class="ar-seth">Phone buttons</div><button type="button" class="ar-btn ghost ar-setb" id="arTlEdit">Move and resize the buttons</button>'
+    + '<div class="ar-seth">Controller</div><label class="ar-set"><span>Controller look speed <b id="arPsV">' + O.sens.toFixed(2) + '×</b></span><input type="range" id="arPs" min=".4" max="2.5" step=".05" value="' + O.sens + '"></label>'
+    + '<label class="ar-set tog"><span>Swap the sticks (move with the right one)</span><input type="checkbox" id="arPsw"' + (O.swap ? ' checked' : '') + '></label>'
+    + '<label class="ar-set tog"><span>Invert looking up and down</span><input type="checkbox" id="arPin"' + (O.inv ? ' checked' : '') + '></label>'
+    + '<p class="ar-setp">Pick an action, then press the button you want for it. If that button is taken, the two swap.</p><div class="ar-padmap" id="arPadMap"></div>'
+    + '<button type="button" class="ar-btn ghost ar-setb" id="arPadReset">Reset controller buttons</button>';
+}
+function arSetExtraBind(box){
+  const S = arS(), opt = (k, v) => { S.padOpt = Object.assign(arPadOpt(), {[k]: v}); save(); };
+  $('#arTlEdit').onclick = arTouchEdit; $('#arPs').oninput = e => { opt('sens', +e.target.value); $('#arPsV').textContent = (+e.target.value).toFixed(2) + '×'; };
+  $('#arPsw').onchange = e => opt('swap', e.target.checked); $('#arPin').onchange = e => opt('inv', e.target.checked);
+  $('#arPadReset').onclick = () => { delete S.padMap; save(); arPadBind = null; arPadRows(); };
+  arPadBind = null; arPadRows();
+}
+function arPadGame(A, b, was, hit, ax, dt){
+  const f = A.me, M = arPadMap(), O = arPadOpt(), edge = (i, th, on, off) => { const n = b[i] > th, o = (was[i] || 0) > th; if (n && !o) on(); else if (!n && o) off(); };
+  const h = $('#arLockHint'); if (h && !h.hidden) h.hidden = true;
+  const sw = O.swap ? 2 : 0, mx = ax(sw), my = ax(sw + 1); A.padMv = mx || my ? {x: mx, y: my} : null;
+  /* look: a curve so small pushes aim finely and a full push turns fast; slower while aiming down sights */
+  const rx = ax(2 - sw), ry = ax(3 - sw) * (O.inv ? -1 : 1); A.padAim = !!(rx || ry);
+  if (A.padAim && f.alive) { const W = arWS(f.load[f.cur].it), cv = v => Math.sign(v) * Math.pow(Math.abs(v), 1.7);
+    let r = 3.6 * O.sens; if (A.ads > .5) r /= Math.max(1, W.zoom * .8);
+    f.yaw -= cv(rx) * r * dt; f.pitch = Math.max(-1.45, Math.min(1.45, f.pitch - cv(ry) * r * .7 * dt)); }
+  edge(M.fire, .3, () => A.fire = true, () => A.fire = false);
+  edge(M.ads, .3, () => A.adsHeld = true, () => A.adsHeld = false);
+  edge(M.jump, .5, () => A.keys.jump = true, () => A.keys.jump = false);
+  if (hit(M.slide)) A.keys.slide = true;
+  if (hit(M.reload)) arReload(f);
+  if (hit(M.swap)) arSwap((f.cur + 1) % 3);
+  if (hit(M.skill)) arUseSkill(f);
+  if (hit(M.item)) arUseMisc(f);
+  if (hit(M.w1)) arSwap(0); if (hit(M.w2)) arSwap(1); if (hit(M.w3)) arSwap(2);
+  if (hit(M.extra)) { if (A.heist) arShopToggle(true); else { const g = $('#arGoat'); if (g && g.offsetParent) g.click(); } }
+  if (hit(M.grab) && A.heist) arHeistUse(f);
+  edge(M.board, .5, () => { const bd = $('#arBoard'); bd.hidden = false; arBoard(); }, () => { $('#arBoard').hidden = true; });
+  if (hit(M.leave)) { const l = $('#arPauseBtn'); if (l) l.click(); }
 }
 $('#arBtn').onclick = () => { if (busy) return; arOpen(); };
 document.addEventListener('keydown', e => { const el = $('#arena'); if (!el || el.hidden) return; if (e.key === 'Escape') { e.stopImmediatePropagation(); if (!AR && $('#arGame').hidden && !document.querySelector('.ar-pick')) { if (arQ) { clearInterval(arQ.iv); arQ = null; arMenu(); } else arClose(); } else { const pk = document.querySelector('.ar-pick'); if (pk) pk.remove(); } } }, true);
