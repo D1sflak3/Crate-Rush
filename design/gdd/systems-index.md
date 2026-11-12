@@ -16,7 +16,7 @@ mid-carry, your side picked at random, solo only for now.
 
 | # | Name | Category | Priority | Status | Design Doc | Depends On |
 |---|------|----------|----------|--------|------------|------------|
-| 1 | Mode registry entry (Black Cargo, 4v4, one map) | Core | MVP | Implemented | - | - |
+| 1 | Mode registry entry (Blackout, 4v4, one map) | Core | MVP | Implemented | - | - |
 | 2 | Blackwater Port map (layout, collision, climb routes, hide spots) | World | MVP | Implemented | - | 1 |
 | 3 | Port look (storm sky, rain, sea, ship, cranes, lamps) | Presentation | MVP | Implemented | - | 2 |
 | 4 | Roles and spawns (Raiders on the ship, Defenders on the dock) | Gameplay | MVP | Implemented | - | 1, 2 |
@@ -24,7 +24,7 @@ mid-carry, your side picked at random, solo only for now.
 | 6 | Package (state, pick up, drop, two-person carry link) | Gameplay | MVP | Implemented | - | 2 |
 | 7 | Carry rules (0.5x speed, no weapons, no ladders or jumps) | Gameplay | MVP | Implemented | - | 6 |
 | 8 | Win conditions (ship zone, timer) | Gameplay | MVP | Implemented | - | 5, 6 |
-| 9 | Respawns | Gameplay | MVP | Implemented | - | 4, 5 |
+| 9 | Respawns (timed; replaced by 28) | Gameplay | MVP | Superseded | - | 4, 5 |
 | 10 | Package visibility (Defenders always, Raiders by sight or ping) | Gameplay | MVP | Implemented | - | 6 |
 | 11 | Bot objectives (hide, guard, search, help carry, haul, escort) | AI | MVP | Implemented | - | 6, 8, 10 |
 | 12 | Delivery cutscene | Presentation | MVP | Implemented | - | 3, 5 |
@@ -39,6 +39,17 @@ mid-carry, your side picked at random, solo only for now.
 | 22 | Port lighting (low sun, storm-cloud sky, long shadows) | Presentation | MVP | Implemented | - | 3 |
 | 23 | Phone button layout editor | UI | MVP | Implemented | - | - |
 | 24 | Controller rebinding | UI | MVP | Implemented | - | - |
+| 25 | Operators (five kits and perks) and the operator room | Gameplay | MVP | Implemented | - | 5, 20 |
+| 26 | Belt: hold, select, use and hand over what you buy | Gameplay | MVP | Implemented | - | 20 |
+| 27 | Ammo reserve and Ammo Boxes | Gameplay | MVP | Implemented | - | 20, 26 |
+| 28 | Revives (one free, bought, Revive Kit) and the team-wipe rule; replaces 9 | Gameplay | MVP | Implemented | - | 5, 20, 26 |
+| 29 | Gadgets: Recon Drone, Spy Camera, Proximity Mine, marks through walls | Gameplay | MVP | Implemented | - | 26 |
+| 30 | Fuel barrels (shoot to explode, chain) | World | MVP | Implemented | - | 2 |
+| 31 | Objective money for Raiders (found before the ping, first lift) | Economy | MVP | Implemented | - | 10, 20 |
+| 32 | Tactical computer players (posts, squad sweep, rally, regroup, utility, revives, shopping) | AI | MVP | Implemented | - | 11, 20, 28, 29 |
+| 33 | Map extension: rail yard, fuel depot, pipe bridge, catwalk, watchtower, platform | World | MVP | Implemented | - | 2 |
+| 34 | Ground detail: shader wear and wet patches, decals, markings, clutter, rain rings | Presentation | MVP | Implemented | - | 3 |
+| 35 | Lighting extras: lamp pools and shafts, mist, beacons, lighthouse beam | Presentation | MVP | Implemented | - | 22 |
 | 18 | First-person carry hands, bot carry pose | Presentation | Full Vision | Not Started | - | 6 |
 
 ## Dependency Map
