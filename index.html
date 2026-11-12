@@ -3252,6 +3252,232 @@ body.dz-open .toast{z-index:95}
 @keyframes mlTap{50%{fill:#0c3a22}}
 .msi-ov{position:absolute;inset:0;z-index:6;display:grid;place-items:center;padding:16px;background:rgba(2,6,12,.7);overflow:auto;animation:fadeIn .25s}
 .msi-ov .vx{width:min(760px,100%);max-height:calc(100% - 8px);overflow:auto;margin:0;border-color:#75bde9;background:radial-gradient(circle at 20% 0%,rgba(117,189,233,.22),transparent 60%),#050b14;box-shadow:0 0 40px rgba(117,189,233,.25),0 30px 80px rgba(0,0,0,.6)}
+/* KING-CSS-BEGIN */
+/* ---------- The King ---------- */
+.gtc[data-s="k1"] .kg-1,.gtc[data-s="k2"] .kg-2,.gtc[data-s="k3"] .kg-3,.gtc[data-s="k3b"] .kg-3b,.gtc[data-s="k4"] .kg-4,.gtc[data-s="k5"] .kg-5,.gtc[data-s="k5b"] .kg-5b,.gtc[data-s="k6"] .kg-6,.gtc[data-s="k8"] .kg-8{opacity:1;visibility:visible;transition:opacity .8s}
+.gtc[data-s="k5b"] .kg-5b,.gtc[data-s="k3b"] .kg-3b{transition:none}
+.kgc{background:#000}
+.kgc.quake{animation:kgQuake .5s linear}
+@keyframes kgQuake{0%,100%{transform:none}15%{transform:translate(-8px,6px)}30%{transform:translate(7px,-7px)}45%{transform:translate(-6px,-3px)}60%{transform:translate(5px,4px)}80%{transform:translate(-2px,1px)}}
+.kg-flash,.kg-white,.kg-vig{position:absolute;inset:0;pointer-events:none}
+.kg-flash{z-index:8;opacity:0}
+.kg-flash.on{animation:suFlash .7s ease-out}
+.kg-white{z-index:7;background:#fffdf0;opacity:0;transition:opacity 1.1s}
+.kgc.white .kg-white{opacity:1;transition:opacity .6s}
+.kg-vig{z-index:3;background:radial-gradient(ellipse at center,transparent 52%,rgba(0,0,0,.6) 100%)}
+.kg-lb{position:absolute;left:0;right:0;height:9vh;background:#000;z-index:6;transition:height .9s}
+.kg-lb.t{top:0;box-shadow:0 1px 0 rgba(255,210,63,.22)}.kg-lb.b{bottom:0;box-shadow:0 -1px 0 rgba(255,210,63,.22)}
+.gtc[data-s="k8"] .kg-lb{height:0}
+/* captions */
+.kg-cap{position:absolute;left:6vw;bottom:calc(9vh + 22px);z-index:4;max-width:min(640px,88vw);display:grid}
+.kg-cap.c{left:0;right:0;margin:auto;text-align:center;justify-items:center}
+.kg-cap.r{left:auto;right:6vw;text-align:right;justify-items:end;max-width:min(480px,48vw)}
+.kg-cap>*{opacity:0;transform:translateY(10px);transition:opacity .9s,transform .9s;margin:0}
+.kg-cap>.on{opacity:1;transform:none}
+.kg-cap small{display:block;font:700 12px/1.3 var(--body);letter-spacing:.3em;text-transform:uppercase;color:#ffd23f;margin-bottom:10px;text-shadow:0 1px 8px rgba(0,0,0,.9)}
+.kg-cap p{font:600 clamp(24px,4.2vw,44px)/1.08 var(--display);letter-spacing:.02em;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.9),0 0 2px rgba(0,0,0,.8)}
+.kg-cap p.g{color:#ffd23f}
+.kg-cap p+p.g{margin-top:6px}
+.kg-cap p.big{font-size:clamp(34px,6.6vw,76px);letter-spacing:.06em;text-shadow:0 0 34px rgba(255,210,63,.7),0 2px 14px rgba(0,0,0,.9)}
+.kg-cap.sw>p{grid-row:2;grid-column:1;align-self:end}
+.kg-cap.t{bottom:auto;top:calc(9vh + 18px)}
+.kg-cap.n{max-width:min(440px,34vw)}
+.kg-cap.n p,.kg-cap.t p,.kg-cap.r p{font-size:clamp(20px,3.3vw,36px)}
+/* the figures: joints ease between poses, or run a walk cycle */
+.kf .kj{transform:rotate(var(--p0));transition:transform var(--pt,.34s) cubic-bezier(.3,.1,.3,1)}
+.kf[data-p="1"] .kj{transform:rotate(var(--p1))}.kf[data-p="2"] .kj{transform:rotate(var(--p2))}.kf[data-p="3"] .kj{transform:rotate(var(--p3))}.kf[data-p="4"] .kj{transform:rotate(var(--p4))}.kf[data-p="5"] .kj{transform:rotate(var(--p5))}
+.kf.walk .kj{animation:kgCyc var(--wt,.62s) var(--wd,0s) linear infinite}
+@keyframes kgCyc{0%,100%{transform:rotate(var(--w0))}12.5%{transform:rotate(var(--w1))}25%{transform:rotate(var(--w2))}37.5%{transform:rotate(var(--w3))}50%{transform:rotate(var(--w4))}62.5%{transform:rotate(var(--w5))}75%{transform:rotate(var(--w6))}87.5%{transform:rotate(var(--w7))}}
+.kg-tw{animation:kgTwk 2.2s var(--d,0s) ease-in-out infinite alternate}
+@keyframes kgTwk{from{opacity:.2}to{opacity:1}}
+/* 1 */
+.kg-waves path{opacity:0;animation:kgWave 1s calc(var(--i)*.2s) ease-out infinite}
+@keyframes kgWave{0%{opacity:0;transform:translateX(6px)}30%{opacity:.9}100%{opacity:0;transform:translateX(-9px)}}
+.kgc.hush .kg-waves{opacity:0;transition:opacity .15s}
+.kg-dial{animation:kgTwk 1.3s ease-in-out infinite alternate}
+.kgc.hush .kg-dial{animation:none;opacity:.3;transition:opacity .4s}
+.kgc.hush .kg-dad{animation:kgSob 1.7s ease-in-out infinite}
+@keyframes kgSob{0%,60%,100%{transform:none}12%{transform:translateY(1px)}22%{transform:none}32%{transform:translateY(.9px)}44%{transform:none}}
+.kg-boy1{transition:transform 2.2s linear}
+.kgc.b1go .kg-boy1{transform:translateX(120px)}
+.kf-b1{--wt:.74s}
+.kg-bulbg{opacity:.6;transition:opacity 2.4s}
+.kgc.warm .kg-bulbg{opacity:1}
+/* 2 */
+.kg-newstar{opacity:0;transform:scale(.1)}
+.kgc.star .kg-newstar{opacity:1;transform:scale(1);transition:transform .7s cubic-bezier(.2,1.8,.4,1),opacity .2s;animation:kgPulse 1.6s .7s ease-in-out infinite alternate}
+@keyframes kgPulse{from{transform:scale(1)}to{transform:scale(1.25)}}
+.kgc.fly .kg-rag>g{transform:translate(55px,-137px) scale(.3) rotate(540deg)!important;opacity:0;transition:transform 1.05s cubic-bezier(.2,.7,.4,1),opacity .2s .9s!important}
+/* 3 */
+.kg-hero3{transition:transform .9s linear}
+.kgc.h3run .kg-hero3{transform:translateX(124px)}
+.kf-h3{--wt:.38s}
+.kgc.h3up .kg-h3y{animation:kgHop .7s cubic-bezier(.3,0,.3,1)}
+@keyframes kgHop{0%,100%{transform:none}45%{transform:translateY(-24px)}}
+.kgc.gk3 .kg-gk3{transform:translate(-12px,12px);transition:transform .25s ease-out}
+.kg-net3{transform-origin:344px 204px}
+.kgc.goal3 .kg-net3{animation:kgNet .6s ease-out}
+@keyframes kgNet{0%,100%{transform:none}28%{transform:skewX(-10deg) scaleX(1.16)}}
+.kg-up3{animation:kgBob3 .9s ease-in-out infinite}
+@keyframes kgBob3{50%{transform:translateY(-7px)}}
+.kg-lift{animation:kgBob3 .9s -.1s ease-in-out infinite reverse}
+/* 4 */
+.kg-4{background:radial-gradient(ellipse at 50% 40%,#3d2800 0%,#150d00 55%,#050300 100%)}
+.kg-rays{position:absolute;left:50%;top:44%;width:220vmax;height:220vmax;transform:translate(-50%,-50%);background:repeating-conic-gradient(from 0deg,rgba(255,210,63,.1) 0 5deg,transparent 5deg 12deg);-webkit-mask-image:radial-gradient(circle,#000 0,transparent 52%);mask-image:radial-gradient(circle,#000 0,transparent 52%);animation:kgSpin 70s linear infinite}
+@keyframes kgSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.kg-k4{position:absolute;inset:9vh 0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:min(2.6vh,20px);text-align:center}
+.kg-count{display:grid;justify-items:center;gap:2px}
+.kg-count small{font:700 12px/1 var(--body);letter-spacing:.34em;text-transform:uppercase;color:#ffd23f}
+.kg-count b{font:700 min(22vw,30vh)/.84 var(--display);letter-spacing:.02em;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#fff,#ffe9a0 30%,#ffd23f 55%,#a86a00 92%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 0 #3a2400) drop-shadow(0 0 40px rgba(255,210,63,.45))}
+.kg-count span{font:700 min(3.6vw,5vh)/1 var(--display);letter-spacing:.5em;color:#fff6cc;margin-left:.5em}
+.kg-count em{font:600 13px/1.2 var(--body);font-style:normal;letter-spacing:.14em;color:#c9b27a;margin-top:8px;opacity:0;transition:opacity .6s}
+.kgc.counted .kg-count em{opacity:1}
+.kgc.counted .kg-count b{animation:kgPunch .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes kgPunch{0%{transform:scale(1.2)}100%{transform:none}}
+.kg-mil{position:absolute;right:5vw;top:calc(9vh + 4vh);transform:rotate(6deg) scale(.3);opacity:0;display:grid;gap:5px;justify-items:center;padding:10px 18px;border:2px solid #ffd23f;border-radius:10px;background:rgba(20,12,0,.86);box-shadow:0 0 40px rgba(255,210,63,.4)}
+.kg-mil b{font:700 clamp(24px,4vw,44px)/1 var(--display);color:#fff6cc}
+.kg-mil span{font:700 11px/1 var(--body);letter-spacing:.22em;text-transform:uppercase;color:#ffd23f}
+.kgc.mil .kg-mil{opacity:1;transform:rotate(6deg) scale(1);transition:transform .45s cubic-bezier(.2,1.7,.4,1),opacity .15s}
+.kg-cups{display:flex;justify-content:center;gap:min(7vw,60px)}
+.kg-cups div{display:grid;justify-items:center;gap:4px;opacity:0;transform:translateY(20px) scale(.3) rotate(-40deg)}
+.kg-cups svg{width:min(8vw,11vh);min-width:34px;filter:drop-shadow(0 0 16px rgba(255,210,63,.8))}
+.kg-cups b{font:700 min(2.6vw,4vh)/1 var(--display);letter-spacing:.14em;color:#fff6cc}
+.kgc.cup0 .kg-cups div:nth-child(1),.kgc.cup1 .kg-cups div:nth-child(2),.kgc.cup2 .kg-cups div:nth-child(3){opacity:1;transform:none;transition:transform .5s cubic-bezier(.2,1.8,.4,1),opacity .15s}
+.kg-k4 .kg-cap{position:static;max-width:none}
+.kg-k4 .kg-cap p{font-size:min(4vw,5.6vh)}
+/* 5 */
+.kg-h5y,.kg-d5y{transition:transform .5s cubic-bezier(.6,0,.9,.5)}
+.kgc.k5jump .kg-h5y{transform:translateY(-56px);transition:transform .6s cubic-bezier(.15,.75,.3,1)}
+.kgc.k5jump .kg-d5y{transform:translateY(-36px);transition:transform .55s cubic-bezier(.15,.75,.3,1)}
+.kgc.k5hang .kg-h5y{transform:translateY(-68px);transition:transform 3.4s cubic-bezier(.15,.6,.3,1)}
+.kgc.k5fall .kg-d5y{transform:none;transition:transform .5s cubic-bezier(.6,0,.9,.5)}
+.kgc.k5hang .kf-h5{--pt:1.7s}
+.kgc.k5head .kf-h5{--pt:.09s}
+.kg-dim5{opacity:0;transition:opacity .5s}
+.kgc.k5hang .kg-dim5{opacity:.6}
+.kgc.k5head .kg-dim5{opacity:0;transition:opacity .1s}
+.kg-aura5{opacity:0;transition:opacity .9s}
+.kgc.k5hang .kg-aura5{opacity:.95}
+.kg-sh5{transform-box:fill-box;transform-origin:center;transition:transform .5s,opacity .5s}
+.kgc.k5jump .kg-sh5{transform:scale(.5);opacity:.18}
+.kgc.k5fall .kg-sh5.d{transform:none;opacity:.4}
+.kg-ball5b{transform:translate(110px,270px) scale(6)}
+.kgc.k5net .kg-ball5b{transform:translate(304px,200px) scale(1);transition:transform .28s cubic-bezier(.3,0,.8,.6)}
+.kg-hit5{opacity:0;transform-origin:304px 200px}
+.kgc.k5goal .kg-hit5{animation:kgHit .7s ease-out}
+@keyframes kgHit{0%{opacity:1;transform:scale(.3)}100%{opacity:0;transform:scale(1.8)}}
+.kg-net5{transform-origin:330px 220px}
+.kgc.k5goal .kg-net5{animation:kgNet5 .8s ease-out}
+@keyframes kgNet5{0%,100%{transform:none}22%{transform:scale(1.06,1.04) skewX(4deg)}50%{transform:scale(.99) skewX(-1deg)}}
+.kg-gk5{transform:translate(-46px,-14px)}
+.kgc.k5net .kg-gk5{transform:none;transition:transform .36s ease-out}
+.kg-sb{position:absolute;top:calc(9vh + 16px);left:50%;z-index:4;transform:translate(-50%,-12px);opacity:0;transition:all .5s;font:700 clamp(15px,2.2vw,22px)/1 var(--display);letter-spacing:.16em;color:#ffd23f;background:rgba(0,0,0,.72);border:1px solid rgba(255,210,63,.45);border-radius:6px;padding:8px 16px 6px;white-space:nowrap}
+.kg-sb.on{opacity:1;transform:translate(-50%,0)}
+.kg-dimq{position:absolute;inset:0;z-index:4;background:rgba(5,3,9,.8);opacity:0;transition:opacity .9s}
+.kgc.k5q .kg-dimq{opacity:1}
+.kg-quote{position:absolute;left:50%;top:50%;z-index:5;transform:translate(-50%,-44%);width:min(780px,84vw);margin:0;text-align:center;opacity:0;transition:opacity .6s,transform 1.4s}
+.kgc.k5q .kg-quote{opacity:1;transform:translate(-50%,-50%);transition:opacity 1.1s .4s,transform 1.6s .4s}
+.kg-quote p{font:italic 400 clamp(22px,3.7vw,44px)/1.3 Georgia,"Times New Roman",serif;color:#fff6dc;margin:0 0 20px;text-shadow:0 2px 22px rgba(0,0,0,.9)}
+.kg-quote cite{font:700 12px/1.4 var(--body);font-style:normal;letter-spacing:.28em;text-transform:uppercase;color:#ffd23f}
+/* 6: the ascent */
+.kg-cam6{transform-origin:200px 128px;transition:transform 8s cubic-bezier(.2,.5,.3,1)}
+.kgc.asc4 .kg-cam6{transform:scale(1.08)}
+.kg-skyB,.kg-skyC,.kg-stars6,.kg-sun6,.kg-earth6,.kg-sea6,.kg-three6,.kg-halo6,.kg-first,.kg-discs,.kg-rim6,.kg-wipe6,.kg-limb{opacity:0}
+.kg-world6{transform-origin:200px 250px;transition:transform 5.6s cubic-bezier(.5,0,.85,.7)}
+.kgc.asc1 .kg-world6{transform:translateY(330px)}
+.kgc.asc2 .kg-world6{opacity:0}
+.kgc.asc2 .kg-skyB{opacity:1}
+.kg-sea6{transform:translateY(-14px)}
+.kgc.asc2 .kg-sea6{opacity:1;transform:translate(-56px,84px);transition:transform 13s linear}
+.kgc.asc3 .kg-sea6{opacity:0;transition:transform 13s linear,opacity 3.2s}
+.kgc.asc3 .kg-skyC{opacity:1;transition:opacity 3.6s}
+.kgc.asc3 .kg-stars6{opacity:1;transition:opacity 4s 1s}
+.kg-earth6{transform:translateY(110px) scale(1.5);transform-origin:200px 260px}
+.kgc.asc3 .kg-earth6{opacity:1;transform:none;transition:opacity 2.6s,transform 10s cubic-bezier(.2,.6,.3,1)}
+.kg-three6{transform:translate(26px,-12px)}
+.kgc.asc3 .kg-three6{opacity:.45;transform:none;transition:opacity 3s 2.4s,transform 14s linear}
+.kgc.asc3b .kg-three6{opacity:1;transition:opacity 1s,transform 14s linear}
+.kgc.asc3b .kg-s3{animation:kgTwk 1s calc(var(--i)*.2s) ease-in-out infinite alternate}
+.kg-sun6{transform-origin:290px 201px;transform:scale(.04)}
+.kgc.asc4 .kg-sun6{opacity:1;transform:scale(1);transition:transform 7s cubic-bezier(.15,.7,.3,1),opacity .5s}
+.kgc.asc4 .kg-limb{opacity:.95;transition:opacity 2.4s}
+.kg-rig6{transform:translate(200px,138px) scale(.98)}
+.kg-rise6{transform:translateY(27px)}
+.kgc.asc0 .kg-rise6{transform:none;transition:transform .75s cubic-bezier(.15,.75,.3,1)}
+.kgc.asc1 .kg-tilt6{transform:rotate(-8deg);transition:transform 1.2s}
+.kgc.asc4 .kg-tilt6{transform:none;transition:transform .8s}
+.kf-h6{--wt:2.3077s;--wd:-1.094s}
+.kgc.asc1 .kg-bob6{animation:kgBob 1.15385s -.5s ease-in-out infinite}
+@keyframes kgBob{50%{transform:translateY(-2.8px)}}
+.kgc.asc4 .kg-bob6{animation:none}
+.kgc.asc1 .kg-discs{opacity:1}
+.kgc.asc1 .kg-disc{animation:kgDisc 6.923s calc(.06s + var(--i)*1.15385s) linear infinite backwards}
+@keyframes kgDisc{0%{opacity:0;transform:translate(21.6px,40.6px) scale(.3)}2.5%{opacity:1;transform:translate(17px,42px) scale(1)}45%{opacity:.75;transform:translate(-61px,66px) scale(1)}100%{opacity:0;transform:translate(-162px,97px) scale(1.15)}}
+.kgc.asc1 .kg-disc .kg-rip{animation:kgRip 6.923s calc(.06s + var(--i)*1.15385s) linear infinite backwards}
+@keyframes kgRip{0%{opacity:1;transform:scale(.4)}9%{opacity:0;transform:scale(2.6)}100%{opacity:0;transform:scale(2.6)}}
+.kgc.asc4 .kg-discs{opacity:0;transition:opacity 1s}
+.kg-first{transform:translate(4px,51px)}
+.kgc.asc1 .kg-first{animation:kgFirst 3.4s linear forwards}
+@keyframes kgFirst{0%{opacity:1;transform:translate(4px,51px) scale(.4)}6%{opacity:1;transform:translate(0,52px) scale(1.1)}100%{opacity:0;transform:translate(-90px,80px) scale(1.2)}}
+.kgc.asc1 .kg-first .kg-rip{animation:kgRipB 1.2s ease-out forwards}
+@keyframes kgRipB{0%{opacity:1;transform:scale(.4)}100%{opacity:0;transform:scale(3)}}
+.kgc.asc4 .kg-first{animation:none;opacity:1;transform:translate(0,52px) scale(1.25);transition:opacity .8s}
+.kgc.asc5 .kg-first .kg-rip{animation:kgRipB 1.8s ease-out infinite}
+.kgc.asc4 .kg-dark6{filter:brightness(.2) saturate(.7);transition:filter 2.6s}
+.kgc.asc4 .kg-rim6{opacity:1;transition:opacity 2.6s}
+.kg-halo6{transform-origin:201px 93px}
+.kgc.asc5 .kg-halo6{opacity:1;transition:opacity 1.2s;animation:kgPulse 2.4s ease-in-out infinite alternate}
+.kgc.asc5 .kg-three6{opacity:1;transform:translate(-100px,-4px);transition:transform 1.6s cubic-bezier(.3,0,.2,1)}
+.kgc.wipe .kg-wipe6{opacity:1;animation:kgWipe 2.6s linear forwards}
+@keyframes kgWipe{0%{transform:translateY(-370px)}100%{transform:translateY(310px)}}
+.kg-last{bottom:calc(9vh + 16px)}
+/* 8: the rifle comes down out of the light */
+.kg-8{display:grid;place-items:center;background:radial-gradient(ellipse at 50% 38%,#4c3400 0%,#1a0f00 45%,#040200 100%)}
+.kg-rays.gold{opacity:0;top:40%;background:repeating-conic-gradient(from 0deg,rgba(255,225,140,.16) 0 4deg,transparent 4deg 11deg)}
+.kgc.kland .kg-rays.gold{opacity:1;transition:opacity 1.2s}
+.kg-beam{position:absolute;left:50%;top:-20%;width:min(88vw,780px);height:150%;transform:translateX(-50%);background:linear-gradient(rgba(255,252,230,.8),rgba(255,223,100,.14) 70%,transparent);clip-path:polygon(46% 0,54% 0,100% 100%,0 100%);opacity:0}
+.kgc.kdrop .kg-beam{opacity:1;transition:opacity 1s}
+.kg-rv{gap:min(1.4vh,10px)}
+.kg-art{position:relative;width:min(700px,90vw);transform:translateY(-130vh);filter:drop-shadow(0 0 24px rgba(255,225,140,.9)) drop-shadow(0 0 60px rgba(255,180,40,.5))}
+.kg-art img{display:block;width:100%;height:auto}
+.kgc.kdrop .kg-art{transform:none;transition:transform 1.25s cubic-bezier(.1,.6,.2,1)}
+.kgc.kland .kg-art{animation:kgPunch .4s cubic-bezier(.2,1.6,.4,1),gtFloat 3.4s 1.2s ease-in-out infinite alternate}
+.kgc.kland .kg-foil{animation:gtFoil 2.4s .6s ease-in-out infinite}
+.kg-stars3{display:flex;gap:14px;opacity:0;transform:translateY(-20px)}
+.kg-stars3 svg{width:min(38px,4.6vh);min-width:20px;filter:drop-shadow(0 0 10px rgba(255,210,63,.9))}
+.kgc.kland .kg-stars3{opacity:1;transform:none;transition:all .6s 1s cubic-bezier(.2,1.6,.4,1)}
+.kg-crown{width:min(96px,19vw,10vh);opacity:0;transform:translateY(-60px) scale(.6)}
+.kg-crown svg{display:block;width:100%}
+.kgc.kland .kg-crown{opacity:1;transform:none;transition:all .7s .75s cubic-bezier(.2,1.6,.4,1)}
+.kg-h2{margin:0;font:700 min(11.5vw,17vh,136px)/1 var(--display);letter-spacing:.1em;padding-left:.1em}
+.kg-rv .kg-h2 span{display:inline-block;opacity:0;transform:translateY(-40px) scale(1.9);background:linear-gradient(180deg,#ffffff,#fff0b0 25%,#ffd23f 55%,#b87a00 85%,#6a4300);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 0 #3a2400) drop-shadow(0 0 28px rgba(255,210,63,.6))}
+.kgc.kland .kg-rv .kg-h2 span{opacity:1;transform:none;transition:opacity .12s calc(var(--i)*70ms),transform .4s calc(var(--i)*70ms) cubic-bezier(.3,1.5,.5,1)}
+.kg-sub{font:700 13px var(--body);letter-spacing:.34em;padding:7px 14px;border-radius:999px;background:linear-gradient(90deg,#8a5a00,#ffd23f 50%,#8a5a00);color:#1a0f00;opacity:0}
+.kg-tag{font:italic 400 clamp(17px,2.8vw,28px)/1 Georgia,"Times New Roman",serif;color:#fff0b0;opacity:0}
+.kg-val{color:#ffe29a}
+.kgc.kland .kg-sub{opacity:1;transition:opacity .5s 1.1s}
+.kgc.kland .kg-tag{opacity:1;transition:opacity .5s 1.3s}
+.kgc.kland .kg-val{opacity:1;transition:opacity .5s 1.5s}
+@media (max-width:640px){.kg-cap{bottom:calc(9vh + 14px)}.kg-cap small{font-size:10px;letter-spacing:.2em}.kg-cap.r{max-width:54vw}.kg-quote cite{font-size:10px;letter-spacing:.18em}}
+.kg-s>svg{transition:transform 14s linear}
+.kg-1>svg{transform-origin:60% 62%}.gtc[data-s="k1"] .kg-1>svg{transform:scale(1.09)}
+.kg-2>svg{transform-origin:50% 70%}.gtc[data-s="k2"] .kg-2>svg{transform:scale(1.08)}
+.kg-3b>svg{transform-origin:50% 50%}.gtc[data-s="k3b"] .kg-3b>svg{transform:scale(1.07)}
+@media (max-height:520px){.kg-art{width:min(46vw,64vh)}.kg-stars3,.kg-crown{display:none}.kg-sub{font-size:10px;padding:4px 10px}.kg-cap p{font-size:clamp(18px,3.4vw,30px)}.kg-cap p.big{font-size:clamp(26px,5vw,44px)}}
+/* the bicycle kick in Turin and the header in Rome, redrawn with the same figures */
+.su-rot{transform:rotate(-14deg);transition:transform .3s ease-out}
+.gtc.air .su-rot{transform:rotate(-96deg);transition:transform .3s cubic-bezier(.2,.8,.3,1)}
+.gtc.fall .su-rot{transform:rotate(-100deg);transition:transform .5s}
+.kf-bk{--pt:.26s}
+.gtc.air .kf-bk .kj{transform:rotate(var(--p1))}
+.gtc.fall .kf-bk .kj{transform:rotate(var(--p2))}
+.gtc.rise .kf-mh .kj{transform:rotate(var(--p1))}
+.gtc.rhead .kf-mh .kj{transform:rotate(var(--p2));transition-duration:.1s}
+.gtc.rnet .kf-mh .kj{transform:rotate(var(--p0));transition:transform .5s .9s}
+.kg-flag{position:absolute;left:-6%;top:-6%;width:112%;height:112%;opacity:0;transition:opacity 1.4s}
+.kgc.kland .kg-flag{opacity:1;animation:gtWave 5s ease-in-out infinite alternate}
+.kgc.kland .kg-rays.gold{opacity:.55}
+/* KING-CSS-END */
 /* ---------- The Prince ---------- */
 .gtc[data-s="n1"] .pr-1,.gtc[data-s="n2"] .pr-2,.gtc[data-s="n3"] .pr-3,.gtc[data-s="n4a"] .pr-4a,.gtc[data-s="n4b"] .pr-4b,.gtc[data-s="n4c"] .pr-4c,.gtc[data-s="n5"] .pr-5,.gtc[data-s="n6"] .pr-6,.gtc[data-s="n7"] .pr-7,.gtc[data-s="n8"] .pr-8,.gtc[data-s="n9"] .pr-9,.gtc[data-s="n9b"] .pr-9b,.gtc[data-s="n9c"] .pr-9c,.gtc[data-s="n10"] .pr-10{opacity:1;visibility:visible;transition:opacity .6s}
 .prc{background:#000}
@@ -3867,13 +4093,13 @@ body.cine-cover>:not(.gtc),body.cine-cover>:not(.gtc) *{animation-play-state:pau
 .gtc.rnet .hx-mes{transform:none;transition:transform .7s .35s cubic-bezier(.5,0,.8,1)}
 .gtc.rnet .hx-def{transform:none;transition:transform .4s ease-in}
 .gtc.rnet .hx-gk{transform:translate(-6px,8px) rotate(-40deg);transform-origin:372px 210px;transition:transform .35s ease-out}
-.hx-camd{transform:scale(1.4);transform-origin:66% 62%}
+.hx-camd{transform:scale(1.4);transform-origin:66% 72%}
 .gtc.rhead .hx-camd{transform:scale(3.4);transform-origin:61% 54%;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
-.gtc.rnet .hx-camd{transform:scale(1.4);transform-origin:66% 62%}
+.gtc.rnet .hx-camd{transform:scale(1.4);transform-origin:66% 72%}
 .hx-hface{opacity:0}
 .gtc.smirk .hx-camd{transform:scale(2.6);transform-origin:58% 66%}
 .gtc.smirk .pl-2 .hx-stand .pl-eyes,.gtc.smirk .hx-stand .pl-eyes{opacity:1;animation:plGlare 1.2s ease-in-out infinite alternate}
-.gtc.ron .hx-camd{transform:scale(1.4);transform-origin:66% 62%;transition:transform 1.4s cubic-bezier(.4,0,.2,1)}
+.gtc.ron .hx-camd{transform:scale(1.4);transform-origin:66% 72%;transition:transform 1.4s cubic-bezier(.4,0,.2,1)}
 .hx-tape{opacity:0}
 .gtc.hxtape .hx-tape{opacity:1;animation:hxTape .5s ease-out}
 .gtc.rnet .hx-tape{opacity:0;transition:opacity .3s}
@@ -4024,8 +4250,8 @@ body.cine-cover>:not(.gtc),body.cine-cover>:not(.gtc) *{animation-play-state:pau
 @keyframes suShot{from{transform:translate(227px,66px)}to{transform:translate(32px,110px) scale(.85)}}
 .gtc.net .su-bball{animation:suDrop .6s cubic-bezier(.5,0,.8,.6) forwards}
 @keyframes suDrop{from{transform:translate(32px,110px) scale(.85)}to{transform:translate(40px,188px) scale(.85)}}
-.su-lift{transform:translate(250px,166px)}
-.gtc.jump .su-lift{transform:translate(250px,152px) rotate(-6deg);transition:transform .3s ease-out}
+.su-lift{transform:translate(250px,140px)}
+.gtc.jump .su-lift{transform:translate(250px,130px) rotate(-6deg);transition:transform .3s ease-out}
 .gtc.air .su-lift{transform:translate(250px,118px) rotate(-4deg);transition:transform .32s cubic-bezier(.2,.8,.3,1)}
 .gtc.fall .su-lift{transform:translate(242px,176px) rotate(4deg);transition:transform .5s cubic-bezier(.5,0,.8,.6)}
 .gtc.land2 .su-lift{transform:translate(240px,182px) rotate(0deg);transition:transform .2s}
@@ -4257,6 +4483,19 @@ body.ar-on{overflow:hidden}
   .ar-pausebtn{top:auto;bottom:10px;left:50%;transform:translateX(-50%);height:38px;font-size:15px}.ar-sc b{width:42px;height:42px;font-size:26px}.ar-clock{font-size:24px}}
 @media (max-width:700px){.ar-load{grid-template-columns:1fr}.ar-logo{font-size:36px}.ar-ban b{font-size:40px}.ar-sc small{max-width:90px;font-size:13px}}
 @media (max-height:520px){.ar-rcard{padding:14px}.ar-rtop{font-size:42px}.ar-rsc{font-size:28px}.ar-rvs{margin-bottom:8px}.ar-rcr{margin:8px 0 2px;font-size:18px}.ar-btn{padding:9px;margin-top:6px}.ar-emb{width:48px;height:48px}}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5458,7 +5697,9 @@ const ITEMS = [
   {id:'r3', w:'shotgun', name:'Tetanus',     t:4, pat:'hex',     pal:['#2a1a10','#c8733a','#ffb070'], m:1.15, ex:true},
   {id:'r4', w:'smg',     name:'Scrapheart',  t:4, pat:'circuit', pal:['#1a0e08','#ff8a2a','#b5541c'], m:1.2, ex:true},
   {id:'r5', w:'pistol',  name:'Oxide Queen', t:4, pat:'flame',   pal:['#2a0a04','#b5541c','#ffcf7a'], m:1.1, ex:true},
-  {id:'x8', w:'rifle',   name:'Rusted9000',  t:7, pat:'rusted',  pal:['#3a1606','#a4501c','#ff8a2a','#5fa078'], m:2.4, ex:true}
+  {id:'x8', w:'rifle',   name:'Rusted9000',  t:7, pat:'rusted',  pal:['#3a1606','#a4501c','#ff8a2a','#5fa078'], m:2.4, ex:true},
+  // The King: Pelé's rifle. Admin only for now, like The Prince
+  {id:'x9', w:'rifle',   name:'The King',    t:7, pat:'king',    pal:['#0a0c34','#ffd23f','#009c3b','#ffdf00'], m:70000000 / 935000, ex:true}
 ];
 
 /* ---------- RNG helpers ---------- */
@@ -5578,6 +5819,8 @@ const PAT = {
     for(let x=96;x<150;x+=12){g.beginPath();g.moveTo(x,34);g.quadraticCurveTo(x+6,30,x+12,34);g.moveTo(x,46);g.quadraticCurveTo(x+6,50,x+12,46);g.stroke();}
     for(let i=0;i<24;i++){g.fillStyle=i%3?'#ffd23f':'#fff3c0';g.globalAlpha=.3+r()*.5;const x=52+r()*(W-52),y=r()*H,z=.4+r()*.9;g.fillRect(x,y,z,z);}g.globalAlpha=1;
   },
+  /* The King: the sky he walked into (drawn by kingSkin, next to his film) */
+  king(g,W,H,p,r){ kingSkin(g,W,H,p,r); },
   /* The Prince: a canary-yellow blade with a green spine, a blue band of stars, a row of rhinestones
      and a loud rainbow chroma flash. Built to be looked at. */
   prince(g,W,H,p,r){
@@ -5852,7 +6095,7 @@ function renderItem(it, fl, S){
   const g = c.getContext('2d'); g.scale(S,S);
   const P = paths(it.w), sh = SHAPES[it.w], r = seeded(hash(it.id)), bm = it.t >= 6;
   g.save();
-  g.shadowColor = it.pat === 'rusted' ? 'rgba(255,128,40,.95)' : it.pat === 'goat' ? 'rgba(255,214,90,.95)' : it.pat === 'sfot' ? 'rgba(170,205,255,.95)' : it.pat === 'sui' ? 'rgba(255,60,40,.9)' : it.pat === 'pulga' ? 'rgba(255,214,90,.95)' : it.pat === 'prince' ? 'rgba(255,230,60,.95)' : bm ? (it.t === 7 ? 'rgba(255,122,217,.95)' : 'rgba(168,85,247,.9)') : 'rgba(0,0,0,.55)';
+  g.shadowColor = it.pat === 'rusted' ? 'rgba(255,128,40,.95)' : it.pat === 'goat' ? 'rgba(255,214,90,.95)' : it.pat === 'sfot' ? 'rgba(170,205,255,.95)' : it.pat === 'sui' ? 'rgba(255,60,40,.9)' : it.pat === 'pulga' ? 'rgba(255,214,90,.95)' : it.pat === 'prince' ? 'rgba(255,230,60,.95)' : it.pat === 'king' ? 'rgba(255,225,140,.95)' : bm ? (it.t === 7 ? 'rgba(255,122,217,.95)' : 'rgba(168,85,247,.9)') : 'rgba(0,0,0,.55)';
   g.shadowBlur = (bm ? 12 : 6) * S; g.shadowOffsetY = (bm ? 0 : 3) * S;
   g.fillStyle = '#000'; g.fill(P.all); g.restore();
   const lg = g.createLinearGradient(0,18,0,72);
@@ -5880,6 +6123,7 @@ function renderItem(it, fl, S){
   if (it.pat === 'sui') suiParts(g);
   if (it.pat === 'pulga') pulgaParts(g);
   if (it.pat === 'prince') princeParts(g);
+  if (it.pat === 'king') kingParts(g);
   if (it.pat === 'rusted') rustedParts(g);
   return c;
 }
@@ -12594,7 +12838,7 @@ function admAct(a, el){
   if (a === 'give' && admSel) {
     const fl = flOf(), x = BY[admSel], r = {uid: uid(), id: admSel, fl, v: priceOf(x, wearIdx(fl)), at: Date.now(), hk: [], src: 'admin'};
     admMark(); state.inv.unshift(r); if (x.t === 6) gotBM(x.id); save(); renderInv(); renderStats(); renderAdmin();
-    if (admSel === PRINCE_ID) { closeAdmin(); r.fl = .0001; r.v = priceOf(x, 0); save(); busy = true; lockRack(true); chromaCinematic(r).then(() => showReveal(r)); return; }
+    if (admSel === PRINCE_ID || admSel === KING_ID) { closeAdmin(); r.fl = .0001; r.v = priceOf(x, 0); save(); busy = true; lockRack(true); chromaCinematic(r).then(() => showReveal(r)); return; }
     glitchFx('item', x.name.toUpperCase() + ' SPAWNED'); return;
   }
   if (a === 'rig' && admSel) { admMark(); state.adminRig = {id: admSel, fl: flOf()}; save(); renderAdmin(); glitchFx('rig', 'NEXT CASE RIGGED'); return; }
@@ -13192,16 +13436,21 @@ function suiCinematic(r){
         + '<rect y="96" width="400" height="12" fill="#5a1a26" opacity=".7"/><rect y="166" width="400" height="16" fill="#3a1820" opacity=".8"/>'
         + '<rect y="180" width="400" height="80" fill="url(#hxPitch)"/>' + Array.from({length: 6}, (_, i) => '<path d="M' + (i * 80 - 40) + ' 180 L' + (i * 80 - 10) + ' 260 H' + (i * 80 + 30) + ' L' + (i * 80) + ' 180 Z" fill="#000" opacity=".06"/>').join('')
         + '<path d="M0 248 Q200 240 400 246" stroke="#fff" stroke-opacity=".5" stroke-width="1.4" fill="none"/></svg>';
+      const HXS = {t: 4, h: -8, a: [-10, 20], b: [12, 22], l: [6, 8, 0], m: [-8, 10, 0]};
+      const HXK = {bar: {skin:'#e6c3a3', skind:'#c9a283', hair:'#3a2616', shirt:'#a50044', shirtd:'#004d98', trim:'#ffd23f', shorts:'#004d98', shortsd:'#003a78', sock:'#004d98', sockd:'#003a78', band:'#a50044', numc:'#ffd23f'},
+        mun: {skin:'#d8b08c', skind:'#b88e6a', hair:'#2a1a10', shirt:'#f4f5f8', shirtd:'#d4d8e0', trim:'#c8102e', shorts:'#f4f5f8', shortsd:'#d4d8e0', sock:'#f4f5f8', sockd:'#d4d8e0', band:'#c8102e', smile:false},
+        gk: {skin:'#e6c3a3', skind:'#c9a283', hair:'#6a4a2a', shirt:'#2a2a2a', shirtd:'#1a1a1a', trim:'#ffd23f', shorts:'#2a2a2a', shortsd:'#1a1a1a', sock:'#2a2a2a', sockd:'#1a1a1a', band:'#ffd23f', smile:false}};
       let p2 = '<div class="hx-camd">' + svgImg(hxBg, 'ky-bg') + '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">' + defs('pl2') + '<g class="hx-cam">'
         // the goal, side-on at the right edge
         + '<g class="pl-goal"><path d="M352 168 L398 160 V214 L352 222 Z" fill="#000" opacity=".25"/>' + Array.from({length: 6}, (_, i) => '<path d="M' + (352 + i * 9) + ' ' + (168 - i * 1.6) + ' V' + (222 - i * 1.6) + '" stroke="#fff" stroke-opacity=".25"/>').join('') + '<path d="M352 222 V168 L398 160" stroke="#fff" stroke-width="2.4" fill="none"/></g>'
-        + '<g class="hx-gk">' + P(372, 182, .14, RK({shirt:'#2a2a2a', trim:'#ffd23f', shorts:'#2a2a2a', sock:'#2a2a2a', skin:'#e6c3a3', hair:'buzz', hc:'#6a4a2a', mouth:'open'}), 'dive') + '</g>'
+        + '<g class="hx-gk"><g transform="translate(374 198) scale(-.42 .42)">' + kingFig([{t: 8, h: -10, a: [60, 60], b: [40, 60], l: [20, 30, 0], m: [-14, 26, 0]}], HXK.gk) + '</g></g>'
         // a couple of players further off
-        + P(168, 198, .1, MK({}), 'stand') + P(300, 196, .1, RK({shirt:'#f4f5f8', shorts:'#f4f5f8', sock:'#f4f5f8', trim:'#c8102e'}), 'stand')
-        // the defender: white kit, watching it go over him
-        + '<g class="hx-def">' + P(160, 172, .21, RK({shirt:'#f4f5f8', shorts:'#f4f5f8', sock:'#f4f5f8', trim:'#c8102e', skin:'#d8b08c', head:'long', hair:'buzz', hc:'#2a1a10', mouth:'open'})) + '</g>'
-        // him, from behind and to the side, going up
-        + '<g class="hx-mes"><g class="hx-stand">' + P(232, 172, .21, MK({mouth:'smirk'}), 'stand', true) + '</g><g class="hx-air"><g transform="rotate(10 232 210)">' + P(232, 172, .21, MK({mouth:'open'}), 'jump', true) + '</g></g></g>'
+        + '<g transform="translate(150 205) scale(.3)">' + kingFig([HXS], HXK.bar) + '</g><g transform="translate(306 203) scale(-.3 .3)">' + kingFig([HXS], HXK.mun) + '</g>'
+        // the defender: white kit, taller, reaching, watching it go over him
+        + '<g class="hx-def"><g transform="translate(224 190.6) scale(-.68 .68)">' + kingFig([{t: 0, h: -22, a: [150, 20], b: [118, 32], l: [4, 10, 10], m: [-8, 16, 10]}], HXK.mun) + '</g></g>'
+        // him: facing the cross, going up, hanging, and looping it back over the keeper
+        + '<g class="hx-mes"><g transform="translate(247.5 193.6) scale(-.61 .61)">' + kingFig([{t: 4, h: -14, a: [-16, 36], b: [18, 36], l: [10, 16, -2], m: [-10, 18, 4]}, {t: -14, h: -18, a: [110, 40], b: [70, 60], l: [-10, 50, 28], m: [14, 70, 24]}, {t: -4, h: 14, a: [-40, 50], b: [-60, 40], l: [20, 60, 20], m: [-10, 74, 26]}], Object.assign({cls: 'kf-mh', num: '10', flip: true}, HXK.bar))
+          + '</g><g class="hx-stand"><circle class="pl-eyes" cx="243.2" cy="164.8" r="3.2" fill="url(#plEy)"/></g><g class="hx-air"></g></g>'
         + '<g class="hx-ball"><circle r="4" fill="#f4f6fa" stroke="#111" stroke-width=".6"/><path d="M0 -1.9 L1.8 -.5 L1.1 1.6 H-1.1 L-1.8 -.5 Z" fill="#111"/></g>'
         + '</g></svg></div><svg class="hx-hud" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">'
         + '<rect x="146" y="6" width="108" height="20" rx="3" fill="#000" stroke="#334"/><text class="pl-sb1" x="200" y="20.5" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" letter-spacing="1.5" fill="#ffd23f">BAR 1 – 0 MUN · 69’</text><text class="pl-sb2" x="200" y="20.5" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" letter-spacing="1.5" fill="#ffd23f">BAR 2 – 0 MUN · 70’</text>'
@@ -13464,11 +13713,11 @@ function suiCinematic(r){
       + '<path d="M0 214 H400" stroke="#fff" stroke-opacity=".25" stroke-width="1.4"/>'
       + '<g class="su-net"><path d="M22 102 L8 116 V200 L22 196 Z" fill="url(#suNt)"/><rect x="22" y="102" width="92" height="94" fill="#000" opacity=".28"/><rect x="22" y="102" width="92" height="94" fill="url(#suNt)"/></g>'
       + '<path d="M22 196 V102 H114 V196" stroke="#fff" stroke-width="4" fill="none" stroke-linejoin="round"/>'
-      + '<g class="su-gk"><circle cx="70" cy="142" r="6.4" fill="#d9b08c"/><path d="M64 140 Q70 133 76 140" fill="#3a3a3a"/><path d="M61 150 H79 L77 175 H63 Z" fill="#5a5f6a"/><path d="M61 152 L52 164 M79 152 L88 164" stroke="#5a5f6a" stroke-width="5" stroke-linecap="round"/>'
-      + '<circle cx="51" cy="166" r="3.4" fill="#d4ff3a"/><circle cx="89" cy="166" r="3.4" fill="#d4ff3a"/><path d="M66 175 L64 194 M74 175 L76 194" stroke="#2a2a30" stroke-width="5" stroke-linecap="round"/></g>'
+      + '<g class="su-gk"><g transform="translate(66 168) scale(.56)">' + kingFig([{t: 8, h: -16, a: [60, 60], b: [40, 60], l: [20, 30, 0], m: [-14, 26, 0]}], {skin: '#d9b08c', skind: '#b98e6a', hair: '#3a3a3a', shirt: '#5a5f6a', shirtd: '#44484f', trim: '#d4ff3a', shorts: '#2a2a30', shortsd: '#1c1c20', sock: '#2a2a30', sockd: '#1c1c20', band: '#d4ff3a', smile: false}) + '</g></g>'
       + '<ellipse class="su-shadow" cx="250" cy="198" rx="26" ry="4" fill="#000" opacity=".35"/>'
       + '<path class="su-swish" d="M222 110 Q206 62 236 52" stroke="url(#suArc)" stroke-width="6" fill="none" stroke-linecap="round"/>'
-      + '<g class="su-lift"><g transform="scale(1.5)">' + pose('su-pa', PA) + pose('su-pb', PB) + pose('su-pc', PC) + '</g></g>'
+      + '<g class="su-lift"><g class="su-rot"><g transform="scale(1.15)">' + kingFig([{t: -4, h: -14, a: [120, 40], b: [150, 30], l: [10, 6, 10], m: [100, 80, 0]}, {t: 8, h: 14, a: [-70, 30], b: [-50, 40], l: [107, 4, 40], m: [28, 70, 20]}, {t: 14, h: 20, a: [-60, 50], b: [-80, 40], l: [70, 60, 10], m: [50, 80, 10]}],
+          {cls: 'kf-bk', skin: '#d9a37c', skind: '#b98860', hair: '#1a110b', shirt: '#ffffff', shirtd: '#dfe4ec', trim: '#1a1a22', shorts: '#ffffff', shortsd: '#dfe4ec', sock: '#ffffff', sockd: '#dfe4ec', band: '#1a1a22', num: '7', numc: '#1a1a22'}) + '</g></g></g>'
       + '<circle class="su-hit" cx="227" cy="66" r="18" fill="url(#suHit)"/>'
       + '<g class="su-bball"><circle r="5" fill="#f4f6fa" stroke="#111" stroke-width=".7"/><path d="M0 -2.4 L2.3 -.7 L1.4 2 H-1.4 L-2.3 -.7 Z" fill="#111"/></g>'
       + '<text class="su-gl" x="250" y="84" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="44" letter-spacing="5" fill="#ffd23f">GOAL</text></svg>';
@@ -14075,6 +14324,568 @@ function princeCinematic(r){
     T(92400, finish);
   });
 }
+/* KING-BEGIN */
+/* ---------- The King: Pelé's film. The Prince was talent and ego. This one is greatness, and then the place past it. ----------
+   A boy of nine watches his father cry over the 1950 final and promises him a World Cup; a sock stuffed with rags;
+   Sweden 1958 at seventeen; 1,279 goals and three World Cups; the header at the Azteca in 1970, where he jumps and
+   simply stays up; then he never comes down: he climbs out of the stadium on steps of light, through the clouds
+   and past the edge of the sky. The rifle comes down out of that light. Every caption is a checked fact. */
+const KING_ID = 'x9';
+/* A posable footballer seen side-on, facing right. Origin at the hips, about 98 units tall, soles near y = +50.
+   P is a list of poses: every joint carries each one as --p0, --p1 … so CSS can ease between them by data-p,
+   and W is an optional 8-step walk cycle carried as --w0 … --w7.
+   A pose: {t: lean forward, h: nod, a: [shoulder, elbow] near arm, b: far arm, l: [hip, knee, ankle] near leg, m: far leg} in degrees. */
+function kingFig(P, k, W){
+  k = k || {};
+  const S = k.sil, c = v => S || v, sk = c(k.skin || '#5b3722'), skd = c(k.skind || '#452818'), sh = c(k.shirt || '#ffdf00'), shd = c(k.shirtd || '#dcbb00'), tr = c(k.trim || '#009c3b'),
+    st = c(k.shorts || '#1f55c8'), std = c(k.shortsd || '#163f98'), so = c(k.sock || '#f6f7fa'), sod = c(k.sockd || '#c4cad6'), bd = c(k.band || tr), bt = c(k.boot || '#14110f'), hc = c(k.hair || '#120c08'),
+    ol = k.ol === undefined ? 'rgba(12,7,5,.9)' : k.ol, rim = k.rim || '', RO = k.only === 'rim';
+  const val = (p, key, i) => (i === undefined ? p[key] : (p[key] || [])[i]) || 0;
+  const J = (key, i, sgn) => ' class="kj" style="' + P.map((p, n) => '--p' + n + ':' + (sgn * val(p, key, i)).toFixed(1) + 'deg').join(';') + (W ? ';' + W.map((p, n) => '--w' + n + ':' + (sgn * val(p, key, i)).toFixed(1) + 'deg').join(';') : '') + '"';
+  const ln = (y0, y1, w, col, x) => '<path d="M' + (x || 0) + ' ' + y0 + ' V' + y1 + '" stroke="' + col + '" stroke-width="' + w + '" stroke-linecap="round" fill="none"/>';
+  const hl = (y0, y1, w, x) => rim ? '<path d="M' + x + ' ' + y0 + ' V' + y1 + '" stroke="' + rim + '" stroke-width="' + w + '" stroke-linecap="round" fill="none" opacity="' + (S || RO ? .95 : .55) + '"/>' : '';
+  const BOOT = k.bare ? 'M-3 -2 Q-3.4 3.4 -1.6 4.4 H7.4 Q9.6 4 8.6 2 Q6 0 3 -1.2 L2.8 -2.4 Z' : 'M-3.8 -2.6 Q-4.4 3.6 -2.2 4.7 H8.6 Q11.8 4.4 10.4 1.7 Q7.2 -.5 3.6 -1.7 L3.2 -3.2 Z';
+  /* one leg, drawn in two passes (all outlines, then all fills) so no dark rings show at the knee */
+  const leg = (key, far) => { const T = far ? std : st, K = far ? skd : sk, SO = far ? sod : so;
+    const body = pass => '<g' + J(key, 0, -1) + '>'
+      + (pass === 0 ? ln(0, 23, 12.6, ol) : pass === 1 ? ln(0, 23, 8.4, K) + '<path d="M-5.4 -3 H5.4 L6 11.6 H-6 Z" fill="' + T + '"/>' + (k.bare ? '' : '<path d="M-6 9.6 H6 V11.6 H-6 Z" fill="' + (S || 'rgba(255,255,255,.18)') + '"/>') : hl(1, 21, 1.5, -3.6))
+      + '<g transform="translate(0 23)"><g' + J(key, 1, 1) + '>'
+      + (pass === 0 ? ln(0, 22, 9.6, ol) : pass === 1 ? ln(0, 22, 6.8, K) + (k.bare ? '' : '<rect x="-3.7" y="7" width="7.4" height="15.4" rx="2.4" fill="' + SO + '"/><rect x="-3.7" y="7" width="7.4" height="2.4" fill="' + bd + '"/>') : hl(1, 20, 1.3, -2.8))
+      + '<g transform="translate(0 22)"><g' + J(key, 2, 1) + '>'
+      + (pass === 0 ? '<path d="' + BOOT + '" fill="' + ol + '" stroke="' + ol + '" stroke-width="2.4" stroke-linejoin="round"/>' : pass === 1 ? '<path d="' + BOOT + '" fill="' + (k.bare ? K : bt) + '"/>' + (k.bare || S ? '' : '<path d="M-2 4 H9" stroke="#e8e8ee" stroke-width=".9" opacity=".7"/>') : (rim ? '<path d="M-3 -1.6 Q-3.6 2.6 -2 3.8" stroke="' + rim + '" stroke-width="1" fill="none" opacity=".8"/>' : ''))
+      + '</g></g></g></g></g>';
+    return RO ? body(2) : (ol ? body(0) : '') + body(1) + body(2); };
+  const arm = (key, far) => { const K = far ? skd : sk, T = far ? shd : sh;
+    const body = pass => '<g transform="translate(.6 -31)"><g' + J(key, 0, -1) + '>'
+      + (pass === 0 ? ln(0, 15.5, 9.4, ol) : pass === 1 ? ln(0, 15.5, 6, K) + '<path d="M-4.3 -2.4 H4.3 L4.7 8.4 H-4.7 Z" fill="' + T + '"/><path d="M-4.7 6.8 H4.7 V8.4 H-4.7 Z" fill="' + tr + '"/>' : hl(0, 14, 1.3, -2.8))
+      + '<g transform="translate(0 15.5)"><g' + J(key, 1, -1) + '>'
+      + (pass === 0 ? ln(0, 14.4, 8.2, ol) + '<circle cx="0" cy="16.4" r="4.6" fill="' + ol + '"/>' : pass === 1 ? ln(0, 14.4, 5, K) + '<circle cx="0" cy="16.4" r="3.4" fill="' + K + '"/>' : hl(1, 13, 1.1, -2.2))
+      + '</g></g></g></g>';
+    return RO ? body(2) : (ol ? body(0) : '') + body(1) + body(2); };
+  const TORSO = 'M-7.4 1.4 Q-9.6 -16 -7.2 -30.6 Q-3 -36.6 3.6 -36 Q8.8 -33 9.2 -24 Q9.8 -10 7.8 1.4 Q0 3.8 -7.4 1.4 Z';
+  let g = '<g class="kf' + (k.cls ? ' ' + k.cls : '') + '" data-p="0">';
+  g += leg('m', true);
+  /* everything above the hips leans together: far arm, body, head */
+  g += '<g' + J('t', undefined, 1) + '>' + arm('b', true);
+  if (!RO) {
+    if (ol) g += '<path d="' + TORSO + '" fill="' + ol + '" stroke="' + ol + '" stroke-width="2.4" stroke-linejoin="round"/>';
+    g += '<path d="' + TORSO + '" fill="' + sh + '"/><path d="M-7.4 1.4 Q-9.6 -16 -7.2 -30.6 Q-3 -36.6 .4 -36.2 Q-3.6 -18 -1.6 2.6 Z" fill="' + shd + '"/>'
+      + '<path d="M-7.6 -1.6 Q0 1 8 -1.6 L8.4 4.6 Q0 7.4 -8 4.6 Z" fill="' + st + '"/>'
+      + (S ? '' : '<path d="M-3 -35.9 Q1.6 -33.2 6.2 -35.2" stroke="' + tr + '" stroke-width="2.1" fill="none" stroke-linecap="round"/>'
+        + (k.num ? '<text' + (k.flip ? ' transform="scale(-1 1)" x=".4"' : ' x="-.4"') + ' y="-12.4" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="13" fill="' + (k.numc || '#0d7a36') + '">' + k.num + '</text>' : ''));
+  }
+  if (rim) g += '<path d="M-7.6 0 Q-9.6 -16 -7.2 -30 Q-4.6 -34.6 -1 -36" stroke="' + rim + '" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="' + (S || RO ? .95 : .55) + '"/>';
+  /* neck and head */
+  const hs = k.head || 1;
+  g += '<g transform="translate(1.4 -36.4)"><g' + J('h', undefined, 1) + '><g transform="scale(' + hs + ')">';
+  if (!RO) {
+    g += (ol ? '<path d="M-2.6 2 L-2 -5 H3.6 L3.4 2 Z" fill="' + ol + '" stroke="' + ol + '" stroke-width="2.2"/><circle cx=".8" cy="-10" r="8.8" fill="' + ol + '"/>' : '')
+      + '<path d="M-2.6 2 L-2 -5 H3.6 L3.4 2 Z" fill="' + skd + '"/><circle cx=".8" cy="-10" r="7.5" fill="' + sk + '"/>'
+      + '<path d="M7.4 -11 Q10.2 -8.6 9.4 -7 L7.2 -6.6 Q8.6 -4 6.2 -2.6 Q3.2 -2 1.4 -3.2 Z" fill="' + sk + '"/>'
+      + '<path d="M-6.6 -8 Q-8.2 -18 .8 -18 Q7.8 -18 8.3 -12.4 Q5 -14.6 1.2 -13.8 Q-2.2 -13.2 -2.8 -9 Q-4 -5.4 -5.6 -5 Q-6.8 -6.4 -6.6 -8 Z" fill="' + hc + '"/>'
+      + (S ? '' : '<ellipse cx="-.6" cy="-8.6" rx="1.5" ry="2.3" fill="' + skd + '"/><path d="M4.6 -10.6 h2.2" stroke="#120c08" stroke-width="1.3" stroke-linecap="round"/><path d="M3.8 -12.6 Q5.6 -13.6 7.4 -12.8" stroke="#120c08" stroke-width=".9" fill="none"/>'
+        + (k.smile === false ? '<path d="M5.2 -5 h2.4" stroke="#2a120a" stroke-width=".9" stroke-linecap="round"/>' : '<path d="M4.6 -5.6 Q6.4 -3.8 8 -5.4" stroke="#fff" stroke-width="1.2" fill="none" stroke-linecap="round"/>'));
+  }
+  if (rim) g += '<path d="M-6.4 -9 Q-7.8 -17.6 .8 -17.8 Q4 -17.8 6 -16.4" stroke="' + rim + '" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="' + (S || RO ? .95 : .6) + '"/>';
+  g += '</g></g></g></g>';
+  g += leg('l', false);
+  g += '<g' + J('t', undefined, 1) + '>' + arm('a', false) + '</g>';
+  return g + '</g>';
+}
+/* The King's skin: gold and Brazil. A polished, engraved gold body; the stock is the green field with the gold
+   rhombus and the blue disc; green enamel and a blue pinstripe run under the receiver. */
+function kingSkin(g, W, H, p, r){
+  const lg = g.createLinearGradient(0, 24, 0, 60); [['#fff7c8', 0], ['#ffdf5e', .2], ['#f4bc1e', .5], ['#b97c06', .8], ['#6a4300', 1]].forEach(([c, o]) => lg.addColorStop(o, c));
+  g.fillStyle = lg; g.fillRect(0, 0, W, H);
+  for (let i = 0; i < 30; i++) { g.globalAlpha = .05 + r() * .1; g.fillStyle = i % 2 ? '#ffffff' : '#7a4a00'; g.fillRect(0, 22 + r() * 44, W, .4 + r() * .8); } g.globalAlpha = 1;
+  /* engraved scrollwork: a dark cut with a bright edge under it */
+  [['rgba(104,60,0,.6)', 0, .55], ['rgba(255,252,220,.55)', .5, .35]].forEach(([c, o, w]) => { g.strokeStyle = c; g.lineWidth = w;
+    for (let x = 45; x < 152; x += 8.6) { g.beginPath(); g.arc(x + o, 37.4 + o, 3.2, Math.PI * .15, Math.PI * 1.55); g.stroke(); g.beginPath(); g.arc(x + 4.3 + o, 38.4 + o, 1.5, Math.PI, Math.PI * 2.5); g.stroke(); } });
+  /* the stock: green field, gold rhombus, blue disc */
+  const sg = g.createLinearGradient(0, 30, 0, 68); sg.addColorStop(0, '#14b852'); sg.addColorStop(.6, '#009c3b'); sg.addColorStop(1, '#045c24'); g.fillStyle = sg; g.fillRect(0, 0, 40.4, H);
+  g.fillStyle = '#ffdf00'; g.strokeStyle = '#8a5a00'; g.lineWidth = .5; g.beginPath(); g.moveTo(8.6, 51); g.lineTo(24, 41.4); g.lineTo(39.4, 51); g.lineTo(24, 60.6); g.closePath(); g.fill(); g.stroke();
+  const bg = g.createRadialGradient(22.4, 49.4, .5, 24, 51, 6.6); bg.addColorStop(0, '#2f62e0'); bg.addColorStop(1, '#00205e'); g.fillStyle = bg; g.beginPath(); g.arc(24, 51, 6.3, 0, 7); g.fill();
+  g.fillStyle = '#fff3b0'; g.fillRect(40.4, 0, 1.3, H);
+  /* green enamel, a blue pinstripe and a white hairline under the receiver and handguard */
+  g.fillStyle = '#009c3b'; g.fillRect(41.7, 43.1, 112, 3.4); g.fillStyle = '#002776'; g.fillRect(41.7, 42.2, 112, .9); g.fillStyle = 'rgba(255,255,255,.75)'; g.fillRect(41.7, 41.9, 112, .3);
+  /* a green enamel panel for the crown, cooling slots on the handguard, a green magazine */
+  const en = g.createLinearGradient(0, 31, 0, 42); en.addColorStop(0, '#16b850'); en.addColorStop(1, '#045a24'); g.fillStyle = en; g.strokeStyle = '#7a4a00'; g.lineWidth = .6; g.beginPath(); g.roundRect(63.6, 31, 24.8, 10.2, 2); g.fill(); g.stroke();
+  g.fillStyle = 'rgba(58,32,0,.6)'; for (let x = 116; x < 148; x += 5.5) { g.beginPath(); g.roundRect(x, 34.2, 3.4, 1.5, .7); g.fill(); }
+  const mg = g.createLinearGradient(86, 46, 112, 74); mg.addColorStop(0, '#14b852'); mg.addColorStop(1, '#03501f'); g.fillStyle = mg; g.fillRect(84, 46.5, 30, 30);
+}
+/* The King's parts: a gold scope with a green lens, a gold muzzle and rail, the crown on its green panel beside
+   three stars (1958, 1962, 1970), O REI cut into the handguard, a gold 10 in the blue disc and his goals on the magazine. */
+function kingParts(g){
+  const gold = (x0, y0, x1, y1) => { const lg = g.createLinearGradient(x0, y0, x1, y1); lg.addColorStop(0, '#fff6cc'); lg.addColorStop(.35, '#ffd23f'); lg.addColorStop(.7, '#c98a0b'); lg.addColorStop(1, '#6a4300'); return lg; };
+  g.save(); g.lineJoin = 'round'; g.strokeStyle = 'rgba(40,22,0,.85)'; g.lineWidth = .7;
+  g.fillStyle = gold(0, 16, 0, 27); g.beginPath(); g.roundRect(60, 17, 44, 8, 3.5); g.fill(); g.stroke();
+  g.beginPath(); g.roundRect(55, 15.5, 9, 11, 2.5); g.fill(); g.stroke(); g.beginPath(); g.roundRect(100, 16, 8, 10, 2.5); g.fill(); g.stroke();
+  g.fillStyle = '#009c3b'; g.fillRect(72, 17.4, 2.2, 7.2); g.fillRect(88, 17.4, 2.2, 7.2);
+  [[67, 25], [92, 25]].forEach(([x, y]) => { g.fillStyle = '#2a1d08'; g.fillRect(x, y, 4, 2.6); });
+  const lens = g.createRadialGradient(107, 20, .2, 107.5, 21, 3.8); lens.addColorStop(0, '#d8ffe6'); lens.addColorStop(.45, '#18c46a'); lens.addColorStop(1, '#063a1e');
+  g.fillStyle = lens; g.beginPath(); g.ellipse(107.5, 21, 1.5, 3.7, 0, 0, 7); g.fill();
+  g.fillStyle = gold(0, 32, 0, 44); g.beginPath(); g.roundRect(184, 32.5, 13, 10, 1.5); g.fill(); g.stroke();
+  g.fillStyle = '#2a1d08'; [187, 190.5, 194].forEach(x => g.fillRect(x, 34.5, 1.4, 6));
+  g.fillStyle = gold(0, 27, 0, 30); g.fillRect(54, 27.4, 46, 2.4);
+  /* the crown on its panel */
+  const cx = 76, cy = 37.6;
+  g.fillStyle = gold(cx - 6, cy - 5, cx + 6, cy + 3); g.shadowColor = '#fff3b0'; g.shadowBlur = 3;
+  g.beginPath(); g.moveTo(cx - 5.6, cy + 2.8); g.lineTo(cx - 6, cy - 3); g.lineTo(cx - 3, cy - .6); g.lineTo(cx, cy - 4.8); g.lineTo(cx + 3, cy - .6); g.lineTo(cx + 6, cy - 3); g.lineTo(cx + 5.6, cy + 2.8); g.closePath(); g.fill(); g.shadowBlur = 0; g.stroke();
+  g.fillStyle = '#002776'; g.beginPath(); g.arc(cx, cy + .9, .9, 0, 7); g.fill(); g.fillStyle = '#d8262e'; [-3.2, 3.2].forEach(d => { g.beginPath(); g.arc(cx + d, cy + 1.1, .55, 0, 7); g.fill(); });
+  /* three stars in green enamel */
+  const star = (x, y, R) => { g.beginPath(); for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? R * .45 : R; g.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); } g.closePath(); g.fill(); g.stroke(); };
+  g.fillStyle = '#00a43e'; g.strokeStyle = '#3a2600'; g.lineWidth = .45; [[95.4, 36.4], [102.2, 36.4], [109, 36.4]].forEach(([x, y]) => star(x, y, 2.7));
+  g.textAlign = 'center';
+  g.fillStyle = '#05401c'; g.font = '700 6.2px Teko, sans-serif'; g.fillText('O  REI', 131.4, 41.4); g.fillStyle = 'rgba(255,250,210,.5)'; g.fillText('O  REI', 131.7, 41.7); g.fillStyle = '#05401c'; g.fillText('O  REI', 131.4, 41.4);
+  g.fillStyle = gold(0, 46, 0, 56); g.font = 'bold 8.4px Teko, sans-serif'; g.fillText('10', 24, 54);
+  /* the magazine: gold edge and the count in gold on the green */
+  g.strokeStyle = '#ffd23f'; g.lineWidth = 1.1; const M = new Path2D('M88.6 46.6 H100.6 L109.2 69.6 L96.3 72.3 Z'); g.stroke(M);
+  g.save(); g.translate(99.2, 60.2); g.rotate(1.21); g.fillStyle = gold(-8, -3, 8, 3); g.font = '700 5.6px Teko, sans-serif'; g.fillText('1,279', 0, 1.8); g.restore();
+  g.restore();
+}
+function kingCinematic(r){
+  return new Promise(resolve => {
+    let ov = $('#kgc');
+    if (!ov) { ov = document.createElement('div'); ov.id = 'kgc'; ov.className = 'gtc kgc'; ov.hidden = true; document.body.append(ov); }
+    const it = BY[r.id], timers = [], R = seeded(1940), Rr = Math.random, f1 = n => n.toFixed(1);
+    let done = false, raf = 0, cnt = 0;
+    const T = (ms, f) => timers.push(setTimeout(() => { if (done) return; try { f(); } catch (e) {} }, REDUCED ? Math.min(ms, 300) : ms));
+    const later = (ms, f) => timers.push(setTimeout(() => { if (done) return; try { f(); } catch (e) {} }, ms));
+    const go = n => { ov.dataset.s = n; }, add = c => ov.classList.add(c), rm = c => ov.classList.remove(c);
+    const q = s => ov.querySelector(s), on = s => ov.querySelectorAll(s).forEach(e => e.classList.add('on')), off = s => ov.querySelectorAll(s).forEach(e => e.classList.remove('on'));
+    const pose = (s, n) => ov.querySelectorAll(s).forEach(e => { e.dataset.p = n; });
+    /* ---- kits and poses ---- */
+    const BRA = {shirt:'#ffdf00', shirtd:'#dcbb00', trim:'#009c3b', shorts:'#1f55c8', shortsd:'#163f98', band:'#009c3b', num:'10', numc:'#0d7a36', rim:'#fff6c8'};
+    const B58 = {shirt:'#1f55c8', shirtd:'#163f98', trim:'#f6f7fa', shorts:'#f6f7fa', shortsd:'#c9d0dc', band:'#1f55c8', num:'10', numc:'#f6f7fa', rim:'#dfeaff'};
+    const SWE = {skin:'#e6b68c', skind:'#c4946c', hair:'#c8a04a', shirt:'#f2d21c', shirtd:'#cfb20c', trim:'#1b4aa0', shorts:'#1b4aa0', shortsd:'#143878', sock:'#f2d21c', sockd:'#cfb20c', band:'#1b4aa0', smile:false};
+    const ITA = {skin:'#e0ae86', skind:'#bc8c66', hair:'#1a120c', shirt:'#1f4fb0', shirtd:'#163c88', trim:'#f6f7fa', shorts:'#f6f7fa', shortsd:'#c9d0dc', sock:'#1f4fb0', sockd:'#163c88', band:'#f6f7fa', smile:false};
+    const GK = c => ({skin:'#e0ae86', skind:'#bc8c66', hair:'#3a2a1c', shirt:c, shirtd:'#22262e', trim:'#111', shorts:'#111318', shortsd:'#0a0b0e', sock:'#111318', sockd:'#0a0b0e', band:'#3a3f48', smile:false});
+    const SIL = rim => ({sil:'#070406', rim, ol:''});
+    const HIP = [-12, 6, 30, 50, 54, 38, 18, 0], KNE = [14, 58, 82, 72, 54, 36, 16, 6], ANK = [28, 16, 4, -8, 0, 0, 6, 14], SHO = [18, 8, -8, -20, -24, -14, 2, 14], ELB = [38, 32, 26, 22, 22, 26, 32, 38];
+    const CLIMB = HIP.map((_, i) => { const j = (i + 4) % 8; return {t: 13, h: -14, l: [HIP[i], KNE[i], ANK[i]], m: [HIP[j], KNE[j], ANK[j]], a: [SHO[i], ELB[i]], b: [SHO[j], ELB[j]]}; });
+    const RH = [-28, -4, 34, 58, 42, 16, -6, -22], RK = [34, 98, 102, 58, 18, 10, 12, 22], RS = [40, 20, -20, -46, -40, -18, 16, 36];
+    const RUN = RH.map((_, i) => { const j = (i + 4) % 8; return {t: 16, h: -6, l: [RH[i], RK[i], 8], m: [RH[j], RK[j], 8], a: [RS[i], 84], b: [RS[j], 84]}; });
+    const WHh = [-20, -8, 6, 20, 24, 12, 0, -12], WKk = [10, 34, 44, 20, 4, 4, 6, 8], WSs = [16, 8, -4, -14, -16, -8, 4, 12];
+    const WALK = WHh.map((_, i) => { const j = (i + 4) % 8; return {t: 4, h: -6, l: [WHh[i], WKk[i], 0], m: [WHh[j], WKk[j], 0], a: [WSs[i], 14], b: [WSs[j], 14]}; });
+    const fig = (x, y, s, P, kit, W, cls, flip) => '<g transform="translate(' + x + ' ' + y + ') scale(' + (flip ? -s : s) + ' ' + s + ')">' + kingFig(P, Object.assign({cls: cls || ''}, kit), W) + '</g>';
+    const SVG = (inner, cls) => '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"' + (cls ? ' class="' + cls + '"' : '') + '>' + DEFS + inner + '</svg>';
+    const DEFS = '<defs><linearGradient id="kgGd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6a4300"/><stop offset=".45" stop-color="#ffe9a0"/><stop offset=".7" stop-color="#ffd23f"/><stop offset="1" stop-color="#6a4300"/></linearGradient>'
+      + '<radialGradient id="kgGl"><stop offset="0" stop-color="#fff6d0" stop-opacity=".95"/><stop offset=".35" stop-color="#ffd23f" stop-opacity=".45"/><stop offset="1" stop-color="#ffd23f" stop-opacity="0"/></radialGradient>'
+      + '<radialGradient id="kgWh"><stop offset="0" stop-color="#fff"/><stop offset=".3" stop-color="#fff6d8" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>'
+      + '<radialGradient id="kgWarm"><stop offset="0" stop-color="#ffb45a" stop-opacity=".5"/><stop offset="1" stop-color="#ffb45a" stop-opacity="0"/></radialGradient>'
+      + '<linearGradient id="kgRay" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3c0" stop-opacity=".55"/><stop offset="1" stop-color="#fff3c0" stop-opacity="0"/></linearGradient></defs>';
+    /* a crowd is thousands of dots: paint them once into an image instead of thousands of elements */
+    const dots = (n, x0, x1, y0, y1, cols, z, op) => { const c = document.createElement('canvas'), k = 3, w = x1 - x0, h = y1 - y0 + z; c.width = w * k; c.height = h * k; const g2 = c.getContext('2d'); g2.globalAlpha = op || .7;
+      for (let i = 0; i < n; i++) { g2.fillStyle = cols[Math.floor(R() * cols.length)]; g2.fillRect(R() * w * k, R() * (y1 - y0) * k, z * k, z * k); }
+      const u = c.toDataURL('image/png'); c.width = c.height = 0; return '<image href="' + u + '" x="' + x0 + '" y="' + y0 + '" width="' + w + '" height="' + f1(h) + '" preserveAspectRatio="none"/>'; };
+    const stars = (n, y1, cls) => { let s = ''; for (let i = 0; i < n; i++) { const z = .5 + R() * 1.3; s += '<circle' + (i % 4 ? '' : ' class="' + (cls || 'kg-tw') + '" style="--d:' + f1(R() * 3) + 's"') + ' cx="' + f1(R() * 400) + '" cy="' + f1(R() * y1) + '" r="' + f1(z / 2) + '" fill="' + (i % 7 ? '#fff' : '#ffe9a0') + '" opacity="' + f1(.35 + R() * .65) + '"/>'; } return s; };
+    const ball = (cls, rr) => '<g class="' + cls + '"><g><circle r="' + (rr || 4.6) + '" fill="#f6f1e4" stroke="#1a120a" stroke-width=".8"/><path d="M-2 -1.6 L1.6 -2.2 L2.6 1 L0 2.6 L-2.6 1 Z" fill="#3a2a1a"/></g></g>';
+    const star5 = (x, y, Rr2, fill) => { let d = ''; for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? Rr2 * .42 : Rr2; d += (i ? 'L' : 'M') + f1(x + Math.cos(a) * rr) + ' ' + f1(y + Math.sin(a) * rr); } return '<path d="' + d + 'Z" fill="' + (fill || 'url(#kgGd)') + '"/>'; };
+
+    /* 1. Bauru, 16 July 1950: the radio, his father, the promise */
+    const k1 = SVG('<defs><linearGradient id="kgW1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a110b"/><stop offset="1" stop-color="#0a0605"/></linearGradient>'
+      + '<linearGradient id="kgWd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a4c2a"/><stop offset="1" stop-color="#2a170c"/></linearGradient>'
+      + '<linearGradient id="kgMoon" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a9ad8" stop-opacity=".3"/><stop offset="1" stop-color="#7a9ad8" stop-opacity="0"/></linearGradient></defs>'
+      + '<rect width="400" height="260" fill="url(#kgW1)"/>' + Array.from({length: 14}, (_, i) => '<path d="M' + (i * 30 + 8) + ' 0 V196" stroke="#000" stroke-opacity=".32"/>').join('')
+      + '<rect y="196" width="400" height="64" fill="#0d0806"/>' + Array.from({length: 13}, (_, i) => '<path d="M' + (200 + (i - 6) * 42) + ' 196 L' + (200 + (i - 6) * 96) + ' 260" stroke="#000" stroke-opacity=".45"/>').join('') + '<path d="M0 196 H400" stroke="#2a1a10" stroke-width="1.6"/>'
+      + '<rect x="44" y="60" width="66" height="136" fill="#0b1433"/>' + dots(16, 46, 108, 62, 130, ['#fff', '#cfe0ff'], 1, .8) + '<path d="M44 150 Q60 138 78 146 Q96 136 110 144 V196 H44 Z" fill="#060a1c"/>'
+      + '<rect x="44" y="60" width="66" height="136" fill="none" stroke="#2a1a10" stroke-width="5"/><path d="M44 196 H110 L206 260 H16 Z" fill="url(#kgMoon)"/>'
+      + '<path d="M268 0 V42" stroke="#2a1a10" stroke-width="1.2"/><circle class="kg-bulbg" cx="268" cy="48" r="128" fill="url(#kgWarm)"/><circle cx="268" cy="48" r="4.6" fill="#ffe2a0"/>'
+      + '<rect x="300" y="150" width="78" height="5" fill="#3a2414"/><path d="M307 155 V196 M371 155 V196" stroke="#2a180c" stroke-width="4"/>'
+      + '<g class="kg-radio"><path d="M318 150 V118 Q318 96 340 96 Q362 96 362 118 V150 Z" fill="url(#kgWd)" stroke="#1a0e06" stroke-width="1.4"/><path d="M325 132 V120 Q325 105 340 105 Q355 105 355 120 V132 Z" fill="#1a110a"/>'
+      + [329, 333, 337, 341, 345, 349].map(x => '<path d="M' + x + ' 109 V132" stroke="#5a3a20"/>').join('') + '<rect class="kg-dial" x="328" y="136" width="24" height="8" rx="2" fill="#ffb84a"/><path d="M332 140 h16" stroke="#6a3a08" stroke-width=".8"/><circle cx="323.6" cy="140" r="2.2" fill="#c9a06a"/><circle cx="356.4" cy="140" r="2.2" fill="#c9a06a"/></g>'
+      + '<g class="kg-waves">' + [0, 1, 2].map(i => '<path style="--i:' + i + '" d="M' + (311 - i * 9) + ' 108 Q' + (302 - i * 9) + ' 122 ' + (311 - i * 9) + ' 136" stroke="#ffb84a" stroke-width="1.6" fill="none" stroke-linecap="round"/>').join('') + '</g>'
+      + '<path d="M240 172 H270 M268 172 V130 M243 174 V196 M267 174 V196" stroke="#24140a" stroke-width="4.4" stroke-linecap="round"/>'
+      + '<g class="kg-dad">' + fig(256, 167, .98, [{t: 42, h: 34, a: [62, 126], b: [58, 120], l: [88, 90, 0], m: [82, 86, 0]}], SIL('#ffb060'), null, '', true) + '</g>'
+      + '<g class="kg-boy1">' + fig(78, 165, .62, [{t: 2, h: -6, a: [-4, 8], b: [6, 8], l: [2, 2, 0], m: [-4, 4, 0]}, {t: 8, h: -16, a: [84, 14], b: [6, 8], l: [10, 6, 0], m: [-12, 8, 6]}], Object.assign(SIL('#9ab8ff'), {head: 1.26, bare: true}), WALK, 'kf-b1') + '</g>');
+
+    /* 2. the street at dusk: a sock stuffed with rags */
+    const k2 = SVG('<defs><linearGradient id="kgDusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a0926"/><stop offset=".34" stop-color="#3a1a5c"/><stop offset=".6" stop-color="#b03a5e"/><stop offset=".76" stop-color="#ff8a3a"/><stop offset=".86" stop-color="#ffd27a"/></linearGradient>'
+      + '<linearGradient id="kgRoad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a2a2a"/><stop offset="1" stop-color="#160a12"/></linearGradient></defs>'
+      + '<rect width="400" height="260" fill="url(#kgDusk)"/>' + stars(46, 96)
+      + '<circle cx="214" cy="186" r="130" fill="url(#kgGl)" opacity=".75"/><circle cx="214" cy="186" r="34" fill="#fff3c8"/>'
+      + [[60, 150, 90], [300, 158, 120], [170, 164, 70]].map(([x, y, w]) => '<path d="M' + (x - w) + ' 190 Q' + x + ' ' + y + ' ' + (x + w) + ' 190 Z" fill="#3a1438" opacity=".8"/>').join('')
+      /* low houses either side of the road, a few windows lit */
+      + [[0, 150, 58, 46], [56, 162, 44, 34], [98, 154, 38, 42], [270, 158, 46, 38], [314, 148, 50, 48], [362, 160, 40, 36]].map(([x, y, w, h], i) => '<path d="M' + (x - 4) + ' ' + y + ' L' + (x + w / 2) + ' ' + (y - 12) + ' L' + (x + w + 4) + ' ' + y + ' V' + (y + h) + ' H' + (x - 4) + ' Z" fill="#120816"/>'
+        + (i % 2 ? '<rect x="' + (x + w * .3) + '" y="' + (y + 12) + '" width="7" height="8" fill="#ffc45a" opacity=".9"/>' : '<rect x="' + (x + w * .55) + '" y="' + (y + 14) + '" width="6" height="7" fill="#ffb03a" opacity=".7"/>')).join('')
+      + [[140, 96], [258, 104]].map(([x, y]) => '<path d="M' + x + ' 196 V' + y + ' M' + (x - 9) + ' ' + (y + 8) + ' H' + (x + 9) + '" stroke="#120816" stroke-width="2.2"/>').join('') + '<path d="M0 92 Q70 112 140 104 Q200 118 258 112 Q330 124 400 100" stroke="#120816" stroke-width=".8" fill="none"/>'
+      + '<path d="M0 196 H400 V260 H0 Z" fill="#120816"/><path d="M150 196 H278 L400 260 H0 Z" fill="url(#kgRoad)"/><ellipse cx="214" cy="204" rx="46" ry="4" fill="#ffd27a" opacity=".35"/>'
+      + '<g class="kg-kid"><ellipse cx="170" cy="207.4" rx="20" ry="3" fill="#000" opacity=".45"/>' + fig(168, 171, .72, [{t: 4, h: 12, a: [-34, 30], b: [30, 34], l: [10, 14, 0], m: [-8, 10, 0]}, {t: -8, h: 4, a: [-52, 30], b: [46, 30], l: [64, 36, -26], m: [-6, 8, 0]}, {t: -6, h: -30, a: [-12, 10], b: [12, 12], l: [4, 2, 0], m: [-6, 6, 0]}], Object.assign(SIL('#ffb46a'), {head: 1.24, bare: true}), null, 'kf-kid') + '</g>'
+      + '<g class="kg-rag" transform="translate(191 201)"><g><path d="M-5.4 -1 Q-6 -5.6 -1 -5.8 Q5 -6.4 5.6 -1 Q6.2 4.6 .4 5.4 Q-5 5.6 -5.4 -1 Z" fill="#d9cdb8" stroke="#3a2a1a" stroke-width=".8"/><path d="M-4 -2 Q0 1 4.6 -2.4 M-3 3 Q1 0 5 2.6" stroke="#8a7a62" stroke-width=".8" fill="none"/><path d="M2 -5.6 L5.6 -9 M3.4 -5.4 L7.6 -6.6" stroke="#d9cdb8" stroke-width="1.4" stroke-linecap="round"/></g></g>'
+      + '<g transform="translate(246 64)"><g class="kg-newstar"><circle r="26" fill="url(#kgGl)"/><path d="M0 -13 L2.4 -2.4 L13 0 L2.4 2.4 L0 13 L-2.4 2.4 L-13 0 L-2.4 -2.4 Z" fill="#fff"/></g></g>');
+
+    /* 3. Solna, 29 June 1958: seventeen, in blue, in the rain */
+    const pitch = (y, c0, c1) => '<rect y="' + y + '" width="400" height="' + (260 - y) + '" fill="' + c0 + '"/>' + [0, 1, 2, 3].map(i => '<rect y="' + (y + 6 + i * 30) + '" width="400" height="15" fill="' + c1 + '"/>').join('');
+    const goalR = (cls, x, y) => '<g class="' + cls + '"><path d="M' + x + ' ' + y + ' V' + (y - 58) + ' L' + (x + 34) + ' ' + (y - 66) + ' V' + (y - 4) + ' Z" fill="#000" fill-opacity=".28"/>' + Array.from({length: 5}, (_, i) => '<path d="M' + (x + 6 + i * 6.4) + ' ' + f1(y - 59 - i * 1.5) + ' V' + f1(y - 1 - i * .7) + '" stroke="#fff" stroke-opacity=".3"/>').join('')
+      + Array.from({length: 6}, (_, i) => '<path d="M' + x + ' ' + (y - 8 - i * 9) + ' L' + (x + 34) + ' ' + f1(y - 13 - i * 9.6) + '" stroke="#fff" stroke-opacity=".22"/>').join('') + '<path d="M' + x + ' ' + y + ' V' + (y - 58) + ' L' + (x + 34) + ' ' + (y - 66) + '" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round"/></g>';
+    const solna = () => '<defs><linearGradient id="kgSk3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a7888"/><stop offset="1" stop-color="#b4bec8"/></linearGradient></defs>'
+      + '<rect width="400" height="260" fill="url(#kgSk3)"/><path d="M0 74 L400 64 V150 H0 Z" fill="#3c4856"/><path d="M0 74 L400 64 V70 L0 80 Z" fill="#232c38"/>' + dots(520, 0, 400, 84, 138, ['#1a222e', '#dfe4ea', '#8a96a4', '#f2d21c', '#2a3440', '#c9d0d8', '#1b4aa0', '#1a222e'], 2.2, .8)
+      + [36, 124, 212, 300, 372].map(x => '<path d="M' + x + ' 64 V44" stroke="#232c38" stroke-width="1"/><rect x="' + x + '" y="44" width="10" height="6" fill="' + (x % 3 ? '#1b4aa0' : '#f2d21c') + '"/>').join('')
+      + '<rect y="138" width="400" height="12" fill="#e8ecf0"/>' + [20, 110, 200, 290].map(x => '<rect x="' + x + '" y="140" width="64" height="8" fill="#1a222e" opacity=".8"/>').join('')
+    const k3 = SVG('<g transform="translate(0 -8)">' + solna()
+      + pitch(150, '#2c6238', '#327040') + '<path d="M0 206 H400" stroke="#fff" stroke-opacity=".3" stroke-width="1.4"/><path d="M286 206 L262 260" stroke="#fff" stroke-opacity=".3" stroke-width="1.4"/>'
+      + goalR('kg-net3', 344, 204)
+      + '<g class="kg-gk3">' + fig(334, 172, .62, [{t: 6, h: 0, a: [40, 60], b: [-40, 60], l: [16, 24, 0], m: [-16, 24, 0]}, {t: 60, h: -20, a: [150, 10], b: [130, 20], l: [-30, 20, 30], m: [-50, 40, 30]}], GK('#3a3f48'), null, 'kf-gk3', true) + '</g>'
+      + '<g class="kg-def3">' + fig(232, 176, .78, [{t: 10, h: 0, a: [-30, 50], b: [30, 50], l: [22, 30, -6], m: [-18, 26, 6]}, {t: -12, h: -28, a: [100, 30], b: [60, 40], l: [30, 16, 0], m: [-24, 30, 10]}, {t: 34, h: 10, a: [60, 30], b: [20, 40], l: [56, 70, -16], m: [-40, 30, 20]}], SWE, null, 'kf-d3', true) + '</g>'
+      + '<g class="kg-hero3"><g class="kg-h3y">' + fig(134, 176, .78, [{t: 8, h: -16, a: [-30, 50], b: [25, 45], l: [18, 28, -4], m: [-12, 24, 6]}, {t: -14, h: -10, a: [-50, 30], b: [-42, 34], l: [10, 16, 0], m: [-14, 20, 6]}, {t: 6, h: 8, a: [-30, 40], b: [34, 40], l: [50, 62, -20], m: [-8, 14, 4]},
+          {t: 10, h: 8, a: [40, 40], b: [-40, 30], l: [-44, 84, 20], m: [14, 20, -6]}, {t: -8, h: 4, a: [-50, 30], b: [50, 30], l: [80, 6, 10], m: [-12, 22, 8]}, {t: -4, h: -14, a: [168, 8], b: [-30, 60], l: [8, 6, 0], m: [-10, 12, 0]}], B58, RUN, 'kf-h3') + '</g></g>'
+      + ball('kg-ball3') + '</g>');
+    /* 3b. the promise, kept: seventeen, on their shoulders */
+    const MATE = sk => Object.assign({}, B58, {num: '', skin: sk[0], skind: sk[1], hair: sk[2]});
+    const k3b = SVG('<g transform="translate(0 -8)">' + solna() + pitch(150, '#2c6238', '#327040') + '<rect width="400" height="270" fill="#0a1018" opacity=".42"/><circle cx="170" cy="120" r="120" fill="url(#kgGl)" opacity=".5"/>'
+      + '<g class="kg-fl3">' + Array.from({length: 26}, () => '<circle class="kg-tw" style="--d:' + f1(R() * 2) + 's" cx="' + f1(R() * 400) + '" cy="' + f1(86 + R() * 50) + '" r="' + f1(1.2 + R() * 2) + '" fill="#fff"/>').join('') + '</g>'
+      + '<ellipse cx="170" cy="231" rx="46" ry="4" fill="#000" opacity=".4"/>'
+      + '<g class="kg-lift">' + fig(150, 188, .84, [{t: 4, h: -10, a: [146, 24], b: [134, 34], l: [6, 6, 0], m: [-10, 12, 0]}], MATE(['#c98e62', '#a8734c', '#2a1a10']))
+      + fig(192, 188, .84, [{t: 4, h: -10, a: [146, 24], b: [134, 34], l: [6, 6, 0], m: [-10, 12, 0]}], MATE(['#7a4a2c', '#5e3820', '#120c08']), null, '', true)
+      + '<g class="kg-up3">' + fig(169, 127, .84, [{t: -6, h: -20, a: [158, 14], b: [174, 10], l: [78, 84, 0], m: [66, 80, 0]}], B58) + '</g></g></g>');
+
+    /* 5. Estadio Azteca, 21 June 1970: noon, heat, a hundred thousand people */
+    const SKY5 = '<defs><linearGradient id="kgSk5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f7fd8"/><stop offset=".5" stop-color="#8ec4f0"/><stop offset="1" stop-color="#ffe9b8"/></linearGradient>'
+      + '<linearGradient id="kgHz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9b8" stop-opacity="0"/><stop offset="1" stop-color="#ffe9b8" stop-opacity=".38"/></linearGradient></defs>';
+    const flag = (x, y, c) => '<path d="M' + x + ' ' + y + ' V' + (y - 13) + '" stroke="#2a2018" stroke-width=".8"/>' + c.map((k, i) => '<rect x="' + (x + i * 9 / c.length) + '" y="' + (y - 13) + '" width="' + f1(9 / c.length + .2) + '" height="6" fill="' + k + '"/>').join('');
+    const azteca = bare => (bare ? '' : '<rect width="400" height="260" fill="url(#kgSk5)"/><circle cx="318" cy="16" r="120" fill="url(#kgWh)" opacity=".8"/><circle cx="318" cy="16" r="15" fill="#fff"/>')
+      + '<path d="M0 46 Q200 20 400 46 V104 H0 Z" fill="#3c2c22"/><path d="M0 46 Q200 20 400 46 V52 Q200 26 0 52 Z" fill="#e8dcc4"/>' + dots(620, 0, 400, 54, 100, ['#ffdf00', '#f6f7fa', '#009c3b', '#e0503a', '#1f55c8', '#f6f7fa', '#ffdf00', '#3a2a20'], 2, .8)
+      + '<rect y="102" width="400" height="6" fill="#efe4cc"/><rect y="108" width="400" height="44" fill="#33251c"/>' + dots(560, 0, 400, 110, 148, ['#ffdf00', '#f6f7fa', '#009c3b', '#e0503a', '#1f55c8', '#ffdf00', '#f6f7fa'], 2.4, .85)
+      + [[40, 108, ['#009c3b', '#ffdf00']], [128, 108, ['#009c3b', '#f6f7fa', '#d8262e']], [236, 108, ['#009c3b', '#ffdf00']], [332, 108, ['#009c3b', '#ffdf00']], [84, 52, ['#009c3b', '#ffdf00']], [290, 50, ['#009c3b', '#f6f7fa', '#d8262e']]].map(([x, y, c]) => flag(x, y, c)).join('')
+      + '<rect y="150" width="400" height="10" fill="#f4efe2"/>' + [14, 98, 182, 266, 350].map((x, i) => '<rect x="' + x + '" y="151.5" width="58" height="7" fill="' + ['#1f55c8', '#d8262e', '#2a2a2a', '#009c3b', '#d8262e'][i] + '" opacity=".75"/>').join('')
+      + pitch(160, '#3f8c3a', '#49a044') + '<path d="M0 212 H400" stroke="#fff" stroke-opacity=".4" stroke-width="1.6"/><rect y="52" width="400" height="108" fill="url(#kgHz)"/>' + (bare ? '' : '<path d="M290 0 H350 L300 260 H60 Z" fill="url(#kgRay)" opacity=".5"/>');
+    const HERO5 = [{t: 6, h: -16, a: [-20, 40], b: [20, 40], l: [14, 22, -4], m: [-10, 20, 4]}, {t: 24, h: -24, a: [-62, 30], b: [-52, 36], l: [48, 88, -22], m: [36, 80, -18]}, {t: -10, h: -12, a: [124, 30], b: [84, 50], l: [-6, 40, 30], m: [16, 62, 24]},
+      {t: -22, h: -16, a: [72, 72], b: [-40, 60], l: [-18, 64, 30], m: [8, 78, 26]}, {t: 28, h: 26, a: [-72, 40], b: [-62, 46], l: [30, 50, 20], m: [-10, 70, 26]}];
+    const DEF5 = [{t: 6, h: -16, a: [-20, 40], b: [20, 40], l: [14, 22, -4], m: [-10, 20, 4]}, {t: 22, h: -22, a: [-56, 30], b: [-48, 36], l: [44, 82, -20], m: [34, 76, -16]}, {t: -8, h: -14, a: [132, 24], b: [96, 40], l: [-4, 30, 28], m: [14, 50, 22]},
+      {t: -20, h: -30, a: [150, 20], b: [112, 34], l: [24, 30, 10], m: [-14, 34, 14]}, {t: 26, h: -40, a: [44, 60], b: [-20, 44], l: [52, 82, -22], m: [-22, 52, 12]}];
+    const k5 = SVG(SKY5 + '<g transform="translate(0 -14)">' + azteca()
+      + '<rect class="kg-dim5" width="400" height="260" fill="#0a0612"/><circle class="kg-aura5" cx="220" cy="112" r="96" fill="url(#kgGl)"/>'
+      + '<ellipse class="kg-sh5 d" cx="186" cy="226" rx="20" ry="3.4" fill="#000" opacity=".4"/><ellipse class="kg-sh5 h" cx="214" cy="228" rx="22" ry="3.6" fill="#000" opacity=".4"/>'
+      + '<g class="kg-d5y">' + fig(184, 182, .88, DEF5, ITA, null, 'kf-d5') + '</g>'
+      + '<g class="kg-h5y">' + fig(212, 182, .92, HERO5, BRA, null, 'kf-h5') + '</g>'
+      + ball('kg-ball5', 5) + '</g>');
+    /* 5b. the net */
+    const k5b = SVG(SKY5 + '<g transform="translate(0 -14)"><rect width="400" height="260" fill="url(#kgSk5)"/><path d="M0 60 Q200 36 400 60 V150 H0 Z" fill="#3c2c22"/>' + dots(700, 0, 400, 66, 146, ['#ffdf00', '#f6f7fa', '#009c3b', '#e0503a', '#1f55c8', '#ffdf00'], 2.6, .8) + '<rect y="146" width="400" height="10" fill="#f4efe2"/>' + pitch(156, '#3f8c3a', '#49a044')
+      + '<path d="M40 226 H360" stroke="#fff" stroke-opacity=".5" stroke-width="2"/>'
+      + '<g class="kg-net5">' + Array.from({length: 23}, (_, i) => '<path d="M' + (68 + i * 12) + ' 72 V226" stroke="#fff" stroke-opacity=".3"/>').join('') + Array.from({length: 12}, (_, i) => '<path d="M68 ' + (84 + i * 12) + ' H332" stroke="#fff" stroke-opacity=".3"/>').join('')
+        + '<path d="M68 72 L92 96 V226 M332 72 L308 96 V226 M92 96 H308" stroke="#fff" stroke-opacity=".22" fill="none"/></g>'
+      + '<path d="M66 226 V70 H334 V226" stroke="#fff" stroke-width="6" fill="none" stroke-linejoin="round"/><path d="M66 226 V70 H334 V226" stroke="#c9d0dc" stroke-width="1.4" fill="none" transform="translate(2.4 2.4)"/>'
+      + '<g class="kg-gk5"><g transform="translate(204 186) rotate(64)">' + kingFig([{t: 10, h: -30, a: [170, 6], b: [150, 14], l: [-20, 16, 30], m: [10, 44, 30]}], GK('#5a6068')) + '</g></g>'
+      + '<circle class="kg-hit5" cx="304" cy="200" r="46" fill="url(#kgWh)"/>' + ball('kg-ball5b', 5) + '</g>');
+
+    /* 6. the ascent: one continuous shot from the grass to the edge of the sky */
+    const cloud = (x, y, s, op) => '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')" opacity="' + (op || 1) + '"><ellipse cx="0" cy="0" rx="46" ry="15" fill="#fff"/><ellipse cx="-26" cy="5" rx="30" ry="12" fill="#f4f0ff"/><ellipse cx="28" cy="6" rx="34" ry="12" fill="#f4f0ff"/><ellipse cx="6" cy="-9" rx="26" ry="13" fill="#fff"/><ellipse cx="0" cy="10" rx="50" ry="9" fill="#d8d0f0" opacity=".7"/></g>';
+    const k6 = SVG(SKY5 + '<defs><linearGradient id="kgSkB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#061a54"/><stop offset=".55" stop-color="#2a66c8"/><stop offset="1" stop-color="#bfe0ff"/></linearGradient>'
+      + '<linearGradient id="kgSkC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#010208"/><stop offset=".7" stop-color="#060a24"/><stop offset="1" stop-color="#0c1a4a"/></linearGradient>'
+      + '<radialGradient id="kgEarth" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#0a2a66"/><stop offset=".9" stop-color="#0e3c8c"/><stop offset=".972" stop-color="#2a7ae0"/><stop offset=".99" stop-color="#9ad4ff"/><stop offset="1" stop-color="#e8f6ff"/></radialGradient>'
+      + '<radialGradient id="kgAtm" cx=".5" cy=".5" r=".5"><stop offset=".93" stop-color="#4aa0ff" stop-opacity="0"/><stop offset=".965" stop-color="#6ab8ff" stop-opacity=".7"/><stop offset="1" stop-color="#6ab8ff" stop-opacity="0"/></radialGradient>'
+      + '<radialGradient id="kgDisc"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".4" stop-color="#ffe9a0" stop-opacity=".7"/><stop offset="1" stop-color="#ffd23f" stop-opacity="0"/></radialGradient>'
+      + '<linearGradient id="kgFl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>'
+      + '<g class="kg-cam6">'
+      + '<g class="kg-skyA"><rect width="400" height="260" fill="url(#kgSk5)"/><circle cx="318" cy="16" r="120" fill="url(#kgWh)" opacity=".8"/></g><rect class="kg-skyB" width="400" height="260" fill="url(#kgSkB)"/><rect class="kg-skyC" width="400" height="260" fill="url(#kgSkC)"/>'
+      + '<g class="kg-stars6">' + stars(150, 250) + '</g>'
+      + '<g class="kg-sun6"><circle cx="290" cy="201" r="150" fill="url(#kgWh)"/>' + Array.from({length: 14}, (_, i) => { const a = -Math.PI * (i + .5) / 14; return '<path d="M290 201 L' + f1(290 + Math.cos(a) * 420) + ' ' + f1(201 + Math.sin(a) * 420) + '" stroke="#fff3c0" stroke-opacity="' + (i % 2 ? .16 : .3) + '" stroke-width="' + (i % 2 ? 5 : 10) + '"/>'; }).join('') + '<rect x="50" y="197" width="480" height="5" fill="url(#kgFl)"/><circle cx="290" cy="201" r="13" fill="#fff"/></g>'
+      + '<g class="kg-earth6"><circle cx="200" cy="860" r="690" fill="url(#kgAtm)"/><circle cx="200" cy="860" r="664" fill="url(#kgEarth)"/>'
+        + [[110, 212, 60, 6], [238, 207, 80, 5], [330, 220, 46, 5], [60, 230, 40, 5]].map(([x, y, w, h]) => '<ellipse cx="' + x + '" cy="' + y + '" rx="' + w + '" ry="' + h + '" fill="#fff" opacity=".2"/>').join('') + '<path class="kg-limb" d="M-60 249 Q200 143 460 249" stroke="#fff" stroke-width="2.4" fill="none"/></g>'
+      + '<g class="kg-sea6">' + [[30, 214, 1.5], [150, 226, 1.9], [290, 212, 1.6], [384, 228, 1.7], [90, 244, 2.2], [240, 250, 2.4], [360, 252, 2]].map(([x, y, s]) => cloud(x, y, s)).join('') + '<rect y="236" width="400" height="30" fill="#f4f0ff"/></g>'
+      + '<g class="kg-world6"><g transform="translate(0 -14)">' + azteca(true) + '<rect y="258" width="400" height="120" fill="#3f8c3a"/></g></g>'
+      + '<g class="kg-three6">' + [[270, 70, 8], [304, 58, 11], [338, 70, 8]].map(([x, y, s], i) => '<g class="kg-s3" style="--i:' + i + '"><circle cx="' + x + '" cy="' + y + '" r="' + (s * 2.6) + '" fill="url(#kgGl)"/>' + star5(x, y, s, '#fff6d0') + '</g>').join('') + '</g>'
+      + '<g class="kg-halo6"><circle cx="201" cy="93" r="60" fill="url(#kgGl)"/><circle cx="201" cy="93" r="26" fill="none" stroke="#fff3c0" stroke-width="1.5" opacity=".9"/><circle cx="201" cy="93" r="38" fill="none" stroke="#fff3c0" stroke-width=".6" opacity=".6"/></g>'
+      + '<g class="kg-rig6"><g class="kg-rise6"><g class="kg-tilt6">'
+        + '<g class="kg-discs">' + Array.from({length: 6}, (_, i) => '<g class="kg-disc" style="--i:' + i + '"><ellipse rx="19" ry="4.4" fill="url(#kgDisc)"/><ellipse class="kg-rip" rx="19" ry="4.4" fill="none" stroke="#fff3c0" stroke-width="1"/></g>').join('') + '</g>'
+        + '<g class="kg-first"><ellipse rx="34" ry="7" fill="url(#kgDisc)"/><ellipse class="kg-rip" rx="34" ry="7" fill="none" stroke="#fff" stroke-width="1.4"/></g>'
+        + '<g class="kg-bob6"><g class="kg-dark6">' + kingFig([{t: -6, h: -12, a: [172, 6], b: [-24, 50], l: [-14, 46, 26], m: [22, 70, 20]}, {t: 2, h: -16, a: [-8, 8], b: [10, 10], l: [4, 2, 0], m: [-6, 6, 4]}, {t: -4, h: -24, a: [176, 4], b: [-14, 16], l: [5, 2, 0], m: [-7, 7, 4]}], Object.assign({cls: 'kf-h6'}, BRA), CLIMB) + '</g>'
+        + '<g class="kg-rim6">' + kingFig([{t: -6, h: -12, a: [172, 6], b: [-24, 50], l: [-14, 46, 26], m: [22, 70, 20]}, {t: 2, h: -16, a: [-8, 8], b: [10, 10], l: [4, 2, 0], m: [-6, 6, 4]}, {t: -4, h: -24, a: [176, 4], b: [-14, 16], l: [5, 2, 0], m: [-7, 7, 4]}], {cls: 'kf-h6', only: 'rim', rim: '#fff6c8'}, CLIMB) + '</g></g>'
+      + '</g></g></g>'
+      + '<g class="kg-wipe6">' + Array.from({length: 26}, (_, i) => cloud(R() * 400, R() * 330, 2.2 + R() * 1.6, .96)).join('') + '<rect y="60" width="400" height="210" fill="#fff" opacity=".85"/></g>'
+      + '</g>');
+
+    /* the wall behind the rifle: the green field, the gold rhombus, the blue disc with his 10, laurels, stars and gold everywhere */
+    const leaf = (cx, cy, rr, a0, a1, n, flip) => Array.from({length: n}, (_, i) => { const a = (a0 + (a1 - a0) * i / (n - 1)) * Math.PI / 180, x = cx + Math.cos(a) * rr * (flip ? -1 : 1), y = cy + Math.sin(a) * rr, rot = (a * 180 / Math.PI + 90 + (i % 2 ? 34 : -34)) * (flip ? -1 : 1);
+      return '<ellipse cx="' + f1(x) + '" cy="' + f1(y) + '" rx="10" ry="3.4" transform="rotate(' + f1(rot) + ' ' + f1(x) + ' ' + f1(y) + ')" fill="url(#kgFg)"/>'; }).join('');
+    const FLAG = '<svg class="kg-flag" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="kgFn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0c7a36"/><stop offset=".5" stop-color="#075a26"/><stop offset="1" stop-color="#033a18"/></linearGradient>'
+      + '<linearGradient id="kgFg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6cc"/><stop offset=".35" stop-color="#ffd23f"/><stop offset=".7" stop-color="#c98a0b"/><stop offset="1" stop-color="#8a5a00"/></linearGradient>'
+      + '<radialGradient id="kgFb" cx=".42" cy=".36" r=".75"><stop offset="0" stop-color="#1c4fc0"/><stop offset="1" stop-color="#00123c"/></radialGradient>'
+      + '<radialGradient id="kgFv" cx=".5" cy=".46" r=".72"><stop offset=".45" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".82"/></radialGradient></defs>'
+      + '<rect width="400" height="260" fill="url(#kgFn)"/>' + Array.from({length: 11}, (_, i) => '<path d="M' + (i * 46 - 80) + ' 260 L' + (i * 46 + 40) + ' 0 H' + (i * 46 + 62) + ' L' + (i * 46 - 58) + ' 260 Z" fill="#fff" opacity=".035"/>').join('')
+      + '<path d="M18 130 L200 16 L382 130 L200 244 Z" fill="url(#kgFg)" fill-opacity=".3" stroke="url(#kgFg)" stroke-width="3"/><path d="M36 130 L200 27 L364 130 L200 233 Z" fill="none" stroke="#fff3b0" stroke-opacity=".5" stroke-width=".8"/>'
+      + '<circle cx="200" cy="130" r="80" fill="url(#kgFb)" stroke="url(#kgFg)" stroke-width="3"/><circle cx="200" cy="130" r="72" fill="none" stroke="#ffd23f" stroke-opacity=".5" stroke-width=".7"/>'
+      + Array.from({length: 27}, (_, i) => { const a = i / 27 * Math.PI * 2; return star5(200 + Math.cos(a) * 65, 130 + Math.sin(a) * 65, i % 3 ? 2 : 3.2, '#ffe9a0'); }).join('')
+      + '<text x="200" y="176" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="132" letter-spacing="2" fill="url(#kgFg)" opacity=".5">10</text>'
+      + leaf(200, 130, 96, 100, 250, 13) + leaf(200, 130, 96, 100, 250, 13, true)
+      + [[26, 20, 1, 1], [374, 20, -1, 1], [26, 240, 1, -1], [374, 240, -1, -1]].map(([x, y, sx, sy]) => '<g transform="translate(' + x + ' ' + y + ') scale(' + sx + ' ' + sy + ')"><path d="M0 34 V0 H34 M7 26 V7 H26" stroke="url(#kgFg)" stroke-width="2.2" fill="none"/>' + star5(15, 15, 5, 'url(#kgFg)') + '</g>').join('')
+      + '<rect width="400" height="260" fill="url(#kgFv)"/></svg>';
+    const title = 'THE KING'.split('').map((ch, i) => '<span style="--i:' + i + '">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>').join('');
+    const starSVG = '<svg viewBox="-12 -12 24 24"><defs><linearGradient id="kgSt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6cc"/><stop offset=".5" stop-color="#ffd23f"/><stop offset="1" stop-color="#a86a00"/></linearGradient></defs>' + star5(0, 0, 11, 'url(#kgSt)') + '</svg>';
+    ov.innerHTML = '<canvas class="gt-cv"></canvas><div class="kg-flash"></div><div class="kg-white"></div><div class="kg-vig"></div><i class="kg-lb t"></i><i class="kg-lb b"></i>'
+      + '<section class="gt-s kg-s kg-1">' + k1 + '<div class="kg-cap sw"><small id="kgC1s">Bauru, Brazil · 16 July 1950</small><p id="kgC1a">Brazil had just lost the World Cup. At home.</p><p id="kgC1b">A boy of nine saw his father cry for the first time.</p><p id="kgC1c" class="g">He promised him one.</p></div></section>'
+      + '<section class="gt-s kg-s kg-2">' + k2 + '<div class="kg-cap r"><p id="kgC2a">No ball. A sock stuffed with rags.</p><p id="kgC2b" class="g">It was enough.</p></div></section>'
+      + '<section class="gt-s kg-s kg-3">' + k3 + '<div class="kg-cap sw t"><small id="kgC3s">Solna, Sweden · 29 June 1958 · World Cup final</small><p id="kgC3a">Eight years later. He was seventeen.</p><p id="kgC3b" class="g">Two goals in the final.</p></div></section>'
+      + '<section class="gt-s kg-s kg-3b">' + k3b + '<div class="kg-cap r"><small id="kgC3t">Brazil 5 – 2 Sweden</small><p id="kgC3c">The youngest ever to score in a World Cup final: 17 years, 249 days.</p><p id="kgC3d" class="g">He kept the promise.</p></div></section>'
+      + '<section class="gt-s kg-s kg-4"><div class="kg-rays"></div><div class="kg-k4"><div class="kg-count"><small>First-class career · 1956 – 1977</small><b id="kgCnt">0</b><span>GOALS</span><em>Guinness World Records’ count, in 1,363 games</em></div>'
+        + '<div class="kg-cups">' + ['1958', '1962', '1970'].map((y, i) => '<div style="--i:' + i + '">' + starSVG + '<b>' + y + '</b></div>').join('') + '</div>'
+        + '<div class="kg-cap c"><p id="kgC4a">Three World Cups.</p><p id="kgC4b" class="g">No one else has three.</p></div></div><div class="kg-mil"><b>No. 1,000</b><span>Maracanã · 19 November 1969</span></div></section>'
+      + '<section class="gt-s kg-s kg-5">' + k5 + '<div class="kg-cap sw n"><small id="kgC5s">Estadio Azteca, Mexico City · 21 June 1970 · World Cup final</small><p id="kgC5a">Eighteen minutes in. A cross comes over.</p><p id="kgC5b">He rose with everyone else.</p><p id="kgC5c" class="g">Then he stayed there.</p></div></section>'
+      + '<section class="gt-s kg-s kg-5b">' + k5b + '<div class="kg-sb" id="kgSb">BRAZIL 1 – 0 ITALY · 18’</div><div class="kg-dimq"></div>'
+        + '<blockquote class="kg-quote"><p>“I told myself before the game, he’s made of skin and bones just like everyone else — but I was wrong.”</p><cite>Tarcisio Burgnich · Italy · after the 1970 final</cite></blockquote></section>'
+      + '<section class="gt-s kg-s kg-6">' + k6 + '<div class="kg-cap sw n"><small id="kgC6s">Full time · Brazil 4 – 1 Italy</small><p id="kgC6a">There is great.</p><p id="kgC6b">And then there is the place he went.</p></div>'
+        + '<div class="kg-cap n kg-last"><small id="kgC6c">Edson Arantes do Nascimento · 1940 – 2022</small><p id="kgC6d">The man was mortal.</p><p id="kgC6e" class="g big">The King is not.</p></div></section>'
+      + '<section class="gt-s kg-s kg-8">' + FLAG + '<div class="kg-rays gold"></div><div class="kg-beam"></div><div class="su-rv kg-rv"><div class="kg-stars3">' + starSVG + starSVG + starSVG + '</div>'
+        + '<div class="kg-crown"><svg viewBox="0 0 60 36"><defs><linearGradient id="kgCr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6a4300"/><stop offset=".45" stop-color="#fff0b0"/><stop offset=".7" stop-color="#ffd23f"/><stop offset="1" stop-color="#6a4300"/></linearGradient></defs><path d="M5 32 L3 9 L16 20 L30 2 L44 20 L57 9 L55 32 Z" fill="url(#kgCr)" stroke="#6a4300" stroke-width="1.4" stroke-linejoin="round"/><circle cx="30" cy="23" r="3.4" fill="#18c46a"/><circle cx="16" cy="26" r="2.4" fill="#2a6aff"/><circle cx="44" cy="26" r="2.4" fill="#2a6aff"/><circle cx="3" cy="8" r="2" fill="#fff0b0"/><circle cx="30" cy="2" r="2.2" fill="#fff0b0"/><circle cx="57" cy="8" r="2" fill="#fff0b0"/></svg></div>'
+        + '<div class="kg-art"><span class="gt-foil kg-foil"></span></div><h2 class="kg-h2">' + title + '</h2><div class="kg-sub">CHROMA · ONE OF ONE</div><div class="kg-tag">Long live the King.</div><div class="gt-val kg-val"><span class="coin"></span><span id="kgVal">0</span></div><div class="gt-tap">tap to continue</div></div></section>'
+      + '<button class="pc-skip gt-skip">Skip ››</button>';
+    const src = artHi(it, wearIdx(r.fl)), art = q('.kg-art');
+    art.prepend(imgOf(src)); art.querySelector('.gt-foil').style.setProperty('--m', 'url("' + src + '")');
+    ov.className = 'gtc kgc'; ov.hidden = false; go(0);
+
+    /* ---- the canvas: dust, rain, gold, confetti and the streaks of the climb ---- */
+    const cv = q('.gt-cv'), g = cv.getContext('2d');
+    let W = 0, H = 0, parts = [], PAL = ['#ffdf00', '#009c3b', '#1f55c8', '#ffffff'];
+    const em = {dust: 0, rain: 0, gold: 0, conf: 0, streak: 0};
+    const size = () => { const d = Math.min(devicePixelRatio || 1, 1.5); W = innerWidth; H = innerHeight; cv.width = W * d; cv.height = H * d; g.setTransform(d, 0, 0, d, 0, 0); };
+    size(); addEventListener('resize', size);
+    const burst = (n, x, y, pal, sp) => { for (let i = 0; i < n; i++) { const a = Rr() * Math.PI * 2, v = (.15 + Rr() * .7) * (sp || 1); parts.push({k: 'c', x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - .3, c: (pal || PAL)[i % (pal || PAL).length], life: 900 + Rr() * 900, max: 1800, g: .0009, s: 2.4 + Rr() * 2.4, rot: Rr() * 6}); } };
+    let last = performance.now();
+    function frame(now){
+      if (done) return;
+      const dt = Math.min(50, now - last); last = now; g.clearRect(0, 0, W, H);
+      const room = parts.length < 520;
+      if (room) {
+        for (let k = 0; k < em.dust; k++) if (Rr() < .3) parts.push({k: 'd', x: Rr() * W, y: Rr() * H, vx: (Rr() - .5) * .012, vy: -.004 - Rr() * .01, life: 4000, max: 4000, s: .6 + Rr() * 1.4});
+        for (let k = 0; k < em.rain; k++) parts.push({k: 'r', x: Rr() * (W + 200) - 100, y: -20, vx: -.16, vy: 1 + Rr() * .5, life: 1600, max: 1600, s: 10 + Rr() * 14});
+        for (let k = 0; k < em.gold; k++) if (Rr() < .5) parts.push({k: 'g', x: Rr() * W, y: -16, vx: (Rr() - .5) * .05, vy: .2 + Rr() * .3, life: 6000, max: 6000, g: .0002, s: 4 + Rr() * 6});
+        for (let k = 0; k < em.conf; k++) parts.push({k: 'c', x: Rr() * W, y: -10, vx: (Rr() - .5) * .12, vy: .08 + Rr() * .14, c: PAL[(k + parts.length) % PAL.length], life: 7000, max: 7000, g: .00002, s: 3 + Rr() * 4, rot: Rr() * 6});
+        for (let k = 0; k < em.streak; k++) if (Rr() < .6) { const top = Rr() < .6; parts.push({k: 's', x: top ? Rr() * W * 1.3 : W + 10, y: top ? -10 : Rr() * H * .8, vx: -.28 - Rr() * .3, vy: .2 + Rr() * .22, life: 3000, max: 3000, s: .8 + Rr() * 1.6}); }
+      }
+      for (let i = parts.length - 1; i >= 0; i--) {
+        const p = parts[i]; p.life -= dt; p.vy += (p.g || 0) * dt; p.x += p.vx * dt; p.y += p.vy * dt;
+        if (p.life <= 0 || p.y > H + 30 || p.x < -40) { parts.splice(i, 1); continue; }
+        const al = Math.max(0, Math.min(1, p.life / p.max * 1.5));
+        if (p.k === 'd') { g.globalAlpha = al * .5 * (.5 + .5 * Math.sin((now + i * 97) / 500)); g.fillStyle = '#ffd9a0'; g.fillRect(p.x, p.y, p.s, p.s); }
+        else if (p.k === 'r') { g.globalAlpha = .34; g.strokeStyle = '#dfe8f2'; g.lineWidth = 1; g.beginPath(); g.moveTo(p.x, p.y); g.lineTo(p.x + p.vx * p.s, p.y + p.vy * p.s); g.stroke(); }
+        else if (p.k === 'g') { g.globalAlpha = al; const gr = g.createRadialGradient(p.x - p.s * .3, p.y - p.s * .3, .5, p.x, p.y, p.s); gr.addColorStop(0, '#fff8d0'); gr.addColorStop(.5, '#ffd23f'); gr.addColorStop(1, '#8a5a00'); g.fillStyle = gr; g.beginPath(); g.arc(p.x, p.y, p.s, 0, 7); g.fill(); }
+        else if (p.k === 's') { g.globalAlpha = al * .8; g.strokeStyle = '#ffe9a0'; g.lineWidth = p.s; g.lineCap = 'round'; g.beginPath(); g.moveTo(p.x, p.y); g.lineTo(p.x - p.vx * 46, p.y - p.vy * 46); g.stroke(); }
+        else { g.globalAlpha = al; g.fillStyle = p.c; g.save(); g.translate(p.x, p.y); g.rotate((p.rot || 0) + now / 300); g.fillRect(-p.s / 2, -p.s / 3, p.s, p.s * .66); g.restore(); }
+        g.globalAlpha = 1;
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    raf = requestAnimationFrame(frame);
+
+    /* ---- the score. Its own bus, so it can be LOUD without tearing: everything is squeezed by a hard compressor,
+       rounded off by a soft clipper and sat in a long hall. Timpani, brass, a choir, a batucada and a crowd. ---- */
+    const A = ac(), snd = !!A && !state.muted;
+    let bus = null, hLo = null, hMid = null, hHi = null, duckG = null, outG = null, NZ = null, crowdG = null;
+    if (snd) {
+      const pre = A.createGain(), comp = A.createDynamicsCompressor(), clip = A.createWaveShaper(), conv = A.createConvolver(), wet = A.createGain();
+      pre.gain.value = .24; comp.threshold.value = -24; comp.knee.value = 8; comp.ratio.value = 14; comp.attack.value = .003; comp.release.value = .18;
+      const cur = new Float32Array(1024); for (let i = 0; i < 1024; i++) { const x = i / 511.5 - 1; cur[i] = Math.tanh(x * 1.7) / Math.tanh(1.7); } clip.curve = cur; clip.oversample = '2x';
+      outG = A.createGain(); outG.gain.value = .94; ov._comp = comp;
+      const n = Math.floor(A.sampleRate * 3.2), ib = A.createBuffer(2, n, A.sampleRate);
+      for (let c = 0; c < 2; c++) { const d = ib.getChannelData(c); for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 2.6) * (i < 300 ? i / 300 : 1); }
+      conv.buffer = ib; wet.gain.value = .3;
+      const nb = Math.floor(A.sampleRate * 2); NZ = A.createBuffer(1, nb, A.sampleRate); { const d = NZ.getChannelData(0); for (let i = 0; i < nb; i++) d[i] = Math.random() * 2 - 1; }
+      duckG = A.createGain(); duckG.gain.value = .2; bus = A.createGain(); hLo = A.createGain(); hMid = A.createGain(); hHi = A.createGain(); hLo.gain.value = .22; hMid.gain.value = .5; hHi.gain.value = 1;
+      [hLo, hMid, hHi].forEach(h => h.connect(conv)); conv.connect(wet); wet.connect(duckG); bus.connect(duckG); duckG.connect(pre); const post = A.createGain(); post.gain.value = 1.36; pre.connect(comp); comp.connect(post); post.connect(clip); clip.connect(outG); outG.connect(A.destination);
+      /* the crowd never quite stops */
+      const cs = A.createBufferSource(), cb = A.createBiquadFilter(), cb2 = A.createBiquadFilter(); cs.buffer = NZ; cs.loop = true; cb.type = 'bandpass'; cb.frequency.value = 620; cb.Q.value = .6; cb2.type = 'lowpass'; cb2.frequency.value = 2400;
+      crowdG = A.createGain(); crowdG.gain.value = 0; cs.connect(cb); cb.connect(cb2); cb2.connect(crowdG); crowdG.connect(bus); cs.start();
+      timers.kill = () => { try { cs.stop(A.currentTime + .7); outG.gain.setTargetAtTime(0, A.currentTime, .1); setTimeout(() => { try { outG.disconnect(); } catch (e) {} }, 900); } catch (e) {} };
+    }
+    const at = d => A.currentTime + Math.max(0, d || 0), semi = (f, n) => f * Math.pow(2, n / 12);
+    const eg = (v, t, a, s, rl) => { const x = A.createGain(); x.gain.setValueAtTime(.0001, t); x.gain.linearRampToValueAtTime(v, t + a); x.gain.setValueAtTime(v, t + a + s); x.gain.exponentialRampToValueAtTime(.0001, t + a + s + rl); return x; };
+    const os = (type, f, t, len, dest, det) => { const o = A.createOscillator(); o.type = type; o.frequency.setValueAtTime(f, t); if (det) o.detune.setValueAtTime(det, t); o.connect(dest); o.start(t); o.stop(t + len + .05); return o; };
+    const nsrc = (t, len) => { const s = A.createBufferSource(); s.buffer = NZ; s.loop = true; s.start(t, Math.random() * 1.5); s.stop(t + len + .05); return s; };
+    const flt = (type, f, qv) => { const b = A.createBiquadFilter(); b.type = type; b.frequency.value = f; b.Q.value = qv || 1; return b; };
+    const out = (x, h) => { x.connect(bus); if (h) x.connect(h); };
+    const I = f => (...a) => { if (snd && !done) try { f(...a); } catch (e) {} };
+    const timp = I((v, d, f) => { f = f || 73.42; const t = at(d), a = eg(v, t, .004, .03, 1.5), o = os('sine', f * 1.6, t, 1.6, a); o.frequency.exponentialRampToValueAtTime(f, t + .08);
+      const b = eg(v * .3, t, .004, 0, .5); os('triangle', f * 2, t, .6, b); const c = eg(v * .6, t, .002, 0, .13), n = nsrc(t, .16), lp = flt('lowpass', 520); n.connect(lp); lp.connect(c); [a, b, c].forEach(x => out(x, hMid)); });
+    const sub = I((v, d) => { const t = at(d), a = eg(v, t, .01, .12, 2.1), o = os('sine', 64, t, 2.4, a); o.frequency.exponentialRampToValueAtTime(27, t + 1.9); out(a); });
+    const brass = I((f, len, v, d) => { const t = at(d), a = eg(v, t, .045, len, .24), lp = flt('lowpass', 260, 1.4); lp.frequency.setValueAtTime(260, t); lp.frequency.exponentialRampToValueAtTime(Math.min(6400, f * 9), t + .07); lp.frequency.exponentialRampToValueAtTime(Math.min(4200, f * 5), t + .32);
+      [-11, 0, 11].forEach(dt => os('sawtooth', f, t, len + .35, lp, dt)); const lo = A.createGain(); lo.gain.value = .5; os('sawtooth', f / 2, t, len + .35, lo); lo.connect(lp); lp.connect(a); out(a, hMid); });
+    const choir = I((f, len, v, d, oh) => { const t = at(d), a = eg(v, t, .38, Math.max(.05, len - .38), 1.1), mix = A.createGain(), lfo = A.createOscillator(), lg = A.createGain();
+      lfo.frequency.value = 5.2; lg.gain.value = f * .007; lfo.connect(lg); lfo.start(t); lfo.stop(t + len + 1.3);
+      [-9, 7, 0].forEach((dt, i) => { const o = os(i < 2 ? 'sawtooth' : 'triangle', f, t, len + 1.2, mix, dt); lg.connect(o.frequency); });
+      (oh ? [420, 800, 2500] : [720, 1150, 2800]).forEach((fq, i) => { const b = flt('bandpass', fq, i < 2 ? 5 : 3), bg = A.createGain(); bg.gain.value = [1, .7, .22][i]; mix.connect(b); b.connect(bg); bg.connect(a); }); out(a, hHi); });
+    const str = I((f, v, d, len) => { const t = at(d), a = eg(v, t, .012, len || .08, .12), lp = flt('lowpass', 2600); os('sawtooth', f, t, .4, lp, -6); os('sawtooth', f, t, .4, lp, 6); lp.connect(a); out(a, hLo); });
+    const bell = I((f, v, d, len) => { const t = at(d); [[1, 1], [2.76, .35], [5.4, .14]].forEach(([m, k]) => { const a = eg(v * k, t, .003, 0, (len || 1.8) / Math.sqrt(m)); os('sine', f * m, t, len || 1.8, a); out(a, hHi); }); });
+    const pluck = I((f, v, d) => { const t = at(d), a = eg(v, t, .004, 0, .5), lp = flt('lowpass', 2200); os('triangle', f, t, .6, lp); os('sine', f * 2, t, .3, lp); lp.connect(a); out(a, hMid); });
+    const crash = I((v, d) => { const t = at(d), a = eg(v, t, .004, .05, 2.6), n = nsrc(t, 2.8), hp = flt('highpass', 4200); n.connect(hp); hp.connect(a); out(a, hMid); });
+    const nzz = (type, f0, f1, len, d, qv) => { const t = at(d), a = A.createGain(), n = nsrc(t, len), b = flt(type, f0, qv); b.frequency.setValueAtTime(f0, t); b.frequency.exponentialRampToValueAtTime(f1, t + len); n.connect(b); b.connect(a); return [a, t]; };
+    const hit = I((type, f0, f1, len, v, d, qv, wetH) => { const [a, t] = nzz(type, f0, f1, len, d, qv); a.gain.setValueAtTime(v, t); a.gain.exponentialRampToValueAtTime(.0001, t + len); out(a, wetH ? hMid : null); });
+    const riser = I((len, v, d) => { const [a, t] = nzz('bandpass', 240, 7000, len, d, 1.2); a.gain.setValueAtTime(.0001, t); a.gain.exponentialRampToValueAtTime(v, t + len * .96); a.gain.linearRampToValueAtTime(.0001, t + len); out(a, hMid);
+      const b = eg(v * .3, t, len * .9, 0, .1), o = os('sawtooth', 70, t, len, b); o.frequency.exponentialRampToValueAtTime(560, t + len); out(b); });
+    const roar = I((v, len, d, peak) => { const t = at(d), pk = peak || .35; [[700, .8, 1], [1500, .9, .55], [2800, 1.2, .25]].forEach(([fq, qv, k]) => { const n = nsrc(t, len), b = flt('bandpass', fq, qv), a = A.createGain();
+      a.gain.setValueAtTime(.0001, t); a.gain.exponentialRampToValueAtTime(v * k, t + pk); a.gain.setTargetAtTime(v * k * .45, t + pk, len * .25); a.gain.setTargetAtTime(.0001, t + len * .7, len * .12); n.connect(b); b.connect(a); out(a, hLo); }); });
+    const whistle = I(d => [[0, .09], [.14, .09], [.28, .34]].forEach(([dd, l]) => { const t = at((d || 0) + dd), a = eg(.09, t, .008, l, .05); os('square', 2650, t, l + .1, a); os('sine', 2712, t, l + .1, a); out(a, hLo); }));
+    const heart = I((v, d) => [[0, 58], [.17, 48]].forEach(([dd, f]) => { const t = at((d || 0) + dd), a = eg(v, t, .006, .02, .26); os('sine', f, t, .34, a); out(a); }));
+    const thwack = I((v, d) => { const t = at(d), a = eg(v, t, .002, 0, .16), o = os('triangle', 240, t, .2, a); o.frequency.exponentialRampToValueAtTime(70, t + .12); out(a, hLo); hit('bandpass', 2600, 500, .09, v * .7, d, .9); });
+    const gong = I((v, d) => { const t = at(d); [[98, 1, 5], [147.6, .5, 4], [233, .34, 3.2], [311, .2, 2.4], [466, .12, 1.8]].forEach(([f, k, l]) => { const a = eg(v * k, t, .006, 0, l); os('sine', f, t, l, a); out(a, hHi); }); });
+    const crowd = (v, tc) => { if (snd && !done) crowdG.gain.setTargetAtTime(v, A.currentTime, tc || .6); };
+    /* the film has dynamics: level() sets how hard a scene drives the compressor, duck() dips under it for a moment */
+    let baseL = .2; const level = (v, tc) => { baseL = v; if (snd && !done) duckG.gain.setTargetAtTime(v, A.currentTime, tc || .35); };
+    const duck = (k, tc) => { if (snd && !done) duckG.gain.setTargetAtTime(baseL * k, A.currentTime, tc || .08); };
+    const fanfare = (fs, len, v, d) => fs.forEach((f, i) => { brass(f, len, v, (d || 0) + i * .012); });
+    /* the batucada */
+    const surdo = I((v, d, open) => { const t = at(d), a = A.createGain(), o = A.createOscillator(); a.gain.setValueAtTime(v, t); a.gain.exponentialRampToValueAtTime(.0001, t + (open ? .52 : .15)); o.frequency.setValueAtTime(open ? 122 : 104, t); o.frequency.exponentialRampToValueAtTime(open ? 60 : 78, t + .12); o.connect(a); o.start(t); o.stop(t + .6); out(a, hLo); });
+    const caixa = (v, d) => { const [a, t] = nzz('bandpass', 2600, 1900, .08, d, .7); a.gain.setValueAtTime(v, t); a.gain.exponentialRampToValueAtTime(.0001, t + .075); out(a, hLo); };
+    const tamb = (v, d) => { const t = at(d), a = eg(v, t, .001, 0, .04); os('square', 1960, t, .05, a); out(a); const [b, t2] = nzz('highpass', 6000, 5000, .03, d); b.gain.setValueAtTime(v * 1.4, t2); b.gain.exponentialRampToValueAtTime(.0001, t2 + .03); out(b); };
+    const agogo = (v, d, hi) => { const t = at(d), f = hi ? 1318.5 : 987.8, a = eg(v, t, .002, 0, .2); os('sine', f, t, .22, a); const b = eg(v * .12, t, .002, 0, .08); os('square', f * 2.42, t, .1, b); out(b); out(a, hLo); };
+    const ganza = (v, d) => { const [a, t] = nzz('highpass', 7600, 6800, .035, d); a.gain.setValueAtTime(v, t); a.gain.exponentialRampToValueAtTime(.0001, t + .035); out(a); };
+    /* the sequencer: 104 bpm, scheduled a little ahead on the audio clock so the drums stay tight */
+    const STEPT = 60 / 104 / 4, BAR = STEPT * 16;
+    const PROG = [[146.83, 3, 73.42], [116.54, 4, 58.27], [174.61, 4, 87.31], [130.81, 4, 65.41]];
+    const THEME = [[[0, 293.66, 4], [4, 349.23, 2], [6, 440, 2], [8, 587.33, 8]], [[0, 523.25, 4], [4, 466.16, 2], [6, 440, 2], [8, 349.23, 8]], [[0, 349.23, 4], [4, 440, 2], [6, 523.25, 2], [8, 698.46, 8]], [[0, 659.25, 4], [4, 587.33, 2], [6, 523.25, 2], [8, 659.25, 8]]];
+    const ASC = [[146.83, 3], [155.56, 4], [174.61, 4], [196, 4], [220, 3], [233.08, 4], [261.63, 4], [293.66, 4]];
+    const lv = {bat: 0, ost: 0, pad: 0, th: 0, plk: 0}; let seqN = 0, seqT = 0, mode = 'dm';
+    const CX = [1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1], TB = [1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0], AG = [2, 0, 2, 0, 1, 1, 0, 2, 0, 2, 0, 1, 1, 0, 2, 0];
+    const seqStep = (n, t) => { const s = n % 16, bar = Math.floor(n / 16), d = t - A.currentTime;
+      let root, third, bass; if (mode === 'asc') { const c = ASC[Math.min(7, bar)]; root = c[0]; third = c[1]; bass = c[0] / 2; } else if (mode === 'fin') { root = 293.66; third = 4; bass = 73.42; } else { const c = PROG[bar % 4]; root = c[0]; third = c[1]; bass = c[2]; }
+      const tones = [root, semi(root, third), semi(root, 7), root * 2], up = mode === 'asc' ? .5 + .5 * Math.min(1, bar / 7) : 1;
+      const b = lv.bat * (mode === 'asc' ? up : 1);
+      if (b > 0) { if (s === 4 || s === 12) surdo(.85 * b, d, true); if (s === 0 || s === 8) surdo(.5 * b, d); if (s === 14) surdo(.4 * b, d, true);
+        caixa((CX[s] ? .3 : .09) * b, d); if (TB[s]) tamb(.1 * b, d); if (AG[s]) agogo(.1 * b, d, AG[s] === 2); ganza((s % 4 === 2 ? .12 : .05) * b, d); }
+      if (lv.plk > 0) { const th = THEME[bar % 4].find(x => x[0] === s); if (th) pluck(th[1], .16 * lv.plk, d); if (s % 4 === 2) pluck(tones[(s >> 2) % 3], .06 * lv.plk, d); if (s === 0) pluck(bass * 2, .14 * lv.plk, d); }
+      if (lv.ost > 0 && s % 2 === 0) str(tones[[0, 2, 1, 2, 3, 2, 1, 2][s / 2]] * 2, .1 * lv.ost, d);
+      if (lv.ost > 0 && (s === 0 || s === 6 || s === 8 || s === 14)) { const a = eg(.34 * lv.ost, t, .01, .12, .22); os('triangle', bass * (s === 6 ? 1.5 : 1), t, .4, a); const lp = flt('lowpass', 300); os('sawtooth', bass, t, .4, lp); lp.connect(a); out(a); }
+      if (lv.pad > 0 && s === 0) tones.slice(0, 3).forEach(f => choir(f * 2, BAR, .5 * lv.pad, d, bar % 2));
+      if (lv.th > 0 && mode === 'dm') THEME[bar % 4].forEach(([st, f, len]) => { if (st === s) { brass(f, len * STEPT * .86, .2 * lv.th, d); brass(f / 2, len * STEPT * .86, .12 * lv.th, d); } });
+      if (mode === 'asc') {
+        if (s === 0 || s === 8) { timp(.75 * up, d, bass); bell(root * 4, .1 * up, d, 1.4); }
+        if (s === 0) { sub(.5 * up, d); tones.slice(0, 3).forEach(f => choir(f * 2, BAR, .62 * up, d)); brass(root * 2, 5 * STEPT, .2 * up, d); if (bar === 0 || bar === 4 || bar === 7) crash(.22 * up, d); if (bar === 7) { choir(root * 4, BAR * 2, .5, d); fanfare([root * 2, semi(root, 4) * 2, semi(root, 7) * 2, root * 4], BAR * .9, .16, d); } }
+        if (s === 6) brass(semi(root, 7) * 2, 2 * STEPT, .18 * up, d);
+        if (s === 8) { brass(root * 4, 7.4 * STEPT, .22 * up, d); brass(semi(root, third) * 2, 7.4 * STEPT, .12 * up, d); }
+        str(tones[s % 4] * (s % 8 < 4 ? 2 : 4), .07 * up, d, .05);
+        if (bar >= 6 && s >= 8) caixa(.12 + .02 * s, d);
+      }
+      if (mode === 'fin') { if (s === 0) { [293.66, 369.99, 440, 587.33].forEach(f => choir(f, BAR, .5, d, bar % 2)); timp(.4, d); } if (s % 4 === 0) bell([587.33, 739.99, 880, 1174.66][(s >> 2) % 4] * (bar % 2 ? 2 : 1), .07, d, 1.6); }
+    };
+    const tick = () => { if (done || !snd) return; const now = A.currentTime; if (seqT < now) seqT = now + .02; while (seqT < now + .16) { try { seqStep(seqN, seqT); } catch (e) {} seqN++; seqT += STEPT; } };
+    if (snd) timers.push(setInterval(tick, 45));
+    const seqReset = () => { seqN = 0; seqT = snd ? A.currentTime + .06 : 0; };
+
+    const finish = () => {
+      if (done) return; done = true; timers.forEach(t => { clearTimeout(t); clearInterval(t); }); clearInterval(cnt); cancelAnimationFrame(raf); removeEventListener('resize', size); if (timers.kill) timers.kill();
+      ov.classList.add('out');
+      setTimeout(() => { ov.hidden = true; ov.className = 'gtc kgc'; ov.innerHTML = ''; cine = null; musSync(); resolve(); }, 500);
+    };
+    ov.onclick = e => { if (e.target.closest('.gt-skip') || ov.classList.contains('ready')) finish(); };
+    cine = {skip: finish}; musSync();
+    const flash = c => { const f = q('.kg-flash'); if (f) { f.style.background = c || '#fff6dc'; restart(f, 'on'); } };
+    const quake = () => { if (!REDUCED) restart(ov, 'quake'); };
+    const mover = sel => { const a = q(sel), b = a.firstElementChild, M = {x: 0, y: 0,
+      set(x, y){ a.style.transition = b.style.transition = 'none'; a.style.transform = 'translateX(' + x + 'px)'; b.style.transform = 'translateY(' + y + 'px)'; M.x = x; M.y = y; void a.getBoundingClientRect(); },
+      to(x, y, d, arc, ease){ a.style.transition = 'transform ' + d + 'ms linear'; a.style.transform = 'translateX(' + x + 'px)';
+        if (arc) { const top = Math.min(M.y, y) - arc; b.style.transition = 'transform ' + d * .5 + 'ms cubic-bezier(.2,.6,.5,1)'; b.style.transform = 'translateY(' + top + 'px)'; later(d * .5, () => { b.style.transition = 'transform ' + d * .5 + 'ms cubic-bezier(.5,0,.8,.4)'; b.style.transform = 'translateY(' + y + 'px)'; }); }
+        else { b.style.transition = 'transform ' + d + 'ms ' + (ease || 'linear'); b.style.transform = 'translateY(' + y + 'px)'; }
+        M.x = x; M.y = y; } }; return M; };
+    const B3 = mover('.kg-ball3'), B5 = mover('.kg-ball5'), rag = q('.kg-rag > g');
+    const hop = (h, d) => { rag.style.transition = 'transform ' + d + 'ms cubic-bezier(.2,.6,.5,1)'; rag.style.transform = 'translateY(' + -h + 'px) rotate(' + (h * 3) + 'deg)'; later(d, () => { rag.style.transition = 'transform ' + d + 'ms cubic-bezier(.5,0,.8,.4)'; rag.style.transform = 'translateY(0) rotate(' + (h * 6) + 'deg)'; }); };
+    const kick = (h, d) => { pose('.kf-kid', 1); later(190, () => pose('.kf-kid', 0)); surdo(.5, 0); hit('bandpass', 900, 300, .07, .2, 0); hop(h, d); };
+    const PROMISE = [293.66, 349.23, 440];
+    const say = id => { const e = q(id); if (!e) return; if (e.parentNode.classList.contains('sw')) e.parentNode.querySelectorAll('p').forEach(x => x.classList.remove('on')); e.classList.add('on'); };
+
+    /* 1. the radio, his father, the promise */
+    T(200, () => { go('k1'); level(.2, .01); em.dust = 1; crowd(.07, .3); choir(73.42, 7, .5, 0, true); choir(110, 7, .3, 0, true); });
+    for (let i = 0; i < 9; i++) T(260 + i * 170, () => hit('highpass', 2400 + Rr() * 2600, 1800, .12 + Rr() * .1, .05 + Rr() * .05, 0, 2));
+    T(900, () => say('#kgC1s'));
+    T(1900, () => { add('hush'); crowd(0, .15); hit('lowpass', 300, 60, .5, .5, 0); timp(.3, 0, 55); say('#kgC1a'); });
+    T(4000, () => { say('#kgC1b'); add('b1go'); q('.kf-b1').classList.add('walk'); bell(PROMISE[0], .16); });
+    T(4900, () => bell(PROMISE[1], .16));
+    T(5800, () => bell(PROMISE[2], .18));
+    T(6200, () => { q('.kf-b1').classList.remove('walk'); pose('.kf-b1', 1); });
+    T(6700, () => { say('#kgC1c'); level(.3, .5); add('warm'); bell(587.33, .22); choir(293.66, 3, .5); choir(440, 3, .4); });
+    /* 2. a sock stuffed with rags */
+    T(8900, () => { go('k2'); level(.38); off('.kg-1 .kg-cap *'); lv.plk = 1; lv.bat = .16; seqReset(); });
+    T(9500, () => say('#kgC2a'));
+    T(9900, () => kick(30, 420));
+    T(10950, () => kick(52, 520));
+    T(12200, () => kick(80, 640));
+    T(12900, () => say('#kgC2b'));
+    T(13700, () => { pose('.kf-kid', 1); later(220, () => pose('.kf-kid', 2)); surdo(.7, 0); hit('bandpass', 900, 300, .07, .26, 0); add('fly'); riser(1.1, .12); });
+    T(14750, () => { add('star'); level(.46); bell(1174.66, .3); bell(1760, .2, .08); bell(2349.3, .14, .16); choir(587.33, 2.6, .5); });
+    T(16100, () => { level(.4, .5); riser(1, .2); });
+    /* 3. Solna, 1958 */
+    T(17100, () => { go('k3'); level(.4); off('.kg-2 .kg-cap *'); em.dust = 0; em.rain = 3; lv.plk = 0; lv.bat = .5; lv.ost = .6; crowd(.16); seqReset(); B3.set(70, 40); timp(.6); });
+    T(17600, () => say('#kgC3s'));
+    T(18100, () => say('#kgC3a'));
+    T(19000, () => B3.to(143, 158, 640, 0, 'cubic-bezier(.5,0,.9,.6)'));
+    T(19640, () => { pose('.kf-h3', 1); thwack(.3); B3.to(157, 210, 520, 8); });
+    T(20160, () => { pose('.kf-h3', 2); thwack(.34); B3.to(296, 210, 900, 98); add('h3run'); later(140, () => q('.kf-h3').classList.add('walk')); pose('.kf-d3', 1); riser(.9, .14); });
+    T(21000, () => { q('.kf-h3').classList.remove('walk'); pose('.kf-h3', 3); });
+    T(21190, () => { pose('.kf-h3', 4); thwack(.7); B3.to(366, 178, 150); pose('.kf-gk3', 1); add('gk3'); });
+    T(21350, () => { add('goal3'); level(1, .02); flash(); quake(); timp(1); timp(.8, .16); crash(.5); sub(.7); roar(.8, 6); whistle(.1); crowd(.3); lv.bat = 1; lv.th = 1; lv.pad = .5; fanfare([293.66, 369.99, 440, 587.33], 1.1, .2); PAL = ['#1f55c8', '#ffffff', '#ffdf00', '#009c3b']; burst(110, W * .8, H * .45); pose('.kf-d3', 2); });
+    T(21800, () => { pose('.kf-h3', 5); add('h3up'); });
+    T(22300, () => { off('#kgC3a'); say('#kgC3b'); });
+    T(24600, () => { go('k3b'); level(.5, .6); off('.kg-3 .kg-cap *'); say('#kgC3t'); lv.bat = .5; lv.th = .6; crowd(.22); });
+    T(25100, () => say('#kgC3c'));
+    T(27300, () => { say('#kgC3d'); level(.62); PROMISE.forEach((f, i) => bell(f * 2, .2, i * .26)); bell(1174.66, .26, .8); timp(.5, .8); });
+    /* 4. the numbers */
+    T(29600, () => { go('k4'); level(1, .05); off('.kg-3b .kg-cap *'); em.rain = 0; parts = []; em.gold = 2; lv.bat = 1; lv.ost = 1; lv.th = 1; lv.pad = .7; crowd(.12); timp(.9); crash(.4); });
+    T(30000, () => {
+      add('count'); const el = q('#kgCnt'), t0 = performance.now(); let k1000 = false, lastN = 0;
+      cnt = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 4600), n = Math.round(1279 * (1 - Math.pow(1 - k, 1.7))); if (el) el.textContent = fmt(n);
+        if (n - lastN >= 9) { lastN = n; hit('bandpass', 3200, 1800, .03, .1, 0, 2); }
+        if (!k1000 && n >= 1000) { k1000 = true; add('mil'); flash('#ffe9a0'); gong(.5); timp(.9); burst(70, W * .5, H * .3, ['#ffd23f', '#fff6cc', '#ffffff']); }
+        if (k >= 1) { clearInterval(cnt); add('counted'); timp(1); timp(.8, .14); crash(.5); quake(); fanfare([293.66, 440, 587.33], .9, .2); } }, 40);
+    });
+    [0, 1, 2].forEach(i => T(35200 + i * 480, () => { add('cup' + i); timp(.8, 0, [73.42, 87.31, 110][i]); fanfare([[293.66, 440], [349.23, 523.25], [440, 587.33, 739.99]][i], .34, .2); bell([587.33, 698.46, 880][i] * 2, .2); burst(40, W * (.34 + i * .16), H * .62, ['#ffd23f', '#fff6cc']); }));
+    T(36000, () => say('#kgC4a'));
+    T(37200, () => say('#kgC4b'));
+    /* 5. the Azteca: he jumps, and stays there */
+    T(39300, () => { go('k5'); level(.34, .3); off('.kg-4 .kg-cap *'); em.gold = 0; parts = []; lv.bat = 0; lv.th = 0; lv.pad = 0; lv.ost = .7; crowd(.3); B5.set(470, -40); roar(.3, 3, 0, 1.2); });
+    T(39800, () => say('#kgC5s'));
+    T(40300, () => say('#kgC5a'));
+    T(41300, () => { level(.5); B5.to(334, 40, 1000, 0, 'cubic-bezier(.2,.5,.6,1)'); pose('.kf-h5', 1); pose('.kf-d5', 1); riser(.75, .22); });
+    T(41950, () => { add('k5jump'); pose('.kf-h5', 2); pose('.kf-d5', 2); thwack(.3); });
+    T(42450, () => { add('k5hang'); pose('.kf-h5', 3); duck(.3, .12); lv.ost = 0; crowd(.05, .1); B5.to(232, 74, 3300, 0, 'cubic-bezier(.1,.6,.4,1)'); off('#kgC5a');
+      [440, 587.33, 880].forEach((f, i) => { if (snd) { const t = at(.05), a = eg(.7 - i * .15, t, .5, 2.4, .5), mix = A.createGain(); [-8, 8].forEach(dt => os('sawtooth', f, t, 3.6, mix, dt)); [720, 1150].forEach(fq => { const b = flt('bandpass', fq, 5); mix.connect(b); b.connect(a); }); a.connect(hHi); a.connect(bus); } }); });
+    T(42600, () => { add('k5fall'); pose('.kf-d5', 3); });
+    T(42900, () => { heart(1.3); say('#kgC5b'); });
+    T(43150, () => pose('.kf-d5', 4));
+    T(43900, () => heart(1.5));
+    T(44500, () => { off('#kgC5b'); say('#kgC5c'); });
+    T(44900, () => heart(1.7));
+    T(45700, () => { pose('.kf-h5', 4); level(1, .02); thwack(1); B5.to(60, 250, 200, 0, 'cubic-bezier(.4,0,1,.6)'); add('k5head'); });
+    T(45900, () => { go('k5b'); off('.kg-5 .kg-cap *'); add('k5net'); });
+    T(46180, () => { add('k5goal'); flash(); quake(); timp(1); timp(1, .18); timp(.9, .36); sub(.9); crash(.6); crash(.4, .4); roar(1.1, 8); whistle(.15); crowd(.34); lv.bat = 1; lv.pad = 1; lv.th = 1; lv.ost = 1; seqReset();
+      fanfare([293.66, 369.99, 440, 587.33, 739.99], 1.5, .22); PAL = ['#ffdf00', '#009c3b', '#1f55c8', '#ffffff']; em.conf = 3; [.3, .7, .5].forEach((x, i) => later(i * 260, () => burst(90, W * x, H * .35))); });
+    T(47000, () => on('#kgSb'));
+    T(48300, () => { add('k5q'); level(.42, .8); em.conf = 1; lv.bat = .55; lv.th = .5; crowd(.2); });
+    T(53600, () => { rm('k5q'); em.conf = 0; });
+    /* 6. the ascent */
+    T(54200, () => { go('k6'); level(.34, .4); parts = []; lv.bat = 0; lv.th = 0; lv.pad = 0; lv.ost = 0; crowd(.3); roar(.5, 4, 0, .6); say('#kgC6s'); });
+    T(55300, () => { add('asc0'); level(.46); riser(.7, .3); thwack(.4); });
+    const A0 = 56050, BARMS = BAR * 1000;
+    T(A0, () => { level(.55, .05); mode = 'asc'; lv.bat = .5; seqReset(); add('asc1'); ov.querySelectorAll('.kf-h6').forEach(e => e.classList.add('walk')); em.streak = 1; flash('#fff3c0'); off('#kgC6s'); crowd(.14, 2); });
+    T(A0 + 1500, () => say('#kgC6a'));
+    T(A0 + BARMS * 2 - 400, () => { add('wipe'); hit('bandpass', 300, 2400, 2.2, .22, 0, .7, true); });
+    T(A0 + BARMS * 2 + 800, () => { add('asc2'); level(.74, 1.2); off('#kgC6a'); crowd(0, 1.2); em.streak = 2; });
+    T(A0 + BARMS * 3 - 200, () => say('#kgC6b'));
+    T(A0 + BARMS * 4, () => { add('asc3'); level(1, 1.5); flash('#dfe8ff'); });
+    T(A0 + BARMS * 5.6, () => off('#kgC6b'));
+    T(A0 + BARMS * 7, () => { add('asc3b'); em.streak = 3; });
+    T(A0 + BARMS * 8, () => { mode = 'fin'; lv.bat = .3; seqReset(); add('asc4'); ov.querySelectorAll('.kf-h6').forEach(e => { e.classList.remove('walk'); e.dataset.p = 1; }); em.streak = 0; flash('#fff3c0'); timp(1); timp(.8, .2); sub(.9); crash(.5); });
+    T(A0 + BARMS * 8 + 1100, () => { pose('.kf-h6', 2); add('asc5'); timp(1); crash(.6); quake(); fanfare([293.66, 369.99, 440, 587.33, 739.99, 880], 2.2, .2); [587.33, 739.99, 880, 1174.66, 1479.98].forEach((f, i) => bell(f, .2, i * .09, 2.4)); });
+    T(A0 + BARMS * 8 + 2000, () => say('#kgC6c'));
+    T(A0 + BARMS * 8 + 2900, () => { say('#kgC6d'); level(.55, .9); });
+    T(A0 + BARMS * 8 + 5300, () => { say('#kgC6e'); level(1, .5); timp(.9); riser(2.3, .4); [293.66, 440, 587.33, 880].forEach(f => choir(f, 2.6, .7)); });
+    T(A0 + BARMS * 8 + 7600, () => { add('white'); crash(.5); });
+    /* 8. The King */
+    const R0 = A0 + BARMS * 8 + 8200;
+    T(R0, () => { go('k8'); level(.42, .1); off('.kg-6 .kg-cap *'); lv.bat = 0; parts = []; sub(.8); choir(146.83, 2, .8, 0, true); choir(220, 2, .6, 0, true); riser(1.5, .34, .1); });
+    T(R0 + 500, () => { rm('white'); add('kdrop'); });
+    T(R0 + 1700, () => {
+      add('kland'); level(1, .01); flash(); quake(); timp(1); sub(1); crash(.7); roar(1, 7); crowd(.2); lv.bat = 1; lv.pad = 1;
+      [0, .19, .38].forEach(dd => { timp(.9, dd); fanfare([293.66, 440, 587.33], .12, .22, dd); }); later(570, () => { timp(1); crash(.7); quake(); fanfare([293.66, 369.99, 440, 587.33, 739.99, 880, 1174.66], 3.4, .2); [293.66, 369.99, 440, 587.33].forEach(f => choir(f * 2, 4, .7)); });
+      [587.33, 739.99, 880, 1174.66, 1479.98, 1760, 2349.3].forEach((f, i) => bell(f, .18, .7 + i * .08, 2.6));
+      PAL = ['#ffd23f', '#fff6cc', '#ffdf00', '#009c3b', '#ffffff']; em.conf = 4; later(3200, () => { em.conf = 1; });
+      [.2, .8, .35, .65, .5].forEach((x, i) => later(300 + i * 380, () => burst(80, W * x, H * (.16 + (i % 2) * .12), ['#ffd23f', '#fff6cc', '#ffffff'])));
+      const el = q('#kgVal'), t0 = performance.now();
+      cnt = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 2000); if (el) el.textContent = fmt(Math.round(r.v * (1 - Math.pow(1 - k, 3)))); if (k >= 1) { clearInterval(cnt); bell(1174.66, .3); bell(1760, .2, .07); timp(.8); } }, 40);
+    });
+    T(R0 + 4200, () => add('ready'));
+    T(R0 + 5200, () => { lv.bat = .4; crowd(.1, 2); level(.6, 2.5); });
+    T(R0 + 16000, finish);
+  });
+}
+/* KING-END */
 /* ---------- Rusted9000 cinematic ----------
    A storm over the Scrapyard. Rustagard's heart burning a million credits of rust; the fuel runs down the pipes and
    Ma's crane moves for the first time in forty years; the Rejects forge a rifle out of everything the Prestige threw
@@ -14347,6 +15158,7 @@ function chromaCinematic(r){
   if (r.id === 'x3' || r.id === SFOT_ID) return goatCinematic(r);
   if (r.id === SUI_ID || r.id === PULGA_ID) return suiCinematic(r);
   if (r.id === PRINCE_ID) return princeCinematic(r);
+  if (r.id === KING_ID) return kingCinematic(r);
   return new Promise(resolve => {
     const it = BY[r.id], ov = $('#chc'), timers = [];
     let done = false, raf = 0, cnt = 0;
