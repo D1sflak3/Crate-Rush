@@ -4741,6 +4741,9 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -12849,7 +12852,7 @@ function renderAdmin(){
     + (state.adminRig ? '<span class="adm-note">rigged: next case gives ' + BY[state.adminRig.id].name + ' <button class="adm-b sm" data-adm="unrig">cancel</button></span>' : '') + '</div>'
     + '<div class="adm-items">' + groups.map(g => '<div class="adm-tier" style="--tc:' + TIERS[g.t].color + '">' + TIERS[g.t].name + '</div>' + g.list.map(x => '<button class="adm-it' + (admSel === x.id ? ' on' : '') + '" data-adm="pick" data-v="' + x.id + '" style="--tc:' + TIERS[x.t].color + '" title="' + WNAME[x.w] + ' | ' + x.name + '"><span>' + x.name + '</span></button>').join('')).join('') + '</div></div>'
     + '<div class="adm-sec"><div class="adm-h">&gt; self</div><div class="adm-row"><input id="admSet" type="number" min="0" step="1000" placeholder="exact balance" inputmode="numeric"><button class="adm-b" data-adm="setbal">set balance</button>'
-    + '<button class="adm-b" data-adm="maxbag">max bag</button><button class="adm-b" data-adm="allchroma">1 of every Chroma</button><button class="adm-b" data-adm="selfnear">near-miss myself</button></div></div>'
+    + '<button class="adm-b" data-adm="maxbag">max bag</button><button class="adm-b" data-adm="allchroma">1 of every Chroma</button><button class="adm-b" data-adm="bigmode" title="Fake numbers. Only changes what the leaderboard shows on this device while it is on.">' + (bigMode() ? 'Big-game demo: ON' : 'Big-game demo: off') + ' (fake)</button><button class="adm-b" data-adm="selfnear">near-miss myself</button></div></div>'
     + admRemoteHTML()
     + '<div class="adm-sec"><div class="adm-h">&gt; world</div><div class="adm-row"><button class="adm-b" data-adm="unlock">unlock every area</button><button class="adm-b" data-adm="cool">clear all cooldowns</button></div></div>'
     + '<div class="adm-sec danger"><div class="adm-h">&gt; restart</div><div class="adm-row"><button class="adm-b red" data-adm="reset">wipe this save and start over</button></div><div class="adm-note">Everything goes: credits, items, progress. The admin panel stays unlocked.</div></div>';
@@ -12957,6 +12960,7 @@ function admAct(a, el){
   if (['players', 'tgt', 'rign', 'near', 'rigto', 'rigjunk', 'msg', 'glitch', 'gitem', 'gcash', 'troll', 'bagpick', 'bagall', 'bagtake', 'bagsteal', 'bagruin', 'bagjunk', 'bagswap', 'crtake', 'crzero'].includes(a)) { admRemote(a, el).catch(e => { admBusy = false; toast(e.message || 'Couldn’t reach them.'); }); return; }
   if (a === 'setbal') { const v = Math.floor(+$('#admSet').value); if (!(v >= 0) || $('#admSet').value === '') { toast('Type a balance first.'); return; } const d = v - state.bal; admMark(); state.bal = v; save(); setBal(d); renderAdmin(); glitchFx('cash', fmt(v) + ' CR'); return; }
   if (a === 'maxbag') { admMark(); state.bag = BAGS.length - 1; save(); renderInv(); renderAdmin(); glitchFx('item', BAGS[BAGS.length - 1].n.toUpperCase()); return; }
+  if (a === 'bigmode') { try { bigMode() ? localStorage.removeItem('cr-bigmode') : localStorage.setItem('cr-bigmode', '1'); } catch (e) {} renderAdmin(); toast(bigMode() ? 'Big-game demo on: the leaderboard on this device now shows made-up players and bigger numbers' : 'Big-game demo off: the leaderboard is real again'); return; }
   if (a === 'allchroma') { const ch = ITEMS.filter(x => x.t === 7); if (bagBlock(ch.length)) return; admMark(); ch.forEach(x => { const fl = +(Math.random()*.01).toFixed(4); state.inv.unshift({uid: uid(), id: x.id, fl, v: priceOf(x, wearIdx(fl)), at: Date.now(), hk: [], src: 'admin'}); }); save(); renderInv(); renderStats(); renderAdmin(); glitchFx('item', 'EVERY CHROMA SPAWNED'); return; }
   if (a === 'selfnear') { prankQ().push({kind: 'near', id: pickOne(ITEMS.filter(x => x.t >= 6)).id}); save(); glitchFx('rig', 'NEAR-MISS ON YOUR NEXT CASE'); return; }
   if (a === 'wear') { admWear = +el.dataset.v; pickSound(); renderAdmin(); return; }
@@ -19091,6 +19095,23 @@ async function shelfLoad(){
 /* ---------- Leaderboard ----------
    Ranked in the database from everyone's saves (see the leaderboard() function in Supabase), so the
    numbers are whatever the saves say; the client only chooses a display name. */
+/* Big-game demo (admin toggle, this device only). It is FAKE: while it is on, the leaderboard shown here gets about
+   20,000 made-up players mixed in and every real player's worth is multiplied. Nothing is written anywhere and
+   nobody else sees it. */
+const bigMode = () => { try { return localStorage.getItem('cr-bigmode') === '1'; } catch (e) { return false; } };
+const BIG_K = 35, BIG_N = 20000;
+function bigBoard(data){
+  const R = seeded(20261112), A = ['Shadow', 'Neo', 'Dark', 'Lil', 'Big', 'Mr', 'Its', 'The', 'Real', 'Xx', 'Pro', 'Sir', 'Zero', 'Fast', 'Cold', 'Lucky', 'Mad', 'Ice', 'Sly', 'Ace'],
+    B = ['Wolf', 'Viper', 'Crate', 'Rush', 'Ghost', 'Kai', 'Zane', 'Milo', 'Omar', 'Ravi', 'Leo', 'Nico', 'Hawk', 'Blaze', 'Storm', 'Pixel', 'Drift', 'Nova', 'Juno', 'Rex', 'Tariq', 'Ali', 'Sam', 'Yuki', 'Ivan', 'Theo'], C = ['', '', '_', 'x', 'YT', 'TTV', 'gg', 'hd', 'fr', ''];
+  const real = data.map(r => Object.assign({}, r, {worth: r.worth * BIG_K, opened: Math.round(r.opened * 6 + 40)}));
+  const top = Math.max(2e6, ...real.map(r => r.worth)), lo = 4000, fake = [];
+  for (let i = 0; i < BIG_N; i++) fake.push({fake: true, i, worth: Math.round(lo * Math.pow(top * 1.04 / lo, Math.pow(R(), 3.2)))});
+  const name = i => { const r = seeded(7919 + i * 31); return (A[Math.floor(r() * A.length)] + C[Math.floor(r() * C.length)] + B[Math.floor(r() * B.length)] + (r() < .6 ? Math.floor(r() * 990 + 7) : '')).slice(0, 16); };
+  const all = real.concat(fake).sort((a, b) => b.worth - a.worth); all.forEach((r, i) => { r.rank = i + 1; });
+  const out = all.slice(0, 300), mine = all.find(r => r.me); if (mine && mine.rank > 300) out.push(mine);
+  out.forEach(r => { if (r.fake) { r.name = name(r.i); r.opened = Math.round(60 + Math.sqrt(r.worth) * (1 + (r.i % 7) / 4)); } });
+  return {rows: out, total: all.length};
+}
 async function openLb(){
   $('#lb').hidden = false; $('#lbMsg').textContent = '';
   if (!me || offline || !sb) { $('#lbName').hidden = true; $('#lbBody').innerHTML = '<p class="lb-empty">Sign in to see the leaderboard.</p>'; return; }
@@ -19099,9 +19120,10 @@ async function openLb(){
   await cloudPush();
   const {data, error} = await sb.rpc('leaderboard2', {lim: 200});
   if (error) { $('#lbBody').innerHTML = '<p class="lb-empty">Couldn’t load the leaderboard. Try again in a moment.</p>'; return; }
-  let prev = 0;
-  $('#lbBody').innerHTML = data.length ? data.map(r => { const gap = r.rank > prev + 1; prev = r.rank;
-    return '<button type="button" class="lb-row' + (r.me ? ' me' : '') + (gap ? ' gap' : '') + '" data-uid="' + r.uid + '"><span class="lb-rk">' + r.rank + '</span><span class="lb-nm">' + escH(r.me && !state.name ? 'You (no name yet)' : r.name) + (r.private ? ' <span class="lb-lock" title="Private bag">🔒</span>' : '') + '<small>' + fmt(r.opened) + ' cases opened' + (r.me ? ' · you' : '') + '</small></span><span class="lb-w">' + fmt(r.worth) + ' cr</span></button>'; }).join('')
+  let prev = 0, rows = data, head = '';
+  if (bigMode() && data.length) { const b = bigBoard(data); rows = b.rows; head = '<p class="lb-empty" style="padding:6px 0 10px">' + fmt(b.total) + ' players ranked</p>'; }
+  $('#lbBody').innerHTML = data.length ? head + rows.map(r => { const gap = r.rank > prev + 1; prev = r.rank;
+    return '<button type="button" class="lb-row' + (r.me ? ' me' : '') + (gap ? ' gap' : '') + '"' + (r.fake ? '' : ' data-uid="' + r.uid + '"') + '><span class="lb-rk">' + r.rank + '</span><span class="lb-nm">' + escH(r.me && !state.name ? 'You (no name yet)' : r.name) + (r.private ? ' <span class="lb-lock" title="Private bag">🔒</span>' : '') + '<small>' + fmt(r.opened) + ' cases opened' + (r.me ? ' · you' : '') + '</small></span><span class="lb-w">' + fmt(r.worth) + ' cr</span></button>'; }).join('')
     : '<p class="lb-empty">Nobody on the board yet.</p>';
 }
 const escH = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
