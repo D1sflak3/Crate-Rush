@@ -3254,7 +3254,7 @@ body.dz-open .toast{z-index:95}
 .msi-ov .vx{width:min(760px,100%);max-height:calc(100% - 8px);overflow:auto;margin:0;border-color:#75bde9;background:radial-gradient(circle at 20% 0%,rgba(117,189,233,.22),transparent 60%),#050b14;box-shadow:0 0 40px rgba(117,189,233,.25),0 30px 80px rgba(0,0,0,.6)}
 /* KING-CSS-BEGIN */
 /* ---------- The King ---------- */
-.gtc[data-s="k1"] .kg-1,.gtc[data-s="k2"] .kg-2,.gtc[data-s="k3"] .kg-3,.gtc[data-s="k3b"] .kg-3b,.gtc[data-s="k4"] .kg-4,.gtc[data-s="k5"] .kg-5,.gtc[data-s="k5b"] .kg-5b,.gtc[data-s="k6"] .kg-6,.gtc[data-s="k7"] .kg-7,.gtc[data-s="k8"] .kg-8{opacity:1;visibility:visible;transition:opacity .8s}
+.gtc[data-s="k1"] .kg-1,.gtc[data-s="k2"] .kg-2,.gtc[data-s="k3"] .kg-3,.gtc[data-s="k3b"] .kg-3b,.gtc[data-s="k4"] .kg-4,.gtc[data-s="k5"] .kg-5,.gtc[data-s="k5b"] .kg-5b,.gtc[data-s="k6"] .kg-6,.gtc[data-s="k7"] .kg-7,.gtc[data-s="m2"] .kg-m2,.gtc[data-s="m3"] .kg-m3,.gtc[data-s="k8"] .kg-8{opacity:1;visibility:visible;transition:opacity .8s}
 .gtc[data-s="k5b"] .kg-5b,.gtc[data-s="k3b"] .kg-3b{transition:none}
 .kgc{background:#000}
 .kgc.quake{animation:kgQuake .5s linear}
@@ -3500,6 +3500,45 @@ body.dz-open .toast{z-index:95}
 .kgc.th-crowned .kg-crn{opacity:0}
 .kg-7>svg{transform-origin:66% 44%}.gtc[data-s="k7"] .kg-7>svg{transform:scale(1.06)}
 .kg-cap p.big{font-size:clamp(34px,6.6vw,76px)!important}
+/* The Magician */
+.mg-kb{opacity:0;transform:translate(-30px,196px)}
+.kgc.mg-kick .mg-kb{opacity:1;transform:translate(236px,70px);transition:transform .32s linear}
+.kgc.mg-hit .mg-kb{transform:translate(340px,-50px);transition:transform .7s linear}
+.kgc.mg-hit .kg-crn{transform:translate(150px,-200px) rotate(760deg);transition:transform .9s cubic-bezier(.2,.6,.6,1)}
+.kgc.mgq .kg-r9{transition-duration:1.5s}
+.kgc.mgq.th-climb .kg-r9{transition-duration:1s}
+.mg-earth{transform:translateY(60px);transition:transform 5s cubic-bezier(.5,0,1,1)}
+.gtc[data-s="m2"] .mg-earth{transform:translateY(-640px)}
+.mg-night,.mg-std,.mg-wipe{opacity:0}
+.mg-std{transform-origin:200px 200px;transform:scale(.1)}
+.kgc.mg-low .mg-night{opacity:1}
+.kgc.mg-low .mg-std{opacity:1;transform:scale(1);transition:transform 2.5s cubic-bezier(.6,0,1,1)}
+.mg-fall{transform:translate(200px,112px)}
+.gtc[data-s="m2"] .mg-fall{animation:mgSway 1.3s ease-in-out infinite alternate}
+@keyframes mgSway{from{transform:translate(182px,104px)}to{transform:translate(218px,120px)}}
+.mg-spin{animation:kgRot 1s linear infinite}
+.kgc.mg-drop .mg-fall{animation:none;transform:translate(200px,198px) scale(.1);transition:transform 1s cubic-bezier(.6,0,1,.6)}
+.kgc.mg-wp .mg-wipe{opacity:1;animation:mgWipe 1.8s linear forwards}
+@keyframes mgWipe{from{transform:translateY(320px)}to{transform:translateY(-390px)}}
+.mg-d{transition:transform .5s cubic-bezier(.5,0,.8,.6)}
+.kgc.d1dn .mg-d.d1,.kgc.d2dn .mg-d.d2{transform:translate(-8px,17px)}
+.kf-mh3{--wt:.36s}
+.kgc.mg-land .kf-mh3{--wt:.7s}
+.kgc.mgv .mg-ball3{opacity:0}
+.mg-crown3,.mg-ring,.mg-beam{opacity:0}
+.kgc.mg-cr .mg-crown3{opacity:1}
+.kgc.mg-land .mg-ring{opacity:1}
+.kgc.mg-land .mg-ring .kg-rip{animation:kgRipB 1.4s ease-out infinite}
+.kgc.mg-on .mg-ring{opacity:0;transition:opacity .5s}
+.mg-net{transform-origin:352px 213px}
+.kgc.mg-goal .mg-net{animation:kgNet .6s ease-out}
+.kgc.mg-clap .mg-crowd{animation:kgBob3 .46s ease-in-out infinite}
+.kgc.mg-up .mg-beam{opacity:1;transition:opacity .5s}
+.kgc.mg-up .mg-asc{transform:translateY(-300px);transition:transform 2.5s cubic-bezier(.5,0,.9,.5)}
+.kg-bdo{left:auto;right:6vw;transform:translateY(-12px)}
+.kg-bdo.on{transform:none}
+.kgc.mgc .kg-h2{font-size:min(8.6vw,13vh,104px);letter-spacing:.07em}
+.kgc.mgc .kg-stars3{display:none}
 /* KING-CSS-END */
 /* ---------- The Prince ---------- */
 .gtc[data-s="n1"] .pr-1,.gtc[data-s="n2"] .pr-2,.gtc[data-s="n3"] .pr-3,.gtc[data-s="n4a"] .pr-4a,.gtc[data-s="n4b"] .pr-4b,.gtc[data-s="n4c"] .pr-4c,.gtc[data-s="n5"] .pr-5,.gtc[data-s="n6"] .pr-6,.gtc[data-s="n7"] .pr-7,.gtc[data-s="n8"] .pr-8,.gtc[data-s="n9"] .pr-9,.gtc[data-s="n9b"] .pr-9b,.gtc[data-s="n9c"] .pr-9c,.gtc[data-s="n10"] .pr-10{opacity:1;visibility:visible;transition:opacity .6s}
@@ -4506,6 +4545,9 @@ body.ar-on{overflow:hidden}
   .ar-pausebtn{top:auto;bottom:10px;left:50%;transform:translateX(-50%);height:38px;font-size:15px}.ar-sc b{width:42px;height:42px;font-size:26px}.ar-clock{font-size:24px}}
 @media (max-width:700px){.ar-load{grid-template-columns:1fr}.ar-logo{font-size:36px}.ar-ban b{font-size:40px}.ar-sc small{max-width:90px;font-size:13px}}
 @media (max-height:520px){.ar-rcard{padding:14px}.ar-rtop{font-size:42px}.ar-rsc{font-size:28px}.ar-rvs{margin-bottom:8px}.ar-rcr{margin:8px 0 2px;font-size:18px}.ar-btn{padding:9px;margin-top:6px}.ar-emb{width:48px;height:48px}}
+
+
+
 
 
 
@@ -5724,7 +5766,9 @@ const ITEMS = [
   {id:'r5', w:'pistol',  name:'Oxide Queen', t:4, pat:'flame',   pal:['#2a0a04','#b5541c','#ffcf7a'], m:1.1, ex:true},
   {id:'x8', w:'rifle',   name:'Rusted9000',  t:7, pat:'rusted',  pal:['#3a1606','#a4501c','#ff8a2a','#5fa078'], m:2.4, ex:true},
   // The King: Pelé's rifle. Admin only for now, like The Prince
-  {id:'x9', w:'rifle',   name:'The King',    t:7, pat:'king',    pal:['#ffd23f','#009c3b','#002776','#ffdf00'], m:83780000 / 935000, ex:true}
+  {id:'x9', w:'rifle',   name:'The King',    t:7, pat:'king',    pal:['#ffd23f','#009c3b','#002776','#ffdf00'], m:83780000 / 935000, ex:true},
+  // The Magician: Ronaldinho's SMG. Admin only for now
+  {id:'x10', w:'smg',    name:'The Magician', t:7, pat:'magician', pal:['#0d0d14','#ffd23f','#009c3b','#ffdf00'], m:50000000 / 935000, ex:true}
 ];
 
 /* ---------- RNG helpers ---------- */
@@ -5846,6 +5890,7 @@ const PAT = {
   },
   /* The King: the sky he walked into (drawn by kingSkin, next to his film) */
   king(g,W,H,p,r){ kingSkin(g,W,H,p,r); },
+  magician(g,W,H,p,r){ magicSkin(g,W,H,p,r); },
   /* The Prince: a canary-yellow blade with a green spine, a blue band of stars, a row of rhinestones
      and a loud rainbow chroma flash. Built to be looked at. */
   prince(g,W,H,p,r){
@@ -6120,7 +6165,7 @@ function renderItem(it, fl, S){
   const g = c.getContext('2d'); g.scale(S,S);
   const P = paths(it.w), sh = SHAPES[it.w], r = seeded(hash(it.id)), bm = it.t >= 6;
   g.save();
-  g.shadowColor = it.pat === 'rusted' ? 'rgba(255,128,40,.95)' : it.pat === 'goat' ? 'rgba(255,214,90,.95)' : it.pat === 'sfot' ? 'rgba(170,205,255,.95)' : it.pat === 'sui' ? 'rgba(255,60,40,.9)' : it.pat === 'pulga' ? 'rgba(255,214,90,.95)' : it.pat === 'prince' ? 'rgba(255,230,60,.95)' : it.pat === 'king' ? 'rgba(255,225,140,.95)' : bm ? (it.t === 7 ? 'rgba(255,122,217,.95)' : 'rgba(168,85,247,.9)') : 'rgba(0,0,0,.55)';
+  g.shadowColor = it.pat === 'rusted' ? 'rgba(255,128,40,.95)' : it.pat === 'goat' ? 'rgba(255,214,90,.95)' : it.pat === 'sfot' ? 'rgba(170,205,255,.95)' : it.pat === 'sui' ? 'rgba(255,60,40,.9)' : it.pat === 'pulga' ? 'rgba(255,214,90,.95)' : it.pat === 'prince' ? 'rgba(255,230,60,.95)' : it.pat === 'king' ? 'rgba(255,225,140,.95)' : it.pat === 'magician' ? 'rgba(255,214,90,.95)' : bm ? (it.t === 7 ? 'rgba(255,122,217,.95)' : 'rgba(168,85,247,.9)') : 'rgba(0,0,0,.55)';
   g.shadowBlur = (bm ? 12 : 6) * S; g.shadowOffsetY = (bm ? 0 : 3) * S;
   g.fillStyle = '#000'; g.fill(P.all); g.restore();
   const lg = g.createLinearGradient(0,18,0,72);
@@ -6149,6 +6194,7 @@ function renderItem(it, fl, S){
   if (it.pat === 'pulga') pulgaParts(g);
   if (it.pat === 'prince') princeParts(g);
   if (it.pat === 'king') kingParts(g);
+  if (it.pat === 'magician') magicParts(g);
   if (it.pat === 'rusted') rustedParts(g);
   return c;
 }
@@ -12863,7 +12909,7 @@ function admAct(a, el){
   if (a === 'give' && admSel) {
     const fl = flOf(), x = BY[admSel], r = {uid: uid(), id: admSel, fl, v: priceOf(x, wearIdx(fl)), at: Date.now(), hk: [], src: 'admin'};
     admMark(); state.inv.unshift(r); if (x.t === 6) gotBM(x.id); save(); renderInv(); renderStats(); renderAdmin();
-    if (admSel === PRINCE_ID || admSel === KING_ID) { closeAdmin(); r.fl = .0001; r.v = priceOf(x, 0); save(); busy = true; lockRack(true); chromaCinematic(r).then(() => showReveal(r)); return; }
+    if (admSel === PRINCE_ID || admSel === KING_ID || admSel === MAGIC_ID) { closeAdmin(); r.fl = .0001; r.v = priceOf(x, 0); save(); busy = true; lockRack(true); chromaCinematic(r).then(() => showReveal(r)); return; }
     glitchFx('item', x.name.toUpperCase() + ' SPAWNED'); return;
   }
   if (a === 'rig' && admSel) { admMark(); state.adminRig = {id: admSel, fl: flOf()}; save(); renderAdmin(); glitchFx('rig', 'NEXT CASE RIGGED'); return; }
@@ -14355,7 +14401,7 @@ function princeCinematic(r){
    Sweden 1958 at seventeen; 1,279 goals and three World Cups; the header at the Azteca in 1970, where he jumps and
    simply stays up; then he never comes down: he climbs out of the stadium on steps of light, through the clouds
    and past the edge of the sky. The rifle comes down out of that light. Every caption is a checked fact. */
-const KING_ID = 'x9';
+const KING_ID = 'x9', MAGIC_ID = 'x10';
 /* A posable footballer seen side-on, facing right. Origin at the hips, about 98 units tall, soles near y = +50.
    P is a list of poses: every joint carries each one as --p0, --p1 … so CSS can ease between them by data-p,
    and W is an optional 8-step walk cycle carried as --w0 … --w7.
@@ -14408,6 +14454,7 @@ function kingFig(P, k, W){
       + '<path d="M-2.6 2 L-2 -5 H3.6 L3.4 2 Z" fill="' + skd + '"/><circle cx=".8" cy="-10" r="7.5" fill="' + sk + '"/>'
       + '<path d="M7.4 -11 Q10.2 -8.6 9.4 -7 L7.2 -6.6 Q8.6 -4 6.2 -2.6 Q3.2 -2 1.4 -3.2 Z" fill="' + sk + '"/>'
       + '<path d="M-6.6 -8 Q-8.2 -18 .8 -18 Q7.8 -18 8.3 -12.4 Q5 -14.6 1.2 -13.8 Q-2.2 -13.2 -2.8 -9 Q-4 -5.4 -5.6 -5 Q-6.8 -6.4 -6.6 -8 Z" fill="' + hc + '"/>'
+      + (k.long ? '<path d="M-5.6 -13 Q-13.4 -9 -12.6 1 Q-12 7.6 -8.2 10 Q-9 2 -4.6 -4 Z" fill="' + hc + '"/>' + (S ? '' : '<path d="M-5.6 -14.4 Q1 -17.6 7.8 -14" stroke="#fff" stroke-width="1.5" fill="none"/>') : '')
       + (S ? '' : '<ellipse cx="-.6" cy="-8.6" rx="1.5" ry="2.3" fill="' + skd + '"/><path d="M4.6 -10.6 h2.2" stroke="#120c08" stroke-width="1.3" stroke-linecap="round"/><path d="M3.8 -12.6 Q5.6 -13.6 7.4 -12.8" stroke="#120c08" stroke-width=".9" fill="none"/>'
         + (k.smile === false ? '<path d="M5.2 -5 h2.4" stroke="#2a120a" stroke-width=".9" stroke-linecap="round"/>' : '<path d="M4.6 -5.6 Q6.4 -3.8 8 -5.4" stroke="#fff" stroke-width="1.2" fill="none" stroke-linecap="round"/>'));
   }
@@ -14468,11 +14515,36 @@ function kingParts(g){
   g.save(); g.translate(99.2, 60.2); g.rotate(1.21); g.fillStyle = gold(-8, -3, 8, 3); g.font = '700 5.6px Teko, sans-serif'; g.fillText('1,279', 0, 1.8); g.restore();
   g.restore();
 }
+/* The Magician's skin (Ronaldinho's SMG): a magician's black satin, a spray of gold stars and Brazil's green and yellow. */
+function magicSkin(g, W, H, p, r){
+  const lg = g.createLinearGradient(0, 24, 0, 70); lg.addColorStop(0, '#2a2a3a'); lg.addColorStop(.35, '#0d0d14'); lg.addColorStop(1, '#050508'); g.fillStyle = lg; g.fillRect(0, 0, W, H);
+  const sh = g.createLinearGradient(40, 0, 150, 0); sh.addColorStop(0, 'rgba(140,90,255,0)'); sh.addColorStop(.5, 'rgba(140,90,255,.32)'); sh.addColorStop(1, 'rgba(140,90,255,0)'); g.fillStyle = sh; g.fillRect(0, 26, W, 9);
+  const st = (x, y, R, c) => { g.fillStyle = c; g.beginPath(); g.moveTo(x, y - R); g.quadraticCurveTo(x + R * .16, y - R * .16, x + R, y); g.quadraticCurveTo(x + R * .16, y + R * .16, x, y + R); g.quadraticCurveTo(x - R * .16, y + R * .16, x - R, y); g.quadraticCurveTo(x - R * .16, y - R * .16, x, y - R); g.fill(); };
+  g.shadowColor = '#ffb800'; g.shadowBlur = 3; for (let i = 0; i < 26; i++) st(56 + i * 3 + r() * 3, 31 + r() * 12 - i * .08, .6 + r() * 2 * (i / 26 + .3), i % 4 ? '#ffd23f' : '#fff6cc'); g.shadowBlur = 0;
+  for (let i = 0; i < 40; i++) { g.globalAlpha = .3 + r() * .6; g.fillStyle = '#ffe9a0'; g.fillRect(14 + r() * 120, 28 + r() * 48, .5, .5); } g.globalAlpha = 1;
+  g.fillStyle = '#ffdf00'; g.fillRect(54, 43.4, 78, 1.4); g.fillStyle = '#009c3b'; g.fillRect(54, 44.8, 78, 1.2);
+  g.fillStyle = '#009c3b'; g.fillRect(14, 34, 40, 1.4); g.fillStyle = '#ffdf00'; g.fillRect(14, 35.4, 40, 1);
+  const mg2 = g.createLinearGradient(96, 46, 108, 76); mg2.addColorStop(0, '#ffe45a'); mg2.addColorStop(1, '#c79a00'); g.fillStyle = mg2; g.fillRect(94, 47.6, 16, 30);
+}
+/* The Magician's parts: the barrel is his wand (black, white tip, gold rings), a gold rail, a gold star badge, O BRUXO and a green 10. */
+function magicParts(g){
+  const gold = (x0, y0, x1, y1) => { const lg = g.createLinearGradient(x0, y0, x1, y1); lg.addColorStop(0, '#fff3c0'); lg.addColorStop(.35, '#ffd23f'); lg.addColorStop(.7, '#c98a0b'); lg.addColorStop(1, '#6a4300'); return lg; };
+  g.save(); g.lineJoin = 'round'; g.strokeStyle = 'rgba(0,0,0,.9)'; g.lineWidth = .7;
+  const wd = g.createLinearGradient(0, 31, 0, 43); wd.addColorStop(0, '#4a4a58'); wd.addColorStop(.4, '#101016'); wd.addColorStop(1, '#000'); g.fillStyle = wd; g.beginPath(); g.roundRect(134, 32, 54, 10, 3); g.fill(); g.stroke();
+  const wt = g.createLinearGradient(0, 31, 0, 43); wt.addColorStop(0, '#ffffff'); wt.addColorStop(1, '#b8bcc8'); g.fillStyle = wt; g.beginPath(); g.roundRect(175, 32, 13, 10, 3); g.fill(); g.stroke();
+  g.fillStyle = gold(0, 31, 0, 43); g.fillRect(172.6, 32, 2.4, 10); g.fillRect(137, 32, 2.4, 10);
+  g.fillStyle = gold(0, 24, 0, 28); g.fillRect(66, 24, 54, 4); g.strokeRect(66, 24, 54, 4); g.fillStyle = '#009c3b'; for (let x = 70; x < 118; x += 6) g.fillRect(x, 25, 2.4, 2);
+  const cx = 70, cy = 36.4; g.fillStyle = gold(cx - 7, cy - 7, cx + 7, cy + 7); g.shadowColor = '#ffb800'; g.shadowBlur = 4; g.beginPath(); for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? 2.9 : 6.8; g.lineTo(cx + Math.cos(a) * rr, cy + Math.sin(a) * rr); } g.closePath(); g.fill(); g.shadowBlur = 0; g.stroke();
+  g.textAlign = 'center'; g.fillStyle = gold(0, 33, 0, 42); g.font = '700 7px Teko, sans-serif'; g.fillText('O  BRUXO', 105, 40.6);
+  g.fillStyle = '#045a24'; g.font = 'bold 8.6px Teko, sans-serif'; g.fillText('10', 102, 64);
+  g.strokeStyle = '#8a5a00'; g.lineWidth = .8; g.strokeRect(96.4, 47, 11.2, 28.6);
+  g.restore();
+}
 function kingCinematic(r){
   return new Promise(resolve => {
     let ov = $('#kgc');
     if (!ov) { ov = document.createElement('div'); ov.id = 'kgc'; ov.className = 'gtc kgc'; ov.hidden = true; document.body.append(ov); }
-    const it = BY[r.id], timers = [], R = seeded(1940), Rr = Math.random, f1 = n => n.toFixed(1);
+    const mg = r.id === MAGIC_ID, it = BY[r.id], timers = [], R = seeded(1940), Rr = Math.random, f1 = n => n.toFixed(1);
     let done = false, raf = 0, cnt = 0;
     const T = (ms, f) => timers.push(setTimeout(() => { if (done) return; try { f(); } catch (e) {} }, REDUCED ? Math.min(ms, 300) : ms));
     const later = (ms, f) => timers.push(setTimeout(() => { if (done) return; try { f(); } catch (e) {} }, ms));
@@ -14644,15 +14716,37 @@ function kingCinematic(r){
       + '<rect x="252" y="156" width="43" height="19.4" rx="2" fill="url(#kgTg)" stroke="#6a4300" stroke-width=".9"/><path d="M273 159.4 l6 6.2 l-6 6.2 l-6 -6.2 Z" fill="#1f55c8" stroke="#6a4300" stroke-width=".6"/><rect x="250" y="150.6" width="37" height="6.4" rx="3.2" fill="#009c3b" stroke="#045a24" stroke-width=".5"/>'
       + '<g class="kg-king7">' + fig(270, 151, .9, [{t: -3, h: -4, a: [38, 72], b: [34, 68], l: [88, 90, 0], m: [84, 86, 0]}, {t: -8, h: -14, a: [132, 12], b: [34, 68], l: [88, 90, 0], m: [84, 86, 0]}], Object.assign({flip: true}, BRA), null, 'kf-pt', true) + '</g>'
       + '<path d="M249 136.6 H283 V142 H249 Z" fill="url(#kgTg)" stroke="#6a4300" stroke-width=".8"/><circle cx="249.4" cy="139.2" r="3.8" fill="url(#kgTg)" stroke="#6a4300" stroke-width=".8"/><rect x="252.4" y="142" width="4" height="9" fill="url(#kgTd)"/>'
-      + CRN('kg-crn2', 268, 97.4)
+      + CRN('kg-crn2', 268, 97.4) + ball('mg-kb', 5)
       + '<g class="kg-r9"><g transform="translate(40 154) scale(.9)">' + kingFig([{t: 4, h: -8, a: [52, 78], b: [48, 74], l: [3, 3, 0], m: [-5, 5, 0]}, {t: -2, h: -18, a: [150, 20], b: [146, 24], l: [4, 2, 0], m: [-6, 6, 4]}, {t: 22, h: -2, a: [118, 4], b: [114, 8], l: [16, 8, 0], m: [-16, 8, 8]}, {t: 42, h: 24, a: [10, 20], b: [20, 24], l: [8, 14, 0], m: [-14, 10, 6]}],
           Object.assign({}, BRA, {cls: 'kf-r9', num: '9', skin: '#8a5a3a', skind: '#6e452a', hair: '#3a2416'}), CARRY) + CRN('kg-crn') + '</g></g>'
       + [[30, 208, 1.3], [130, 214, 1.6], [250, 210, 1.5], [370, 212, 1.5]].map(([x, y, z]) => cloud(x, y, z, .55)).join('')
       + spirit(20, 216, 1.2, 9, false, true) + spirit(70, 224, 1.25, 10, false, true) + spirit(356, 222, 1.2, 11, true, true) + spirit(394, 216, 1.25, 12, true, true));
+    /* ---- The Magician: the crown is knocked out of R9's hands, falls out of the seventh sky and lands in a match Ronaldinho is running ---- */
+    const m2 = SVG('<defs><linearGradient id="mgSk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#05060f"/><stop offset="1" stop-color="#13204a"/></linearGradient></defs><rect width="400" height="260" fill="url(#kgSkC)"/>' + stars(130, 250)
+      + '<g class="mg-earth"><circle cx="200" cy="900" r="690" fill="url(#kgAtm)"/><circle cx="200" cy="900" r="664" fill="url(#kgEarth)"/></g><rect class="mg-night" width="400" height="260" fill="url(#mgSk)"/>'
+      + '<g class="mg-std"><ellipse cx="200" cy="200" rx="150" ry="44" fill="#1a1c2a"/><ellipse cx="200" cy="200" rx="150" ry="44" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="2"/><ellipse cx="200" cy="200" rx="96" ry="25" fill="#256a34"/><path d="M200 175 V225" stroke="#fff" stroke-opacity=".5"/><ellipse cx="200" cy="200" rx="16" ry="5" fill="none" stroke="#fff" stroke-opacity=".5"/>'
+        + Array.from({length: 18}, (_, i) => { const a = Math.PI * 2 * i / 18; return '<circle cx="' + f1(200 + Math.cos(a) * 150) + '" cy="' + f1(200 + Math.sin(a) * 44) + '" r="9" fill="url(#kgWh)"/>'; }).join('') + '</g>'
+      + '<g class="mg-fall"><path d="M0 -170 L-9 -8 H9 Z" fill="url(#kgRay)"/><g class="mg-spin"><g transform="scale(2.6)">' + CRN('mg-cf') + '</g></g></g>'
+      + '<g class="mg-wipe">' + Array.from({length: 22}, () => cloud(R() * 400, R() * 330, 2.2 + R() * 1.6, .96)).join('') + '<rect y="60" width="400" height="210" fill="#fff" opacity=".85"/></g>');
+    const BARC = {skin: '#7a4a2c', skind: '#5e3820', hair: '#120c08', long: true, shirt: '#a50044', shirtd: '#004d98', trim: '#ffd23f', shorts: '#004d98', shortsd: '#003a78', sock: '#004d98', sockd: '#003a78', band: '#a50044', num: '10', numc: '#ffd23f', rim: '#ffe9a0'};
+    const RMA = {skin: '#e0ae86', skind: '#bc8c66', hair: '#2a1a10', shirt: '#f6f7fa', shirtd: '#d4d8e0', trim: '#6a4a9a', shorts: '#f6f7fa', shortsd: '#d4d8e0', sock: '#f6f7fa', sockd: '#d4d8e0', band: '#d4d8e0', smile: false};
+    const DFP = [{t: 10, h: 0, a: [-30, 50], b: [30, 50], l: [22, 30, -6], m: [-18, 26, 6]}, {t: 34, h: 10, a: [60, 30], b: [20, 40], l: [56, 70, -16], m: [-40, 30, 20]}, {t: 72, h: -20, a: [120, 20], b: [100, 30], l: [24, 44, 20], m: [-34, 20, 30]}];
+    const m3 = SVG('<g transform="translate(0 -8)"><rect width="400" height="270" fill="url(#mgSk)"/>' + [[50, 34], [200, 26], [350, 34]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="64" fill="url(#kgWh)" opacity=".5"/><rect x="' + (x - 16) + '" y="' + (y - 5) + '" width="32" height="10" rx="2" fill="#fff"/>').join('')
+      + '<path d="M0 66 Q200 48 400 66 V150 H0 Z" fill="#1a1c2a"/><g class="mg-crowd">' + dots(700, 0, 400, 74, 138, ['#f6f7fa', '#f6f7fa', '#c9cdd8', '#6a4a9a', '#3a3f58', '#e0ae86', '#f6f7fa'], 2.3, .8) + '</g>'
+      + '<rect y="140" width="400" height="10" fill="#e8ecf0"/>' + [16, 104, 192, 280, 368].map((x, i) => '<rect x="' + x + '" y="141.5" width="60" height="7" fill="' + ['#3a3f58', '#6a4a9a', '#2a2a2a', '#3a3f58', '#6a4a9a'][i] + '" opacity=".8"/>').join('')
+      + pitch(150, '#256a34', '#2c7a3c') + '<path d="M0 215 H400" stroke="#fff" stroke-opacity=".3" stroke-width="1.4"/>' + goalR('mg-net', 352, 213)
+      + '<rect class="mg-beam" x="240" y="-20" width="70" height="300" fill="url(#kgRay)"/>'
+      + '<g class="mg-gk">' + fig(342, 181, .64, [{t: 6, h: 0, a: [40, 60], b: [-40, 60], l: [16, 24, 0], m: [-16, 24, 0]}, {t: 60, h: -20, a: [150, 10], b: [130, 20], l: [-30, 20, 30], m: [-50, 40, 30]}], GK('#2a2a2a'), null, 'kf-mgk', true) + '</g>'
+      + '<g class="mg-d d1">' + fig(152, 173, .8, DFP, RMA, null, 'kf-md1', true) + '</g><g class="mg-d d2">' + fig(236, 173, .8, DFP, RMA, null, 'kf-md2', true) + '</g>'
+      + '<g transform="translate(292 213)"><g class="mg-ring"><ellipse rx="30" ry="6" fill="url(#kgDisc)"/><ellipse class="kg-rip" rx="30" ry="6" fill="none" stroke="#fff3c0" stroke-width="1.2"/></g></g>'
+      + '<g class="mg-asc"><g class="mg-h">' + fig(60, 173, .8, [{t: 3, h: -6, a: [-6, 10], b: [8, 12], l: [3, 3, 0], m: [-5, 5, 0]}, {t: 10, h: 8, a: [40, 40], b: [-40, 30], l: [-44, 84, 20], m: [14, 20, -6]}, {t: -8, h: 4, a: [-50, 30], b: [50, 30], l: [80, 6, 10], m: [-12, 22, 8]},
+          {t: -4, h: -14, a: [168, 8], b: [-30, 60], l: [8, 6, 0], m: [-10, 12, 0]}, {t: 56, h: 8, a: [84, 8], b: [70, 14], l: [72, 104, -22], m: [18, 92, 12]}, {t: -2, h: -16, a: [160, 24], b: [156, 28], l: [4, 2, 0], m: [-6, 6, 4]}], BARC, RUN, 'kf-mh3') + '</g>'
+      + '<g class="mg-crown3"><g>' + CRN('mg-ci') + '</g></g></g>' + ball('mg-ball3') + '</g>');
     /* the wall behind the rifle: the green field, the gold rhombus, the blue disc with his 10, laurels, stars and gold everywhere */
     const leaf = (cx, cy, rr, a0, a1, n, flip) => Array.from({length: n}, (_, i) => { const a = (a0 + (a1 - a0) * i / (n - 1)) * Math.PI / 180, x = cx + Math.cos(a) * rr * (flip ? -1 : 1), y = cy + Math.sin(a) * rr, rot = (a * 180 / Math.PI + 90 + (i % 2 ? 34 : -34)) * (flip ? -1 : 1);
       return '<ellipse cx="' + f1(x) + '" cy="' + f1(y) + '" rx="10" ry="3.4" transform="rotate(' + f1(rot) + ' ' + f1(x) + ' ' + f1(y) + ')" fill="url(#kgFg)"/>'; }).join('');
-    const FLAG = '<svg class="kg-flag" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="kgFn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0c7a36"/><stop offset=".5" stop-color="#075a26"/><stop offset="1" stop-color="#033a18"/></linearGradient>'
+    const FC = mg ? ['#4a1c8a', '#2a0c56', '#10042a'] : ['#0c7a36', '#075a26', '#033a18'];
+    const FLAG = '<svg class="kg-flag" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="kgFn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + FC[0] + '"/><stop offset=".5" stop-color="' + FC[1] + '"/><stop offset="1" stop-color="' + FC[2] + '"/></linearGradient>'
       + '<linearGradient id="kgFg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6cc"/><stop offset=".35" stop-color="#ffd23f"/><stop offset=".7" stop-color="#c98a0b"/><stop offset="1" stop-color="#8a5a00"/></linearGradient>'
       + '<radialGradient id="kgFb" cx=".42" cy=".36" r=".75"><stop offset="0" stop-color="#1c4fc0"/><stop offset="1" stop-color="#00123c"/></radialGradient>'
       + '<radialGradient id="kgFv" cx=".5" cy=".46" r=".72"><stop offset=".45" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".82"/></radialGradient></defs>'
@@ -14664,7 +14758,7 @@ function kingCinematic(r){
       + leaf(200, 130, 96, 100, 250, 13) + leaf(200, 130, 96, 100, 250, 13, true)
       + [[26, 20, 1, 1], [374, 20, -1, 1], [26, 240, 1, -1], [374, 240, -1, -1]].map(([x, y, sx, sy]) => '<g transform="translate(' + x + ' ' + y + ') scale(' + sx + ' ' + sy + ')"><path d="M0 34 V0 H34 M7 26 V7 H26" stroke="url(#kgFg)" stroke-width="2.2" fill="none"/>' + star5(15, 15, 5, 'url(#kgFg)') + '</g>').join('')
       + '<rect width="400" height="260" fill="url(#kgFv)"/></svg>';
-    const title = 'THE KING'.split('').map((ch, i) => '<span style="--i:' + i + '">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>').join('');
+    const title = (mg ? 'THE MAGICIAN' : 'THE KING').split('').map((ch, i) => '<span style="--i:' + i + '">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>').join('');
     const starSVG = '<svg viewBox="-12 -12 24 24"><defs><linearGradient id="kgSt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6cc"/><stop offset=".5" stop-color="#ffd23f"/><stop offset="1" stop-color="#a86a00"/></linearGradient></defs>' + star5(0, 0, 11, 'url(#kgSt)') + '</svg>';
     ov.innerHTML = '<canvas class="gt-cv"></canvas><div class="kg-flash"></div><div class="kg-white"></div><div class="kg-vig"></div><i class="kg-lb t"></i><i class="kg-lb b"></i>'
       + '<section class="gt-s kg-s kg-1">' + k1 + '<div class="kg-cap sw"><small id="kgC1s">Bauru, Brazil · 16 July 1950</small><p id="kgC1a">Brazil had just lost the World Cup. At home.</p><p id="kgC1b">A boy of nine saw his father cry for the first time.</p><p id="kgC1c" class="g">He promised him one.</p></div></section>'
@@ -14679,19 +14773,21 @@ function kingCinematic(r){
         + '<blockquote class="kg-quote"><p>“I told myself before the game, he’s made of skin and bones just like everyone else — but I was wrong.”</p><cite>Tarcisio Burgnich · Italy · after the 1970 final</cite></blockquote></section>'
       + '<section class="gt-s kg-s kg-6">' + k6 + '<div class="kg-cap sw n"><small id="kgC6s">Full time · Brazil 4 – 1 Italy</small><p id="kgC6a">There is great.</p><p id="kgC6b">And then there is the place he went.</p></div>'
         + '<div class="kg-cap n kg-last"><small id="kgC6c">Edson Arantes do Nascimento · 1940 – 2022</small><p id="kgC6d">The man was mortal.</p><p id="kgC6e" class="g big">The King is not.</p></div></section>'
-      + '<section class="gt-s kg-s kg-7">' + k7 + '<div class="kg-cap sw n t"><p id="kgC7a">Everyone who ever wore the shirt stood aside.</p><p id="kgC7b">One of them carried the crown.</p><p id="kgC7c" class="g big">O Rei.</p></div></section>'
+      + '<section class="gt-s kg-s kg-7">' + k7 + '<div class="kg-cap sw n t"><p id="kgC7a">Everyone who ever wore the shirt stood aside.</p><p id="kgC7b">One of them carried the crown.</p><p id="kgC7c" class="g big">O Rei.</p><p id="kgC7m">The crown was a breath from his head.</p><p id="kgC7n" class="g">Then a ball came out of nowhere.</p></div></section>'
+      + '<section class="gt-s kg-s kg-m2">' + m2 + '<div class="kg-cap sw n"><p id="kgM2a">It fell out of the seventh sky.</p></div></section>'
+      + '<section class="gt-s kg-s kg-m3">' + m3 + '<div class="kg-cap sw n t"><small id="kgM3s">Santiago Bernabéu, Madrid · 19 November 2005</small><p id="kgM3a">Down there, someone was already making fools of everyone.</p><p id="kgM3b">Two goals. Barcelona 3, Real Madrid 0.</p><p id="kgM3c" class="g">The Madrid crowd applauded him.</p><p id="kgM3e">Something gold landed in the grass.</p><p id="kgM3f" class="g big">He put it on. And smiled.</p></div><div class="kg-sb kg-bdo" id="kgM3d">BALLON D’OR · 2005</div></section>'
       + '<section class="gt-s kg-s kg-8">' + FLAG + '<div class="kg-rays gold"></div><div class="kg-beam"></div><div class="su-rv kg-rv"><div class="kg-stars3">' + starSVG + starSVG + starSVG + '</div>'
         + '<div class="kg-crown"><svg viewBox="0 0 60 36"><defs><linearGradient id="kgCr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6a4300"/><stop offset=".45" stop-color="#fff0b0"/><stop offset=".7" stop-color="#ffd23f"/><stop offset="1" stop-color="#6a4300"/></linearGradient></defs><path d="M5 32 L3 9 L16 20 L30 2 L44 20 L57 9 L55 32 Z" fill="url(#kgCr)" stroke="#6a4300" stroke-width="1.4" stroke-linejoin="round"/><circle cx="30" cy="23" r="3.4" fill="#18c46a"/><circle cx="16" cy="26" r="2.4" fill="#2a6aff"/><circle cx="44" cy="26" r="2.4" fill="#2a6aff"/><circle cx="3" cy="8" r="2" fill="#fff0b0"/><circle cx="30" cy="2" r="2.2" fill="#fff0b0"/><circle cx="57" cy="8" r="2" fill="#fff0b0"/></svg></div>'
-        + '<div class="kg-art"><span class="gt-foil kg-foil"></span></div><h2 class="kg-h2">' + title + '</h2><div class="kg-sub">CHROMA · ONE OF ONE</div><div class="kg-tag">Long live the King.</div><div class="gt-val kg-val"><span class="coin"></span><span id="kgVal">0</span></div><div class="gt-tap">tap to continue</div></div></section>'
+        + '<div class="kg-art"><span class="gt-foil kg-foil"></span></div><h2 class="kg-h2">' + title + '</h2><div class="kg-sub">CHROMA · ONE OF ONE</div><div class="kg-tag">' + (mg ? 'O Bruxo.' : 'Long live the King.') + '</div><div class="gt-val kg-val"><span class="coin"></span><span id="kgVal">0</span></div><div class="gt-tap">tap to continue</div></div></section>'
       + '<button class="pc-skip gt-skip">Skip ››</button>';
     const src = artHi(it, wearIdx(r.fl)), art = q('.kg-art');
     art.prepend(imgOf(src)); art.querySelector('.gt-foil').style.setProperty('--m', 'url("' + src + '")');
-    ov.className = 'gtc kgc'; ov.hidden = false; go(0);
+    ov.className = 'gtc kgc' + (mg ? ' mgc' : ''); ov.hidden = false; go(0);
 
     /* ---- the canvas: dust, rain, gold, confetti and the streaks of the climb ---- */
     const cv = q('.gt-cv'), g = cv.getContext('2d');
     let W = 0, H = 0, parts = [], PAL = ['#ffdf00', '#009c3b', '#1f55c8', '#ffffff'];
-    const em = {dust: 0, rain: 0, gold: 0, conf: 0, streak: 0};
+    const em = {dust: 0, rain: 0, gold: 0, conf: 0, streak: 0, rise: 0};
     const size = () => { const d = Math.min(devicePixelRatio || 1, 1.5); W = innerWidth; H = innerHeight; cv.width = W * d; cv.height = H * d; g.setTransform(d, 0, 0, d, 0, 0); };
     size(); addEventListener('resize', size);
     const burst = (n, x, y, pal, sp) => { for (let i = 0; i < n; i++) { const a = Rr() * Math.PI * 2, v = (.15 + Rr() * .7) * (sp || 1); parts.push({k: 'c', x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - .3, c: (pal || PAL)[i % (pal || PAL).length], life: 900 + Rr() * 900, max: 1800, g: .0009, s: 2.4 + Rr() * 2.4, rot: Rr() * 6}); } };
@@ -14705,11 +14801,12 @@ function kingCinematic(r){
         for (let k = 0; k < em.rain; k++) parts.push({k: 'r', x: Rr() * (W + 200) - 100, y: -20, vx: -.16, vy: 1 + Rr() * .5, life: 1600, max: 1600, s: 10 + Rr() * 14});
         for (let k = 0; k < em.gold; k++) if (Rr() < .5) parts.push({k: 'g', x: Rr() * W, y: -16, vx: (Rr() - .5) * .05, vy: .2 + Rr() * .3, life: 6000, max: 6000, g: .0002, s: 4 + Rr() * 6});
         for (let k = 0; k < em.conf; k++) parts.push({k: 'c', x: Rr() * W, y: -10, vx: (Rr() - .5) * .12, vy: .08 + Rr() * .14, c: PAL[(k + parts.length) % PAL.length], life: 7000, max: 7000, g: .00002, s: 3 + Rr() * 4, rot: Rr() * 6});
+        for (let k = 0; k < em.rise; k++) if (Rr() < .7) parts.push({k: 's', x: Rr() * W, y: H + 10, vx: (Rr() - .5) * .04, vy: -.55 - Rr() * .5, life: 2200, max: 2200, s: .8 + Rr() * 1.8});
         for (let k = 0; k < em.streak; k++) if (Rr() < .6) { const top = Rr() < .6; parts.push({k: 's', x: top ? Rr() * W * 1.3 : W + 10, y: top ? -10 : Rr() * H * .8, vx: -.28 - Rr() * .3, vy: .2 + Rr() * .22, life: 3000, max: 3000, s: .8 + Rr() * 1.6}); }
       }
       for (let i = parts.length - 1; i >= 0; i--) {
         const p = parts[i]; p.life -= dt; p.vy += (p.g || 0) * dt; p.x += p.vx * dt; p.y += p.vy * dt;
-        if (p.life <= 0 || p.y > H + 30 || p.x < -40) { parts.splice(i, 1); continue; }
+        if (p.life <= 0 || p.y > H + 30 || p.y < -90 || p.x < -40) { parts.splice(i, 1); continue; }
         const al = Math.max(0, Math.min(1, p.life / p.max * 1.5));
         if (p.k === 'd') { g.globalAlpha = al * .5 * (.5 + .5 * Math.sin((now + i * 97) / 500)); g.fillStyle = '#ffd9a0'; g.fillRect(p.x, p.y, p.s, p.s); }
         else if (p.k === 'r') { g.globalAlpha = .34; g.strokeStyle = '#dfe8f2'; g.lineWidth = 1; g.beginPath(); g.moveTo(p.x, p.y); g.lineTo(p.x + p.vx * p.s, p.y + p.vy * p.s); g.stroke(); }
@@ -14836,6 +14933,8 @@ function kingCinematic(r){
     const PROMISE = [293.66, 349.23, 440];
     const say = id => { const e = q(id); if (!e) return; if (e.parentNode.classList.contains('sw')) e.parentNode.querySelectorAll('p').forEach(x => x.classList.remove('on')); e.classList.add('on'); };
 
+    let R0 = 0;
+    if (!mg) {
     /* 1. the radio, his father, the promise */
     T(200, () => { go('k1'); level(.2, .01); em.dust = 1; crowd(.07, .3); choir(73.42, 7, .5, 0, true); choir(110, 7, .3, 0, true); });
     for (let i = 0; i < 9; i++) T(260 + i * 170, () => hit('highpass', 2400 + Rr() * 2600, 1800, .12 + Rr() * .1, .05 + Rr() * .05, 0, 2));
@@ -14939,9 +15038,48 @@ function kingCinematic(r){
     T(TH0 + 9300, () => { pose('.kf-r9', 3); say('#kgC7c'); timp(.9); crash(.4); });
     T(TH0 + 12900, () => { riser(1, .3); });
     T(TH0 + 13800, () => { add('white'); crash(.5); });
-    /* 8. The King */
-    const R0 = TH0 + 14400;
-    T(R0, () => { go('k8'); level(.42, .1); off('.kg-7 .kg-cap *'); lv.bat = 0; lv.pad = 0; em.gold = 0; parts = []; sub(.8); choir(146.83, 2, .8, 0, true); choir(220, 2, .6, 0, true); riser(1.5, .34, .1); });
+    R0 = TH0 + 14400;
+    } else {
+      /* The Magician */
+      const M3 = 12600, BM = mover('.mg-ball3'), CR = mover('.mg-crown3');
+      const HX = (x, ms) => { const e = q('.mg-h'); e.style.transition = 'transform ' + ms + 'ms linear'; e.style.transform = 'translateX(' + (x - 60) + 'px)'; };
+      const spark = (x, y, n) => { const k = Math.max(W / 400, H / 260); burst(n || 30, W / 2 + (x - 200) * k, H / 2 + (y - 138) * k, ['#ffd23f', '#fff6cc', '#ffffff', '#b98cff'], .5); bell(1760 + Rr() * 600, .14); };
+      T(200, () => { go('k7'); add('mgq'); level(.5, .01); mode = 'fin'; seqReset(); em.dust = 2; add('th-walk'); q('.kf-r9').classList.add('walk'); choir(146.83, 4, .7, 0, true); say('#kgC7m'); });
+      T(1750, () => add('th-climb'));
+      T(2800, () => { q('.kf-r9').classList.remove('walk'); pose('.kf-r9', 1); add('th-offer'); riser(1.5, .3); [0, .3, .6, .85, 1.05, 1.2, 1.32].forEach(dd => timp(.3 + dd * .3, dd)); level(.8, 1); });
+      T(4300, () => { add('mg-kick'); hit('bandpass', 400, 3000, .3, .3, 0, 2); });
+      T(4620, () => { add('mg-hit'); flash(); quake(); thwack(1); crash(.6); timp(1); pose('.kf-r9', 0); mode = 'x'; lv.bat = 0; say('#kgC7n'); burst(70, W * .6, H * .28, ['#ffd23f', '#fff6cc', '#ffffff']);
+        if (snd) { const t = at(.05), a = eg(.3, t, .01, .5, .2), o = os('sawtooth', 700, t, .8, a); o.frequency.exponentialRampToValueAtTime(60, t + .7); out(a, hMid); } });
+      T(6500, () => { go('m2'); off('.kg-7 .kg-cap *'); em.dust = 0; em.rise = 2; level(.6, .3); riser(5.6, .3); say('#kgM2a'); choir(220, 5, .5, 0, true); choir(329.63, 5, .4, 0, true); });
+      T(9300, () => add('mg-wp'));
+      T(10150, () => { add('mg-low'); crowd(.2, 1.5); });
+      T(11500, () => add('mg-drop'));
+      T(M3, () => { go('m3'); off('.kg-m2 .kg-cap *'); em.rise = 0; parts = []; mode = 'dm'; seqReset(); lv.bat = 1; lv.ost = 1; level(.8, .2); crowd(.24); BM.set(76, 208); on('#kgM3s'); say('#kgM3a'); q('.kf-mh3').classList.add('walk'); HX(126, 1000); BM.to(142, 208, 1000); });
+      T(M3 + 1000, () => { pose('.kf-md1', 1); BM.to(160, 208, 140); later(150, () => BM.to(136, 208, 140)); thwack(.3); spark(150, 204); });
+      T(M3 + 1350, () => { pose('.kf-md1', 2); add('d1dn'); HX(208, 900); BM.to(224, 208, 900); });
+      T(M3 + 2250, () => { pose('.kf-md2', 1); add('mgv'); spark(228, 200, 44); HX(264, 800); });
+      T(M3 + 2700, () => { BM.set(282, 208); rm('mgv'); spark(282, 204, 44); pose('.kf-md2', 2); add('d2dn'); });
+      T(M3 + 3100, () => { q('.kf-mh3').classList.remove('walk'); pose('.kf-mh3', 1); });
+      T(M3 + 3300, () => { pose('.kf-mh3', 2); thwack(.8); BM.to(374, 186, 150); pose('.kf-mgk', 1); });
+      T(M3 + 3460, () => { add('mg-goal'); level(1, .02); flash(); quake(); timp(1); timp(.8, .16); crash(.5); sub(.7); roar(1, 6); whistle(.1); lv.th = 1; lv.pad = .6; fanfare([293.66, 369.99, 440, 587.33], 1.1, .2); PAL = ['#a50044', '#004d98', '#ffd23f', '#ffffff']; burst(110, W * .85, H * .5); });
+      T(M3 + 3900, () => pose('.kf-mh3', 3));
+      T(M3 + 4500, () => say('#kgM3b'));
+      T(M3 + 7200, () => { say('#kgM3c'); add('mg-clap'); });
+      T(M3 + 9600, () => { on('#kgM3d'); timp(.8); bell(1174.66, .24); bell(1760, .16, .08); });
+      T(M3 + 11300, () => { CR.set(292, -60); add('mg-cr'); CR.to(292, 206, 520, 0, 'cubic-bezier(.6,0,1,.7)'); hit('bandpass', 3000, 500, .5, .2); off('#kgM3d'); });
+      T(M3 + 11820, () => { add('mg-land'); flash('#fff3c0'); quake(); timp(1); sub(.9); crash(.5); lv.bat = .3; lv.th = 0; lv.ost = 0; lv.pad = 0; level(.6, .3); crowd(.06, .5); say('#kgM3e'); spark(292, 206, 60); pose('.kf-mh3', 0); });
+      T(M3 + 13200, () => { q('.kf-mh3').classList.add('walk'); HX(274, 700); });
+      T(M3 + 14100, () => { q('.kf-mh3').classList.remove('walk'); pose('.kf-mh3', 4); });
+      T(M3 + 14700, () => { pose('.kf-mh3', 5); CR.to(277, 116, 600, 0, 'cubic-bezier(.3,0,.3,1)'); riser(1.1, .3); });
+      T(M3 + 15500, () => { pose('.kf-mh3', 3); CR.to(275.6, 124.6, 200); });
+      T(M3 + 15720, () => { add('mg-on'); level(1, .02); flash(); quake(); timp(1); timp(.9, .2); crash(.6); sub(.8); roar(.8, 5); mode = 'fin'; seqReset(); lv.bat = .8; lv.pad = 1; say('#kgM3f'); spark(276, 124, 70);
+        fanfare([293.66, 369.99, 440, 587.33, 739.99, 880], 2.6, .2); [587.33, 739.99, 880, 1174.66, 1479.98].forEach((f, i) => bell(f, .2, i * .09, 2.4)); });
+      T(M3 + 18200, () => { add('mg-up'); riser(2.4, .4); em.rise = 3; [293.66, 440, 587.33, 880].forEach(f => choir(f, 2.6, .7)); [0, 500, 1000, 1500].forEach(d => later(d, () => spark(276, 150 - d / 12, 40))); });
+      T(M3 + 20600, () => { add('white'); crash(.5); });
+      R0 = M3 + 21200;
+    }
+    /* 8. the reveal */
+    T(R0, () => { go('k8'); level(.42, .1); off('.kg-7 .kg-cap *, .kg-m3 .kg-cap *'); lv.bat = 0; lv.pad = 0; em.gold = 0; em.rise = 0; mode = 'fin'; parts = []; sub(.8); choir(146.83, 2, .8, 0, true); choir(220, 2, .6, 0, true); riser(1.5, .34, .1); });
     T(R0 + 500, () => { rm('white'); add('kdrop'); });
     T(R0 + 1700, () => {
       add('kland'); level(1, .01); flash(); quake(); timp(1); sub(1); crash(.7); roar(1, 7); crowd(.2); lv.bat = 1; lv.pad = 1;
@@ -15230,7 +15368,7 @@ function chromaCinematic(r){
   if (r.id === 'x3' || r.id === SFOT_ID) return goatCinematic(r);
   if (r.id === SUI_ID || r.id === PULGA_ID) return suiCinematic(r);
   if (r.id === PRINCE_ID) return princeCinematic(r);
-  if (r.id === KING_ID) return kingCinematic(r);
+  if (r.id === KING_ID || r.id === MAGIC_ID) return kingCinematic(r);
   return new Promise(resolve => {
     const it = BY[r.id], ov = $('#chc'), timers = [];
     let done = false, raf = 0, cnt = 0;
