@@ -3254,7 +3254,7 @@ body.dz-open .toast{z-index:95}
 .msi-ov .vx{width:min(760px,100%);max-height:calc(100% - 8px);overflow:auto;margin:0;border-color:#75bde9;background:radial-gradient(circle at 20% 0%,rgba(117,189,233,.22),transparent 60%),#050b14;box-shadow:0 0 40px rgba(117,189,233,.25),0 30px 80px rgba(0,0,0,.6)}
 /* KING-CSS-BEGIN */
 /* ---------- The King ---------- */
-.gtc[data-s="k1"] .kg-1,.gtc[data-s="k2"] .kg-2,.gtc[data-s="k3"] .kg-3,.gtc[data-s="k3b"] .kg-3b,.gtc[data-s="k4"] .kg-4,.gtc[data-s="k5"] .kg-5,.gtc[data-s="k5b"] .kg-5b,.gtc[data-s="k6"] .kg-6,.gtc[data-s="k7"] .kg-7,.gtc[data-s="m2"] .kg-m2,.gtc[data-s="m3"] .kg-m3,.gtc[data-s="b3"] .kg-b3,.gtc[data-s="b4"] .kg-b4,.gtc[data-s="k8"] .kg-8{opacity:1;visibility:visible;transition:opacity .8s}
+.gtc[data-s="k1"] .kg-1,.gtc[data-s="k2"] .kg-2,.gtc[data-s="k3"] .kg-3,.gtc[data-s="k3b"] .kg-3b,.gtc[data-s="k4"] .kg-4,.gtc[data-s="k5"] .kg-5,.gtc[data-s="k5b"] .kg-5b,.gtc[data-s="k6"] .kg-6,.gtc[data-s="k7"] .kg-7,.gtc[data-s="m2"] .kg-m2,.gtc[data-s="m3"] .kg-m3,.gtc[data-s="b3"] .kg-b3,.gtc[data-s="b25"] .kg-b25,.gtc[data-s="m25"] .kg-m25,.gtc[data-s="b4"] .kg-b4,.gtc[data-s="k8"] .kg-8{opacity:1;visibility:visible;transition:opacity .8s}
 .gtc[data-s="k5b"] .kg-5b,.gtc[data-s="k3b"] .kg-3b{transition:none}
 .kgc{background:#000}
 .kgc.quake{animation:kgQuake .5s linear}
@@ -3446,7 +3446,7 @@ body.dz-open .toast{z-index:95}
 .kg-stars3{display:flex;gap:14px;opacity:0;transform:translateY(-20px)}
 .kg-stars3 svg{width:min(38px,4.6vh);min-width:20px;filter:drop-shadow(0 0 10px rgba(255,210,63,.9))}
 .kgc.kland .kg-stars3{opacity:1;transform:none;transition:all .6s 1s cubic-bezier(.2,1.6,.4,1)}
-.kg-crown{width:min(96px,19vw,10vh);opacity:0;transform:translateY(-60px) scale(.6)}
+.kg-crown{width:min(70px,15vw,8vh);opacity:0;transform:translateY(-60px) scale(.6)}
 .kg-crown svg{display:block;width:100%}
 .kgc.kland .kg-crown{opacity:1;transform:none;transition:all .7s .75s cubic-bezier(.2,1.6,.4,1)}
 .kg-h2{margin:0;font:700 min(11.5vw,17vh,136px)/1 var(--display);letter-spacing:.1em;padding-left:.1em}
@@ -3553,11 +3553,7 @@ body.dz-open .toast{z-index:95}
 .bl-dark{opacity:0;transition:opacity .9s}
 .kgc.bld .bl-dark{opacity:1}
 .kg-mid{bottom:auto;top:50%;transform:translateY(-50%)}
-.b3-me{transform:translate(84px,196px)}
-.b3-e{transition:transform .5s,opacity .5s}
-.b3-e.out{transform:translate(-7px,7px) rotate(60deg);opacity:.4}
-.b3-ball{opacity:0}
-.kg-b3>svg{transform-origin:72% 52%}.gtc[data-s="b3"] .kg-b3>svg{transform:scale(1.14)}
+
 .b4-h,.b4-k{transition:transform .5s cubic-bezier(.6,0,.9,.5)}
 .kgc.b4jump .b4-h{transform:translateY(-44px);transition:transform .6s cubic-bezier(.15,.75,.3,1)}
 .kgc.b4jump .b4-k{transform:translate(-14px,-38px);transition:transform .6s cubic-bezier(.15,.75,.3,1)}
@@ -3591,6 +3587,34 @@ body.dz-open .toast{z-index:95}
 @keyframes kgBeatV{0%,100%{box-shadow:inset 0 0 0 0 rgba(255,60,40,0)}7%{box-shadow:inset 0 0 18vmin 4vmin rgba(255,60,40,.38)}18%{box-shadow:inset 0 0 8vmin 1vmin rgba(255,60,40,.1)}30%{box-shadow:inset 0 0 14vmin 3vmin rgba(255,60,40,.26)}}
 .kgc.kbeat .kg-mid p.on{animation:kgBeatT .62s ease-out}
 @keyframes kgBeatT{0%,46%,100%{transform:none}7%{transform:scale(1.07)}18%{transform:scale(1)}30%{transform:scale(1.04)}}
+/* the crown */
+.kg-glint{transform-box:fill-box;transform-origin:center;animation:kgGlint 2.6s ease-in-out infinite}
+@keyframes kgGlint{0%,70%,100%{opacity:0;transform:scale(.3)}80%{opacity:1;transform:scale(1.3) rotate(45deg)}}
+/* Ronaldinho: the standoff */
+.m25-cam{transform-origin:50% 60%;transition:transform 6s cubic-bezier(.2,.4,.3,1)}
+.gtc[data-s="m25"] .m25-cam{transform:scale(1.1)}
+.kgc.m25face .m25-cam{transform:scale(2.6);transform-origin:36% 26%;transition:transform 1.4s cubic-bezier(.3,0,.1,1)}
+.m25-ball.roll{animation:m25Roll .5s ease-in-out}
+@keyframes m25Roll{40%{transform:translateX(-5px) rotate(-60deg)}}
+.m25-glint{opacity:0;transform-origin:214px 26px}
+.kgc.m25g .m25-glint{opacity:1;animation:kgPulse .7s ease-in-out infinite alternate}
+.kf-m25d{--pt:.18s}
+/* Maradona: the tunnel */
+.b25-world{transition:transform 6s linear}
+.kgc.b25go .b25-world{transform:translateX(-300px)}
+.kf-b25{--wt:.9s}
+.b25-white{opacity:0}
+.kgc.b25out .b25-white{opacity:1;transition:opacity .5s ease-in}
+/* Maradona: the run */
+.b3-e,.b3-k{transition:transform .45s cubic-bezier(.5,0,.8,.6)}
+.b3-e.out,.b3-k.out{transform:translate(10px,14px)}
+.kf-b3{--wt:.34s}
+.b3-me1,.b3-me2,.b3-me3,.b3-me4,.b3-me0,.b3-me5{transition:opacity .4s}
+.kgc.kbump{animation:kgBump .22s ease-out}
+@keyframes kgBump{40%{transform:scale(1.018)}}
+.b3-net{transform-origin:1200px 232px}
+.kgc.b3goal .b3-net{animation:kgNet .6s ease-out}
+.kgc.b3goal .b3-bug{animation:kgPunch .5s cubic-bezier(.2,1.6,.4,1)}
 /* KING-CSS-END */
 /* ---------- The Prince ---------- */
 .gtc[data-s="n1"] .pr-1,.gtc[data-s="n2"] .pr-2,.gtc[data-s="n3"] .pr-3,.gtc[data-s="n4a"] .pr-4a,.gtc[data-s="n4b"] .pr-4b,.gtc[data-s="n4c"] .pr-4c,.gtc[data-s="n5"] .pr-5,.gtc[data-s="n6"] .pr-6,.gtc[data-s="n7"] .pr-7,.gtc[data-s="n8"] .pr-8,.gtc[data-s="n9"] .pr-9,.gtc[data-s="n9b"] .pr-9b,.gtc[data-s="n9c"] .pr-9c,.gtc[data-s="n10"] .pr-10{opacity:1;visibility:visible;transition:opacity .6s}
@@ -4597,6 +4621,10 @@ body.ar-on{overflow:hidden}
   .ar-pausebtn{top:auto;bottom:10px;left:50%;transform:translateX(-50%);height:38px;font-size:15px}.ar-sc b{width:42px;height:42px;font-size:26px}.ar-clock{font-size:24px}}
 @media (max-width:700px){.ar-load{grid-template-columns:1fr}.ar-logo{font-size:36px}.ar-ban b{font-size:40px}.ar-sc small{max-width:90px;font-size:13px}}
 @media (max-height:520px){.ar-rcard{padding:14px}.ar-rtop{font-size:42px}.ar-rsc{font-size:28px}.ar-rvs{margin-bottom:8px}.ar-rcr{margin:8px 0 2px;font-size:18px}.ar-btn{padding:9px;margin-top:6px}.ar-emb{width:48px;height:48px}}
+
+
+
+
 
 
 
@@ -14653,7 +14681,11 @@ function kingCinematic(r){
     const WALK = WHh.map((_, i) => { const j = (i + 4) % 8; return {t: 4, h: -6, l: [WHh[i], WKk[i], 0], m: [WHh[j], WKk[j], 0], a: [WSs[i], 14], b: [WSs[j], 14]}; });
     const fig = (x, y, s, P, kit, W, cls, flip) => '<g transform="translate(' + x + ' ' + y + ') scale(' + (flip ? -s : s) + ' ' + s + ')">' + kingFig(P, Object.assign({cls: cls || ''}, kit), W) + '</g>';
     const SVG = (inner, cls) => '<svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"' + (cls ? ' class="' + cls + '"' : '') + '>' + DEFS + inner + '</svg>';
-    const DEFS = '<defs><linearGradient id="kgGd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6a4300"/><stop offset=".45" stop-color="#ffe9a0"/><stop offset=".7" stop-color="#ffd23f"/><stop offset="1" stop-color="#6a4300"/></linearGradient>'
+    const DEFS = '<defs><linearGradient id="kgCg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffbe0"/><stop offset=".22" stop-color="#ffe066"/><stop offset=".5" stop-color="#e9a915"/><stop offset=".78" stop-color="#8a5800"/><stop offset="1" stop-color="#ffd84a"/></linearGradient>'
+      + '<radialGradient id="kgCv" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#1fb85a"/><stop offset=".6" stop-color="#0a6a2e"/><stop offset="1" stop-color="#02301a"/></radialGradient>'
+      + '<radialGradient id="kgPe" cx=".35" cy=".3" r=".7"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#ece6f2"/><stop offset="1" stop-color="#9a90ac"/></radialGradient>'
+      + '<radialGradient id="kgEm" cx=".35" cy=".3" r=".7"><stop offset="0" stop-color="#b8ffd4"/><stop offset=".4" stop-color="#16c45e"/><stop offset="1" stop-color="#03401c"/></radialGradient>'
+      + '<radialGradient id="kgSa" cx=".35" cy=".3" r=".7"><stop offset="0" stop-color="#c8dcff"/><stop offset=".4" stop-color="#2a62e8"/><stop offset="1" stop-color="#061a5c"/></radialGradient></defs><defs><linearGradient id="kgGd" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6a4300"/><stop offset=".45" stop-color="#ffe9a0"/><stop offset=".7" stop-color="#ffd23f"/><stop offset="1" stop-color="#6a4300"/></linearGradient>'
       + '<radialGradient id="kgGl"><stop offset="0" stop-color="#fff6d0" stop-opacity=".95"/><stop offset=".35" stop-color="#ffd23f" stop-opacity=".45"/><stop offset="1" stop-color="#ffd23f" stop-opacity="0"/></radialGradient>'
       + '<radialGradient id="kgWh"><stop offset="0" stop-color="#fff"/><stop offset=".3" stop-color="#fff6d8" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>'
       + '<radialGradient id="kgWarm"><stop offset="0" stop-color="#ffb45a" stop-opacity=".5"/><stop offset="1" stop-color="#ffb45a" stop-opacity="0"/></radialGradient>'
@@ -14783,7 +14815,24 @@ function kingCinematic(r){
     const SPK = [['#5b3722', '#452818', '#120c08'], ['#8a5a3a', '#6e452a', '#1a110b'], ['#c98e62', '#a8734c', '#2a1a10'], ['#3e2416', '#2e1a10', '#0a0604'], ['#e0ae86', '#bc8c66', '#3a2616'], ['#7a4a2c', '#5e3820', '#120c08']];
     const SPP = [{t: 3, h: -8, a: [-6, 10], b: [8, 12], l: [3, 3, 0], m: [-5, 5, 0]}, {t: 40, h: 22, a: [10, 20], b: [20, 24], l: [8, 14, 0], m: [-14, 10, 6]}];
     const spirit = (x, y, sc, i, flip, front) => '<g class="kg-sp' + (front ? ' f' : '') + '" style="--i:' + i + '">' + (front ? '' : '<ellipse cx="' + x + '" cy="' + (y - 14) + '" rx="17" ry="44" fill="url(#kgWh)" opacity=".5"/>') + fig(x, y, sc, SPP, front ? SIL('#ffe2a0') : Object.assign({}, BRA, {num: '', ol: '', rim: '#ffffff', skin: SPK[i % 6][0], skind: SPK[i % 6][1], hair: SPK[i % 6][2], smile: false}), null, 'kf-sp', flip) + '</g>';
-    const CRN = (cls, x, y) => '<g' + (x != null ? ' transform="translate(' + x + ' ' + y + ')"' : '') + '><g class="' + cls + '"><circle r="15" fill="url(#kgGl)"/><path d="M-7.6 4.6 L-8.4 -4.4 L-4 -.6 L0 -7.6 L4 -.6 L8.4 -4.4 L7.6 4.6 Z" fill="url(#kgTg)" stroke="#6a4300" stroke-width=".8" stroke-linejoin="round"/><circle cy="1.6" r="1.3" fill="#18c46a"/><circle cx="-4.2" cy="2" r=".9" fill="#2a6aff"/><circle cx="4.2" cy="2" r=".9" fill="#2a6aff"/><circle cx="-8.4" cy="-4.8" r="1" fill="#fff0b0"/><circle cy="-8" r="1.1" fill="#fff0b0"/><circle cx="8.4" cy="-4.8" r="1" fill="#fff0b0"/></g></g>';
+    const CROWN = glow => { const pe = (x, y, r) => '<circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + r + '" fill="url(#kgPe)" stroke="#6a5a7a" stroke-width=".15"/>';
+      const arc = (x0, x1, top) => { let d = ''; for (let i = 1; i < 6; i++) { const t = i / 6, x = (1 - t) * (1 - t) * x0 + 2 * (1 - t) * t * (x0 * .9) + t * t * 0, y = (1 - t) * (1 - t) * -.4 + 2 * (1 - t) * t * (top + 1) + t * t * top; d += pe(x, y, .55); } return d; };
+      return (glow ? '<circle cy="-5" r="19" fill="url(#kgGl)" opacity=".9"/>' : '')
+        + '<path d="M-7.8 .2 Q-8.6 -10.4 0 -11.8 Q8.6 -10.4 7.8 .2 Z" fill="url(#kgCv)"/><path d="M-5.6 -6 Q-3 -10 1 -10.6" stroke="#5aff9a" stroke-width=".5" fill="none" opacity=".5"/>'
+        + '<path d="M-7.6 -.2 Q-7 -11 0 -12.2 Q7 -11 7.6 -.2" fill="none" stroke="#6a4300" stroke-width="2.1"/><path d="M-7.6 -.2 Q-7 -11 0 -12.2 Q7 -11 7.6 -.2" fill="none" stroke="url(#kgCg)" stroke-width="1.4"/>'
+        + '<path d="M0 -.2 V-12.2" stroke="#6a4300" stroke-width="2.1"/><path d="M0 -.2 V-12.2" stroke="url(#kgCg)" stroke-width="1.4"/>' + arc(-7.6, 0, -12.2) + arc(7.6, 0, -12.2) + [-3, -6, -9].map(y => pe(0, y, .55)).join('')
+        + '<circle cy="-14" r="2.1" fill="url(#kgCg)" stroke="#6a4300" stroke-width=".4"/><path d="M-2.1 -14 H2.1 M0 -16.1 V-11.9" stroke="#6a4300" stroke-width=".35"/><circle cx="-.7" cy="-14.7" r=".55" fill="#fff" opacity=".8"/>'
+        + star5(0, -18.6, 2.6, 'url(#kgCg)').replace('/>', ' stroke="#6a4300" stroke-width=".35"/>')
+        + '<path d="M-9.4 .4 L-9 -5.6 L-6.6 -1.8 L-4.6 -7.6 L-2.4 -2 L0 -9.4 L2.4 -2 L4.6 -7.6 L6.6 -1.8 L9 -5.6 L9.4 .4 Z" fill="url(#kgCg)" stroke="#6a4300" stroke-width=".5" stroke-linejoin="round"/>'
+        + '<path d="M-8.8 -.6 L-8.6 -4 M-4.4 -1 L-4.5 -5.6 M0 -1.2 V-7.4 M4.4 -1 L4.5 -5.6 M8.8 -.6 L8.6 -4" stroke="#fff6cc" stroke-width=".45" opacity=".75"/>'
+        + [[-9, -5.6, .85], [-4.6, -7.6, .95], [0, -9.4, 1.1], [4.6, -7.6, .95], [9, -5.6, .85]].map(([x, y, r]) => pe(x, y - .6, r)).join('')
+        + '<path d="M-1.1 -4.6 L0 -6.4 L1.1 -4.6 L0 -2.8 Z" fill="url(#kgEm)"/><path d="M-5.4 -3.6 L-4.6 -5 L-3.8 -3.6 L-4.6 -2.4 Z" fill="url(#kgSa)"/><path d="M3.8 -3.6 L4.6 -5 L5.4 -3.6 L4.6 -2.4 Z" fill="url(#kgSa)"/>'
+        + '<path d="M-9.6 0 H9.6 L9 5.2 H-9 Z" fill="url(#kgCg)" stroke="#6a4300" stroke-width=".5"/><path d="M-9.4 .9 H9.4 M-9.1 4.3 H9.1" stroke="#7a4c00" stroke-width=".35"/><path d="M-9.3 1.3 H9.3" stroke="#fff6cc" stroke-width=".3" opacity=".8"/>'
+        + [-8.2, -6.6, -2.4, 2.4, 6.6, 8.2].map(x => pe(x, 2.6, .5)).join('')
+        + '<ellipse cy="2.6" rx="1.5" ry="1.7" fill="url(#kgEm)" stroke="#6a4300" stroke-width=".3"/><ellipse cx="-4.5" cy="2.6" rx="1.2" ry="1.3" fill="url(#kgSa)" stroke="#6a4300" stroke-width=".3"/><ellipse cx="4.5" cy="2.6" rx="1.2" ry="1.3" fill="url(#kgSa)" stroke="#6a4300" stroke-width=".3"/>'
+        + '<circle cx="-.5" cy="1.9" r=".4" fill="#fff" opacity=".9"/><circle cx="-4.9" cy="2" r=".3" fill="#fff" opacity=".9"/><circle cx="4.1" cy="2" r=".3" fill="#fff" opacity=".9"/>'
+        + '<path class="kg-glint" d="M6 -1 l.5 -2 l.5 2 l2 .5 l-2 .5 l-.5 2 l-.5 -2 l-2 -.5 Z" fill="#fff"/>'; };
+    const CRN = (cls, x, y) => '<g' + (x != null ? ' transform="translate(' + x + ' ' + y + ')"' : '') + '><g class="' + cls + '">' + CROWN(true) + '</g></g>';
     const CARRY = WALK.map(p => Object.assign({}, p, {a: [52, 78], b: [48, 74]}));
     const k7 = SVG('<defs><linearGradient id="kgSk7" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1650"/><stop offset=".28" stop-color="#a8502e"/><stop offset=".6" stop-color="#ffc462"/><stop offset="1" stop-color="#fff0c8"/></linearGradient>'
       + '<linearGradient id="kgTg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6cc"/><stop offset=".4" stop-color="#ffd23f"/><stop offset="1" stop-color="#9a6400"/></linearGradient>'
@@ -14835,16 +14884,42 @@ function kingCinematic(r){
       + '<g class="mg-crown3"><g>' + CRN('mg-ci') + '</g></g></g>' + ball('mg-ball3') + '</g>');
     /* ---- The Blessed: a hand of light takes the crown; then Mexico City, 22 June 1986 ---- */
     const ARG = {skin: '#c98e62', skind: '#a8734c', hair: '#0e0a08', curl: true, shirt: '#2a52b8', shirtd: '#1c3a8a', trim: '#f6f7fa', shorts: '#14161c', shortsd: '#0a0b0e', sock: '#f6f7fa', sockd: '#c4cad6', band: '#75bde9', num: '10', numc: '#f6f7fa', rim: '#fff6c8'};
-    const top = (x, y, c, h, cls, extra) => '<g transform="translate(' + x + ' ' + y + ')"><g class="' + cls + '"><ellipse cx="1.4" cy="2.4" rx="8" ry="5" fill="#000" opacity=".3"/>' + (extra || '') + '<ellipse rx="7.4" ry="4.6" fill="' + c + '" stroke="#0a0a0a" stroke-width=".6"/><circle r="3.5" fill="' + h + '" stroke="#0a0a0a" stroke-width=".5"/></g></g>';
+    /* Ronaldinho: the standoff. Close, low, slow: his sole on the ball, a defender crouched in front of him, and a glint in the sky */
+    const bokeh = n => Array.from({length: n}, () => '<circle cx="' + f1(R() * 400) + '" cy="' + f1(R() * 150) + '" r="' + f1(5 + R() * 18) + '" fill="' + (R() < .7 ? '#fff6e0' : '#ffd23f') + '" opacity="' + f1(.05 + R() * .14) + '"/>').join('');
+    const m25 = SVG('<rect width="400" height="260" fill="#05050b"/>' + bokeh(34) + '<circle class="m25-glint" cx="214" cy="26" r="16" fill="url(#kgWh)"/>'
+      + '<g class="m25-cam"><rect y="182" width="400" height="90" fill="#0f3a1c"/>' + Array.from({length: 6}, (_, i) => '<rect x="' + (i * 80 - 20) + '" y="182" width="40" height="90" fill="#134824"/>').join('')
+      + '<path d="M150 -20 H250 L350 270 H50 Z" fill="url(#kgRay)" opacity=".42"/><ellipse cx="156" cy="205" rx="34" ry="4.4" fill="#000" opacity=".55"/><ellipse cx="284" cy="205" rx="40" ry="5" fill="#000" opacity=".55"/>'
+      + '<g class="m25-ron">' + fig(140, 134, 1.4, [{t: 4, h: -4, a: [-26, 30], b: [22, 30], l: [30, 30, -14], m: [-6, 6, 0]}, {t: 0, h: -12, a: [-34, 24], b: [28, 24], l: [30, 30, -14], m: [-6, 6, 0]}], Object.assign({}, BARC, {cls: 'kf-m25'})) + '</g>'
+      + '<g transform="translate(160 197.8)"><g class="m25-ball"><circle r="6.4" fill="#f6f1e4" stroke="#1a120a" stroke-width="1.2"/><path d="M-2.8 -2.2 L2.2 -3 L3.6 1.4 L0 3.6 L-3.6 1.4 Z" fill="#3a2a1a"/></g></g>'
+      + '<g class="m25-def">' + fig(290, 141, 1.35, [{t: 24, h: -14, a: [-44, 64], b: [40, 60], l: [30, 48, -14], m: [-14, 40, 8]}, {t: 32, h: -20, a: [-60, 70], b: [52, 66], l: [36, 56, -16], m: [-20, 44, 10]}], RMA, null, 'kf-m25d', true) + '</g></g>');
+    /* Maradona: the tunnel. A short man in blue walking toward a wall of light, camera tracking beside him */
+    const b25 = SVG('<defs><linearGradient id="b25L" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff6d8" stop-opacity="0"/><stop offset=".35" stop-color="#fff6d8"/><stop offset="1" stop-color="#ffffff"/></linearGradient>'
+        + '<linearGradient id="b25F" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#ffe9b0" stop-opacity=".6"/><stop offset="1" stop-color="#ffe9b0" stop-opacity="0"/></linearGradient></defs>'
+      + '<rect width="400" height="260" fill="#060508"/><g class="b25-world">'
+      + '<rect x="-20" y="30" width="760" height="18" fill="#141218"/><rect x="-20" y="212" width="760" height="60" fill="#0e0c10"/>'
+      + Array.from({length: 11}, (_, i) => '<rect x="' + (i * 60) + '" y="48" width="6" height="164" fill="#0a090c"/><rect x="' + (i * 60 + 14) + '" y="36" width="26" height="4" rx="2" fill="#fff3d0" opacity=".85"/><path d="M' + (i * 60 + 14) + ' 40 L' + (i * 60 + 2) + ' 212 H' + (i * 60 + 52) + ' L' + (i * 60 + 40) + ' 40 Z" fill="#fff3d0" opacity=".045"/>').join('')
+      + '<rect x="520" y="30" width="240" height="190" fill="url(#b25L)"/><circle cx="560" cy="130" r="160" fill="url(#kgWh)" opacity=".85"/><path d="M520 212 H760 V272 H160 Z" fill="url(#b25F)"/></g>'
+      + '<ellipse cx="150" cy="213" rx="24" ry="3" fill="#000" opacity=".6"/><g class="b25-me">' + fig(150, 150.5, 1.25, [{t: 3, h: -6, a: [-6, 10], b: [8, 12], l: [3, 3, 0], m: [-5, 5, 0]}], Object.assign({curl: true}, SIL('#ffe9b0')), WALK, 'kf-b25') + '</g>'
+      + '<rect class="b25-white" width="400" height="260" fill="#fffdf2"/>');
+    /* Maradona: the run, rebuilt as a broadcast shot. The camera tracks him from his own half; six England shirts come and go */
+    const ENGK = {skin: '#e6b68c', skind: '#c4946c', hair: '#5a3a1c', shirt: '#f6f7fa', shirtd: '#d4d8e0', trim: '#1a2a5a', shorts: '#1a2a5a', shortsd: '#121e44', sock: '#f6f7fa', sockd: '#d4d8e0', band: '#c8102e', smile: false};
+    const DX = [330, 470, 610, 760, 900], KX = 1110, GX = 1200, RUNW = 930;
+    const DP = [{t: 14, h: -8, a: [-36, 56], b: [34, 56], l: [26, 36, -8], m: [-18, 30, 6]}, {t: 40, h: 4, a: [54, 30], b: [10, 40], l: [64, 70, -18], m: [-36, 30, 18]}, {t: 72, h: -20, a: [120, 20], b: [100, 30], l: [24, 44, 20], m: [-34, 20, 30]}];
     const WAY = [[84, 196], [112, 180], [150, 186], [196, 160], [238, 150], [282, 128], [322, 136], [352, 116]];
-    const ENG = [[100, 184], [126, 196], [190, 170], [246, 140], [290, 138], [346, 128]];
-    const b3 = SVG('<rect width="400" height="260" fill="#14100c"/>' + dots(900, 0, 400, 20, 62, ['#75bde9', '#f6f7fa', '#e0503a', '#ffdf00', '#3a2a20', '#f6f7fa'], 2.2, .7) + dots(700, 0, 400, 214, 250, ['#75bde9', '#f6f7fa', '#e0503a', '#ffdf00', '#3a2a20', '#f6f7fa'], 2.2, .7)
-      + '<rect x="-10" y="66" width="420" height="146" fill="#3f8c3a"/>' + Array.from({length: 9}, (_, i) => '<rect x="' + (i * 48 - 10) + '" y="66" width="24" height="146" fill="#49a044"/>').join('')
-      + '<g fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.3"><rect x="-10" y="72" width="396" height="134"/><path d="M96 72 V206"/><circle cx="96" cy="139" r="22"/><rect x="326" y="96" width="60" height="86"/><rect x="364" y="120" width="22" height="38"/><path d="M326 124 A22 22 0 0 0 326 154"/></g><rect x="386" y="128" width="7" height="22" fill="none" stroke="#fff" stroke-width="1.6"/>'
-      + '<path class="b3-trail" d="M' + WAY.map(p => p.join(' ')).join(' L') + ' L390 138" pathLength="100" stroke="#ffe9a0" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>'
-      + ENG.map(([x, y], i) => top(x, y, i === 5 ? '#8a94a0' : '#f6f7fa', i % 2 ? '#3a2616' : '#c8a04a', 'b3-e e' + i)).join('') + top(300, 96, '#2a52b8', '#1a120c', 'b3-x') + top(232, 190, '#2a52b8', '#1a120c', 'b3-x')
-      + '<g class="b3-me">' + top(0, 0, '#2a52b8', '#0e0a08', 'b3-m', '<circle r="15" fill="url(#kgGl)"/>') + '<circle cx="9" cy="-2" r="2.4" fill="#fff" stroke="#111" stroke-width=".5"/></g>'
-      + '<g class="b3-ball"><g><circle r="2.4" fill="#fff" stroke="#111" stroke-width=".5"/></g></g>');
+    const b3 = SVG('<rect width="400" height="260" fill="#0e0c0a"/><g transform="translate(0 -26)">'
+      + '<g class="b3-bg"><rect x="-10" y="0" width="760" height="124" fill="#2a2018"/>' + dots(1500, -10, 750, 6, 104, ['#75bde9', '#f6f7fa', '#e0503a', '#ffdf00', '#3a2a20', '#f6f7fa', '#1f3f9a'], 2.4, .8)
+        + '<rect x="-10" y="104" width="760" height="10" fill="#efe4cc"/>' + Array.from({length: 13}, (_, i) => '<rect x="' + (i * 58) + '" y="105.5" width="50" height="7" fill="' + ['#d8262e', '#1f55c8', '#2a2a2a', '#009c3b'][i % 4] + '" opacity=".8"/>').join('') + '</g>'
+      + '<g class="b3-world"><rect x="-10" y="114" width="1420" height="160" fill="#3f8c3a"/>' + Array.from({length: 18}, (_, i) => '<path d="M' + (i * 80) + ' 114 h40 l-20 160 h-40 Z" fill="#49a044"/>').join('')
+        + '<g fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.6"><path d="M-10 122 H1400"/><path d="M180 122 L150 274"/><ellipse cx="166" cy="190" rx="60" ry="16"/><path d="M1080 122 L1040 274"/><path d="M1150 122 L1126 274"/><path d="M1056 198 Q1030 210 1050 228"/></g>'
+        + goalR('b3-net', GX, 232)
+        + DX.map((x, i) => '<g class="b3-e e' + i + '">' + fig(x, 182 - (i % 2) * 6, .9 - (i % 2) * .05, DP, ENGK, null, 'kf-e' + i, true) + '</g>').join('')
+        + '<g class="b3-k">' + fig(KX, 182, .92, [{t: 10, h: -10, a: [40, 60], b: [-30, 60], l: [20, 30, 0], m: [-14, 26, 0]}, {t: 64, h: -24, a: [130, 10], b: [110, 20], l: [-20, 30, 30], m: [-40, 40, 30]}, {t: 88, h: -10, a: [150, 10], b: [120, 20], l: [-10, 20, 30], m: [-30, 30, 30]}], GK('#8a94a0'), null, 'kf-bk3', true) + '</g></g>'
+      + '<g class="b3-me">' + fig(150, 182, .92, [{t: 16, h: -6, a: [40, 84], b: [-40, 84], l: [10, 30, 8], m: [-14, 24, 8]}, {t: -6, h: -14, a: [168, 8], b: [150, 14], l: [4, 2, 0], m: [-6, 6, 4]}], ARG, RUN, 'kf-b3') + '</g>'
+      + ball('b3-ball', 5.6) + '</g>'
+      + '<g class="b3-bug" transform="translate(146 36)"><rect x="10" y="10" width="142" height="20" rx="3" fill="#0a0a12" opacity=".86"/><rect x="10" y="10" width="4" height="20" fill="#75bde9"/><text x="20" y="24" font-family="Teko, sans-serif" font-weight="700" font-size="11" fill="#fff">ARG <tspan class="b3-s" fill="#ffd23f">1</tspan> – 0 ENG</text><text x="146" y="24" text-anchor="end" font-family="Teko, sans-serif" font-weight="700" font-size="11" fill="#ffd23f">55’</text></g>'
+      + '<g class="b3-map" transform="translate(304 46)"><rect width="90" height="58" rx="3" fill="#0a0a12" opacity=".82"/><g transform="translate(3 3) scale(.212 .388) translate(10 -72)"><rect x="-10" y="72" width="396" height="134" fill="#2e7a32"/><g fill="none" stroke="#fff" stroke-opacity=".6" vector-effect="non-scaling-stroke"><rect x="-10" y="72" width="396" height="134" vector-effect="non-scaling-stroke"/><path d="M96 72 V206" vector-effect="non-scaling-stroke"/><rect x="326" y="96" width="60" height="86" vector-effect="non-scaling-stroke"/></g>'
+        + '<path class="b3-trail" d="M' + WAY.map(p => p.join(' ')).join(' L') + ' L386 140" pathLength="100" stroke="#ffe9a0" stroke-width="2" vector-effect="non-scaling-stroke" fill="none"/>' + [[112, 182], [150, 190], [196, 164], [238, 146], [282, 132], [352, 120]].map(([x, y], i) => '<circle class="b3-me' + i + '" cx="' + x + '" cy="' + y + '" r="6" fill="#f6f7fa"/>').join('')
+        + '<circle class="b3-dot" cx="84" cy="196" r="7" fill="#ffd23f" stroke="#2a52b8" stroke-width="2.4"/></g></g>');
     const WING = (cls, o) => '<path class="w ' + cls + '" opacity="' + o + '" d="M0 0 Q-22 -40 -70 -38 Q-58 -30 -56 -22 Q-48 -20 -46 -12 Q-38 -10 -36 -3 Q-28 -2 -24 5 Q-12 8 0 6 Z" fill="url(#kgHg)" stroke="#fff6d0" stroke-width="1"/>';
     const b4 = SVG(SKY5 + '<g transform="translate(0 -14)">' + azteca() + goalR('bl-net', 330, 228)
       + '<rect class="b4-dim" width="400" height="280" fill="#0a0612"/><circle class="b4-aura" cx="220" cy="100" r="110" fill="url(#kgGl)"/><rect class="b4-beam" x="182" y="-20" width="76" height="320" fill="url(#kgRay)"/>'
@@ -14886,12 +14961,14 @@ function kingCinematic(r){
         + '<div class="kg-cap n kg-last"><small id="kgC6c">Edson Arantes do Nascimento · 1940 – 2022</small><p id="kgC6d">The man was mortal.</p><p id="kgC6e" class="g big">The King is not.</p></div></section>'
       + '<section class="gt-s kg-s kg-7">' + k7 + '<div class="kg-cap sw n t"><p id="kgC7a">Everyone who ever wore the shirt stood aside.</p><p id="kgC7b">One of them carried the crown.</p><p id="kgC7c" class="g big">O Rei.</p><p id="kgC7m">The crown was a breath from his head.</p><p id="kgC7n" class="g">Then a ball came out of nowhere.</p></div></section>'
       + '<section class="gt-s kg-s kg-m2">' + m2 + '<div class="kg-cap sw n"><p id="kgM2a">It fell out of the seventh sky.</p></div><div class="kg-cap sw c kg-mid"><p id="kgB2a" class="big">Who was that?</p><p id="kgB2b" class="g big">Was it the hand of God?</p></div></section>'
-      + '<section class="gt-s kg-s kg-b3">' + b3 + '<div class="kg-cap sw n t"><small id="kgB3s">Estadio Azteca, Mexico City · 22 June 1986 · World Cup quarter-final</small><p id="kgB3a">He took the ball in his own half.</p><p id="kgB3b">Went past half of England. Scored.</p><p id="kgB3c" class="g">They call it the Goal of the Century.</p></div></section>'
+      + '<section class="gt-s kg-s kg-m25">' + m25 + '<div class="kg-cap sw n"><p id="kgM25a">One defender. One ball.</p><p id="kgM25b">And something still falling out of the sky.</p><p id="kgM25c" class="g big">He smiled.</p></div></section>'
+      + '<section class="gt-s kg-s kg-b25">' + b25 + '<div class="kg-cap sw n"><small id="kgB25s">Estadio Azteca, Mexico City · 22 June 1986 · World Cup quarter-final</small><p id="kgB25a">Argentina against England.</p><p id="kgB25b" class="g">Five foot five. Walking toward the light.</p></div></section>'
+      + '<section class="gt-s kg-s kg-b3">' + b3 + '<div class="kg-cap sw n t"><small id="kgB3s">The 55th minute · Argentina lead 1 – 0</small><p id="kgB3a">He took the ball in his own half.</p><p id="kgB3b">Went past half of England. Scored.</p><p id="kgB3c" class="g">They call it the Goal of the Century.</p></div></section>'
       + '<section class="gt-s kg-s kg-b4">' + b4 + '<div class="kg-cap sw n"><small id="kgB4s">Same match · four minutes earlier</small><p id="kgB4a">A ball went up between him and a taller goalkeeper.</p><p id="kgB4b">He was five foot five. He went up anyway.</p><p id="kgB4c" class="g">And something lifted him.</p><p id="kgB4d">Argentina 2 – 1 England.</p><p id="kgB4e" class="g">Seven days later, they were champions of the world.</p></div><div class="kg-dimq"></div>'
         + '<blockquote class="kg-quote"><p>“A little with the head of Maradona, and a little with the hand of God.”</p><cite>Diego Maradona · after the match · 22 June 1986</cite></blockquote></section>'
       + '<section class="gt-s kg-s kg-m3">' + m3 + '<div class="kg-cap sw n t"><small id="kgM3s">Santiago Bernabéu, Madrid · 19 November 2005</small><p id="kgM3a">Down there, someone was already making fools of everyone.</p><p id="kgM3b">Two goals. Barcelona 3, Real Madrid 0.</p><p id="kgM3c" class="g">The Madrid crowd applauded him.</p><p id="kgM3e">Then the sky dropped something on his head.</p><p id="kgM3f" class="g big">He put it on. And smiled.</p></div><div class="kg-sb kg-bdo" id="kgM3d">BALLON D’OR · 2005</div></section>'
       + '<section class="gt-s kg-s kg-8">' + FLAG + '<div class="kg-rays gold"></div><div class="kg-beam"></div><div class="su-rv kg-rv"><div class="kg-stars3">' + starSVG + starSVG + starSVG + '</div>'
-        + '<div class="kg-crown"><svg viewBox="0 0 60 36"><defs><linearGradient id="kgCr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6a4300"/><stop offset=".45" stop-color="#fff0b0"/><stop offset=".7" stop-color="#ffd23f"/><stop offset="1" stop-color="#6a4300"/></linearGradient></defs><path d="M5 32 L3 9 L16 20 L30 2 L44 20 L57 9 L55 32 Z" fill="url(#kgCr)" stroke="#6a4300" stroke-width="1.4" stroke-linejoin="round"/><circle cx="30" cy="23" r="3.4" fill="#18c46a"/><circle cx="16" cy="26" r="2.4" fill="#2a6aff"/><circle cx="44" cy="26" r="2.4" fill="#2a6aff"/><circle cx="3" cy="8" r="2" fill="#fff0b0"/><circle cx="30" cy="2" r="2.2" fill="#fff0b0"/><circle cx="57" cy="8" r="2" fill="#fff0b0"/></svg></div>'
+        + '<div class="kg-crown"><svg viewBox="-12 -22 24 28">' + DEFS + CROWN(false) + '</svg></div>'
         + '<div class="kg-art"><span class="gt-foil kg-foil"></span></div><h2 class="kg-h2">' + title + '</h2><div class="kg-sub">CHROMA · ONE OF ONE</div><div class="kg-tag">' + (bl ? 'D10S' : mg ? 'O Bruxo.' : 'Long live the King.') + '</div><div class="gt-val kg-val"><span class="coin"></span><span id="kgVal">0</span></div><div class="gt-tap">tap to continue</div></div></section>'
       + '<button class="pc-skip gt-skip">Skip ››</button>';
     const src = artHi(it, wearIdx(r.fl)), art = q('.kg-art');
@@ -15048,7 +15125,7 @@ function kingCinematic(r){
     const say = id => { const e = q(id); if (!e) return; if (e.parentNode.classList.contains('sw')) e.parentNode.querySelectorAll('p').forEach(x => x.classList.remove('on')); e.classList.add('on'); };
 
     let R0 = 0;
-    if (!mg && !bl) {
+    {
     /* 1. the radio, his father, the promise */
     T(200, () => { go('k1'); level(.2, .01); em.dust = 1; crowd(.07, .3); choir(73.42, 7, .5, 0, true); choir(110, 7, .3, 0, true); });
     for (let i = 0; i < 9; i++) T(260 + i * 170, () => hit('highpass', 2400 + Rr() * 2600, 1800, .12 + Rr() * .1, .05 + Rr() * .05, 0, 2));
@@ -15137,6 +15214,7 @@ function kingCinematic(r){
     T(A0 + BARMS * 8 + 7600, () => { add('white'); crash(.5); });
     /* 7. the throne */
     const TH0 = A0 + BARMS * 8 + 8200;
+    if (!mg && !bl) {
     T(TH0, () => { go('k7'); off('.kg-6 .kg-cap *'); level(.5, .3); lv.bat = 0; parts = []; em.dust = 2; choir(146.83, 4, .7, 0, true); choir(220, 4, .5, 0, true); });
     T(TH0 + 450, () => rm('white'));
     T(TH0 + 900, () => { add('th-walk'); q('.kf-r9').classList.add('walk'); say('#kgC7a'); });
@@ -15154,86 +15232,107 @@ function kingCinematic(r){
     T(TH0 + 13800, () => { add('white'); crash(.5); });
     R0 = TH0 + 14400;
     } else {
-      /* The Magician */
-      const M3 = 12600, BM = mover('.mg-ball3'), CR = mover('.mg-crown3');
+      /* The Magician and The Blessed: the whole Pelé film plays first, then the crowning is interrupted */
+      const Tm = (ms, f) => T(ms + TH0 - 200, f);
+      const M3 = 19400, MS = 12600, BM = mover('.mg-ball3'), CR = mover('.mg-crown3');
       const HX = (x, ms) => { const e = q('.mg-h'); e.style.transition = 'transform ' + ms + 'ms linear'; e.style.transform = 'translateX(' + (x - 60) + 'px)'; };
       const spark = (x, y, n) => { const k = Math.max(W / 400, H / 260); burst(n || 30, W / 2 + (x - 200) * k, H / 2 + (y - 138) * k, ['#ffd23f', '#fff6cc', '#ffffff', '#b98cff'], .5); bell(1760 + Rr() * 600, .14); };
-      T(200, () => { go('k7'); add('mgq'); level(.5, .01); mode = 'fin'; seqReset(); em.dust = 2; add('th-walk'); q('.kf-r9').classList.add('walk'); choir(146.83, 4, .7, 0, true); say('#kgC7m'); });
-      T(1750, () => add('th-climb'));
-      T(2800, () => { q('.kf-r9').classList.remove('walk'); pose('.kf-r9', 1); add('th-offer'); riser(1.5, .3); [0, .3, .6, .85, 1.05, 1.2, 1.32].forEach(dd => timp(.3 + dd * .3, dd)); level(.8, 1); });
-      T(4300, () => { add('mg-kick'); hit('bandpass', 400, 3000, .3, .3, 0, 2); });
-      T(4620, () => { add('mg-hit'); flash(); quake(); thwack(1); crash(.6); timp(1); pose('.kf-r9', 0); mode = 'x'; lv.bat = 0; say('#kgC7n'); burst(70, W * .6, H * .28, ['#ffd23f', '#fff6cc', '#ffffff']);
+      Tm(200, () => { go('k7'); off('.kg-6 .kg-cap *'); later(450, () => rm('white')); add('mgq'); level(.5, .01); mode = 'fin'; seqReset(); em.dust = 2; add('th-walk'); q('.kf-r9').classList.add('walk'); choir(146.83, 4, .7, 0, true); say('#kgC7m'); });
+      Tm(1750, () => add('th-climb'));
+      Tm(2800, () => { q('.kf-r9').classList.remove('walk'); pose('.kf-r9', 1); add('th-offer'); riser(1.5, .3); [0, .3, .6, .85, 1.05, 1.2, 1.32].forEach(dd => timp(.3 + dd * .3, dd)); level(.8, 1); });
+      Tm(4300, () => { add('mg-kick'); hit('bandpass', 400, 3000, .3, .3, 0, 2); });
+      Tm(4620, () => { add('mg-hit'); flash(); quake(); thwack(1); crash(.6); timp(1); pose('.kf-r9', 0); mode = 'x'; lv.bat = 0; say('#kgC7n'); burst(70, W * .6, H * .28, ['#ffd23f', '#fff6cc', '#ffffff']);
         if (snd) { const t = at(.05), a = eg(.3, t, .01, .5, .2), o = os('sawtooth', 700, t, .8, a); o.frequency.exponentialRampToValueAtTime(60, t + .7); out(a, hMid); } });
-      T(6500, () => { go('m2'); off('.kg-7 .kg-cap *'); em.dust = 0; em.rise = 2; level(.6, .3); riser(5.6, .3); say('#kgM2a'); choir(220, 5, .5, 0, true); choir(329.63, 5, .4, 0, true); });
+      Tm(6500, () => { go('m2'); off('.kg-7 .kg-cap *'); em.dust = 0; em.rise = 2; level(.6, .3); riser(5.6, .3); say('#kgM2a'); choir(220, 5, .5, 0, true); choir(329.63, 5, .4, 0, true); });
       if (mg) {
-      T(9300, () => add('mg-wp'));
-      T(10150, () => { add('mg-low'); crowd(.2, 1.5); });
-      T(11500, () => add('mg-drop'));
-      T(M3, () => { go('m3'); off('.kg-m2 .kg-cap *'); em.rise = 0; parts = []; mode = 'dm'; seqReset(); lv.bat = 1; lv.ost = 1; level(.8, .2); crowd(.24); BM.set(76, 208); on('#kgM3s'); say('#kgM3a'); q('.kf-mh3').classList.add('walk'); HX(126, 1000); BM.to(142, 208, 1000); });
-      T(M3 + 1000, () => { pose('.kf-md1', 1); BM.to(160, 208, 140); later(150, () => BM.to(136, 208, 140)); thwack(.3); spark(150, 204); });
-      T(M3 + 1350, () => { pose('.kf-md1', 2); add('d1dn'); HX(208, 900); BM.to(224, 208, 900); });
-      T(M3 + 2250, () => { pose('.kf-md2', 1); add('mgv'); spark(228, 200, 44); HX(264, 800); });
-      T(M3 + 2700, () => { BM.set(282, 208); rm('mgv'); spark(282, 204, 44); pose('.kf-md2', 2); add('d2dn'); });
-      T(M3 + 3100, () => { q('.kf-mh3').classList.remove('walk'); pose('.kf-mh3', 1); });
-      T(M3 + 3300, () => { pose('.kf-mh3', 2); thwack(.8); BM.to(374, 186, 150); pose('.kf-mgk', 1); });
-      T(M3 + 3460, () => { add('mg-goal'); level(1, .02); flash(); quake(); timp(1); timp(.8, .16); crash(.5); sub(.7); roar(1, 6); whistle(.1); lv.th = 1; lv.pad = .6; fanfare([293.66, 369.99, 440, 587.33], 1.1, .2); PAL = ['#a50044', '#004d98', '#ffd23f', '#ffffff']; burst(110, W * .85, H * .5); });
-      T(M3 + 3900, () => pose('.kf-mh3', 3));
-      T(M3 + 4500, () => say('#kgM3b'));
-      T(M3 + 7200, () => { say('#kgM3c'); add('mg-clap'); });
-      T(M3 + 9600, () => { on('#kgM3d'); timp(.8); bell(1174.66, .24); bell(1760, .16, .08); });
-      T(M3 + 10900, () => { add('mg-zoom'); off('#kgM3d'); lv.bat = .3; lv.th = 0; lv.ost = 0; lv.pad = 0; level(.5, .4); crowd(.05, .8); pose('.kf-mh3', 0); });
-      T(M3 + 11800, () => { CR.set(266, -40); add('mg-cr'); CR.to(266, 121, 420, 0, 'cubic-bezier(.6,0,1,.7)'); hit('bandpass', 3000, 500, .4, .2); });
-      T(M3 + 12220, () => { pose('.kf-mh3', 6); thwack(.7); bell(2093, .22); flash('#fff3c0'); CR.to(292, 206, 520, 30); say('#kgM3e'); });
-      T(M3 + 12760, () => { add('mg-land'); timp(.8); sub(.6); });
-      T(M3 + 13900, () => { q('.kf-mh3').classList.add('walk'); HX(274, 500); });
-      T(M3 + 14400, () => { q('.kf-mh3').classList.remove('walk'); pose('.kf-mh3', 4); });
-      T(M3 + 14900, () => { pose('.kf-mh3', 5); CR.to(277, 116, 500, 0, 'cubic-bezier(.3,0,.3,1)'); riser(1, .3); });
-      T(M3 + 15500, () => { pose('.kf-mh3', 3); CR.to(275.6, 124.6, 200); });
-      T(M3 + 15720, () => { add('mg-on'); level(1, .02); flash(); quake(); timp(1); timp(.9, .2); crash(.6); sub(.8); roar(.8, 5); mode = 'fin'; seqReset(); lv.bat = .8; lv.pad = 1; say('#kgM3f'); spark(276, 124, 70);
+      Tm(9300, () => add('mg-wp'));
+      Tm(10150, () => { add('mg-low'); crowd(.2, 1.5); });
+      Tm(11500, () => add('mg-drop'));
+      const beat = v => { heart(v); if (!REDUCED) restart(ov, 'kbeat'); };
+      Tm(MS, () => { go('m25'); off('.kg-m2 .kg-cap *'); em.rise = 0; parts = []; mode = 'x'; lv.bat = 0; lv.ost = 0; level(.45, .3); crowd(.03, .3); em.dust = 1; choir(55, 6.6, .8, 0, true); choir(82.41, 6.6, .4, 0, true); say('#kgM25a'); });
+      [400, 1300, 2100, 2800, 3400, 3900, 4300, 4650].forEach((t, i) => Tm(MS + t, () => { beat(1.1 + i * .18); restart(q('.m25-ball'), 'roll'); }));
+      Tm(MS + 2500, () => { say('#kgM25b'); add('m25g'); bell(2637, .1); bell(3520, .07, .12); });
+      Tm(MS + 4400, () => pose('.kf-m25d', 1));
+      Tm(MS + 5000, () => { add('m25face'); pose('.kf-m25', 1); say('#kgM25c'); riser(1.6, .3); bell(1174.66, .2); bell(1760, .16, .1); });
+      Tm(MS + 6600, () => { flash(); em.dust = 0; });
+      Tm(M3, () => { go('m3'); off('.kg-m25 .kg-cap *'); em.rise = 0; parts = []; rm('m25face'); mode = 'dm'; seqReset(); lv.bat = 1; lv.ost = 1; level(.8, .2); crowd(.24); BM.set(76, 208); on('#kgM3s'); say('#kgM3a'); q('.kf-mh3').classList.add('walk'); HX(126, 1000); BM.to(142, 208, 1000); });
+      Tm(M3 + 1000, () => { pose('.kf-md1', 1); BM.to(160, 208, 140); later(150, () => BM.to(136, 208, 140)); thwack(.3); spark(150, 204); });
+      Tm(M3 + 1350, () => { pose('.kf-md1', 2); add('d1dn'); HX(208, 900); BM.to(224, 208, 900); });
+      Tm(M3 + 2250, () => { pose('.kf-md2', 1); add('mgv'); spark(228, 200, 44); HX(264, 800); });
+      Tm(M3 + 2700, () => { BM.set(282, 208); rm('mgv'); spark(282, 204, 44); pose('.kf-md2', 2); add('d2dn'); });
+      Tm(M3 + 3100, () => { q('.kf-mh3').classList.remove('walk'); pose('.kf-mh3', 1); });
+      Tm(M3 + 3300, () => { pose('.kf-mh3', 2); thwack(.8); BM.to(374, 186, 150); pose('.kf-mgk', 1); });
+      Tm(M3 + 3460, () => { add('mg-goal'); level(1, .02); flash(); quake(); timp(1); timp(.8, .16); crash(.5); sub(.7); roar(1, 6); whistle(.1); lv.th = 1; lv.pad = .6; fanfare([293.66, 369.99, 440, 587.33], 1.1, .2); PAL = ['#a50044', '#004d98', '#ffd23f', '#ffffff']; burst(110, W * .85, H * .5); });
+      Tm(M3 + 3900, () => pose('.kf-mh3', 3));
+      Tm(M3 + 4500, () => say('#kgM3b'));
+      Tm(M3 + 7200, () => { say('#kgM3c'); add('mg-clap'); });
+      Tm(M3 + 9600, () => { on('#kgM3d'); timp(.8); bell(1174.66, .24); bell(1760, .16, .08); });
+      Tm(M3 + 10900, () => { add('mg-zoom'); off('#kgM3d'); lv.bat = .3; lv.th = 0; lv.ost = 0; lv.pad = 0; level(.5, .4); crowd(.05, .8); pose('.kf-mh3', 0); });
+      Tm(M3 + 11800, () => { CR.set(266, -40); add('mg-cr'); CR.to(266, 121, 420, 0, 'cubic-bezier(.6,0,1,.7)'); hit('bandpass', 3000, 500, .4, .2); });
+      Tm(M3 + 12220, () => { pose('.kf-mh3', 6); thwack(.7); bell(2093, .22); flash('#fff3c0'); CR.to(292, 206, 520, 30); say('#kgM3e'); });
+      Tm(M3 + 12760, () => { add('mg-land'); timp(.8); sub(.6); });
+      Tm(M3 + 13900, () => { q('.kf-mh3').classList.add('walk'); HX(274, 500); });
+      Tm(M3 + 14400, () => { q('.kf-mh3').classList.remove('walk'); pose('.kf-mh3', 4); });
+      Tm(M3 + 14900, () => { pose('.kf-mh3', 5); CR.to(277, 116, 500, 0, 'cubic-bezier(.3,0,.3,1)'); riser(1, .3); });
+      Tm(M3 + 15500, () => { pose('.kf-mh3', 3); CR.to(275.6, 124.6, 200); });
+      Tm(M3 + 15720, () => { add('mg-on'); level(1, .02); flash(); quake(); timp(1); timp(.9, .2); crash(.6); sub(.8); roar(.8, 5); mode = 'fin'; seqReset(); lv.bat = .8; lv.pad = 1; say('#kgM3f'); spark(276, 124, 70);
         fanfare([293.66, 369.99, 440, 587.33, 739.99, 880], 2.6, .2); [587.33, 739.99, 880, 1174.66, 1479.98].forEach((f, i) => bell(f, .2, i * .09, 2.4)); });
-      T(M3 + 18200, () => { rm('mg-zoom'); add('mg-up'); riser(2.4, .4); em.rise = 3; [293.66, 440, 587.33, 880].forEach(f => choir(f, 2.6, .7)); [0, 500, 1000, 1500].forEach(d => later(d, () => spark(276, 150 - d / 12, 40))); });
-      T(M3 + 20600, () => { add('white'); crash(.5); });
-      R0 = M3 + 21200;
+      Tm(M3 + 18200, () => { rm('mg-zoom'); add('mg-up'); riser(2.4, .4); em.rise = 3; [293.66, 440, 587.33, 880].forEach(f => choir(f, 2.6, .7)); [0, 500, 1000, 1500].forEach(d => later(d, () => spark(276, 150 - d / 12, 40))); });
+      Tm(M3 + 20600, () => { add('white'); crash(.5); });
+      R0 = TH0 - 200 + M3 + 21200;
       } else {
       /* The Blessed */
-      const BB = mover('.b4-ball'), GB = mover('.b3-ball'), B3 = 17400, B4 = B3 + 14600;
-      T(9000, () => { add('blh'); riser(1.1, .3); });
-      T(10100, () => { add('bl-catch'); flash('#fff3c0'); quake(); em.rise = 0; parts = []; timp(1); sub(1); crash(.5); mode = 'x'; level(.8, .05); [220, 277.18, 329.63, 440].forEach(f => choir(f, 2.2, .6)); off('#kgM2a'); });
-      T(11300, () => add('bl-gone'));
-      T(12500, () => { add('bld'); level(.4, .5); choir(55, 5, .9, 0, true); choir(58.27, 5, .5, 0, true); });
+      const BB = mover('.b4-ball'), GB = mover('.b3-ball'), B25 = 17400, B3 = B25 + 6400, B4 = B3 + 14600;
+      Tm(9000, () => { add('blh'); riser(1.1, .3); });
+      Tm(10100, () => { add('bl-catch'); flash('#fff3c0'); quake(); em.rise = 0; parts = []; timp(1); sub(1); crash(.5); mode = 'x'; level(.8, .05); [220, 277.18, 329.63, 440].forEach(f => choir(f, 2.2, .6)); off('#kgM2a'); });
+      Tm(11300, () => add('bl-gone'));
+      Tm(12500, () => { add('bld'); level(.4, .5); choir(55, 5, .9, 0, true); choir(58.27, 5, .5, 0, true); });
       /* the heartbeat: every thump is heard and felt, the whole screen jumps with it, and it speeds up toward the cut */
       const beat = v => { heart(v); if (!REDUCED) restart(ov, 'kbeat'); };
-      [12700, 13700, 14600, 15400, 16100, 16650, 17050].forEach((t, i) => T(t, () => beat(1.2 + i * .2)));
-      T(13000, () => say('#kgB2a'));
-      T(15100, () => { say('#kgB2b'); timp(.6, 0, 55); });
-      T(B3, () => { go('b3'); off('.kg-m2 .kg-cap *'); mode = 'dm'; seqReset(); lv.bat = .7; lv.ost = 1; level(.7, .3); crowd(.2); on('#kgB3s'); say('#kgB3a');
-        const me = q('.b3-me'), tr = q('.b3-trail'), L = WAY.map((p, i) => i ? Math.hypot(p[0] - WAY[i - 1][0], p[1] - WAY[i - 1][1]) : 0), tot = L.reduce((a, b) => a + b, 0), DUR = 7400; let acc = 0;
-        me.style.transform = 'translate(' + WAY[0][0] + 'px,' + WAY[0][1] + 'px)'; tr.style.strokeDasharray = 100; tr.style.strokeDashoffset = 100; void me.getBoundingClientRect();
-        later(900, () => { tr.style.transition = 'stroke-dashoffset ' + DUR + 'ms linear'; tr.style.strokeDashoffset = 9; });
-        WAY.forEach((p, i) => { if (!i) return; const t0 = 900 + acc / tot * DUR, d = L[i] / tot * DUR; acc += L[i];
-          later(t0, () => { me.style.transition = 'transform ' + d + 'ms linear'; me.style.transform = 'translate(' + p[0] + 'px,' + p[1] + 'px)'; });
-          later(t0 + d * .7, () => { const e = q('.b3-e.e' + (i - 1)); if (e) { e.classList.add('out'); thwack(.25); bell(1568 + i * 120, .1); } }); });
-        later(900 + DUR, () => { q('.b3-me > circle').style.opacity = 0; GB.set(360, 116); q('.b3-ball').style.opacity = 1; GB.to(390, 138, 220); thwack(.8); });
-        later(900 + DUR + 240, () => { level(1, .02); flash(); quake(); timp(1); timp(.8, .16); crash(.5); sub(.7); roar(1, 6); whistle(.1); lv.bat = 1; lv.th = 1; lv.pad = .6; fanfare([293.66, 369.99, 440, 587.33], 1.1, .2); PAL = ['#75bde9', '#ffffff', '#ffd23f', '#2a52b8']; burst(120, W * .9, H * .5); say('#kgB3b'); }); });
-      T(B3 + 11600, () => say('#kgB3c'));
-      T(B4, () => { go('b4'); off('.kg-b3 .kg-cap *'); parts = []; lv.bat = 0; lv.th = 0; lv.pad = 0; lv.ost = .6; level(.4, .3); crowd(.26); on('#kgB4s'); say('#kgB4a'); BB.set(150, 196); });
-      T(B4 + 1200, () => { BB.to(262, 66, 5800, 74); riser(1.4, .2); });
-      T(B4 + 2500, () => { pose('.kf-bh4', 1); pose('.kf-bk4', 1); });
-      T(B4 + 3000, () => { add('b4jump'); pose('.kf-bh4', 2); pose('.kf-bk4', 2); thwack(.3); });
-      T(B4 + 3500, () => { add('b4hang'); duck(.4, .12); lv.ost = 0; crowd(.05, .1); say('#kgB4b'); [440, 587.33, 880].forEach((f, i) => choir(f, 4, .5 - i * .1)); });
-      [3700, 4500, 5200, 5800, 6300, 6680].forEach((t, i) => T(B4 + t, () => beat(1.2 + i * .2)));
-      T(B4 + 4700, () => { add('b4wing'); pose('.kf-bh4', 3); say('#kgB4c'); [1174.66, 1479.98, 1760, 2349.3].forEach((f, i) => bell(f, .2, i * .1, 2)); });
-      T(B4 + 6000, () => { add('b4hand'); riser(1, .34); });
-      T(B4 + 7000, () => { add('b4hit'); level(1, .02); thwack(1); BB.to(350, 204, 200, 0, 'cubic-bezier(.4,0,1,.6)'); pose('.kf-bk4', 3); });
-      T(B4 + 7220, () => { add('b4goal'); flash(); quake(); timp(1); timp(1, .18); timp(.9, .36); sub(.9); crash(.6); roar(1.1, 8); whistle(.15); crowd(.34); lv.bat = 1; lv.pad = 1; lv.th = 1; lv.ost = 1; seqReset();
+      [12700, 13700, 14600, 15400, 16100, 16650, 17050].forEach((t, i) => Tm(t, () => beat(1.2 + i * .2)));
+      Tm(13000, () => say('#kgB2a'));
+      Tm(15100, () => { say('#kgB2b'); timp(.6, 0, 55); });
+      Tm(B25, () => { go('b25'); off('.kg-m2 .kg-cap *'); add('b25go'); q('.kf-b25').classList.add('walk'); em.dust = 2; level(.5, .4); crowd(.06, .4); on('#kgB25s'); say('#kgB25a'); choir(55, 6, .7, 0, true); });
+      [300, 1100, 1900, 2650, 3350, 4000, 4600, 5150, 5600].forEach((t, i) => Tm(B25 + t, () => { beat(1 + i * .15); crowd(.06 + i * .03, .4); }));
+      Tm(B25 + 2600, () => say('#kgB25b'));
+      Tm(B25 + 3600, () => riser(2.6, .34));
+      Tm(B25 + 5800, () => { add('b25out'); roar(1, 4, 0, .3); crash(.5); level(.8, .1); });
+      Tm(B3, () => { go('b3'); off('.kg-b25 .kg-cap *'); em.dust = 0; mode = 'dm'; seqReset(); lv.bat = .8; lv.ost = 1; level(.7, .3); crowd(.22); on('#kgB3s'); say('#kgB3a');
+        const RUNT = 7200, wd = q('.b3-world'), bg = q('.b3-bg'), me = q('.b3-me'), dot = q('.b3-dot'), tr = q('.b3-trail'), hero = q('.kf-b3');
+        GB.set(180, 226); hero.classList.add('walk'); tr.style.strokeDasharray = 100; tr.style.strokeDashoffset = 100; void wd.getBoundingClientRect();
+        later(500, () => { wd.style.transition = bg.style.transition = 'transform ' + RUNT + 'ms linear'; wd.style.transform = 'translateX(-' + RUNW + 'px)'; bg.style.transform = 'translateX(-' + Math.round(RUNW * .3) + 'px)';
+          tr.style.transition = 'stroke-dashoffset ' + RUNT + 'ms linear'; tr.style.strokeDashoffset = 0;
+          let acc = 0; const L = WAY.map((p, i) => i ? Math.hypot(p[0] - WAY[i - 1][0], p[1] - WAY[i - 1][1]) : 0), tot = L.reduce((a, b) => a + b, 0);
+          WAY.forEach((p, i) => { if (!i) return; const t0 = acc / tot * RUNT, d = L[i] / tot * RUNT; acc += L[i]; later(t0, () => { dot.style.transition = 'cx ' + d + 'ms linear, cy ' + d + 'ms linear'; dot.setAttribute('cx', p[0]); dot.setAttribute('cy', p[1]); }); }); });
+        DX.forEach((x, i) => { const t = 500 + RUNT * (x - 180) / RUNW;
+          later(t - 260, () => { pose('.kf-e' + i, 1); hit('bandpass', 1400, 400, .12, .1, 0); });
+          later(t - 60, () => { GB.to(182, 212 - (i % 2) * 6, 110); later(120, () => GB.to(180, 226, 110)); thwack(.28); bell(1568 + i * 140, .12); if (!REDUCED) restart(ov, 'kbump'); });
+          later(t + 140, () => { pose('.kf-e' + i, 2); q('.b3-e.e' + i).classList.add('out'); const m = q('.b3-me' + i); if (m) m.style.opacity = .25; }); });
+        later(500 + RUNT - 300, () => { pose('.kf-bk3', 1); riser(.6, .2); });
+        later(500 + RUNT, () => { me.style.transition = 'transform .7s ease-out'; me.style.transform = 'translateX(72px)'; GB.to(250, 226, 700); pose('.kf-bk3', 2); q('.b3-k').classList.add('out'); });
+        later(500 + RUNT + 780, () => { thwack(.9); GB.to(292, 214, 200); });
+        later(500 + RUNT + 980, () => { q('.b3-s').textContent = '2'; hero.classList.remove('walk'); pose('.kf-b3', 1); level(1, .02); flash(); quake(); timp(1); timp(.8, .16); crash(.5); sub(.7); roar(1, 6); whistle(.1); lv.bat = 1; lv.th = 1; lv.pad = .6;
+          fanfare([293.66, 369.99, 440, 587.33], 1.1, .2); PAL = ['#75bde9', '#ffffff', '#ffd23f', '#2a52b8']; burst(120, W * .72, H * .66); add('b3goal'); say('#kgB3b'); }); });
+      Tm(B3 + 11600, () => say('#kgB3c'));
+      Tm(B4, () => { go('b4'); off('.kg-b3 .kg-cap *'); parts = []; lv.bat = 0; lv.th = 0; lv.pad = 0; lv.ost = .6; level(.4, .3); crowd(.26); on('#kgB4s'); say('#kgB4a'); BB.set(150, 196); });
+      Tm(B4 + 1200, () => { BB.to(262, 66, 5800, 74); riser(1.4, .2); });
+      Tm(B4 + 2500, () => { pose('.kf-bh4', 1); pose('.kf-bk4', 1); });
+      Tm(B4 + 3000, () => { add('b4jump'); pose('.kf-bh4', 2); pose('.kf-bk4', 2); thwack(.3); });
+      Tm(B4 + 3500, () => { add('b4hang'); duck(.4, .12); lv.ost = 0; crowd(.05, .1); say('#kgB4b'); [440, 587.33, 880].forEach((f, i) => choir(f, 4, .5 - i * .1)); });
+      [3700, 4500, 5200, 5800, 6300, 6680].forEach((t, i) => Tm(B4 + t, () => beat(1.2 + i * .2)));
+      Tm(B4 + 4700, () => { add('b4wing'); pose('.kf-bh4', 3); say('#kgB4c'); [1174.66, 1479.98, 1760, 2349.3].forEach((f, i) => bell(f, .2, i * .1, 2)); });
+      Tm(B4 + 6000, () => { add('b4hand'); riser(1, .34); });
+      Tm(B4 + 7000, () => { add('b4hit'); level(1, .02); thwack(1); BB.to(350, 204, 200, 0, 'cubic-bezier(.4,0,1,.6)'); pose('.kf-bk4', 3); });
+      Tm(B4 + 7220, () => { add('b4goal'); flash(); quake(); timp(1); timp(1, .18); timp(.9, .36); sub(.9); crash(.6); roar(1.1, 8); whistle(.15); crowd(.34); lv.bat = 1; lv.pad = 1; lv.th = 1; lv.ost = 1; seqReset();
         fanfare([293.66, 369.99, 440, 587.33, 739.99], 1.5, .22); PAL = ['#75bde9', '#ffffff', '#ffd23f', '#2a52b8']; em.conf = 3; [.3, .7, .5].forEach((x, i) => later(i * 260, () => burst(90, W * x, H * .35))); off('.kg-b4 .kg-cap p'); });
-      T(B4 + 9000, () => { add('b4q'); em.conf = 1; lv.bat = .5; lv.th = .5; level(.45, .8); });
-      T(B4 + 14200, () => { rm('b4q'); em.conf = 0; level(.7, .6); say('#kgB4d'); });
-      T(B4 + 16200, () => { say('#kgB4e'); timp(.9); crash(.4); level(.9, .4); });
-      T(B4 + 18800, () => { add('b4up'); level(1, .2); mode = 'fin'; seqReset(); riser(2.3, .4); [293.66, 440, 587.33, 880].forEach(f => choir(f, 2.6, .7)); em.rise = 3; });
-      T(B4 + 21000, () => { add('white'); crash(.5); });
-      R0 = B4 + 21600;
+      Tm(B4 + 9000, () => { add('b4q'); em.conf = 1; lv.bat = .5; lv.th = .5; level(.45, .8); });
+      Tm(B4 + 14200, () => { rm('b4q'); em.conf = 0; level(.7, .6); say('#kgB4d'); });
+      Tm(B4 + 16200, () => { say('#kgB4e'); timp(.9); crash(.4); level(.9, .4); });
+      Tm(B4 + 18800, () => { add('b4up'); level(1, .2); mode = 'fin'; seqReset(); riser(2.3, .4); [293.66, 440, 587.33, 880].forEach(f => choir(f, 2.6, .7)); em.rise = 3; });
+      Tm(B4 + 21000, () => { add('white'); crash(.5); });
+      R0 = TH0 - 200 + B4 + 21600;
       }
+    }
     }
     /* 8. the reveal */
     T(R0, () => { go('k8'); level(.42, .1); off('.kg-7 .kg-cap *, .kg-m3 .kg-cap *, .kg-b4 .kg-cap *'); em.conf = 0; lv.bat = 0; lv.pad = 0; em.gold = 0; em.rise = 0; mode = 'fin'; parts = []; sub(.8); choir(146.83, 2, .8, 0, true); choir(220, 2, .6, 0, true); riser(1.5, .34, .1); });
@@ -19103,9 +19202,10 @@ const BIG_K = 35, BIG_N = 20000;
 function bigBoard(data){
   const R = seeded(20261112), A = ['Shadow', 'Neo', 'Dark', 'Lil', 'Big', 'Mr', 'Its', 'The', 'Real', 'Xx', 'Pro', 'Sir', 'Zero', 'Fast', 'Cold', 'Lucky', 'Mad', 'Ice', 'Sly', 'Ace'],
     B = ['Wolf', 'Viper', 'Crate', 'Rush', 'Ghost', 'Kai', 'Zane', 'Milo', 'Omar', 'Ravi', 'Leo', 'Nico', 'Hawk', 'Blaze', 'Storm', 'Pixel', 'Drift', 'Nova', 'Juno', 'Rex', 'Tariq', 'Ali', 'Sam', 'Yuki', 'Ivan', 'Theo'], C = ['', '', '_', 'x', 'YT', 'TTV', 'gg', 'hd', 'fr', ''];
-  const real = data.map(r => Object.assign({}, r, {worth: r.worth * BIG_K, opened: Math.round(r.opened * 6 + 40)}));
-  const top = Math.max(2e6, ...real.map(r => r.worth)), lo = 4000, fake = [];
-  for (let i = 0; i < BIG_N; i++) fake.push({fake: true, i, worth: Math.round(lo * Math.pow(top * 1.04 / lo, Math.pow(R(), 3.2)))});
+  /* your own row is never inflated; other real players are, but always below the made-up number one */
+  const TOP = 211000000, real = data.map(r => r.me ? Object.assign({}, r) : Object.assign({}, r, {worth: Math.min(Math.round(TOP * .93), r.worth * BIG_K), opened: Math.round(r.opened * 6 + 40)}));
+  const lo = 4000, fake = [{fake: true, i: 0, worth: TOP}];
+  for (let i = 1; i < BIG_N; i++) fake.push({fake: true, i, worth: Math.round(lo * Math.pow(TOP * .97 / lo, Math.pow(R(), 3.2)))});
   const name = i => { const r = seeded(7919 + i * 31); return (A[Math.floor(r() * A.length)] + C[Math.floor(r() * C.length)] + B[Math.floor(r() * B.length)] + (r() < .6 ? Math.floor(r() * 990 + 7) : '')).slice(0, 16); };
   const all = real.concat(fake).sort((a, b) => b.worth - a.worth); all.forEach((r, i) => { r.rank = i + 1; });
   const out = all.slice(0, 300), mine = all.find(r => r.me); if (mine && mine.rank > 300) out.push(mine);
