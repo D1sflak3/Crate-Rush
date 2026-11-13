@@ -3652,41 +3652,34 @@ body.dz-open .toast{z-index:95}
 .kgc.cuc .kg-beam{opacity:.35!important}
 .kgc.cuc.kland .kg-rays.gold{opacity:.3}
 /* the GOATs' seal */
-.gsl{position:fixed;inset:0;z-index:120;background:#04060c;overflow:hidden;transition:opacity .6s}
+.gsl{position:fixed;inset:0;z-index:120;background:#070b16;overflow:hidden;transition:opacity .6s}
 .gsl.out{opacity:0;pointer-events:none}
-.gs-svg{position:absolute;inset:0;width:100%;height:100%}
-.gs-cam{opacity:0;transform:scale(.86);transform-origin:200px 134px;transition:opacity 1.2s,transform 1.6s cubic-bezier(.2,.7,.3,1)}
+.gs-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.gs-cam{opacity:0;transform:scale(.86);transform-origin:200px 130px;transition:opacity 1.2s,transform 1.6s cubic-bezier(.2,.7,.3,1)}
 .gsl.in .gs-cam{opacity:1;transform:scale(1)}
-.gsl.zoom .gs-cam{transform:scale(5.4);transition:transform .9s cubic-bezier(.6,0,.9,.4)}
+.gsl.zoom .gs-cam{transform:scale(5);transition:transform .9s cubic-bezier(.6,0,.9,.4)}
 .gs-aura{opacity:.06;transition:opacity 1s}
 .gsl.hub .gs-aura{opacity:.22}
-.gs-w{filter:brightness(.22) saturate(.15);transition:filter .6s}
-.gs-w.on{filter:brightness(1) saturate(1) drop-shadow(0 0 6px rgba(255,255,255,.4))}
-.gs-w.on .gs-med{animation:gsPop .6s cubic-bezier(.2,1.6,.4,1)}
+.gs-w{filter:brightness(.2) saturate(.12);transition:filter .7s}
+.gs-w.on{filter:brightness(1) saturate(1)}
+.gs-w.on .gs-mi{animation:gsPop .6s cubic-bezier(.2,1.6,.4,1)}
+.gs-w.on .gs-e,.gsl.hub .gs-hub .gs-e{filter:drop-shadow(0 0 3px rgba(255,255,255,.7))}
 @keyframes gsPop{0%{transform:scale(.6)}100%{transform:scale(1)}}
-.gsl.focus .gs-w:not(.chosen){filter:brightness(.35) saturate(.5)}
-.gs-w.chosen{filter:brightness(1.25) saturate(1.2) drop-shadow(0 0 12px #fff) drop-shadow(0 0 30px rgba(255,230,140,.9));animation:gsGlow .5s ease-in-out infinite alternate}
-@keyframes gsGlow{to{filter:brightness(1.45) saturate(1.3) drop-shadow(0 0 18px #fff) drop-shadow(0 0 44px rgba(255,230,140,1))}}
-.gs-hub{filter:brightness(.25) saturate(.2);transform-origin:200px 130px;transition:filter .8s}
-.gsl.hub .gs-hub{filter:brightness(1.1) drop-shadow(0 0 10px #8fd0ff);animation:gsPop .7s cubic-bezier(.2,1.6,.4,1)}
-.gs-hub.chosen{animation:gsGlow .5s ease-in-out infinite alternate!important}
+.gsl.focus .gs-w:not(.chosen){filter:brightness(.34) saturate(.5)}
+.gs-w.chosen{filter:brightness(1.2) saturate(1.2) drop-shadow(0 0 10px #fff) drop-shadow(0 0 26px rgba(255,230,140,.9));animation:gsGlow .5s ease-in-out infinite alternate}
+@keyframes gsGlow{to{filter:brightness(1.42) saturate(1.3) drop-shadow(0 0 16px #fff) drop-shadow(0 0 40px rgba(255,230,140,1))}}
+.gs-hub{filter:brightness(.22) saturate(.15);transition:filter .8s}
+.gsl.hub .gs-hub{filter:brightness(1.08) drop-shadow(0 0 10px #8fd0ff)}
+.gsl.hub .gs-hi{animation:gsPop .7s cubic-bezier(.2,1.6,.4,1)}
+.gsl.focus .gs-hub:not(.chosen){filter:brightness(.4) saturate(.5)}
+.gsl .gs-hub.chosen{filter:brightness(1.2) drop-shadow(0 0 10px #fff) drop-shadow(0 0 26px rgba(160,210,255,.95));animation:gsGlow2 .5s ease-in-out infinite alternate}
+@keyframes gsGlow2{to{filter:brightness(1.45) drop-shadow(0 0 16px #fff) drop-shadow(0 0 40px rgba(160,210,255,1))}}
 .gs-l{transition:transform 1.1s cubic-bezier(.1,.6,.3,1),opacity 1.1s}
 .gsl.break .gs-l{transform:translate(var(--dx),var(--dy)) rotate(var(--r));opacity:0}
 .gsl.break .gs-cam{animation:gsQuake .45s linear}
 @keyframes gsQuake{25%{translate:-4px 3px}50%{translate:4px -3px}75%{translate:-2px -2px}}
 .gs-white{opacity:0;pointer-events:none}
 .gsl.white .gs-white{opacity:1;transition:opacity .4s ease-in}
-.gs-t{position:absolute;top:calc(env(safe-area-inset-top) + 2.4vh);left:0;right:0;text-align:center;opacity:0;transform:translateY(-8px);transition:all .9s}
-.gsl.title .gs-t{opacity:1;transform:none}
-.gsl.zoom .gs-t,.gsl.zoom .gs-n{opacity:0}
-.gs-t small{display:block;font:700 11px/1 var(--body);letter-spacing:.38em;text-transform:uppercase;color:#9ab4e0}
-.gs-t b{display:block;font:700 clamp(30px,5vw,56px)/1 var(--display);letter-spacing:.24em;padding-left:.24em;margin-top:6px;background:linear-gradient(180deg,#fff,#cfe2ff 50%,#7a9ad0);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(140,190,255,.5))}
-.gs-n{position:absolute;bottom:calc(env(safe-area-inset-bottom) + 2.4vh);left:0;right:0;text-align:center;opacity:0}
-.gs-n.on{animation:gsName .9s ease-out forwards}
-@keyframes gsName{0%{opacity:0;transform:translateY(10px)}25%{opacity:1;transform:none}100%{opacity:1}}
-.gs-n b{display:block;font:700 clamp(22px,3.6vw,40px)/1 var(--display);letter-spacing:.18em;color:#fff;text-shadow:0 0 18px rgba(255,255,255,.4)}
-.gs-n.big b{font-size:clamp(30px,5.4vw,60px);color:#ffe9a0;text-shadow:0 0 26px rgba(255,210,63,.7)}
-.gs-n span{display:block;font:700 11px/1 var(--body);letter-spacing:.36em;color:#9ab4e0;margin-top:6px}
 .gsl .gt-skip{z-index:3}
 /* KING-CSS-END */
 /* ---------- The Prince ---------- */
@@ -4694,6 +4687,9 @@ body.ar-on{overflow:hidden}
   .ar-pausebtn{top:auto;bottom:10px;left:50%;transform:translateX(-50%);height:38px;font-size:15px}.ar-sc b{width:42px;height:42px;font-size:26px}.ar-clock{font-size:24px}}
 @media (max-width:700px){.ar-load{grid-template-columns:1fr}.ar-logo{font-size:36px}.ar-ban b{font-size:40px}.ar-sc small{max-width:90px;font-size:13px}}
 @media (max-height:520px){.ar-rcard{padding:14px}.ar-rtop{font-size:42px}.ar-rsc{font-size:28px}.ar-rvs{margin-bottom:8px}.ar-rcr{margin:8px 0 2px;font-size:18px}.ar-btn{padding:9px;margin-top:6px}.ar-emb{width:48px;height:48px}}
+
+
+
 
 
 
@@ -15564,82 +15560,90 @@ function kingCinematic(r){
   });
 }
 /* ---------- The GOATs' seal: the opening of the GOAT, Sui, La Pulga and Prince films ----------
-   Five nations round a sealed circle (France, Poland, Argentina, Portugal, Brazil) and Messi in the middle.
-   The seal wakes one segment at a time, the film's own legend burns brightest, the chains break and the
-   camera dives into him; then that film begins. */
+   A sealed circle: four quarters round a centre, crossed spears on the seams and a chain round the ring.
+   France, Poland, Portugal and Brazil hold the quarters and Argentina the middle, each as an emblem made
+   from its flag. No faces and no words. The seal wakes one emblem at a time, the film's own one burns
+   brightest, the chain breaks and the camera dives in; then that film begins. */
 function goatSeal(focus){
-  if (!BDO_PPL.lewy) BDO_PPL.lewy = {skin: '#efc4a0', shade: 'rgba(140,70,40,.16)', head: 'long', hair: 'part', hc: '#5a3c22', iris: '#4a6a8a', brow: 'flat', mouth: 'closed'};
   return new Promise(resolve => {
     let done = false; const timers = [], f1 = n => (+n).toFixed(1), R = seeded(1987);
     const T = (ms, f) => timers.push(setTimeout(() => { if (done) return; try { f(); } catch (e) {} }, REDUCED ? Math.min(ms, 240) : ms));
-    const CX = 200, CY = 130, RW = 97, RH = 31, P = (r, a) => [CX + r * Math.cos(a), CY + r * Math.sin(a)], rad = d => d * Math.PI / 180;
-    const SEG = [
-      {k: 'fr', n: 'MBAPPÉ', c: 'FRANCE', p: 'mbappe', a: '#3a64e8', b: '#08103e', s: ['#2f55d4', '#ffffff', '#e0283a'], shirt: '#1f3a8a', trim: '#e0283a'},
-      {k: 'pl', n: 'LEWANDOWSKI', c: 'POLAND', p: 'lewy', a: '#ff4a5e', b: '#3a0610', s: ['#ffffff', '#dc143c'], shirt: '#f2f2f6', trim: '#dc143c'},
-      {k: 'ar', n: 'ARGENTINA', c: '', a: '#8fd0ff', b: '#0c2c52', s: ['#75bde9', '#ffffff', '#75bde9']},
-      {k: 'pt', n: 'RONALDO', c: 'PORTUGAL', p: 'cr7', a: '#e8243c', b: '#062a12', s: ['#006600', '#ff0000'], shirt: '#c8102e', trim: '#006600'},
-      {k: 'br', n: 'NEYMAR', c: 'BRAZIL', p: 'neymar', a: '#ffe23a', b: '#003a1c', s: ['#009c3b', '#ffdf00', '#002776'], shirt: '#ffdf00', trim: '#009c3b'}];
-    let defs = '<defs>' + bdoDefs('gs') + '<linearGradient id="gsBl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7a8a9e"/><stop offset=".5" stop-color="#f4f8ff"/><stop offset="1" stop-color="#6a7a8e"/></linearGradient>'
+    const CX = 200, CY = 130, RW = 97, MR = 33, MD = 57, P = (r, a) => [CX + r * Math.cos(a), CY + r * Math.sin(a)], rad = d => d * Math.PI / 180;
+    const star = (x, y, r, c) => { let d = ''; for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * .42 : r; d += (i ? 'L' : 'M') + f1(x + Math.cos(a) * rr) + ' ' + f1(y + Math.sin(a) * rr); } return '<path d="' + d + 'Z" fill="' + c + '"/>'; };
+    /* the emblems, drawn round 0,0 inside a circle of radius MR */
+    const EM = {
+      fr: '<rect x="-34" y="-34" width="23" height="68" fill="#2444b8"/><rect x="-11" y="-34" width="22" height="68" fill="#f4f6fb"/><rect x="11" y="-34" width="23" height="68" fill="#d8283a"/>'
+        + '<g class="gs-e" fill="url(#gsGo)" stroke="#5a3c00" stroke-width=".7" stroke-linejoin="round"><path d="M0 -21 C7 -12 7 -3 2.4 4 L-2.4 4 C-7 -3 -7 -12 0 -21 Z"/>'
+        + '<path d="M-3.4 3 C-7 -6 -17 -9 -19.4 -2 C-20.4 4 -14 7 -10.4 3.6 C-12.4 9 -7.4 11 -3.4 7.6 Z"/><path d="M3.4 3 C7 -6 17 -9 19.4 -2 C20.4 4 14 7 10.4 3.6 C12.4 9 7.4 11 3.4 7.6 Z"/>'
+        + '<rect x="-9.4" y="4" width="18.8" height="3.6" rx="1.4"/><path d="M0 8 L-5.4 19 L0 15.6 L5.4 19 Z"/><path d="M-3.4 8 L-10 14 L-6 9 Z M3.4 8 L10 14 L6 9 Z"/></g>',
+      pl: '<rect x="-34" y="-34" width="68" height="68" fill="#d4213d"/><path d="M-34 -34 H34 V-12 Q0 -4 -34 -12 Z" fill="#f4f6fb"/>'
+        + '<g class="gs-e" fill="#ffffff" stroke="#6a0c1c" stroke-width=".7" stroke-linejoin="round"><path d="M-3 -4 C-10 -15 -19 -14 -23 -7 L-18 -7.4 L-22 -1.4 L-16.4 -3 L-19 3.6 L-13 1 L-13.6 8 L-8 3.6 L-4.4 7 Z"/><path d="M3 -4 C10 -15 19 -14 23 -7 L18 -7.4 L22 -1.4 L16.4 -3 L19 3.6 L13 1 L13.6 8 L8 3.6 L4.4 7 Z"/>'
+        + '<path d="M0 -8 C4 -6 5 2 2.6 10 L0 14 L-2.6 10 C-5 2 -4 -6 0 -8 Z"/><path d="M0 12 L-6 21 L-2 19 L0 22 L2 19 L6 21 Z"/><path d="M-2.4 10 L-7 15 M2.4 10 L7 15" fill="none" stroke="#ffd23f" stroke-width="1.6" stroke-linecap="round"/>'
+        + '<path d="M-3 -10 Q-4 -15 0 -15.6 Q4 -15 3.4 -11 L7.6 -10 L3.4 -8.4 Q1 -6 -3 -10 Z"/></g><path d="M-3.4 -15.4 L-3.4 -19.6 L-1.4 -17.4 L.2 -20.4 L1.8 -17.4 L3.8 -19.6 L3.8 -15.4 Z" fill="url(#gsGo)" stroke="#5a3c00" stroke-width=".5"/>',
+      pt: '<rect x="-34" y="-34" width="27" height="68" fill="#0a6a2a"/><rect x="-7" y="-34" width="41" height="68" fill="#d0182e"/>'
+        + '<g class="gs-e" transform="translate(-1 0)"><g fill="none" stroke="url(#gsGo)" stroke-width="2"><circle r="15.6"/><ellipse rx="15.6" ry="5.6"/><ellipse rx="5.6" ry="15.6"/><path d="M-11 -11 L11 11 M-11 11 L11 -11" stroke-width="1.3"/></g>'
+        + '<path d="M-7.6 -8.6 H7.6 V3 Q7.6 10 0 12.6 Q-7.6 10 -7.6 3 Z" fill="#d0182e" stroke="url(#gsGo)" stroke-width="1.3"/><path d="M-4.6 -5.6 H4.6 V2.6 Q4.6 7.4 0 9.2 Q-4.6 7.4 -4.6 2.6 Z" fill="#f4f6fb"/>'
+        + [[0, -3], [-2.6, 0], [2.6, 0], [0, 0], [0, 3.4]].map(([x, y]) => '<rect x="' + (x - .9) + '" y="' + (y - 1.1) + '" width="1.8" height="2.2" rx=".5" fill="#1f3fa0"/>').join('') + '</g>',
+      br: '<rect x="-34" y="-34" width="68" height="68" fill="#0a8c3a"/><g class="gs-e"><path d="M-26 0 L0 -17.6 L26 0 L0 17.6 Z" fill="#ffdf00" stroke="#8a6a00" stroke-width=".7"/><circle r="10.6" fill="#12308c" stroke="#06143c" stroke-width=".6"/>'
+        + '<path d="M-10.4 -2 Q0 -6.6 10.4 2.2 L9.8 4.4 Q0 -4 -10.6 .4 Z" fill="#f4f6fb"/>' + [[-4.6, 4, 1.3], [0, 6.4, 1.6], [4.4, 5, 1.2], [-1.6, 1.6, 1], [3, 1.4, .9], [-6.4, -5, 1.1]].map(([x, y, z]) => star(x, y, z, '#f4f6fb')).join('') + '</g>',
+      ar: '<rect x="-24" y="-24" width="48" height="16" fill="#75bde9"/><rect x="-24" y="-8" width="48" height="16" fill="#f4f6fb"/><rect x="-24" y="8" width="48" height="16" fill="#75bde9"/>'
+        + '<g class="gs-e">' + Array.from({length: 16}, (_, k) => { const a = k * Math.PI / 8, r0 = 6.6, r1 = k % 2 ? 11.6 : 14.4, w = k % 2 ? .12 : .1; return '<path d="M' + f1(Math.cos(a - w) * r0) + ' ' + f1(Math.sin(a - w) * r0) + ' L' + f1(Math.cos(a) * r1) + ' ' + f1(Math.sin(a) * r1) + ' L' + f1(Math.cos(a + w) * r0) + ' ' + f1(Math.sin(a + w) * r0) + ' Z" fill="url(#gsGo)" stroke="#7a5200" stroke-width=".4"/>'; }).join('')
+        + '<circle r="7" fill="url(#gsGo)" stroke="#7a5200" stroke-width=".7"/><circle r="4.4" fill="none" stroke="#7a5200" stroke-width=".5" opacity=".6"/></g>'};
+    const Q = [{k: 'fr', a: '#3a64e8', b: '#070d36'}, {k: 'pl', a: '#f04a62', b: '#3a0612'}, {k: 'pt', a: '#18a04a', b: '#3a0610'}, {k: 'br', a: '#ffdf00', b: '#04351a'}];
+    let defs = '<defs><linearGradient id="gsBl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a8a9e"/><stop offset=".5" stop-color="#f4f8ff"/><stop offset="1" stop-color="#6a7a8e"/></linearGradient>'
+      + '<linearGradient id="gsGo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6cc"/><stop offset=".45" stop-color="#ffd23f"/><stop offset="1" stop-color="#b87a00"/></linearGradient>'
       + '<radialGradient id="gsSt" cx=".5" cy=".5" r=".5"><stop offset=".84" stop-color="#3a4250"/><stop offset=".92" stop-color="#5a6474"/><stop offset="1" stop-color="#22283a"/></radialGradient>'
       + '<radialGradient id="gsHub" cx=".5" cy=".4" r=".6"><stop offset="0" stop-color="#bfe6ff"/><stop offset=".4" stop-color="#2a6ad8"/><stop offset="1" stop-color="#06143a"/></radialGradient>'
       + '<radialGradient id="gsGl"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".4" stop-color="#fff" stop-opacity=".3"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>'
-      + '<clipPath id="gsCc"><circle cx="' + CX + '" cy="' + CY + '" r="21"/></clipPath>';
-    let wedges = '', blades = '', meds = '';
-    SEG.forEach((g, i) => {
-      const m = rad(-90 + i * 72), a0 = m - rad(34.6), a1 = m + rad(34.6), [x0, y0] = P(RH, a0), [x1, y1] = P(RW, a0), [x2, y2] = P(RW, a1), [x3, y3] = P(RH, a1), [mx, my] = P(63, m), [lx, ly] = P(86, m);
-      defs += '<radialGradient id="gsW' + i + '" gradientUnits="userSpaceOnUse" cx="' + f1(mx) + '" cy="' + f1(my) + '" r="70"><stop offset="0" stop-color="' + g.a + '"/><stop offset=".55" stop-color="' + g.a + '" stop-opacity=".75"/><stop offset="1" stop-color="' + g.b + '"/></radialGradient>'
-        + '<clipPath id="gsC' + i + '"><circle cx="' + f1(mx) + '" cy="' + f1(my) + '" r="21"/></clipPath>';
-      let band = ''; g.s.forEach((c, j) => { const r = RW - 2 - j * 3.2, [bx0, by0] = P(r, a0 + .01), [bx1, by1] = P(r, a1 - .01); band += '<path d="M' + f1(bx0) + ' ' + f1(by0) + ' A' + r + ' ' + r + ' 0 0 1 ' + f1(bx1) + ' ' + f1(by1) + '" stroke="' + c + '" stroke-width="3.2" fill="none"/>'; });
-      /* faint rays and a rune ring behind the medallion */
-      let deco = ''; for (let k = 0; k < 9; k++) { const aa = a0 + (a1 - a0) * (k + .5) / 9, [rx0, ry0] = P(RH + 6, aa), [rx1, ry1] = P(RW - 12, aa); deco += '<path d="M' + f1(rx0) + ' ' + f1(ry0) + ' L' + f1(rx1) + ' ' + f1(ry1) + '" stroke="#fff" stroke-opacity=".08" stroke-width="1.6"/>'; }
-      deco += '<circle cx="' + f1(mx) + '" cy="' + f1(my) + '" r="28" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width=".8" stroke-dasharray="1.5 2.5"/>';
-      wedges += '<g class="gs-w" data-k="' + g.k + '"><path d="M' + f1(x0) + ' ' + f1(y0) + ' L' + f1(x1) + ' ' + f1(y1) + ' A' + RW + ' ' + RW + ' 0 0 1 ' + f1(x2) + ' ' + f1(y2) + ' L' + f1(x3) + ' ' + f1(y3) + ' A' + RH + ' ' + RH + ' 0 0 0 ' + f1(x0) + ' ' + f1(y0) + ' Z" fill="url(#gsW' + i + ')" stroke="#0a0e18" stroke-width="1"/>' + deco + band
-        + '<g class="gs-med" style="transform-origin:' + f1(mx) + 'px ' + f1(my) + 'px"><circle cx="' + f1(mx) + '" cy="' + f1(my) + '" r="23" fill="' + g.b + '"/>'
-        + (g.p ? '<g clip-path="url(#gsC' + i + ')"><circle cx="' + f1(mx) + '" cy="' + f1(my) + '" r="21" fill="' + g.a + '" opacity=".55"/>' + bdoMan(f1(mx), f1(my - 15), .46, bdoP(g.p, {shirt: g.shirt, trim: g.trim})) + '</g>'
-          : '<g transform="translate(' + f1(mx) + ' ' + f1(my) + ')">' + Array.from({length: 16}, (_, k) => { const aa = k * Math.PI / 8; return '<path d="M' + f1(Math.cos(aa) * 10) + ' ' + f1(Math.sin(aa) * 10) + ' L' + f1(Math.cos(aa) * (k % 2 ? 16 : 19)) + ' ' + f1(Math.sin(aa) * (k % 2 ? 16 : 19)) + '" stroke="#ffd23f" stroke-width="' + (k % 2 ? 1.4 : 2.2) + '" stroke-linecap="round"/>'; }).join('')
-            + '<circle r="9" fill="#ffd23f" stroke="#a86a00" stroke-width=".8"/><circle cx="-3" cy="-1.4" r="1" fill="#6a4300"/><circle cx="3" cy="-1.4" r="1" fill="#6a4300"/><path d="M-3 3 Q0 5 3 3" stroke="#6a4300" stroke-width=".9" fill="none"/></g>')
-        + '<circle cx="' + f1(mx) + '" cy="' + f1(my) + '" r="22" fill="none" stroke="url(#gsBl)" stroke-width="2.2"/></g>'
-        + '<text x="' + f1(lx) + '" y="' + f1(ly + 2.2) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="7" letter-spacing=".8" fill="#fff" stroke="#000" stroke-width="1.6" paint-order="stroke">' + g.n + '</text></g>';
-      /* a spear along each seam */
-      const sa = m + rad(36), pts = [[RH - 3, -1.6], [116, -2.6], [118, -5.4], [120, -2.4], [131, 0], [120, 2.4], [118, 5.4], [116, 2.6], [RH - 3, 1.6]].map(([r, w]) => { const [px, py] = P(r, sa); return f1(px - Math.sin(sa) * w) + ' ' + f1(py + Math.cos(sa) * w); });
-      blades += '<path d="M' + pts.join(' L') + ' Z" fill="url(#gsBl)" stroke="#2a3240" stroke-width=".6"/>';
-    });
-    /* the chain: links laid round the ring */
+      + '<radialGradient id="gsVg"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></radialGradient>'
+      + '<clipPath id="gsCm"><circle r="' + MR + '"/></clipPath><clipPath id="gsCc"><circle r="21"/></clipPath>';
+    let quarters = '';
+    Q.forEach((g, i) => { const m = rad(-90 + i * 90), a0 = m - rad(43), a1 = m + rad(43), [x1, y1] = P(RW, a0), [x2, y2] = P(RW, a1), [mx, my] = P(MD, m);
+      defs += '<radialGradient id="gsW' + i + '" gradientUnits="userSpaceOnUse" cx="' + f1(mx) + '" cy="' + f1(my) + '" r="78"><stop offset="0" stop-color="' + g.a + '"/><stop offset=".5" stop-color="' + g.a + '" stop-opacity=".55"/><stop offset="1" stop-color="' + g.b + '"/></radialGradient>';
+      /* a tonal mandala behind the medallion: rays and rings in the quarter's own colour */
+      let deco = ''; for (let k = 0; k < 14; k++) { const aa = k / 14 * Math.PI * 2; deco += '<path d="M' + f1(mx + Math.cos(aa) * (MR + 2)) + ' ' + f1(my + Math.sin(aa) * (MR + 2)) + ' L' + f1(mx + Math.cos(aa) * 60) + ' ' + f1(my + Math.sin(aa) * 60) + '" stroke="' + g.a + '" stroke-opacity=".35" stroke-width="' + (k % 2 ? 1 : 2.4) + '"/>'; }
+      deco += '<circle cx="' + f1(mx) + '" cy="' + f1(my) + '" r="' + (MR + 6) + '" fill="none" stroke="' + g.a + '" stroke-opacity=".5" stroke-width="1" stroke-dasharray="2 3"/><circle cx="' + f1(mx) + '" cy="' + f1(my) + '" r="' + (MR + 11) + '" fill="none" stroke="' + g.a + '" stroke-opacity=".3" stroke-width=".7"/>';
+      quarters += '<g class="gs-w" data-k="' + g.k + '"><clipPath id="gsQ' + i + '"><path d="M' + CX + ' ' + CY + ' L' + f1(x1) + ' ' + f1(y1) + ' A' + RW + ' ' + RW + ' 0 0 1 ' + f1(x2) + ' ' + f1(y2) + ' Z"/></clipPath>'
+        + '<g clip-path="url(#gsQ' + i + ')"><rect x="80" y="10" width="240" height="240" fill="' + g.b + '"/><rect x="80" y="10" width="240" height="240" fill="url(#gsW' + i + ')"/>' + deco + '</g>'
+        + '<g class="gs-med" transform="translate(' + f1(mx) + ' ' + f1(my) + ')"><g class="gs-mi"><circle r="' + (MR + 2.4) + '" fill="#0a0e18"/><g clip-path="url(#gsCm)">' + EM[g.k] + '<circle r="' + MR + '" fill="url(#gsVg)"/></g>'
+        + '<circle r="' + MR + '" fill="none" stroke="url(#gsBl)" stroke-width="2.2"/><circle r="' + (MR - 3) + '" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width=".6"/></g></g></g>'; });
+    /* two crossed spears on the seams */
+    let spears = ''; [45, 135].forEach(dg => { const a = rad(dg), n = [-Math.sin(a), Math.cos(a)], pt = (r, w) => { const [x, y] = P(r, a); return f1(x + n[0] * w) + ' ' + f1(y + n[1] * w); };
+      const tip = s => [pt(s * 112, -1.8), pt(s * 116, -6), pt(s * 121, -3), pt(s * 139, 0), pt(s * 121, 3), pt(s * 116, 6), pt(s * 112, 1.8)];
+      spears += '<path d="M' + tip(1).concat(tip(-1)).join(' L') + ' Z" fill="url(#gsBl)" stroke="#2a3240" stroke-width=".7" stroke-linejoin="round"/>'
+        + [1, -1].map(s => '<path d="M' + pt(s * 40, -7) + ' Q' + pt(s * 48, 0) + ' ' + pt(s * 40, 7) + '" fill="none" stroke="url(#gsBl)" stroke-width="2.2" stroke-linecap="round"/><path d="M' + pt(s * 104, -5) + ' L' + pt(s * 104, 5) + '" stroke="url(#gsBl)" stroke-width="2.4" stroke-linecap="round"/>').join(''); });
+    /* the chain round the ring */
     let chain = ''; for (let i = 0; i < 56; i++) { const a = i / 56 * Math.PI * 2, [x, y] = P(108, a), deg = a * 180 / Math.PI + 90, dx = Math.cos(a) * (60 + R() * 80), dy = Math.sin(a) * (60 + R() * 80);
       chain += '<g class="gs-l" style="--dx:' + f1(dx) + 'px;--dy:' + f1(dy) + 'px;--r:' + f1((R() - .5) * 720) + 'deg"><g transform="translate(' + f1(x) + ' ' + f1(y) + ') rotate(' + f1(deg) + ')">' + (i % 2 ? '<ellipse rx="4.6" ry="2.4" fill="none" stroke="#c8d2e0" stroke-width="1.4"/><ellipse rx="4.6" ry="2.4" fill="none" stroke="#5a6474" stroke-width=".5"/>' : '<rect x="-4.4" y="-.9" width="8.8" height="1.8" rx=".9" fill="#aab4c4" stroke="#4a5262" stroke-width=".4"/>') + '</g></g>'; }
-    /* the hub: a five-pointed frame and Messi */
-    const hub = Array.from({length: 10}, (_, k) => { const a = rad(-90 + 36 + k * 36), r = k % 2 ? 22 : 36; const [x, y] = P(r, a); return f1(x) + ' ' + f1(y); });
-    const svg = '<svg class="gs-svg" viewBox="' + (innerHeight > innerWidth ? '86 30 228 210' : '0 0 400 260') + '" preserveAspectRatio="xMidYMid ' + (innerHeight > innerWidth ? 'meet' : 'slice') + '">' + defs + '</defs>'
-      + '<rect width="400" height="260" fill="#070b16"/>' + Array.from({length: 40}, () => { const x = R() * 400, y = R() * 260, s = 8 + R() * 14; return '<path d="M' + f1(x) + ' ' + f1(y - s) + ' l' + f1(s * .87) + ' ' + f1(s / 2) + ' v' + f1(s) + ' l' + f1(-s * .87) + ' ' + f1(s / 2) + ' l' + f1(-s * .87) + ' ' + f1(-s / 2) + ' v' + f1(-s) + ' Z" fill="#141c30" stroke="#1e2a44" stroke-width=".6" opacity="' + f1(.3 + R() * .5) + '"/>'; }).join('')
-      + '<g class="gs-cam"><g transform="translate(200 134) scale(.74) translate(-200 -130)"><circle class="gs-aura" cx="' + CX + '" cy="' + CY + '" r="150" fill="url(#gsGl)"/>'
+    const tall = innerHeight > innerWidth;
+    /* the centre: a four-pointed star with curved sides, Argentina inside */
+    const hub = 'M0 -38 Q7 -14 16 -16 Q14 -7 38 0 Q14 7 16 16 Q7 14 0 38 Q-7 14 -16 16 Q-14 7 -38 0 Q-14 -7 -16 -16 Q-7 -14 0 -38 Z';
+    const svg = '<svg class="gs-svg" viewBox="' + (tall ? '70 0 260 260' : '0 0 400 260') + '" preserveAspectRatio="xMidYMid meet">' + defs + '</defs>'
+      + '<rect x="-600" y="-400" width="1600" height="1060" fill="#070b16"/>' + Array.from({length: 70}, () => { const x = tall ? R() * 400 : -190 + R() * 780, y = tall ? -190 + R() * 640 : R() * 260, s = 8 + R() * 14; return '<path d="M' + f1(x) + ' ' + f1(y - s) + ' l' + f1(s * .87) + ' ' + f1(s / 2) + ' v' + f1(s) + ' l' + f1(-s * .87) + ' ' + f1(s / 2) + ' l' + f1(-s * .87) + ' ' + f1(-s / 2) + ' v' + f1(-s) + ' Z" fill="#141c30" stroke="#1e2a44" stroke-width=".6" opacity="' + f1(.3 + R() * .5) + '"/>'; }).join('')
+      + '<g class="gs-cam"><g transform="translate(200 130) scale(.84) translate(-200 -130)"><circle class="gs-aura" cx="' + CX + '" cy="' + CY + '" r="150" fill="url(#gsGl)"/>'
       + '<circle cx="' + CX + '" cy="' + CY + '" r="121" fill="#05070e"/><circle cx="' + CX + '" cy="' + CY + '" r="110" fill="none" stroke="url(#gsSt)" stroke-width="20"/>'
       + Array.from({length: 40}, (_, k) => { const a = k / 40 * Math.PI * 2, [x, y] = P(110, a); return '<path transform="translate(' + f1(x) + ' ' + f1(y) + ') rotate(' + f1(a * 180 / Math.PI + 90) + ')" d="M-4 -5 Q0 -1 -4 3 M0 -5 Q4 -1 0 3 M4 -5 Q8 -1 4 3" stroke="#7a8496" stroke-width=".7" fill="none" opacity=".7"/>'; }).join('')
-      + '<circle cx="' + CX + '" cy="' + CY + '" r="99.5" fill="#0a0e18"/>' + wedges + chain + blades
-      + '<g class="gs-hub"><path d="M' + hub.join(' L') + ' Z" fill="url(#gsHub)" stroke="url(#gsBl)" stroke-width="2"/><circle cx="' + CX + '" cy="' + CY + '" r="23" fill="#0a1a3a"/>'
-        + '<g clip-path="url(#gsCc)"><circle cx="' + CX + '" cy="' + CY + '" r="21" fill="#8fd0ff" opacity=".6"/>' + bdoMan(CX, CY - 15, .46, bdoP('messi', {shirt: '#75bde9', trim: '#ffffff'})) + '</g>'
-        + '<circle cx="' + CX + '" cy="' + CY + '" r="22" fill="none" stroke="url(#gsBl)" stroke-width="2.4"/><text x="' + CX + '" y="' + (CY + 32) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="7" letter-spacing="1" fill="#fff" stroke="#000" stroke-width="1.6" paint-order="stroke">MESSI</text></g>'
-      + '</g></g><rect class="gs-white" width="400" height="260" fill="#fff"/></svg>';
-    const ov = document.createElement('div'); ov.className = 'gsl'; ov.innerHTML = svg + '<div class="gs-t"><small>Five nations · one seal</small><b>THE GOATS</b></div><div class="gs-n" id="gsN"></div><button class="pc-skip gt-skip">Skip ››</button>';
+      + '<circle cx="' + CX + '" cy="' + CY + '" r="99.5" fill="#0a0e18"/>' + quarters + chain + spears
+      + '<g class="gs-hub" transform="translate(' + CX + ' ' + CY + ')"><g class="gs-hi"><path d="' + hub + '" fill="url(#gsHub)" stroke="url(#gsBl)" stroke-width="2.2" stroke-linejoin="round"/><path d="' + hub + '" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width=".7" transform="scale(.82)"/>'
+        + '<circle r="23.4" fill="#0a1a3a"/><g clip-path="url(#gsCc)">' + EM.ar + '<circle r="21" fill="url(#gsVg)"/></g><circle r="21.6" fill="none" stroke="url(#gsBl)" stroke-width="2.4"/></g></g>'
+      + '</g></g><rect class="gs-white" x="-600" y="-400" width="1600" height="1060" fill="#fff"/></svg>';
+    const ov = document.createElement('div'); ov.className = 'gsl'; ov.innerHTML = svg + '<button class="pc-skip gt-skip">Skip ››</button>';
     document.body.append(ov);
     const add = c => ov.classList.add(c), lit = k => { const w = ov.querySelector('.gs-w[data-k="' + k + '"]'); if (w) w.classList.add('on'); };
     const finish = () => { if (done) return; done = true; timers.forEach(clearTimeout); cine = null; resolve(); ov.classList.add('out'); setTimeout(() => ov.remove(), 700); };
     ov.querySelector('.gt-skip').onclick = finish; cine = {skip: finish}; musSync();
-    /* where the camera dives: the focused medallion, or the hub */
-    const fi = SEG.findIndex(g => g.k === focus), [fx, fy] = fi < 0 ? [CX, CY] : P(63, rad(-90 + fi * 72));
-    ov.querySelector('.gs-cam').style.transformOrigin = f1(200 + (fx - 200) * .74) + 'px ' + f1(134 + (fy - 130) * .74) + 'px';
-    const NOTES = [220, 246.94, 293.66, 329.63, 392];
+    /* where the camera dives: the chosen medallion, or the centre */
+    const fi = Q.findIndex(g => g.k === focus), [fx, fy] = fi < 0 ? [CX, CY] : P(MD, rad(-90 + fi * 90));
+    ov.querySelector('.gs-cam').style.transformOrigin = f1(200 + (fx - 200) * .84) + 'px ' + f1(130 + (fy - 130) * .84) + 'px';
+    const NOTES = [220, 261.63, 329.63, 392];
     T(80, () => { add('in'); noise(1.6, 220, 40, .32, 'lowpass'); tone(55, 2.4, 'sine', .3); tone(82.4, 2.4, 'triangle', .1); });
-    T(700, () => add('title'));
-    SEG.forEach((g, i) => T(1300 + i * 620, () => { lit(g.k); tone(NOTES[i], 1.3, 'triangle', .16); tone(NOTES[i] * 2, .9, 'sine', .07); noise(.25, 5200, 1400, .12); tone(55 + i * 6, .5, 'sine', .3);
-      const n = ov.querySelector('#gsN'); n.innerHTML = '<b>' + g.n + '</b>' + (g.c ? '<span>' + g.c + '</span>' : ''); n.classList.remove('on'); void n.offsetWidth; n.classList.add('on'); }));
-    T(4600, () => { add('hub'); [440, 554.37, 659.25].forEach(f => tone(f, 1.8, 'sine', .12)); noise(.8, 300, 4000, .14); const n = ov.querySelector('#gsN'); n.innerHTML = '<b>MESSI</b><span>ARGENTINA</span>'; n.classList.remove('on'); void n.offsetWidth; n.classList.add('on'); });
-    T(5600, () => { add('focus'); if (fi >= 0) lit(focus); const w = fi < 0 ? ov.querySelector('.gs-hub') : ov.querySelector('.gs-w[data-k="' + focus + '"]'); w.classList.add('chosen');
-      const g = SEG[fi]; const n = ov.querySelector('#gsN'); n.innerHTML = '<b>' + (g ? (g.n === 'ARGENTINA' ? 'MESSI' : g.n) : 'MESSI') + '</b><span>' + (g ? g.c || 'ARGENTINA' : 'ARGENTINA') + '</span>'; n.classList.remove('on'); void n.offsetWidth; n.classList.add('on', 'big');
-      [0, .12, .24, .36].forEach(d => tone(110, .6, 'sawtooth', .06, d)); sweep(60, 220, 1, 'sawtooth', .1); });
-    T(6500, () => { add('break'); noise(.9, 7000, 600, .4, 'highpass'); noise(.5, 400, 80, .4, 'lowpass'); for (let k = 0; k < 9; k++) tone(1600 + Math.random() * 1600, .18, 'square', .03, k * .05); tone(55, 1.5, 'sine', .4); });
-    T(7100, () => { add('zoom'); sweep(90, 1400, .8, 'sawtooth', .09); noise(.9, 300, 6000, .16); });
-    T(7800, () => add('white'));
-    T(8200, finish);
+    Q.forEach((g, i) => T(1300 + i * 700, () => { lit(g.k); tone(NOTES[i], 1.3, 'triangle', .16); tone(NOTES[i] * 2, .9, 'sine', .07); noise(.25, 5200, 1400, .12); tone(55 + i * 6, .5, 'sine', .3); }));
+    T(4300, () => { add('hub'); [440, 554.37, 659.25].forEach(f => tone(f, 1.8, 'sine', .12)); noise(.8, 300, 4000, .14); });
+    T(5400, () => { add('focus'); (fi < 0 ? ov.querySelector('.gs-hub') : ov.querySelector('.gs-w[data-k="' + focus + '"]')).classList.add('chosen'); [0, .12, .24, .36].forEach(d => tone(110, .6, 'sawtooth', .06, d)); sweep(60, 220, 1, 'sawtooth', .1); });
+    T(6300, () => { add('break'); noise(.9, 7000, 600, .4, 'highpass'); noise(.5, 400, 80, .4, 'lowpass'); for (let k = 0; k < 9; k++) tone(1600 + Math.random() * 1600, .18, 'square', .03, k * .05); tone(55, 1.5, 'sine', .4); });
+    T(6900, () => { add('zoom'); sweep(90, 1400, .8, 'sawtooth', .09); noise(.9, 300, 6000, .16); });
+    T(7600, () => add('white'));
+    T(8000, finish);
   });
 }
 /* KING-END */
