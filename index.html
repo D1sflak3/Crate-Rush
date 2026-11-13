@@ -4814,6 +4814,7 @@ body.ar-on{overflow:hidden}
 
 
 
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -15006,7 +15007,8 @@ function kingCinematic(r){
       + '<rect y="144" width="400" height="130" fill="#5f8a3a"/>' + Array.from({length: 18}, () => '<ellipse cx="' + f1(R() * 400) + '" cy="' + f1(150 + R() * 100) + '" rx="' + f1(8 + R() * 26) + '" ry="' + f1(2 + R() * 5) + '" fill="#9a7a4a" opacity=".55"/>').join('')
       + '<path d="M0 160 H400" stroke="#fff" stroke-opacity=".35" stroke-width="1.2"/>'
       + '<g transform="translate(-14 0)">' + goalR('c1-net', 334, 214).replace(/V' \+ \(y - 58\)/, '') + '</g>'
-      + '<g class="c1-gk">' + fig(330, 178, .72, GKP, GKC, null, 'kf-c1g', true) + '</g>'
+      + '<g class="c1-gk">' + fig(330, 178, .66, [{t: 10, h: -10, a: [40, 60], b: [-30, 60], l: [20, 30, 0], m: [-14, 26, 0]}], GK('#2a7a46'), null, 'kf-c1g', true) + '</g>'
+      + '<ellipse cx="262" cy="222" rx="20" ry="3" fill="#000" opacity=".3"/><g class="c1-him">' + fig(262, 180, .74, [GKP[0]], GKC, null, 'kf-c1h', true) + '</g>'
       + '<ellipse cx="150" cy="230" rx="22" ry="3" fill="#000" opacity=".3"/><g class="c1-sh">' + fig(146, 186, .78, [{t: 6, h: -10, a: [-20, 40], b: [20, 40], l: [10, 16, -2], m: [-10, 18, 4]}, {t: -10, h: -10, a: [-50, 30], b: [50, 30], l: [-44, 84, 20], m: [14, 20, -6]}, {t: 10, h: 0, a: [-40, 30], b: [40, 30], l: [80, 6, 10], m: [-12, 22, 8]}], SHOK, null, 'kf-c1s') + '</g>'
       + '<g class="c1-ball">' + ball('c1-b', 4.4) + '</g><path class="c1-streak" d="M-40 -60 L170 222" stroke="url(#kgFl)" stroke-width="5" opacity="0"/></g>');
     const c2 = SVG('<rect width="400" height="260" fill="#4a6a34"/>' + Array.from({length: 30}, () => '<ellipse cx="' + f1(R() * 400) + '" cy="' + f1(R() * 260) + '" rx="' + f1(30 + R() * 60) + '" ry="' + f1(10 + R() * 30) + '" fill="' + ['#6a8a44', '#e8a868', '#3a5a2a', '#9a7a4a'][Math.floor(R() * 4)] + '" opacity=".35"/>').join('')
