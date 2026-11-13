@@ -3651,6 +3651,43 @@ body.dz-open .toast{z-index:95}
 .kgc.cuc .kg-rv .kg-h2 span{background-image:linear-gradient(180deg,#fff3e0,#ffb060 30%,#ff7a12 55%,#8a3a08 85%,#3a1404)}
 .kgc.cuc .kg-beam{opacity:.35!important}
 .kgc.cuc.kland .kg-rays.gold{opacity:.3}
+/* the GOATs' seal */
+.gsl{position:fixed;inset:0;z-index:120;background:#04060c;overflow:hidden;transition:opacity .6s}
+.gsl.out{opacity:0;pointer-events:none}
+.gs-svg{position:absolute;inset:0;width:100%;height:100%}
+.gs-cam{opacity:0;transform:scale(.86);transform-origin:200px 134px;transition:opacity 1.2s,transform 1.6s cubic-bezier(.2,.7,.3,1)}
+.gsl.in .gs-cam{opacity:1;transform:scale(1)}
+.gsl.zoom .gs-cam{transform:scale(5.4);transition:transform .9s cubic-bezier(.6,0,.9,.4)}
+.gs-aura{opacity:.06;transition:opacity 1s}
+.gsl.hub .gs-aura{opacity:.22}
+.gs-w{filter:brightness(.22) saturate(.15);transition:filter .6s}
+.gs-w.on{filter:brightness(1) saturate(1) drop-shadow(0 0 6px rgba(255,255,255,.4))}
+.gs-w.on .gs-med{animation:gsPop .6s cubic-bezier(.2,1.6,.4,1)}
+@keyframes gsPop{0%{transform:scale(.6)}100%{transform:scale(1)}}
+.gsl.focus .gs-w:not(.chosen){filter:brightness(.35) saturate(.5)}
+.gs-w.chosen{filter:brightness(1.25) saturate(1.2) drop-shadow(0 0 12px #fff) drop-shadow(0 0 30px rgba(255,230,140,.9));animation:gsGlow .5s ease-in-out infinite alternate}
+@keyframes gsGlow{to{filter:brightness(1.45) saturate(1.3) drop-shadow(0 0 18px #fff) drop-shadow(0 0 44px rgba(255,230,140,1))}}
+.gs-hub{filter:brightness(.25) saturate(.2);transform-origin:200px 130px;transition:filter .8s}
+.gsl.hub .gs-hub{filter:brightness(1.1) drop-shadow(0 0 10px #8fd0ff);animation:gsPop .7s cubic-bezier(.2,1.6,.4,1)}
+.gs-hub.chosen{animation:gsGlow .5s ease-in-out infinite alternate!important}
+.gs-l{transition:transform 1.1s cubic-bezier(.1,.6,.3,1),opacity 1.1s}
+.gsl.break .gs-l{transform:translate(var(--dx),var(--dy)) rotate(var(--r));opacity:0}
+.gsl.break .gs-cam{animation:gsQuake .45s linear}
+@keyframes gsQuake{25%{translate:-4px 3px}50%{translate:4px -3px}75%{translate:-2px -2px}}
+.gs-white{opacity:0;pointer-events:none}
+.gsl.white .gs-white{opacity:1;transition:opacity .4s ease-in}
+.gs-t{position:absolute;top:calc(env(safe-area-inset-top) + 2.4vh);left:0;right:0;text-align:center;opacity:0;transform:translateY(-8px);transition:all .9s}
+.gsl.title .gs-t{opacity:1;transform:none}
+.gsl.zoom .gs-t,.gsl.zoom .gs-n{opacity:0}
+.gs-t small{display:block;font:700 11px/1 var(--body);letter-spacing:.38em;text-transform:uppercase;color:#9ab4e0}
+.gs-t b{display:block;font:700 clamp(30px,5vw,56px)/1 var(--display);letter-spacing:.24em;padding-left:.24em;margin-top:6px;background:linear-gradient(180deg,#fff,#cfe2ff 50%,#7a9ad0);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(140,190,255,.5))}
+.gs-n{position:absolute;bottom:calc(env(safe-area-inset-bottom) + 2.4vh);left:0;right:0;text-align:center;opacity:0}
+.gs-n.on{animation:gsName .9s ease-out forwards}
+@keyframes gsName{0%{opacity:0;transform:translateY(10px)}25%{opacity:1;transform:none}100%{opacity:1}}
+.gs-n b{display:block;font:700 clamp(22px,3.6vw,40px)/1 var(--display);letter-spacing:.18em;color:#fff;text-shadow:0 0 18px rgba(255,255,255,.4)}
+.gs-n.big b{font-size:clamp(30px,5.4vw,60px);color:#ffe9a0;text-shadow:0 0 26px rgba(255,210,63,.7)}
+.gs-n span{display:block;font:700 11px/1 var(--body);letter-spacing:.36em;color:#9ab4e0;margin-top:6px}
+.gsl .gt-skip{z-index:3}
 /* KING-CSS-END */
 /* ---------- The Prince ---------- */
 .gtc[data-s="n1"] .pr-1,.gtc[data-s="n2"] .pr-2,.gtc[data-s="n3"] .pr-3,.gtc[data-s="n4a"] .pr-4a,.gtc[data-s="n4b"] .pr-4b,.gtc[data-s="n4c"] .pr-4c,.gtc[data-s="n5"] .pr-5,.gtc[data-s="n6"] .pr-6,.gtc[data-s="n7"] .pr-7,.gtc[data-s="n8"] .pr-8,.gtc[data-s="n9"] .pr-9,.gtc[data-s="n9b"] .pr-9b,.gtc[data-s="n9c"] .pr-9c,.gtc[data-s="n10"] .pr-10{opacity:1;visibility:visible;transition:opacity .6s}
@@ -4657,6 +4694,11 @@ body.ar-on{overflow:hidden}
   .ar-pausebtn{top:auto;bottom:10px;left:50%;transform:translateX(-50%);height:38px;font-size:15px}.ar-sc b{width:42px;height:42px;font-size:26px}.ar-clock{font-size:24px}}
 @media (max-width:700px){.ar-load{grid-template-columns:1fr}.ar-logo{font-size:36px}.ar-ban b{font-size:40px}.ar-sc small{max-width:90px;font-size:13px}}
 @media (max-height:520px){.ar-rcard{padding:14px}.ar-rtop{font-size:42px}.ar-rsc{font-size:28px}.ar-rvs{margin-bottom:8px}.ar-rcr{margin:8px 0 2px;font-size:18px}.ar-btn{padding:9px;margin-top:6px}.ar-emb{width:48px;height:48px}}
+
+
+
+
+
 
 
 
@@ -15521,6 +15563,85 @@ function kingCinematic(r){
     T(R0 + 16000, finish);
   });
 }
+/* ---------- The GOATs' seal: the opening of the GOAT, Sui, La Pulga and Prince films ----------
+   Five nations round a sealed circle (France, Poland, Argentina, Portugal, Brazil) and Messi in the middle.
+   The seal wakes one segment at a time, the film's own legend burns brightest, the chains break and the
+   camera dives into him; then that film begins. */
+function goatSeal(focus){
+  if (!BDO_PPL.lewy) BDO_PPL.lewy = {skin: '#efc4a0', shade: 'rgba(140,70,40,.16)', head: 'long', hair: 'part', hc: '#5a3c22', iris: '#4a6a8a', brow: 'flat', mouth: 'closed'};
+  return new Promise(resolve => {
+    let done = false; const timers = [], f1 = n => (+n).toFixed(1), R = seeded(1987);
+    const T = (ms, f) => timers.push(setTimeout(() => { if (done) return; try { f(); } catch (e) {} }, REDUCED ? Math.min(ms, 240) : ms));
+    const CX = 200, CY = 130, RW = 97, RH = 31, P = (r, a) => [CX + r * Math.cos(a), CY + r * Math.sin(a)], rad = d => d * Math.PI / 180;
+    const SEG = [
+      {k: 'fr', n: 'MBAPPÉ', c: 'FRANCE', p: 'mbappe', a: '#3a64e8', b: '#08103e', s: ['#2f55d4', '#ffffff', '#e0283a'], shirt: '#1f3a8a', trim: '#e0283a'},
+      {k: 'pl', n: 'LEWANDOWSKI', c: 'POLAND', p: 'lewy', a: '#ff4a5e', b: '#3a0610', s: ['#ffffff', '#dc143c'], shirt: '#f2f2f6', trim: '#dc143c'},
+      {k: 'ar', n: 'ARGENTINA', c: '', a: '#8fd0ff', b: '#0c2c52', s: ['#75bde9', '#ffffff', '#75bde9']},
+      {k: 'pt', n: 'RONALDO', c: 'PORTUGAL', p: 'cr7', a: '#e8243c', b: '#062a12', s: ['#006600', '#ff0000'], shirt: '#c8102e', trim: '#006600'},
+      {k: 'br', n: 'NEYMAR', c: 'BRAZIL', p: 'neymar', a: '#ffe23a', b: '#003a1c', s: ['#009c3b', '#ffdf00', '#002776'], shirt: '#ffdf00', trim: '#009c3b'}];
+    let defs = '<defs>' + bdoDefs('gs') + '<linearGradient id="gsBl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7a8a9e"/><stop offset=".5" stop-color="#f4f8ff"/><stop offset="1" stop-color="#6a7a8e"/></linearGradient>'
+      + '<radialGradient id="gsSt" cx=".5" cy=".5" r=".5"><stop offset=".84" stop-color="#3a4250"/><stop offset=".92" stop-color="#5a6474"/><stop offset="1" stop-color="#22283a"/></radialGradient>'
+      + '<radialGradient id="gsHub" cx=".5" cy=".4" r=".6"><stop offset="0" stop-color="#bfe6ff"/><stop offset=".4" stop-color="#2a6ad8"/><stop offset="1" stop-color="#06143a"/></radialGradient>'
+      + '<radialGradient id="gsGl"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".4" stop-color="#fff" stop-opacity=".3"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>'
+      + '<clipPath id="gsCc"><circle cx="' + CX + '" cy="' + CY + '" r="21"/></clipPath>';
+    let wedges = '', blades = '', meds = '';
+    SEG.forEach((g, i) => {
+      const m = rad(-90 + i * 72), a0 = m - rad(34.6), a1 = m + rad(34.6), [x0, y0] = P(RH, a0), [x1, y1] = P(RW, a0), [x2, y2] = P(RW, a1), [x3, y3] = P(RH, a1), [mx, my] = P(63, m), [lx, ly] = P(86, m);
+      defs += '<radialGradient id="gsW' + i + '" gradientUnits="userSpaceOnUse" cx="' + f1(mx) + '" cy="' + f1(my) + '" r="70"><stop offset="0" stop-color="' + g.a + '"/><stop offset=".55" stop-color="' + g.a + '" stop-opacity=".75"/><stop offset="1" stop-color="' + g.b + '"/></radialGradient>'
+        + '<clipPath id="gsC' + i + '"><circle cx="' + f1(mx) + '" cy="' + f1(my) + '" r="21"/></clipPath>';
+      let band = ''; g.s.forEach((c, j) => { const r = RW - 2 - j * 3.2, [bx0, by0] = P(r, a0 + .01), [bx1, by1] = P(r, a1 - .01); band += '<path d="M' + f1(bx0) + ' ' + f1(by0) + ' A' + r + ' ' + r + ' 0 0 1 ' + f1(bx1) + ' ' + f1(by1) + '" stroke="' + c + '" stroke-width="3.2" fill="none"/>'; });
+      /* faint rays and a rune ring behind the medallion */
+      let deco = ''; for (let k = 0; k < 9; k++) { const aa = a0 + (a1 - a0) * (k + .5) / 9, [rx0, ry0] = P(RH + 6, aa), [rx1, ry1] = P(RW - 12, aa); deco += '<path d="M' + f1(rx0) + ' ' + f1(ry0) + ' L' + f1(rx1) + ' ' + f1(ry1) + '" stroke="#fff" stroke-opacity=".08" stroke-width="1.6"/>'; }
+      deco += '<circle cx="' + f1(mx) + '" cy="' + f1(my) + '" r="28" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width=".8" stroke-dasharray="1.5 2.5"/>';
+      wedges += '<g class="gs-w" data-k="' + g.k + '"><path d="M' + f1(x0) + ' ' + f1(y0) + ' L' + f1(x1) + ' ' + f1(y1) + ' A' + RW + ' ' + RW + ' 0 0 1 ' + f1(x2) + ' ' + f1(y2) + ' L' + f1(x3) + ' ' + f1(y3) + ' A' + RH + ' ' + RH + ' 0 0 0 ' + f1(x0) + ' ' + f1(y0) + ' Z" fill="url(#gsW' + i + ')" stroke="#0a0e18" stroke-width="1"/>' + deco + band
+        + '<g class="gs-med" style="transform-origin:' + f1(mx) + 'px ' + f1(my) + 'px"><circle cx="' + f1(mx) + '" cy="' + f1(my) + '" r="23" fill="' + g.b + '"/>'
+        + (g.p ? '<g clip-path="url(#gsC' + i + ')"><circle cx="' + f1(mx) + '" cy="' + f1(my) + '" r="21" fill="' + g.a + '" opacity=".55"/>' + bdoMan(f1(mx), f1(my - 15), .46, bdoP(g.p, {shirt: g.shirt, trim: g.trim})) + '</g>'
+          : '<g transform="translate(' + f1(mx) + ' ' + f1(my) + ')">' + Array.from({length: 16}, (_, k) => { const aa = k * Math.PI / 8; return '<path d="M' + f1(Math.cos(aa) * 10) + ' ' + f1(Math.sin(aa) * 10) + ' L' + f1(Math.cos(aa) * (k % 2 ? 16 : 19)) + ' ' + f1(Math.sin(aa) * (k % 2 ? 16 : 19)) + '" stroke="#ffd23f" stroke-width="' + (k % 2 ? 1.4 : 2.2) + '" stroke-linecap="round"/>'; }).join('')
+            + '<circle r="9" fill="#ffd23f" stroke="#a86a00" stroke-width=".8"/><circle cx="-3" cy="-1.4" r="1" fill="#6a4300"/><circle cx="3" cy="-1.4" r="1" fill="#6a4300"/><path d="M-3 3 Q0 5 3 3" stroke="#6a4300" stroke-width=".9" fill="none"/></g>')
+        + '<circle cx="' + f1(mx) + '" cy="' + f1(my) + '" r="22" fill="none" stroke="url(#gsBl)" stroke-width="2.2"/></g>'
+        + '<text x="' + f1(lx) + '" y="' + f1(ly + 2.2) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="7" letter-spacing=".8" fill="#fff" stroke="#000" stroke-width="1.6" paint-order="stroke">' + g.n + '</text></g>';
+      /* a spear along each seam */
+      const sa = m + rad(36), pts = [[RH - 3, -1.6], [116, -2.6], [118, -5.4], [120, -2.4], [131, 0], [120, 2.4], [118, 5.4], [116, 2.6], [RH - 3, 1.6]].map(([r, w]) => { const [px, py] = P(r, sa); return f1(px - Math.sin(sa) * w) + ' ' + f1(py + Math.cos(sa) * w); });
+      blades += '<path d="M' + pts.join(' L') + ' Z" fill="url(#gsBl)" stroke="#2a3240" stroke-width=".6"/>';
+    });
+    /* the chain: links laid round the ring */
+    let chain = ''; for (let i = 0; i < 56; i++) { const a = i / 56 * Math.PI * 2, [x, y] = P(108, a), deg = a * 180 / Math.PI + 90, dx = Math.cos(a) * (60 + R() * 80), dy = Math.sin(a) * (60 + R() * 80);
+      chain += '<g class="gs-l" style="--dx:' + f1(dx) + 'px;--dy:' + f1(dy) + 'px;--r:' + f1((R() - .5) * 720) + 'deg"><g transform="translate(' + f1(x) + ' ' + f1(y) + ') rotate(' + f1(deg) + ')">' + (i % 2 ? '<ellipse rx="4.6" ry="2.4" fill="none" stroke="#c8d2e0" stroke-width="1.4"/><ellipse rx="4.6" ry="2.4" fill="none" stroke="#5a6474" stroke-width=".5"/>' : '<rect x="-4.4" y="-.9" width="8.8" height="1.8" rx=".9" fill="#aab4c4" stroke="#4a5262" stroke-width=".4"/>') + '</g></g>'; }
+    /* the hub: a five-pointed frame and Messi */
+    const hub = Array.from({length: 10}, (_, k) => { const a = rad(-90 + 36 + k * 36), r = k % 2 ? 22 : 36; const [x, y] = P(r, a); return f1(x) + ' ' + f1(y); });
+    const svg = '<svg class="gs-svg" viewBox="' + (innerHeight > innerWidth ? '86 30 228 210' : '0 0 400 260') + '" preserveAspectRatio="xMidYMid ' + (innerHeight > innerWidth ? 'meet' : 'slice') + '">' + defs + '</defs>'
+      + '<rect width="400" height="260" fill="#070b16"/>' + Array.from({length: 40}, () => { const x = R() * 400, y = R() * 260, s = 8 + R() * 14; return '<path d="M' + f1(x) + ' ' + f1(y - s) + ' l' + f1(s * .87) + ' ' + f1(s / 2) + ' v' + f1(s) + ' l' + f1(-s * .87) + ' ' + f1(s / 2) + ' l' + f1(-s * .87) + ' ' + f1(-s / 2) + ' v' + f1(-s) + ' Z" fill="#141c30" stroke="#1e2a44" stroke-width=".6" opacity="' + f1(.3 + R() * .5) + '"/>'; }).join('')
+      + '<g class="gs-cam"><g transform="translate(200 134) scale(.74) translate(-200 -130)"><circle class="gs-aura" cx="' + CX + '" cy="' + CY + '" r="150" fill="url(#gsGl)"/>'
+      + '<circle cx="' + CX + '" cy="' + CY + '" r="121" fill="#05070e"/><circle cx="' + CX + '" cy="' + CY + '" r="110" fill="none" stroke="url(#gsSt)" stroke-width="20"/>'
+      + Array.from({length: 40}, (_, k) => { const a = k / 40 * Math.PI * 2, [x, y] = P(110, a); return '<path transform="translate(' + f1(x) + ' ' + f1(y) + ') rotate(' + f1(a * 180 / Math.PI + 90) + ')" d="M-4 -5 Q0 -1 -4 3 M0 -5 Q4 -1 0 3 M4 -5 Q8 -1 4 3" stroke="#7a8496" stroke-width=".7" fill="none" opacity=".7"/>'; }).join('')
+      + '<circle cx="' + CX + '" cy="' + CY + '" r="99.5" fill="#0a0e18"/>' + wedges + chain + blades
+      + '<g class="gs-hub"><path d="M' + hub.join(' L') + ' Z" fill="url(#gsHub)" stroke="url(#gsBl)" stroke-width="2"/><circle cx="' + CX + '" cy="' + CY + '" r="23" fill="#0a1a3a"/>'
+        + '<g clip-path="url(#gsCc)"><circle cx="' + CX + '" cy="' + CY + '" r="21" fill="#8fd0ff" opacity=".6"/>' + bdoMan(CX, CY - 15, .46, bdoP('messi', {shirt: '#75bde9', trim: '#ffffff'})) + '</g>'
+        + '<circle cx="' + CX + '" cy="' + CY + '" r="22" fill="none" stroke="url(#gsBl)" stroke-width="2.4"/><text x="' + CX + '" y="' + (CY + 32) + '" text-anchor="middle" font-family="Teko, sans-serif" font-weight="700" font-size="7" letter-spacing="1" fill="#fff" stroke="#000" stroke-width="1.6" paint-order="stroke">MESSI</text></g>'
+      + '</g></g><rect class="gs-white" width="400" height="260" fill="#fff"/></svg>';
+    const ov = document.createElement('div'); ov.className = 'gsl'; ov.innerHTML = svg + '<div class="gs-t"><small>Five nations · one seal</small><b>THE GOATS</b></div><div class="gs-n" id="gsN"></div><button class="pc-skip gt-skip">Skip ››</button>';
+    document.body.append(ov);
+    const add = c => ov.classList.add(c), lit = k => { const w = ov.querySelector('.gs-w[data-k="' + k + '"]'); if (w) w.classList.add('on'); };
+    const finish = () => { if (done) return; done = true; timers.forEach(clearTimeout); cine = null; resolve(); ov.classList.add('out'); setTimeout(() => ov.remove(), 700); };
+    ov.querySelector('.gt-skip').onclick = finish; cine = {skip: finish}; musSync();
+    /* where the camera dives: the focused medallion, or the hub */
+    const fi = SEG.findIndex(g => g.k === focus), [fx, fy] = fi < 0 ? [CX, CY] : P(63, rad(-90 + fi * 72));
+    ov.querySelector('.gs-cam').style.transformOrigin = f1(200 + (fx - 200) * .74) + 'px ' + f1(134 + (fy - 130) * .74) + 'px';
+    const NOTES = [220, 246.94, 293.66, 329.63, 392];
+    T(80, () => { add('in'); noise(1.6, 220, 40, .32, 'lowpass'); tone(55, 2.4, 'sine', .3); tone(82.4, 2.4, 'triangle', .1); });
+    T(700, () => add('title'));
+    SEG.forEach((g, i) => T(1300 + i * 620, () => { lit(g.k); tone(NOTES[i], 1.3, 'triangle', .16); tone(NOTES[i] * 2, .9, 'sine', .07); noise(.25, 5200, 1400, .12); tone(55 + i * 6, .5, 'sine', .3);
+      const n = ov.querySelector('#gsN'); n.innerHTML = '<b>' + g.n + '</b>' + (g.c ? '<span>' + g.c + '</span>' : ''); n.classList.remove('on'); void n.offsetWidth; n.classList.add('on'); }));
+    T(4600, () => { add('hub'); [440, 554.37, 659.25].forEach(f => tone(f, 1.8, 'sine', .12)); noise(.8, 300, 4000, .14); const n = ov.querySelector('#gsN'); n.innerHTML = '<b>MESSI</b><span>ARGENTINA</span>'; n.classList.remove('on'); void n.offsetWidth; n.classList.add('on'); });
+    T(5600, () => { add('focus'); if (fi >= 0) lit(focus); const w = fi < 0 ? ov.querySelector('.gs-hub') : ov.querySelector('.gs-w[data-k="' + focus + '"]'); w.classList.add('chosen');
+      const g = SEG[fi]; const n = ov.querySelector('#gsN'); n.innerHTML = '<b>' + (g ? (g.n === 'ARGENTINA' ? 'MESSI' : g.n) : 'MESSI') + '</b><span>' + (g ? g.c || 'ARGENTINA' : 'ARGENTINA') + '</span>'; n.classList.remove('on'); void n.offsetWidth; n.classList.add('on', 'big');
+      [0, .12, .24, .36].forEach(d => tone(110, .6, 'sawtooth', .06, d)); sweep(60, 220, 1, 'sawtooth', .1); });
+    T(6500, () => { add('break'); noise(.9, 7000, 600, .4, 'highpass'); noise(.5, 400, 80, .4, 'lowpass'); for (let k = 0; k < 9; k++) tone(1600 + Math.random() * 1600, .18, 'square', .03, k * .05); tone(55, 1.5, 'sine', .4); });
+    T(7100, () => { add('zoom'); sweep(90, 1400, .8, 'sawtooth', .09); noise(.9, 300, 6000, .16); });
+    T(7800, () => add('white'));
+    T(8200, finish);
+  });
+}
 /* KING-END */
 /* ---------- Rusted9000 cinematic ----------
    A storm over the Scrapyard. Rustagard's heart burning a million credits of rust; the fuel runs down the pipes and
@@ -15791,9 +15912,9 @@ function rustedCinematic(r){
 function chromaCinematic(r){
   if (r.id === RUSTED_ID) return rustedCinematic(r);
   if (r.id === 'x1' || r.id === 'x1c') return requiemCinematic(r);
-  if (r.id === 'x3' || r.id === SFOT_ID) return goatCinematic(r);
-  if (r.id === SUI_ID || r.id === PULGA_ID) return suiCinematic(r);
-  if (r.id === PRINCE_ID) return princeCinematic(r);
+  if (r.id === 'x3' || r.id === SFOT_ID) return goatSeal('c').then(() => goatCinematic(r));
+  if (r.id === SUI_ID || r.id === PULGA_ID) return goatSeal(r.id === SUI_ID ? 'pt' : 'c').then(() => suiCinematic(r));
+  if (r.id === PRINCE_ID) return goatSeal('br').then(() => princeCinematic(r));
   if (r.id === KING_ID || r.id === MAGIC_ID || r.id === BLESS_ID || r.id === CURSE_ID) return kingCinematic(r);
   return new Promise(resolve => {
     const it = BY[r.id], ov = $('#chc'), timers = [];
