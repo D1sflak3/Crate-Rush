@@ -4772,6 +4772,8 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -15072,13 +15074,13 @@ function kingCinematic(r){
     const agogo = (v, d, hi) => { const t = at(d), f = hi ? 1318.5 : 987.8, a = eg(v, t, .002, 0, .2); os('sine', f, t, .22, a); const b = eg(v * .12, t, .002, 0, .08); os('square', f * 2.42, t, .1, b); out(b); out(a, hLo); };
     const ganza = (v, d) => { const [a, t] = nzz('highpass', 7600, 6800, .035, d); a.gain.setValueAtTime(v, t); a.gain.exponentialRampToValueAtTime(.0001, t + .035); out(a); };
     /* the sequencer: 104 bpm, scheduled a little ahead on the audio clock so the drums stay tight */
-    const STEPT = 60 / 104 / 4, BAR = STEPT * 16;
+    let STEPT = 60 / 104 / 4, BAR = STEPT * 16;
     const PROG = [[146.83, 3, 73.42], [116.54, 4, 58.27], [174.61, 4, 87.31], [130.81, 4, 65.41]];
     const THEME = [[[0, 293.66, 4], [4, 349.23, 2], [6, 440, 2], [8, 587.33, 8]], [[0, 523.25, 4], [4, 466.16, 2], [6, 440, 2], [8, 349.23, 8]], [[0, 349.23, 4], [4, 440, 2], [6, 523.25, 2], [8, 698.46, 8]], [[0, 659.25, 4], [4, 587.33, 2], [6, 523.25, 2], [8, 659.25, 8]]];
     const ASC = [[146.83, 3], [155.56, 4], [174.61, 4], [196, 4], [220, 3], [233.08, 4], [261.63, 4], [293.66, 4]];
     const lv = {bat: 0, ost: 0, pad: 0, th: 0, plk: 0}; let seqN = 0, seqT = 0, mode = 'dm';
     const CX = [1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1], TB = [1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0], AG = [2, 0, 2, 0, 1, 1, 0, 2, 0, 2, 0, 1, 1, 0, 2, 0];
-    const seqStep = (n, t) => { const s = n % 16, bar = Math.floor(n / 16), d = t - A.currentTime;
+    const seqStep = (n, t) => { if (alt) { altStep(n, t); return; } const s = n % 16, bar = Math.floor(n / 16), d = t - A.currentTime;
       let root, third, bass; if (mode === 'asc') { const c = ASC[Math.min(7, bar)]; root = c[0]; third = c[1]; bass = c[0] / 2; } else if (mode === 'fin') { root = 293.66; third = 4; bass = 73.42; } else { const c = PROG[bar % 4]; root = c[0]; third = c[1]; bass = c[2]; }
       const tones = [root, semi(root, third), semi(root, 7), root * 2], up = mode === 'asc' ? .5 + .5 * Math.min(1, bar / 7) : 1;
       const b = lv.bat * (mode === 'asc' ? up : 1);
@@ -15102,6 +15104,55 @@ function kingCinematic(r){
     const tick = () => { if (done || !snd) return; const now = A.currentTime; if (seqT < now) seqT = now + .02; while (seqT < now + .16) { try { seqStep(seqN, seqT); } catch (e) {} seqN++; seqT += STEPT; } };
     if (snd) timers.push(setInterval(tick, 45));
     const seqReset = () => { seqN = 0; seqT = snd ? A.currentTime + .06 : 0; };
+    /* ---- after the crown is hit the score changes completely.
+       Ronaldinho ('rio', 128 bpm): the street. Berimbau and caxixi at first, then a funk-carioca kick on the tresillo,
+       claps, pandeiro, tamborim, agogô, cuíca, cavaquinho strums, a slap bass and a pífano tune, in D.
+       Maradona ('grace', 72 bpm): blessed. Harp arpeggios, strings, a bandoneon singing in A minor, choir at the peaks;
+       it turns to A major when he scores. ai sets how much plays: -1 nothing, 0 sparse, 1 low, 2 full, 3 peak. ---- */
+    let alt = null, ai = 0, gmaj = false;
+    const tempo = bpm => { STEPT = 60 / bpm / 4; BAR = STEPT * 16; };
+    const CH = {m7: [0, 3, 7, 10], d7: [0, 4, 7, 10], M7: [0, 4, 7, 11], m: [0, 3, 7, 12], M: [0, 4, 7, 12]};
+    const berim = (f, v, d) => { const t = at(d), a = eg(v, t, .003, .02, .5), b = flt('bandpass', 1100, 2.5), o = os('triangle', f * 1.03, t, .6, b); o.frequency.exponentialRampToValueAtTime(f, t + .08); os('sine', f, t, .6, a); b.connect(a); out(a, hMid); };
+    const cuica = (f, v, d, up) => { const t = at(d), a = eg(v, t, .02, .08, .14), b = flt('bandpass', f * 1.5, 4), o = os('sawtooth', f * (up ? .7 : 1.3), t, .3, b); o.frequency.exponentialRampToValueAtTime(f * (up ? 1.4 : .7), t + .16); b.connect(a); out(a, hLo); };
+    const pand = (v, d, sl) => { if (sl) { const t = at(d), a = eg(v * 2, t, .002, 0, .09); os('sine', 190, t, .12, a); out(a, hLo); } const [b, t2] = nzz('highpass', 8600, 7000, .05, d); b.gain.setValueAtTime(v * .9, t2); b.gain.exponentialRampToValueAtTime(.0001, t2 + .05); out(b); };
+    const tamborim = (v, d) => { const t = at(d), a = eg(v, t, .001, 0, .045); os('square', 880, t, .06, a); out(a, hLo); };
+    const kickD = (v, d) => { const t = at(d), a = eg(v, t, .002, .01, .22), o = os('sine', 140, t, .3, a); o.frequency.exponentialRampToValueAtTime(48, t + .12); out(a); };
+    const clap = (v, d) => [0, .012, .024].forEach(dd => { const [b, t] = nzz('bandpass', 1500, 1200, .06, d + dd, 1.2); b.gain.setValueAtTime(v, t); b.gain.exponentialRampToValueAtTime(.0001, t + .06); out(b, hLo); });
+    const cavaco = (fs, v, d) => fs.forEach((f, i) => { const t = at(d + i * .009), a = eg(v, t, .002, 0, .14), b = flt('bandpass', 2200, .8); os('triangle', f, t, .2, b); os('square', f, t, .08, b); b.connect(a); out(a, hMid); });
+    const slap = (f, v, d) => { const t = at(d), a = eg(v, t, .003, .03, .16), lp = flt('lowpass', 520, 2); lp.frequency.setValueAtTime(1400, t); lp.frequency.exponentialRampToValueAtTime(380, t + .1); os('sawtooth', f, t, .25, lp); os('sine', f, t, .25, a); lp.connect(a); out(a); };
+    const pife = (f, len, v, d) => { const t = at(d), a = eg(v, t, .02, len, .08), b = flt('bandpass', f * 1.6, 1.5), lfo = A.createOscillator(), lg = A.createGain(); lfo.frequency.value = 6; lg.gain.value = f * .012; lfo.connect(lg); lfo.start(t); lfo.stop(t + len + .2);
+      const o = os('square', f, t, len + .15, b), o2 = os('sine', f, t, len + .15, a); lg.connect(o.frequency); lg.connect(o2.frequency); b.connect(a); out(a, hMid); };
+    const harp = (f, v, d) => { const t = at(d), a = eg(v, t, .002, 0, 1.6), b = eg(v * .4, t, .002, 0, .5); os('triangle', f, t, 1.7, a); os('sine', f * 2, t, .6, b); out(a, hHi); out(b, hHi); };
+    const strings = (f, len, v, d) => { const t = at(d), a = eg(v, t, .6, Math.max(.05, len - .6), .9), lp = flt('lowpass', 1600, .7); [-8, 0, 8].forEach(dt => os('sawtooth', f, t, len + 1, lp, dt)); lp.connect(a); out(a, hHi); };
+    const bando = (f, len, v, d) => { const t = at(d), a = eg(v, t, .08, len, .25), b = flt('bandpass', 1300, .9), am = A.createGain(), tr = A.createOscillator(), tg = A.createGain(); am.gain.value = .85; tr.frequency.value = 5.5; tg.gain.value = .18; tr.connect(tg); tg.connect(am.gain); tr.start(t); tr.stop(t + len + .4);
+      os('sawtooth', f, t, len + .35, b, -5); os('square', f * 2, t, len + .35, b, 4); b.connect(am); am.connect(a); out(a, hMid); };
+    const RIO = [[82.41, 'm7'], [110, 'd7'], [146.83, 'M7'], [123.47, 'd7']];
+    const RLEAD = [[[0, 587.33, 2], [3, 659.25, 2], [6, 739.99, 3], [10, 880, 2], [12, 739.99, 4]], [[0, 659.25, 3], [3, 587.33, 3], [6, 554.37, 2], [8, 440, 6]],
+      [[0, 739.99, 2], [2, 880, 2], [4, 987.77, 4], [8, 880, 2], [11, 739.99, 3], [14, 659.25, 2]], [[0, 622.25, 3], [3, 739.99, 3], [6, 880, 2], [8, 987.77, 8]]];
+    const GRA = [[110, 'm'], [87.31, 'M'], [73.42, 'm'], [82.41, 'd7']], GRAM = [[110, 'M'], [92.5, 'm'], [73.42, 'M'], [82.41, 'd7']];
+    const GMEL = [[[0, 659.25, 6], [6, 587.33, 2], [8, 523.25, 4], [12, 493.88, 4]], [[0, 523.25, 6], [6, 440, 2], [8, 698.46, 8]], [[0, 587.33, 4], [4, 698.46, 4], [8, 880, 6], [14, 783.99, 2]], [[0, 659.25, 8], [8, 830.61, 4], [12, 987.77, 4]]];
+    const MAJ = {523.25: 554.37, 698.46: 739.99, 783.99: 830.61}, ARP = [0, 1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1, 2, 3];
+    const altStep = (n, t) => { const s = n % 16, bar = Math.floor(n / 16), d = t - A.currentTime; if (ai < 0) return;
+      if (alt === 'rio') { const [r, ty] = RIO[bar % 4], ch = CH[ty].map(x => semi(r, x));
+        if (ai <= 1) { if (s % 2 === 0) ganza(s % 4 ? .05 : .08, d); if (s === 4 || s === 12) berim(98, .34, d); if (s === 6 || s === 7) berim(110, .22, d); if (s === 14) berim(98, .16, d);
+          if (bar % 2 && s === 10) cuica(520, .16, d, true); if (ai === 1 && (s === 0 || s === 8)) surdo(.32, d, s === 8); if (ai === 1 && s === 0) slap(r / 2, .2, d); return; }
+        const big = ai >= 3;
+        if ([0, 3, 6, 8, 11, 14].includes(s)) kickD(.72, d); if (s === 4 || s === 12) clap(.34, d); if (s === 7 || s === 15) clap(.1, d);
+        pand(s % 4 === 0 ? .1 : .05, d, s === 2 || s === 10); if ([0, 2, 5, 7, 9, 12, 14].includes(s)) tamborim(.07, d);
+        if (s === 4 || s === 12) surdo(.5, d, true); if (AG[s]) agogo(.08, d, AG[s] === 2);
+        if ([0, 3, 6, 8, 10, 13, 14].includes(s)) cavaco(ch.map(f => f * 4), .06, d);
+        if ([0, 3, 6, 8, 11, 14].includes(s)) slap(s === 6 ? semi(r, 7) / 2 : s === 14 ? r : r / 2, .32, d);
+        if ((s === 6 || s === 14) && bar % 2) cuica(560, .14, d, s === 6);
+        const L = RLEAD[bar % 4].find(x => x[0] === s); if (L) pife(L[1], L[2] * STEPT * .8, big ? .15 : .11, d);
+        if (big) { if (s === 0) { ch.slice(0, 3).forEach(f => choir(f * 2, BAR, .36, d)); crash(.22, d); } if (s === 0 || s === 6 || s === 12) fanfare([r * 2, semi(r, CH[ty][1]) * 2, semi(r, 7) * 2], STEPT * 1.4, .1, d); if (bar % 4 === 3 && s === 12) whistle(d); }
+        return; }
+      const [r, ty] = (gmaj ? GRAM : GRA)[bar % 4], ch = CH[ty].map(x => semi(r, x)), arp = [ch[0] * 2, ch[1] * 2, ch[2] * 2, ch[0] * 4, ch[1] * 4, ch[2] * 4, ch[0] * 8, ch[2] * 8];
+      const every = ai >= 2 ? 1 : ai === 1 ? 2 : 4; if (s % every === 0) harp(arp[ARP[s]], ai >= 2 ? .1 : .13, d);
+      if (ai >= 1 && s === 0) { ch.slice(0, 3).forEach(f => strings(f * 2, BAR, ai >= 2 ? .07 : .05, d)); const a = eg(.28, t, .05, BAR * .4, .6); os('sine', r, t, BAR * .5 + .7, a); out(a); }
+      if (ai >= 1 && s === 8) { const a = eg(.2, t, .05, BAR * .3, .5); os('sine', semi(r, 7) / 2 * 2, t, BAR * .35 + .6, a); out(a); }
+      if (ai >= 2) { const M = GMEL[bar % 4].find(x => x[0] === s); if (M) bando(gmaj ? (MAJ[M[1]] || M[1]) : M[1], M[2] * STEPT * .92, ai >= 3 ? .13 : .1, d); if (s === 0) timp(.3, d, r / 2 > 50 ? r / 2 : r); }
+      if (ai >= 3) { if (s === 0) { ch.slice(0, 3).forEach(f => choir(f * 2, BAR, .4, d, bar % 2)); crash(.16, d); } if (s % 4 === 0) bell(arp[5] * 2, .05, d, 1.6); }
+    };
 
     const finish = () => {
       if (done) return; done = true; timers.forEach(t => { clearTimeout(t); clearInterval(t); }); clearInterval(cnt); cancelAnimationFrame(raf); removeEventListener('resize', size); if (timers.kill) timers.kill();
@@ -15241,7 +15292,7 @@ function kingCinematic(r){
       Tm(1750, () => add('th-climb'));
       Tm(2800, () => { q('.kf-r9').classList.remove('walk'); pose('.kf-r9', 1); add('th-offer'); riser(1.5, .3); [0, .3, .6, .85, 1.05, 1.2, 1.32].forEach(dd => timp(.3 + dd * .3, dd)); level(.8, 1); });
       Tm(4300, () => { add('mg-kick'); hit('bandpass', 400, 3000, .3, .3, 0, 2); });
-      Tm(4620, () => { add('mg-hit'); flash(); quake(); thwack(1); crash(.6); timp(1); pose('.kf-r9', 0); mode = 'x'; lv.bat = 0; say('#kgC7n'); burst(70, W * .6, H * .28, ['#ffd23f', '#fff6cc', '#ffffff']);
+      Tm(4620, () => { add('mg-hit'); flash(); quake(); thwack(1); crash(.6); timp(1); pose('.kf-r9', 0); mode = 'x'; lv.bat = 0; alt = mg ? 'rio' : 'grace'; tempo(mg ? 128 : 72); ai = 0; gmaj = false; later(900, seqReset); say('#kgC7n'); burst(70, W * .6, H * .28, ['#ffd23f', '#fff6cc', '#ffffff']);
         if (snd) { const t = at(.05), a = eg(.3, t, .01, .5, .2), o = os('sawtooth', 700, t, .8, a); o.frequency.exponentialRampToValueAtTime(60, t + .7); out(a, hMid); } });
       Tm(6500, () => { go('m2'); off('.kg-7 .kg-cap *'); em.dust = 0; em.rise = 2; level(.6, .3); riser(5.6, .3); say('#kgM2a'); choir(220, 5, .5, 0, true); choir(329.63, 5, .4, 0, true); });
       if (mg) {
@@ -15249,25 +15300,25 @@ function kingCinematic(r){
       Tm(10150, () => { add('mg-low'); crowd(.2, 1.5); });
       Tm(11500, () => add('mg-drop'));
       const beat = v => { heart(v); if (!REDUCED) restart(ov, 'kbeat'); };
-      Tm(MS, () => { go('m25'); off('.kg-m2 .kg-cap *'); em.rise = 0; parts = []; mode = 'x'; lv.bat = 0; lv.ost = 0; level(.45, .3); crowd(.03, .3); em.dust = 1; choir(55, 6.6, .8, 0, true); choir(82.41, 6.6, .4, 0, true); say('#kgM25a'); });
+      Tm(MS, () => { ai = 1; go('m25'); off('.kg-m2 .kg-cap *'); em.rise = 0; parts = []; mode = 'x'; lv.bat = 0; lv.ost = 0; level(.45, .3); crowd(.03, .3); em.dust = 1; choir(55, 6.6, .8, 0, true); choir(82.41, 6.6, .4, 0, true); say('#kgM25a'); });
       [400, 1300, 2100, 2800, 3400, 3900, 4300, 4650].forEach((t, i) => Tm(MS + t, () => { beat(1.1 + i * .18); restart(q('.m25-ball'), 'roll'); }));
       Tm(MS + 2500, () => { say('#kgM25b'); add('m25g'); bell(2637, .1); bell(3520, .07, .12); });
       Tm(MS + 4400, () => pose('.kf-m25d', 1));
       Tm(MS + 5000, () => { add('m25face'); pose('.kf-m25', 1); say('#kgM25c'); riser(1.6, .3); bell(1174.66, .2); bell(1760, .16, .1); });
       Tm(MS + 6600, () => { flash(); em.dust = 0; });
-      Tm(M3, () => { go('m3'); off('.kg-m25 .kg-cap *'); em.rise = 0; parts = []; rm('m25face'); mode = 'dm'; seqReset(); lv.bat = 1; lv.ost = 1; level(.8, .2); crowd(.24); BM.set(76, 208); on('#kgM3s'); say('#kgM3a'); q('.kf-mh3').classList.add('walk'); HX(126, 1000); BM.to(142, 208, 1000); });
+      Tm(M3, () => { ai = 2; go('m3'); off('.kg-m25 .kg-cap *'); em.rise = 0; parts = []; rm('m25face'); mode = 'dm'; seqReset(); lv.bat = 1; lv.ost = 1; level(.8, .2); crowd(.24); BM.set(76, 208); on('#kgM3s'); say('#kgM3a'); q('.kf-mh3').classList.add('walk'); HX(126, 1000); BM.to(142, 208, 1000); });
       Tm(M3 + 1000, () => { pose('.kf-md1', 1); BM.to(160, 208, 140); later(150, () => BM.to(136, 208, 140)); thwack(.3); spark(150, 204); });
       Tm(M3 + 1350, () => { pose('.kf-md1', 2); add('d1dn'); HX(208, 900); BM.to(224, 208, 900); });
       Tm(M3 + 2250, () => { pose('.kf-md2', 1); add('mgv'); spark(228, 200, 44); HX(264, 800); });
       Tm(M3 + 2700, () => { BM.set(282, 208); rm('mgv'); spark(282, 204, 44); pose('.kf-md2', 2); add('d2dn'); });
       Tm(M3 + 3100, () => { q('.kf-mh3').classList.remove('walk'); pose('.kf-mh3', 1); });
       Tm(M3 + 3300, () => { pose('.kf-mh3', 2); thwack(.8); BM.to(374, 186, 150); pose('.kf-mgk', 1); });
-      Tm(M3 + 3460, () => { add('mg-goal'); level(1, .02); flash(); quake(); timp(1); timp(.8, .16); crash(.5); sub(.7); roar(1, 6); whistle(.1); lv.th = 1; lv.pad = .6; fanfare([293.66, 369.99, 440, 587.33], 1.1, .2); PAL = ['#a50044', '#004d98', '#ffd23f', '#ffffff']; burst(110, W * .85, H * .5); });
+      Tm(M3 + 3460, () => { ai = 3; add('mg-goal'); level(1, .02); flash(); quake(); timp(1); timp(.8, .16); crash(.5); sub(.7); roar(1, 6); whistle(.1); lv.th = 1; lv.pad = .6; fanfare([293.66, 369.99, 440, 587.33], 1.1, .2); PAL = ['#a50044', '#004d98', '#ffd23f', '#ffffff']; burst(110, W * .85, H * .5); });
       Tm(M3 + 3900, () => pose('.kf-mh3', 3));
       Tm(M3 + 4500, () => say('#kgM3b'));
-      Tm(M3 + 7200, () => { say('#kgM3c'); add('mg-clap'); });
+      Tm(M3 + 7200, () => { ai = 2; say('#kgM3c'); add('mg-clap'); });
       Tm(M3 + 9600, () => { on('#kgM3d'); timp(.8); bell(1174.66, .24); bell(1760, .16, .08); });
-      Tm(M3 + 10900, () => { add('mg-zoom'); off('#kgM3d'); lv.bat = .3; lv.th = 0; lv.ost = 0; lv.pad = 0; level(.5, .4); crowd(.05, .8); pose('.kf-mh3', 0); });
+      Tm(M3 + 10900, () => { ai = 1; add('mg-zoom'); off('#kgM3d'); lv.bat = .3; lv.th = 0; lv.ost = 0; lv.pad = 0; level(.5, .4); crowd(.05, .8); pose('.kf-mh3', 0); });
       Tm(M3 + 11800, () => { CR.set(266, -40); add('mg-cr'); CR.to(266, 121, 420, 0, 'cubic-bezier(.6,0,1,.7)'); hit('bandpass', 3000, 500, .4, .2); });
       Tm(M3 + 12220, () => { pose('.kf-mh3', 6); thwack(.7); bell(2093, .22); flash('#fff3c0'); CR.to(292, 206, 520, 30); say('#kgM3e'); });
       Tm(M3 + 12760, () => { add('mg-land'); timp(.8); sub(.6); });
@@ -15275,7 +15326,7 @@ function kingCinematic(r){
       Tm(M3 + 14400, () => { q('.kf-mh3').classList.remove('walk'); pose('.kf-mh3', 4); });
       Tm(M3 + 14900, () => { pose('.kf-mh3', 5); CR.to(277, 116, 500, 0, 'cubic-bezier(.3,0,.3,1)'); riser(1, .3); });
       Tm(M3 + 15500, () => { pose('.kf-mh3', 3); CR.to(275.6, 124.6, 200); });
-      Tm(M3 + 15720, () => { add('mg-on'); level(1, .02); flash(); quake(); timp(1); timp(.9, .2); crash(.6); sub(.8); roar(.8, 5); mode = 'fin'; seqReset(); lv.bat = .8; lv.pad = 1; say('#kgM3f'); spark(276, 124, 70);
+      Tm(M3 + 15720, () => { ai = 3; add('mg-on'); level(1, .02); flash(); quake(); timp(1); timp(.9, .2); crash(.6); sub(.8); roar(.8, 5); mode = 'fin'; seqReset(); lv.bat = .8; lv.pad = 1; say('#kgM3f'); spark(276, 124, 70);
         fanfare([293.66, 369.99, 440, 587.33, 739.99, 880], 2.6, .2); [587.33, 739.99, 880, 1174.66, 1479.98].forEach((f, i) => bell(f, .2, i * .09, 2.4)); });
       Tm(M3 + 18200, () => { rm('mg-zoom'); add('mg-up'); riser(2.4, .4); em.rise = 3; [293.66, 440, 587.33, 880].forEach(f => choir(f, 2.6, .7)); [0, 500, 1000, 1500].forEach(d => later(d, () => spark(276, 150 - d / 12, 40))); });
       Tm(M3 + 20600, () => { add('white'); crash(.5); });
@@ -15286,18 +15337,18 @@ function kingCinematic(r){
       Tm(9000, () => { add('blh'); riser(1.1, .3); });
       Tm(10100, () => { add('bl-catch'); flash('#fff3c0'); quake(); em.rise = 0; parts = []; timp(1); sub(1); crash(.5); mode = 'x'; level(.8, .05); [220, 277.18, 329.63, 440].forEach(f => choir(f, 2.2, .6)); off('#kgM2a'); });
       Tm(11300, () => add('bl-gone'));
-      Tm(12500, () => { add('bld'); level(.4, .5); choir(55, 5, .9, 0, true); choir(58.27, 5, .5, 0, true); });
+      Tm(12500, () => { ai = -1; add('bld'); level(.4, .5); choir(55, 5, .9, 0, true); choir(58.27, 5, .5, 0, true); });
       /* the heartbeat: every thump is heard and felt, the whole screen jumps with it, and it speeds up toward the cut */
       const beat = v => { heart(v); if (!REDUCED) restart(ov, 'kbeat'); };
       [12700, 13700, 14600, 15400, 16100, 16650, 17050].forEach((t, i) => Tm(t, () => beat(1.2 + i * .2)));
       Tm(13000, () => say('#kgB2a'));
       Tm(15100, () => { say('#kgB2b'); timp(.6, 0, 55); });
-      Tm(B25, () => { go('b25'); off('.kg-m2 .kg-cap *'); add('b25go'); q('.kf-b25').classList.add('walk'); em.dust = 2; level(.5, .4); crowd(.06, .4); on('#kgB25s'); say('#kgB25a'); choir(55, 6, .7, 0, true); });
+      Tm(B25, () => { ai = 1; seqReset(); go('b25'); off('.kg-m2 .kg-cap *'); add('b25go'); q('.kf-b25').classList.add('walk'); em.dust = 2; level(.5, .4); crowd(.06, .4); on('#kgB25s'); say('#kgB25a'); choir(55, 6, .7, 0, true); });
       [300, 1100, 1900, 2650, 3350, 4000, 4600, 5150, 5600].forEach((t, i) => Tm(B25 + t, () => { beat(1 + i * .15); crowd(.06 + i * .03, .4); }));
       Tm(B25 + 2600, () => say('#kgB25b'));
       Tm(B25 + 3600, () => riser(2.6, .34));
       Tm(B25 + 5800, () => { add('b25out'); roar(1, 4, 0, .3); crash(.5); level(.8, .1); });
-      Tm(B3, () => { go('b3'); off('.kg-b25 .kg-cap *'); em.dust = 0; mode = 'dm'; seqReset(); lv.bat = .8; lv.ost = 1; level(.7, .3); crowd(.22); on('#kgB3s'); say('#kgB3a');
+      Tm(B3, () => { ai = 2; go('b3'); off('.kg-b25 .kg-cap *'); em.dust = 0; mode = 'dm'; seqReset(); lv.bat = .8; lv.ost = 1; level(.7, .3); crowd(.22); on('#kgB3s'); say('#kgB3a');
         const RUNT = 7200, wd = q('.b3-world'), bg = q('.b3-bg'), me = q('.b3-me'), dot = q('.b3-dot'), tr = q('.b3-trail'), hero = q('.kf-b3');
         GB.set(180, 226); hero.classList.add('walk'); tr.style.strokeDasharray = 100; tr.style.strokeDashoffset = 100; void wd.getBoundingClientRect();
         later(500, () => { wd.style.transition = bg.style.transition = 'transform ' + RUNT + 'ms linear'; wd.style.transform = 'translateX(-' + RUNW + 'px)'; bg.style.transform = 'translateX(-' + Math.round(RUNW * .3) + 'px)';
@@ -15311,34 +15362,34 @@ function kingCinematic(r){
         later(500 + RUNT - 300, () => { pose('.kf-bk3', 1); riser(.6, .2); });
         later(500 + RUNT, () => { me.style.transition = 'transform .7s ease-out'; me.style.transform = 'translateX(72px)'; GB.to(250, 226, 700); pose('.kf-bk3', 2); q('.b3-k').classList.add('out'); });
         later(500 + RUNT + 780, () => { thwack(.9); GB.to(292, 214, 200); });
-        later(500 + RUNT + 980, () => { q('.b3-s').textContent = '2'; hero.classList.remove('walk'); pose('.kf-b3', 1); level(1, .02); flash(); quake(); timp(1); timp(.8, .16); crash(.5); sub(.7); roar(1, 6); whistle(.1); lv.bat = 1; lv.th = 1; lv.pad = .6;
-          fanfare([293.66, 369.99, 440, 587.33], 1.1, .2); PAL = ['#75bde9', '#ffffff', '#ffd23f', '#2a52b8']; burst(120, W * .72, H * .66); add('b3goal'); say('#kgB3b'); }); });
+        later(500 + RUNT + 980, () => { q('.b3-s').textContent = '2'; gmaj = true; ai = 3; later(3200, () => { ai = 2; }); hero.classList.remove('walk'); pose('.kf-b3', 1); level(1, .02); flash(); quake(); timp(1); timp(.8, .16); crash(.5); sub(.7); roar(1, 6); whistle(.1); lv.bat = 1; lv.th = 1; lv.pad = .6;
+          fanfare([220, 277.18, 329.63, 440], 1.1, .2); PAL = ['#75bde9', '#ffffff', '#ffd23f', '#2a52b8']; burst(120, W * .72, H * .66); add('b3goal'); say('#kgB3b'); }); });
       Tm(B3 + 11600, () => say('#kgB3c'));
-      Tm(B4, () => { go('b4'); off('.kg-b3 .kg-cap *'); parts = []; lv.bat = 0; lv.th = 0; lv.pad = 0; lv.ost = .6; level(.4, .3); crowd(.26); on('#kgB4s'); say('#kgB4a'); BB.set(150, 196); });
+      Tm(B4, () => { ai = 1; gmaj = false; go('b4'); off('.kg-b3 .kg-cap *'); parts = []; lv.bat = 0; lv.th = 0; lv.pad = 0; lv.ost = .6; level(.4, .3); crowd(.26); on('#kgB4s'); say('#kgB4a'); BB.set(150, 196); });
       Tm(B4 + 1200, () => { BB.to(262, 66, 5800, 74); riser(1.4, .2); });
       Tm(B4 + 2500, () => { pose('.kf-bh4', 1); pose('.kf-bk4', 1); });
       Tm(B4 + 3000, () => { add('b4jump'); pose('.kf-bh4', 2); pose('.kf-bk4', 2); thwack(.3); });
-      Tm(B4 + 3500, () => { add('b4hang'); duck(.4, .12); lv.ost = 0; crowd(.05, .1); say('#kgB4b'); [440, 587.33, 880].forEach((f, i) => choir(f, 4, .5 - i * .1)); });
+      Tm(B4 + 3500, () => { ai = -1; add('b4hang'); duck(.4, .12); lv.ost = 0; crowd(.05, .1); say('#kgB4b'); [440, 587.33, 880].forEach((f, i) => choir(f, 4, .5 - i * .1)); });
       [3700, 4500, 5200, 5800, 6300, 6680].forEach((t, i) => Tm(B4 + t, () => beat(1.2 + i * .2)));
       Tm(B4 + 4700, () => { add('b4wing'); pose('.kf-bh4', 3); say('#kgB4c'); [1174.66, 1479.98, 1760, 2349.3].forEach((f, i) => bell(f, .2, i * .1, 2)); });
       Tm(B4 + 6000, () => { add('b4hand'); riser(1, .34); });
       Tm(B4 + 7000, () => { add('b4hit'); level(1, .02); thwack(1); BB.to(350, 204, 200, 0, 'cubic-bezier(.4,0,1,.6)'); pose('.kf-bk4', 3); });
-      Tm(B4 + 7220, () => { add('b4goal'); flash(); quake(); timp(1); timp(1, .18); timp(.9, .36); sub(.9); crash(.6); roar(1.1, 8); whistle(.15); crowd(.34); lv.bat = 1; lv.pad = 1; lv.th = 1; lv.ost = 1; seqReset();
-        fanfare([293.66, 369.99, 440, 587.33, 739.99], 1.5, .22); PAL = ['#75bde9', '#ffffff', '#ffd23f', '#2a52b8']; em.conf = 3; [.3, .7, .5].forEach((x, i) => later(i * 260, () => burst(90, W * x, H * .35))); off('.kg-b4 .kg-cap p'); });
-      Tm(B4 + 9000, () => { add('b4q'); em.conf = 1; lv.bat = .5; lv.th = .5; level(.45, .8); });
-      Tm(B4 + 14200, () => { rm('b4q'); em.conf = 0; level(.7, .6); say('#kgB4d'); });
+      Tm(B4 + 7220, () => { ai = 3; gmaj = true; add('b4goal'); flash(); quake(); timp(1); timp(1, .18); timp(.9, .36); sub(.9); crash(.6); roar(1.1, 8); whistle(.15); crowd(.34); lv.bat = 1; lv.pad = 1; lv.th = 1; lv.ost = 1; seqReset();
+        fanfare([220, 277.18, 329.63, 440, 554.37], 1.5, .22); PAL = ['#75bde9', '#ffffff', '#ffd23f', '#2a52b8']; em.conf = 3; [.3, .7, .5].forEach((x, i) => later(i * 260, () => burst(90, W * x, H * .35))); off('.kg-b4 .kg-cap p'); });
+      Tm(B4 + 9000, () => { ai = 1; add('b4q'); em.conf = 1; lv.bat = .5; lv.th = .5; level(.45, .8); });
+      Tm(B4 + 14200, () => { ai = 2; rm('b4q'); em.conf = 0; level(.7, .6); say('#kgB4d'); });
       Tm(B4 + 16200, () => { say('#kgB4e'); timp(.9); crash(.4); level(.9, .4); });
-      Tm(B4 + 18800, () => { add('b4up'); level(1, .2); mode = 'fin'; seqReset(); riser(2.3, .4); [293.66, 440, 587.33, 880].forEach(f => choir(f, 2.6, .7)); em.rise = 3; });
+      Tm(B4 + 18800, () => { ai = 3; add('b4up'); level(1, .2); mode = 'fin'; seqReset(); riser(2.3, .4); [220, 329.63, 440, 554.37].forEach(f => choir(f, 2.6, .7)); em.rise = 3; });
       Tm(B4 + 21000, () => { add('white'); crash(.5); });
       R0 = TH0 - 200 + B4 + 21600;
       }
     }
     }
     /* 8. the reveal */
-    T(R0, () => { go('k8'); level(.42, .1); off('.kg-7 .kg-cap *, .kg-m3 .kg-cap *, .kg-b4 .kg-cap *'); em.conf = 0; lv.bat = 0; lv.pad = 0; em.gold = 0; em.rise = 0; mode = 'fin'; parts = []; sub(.8); choir(146.83, 2, .8, 0, true); choir(220, 2, .6, 0, true); riser(1.5, .34, .1); });
+    T(R0, () => { if (alt) ai = 1; go('k8'); level(.42, .1); off('.kg-7 .kg-cap *, .kg-m3 .kg-cap *, .kg-b4 .kg-cap *'); em.conf = 0; lv.bat = 0; lv.pad = 0; em.gold = 0; em.rise = 0; mode = 'fin'; parts = []; sub(.8); choir(146.83, 2, .8, 0, true); choir(220, 2, .6, 0, true); riser(1.5, .34, .1); });
     T(R0 + 500, () => { rm('white'); add('kdrop'); });
     T(R0 + 1700, () => {
-      add('kland'); level(1, .01); flash(); quake(); timp(1); sub(1); crash(.7); roar(1, 7); crowd(.2); lv.bat = 1; lv.pad = 1;
+      add('kland'); if (alt) { ai = 3; seqReset(); } level(1, .01); flash(); quake(); timp(1); sub(1); crash(.7); roar(1, 7); crowd(.2); lv.bat = 1; lv.pad = 1;
       [0, .19, .38].forEach(dd => { timp(.9, dd); fanfare([293.66, 440, 587.33], .12, .22, dd); }); later(570, () => { timp(1); crash(.7); quake(); fanfare([293.66, 369.99, 440, 587.33, 739.99, 880, 1174.66], 3.4, .2); [293.66, 369.99, 440, 587.33].forEach(f => choir(f * 2, 4, .7)); });
       [587.33, 739.99, 880, 1174.66, 1479.98, 1760, 2349.3].forEach((f, i) => bell(f, .18, .7 + i * .08, 2.6));
       PAL = ['#ffd23f', '#fff6cc', '#ffdf00', '#009c3b', '#ffffff']; em.conf = 4; later(3200, () => { em.conf = 1; });
@@ -15347,7 +15398,7 @@ function kingCinematic(r){
       cnt = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / 2000); if (el) el.textContent = fmt(Math.round(r.v * (1 - Math.pow(1 - k, 3)))); if (k >= 1) { clearInterval(cnt); bell(1174.66, .3); bell(1760, .2, .07); timp(.8); } }, 40);
     });
     T(R0 + 4200, () => add('ready'));
-    T(R0 + 5200, () => { lv.bat = .4; crowd(.1, 2); level(.6, 2.5); });
+    T(R0 + 5200, () => { if (alt) ai = 2; lv.bat = .4; crowd(.1, 2); level(.6, 2.5); });
     T(R0 + 16000, finish);
   });
 }
