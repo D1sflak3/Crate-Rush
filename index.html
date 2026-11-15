@@ -5140,6 +5140,7 @@ body.ar-on{overflow:hidden}
 
 
 
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -15272,14 +15273,11 @@ function q9Banner(T, tier, why){
 }
 function q9Result(T, tier, e, why, m){
   const R = q9R; if (!R) return; R.phase = 'res';
-  const p = R.p, top = [...p.ans].sort((a, b) => b.t - a.t), rare = top.filter(a => !e || a.n !== e.n).slice(0, 2), easy = p.ans.find(a => a.t === 0);
-  const pill = a => '<span class="q9-pill" style="--c:' + Q9_TIERS[a.t].c + '">' + esc(a.n) + ' <small>' + Q9_TIERS[a.t].n + '</small></span>';
-  const last = R.i >= Q9_N;
+    const last = R.i >= Q9_N;
   let h = '<div class="q9-res' + (T ? '' : ' miss') + '" style="--c:' + (T ? T.c : '#ff6b6b') + '">';
   if (T) h += '<div class="q9-rh"><b>' + esc(e.n) + '</b><span>' + T.n + ' · +' + m + ' m</span></div><p>' + T.out + '.</p>';
   else h += '<div class="q9-rh"><b>' + (why === 'time' ? 'Time’s up' : 'Skipped') + '</b><span>Missed Shot · 0 m</span></div><p>Nothing on the sheet this time.</p>';
   if (R.vs) h += q9OppLine(R);
-  h += '<div class="q9-also"><small>' + (tier === 4 ? 'Other deep ones' : 'Rarest on the sheet') + '</small>' + rare.map(pill).join('') + (!T && easy && !rare.includes(easy) ? pill(easy) : '') + '</div>';
   h += '<button type="button" class="q9-next" id="q9Nx">' + (last ? 'Full time ›' : 'Next question ›') + '</button></div>';
   const dk = $('#q9Deck'); dk.classList.remove('wait'); dk.innerHTML = h;
   const nx = $('#q9Nx'); nx.onclick = () => q9Ask(); setTimeout(() => { if (q9R === R && R.phase === 'res') nx.focus(); }, 50);
