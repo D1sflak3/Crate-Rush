@@ -3252,6 +3252,264 @@ body.dz-open .toast{z-index:95}
 @keyframes mlTap{50%{fill:#0c3a22}}
 .msi-ov{position:absolute;inset:0;z-index:6;display:grid;place-items:center;padding:16px;background:rgba(2,6,12,.7);overflow:auto;animation:fadeIn .25s}
 .msi-ov .vx{width:min(760px,100%);max-height:calc(100% - 8px);overflow:auto;margin:0;border-color:#75bde9;background:radial-gradient(circle at 20% 0%,rgba(117,189,233,.22),transparent 60%),#050b14;box-shadow:0 0 40px rgba(117,189,233,.25),0 30px 80px rgba(0,0,0,.6)}
+/* Q9-CSS-BEGIN */
+/* One in a 90: the football quiz */
+.q9-btn{color:#8fe3a0;border-color:#24563a;background:#07130c}
+.q9-btn svg{width:22px;height:22px}
+body.q9-open{overflow:hidden}
+.q9{position:fixed;inset:0;z-index:92;display:flex;flex-direction:column;color:#eef3f8;font-family:var(--body);overflow:hidden;
+  background:radial-gradient(120% 70% at 50% 0%,#16263b 0%,#0a121d 55%,#05080d 100%)}
+.q9-top{display:flex;align-items:center;gap:12px;padding:10px max(14px,env(safe-area-inset-right,0px)) 10px max(14px,env(safe-area-inset-left,0px));border-bottom:1px solid rgba(255,255,255,.07);background:rgba(4,8,14,.55)}
+.q9-brand{display:flex;align-items:center;gap:8px;min-width:0}
+.q9-brand i{width:24px;height:24px;display:block}.q9-brand i svg{width:100%;height:100%}
+.q9-brand b{font:700 25px/1 var(--display);letter-spacing:.05em;padding-top:3px;white-space:nowrap}
+.q9-brand em,.q9-hero h1 em,.q9-full h1 em{font-style:normal;color:#ffcb2e}
+.q9-brand small{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8a99ab;font-weight:600;padding-top:3px;white-space:nowrap}
+.q9-dots{flex:1;display:flex;justify-content:center;gap:7px}
+.q9-dots i{width:14px;height:14px;border-radius:50%;border:2px solid #3a4a60;display:block;transition:background .3s,border-color .3s}
+.q9-dots i.now{border-color:#fff;animation:q9Pulse 1s ease-in-out infinite alternate}
+.q9-dots i.g{background:var(--c);border-color:var(--c);box-shadow:0 0 8px var(--c)}
+.q9-dots i.s{background:transparent;border-color:var(--c)}
+.q9-dots i.m{background:#3a1d24;border-color:#7a3340}
+@keyframes q9Pulse{to{transform:scale(1.25);box-shadow:0 0 10px #fff}}
+.q9-pts{display:flex;align-items:baseline;gap:4px;min-width:62px;justify-content:flex-end}
+.q9-pts b{font:700 26px/1 var(--display);color:#ffcb2e;padding-top:3px}.q9-pts small{font-size:12px;color:#8a99ab}
+.q9-x{width:36px;height:36px;border-radius:50%;border:1px solid #2b3a4f;background:#0a0f15;color:#c9d4e2;font-size:15px;cursor:pointer;flex:none}
+.q9-x:hover{border-color:#ffcb2e;color:#fff}
+.q9-main{flex:1;overflow:auto;padding:14px max(14px,env(safe-area-inset-right,0px)) max(18px,env(safe-area-inset-bottom,0px)) max(14px,env(safe-area-inset-left,0px));-webkit-overflow-scrolling:touch}
+.q9.menu .q9-dots,.q9.menu .q9-pts{visibility:hidden}
+
+/* menu */
+.q9-menu{max-width:720px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+.q9-hero{text-align:center;padding-top:6px}
+.q9-bigball{width:74px;height:74px;margin:0 auto 4px;animation:q9Spin 9s linear infinite;filter:drop-shadow(0 6px 12px rgba(0,0,0,.6))}
+.q9-bigball svg{width:100%;height:100%}
+@keyframes q9Spin{to{transform:rotate(360deg)}}
+.q9-hero h1{margin:0;font:700 clamp(46px,9vw,74px)/.9 var(--display);letter-spacing:.04em;text-shadow:0 4px 0 #000,0 0 30px rgba(255,203,46,.25)}
+.q9-hero p{margin:8px auto 0;max-width:520px;color:#b7c4d3;font-size:16px}.q9-hero p b{color:#fff}
+.q9-modes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.q9-mode{display:grid;gap:4px;text-align:left;padding:16px 18px;border-radius:16px;border:2px solid #2b3a4f;background:linear-gradient(160deg,#16212f,#0d141d);cursor:pointer;transition:transform .15s,border-color .15s,box-shadow .15s}
+.q9-mode:hover:not(:disabled){transform:translateY(-2px);border-color:#4d8dff;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.q9-mode small{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#8a99ab}
+.q9-mode b{font:700 34px/1 var(--display);letter-spacing:.03em;padding-top:4px}
+.q9-mode span{font-size:14px;color:#a9b6c6}
+.q9-mode.gold{border-color:#b98a12;background:linear-gradient(160deg,#3a2b07,#1a1405 70%);box-shadow:inset 0 0 0 1px rgba(255,203,46,.15)}
+.q9-mode.gold small{color:#ffcb2e}.q9-mode.gold b{color:#ffe28a}
+.q9-mode.gold:hover:not(:disabled){border-color:#ffcb2e;box-shadow:0 8px 28px rgba(255,180,0,.22)}
+.q9-mode.done{cursor:default;opacity:.85;filter:saturate(.7)}
+.q9-lad{border:1px solid #223042;border-radius:16px;padding:12px 14px;background:rgba(6,10,16,.6);display:grid;gap:6px}
+.q9-lh{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#8a99ab;margin-bottom:2px}
+.q9-lr{display:grid;grid-template-columns:14px minmax(110px,auto) 1fr auto 46px;align-items:center;gap:10px;padding:6px 8px;border-radius:10px;background:linear-gradient(90deg,color-mix(in srgb,var(--c) 14%,transparent),transparent 60%)}
+.q9-lr i{width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:0 0 8px var(--c)}
+.q9-lr b{font:600 21px/1 var(--display);letter-spacing:.03em;padding-top:2px;color:var(--c)}
+.q9-lr em{font-style:normal;color:#b7c4d3;font-size:14px}
+.q9-lr span{font:600 13px var(--mono);color:#dfe7f0}
+.q9-lr strong{font:700 20px/1 var(--display);text-align:right;padding-top:2px}
+.q9-lr.miss{--c:#7a3340}.q9-lr.miss b{color:#c97a85}.q9-lr.miss i{background:#3a1d24;box-shadow:none;border:2px solid #7a3340;width:12px;height:12px}
+
+/* play */
+.q9-play{max-width:780px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.q9-sc{position:relative;width:min(100%,max(260px,calc((100dvh - 440px) * 2.38)));margin:0 auto;aspect-ratio:400/168;border-radius:14px;overflow:hidden;border:1px solid #223042;box-shadow:0 10px 30px rgba(0,0,0,.5);background:#04070d}
+.q9-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.q9-cg{transform-box:fill-box;transform-origin:50% 100%}
+.q9.roar .q9-c0{animation:q9Jump .32s ease-in-out 6 alternate}
+.q9.roar .q9-c1{animation:q9Jump .28s ease-in-out .08s 6 alternate}
+.q9.roar .q9-c2{animation:q9Jump .36s ease-in-out .04s 6 alternate}
+@keyframes q9Jump{to{transform:translateY(-2.6px)}}
+.q9-ph{opacity:0}
+.q9.roar .q9-ph{animation:q9Ph .5s ease-out 3}
+@keyframes q9Ph{0%{opacity:0}10%{opacity:1}40%,100%{opacity:0}}
+.q9-led{animation:q9Led 26s linear infinite}
+@keyframes q9Led{to{transform:translateX(-160px)}}
+.q9-net{transform-box:fill-box;transform-origin:50% 40%}
+.q9-net.wob{animation:q9Wob .5s ease-out}
+@keyframes q9Wob{20%{transform:scale(1.035,1.05) translateY(-1px)}45%{transform:scale(.99,.985)}70%{transform:scale(1.01,1.01)}}
+.q9-wave{opacity:0}
+.q9-wave.on{animation:q9Wave .55s ease-out}
+@keyframes q9Wave{0%{opacity:.95;r:2}100%{opacity:0;r:22}}
+.q9-leg{transform-box:fill-box;transform-origin:50% 0}
+.q9.kick .q9-leg{animation:q9Leg .38s cubic-bezier(.3,.6,.3,1)}
+@keyframes q9Leg{0%{transform:rotate(0)}40%{transform:rotate(38deg)}70%{transform:rotate(-62deg)}100%{transform:rotate(0)}}
+.q9-pin{animation:q9Pin .45s cubic-bezier(.2,1.6,.4,1) both}
+.q9-pin:not(:last-child){animation:none}
+.q9-pin.op{opacity:.85}
+@keyframes q9Pin{from{transform-origin:0 0;opacity:0}}
+.q9-gun{position:absolute;right:10px;top:10px;display:flex;align-items:baseline;gap:5px;padding:6px 10px 4px;border-radius:10px;background:rgba(3,6,10,.78);border:1px solid #2b3a4f;--c:#ffcb2e}
+.q9-gun small{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8a99ab;font-weight:700}
+.q9-gun b{font:700 26px/1 var(--display);min-width:40px;text-align:right;color:#fff;font-variant-numeric:tabular-nums}
+.q9-gun.on{border-color:var(--c);box-shadow:0 0 16px color-mix(in srgb,var(--c) 50%,transparent)}.q9-gun.on b{color:var(--c)}
+.q9-ban{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%) scale(.4);opacity:0;text-align:center;pointer-events:none;--c:#fff;white-space:nowrap}
+.q9-ban.on{animation:q9Ban .5s cubic-bezier(.2,1.6,.4,1) forwards}
+@keyframes q9Ban{to{transform:translate(-50%,-50%) scale(1);opacity:1}}
+.q9-ban small{display:block;font:700 clamp(16px,3.4vw,24px)/1 var(--display);letter-spacing:.2em;text-transform:uppercase;color:#fff;text-shadow:0 2px 0 #000}
+.q9-ban b{display:block;font:700 clamp(36px,8vw,64px)/.95 var(--display);letter-spacing:.03em;color:var(--c);-webkit-text-stroke:1.5px #000;paint-order:stroke fill;text-shadow:0 4px 0 #000,0 0 24px var(--c)}
+.q9-ban em{display:inline-block;margin-top:2px;font:700 clamp(20px,4vw,30px)/1 var(--display);font-style:normal;color:#fff;background:rgba(0,0,0,.6);padding:3px 10px 0;border-radius:8px}
+.q9-ban.t4 b{background:linear-gradient(180deg,#fff7c2,#ffcb2e 50%,#ff9d00);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:0;filter:drop-shadow(0 3px 0 #000) drop-shadow(0 0 18px rgba(255,190,0,.9))}
+.q9-fl{position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 42%,#fffbe0,rgba(255,203,46,.6) 40%,transparent 75%)}
+.q9.gold .q9-fl{animation:q9Flash .9s ease-out}
+@keyframes q9Flash{0%{opacity:0}12%{opacity:1}100%{opacity:0}}
+.q9.quake .q9-sc{animation:q9Quake .5s linear}
+@keyframes q9Quake{15%{transform:translate(-6px,3px)}30%{transform:translate(6px,-3px)}45%{transform:translate(-4px,-2px)}60%{transform:translate(4px,2px)}80%{transform:translate(-2px,1px)}}
+.q9-fx{position:absolute;left:50%;top:42%;width:0;height:0;pointer-events:none}
+.q9-fx i{position:absolute;width:7px;height:11px;border-radius:2px;opacity:0;animation:q9Bit 1.3s cubic-bezier(.15,.7,.3,1) forwards}
+@keyframes q9Bit{0%{opacity:1;transform:translate(0,0) rotate(0)}100%{opacity:0;transform:translate(var(--x),calc(var(--y) + 120px)) rotate(var(--r))}}
+
+.q9-side{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;width:100%;max-width:680px;margin:0 auto}
+.q9-card{padding:12px 16px 14px;border-radius:14px;border:1px solid #223042;background:linear-gradient(180deg,#121b27,#0b121b)}
+.q9-qn{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 10px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#ffcb2e}
+.q9-qn span{color:#8a99ab}
+.q9-card h2{margin:6px 0 2px;font:600 clamp(26px,4.6vw,36px)/1.02 var(--display);letter-spacing:.01em;color:#fff}
+.q9-card p{margin:0 0 10px;color:#93a3b6;font-size:14px}
+.q9-tb{position:relative;height:8px;border-radius:5px;background:#1c2738;overflow:hidden}
+.q9-tb i{position:absolute;inset:0 auto 0 0;width:100%;border-radius:5px;background:linear-gradient(90deg,#3ad16a,#ffcb2e);transition:width .1s linear}
+.q9-tb.low i{background:linear-gradient(90deg,#ff3b3b,#ff8a3b);animation:q9Low .5s ease-in-out infinite alternate}
+@keyframes q9Low{to{opacity:.55}}
+.q9-ask{display:flex;gap:8px}
+.q9-ask input{flex:1;min-width:0;height:54px;padding:0 16px;border-radius:12px;border:2px solid #2b3a4f;background:#060a10;color:#fff;font:600 20px var(--body);outline:none;transition:border-color .15s,box-shadow .15s}
+.q9-ask input:focus{border-color:#ffcb2e;box-shadow:0 0 0 4px rgba(255,203,46,.15)}
+.q9-ask input.bad{animation:q9Bad .4s;border-color:#ff4d4d}
+.q9-ask input:disabled{opacity:1;color:#7dffa0;border-color:#2f6b3d}
+@keyframes q9Bad{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+.q9-go{height:54px;padding:0 22px;border-radius:12px;border:2px solid #000;background:linear-gradient(180deg,#ffe066,#ffb800);color:#1c1204;font:700 26px/1 var(--display);letter-spacing:.06em;padding-top:4px;cursor:pointer;box-shadow:0 4px 0 #8a5a00}
+.q9-go:active{transform:translateY(3px);box-shadow:0 1px 0 #8a5a00}
+.q9-hint{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px;font-size:14px;color:#8a99ab;min-height:28px}
+.q9-hint .bad{color:#ff8a8a}.q9-hint .ok{color:#7dffa0;font-weight:600}
+.q9-skip{padding:5px 14px;border-radius:9px;border:1px solid #2b3a4f;background:transparent;color:#a9b6c6;cursor:pointer;font-weight:600}
+.q9-skip:hover{border-color:#ff6b6b;color:#fff}
+.q9-deck.wait .q9-skip{visibility:hidden}
+.q9-res{padding:12px 14px;border-radius:14px;border:2px solid var(--c);background:linear-gradient(160deg,color-mix(in srgb,var(--c) 16%,#0b121b),#0b121b 70%);animation:q9Up .35s cubic-bezier(.2,1.3,.4,1)}
+@keyframes q9Up{from{transform:translateY(10px);opacity:0}}
+.q9-rh{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.q9-rh b{font:700 30px/1 var(--display);letter-spacing:.02em;padding-top:3px;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.q9-rh span{font:700 20px/1 var(--display);color:var(--c);white-space:nowrap}
+.q9-res p{margin:4px 0 8px;color:#c4d0de;font-size:14px}
+.q9-also{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:10px}
+.q9-also>small{width:100%;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#8a99ab}
+.q9-pill{display:inline-flex;align-items:baseline;gap:6px;padding:4px 10px;border-radius:999px;border:1px solid var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);font-weight:600;font-size:14px}
+.q9-pill small{font-size:11px;color:var(--c);font-weight:700}
+.q9-next{width:100%;height:50px;border-radius:12px;border:2px solid #000;background:linear-gradient(180deg,#ffe066,#ffb800);color:#1c1204;font:700 25px/1 var(--display);letter-spacing:.05em;padding-top:4px;cursor:pointer;box-shadow:0 4px 0 #8a5a00}
+.q9-next:active{transform:translateY(3px);box-shadow:0 1px 0 #8a5a00}
+.q9-ghost{height:50px;border-radius:12px;border:2px solid #2b3a4f;background:transparent;color:#c9d4e2;font:700 23px/1 var(--display);letter-spacing:.05em;padding:4px 22px 0;cursor:pointer}
+
+/* full time */
+.q9-full{max-width:680px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);gap:14px;text-align:center}
+.q9-ft{font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:#ffcb2e}
+.q9-full h1{margin:0;font:700 clamp(54px,11vw,86px)/.9 var(--display);text-shadow:0 4px 0 #000}
+.q9-word{margin:-6px 0 0;color:#b7c4d3;font-size:16px}
+.q9-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.q9-stats div{padding:12px 8px;border-radius:14px;border:1px solid #223042;background:#0d141d}
+.q9-stats b{display:block;font:700 30px/1 var(--display);padding-top:3px;color:#fff}
+.q9-stats small{font-size:12px;color:#8a99ab}
+.q9-cr{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;padding:12px;border-radius:14px;border:2px solid #b98a12;background:linear-gradient(160deg,#3a2b07,#1a1405);font:700 30px/1 var(--display);color:#ffe28a}
+.q9-cr small{width:100%;font:500 13px var(--body);color:#c9b178}
+.q9-cr.k{border-color:#2b3a4f;background:#0d141d;color:#fff;font-size:24px}.q9-cr.k small{color:#8a99ab}
+.q9-rows{display:grid;gap:6px;text-align:left}
+.q9-row{display:grid;grid-template-columns:24px 1fr auto auto;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;border-left:4px solid var(--c);background:#0d141d}
+.q9-row i{font-style:normal;font:700 18px/1 var(--display);color:#8a99ab;padding-top:2px}
+.q9-row span{font-size:13px;color:#93a3b6;min-width:0}
+.q9-row b{font-weight:700;font-size:15px;text-align:right}
+.q9-row em{font-style:normal;font:700 16px/1 var(--display);color:var(--c);padding-top:2px;min-width:78px;text-align:right}
+.q9-btns{display:grid;grid-template-columns:1fr auto;gap:10px}
+
+/* 1v1 */
+.q9-sec{font:700 13px/1 var(--body);letter-spacing:.2em;text-transform:uppercase;color:#8a99ab;margin:2px 0 -8px;display:flex;align-items:center;gap:10px}
+.q9-sec::after{content:"";flex:1;height:1px;background:#223042}
+.q9-mode.vs{border-color:#2a4f8f;background:linear-gradient(160deg,#122340,#0b1424)}
+.q9-mode.vs small{color:#7fb0ff}.q9-mode.vs b{color:#cfe0ff}
+.q9-mode.vs:hover{border-color:#7fb0ff;box-shadow:0 8px 28px rgba(77,141,255,.22)}
+.q9-mode.pty{border-color:#5a3a8f;background:linear-gradient(160deg,#211640,#120c24)}
+.q9-mode.pty small{color:#c3a2ff}.q9-mode.pty b{color:#e4d6ff}.q9-mode.pty:hover{border-color:#c3a2ff;box-shadow:0 8px 28px rgba(160,110,255,.22)}
+.q9.vsm .q9-dots{flex-direction:column;align-items:center;gap:3px}
+.q9-dr{display:flex;align-items:center;gap:5px}
+.q9-dr span{font:600 12px/1 var(--body);color:#c9d4e2;width:92px;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.q9-dr i{width:11px;height:11px}
+.q9-dr.op span{color:#ff9aa8}
+.q9-pts b i{font-style:normal;color:#8a99ab;margin:0 4px}
+.q9-opp{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:0 0 10px;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.04);border-left:3px solid var(--c)}
+.q9-opp small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#ff9aa8}
+.q9-opp b{font-weight:700}.q9-opp b.w{color:#8a99ab;font-weight:600;font-style:italic}
+.q9-opp span{font:700 16px/1 var(--display);color:var(--c);padding-top:2px}
+.q9-find{max-width:520px;margin:0 auto;min-height:60vh;display:grid;place-content:center;justify-items:center;gap:12px;text-align:center}
+.q9-find h2{margin:0;font:700 clamp(32px,6vw,46px)/1 var(--display);letter-spacing:.04em;text-transform:uppercase}
+.q9-find p{margin:0;color:#a9b6c6}
+.q9-qt{font:600 22px var(--mono);color:#ffcb2e}
+.q9-radar{position:relative;width:140px;height:140px;display:grid;place-items:center}
+.q9-radar i{position:absolute;inset:0;border-radius:50%;border:2px solid #4d8dff;opacity:0;animation:q9Rad 2.4s ease-out infinite}
+.q9-radar i:nth-child(2){animation-delay:.8s}.q9-radar i:nth-child(3){animation-delay:1.6s}
+.q9-radar.slow i{border-color:#ffcb2e;animation-duration:3.6s}
+@keyframes q9Rad{0%{transform:scale(.3);opacity:.9}100%{transform:scale(1);opacity:0}}
+.q9-rb{width:58px;height:58px;animation:q9Spin 3s linear infinite}.q9-rb svg{width:100%;height:100%}
+.q9-vs{display:flex;align-items:center;gap:22px;margin:10px 0}
+.q9-vs>div{display:grid;justify-items:center;gap:8px;min-width:120px}
+.q9-vs>div i{width:64px;height:64px;padding:8px;border-radius:50%;border:3px solid #4d8dff;background:#0b1424;box-shadow:0 0 22px rgba(77,141,255,.45);animation:q9VsIn .5s cubic-bezier(.2,1.5,.4,1) both}
+.q9-vs>div.op i{border-color:#ff5f7a;box-shadow:0 0 22px rgba(255,95,122,.45)}
+.q9-vs>div i svg{width:100%;height:100%}
+.q9-vs b{font:700 26px/1 var(--display);max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.q9-vs em{font:700 46px/1 var(--display);font-style:normal;color:#ffcb2e;text-shadow:0 3px 0 #000;animation:q9VsIn .5s .25s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes q9VsIn{from{transform:scale(.2);opacity:0}}
+.q9-full h1.q9-w{color:#7dffa0}.q9-full h1.q9-l{color:#ff8a8a}
+.q9-score{display:flex;justify-content:center;align-items:center;gap:18px}
+.q9-score>div{display:grid;gap:2px;min-width:110px;padding:10px 12px;border-radius:14px;border:1px solid #223042;background:#0d141d}
+.q9-score>div:first-child{border-color:#2a4f8f}.q9-score>div:last-child{border-color:#6a2a3a}
+.q9-score small{font-size:12px;color:#a9b6c6;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:150px}
+.q9-score b{font:700 56px/.9 var(--display);padding-top:4px}
+.q9-score span{font-size:13px;color:#8a99ab}
+.q9-score em{font:700 40px/1 var(--display);font-style:normal;color:#8a99ab}
+.q9-tab{overflow-x:auto;border:1px solid #223042;border-radius:14px;background:#0b121b}
+.q9-tab table{width:100%;border-collapse:collapse;text-align:left;font-size:14px}
+.q9-tab thead th{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8a99ab;padding:8px 10px;border-bottom:1px solid #223042}
+.q9-tab tbody th{font:700 16px/1.1 var(--display);color:#8a99ab;padding:8px 10px;vertical-align:top;width:34%}
+.q9-tab tbody th span{display:block;font:500 12px/1.25 var(--body);color:#7f8ea0;margin-top:2px}
+.q9-tab td{padding:8px 10px;border-left:3px solid var(--c);vertical-align:top}
+.q9-tab td b{display:block;font-weight:700}.q9-tab td small{font:700 14px/1 var(--display);color:var(--c)}
+.q9-tab tr+tr th,.q9-tab tr+tr td{border-top:1px solid #1a2433}
+.q9-pty{max-width:560px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);gap:14px;padding-top:10px}
+.q9-pty h2{margin:0;font:700 40px/1 var(--display);letter-spacing:.03em}
+.q9-pty p{margin:0;color:#a9b6c6}
+.q9-pj{display:grid;gap:10px}
+.q9-code{font:700 20px var(--mono);color:#ffcb2e;letter-spacing:.12em}
+.q9-dim{color:#7f8ea0!important;font-style:italic}
+.q9-plist{display:grid;gap:8px}
+.q9-pm{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;border:1px solid #2b3a4f;background:#0d141d}
+.q9-pm i{width:28px;height:28px}.q9-pm i svg{width:100%;height:100%}
+.q9-pm b{flex:1;font-size:17px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.q9-pm span{color:#8a99ab;font-size:13px}
+.q9-go.sm,.q9-ghost.sm{height:38px;font-size:20px;padding:3px 14px 0;box-shadow:none}
+.q9-go.sm{box-shadow:0 3px 0 #8a5a00}
+.q9-go:disabled{filter:grayscale(1);opacity:.5;cursor:not-allowed}
+.q9-iv{position:fixed;left:50%;top:max(12px,env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:135;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:16px;border:2px solid #ffcb2e;background:linear-gradient(160deg,#1c2a3f,#0b121b);box-shadow:0 12px 40px rgba(0,0,0,.6);color:#fff;font-family:var(--body);animation:q9IvIn .4s cubic-bezier(.2,1.5,.4,1);max-width:calc(100vw - 20px)}
+.q9-iv>i{width:34px;height:34px;flex:none;animation:q9Spin 3s linear infinite}.q9-iv>i svg{width:100%;height:100%}
+.q9-iv div{display:grid;min-width:0}.q9-iv small{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#ffcb2e}
+.q9-iv b{font-size:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@keyframes q9IvIn{from{transform:translate(-50%,-30px);opacity:0}}
+@media (max-width:620px){
+  .q9-dr span{width:58px;font-size:11px}.q9-dr i{width:9px;height:9px}.q9.vsm .q9-dots{gap:4px}
+  .q9-score b{font-size:44px}.q9-score>div{min-width:0}
+  .q9-vs{gap:12px}.q9-vs>div{min-width:0}.q9-vs b{font-size:21px;max-width:120px}
+}
+@media (max-width:620px){
+  .q9-ban b{font-size:34px}.q9-ban em{font-size:18px}.q9-ban small{font-size:14px}.q9-ban{top:52%}
+  .q9-brand b{font-size:21px}.q9-brand small{display:none}.q9-brand i{display:none}
+  .q9:not(.menu) .q9-brand{display:none}.q9-top{gap:8px}
+  .q9-dots{gap:5px}.q9-dots i{width:11px;height:11px}
+  .q9-modes{grid-template-columns:1fr}
+  .q9-lr{grid-template-columns:12px 1fr auto 40px;gap:8px}.q9-lr em{display:none}.q9-lr b{font-size:19px}
+  .q9-ask input{height:50px;font-size:18px}.q9-go{height:50px;font-size:23px;padding:0 16px;padding-top:3px}
+  .q9-row{grid-template-columns:20px 1fr auto}.q9-row em{display:none}
+  .q9-stats b{font-size:24px}
+}
+/* short, wide screens (phones on their side): the pitch beside the question */
+@media (max-height:520px) and (min-width:640px){
+  .q9-top{padding-top:6px;padding-bottom:6px}
+  .q9-main{padding-top:8px}
+  .q9-play{max-width:none;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:start}
+  .q9-sc{width:100%}
+  .q9-card{padding:8px 12px 10px}.q9-card h2{font-size:24px}.q9-card p{margin-bottom:6px}
+  .q9-hero p{display:none}.q9-bigball{display:none}
+  .q9-ban b{font-size:30px}.q9-ban em{font-size:16px}.q9-ban small{font-size:13px}.q9-ban{top:50%}
+}
+@media (prefers-reduced-motion:reduce){.q9-led,.q9-bigball,.q9-kp{animation:none!important}}
+/* Q9-CSS-END */
 /* KING-CSS-BEGIN */
 /* ---------- The King ---------- */
 .gtc[data-s="k1"] .kg-1,.gtc[data-s="k2"] .kg-2,.gtc[data-s="k3"] .kg-3,.gtc[data-s="k3b"] .kg-3b,.gtc[data-s="k4"] .kg-4,.gtc[data-s="k5"] .kg-5,.gtc[data-s="k5b"] .kg-5b,.gtc[data-s="k6"] .kg-6,.gtc[data-s="k7"] .kg-7,.gtc[data-s="m2"] .kg-m2,.gtc[data-s="m3"] .kg-m3,.gtc[data-s="b3"] .kg-b3,.gtc[data-s="b25"] .kg-b25,.gtc[data-s="c1"] .kg-c1,.gtc[data-s="c2"] .kg-c2,.gtc[data-s="c3"] .kg-c3,.gtc[data-s="m25"] .kg-m25,.gtc[data-s="b4"] .kg-b4,.gtc[data-s="k8"] .kg-8{opacity:1;visibility:visible;transition:opacity .8s}
@@ -4864,6 +5122,22 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -5460,6 +5734,7 @@ body.pad .pad-focus{outline:4px solid #ffd23f !important;outline-offset:3px;box-
       <button class="icon-btn yard-btn" id="yardBtn" hidden aria-label="Go to the Scrapyard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3M6 6l2.1 2.1M15.9 15.9 18 18M6 18l2.1-2.1M15.9 8.1 18 6"/></svg></button>
       <button class="icon-btn msi-btn" id="msiBtn" hidden aria-label="Go to Messi’s place"><span>10</span></button>
       <button class="icon-btn adm-btn" id="admBtn" hidden aria-label="Admin panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7l5 5-5 5M12 18h7"/></svg></button>
+      <button class="icon-btn q9-btn" id="q9Btn" aria-label="One in a 90: football quiz" title="One in a 90"><svg viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="#f7f9fc" stroke="currentColor" stroke-width="1.3"/><path d="M0 -4.3 L4.1 -1.3 L2.5 3.5 L-2.5 3.5 L-4.1 -1.3 Z" fill="#1b2230"/><path d="M0 -4.3 V-9.9 M4.1 -1.3 L9.4 -3.1 M2.5 3.5 L5.8 8 M-2.5 3.5 L-5.8 8 M-4.1 -1.3 L-9.4 -3.1" stroke="#1b2230" stroke-width="1.1"/></svg></button>
       <button class="icon-btn ar-hbtn" id="arBtn" aria-label="Showdown: 1v1 arena"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l9 9M20 4l-9 9M7 14l-3 3 3 3 3-3M17 14l3 3-3 3-3-3"/></svg>1v1</button>
       <button class="icon-btn" id="muteBtn" aria-label="Mute sound"></button>
       <button class="icon-btn" id="lbBtn" aria-label="Leaderboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 20h8"/></svg></button>
@@ -14583,6 +14858,586 @@ function princeCinematic(r){
     T(92400, finish);
   });
 }
+/* Q9-BEGIN */
+/* ---------- One in a 90: name a rare one, hit it further ----------
+   Krillion, but football. Seven open questions with lots of right answers; type one answer to each.
+   Every accepted answer has a rarity, and the rarity is the shot: a Tap-in rolls 8 metres, a Finesse curls
+   20, a Trivela 35, a Screamer 55, and a One in a 90 goes the full 90 metres into the far net. A wrong answer
+   or no answer is a Missed Shot: 0 metres. Your score is how far your seven shots went, added up.
+   Wrong guesses can be retried until the 30 seconds run out.
+   Daily Match: the same seven questions all day, one go, pays credits. Kickabout: random questions, practice. */
+const Q9_TIERS = [
+  {n:'Tap-in',      m:8,  c:'#a7b2c1', out:'Rolls a few yards', h:0,  dur:1100},
+  {n:'Finesse',     m:20, c:'#4d8dff', out:'Curled from the edge of the box', h:16, dur:1050},
+  {n:'Trivela',     m:35, c:'#a46bff', out:'Bent with the outside of the boot', h:34, dur:1150},
+  {n:'Screamer',    m:55, c:'#ff5fd8', out:'Hit like a rocket from distance', h:30, dur:1000},
+  {n:'One in a 90', m:90, c:'#ffcb2e', out:'The full 90 metres, into the far net', h:96, dur:1700}];
+const Q9_MISS = {n:'Missed Shot', m:0, c:'#ff6b6b', out:'Skied off the shin'};
+const Q9_N = 7, Q9_SEC = 30, Q9_CR = m => m * 2;
+const q9Tot = res => res.reduce((a, r) => a + (r && r.m || 0), 0);
+/* The questions. Tiers run common → rare; inside a tier, answers are split by ';' and aliases by '|'
+   (the first one is the name shown). p:1 marks people, so surnames work on their own too.
+   Lists checked: 2026 World Cup (Spain beat Argentina), 2025 Ballon d'Or (Dembélé), 2025/26 champions
+   (Arsenal, Barcelona, Bayern), 2026 Champions League (PSG). */
+const Q9_P = [
+  {id:'wc', q:'Name a country that has won the men’s World Cup', s:'Every winner, 1930 to 2026',
+    t:['Brazil;Argentina;France;Germany|West Germany', 'Italy;Spain', 'England', '', 'Uruguay']},
+  {id:'host', q:'Name a country that has hosted the men’s World Cup', s:'Co-hosts count, 2026 included',
+    t:['Qatar;Russia;Brazil;USA|United States|United States of America|America|US;Germany|West Germany', 'South Africa;France;Mexico;Canada;Japan;South Korea|Korea|Korea Republic;England;Italy;Spain', 'Argentina', 'Uruguay;Chile;Sweden', 'Switzerland']},
+  {id:'euro', q:'Name a country that has won the Euros', s:'European Championship, 1960 to 2024',
+    t:['Spain;Portugal;Italy', 'France;Germany|West Germany', 'Greece;Netherlands|Holland', 'Denmark', 'Czechoslovakia;Soviet Union|USSR|Soviet']},
+  {id:'pl', q:'Name a club that has won the Premier League', s:'Any season since 1992',
+    t:['Manchester City|Man City|City|MCFC;Manchester United|Man United|Man Utd|Man U|United|MUFC', 'Liverpool;Chelsea;Arsenal', 'Leicester City|Leicester', '', 'Blackburn Rovers|Blackburn']},
+  {id:'ucl', q:'Name a club that has won the Champions League', s:'Old European Cup winners count too',
+    t:['Real Madrid|Madrid;Barcelona|Barca;Bayern Munich|Bayern|Bayern Munchen|FC Bayern;Liverpool;Manchester City|Man City',
+       'AC Milan|Milan;Manchester United|Man United|Man Utd;Chelsea;Inter Milan|Inter|Internazionale;Juventus|Juve;Paris Saint-Germain|PSG|Paris SG|Paris',
+       'Ajax;Porto|FC Porto;Borussia Dortmund|Dortmund|BVB;Benfica',
+       'Nottingham Forest|Forest;Celtic;Marseille|Olympique Marseille|OM;Aston Villa|Villa;Feyenoord;PSV Eindhoven|PSV',
+       'Hamburg|Hamburger SV|HSV;Steaua Bucharest|Steaua|FCSB;Red Star Belgrade|Red Star|Crvena Zvezda']},
+  {id:'liga', q:'Name a club that has won La Liga', s:'Spain’s top flight, any season',
+    t:['Real Madrid|Madrid;Barcelona|Barca', 'Atlético Madrid|Atletico|Atleti|Atletico de Madrid', 'Valencia;Sevilla|Seville;Athletic Bilbao|Athletic Club|Bilbao|Athletic', 'Real Sociedad|Sociedad|La Real;Deportivo La Coruña|Deportivo|Depor|La Coruna', 'Real Betis|Betis']},
+  {id:'buli', q:'Name a club that has won the Bundesliga', s:'Germany’s top flight, since 1963',
+    t:['Bayern Munich|Bayern|Bayern Munchen|FC Bayern;Borussia Dortmund|Dortmund|BVB', 'Bayer Leverkusen|Leverkusen;Wolfsburg|VfL Wolfsburg;Stuttgart|VfB Stuttgart',
+       'Werder Bremen|Bremen|Werder;Hamburg|Hamburger SV|HSV;Borussia Mönchengladbach|Gladbach|Monchengladbach|Borussia Monchengladbach;Kaiserslautern|FC Kaiserslautern',
+       'Köln|Cologne|1 FC Koln|1 Koln|Koln', '1860 Munich|1860 Munchen|TSV 1860|1860;Eintracht Braunschweig|Braunschweig;Nürnberg|Nuremberg|Nurnberg|1 FC Nurnberg']},
+  {id:'zlat', q:'Name a club Zlatan Ibrahimović played for', s:'Any club, any spell',
+    t:['Paris Saint-Germain|PSG|Paris SG|Paris;AC Milan|Milan;Manchester United|Man United|Man Utd;Barcelona|Barca', 'Juventus|Juve;Inter Milan|Inter|Internazionale;LA Galaxy|Galaxy|Los Angeles Galaxy', 'Ajax', '', 'Malmö|Malmo FF|Malmö FF']},
+  {id:'cr7', q:'Name a club Cristiano Ronaldo has played for', s:'Senior clubs only',
+    t:['Real Madrid|Madrid;Manchester United|Man United|Man Utd;Al Nassr|Alnassr|Al Nasr', 'Juventus|Juve', '', '', 'Sporting CP|Sporting|Sporting Lisbon|Sporting Lisboa']},
+  {id:'bdo', p:1, q:'Name a man who has won the Ballon d’Or', s:'Any year, 1956 to 2025',
+    t:['Lionel Messi|Messi|Leo Messi;Cristiano Ronaldo|Ronaldo|CR7|Cristiano',
+       'Ronaldinho;Kaká|Kaka;Zinedine Zidane|Zidane|Zizou;Luka Modrić|Modric;Karim Benzema|Benzema;Ronaldo Nazário|R9|Ronaldo Nazario|Ronaldo Phenomeno|Brazilian Ronaldo;Rodri|Rodrigo Hernandez;Ousmane Dembélé|Dembele',
+       'Luís Figo|Figo;Rivaldo;Michael Owen;Andriy Shevchenko|Shevchenko|Sheva;Fabio Cannavaro;Pavel Nedvěd|Nedved;George Weah;Roberto Baggio;Marco van Basten;Johan Cruyff|Cruyff|Cruijff;Michel Platini;Franz Beckenbauer;Gerd Müller;Eusébio|Eusebio;Bobby Charlton;George Best;Lothar Matthäus|Matthaus|Matthaeus;Hristo Stoichkov;Ruud Gullit',
+       'Alfredo Di Stéfano|Di Stefano;Kevin Keegan;Karl-Heinz Rummenigge|Rummenigge;Paolo Rossi;Lev Yashin|Yashin;Denis Law;Jean-Pierre Papin|Papin;Matthias Sammer;Gianni Rivera',
+       'Stanley Matthews;Raymond Kopa;Omar Sívori|Sivori;Josef Masopust;Flórián Albert|Florian Albert;Oleg Blokhin;Allan Simonsen;Igor Belanov;Luis Suárez Miramontes|Suarez Miramontes']},
+  {id:'wc22', q:'Name a team that played at the 2022 World Cup', s:'Qatar 2022, all 32 of them',
+    t:['Argentina;France;Brazil;England;Portugal;Spain;Germany;Morocco;Croatia;Netherlands|Holland',
+       'Belgium;Qatar;USA|United States|America|US;Mexico;Japan;Uruguay;Senegal;Saudi Arabia;Poland;South Korea|Korea|Korea Republic;Denmark;Switzerland',
+       'Canada;Australia;Serbia;Ghana;Cameroon;Wales;Ecuador', 'Iran;Costa Rica', 'Tunisia']},
+  {id:'copa', q:'Name a country that has won the Copa América', s:'Any edition, 1916 to 2024',
+    t:['Argentina;Brazil', 'Uruguay;Chile', 'Colombia', 'Peru;Paraguay', 'Bolivia']},
+  {id:'pos', q:'Name a position or role on the pitch', s:'Any one a player can play',
+    t:['Goalkeeper|Keeper|Goalie|GK;Striker|ST|Forward;Defender|Centre-back|Center back|CB;Midfielder|Central midfielder|CM|Midfield',
+       'Left-back|LB;Right-back|RB;Full-back|Fullback;Winger|Left winger|Right winger|LW|RW;Attacking midfielder|CAM|AM|Number 10;Defensive midfielder|CDM|DM|Holding midfielder;Centre-forward|Center forward|CF|Number 9',
+       'Wing-back|Wingback|LWB|RWB;False nine|False 9;Sweeper;Box-to-box|Box to box midfielder;Playmaker;Second striker|Shadow striker|SS',
+       'Libero;Inside forward;Target man;Poacher;Anchor|Anchorman;Inverted winger;Sweeper keeper',
+       'Regista;Trequartista;Mezzala;Enganche;Volante']},
+  {id:'mu7', p:1, q:'Name a player who wore the No. 7 for Manchester United', s:'Any era',
+    t:['Cristiano Ronaldo|Ronaldo|CR7;David Beckham', 'Eric Cantona;George Best;Mason Mount', 'Edinson Cavani;Alexis Sánchez|Alexis;Ángel Di María|Di Maria;Memphis Depay|Memphis;Michael Owen', 'Antonio Valencia;Bryan Robson', 'Steve Coppell']},
+  {id:'pep', q:'Name a team Pep Guardiola has managed', s:'As head coach',
+    t:['Manchester City|Man City|City;Barcelona|Barca', 'Bayern Munich|Bayern|Bayern Munchen|FC Bayern', '', '', 'Barcelona B|Barca B|Barcelona Atletic']},
+  {id:'wwc', q:'Name a country that has won the Women’s World Cup', s:'1991 to 2023',
+    t:['USA|United States|America|US|USWNT', 'Spain;Germany', 'Japan', '', 'Norway']},
+  {id:'pl26', q:'Name a club from the 2025/26 Premier League', s:'Any of the 20',
+    t:['Arsenal;Chelsea;Liverpool;Manchester City|Man City;Manchester United|Man United|Man Utd;Tottenham Hotspur|Tottenham|Spurs',
+       'Newcastle United|Newcastle;Aston Villa|Villa;West Ham United|West Ham;Everton;Brighton|Brighton and Hove Albion;Crystal Palace|Palace;Nottingham Forest|Forest',
+       'Fulham;Brentford;Bournemouth|AFC Bournemouth;Wolves|Wolverhampton Wanderers|Wolverhampton', 'Leeds United|Leeds;Burnley', 'Sunderland']},
+  {id:'fin', q:'Name a country that has played in a men’s World Cup final', s:'Winners and runners-up, 1930 to 2026',
+    t:['Brazil;Argentina;France;Germany|West Germany', 'Italy;Spain;Croatia;Netherlands|Holland', 'England;Uruguay', 'Sweden', 'Hungary;Czechoslovakia']},
+  {id:'sa', q:'Name a South American national team', s:'The ten CONMEBOL nations',
+    t:['Brazil;Argentina', 'Uruguay;Colombia;Chile', 'Ecuador;Peru;Paraguay', 'Bolivia', 'Venezuela']},
+  {id:'anc', q:'Name a team Carlo Ancelotti has managed', s:'Clubs and countries, as head coach',
+    t:['Real Madrid|Madrid;AC Milan|Milan', 'Chelsea;Bayern Munich|Bayern|FC Bayern;Paris Saint-Germain|PSG|Paris;Brazil', 'Juventus|Juve;Napoli;Everton', 'Parma', 'Reggiana']}];
+
+const q9Norm = s => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/ø/g, 'o').replace(/ß/g, 'ss').replace(/æ/g, 'ae')
+  .replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, ' ').replace(/\b(fc|cf|afc|sc|the)\b/g, ' ').replace(/\s+/g, ' ').trim();
+function q9Lev(a, b){
+  if (Math.abs(a.length - b.length) > 2) return 9;
+  let p = Array.from({length: b.length + 1}, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) { const c = [i]; for (let j = 1; j <= b.length; j++) c[j] = Math.min(p[j] + 1, c[j - 1] + 1, p[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); p = c; }
+  return p[b.length];
+}
+/* every answer once, with all the ways to type it */
+function q9Prep(p){
+  if (p.ans) return p;
+  p.ans = []; p.map = new Map();
+  const put = (k, e, mine) => { if (!k || k.length < 2) return; for (const key of [k, k.replace(/ /g, '')]) { const o = p.map.get(key); if (!o) p.map.set(key, {e, mine}); else if (o.e !== e && !mine && !o.mine) o.clash = true; else if (mine && !o.mine) p.map.set(key, {e, mine}); } };
+  p.t.forEach((row, ti) => row.split(';').filter(Boolean).forEach(a => { const al = a.split('|'), e = {n: al[0], t: ti}; p.ans.push(e); al.forEach(x => put(q9Norm(x), e, true)); }));
+  if (p.p) p.ans.forEach(e => { const w = q9Norm(e.n).split(' '); if (w.length > 1) { put(w.slice(1).join(' '), e, false); put(w[w.length - 1], e, false); } });
+  for (const [k, v] of [...p.map]) if (v.clash) p.map.delete(k);
+  return p;
+}
+function q9Match(p, raw){
+  q9Prep(p); const k = q9Norm(raw); if (k.length < 2) return null;
+  const hit = p.map.get(k) || p.map.get(k.replace(/ /g, '')); if (hit) return hit.e;
+  const c = k.replace(/ /g, ''); let best = null, bd = 9;
+  for (const [key, v] of p.map) { if (key.includes(' ') || key.length < 5) continue; const thr = key.length >= 9 ? 2 : 1, d = q9Lev(c, key); if (d <= thr && d < bd) { bd = d; best = v.e; } }
+  return best;
+}
+
+const Q9S = () => state.q9 || (state.q9 = {d: null, best: 0, plays: 0});
+const q9Day = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+function q9Pick(seed){
+  const r = seed == null ? Math.random : seeded(hash('one-in-a-90:' + seed)), a = Q9_P.map(p => p.id);
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a.slice(0, Q9_N);
+}
+const q9P = id => Q9_P.find(p => p.id === id);
+function q9Today(){ const S = Q9S(), day = q9Day(); if (!S.d || S.d.day !== day) S.d = {day, ids: q9Pick(day), i: 0, res: [], done: false, cr: 0}; return S.d; }
+
+const Q9_BALL = '<circle r="10" fill="#f7f9fc" stroke="#1b2230" stroke-width="1.3"/><path d="M0 -4.3 L4.1 -1.3 L2.5 3.5 L-2.5 3.5 L-4.1 -1.3 Z" fill="#1b2230"/><path d="M0 -4.3 V-9.9 M4.1 -1.3 L9.4 -3.1 M2.5 3.5 L5.8 8 M-2.5 3.5 L-5.8 8 M-4.1 -1.3 L-9.4 -3.1" stroke="#1b2230" stroke-width="1.1"/><path d="M-3.6 -9.3 L0 -9.9 L3.6 -9.3 L2.6 -7.4 L-2.6 -7.4 Z M9.6 -.4 L8.6 3.6 L6.6 4.4 L7.4 -2 Z M-9.6 -.4 L-8.6 3.6 L-6.6 4.4 L-7.4 -2 Z M3.6 8.5 L-3.6 8.5 L-1.8 9.8 L1.8 9.8 Z" fill="#1b2230"/><ellipse cx="-3.4" cy="-5.2" rx="3.2" ry="1.8" fill="#fff" opacity=".7" transform="rotate(-30)"/>';
+const Q9_ICON = '<svg viewBox="-11 -11 22 22" aria-hidden="true">' + Q9_BALL + '</svg>';
+
+/* the pitch from the side: you at the 0 metre mark, the far goal at 90 */
+const Q9_X = m => 26 + m * 3.8, Q9_G = 189;
+function q9Scene(){
+  const R = seeded(90), f = n => (+n).toFixed(1), CC = ['#e8edf3', '#ff4d4d', '#4d8dff', '#ffd23f', '#2a3445', '#f0a43a', '#8a99ab', '#ffffff'];
+  let crowd = ['', '', ''], flashes = '';
+  for (let row = 0; row < 11; row++) { const y = 40 + row * 7.4; for (let x = -12; x < 414; x += 4.6 + R() * 2.2) crowd[Math.floor(R() * 3)] += '<circle cx="' + f(x + R() * 2) + '" cy="' + f(y + R() * 2.4) + '" r="' + f(1.6 + R() * .7) + '" fill="' + CC[Math.floor(R() * CC.length)] + '" opacity="' + f(.42 + R() * .45) + '"/>'; }
+  for (let k = 0; k < 34; k++) flashes += '<circle class="q9-ph" style="animation-delay:' + f(R() * 1.6) + 's" cx="' + f(R() * 400) + '" cy="' + f(40 + R() * 78) + '" r="' + f(1.4 + R() * 1.4) + '" fill="#fff"/>';
+  let stripes = ''; for (let i = 0; i < 10; i++) { const x0 = Q9_X(i * 10 - 5), x1 = Q9_X(i * 10 + 5); stripes += '<path d="M' + f(x0 + 6) + ' 140 L' + f(x1 + 6) + ' 140 L' + f(x1 - 4) + ' 232 L' + f(x0 - 4) + ' 232 Z" fill="' + (i % 2 ? '#2c8a3d' : '#33994a') + '"/>'; }
+  let marks = ''; for (let m = 10; m <= 80; m += 10) { const x = Q9_X(m); marks += '<path d="M' + f(x + 5) + ' 141 L' + f(x - 3) + ' 230" stroke="#f2f6f0" stroke-width=".7" stroke-dasharray="3 4" opacity=".45"/><text x="' + f(x - 2) + '" y="226" font-family="Teko,sans-serif" font-size="11" font-weight="600" fill="#f2f6f0" opacity=".75" text-anchor="middle">' + m + '</text>'; }
+  const gx = Q9_X(90), led = 'ONE IN A 90 · CRATE RUSH · ';
+  return '<svg class="q9-svg" viewBox="0 62 400 168" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><defs>'
+    + '<linearGradient id="q9Sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04070d"/><stop offset="1" stop-color="#141e2e"/></linearGradient>'
+    + '<radialGradient id="q9Fl"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".2" stop-color="#e6f0ff" stop-opacity=".45"/><stop offset="1" stop-color="#e6f0ff" stop-opacity="0"/></radialGradient>'
+    + '<linearGradient id="q9Led" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1a2c"/><stop offset="1" stop-color="#06101c"/></linearGradient>'
+    + '<pattern id="q9Mesh" width="2.6" height="2.6" patternUnits="userSpaceOnUse"><path d="M0 0 L2.6 2.6 M2.6 0 L0 2.6" stroke="#fff" stroke-width=".3" opacity=".6"/></pattern>'
+    + '<radialGradient id="q9Pit" cx=".5" cy=".2" r=".9"><stop offset="0" stop-color="#fff" stop-opacity=".1"/><stop offset="1" stop-color="#000" stop-opacity=".28"/></radialGradient>'
+    + '<radialGradient id="q9Glow"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>'
+    + '</defs><rect x="-60" y="-40" width="520" height="320" fill="url(#q9Sky)"/>'
+    + '<path d="M-20 34 L420 34 L420 130 L-20 130 Z" fill="#101827"/><path d="M-20 26 L420 26 L420 36 L-20 36 Z" fill="#1d2738"/>'
+    + crowd.map((c, i) => '<g class="q9-cg q9-c' + i + '">' + c + '</g>').join('') + '<g class="q9-phs">' + flashes + '</g>'
+    + '<circle cx="40" cy="14" r="80" fill="url(#q9Fl)" opacity=".5"/><circle cx="200" cy="10" r="80" fill="url(#q9Fl)" opacity=".4"/><circle cx="360" cy="14" r="80" fill="url(#q9Fl)" opacity=".5"/>'
+    + '<rect x="-20" y="128" width="440" height="11" fill="url(#q9Led)"/><g class="q9-led"><text x="0" y="137" font-family="Teko,sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#ffcb2e">' + led.repeat(8) + '</text></g>'
+    + '<rect x="-20" y="139" width="440" height="93" fill="#2f9443"/>' + stripes + '<rect x="-20" y="139" width="440" height="93" fill="url(#q9Pit)"/>'
+    + '<g fill="none" stroke="#f2f6f0" stroke-opacity=".8" stroke-width="1"><path d="M-20 141.5 H420"/><path d="M-20 229 H420"/><path d="M' + f(Q9_X(45) + 5) + ' 141.5 L' + f(Q9_X(45) - 3) + ' 229"/><ellipse cx="' + f(Q9_X(45) + 1) + '" cy="185" rx="34" ry="20"/><path d="M' + f(Q9_X(74) + 5) + ' 141.5 L' + f(Q9_X(74) - 4) + ' 229"/></g>'
+    + marks
+    /* the far goal, side-on: post and bar in front, net behind */
+    + '<g class="q9-net"><path d="M' + f(gx) + ' 150 L' + f(gx + 22) + ' 156 L' + f(gx + 24) + ' ' + Q9_G + ' L' + f(gx) + ' ' + Q9_G + ' Z" fill="#0b1410" opacity=".35"/><path d="M' + f(gx) + ' 150 L' + f(gx + 22) + ' 156 L' + f(gx + 24) + ' ' + Q9_G + ' L' + f(gx) + ' ' + Q9_G + ' Z" fill="url(#q9Mesh)"/><path d="M' + f(gx) + ' 150 L' + f(gx + 22) + ' 156 L' + f(gx + 24) + ' ' + Q9_G + '" fill="none" stroke="#dfe7ef" stroke-width=".7" opacity=".8"/></g>'
+    + '<path d="M' + f(gx) + ' ' + Q9_G + ' V149 H' + f(gx + 3) + '" fill="none" stroke="#f4f7fb" stroke-width="2.6" stroke-linejoin="round"/>'
+    + '<text x="' + f(gx + 10) + '" y="226" font-family="Teko,sans-serif" font-size="12" font-weight="700" fill="#ffcb2e" text-anchor="middle">90</text>'
+    + '<circle class="q9-wave" id="q9Wave" r="2" fill="none" stroke="#fff" stroke-width="1.4"/>'
+    + '<g id="q9OPins"></g><g id="q9Pins"></g>'
+    /* you, at the 0 mark */
+    + '<g class="q9-pl" transform="translate(' + f(Q9_X(0) - 9) + ' ' + Q9_G + ')"><ellipse cx="2" cy="0" rx="9" ry="1.8" fill="#000" opacity=".35"/>'
+    +   '<path d="M-2.5 -16 L-4 -1 L-1 -1 L0 -11 Z" fill="#11161e"/><g class="q9-leg"><path d="M1 -16 L2.5 -1 L5.5 -1 L3.5 -16 Z" fill="#11161e"/><path d="M2 -2.6 h5.5 v2.6 h-6 Z" fill="#fff"/><path d="M1.6 -7 h3.4 v3 h-3.4 Z" fill="#ff4d4d"/></g>'
+    +   '<path d="M-4.5 -29 Q0 -31 4.5 -29 L4 -15 L-4 -15 Z" fill="#ff4d4d"/><path d="M-4 -19 h8 v4 h-8 Z" fill="#fff"/><text x="0" y="-21" font-family="Teko,sans-serif" font-size="6" font-weight="700" fill="#fff" text-anchor="middle">9</text>'
+    +   '<path d="M-4 -28 L-8 -21 M4 -28 L8 -22" stroke="#ff4d4d" stroke-width="2.6" stroke-linecap="round"/><circle cx="0" cy="-34" r="4" fill="#c98b5e"/><path d="M-4.1 -34.6 Q-3.6 -38.8 0 -38.6 Q4 -38.6 4.1 -34.6 Q1.5 -36.6 -4.1 -34.6 Z" fill="#20160f"/></g>'
+    + '<ellipse id="q9Sh" cx="' + f(Q9_X(0)) + '" cy="' + Q9_G + '" rx="4.2" ry="1.2" fill="#000" opacity=".4"/>'
+    + '<path id="q9Tr2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0"/><path id="q9Tr" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>'
+    + '<g id="q9B" transform="translate(' + f(Q9_X(0)) + ' ' + (Q9_G - 4.2) + ') scale(.42)"><circle r="17" fill="url(#q9Glow)"/>' + Q9_BALL + '</g>'
+    + '</svg>';
+}
+let q9R = null;
+const q9Re = (el, c) => { el.classList.remove(c); el.getBoundingClientRect(); el.classList.add(c); };
+function q9El(){
+  let el = $('#q9'); if (el) return el;
+  el = document.createElement('div'); el.id = 'q9'; el.className = 'q9'; el.hidden = true;
+  el.innerHTML = '<div class="q9-top"><div class="q9-brand"><i>' + Q9_ICON + '</i><b>ONE IN A <em>90</em></b><small id="q9Mode"></small></div><div class="q9-dots" id="q9Dots"></div><div class="q9-pts" id="q9Pts"></div><button type="button" class="q9-x" id="q9X" aria-label="Close One in a 90">✕</button></div><div class="q9-main" id="q9Main"></div>';
+  document.body.append(el);
+  el.querySelector('#q9X').onclick = () => q9Close();
+  return el;
+}
+function q9Open(){ ac(); const el = q9El(); el.hidden = false; document.body.classList.add('q9-open'); q9Menu(); tone(659.25, .16, 'triangle', .04); tone(987.77, .22, 'triangle', .03, .08); }
+function q9Close(){
+  const R = q9R; if (R) { clearInterval(R.tick); cancelAnimationFrame(R.raf); (R.tm || []).forEach(clearTimeout);
+    /* leaving a Daily Match mid-question gives that question up, so it can't be dodged and played fresh */
+    if (R.daily && R.phase === 'ask') q9Rec(-1, null, 'left', 0);
+    if (R.vs && R.phase !== 'over') { q9VsStop(R); q9Send(R.vs, {k: 'bye', id: R.vs.id}); } }
+  q9R = null; q9MmStop(); clearInterval(q9PtyIv);
+  const el = $('#q9'); if (el) { el.hidden = true; el.className = 'q9'; } document.body.classList.remove('q9-open');
+}
+const q9Ms = () => { const d = new Date(), n = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1); return n - d; };
+const q9Left = () => { const m = Math.ceil(q9Ms() / 60000); return (m >= 60 ? Math.floor(m / 60) + 'h ' : '') + (m % 60) + 'm'; };
+function q9Menu(){
+  if ($('#q9Main')) $('#q9Main').scrollTop = 0;
+  if (q9R && q9R.vs && q9R.phase !== 'over') { q9VsStop(q9R); q9Send(q9R.vs, {k: 'bye', id: q9R.vs.id}); }
+  q9R = null; q9MmStop(); clearInterval(q9PtyIv);
+  const el = q9El(), d = q9Today(), S = Q9S(); el.className = 'q9 menu';
+  $('#q9Mode').textContent = ''; $('#q9Dots').innerHTML = ''; $('#q9Pts').textContent = '';
+  const day = new Date().toLocaleDateString('en-GB', {day: 'numeric', month: 'short'});
+  const dm = q9Tot(d.res);
+  const dB = d.done ? 'Played · ' + dm + ' m' : d.i > 0 ? 'Continue · ' + (d.i + 1) + ' / ' + Q9_N : 'Kick off';
+  const dS = d.done ? '+' + fmt(d.cr) + ' cr · new match in ' + q9Left()
+    : '7 questions, 30 seconds each. One go a day. Pays 2 cr a metre, up to ' + fmt(Q9_CR(630)) + ' cr.';
+  const ph = arP && arP.joined ? arPartyHumans().filter(m => m.pid !== arP.pid).length : 0;
+  $('#q9Main').innerHTML = '<div class="q9-menu"><div class="q9-hero"><div class="q9-bigball">' + Q9_ICON + '</div><h1>ONE IN A <em>90</em></h1>'
+    + '<p>Football questions with loads of right answers. Name one. <b>The rarer your answer, the further your shot goes.</b></p></div>'
+    + '<div class="q9-sec">Play alone</div><div class="q9-modes"><button type="button" class="q9-mode gold' + (d.done ? ' done' : '') + '" id="q9Dly"' + (d.done ? ' disabled' : '') + '><small>Daily Match · ' + day + '</small><b>' + dB + '</b><span>' + dS + '</span></button>'
+    + '<button type="button" class="q9-mode" id="q9Kab"><small>Kickabout</small><b>Play</b><span>Random questions, as many games as you like. Practice only, no credits.' + (S.best ? ' Best: ' + S.best + ' m.' : '') + '</span></button></div>'
+    + '<div class="q9-sec">1v1</div><div class="q9-modes"><button type="button" class="q9-mode vs" id="q9Vs"><small>1v1 · Anyone</small><b>Find an opponent</b><span>Same seven questions for both of you. Furthest total wins. A win pays ' + Q9_WIN + ' cr.' + (S.vw || S.vl ? ' Record: ' + (S.vw || 0) + 'W ' + (S.vd || 0) + 'D ' + (S.vl || 0) + 'L.' : '') + '</span></button>'
+    + '<button type="button" class="q9-mode vs pty" id="q9Pty"><small>1v1 · Your party</small><b>Challenge a friend</b><span>' + (ph ? ph + ' friend' + (ph === 1 ? '' : 's') + ' in your party right now.' : 'Make or join a party, then pick who to play. For bragging rights, no credits.') + '</span></button></div>'
+    + '<div class="q9-lad"><div class="q9-lh">How far it goes</div>' + Q9_TIERS.slice().reverse().map((T, k) => '<div class="q9-lr" style="--c:' + T.c + '"><i></i><b>' + T.n + '</b><em>' + ['Rarest answers', 'Very rare', 'Rare', 'Fairly common', 'The ones everyone says'][k] + '</em><span>' + T.out + '</span><strong>' + T.m + ' m</strong></div>').join('')
+    + '<div class="q9-lr miss"><i></i><b>' + Q9_MISS.n + '</b><em>Wrong or no answer</em><span>' + Q9_MISS.out + '</span><strong>0 m</strong></div></div></div>';
+  if (!d.done) $('#q9Dly').onclick = () => q9Start({daily: true});
+  $('#q9Kab').onclick = () => q9Start({});
+  $('#q9Vs').onclick = q9Find; $('#q9Pty').onclick = q9Party;
+}
+function q9Start(o){
+  o = o || {}; const daily = !!o.daily, d = daily ? q9Today() : null;
+  /* a matched 1v1 keeps its channel open: the answers travel over it */
+  if (!(o.vs && o.vs.kind === 'net')) q9MmStop(); clearInterval(q9PtyIv);
+  q9R = {daily, vs: o.vs || null, ids: daily ? d.ids : o.ids || q9Pick(null), i: daily ? d.i : 0, res: daily ? d.res : [], phase: 'idle', tm: []};
+  if (!daily && !o.vs) Q9S().plays = (Q9S().plays || 0) + 1;
+  const el = q9El(); el.className = 'q9 play' + (o.vs ? ' vsm' : '');
+  $('#q9Mode').textContent = daily ? 'Daily Match' : o.vs ? '1v1' : 'Kickabout';
+  $('#q9Main').innerHTML = '<div class="q9-play"><div class="q9-sc" id="q9Sc">' + q9Scene() + '<div class="q9-gun" id="q9Gun"><small>Distance</small><b id="q9Kmh">0</b><small>m</small></div><div class="q9-ban" id="q9Ban"></div><div class="q9-fl"></div><div class="q9-fx" id="q9Fx"></div></div>'
+    + '<div class="q9-side"><div class="q9-card"><div class="q9-qn" id="q9Qn"></div><h2 id="q9Q"></h2><p id="q9S"></p><div class="q9-tb"><i id="q9Tb"></i></div></div><div class="q9-deck" id="q9Deck"></div></div></div>';
+  [523.25, 659.25, 783.99].forEach((fq, k) => tone(fq, .18, 'triangle', .035, k * .07));
+  if (o.vs && o.vs.kind === 'cpu') q9CpuPlay(q9R);
+  q9Ask();
+}
+function q9Dots(){
+  const R = q9R; if (!R) return;
+  const row = (res, cur) => R.ids.map((id, i) => { const r = res[i]; if (r) return '<i class="' + (r.t >= 0 ? 'g' : 'm') + '" style="--c:' + (r.t >= 0 ? Q9_TIERS[r.t].c : '#5a2a33') + '"></i>'; return '<i class="' + (i === cur ? 'now' : '') + '"></i>'; }).join('');
+  if (R.vs) {
+    const V = R.vs, oc = V.res.filter(Boolean).length;
+    $('#q9Dots').innerHTML = '<div class="q9-dr"><span>You</span>' + row(R.res, R.i) + '</div><div class="q9-dr op"><span>' + esc(V.name) + (V.gone ? ' · left' : '') + '</span>' + row(V.res, V.gone || oc >= Q9_N ? -1 : oc) + '</div>';
+    $('#q9Pts').innerHTML = '<b>' + q9Tot(R.res) + '<i>–</i>' + q9Tot(V.res) + '</b><small>m</small>';
+  } else {
+    $('#q9Dots').innerHTML = row(R.res, R.i);
+    $('#q9Pts').innerHTML = '<b>' + q9Tot(R.res) + '</b><small>m</small>';
+  }
+}
+function q9Ask(){
+  const R = q9R; if (!R) return; const mn = $('#q9Main'); if (mn) mn.scrollTop = 0;
+  if (R.i >= Q9_N) return q9Full();
+  const p = q9Prep(q9P(R.ids[R.i])), el = q9El();
+  R.phase = 'ask'; R.p = p; R.t0 = performance.now(); R.tries = 0; el.classList.remove('roar', 'gold', 'quake', 'kick', 'shot');
+  q9Reset(); q9Dots();
+  $('#q9Qn').innerHTML = 'Question ' + (R.i + 1) + ' of ' + Q9_N + '<span>' + p.ans.length + ' answers on the sheet</span>';
+  $('#q9Q').textContent = p.q; $('#q9S').textContent = p.s;
+  $('#q9Ban').className = 'q9-ban'; $('#q9Ban').innerHTML = ''; $('#q9Kmh').textContent = '0'; $('#q9Gun').className = 'q9-gun';
+  $('#q9Deck').innerHTML = '<form class="q9-ask" id="q9Form" autocomplete="off"><input id="q9In" type="text" maxlength="48" autocomplete="off" autocorrect="off" autocapitalize="words" spellcheck="false" enterkeyhint="go" placeholder="Type your answer…" aria-label="Your answer"><button class="q9-go" type="submit">Shoot</button></form>'
+    + '<div class="q9-hint"><span id="q9Msg">One answer. The rarer it is, the further it goes.</span><button type="button" class="q9-skip" id="q9Skp">Skip</button></div>';
+  const inp = $('#q9In'); inp.oninput = () => inp.classList.remove('bad');
+  $('#q9Form').onsubmit = e => { e.preventDefault(); q9Try(inp.value); };
+  inp.onkeydown = e => e.stopPropagation();
+  $('#q9Skp').onclick = () => { if (q9R && q9R.phase === 'ask') q9Shot(-1, null, 'skip'); };
+  setTimeout(() => { if (q9R && q9R.phase === 'ask' && matchMedia('(pointer:fine)').matches) inp.focus(); }, 60);
+  tone(2900, .14, 'sine', .05); tone(2900, .34, 'sine', .05, .19);
+  const tb = $('#q9Tb'); let lastS = Q9_SEC;
+  clearInterval(R.tick);
+  R.tick = setInterval(() => {
+    if (!q9R || q9R !== R || R.phase !== 'ask') return clearInterval(R.tick);
+    const left = Math.max(0, Q9_SEC - (performance.now() - R.t0) / 1000);
+    tb.style.width = (left / Q9_SEC * 100) + '%'; tb.parentNode.classList.toggle('low', left < 8);
+    tb.parentNode.dataset.s = Math.ceil(left);
+    const s = Math.ceil(left); if (s !== lastS) { lastS = s; if (s <= 5 && s > 0) tone(1250, .05, 'square', .025); }
+    if (left <= 0) q9Shot(-1, null, 'time');
+  }, 100);
+}
+function q9Try(raw){
+  const R = q9R; if (!R || R.phase !== 'ask') return;
+  const v = String(raw || '').trim(), inp = $('#q9In'), msg = $('#q9Msg'); if (!v) { inp.focus(); return; }
+  const e = q9Match(R.p, v);
+  if (!e) {
+    R.tries++; q9Re(inp, 'bad'); tone(150, .16, 'square', .045); tone(120, .2, 'square', .035, .08);
+    msg.className = 'bad'; msg.textContent = '“' + v + '” isn’t on the sheet. Try another.'; inp.select(); return;
+  }
+  q9Shot(e.t, e, 'ok');
+}
+/* on small screens the camera sits closer and follows the ball down the pitch */
+function q9Cam(x, snap, y){
+  const R = q9R, sv = $('.q9-svg'); if (!R || !sv) return;
+  if (snap) R.zoom = sv.clientWidth < 560;
+  if (!R.zoom) { sv.setAttribute('viewBox', '0 62 400 168'); return; }
+  const w = 250, h = 105, want = Math.max(-4, Math.min(404 - w, x - 90));
+  const wy = Math.max(20, Math.min(230 - h, (y == null ? 230 : y + 30) - h * .5 - 20));
+  R.cam = snap || R.cam == null ? want : R.cam + (want - R.cam) * .22;
+  R.camY = snap || R.camY == null ? wy : R.camY + (wy - R.camY) * .18;
+  sv.setAttribute('viewBox', R.cam.toFixed(1) + ' ' + R.camY.toFixed(1) + ' ' + w + ' ' + h);
+}
+function q9Reset(){
+  const b = $('#q9B'); if (!b) return; q9Cam(Q9_X(0), true);
+  b.setAttribute('transform', 'translate(' + Q9_X(0) + ' ' + (Q9_G - 4.2) + ') scale(.42)'); b.style.opacity = 1;
+  const sh = $('#q9Sh'); sh.setAttribute('cx', Q9_X(0)); sh.setAttribute('rx', 4.2); sh.style.opacity = .4;
+  ['q9Tr', 'q9Tr2'].forEach(id => $('#' + id).setAttribute('opacity', 0));
+  $('#q9Wave').classList.remove('on'); $('#q9Fx').innerHTML = '';
+  q9PinsDraw();
+}
+/* a flag where each shot stopped; in a 1v1 the other player's are the red ones */
+function q9PinsDraw(){
+  const R = q9R; if (!R || !$('#q9Pins')) return;
+  const pin = (r, i, op) => { if (!r || r.t < 0) return ''; const T = Q9_TIERS[r.t], x = Q9_X(Math.min(r.m, 92)) - (op ? 0 : 0), h = op ? 9 : 15, y = op ? 205 : Q9_G;
+    return '<g class="q9-pin' + (op ? ' op' : '') + '" transform="translate(' + x.toFixed(1) + ' ' + y + ')"><path d="M0 0 V-' + h + '" stroke="#e8edf3" stroke-width=".8"/><path d="M0 -' + h + ' l' + (op ? 6 : 9) + ' 2.6 l-' + (op ? 6 : 9) + ' 2.6 Z" fill="' + (op ? '#ff5f7a' : T.c) + '"/><text x="' + (op ? 3 : 4) + '" y="-' + (h - 4.4) + '" font-family="Teko,sans-serif" font-size="' + (op ? 4.6 : 5.4) + '" font-weight="700" fill="#0b0f15" text-anchor="middle">' + (i + 1) + '</text></g>'; };
+  $('#q9Pins').innerHTML = R.res.map((r, i) => pin(r, i, false)).join('');
+  $('#q9OPins').innerHTML = R.vs ? R.vs.res.map((r, i) => pin(r, i, true)).join('') : '';
+}
+/* keep the result first, so closing the game mid-shot can't undo it */
+function q9Rec(t, e, why, m){
+  const R = q9R; R.res[R.i] = {p: R.ids[R.i], t, a: e ? e.n : '', m, w: why};
+  if (R.vs) q9Send(R.vs, {k: 'ans', id: R.vs.id, i: R.i, t, a: e ? e.n : '', m});
+  R.i++;
+  if (R.daily) { const d = q9Today(); d.res = R.res; d.i = R.i; } save();
+}
+function q9Shot(tier, e, why){
+  const R = q9R; if (!R || R.phase !== 'ask') return;
+  clearInterval(R.tick); R.phase = 'shot';
+  const T = tier >= 0 ? Q9_TIERS[tier] : null, el = q9El();
+  const m = !T ? 0 : tier === 4 ? 90 : Math.max(3, T.m + Math.round((Math.random() - .5) * 4));
+  q9Rec(tier, e, why, m); q9Dots();
+  const inp = $('#q9In'); if (inp) { inp.disabled = true; inp.blur(); } $('#q9Deck').classList.add('wait');
+  if (e) { const mg = $('#q9Msg'); mg.className = 'ok'; mg.textContent = e.n + '!'; inp.value = e.n; }
+  q9Re(el, 'kick');
+  const go = () => {
+    const pw = tier;
+    tone(78 + Math.max(0, pw) * 8, .16, 'sine', .3 + Math.max(0, pw) * .03); noise(.07, 2200, 500, .18 + Math.max(0, pw) * .05, 'lowpass');
+    const b = $('#q9B'), sh = $('#q9Sh'), tr = $('#q9Tr'), tr2 = $('#q9Tr2'), gun = $('#q9Kmh');
+    const r0 = 4.2, gy = Q9_G - r0, x0 = Q9_X(0), xd = Q9_X(m), t0 = performance.now(), pts = [];
+    const dur = T ? T.dur : 900, h = T ? T.h : 0, into = tier === 4;
+    if (T && pw >= 1) noise(dur / 1000 * .7, 500, 2600, .03 + pw * .015, 'bandpass');
+    if (pw >= 3) sweep(300, 1300, dur / 1000 * .6, 'sawtooth', .014);
+    if (T && pw >= 2) { tr.setAttribute('opacity', .6); tr2.setAttribute('opacity', .55); tr2.setAttribute('stroke', T.c); }
+    let bounced = false;
+    const pos = t => {
+      if (!T) { const u = 1 - Math.pow(1 - t, 2); return [x0 - 6 + 30 * u, gy - 150 * u + 260 * u * u, r0 + 26 * u * u]; }   /* skied off the shin, out of the ground */
+      if (tier === 0) { const u = 1 - Math.pow(1 - t, 2.2); return [x0 + (xd - x0) * u, gy, r0]; }
+      if (into) { const u = t, x = x0 + (Q9_X(91.5) - x0) * u, y = gy + (176 - gy) * u - 4 * h * u * (1 - u); return [x, y, r0]; }
+      const fl = .72, xl = x0 + (xd - x0) * .84;
+      if (t < fl) { const u = t / fl; return [x0 + (xl - x0) * u, gy - 4 * h * u * (1 - u), r0]; }
+      const v = (t - fl) / (1 - fl), q = 1 - Math.pow(1 - v, 2); return [xl + (xd - xl) * q, gy - 4 * h * .16 * v * (1 - v), r0];
+    };
+    const step = now => {
+      if (!q9R || q9R !== R) return;
+      const t = Math.min(1, (now - t0) / dur), [x, y, r] = pos(t);
+      b.setAttribute('transform', 'translate(' + x.toFixed(2) + ' ' + y.toFixed(2) + ') rotate(' + (t * (500 + Math.max(0, pw) * 300)).toFixed(0) + ') scale(' + (r / 10).toFixed(3) + ')');
+      sh.setAttribute('cx', x.toFixed(1)); sh.setAttribute('rx', (r0 * (1 - Math.min(.6, (gy - y) / 160))).toFixed(2)); sh.style.opacity = T ? Math.max(.1, .4 - (gy - y) * .004) : 0;
+      gun.textContent = T ? Math.max(0, Math.round((Math.min(x, Q9_X(90)) - x0) / 3.8)) : 0;
+      if (T && pw >= 2) { pts.push([x, y]); if (pts.length > 9) pts.shift(); const d = 'M' + pts.map(p => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' L'); tr.setAttribute('d', d); tr2.setAttribute('d', d); tr.setAttribute('stroke-width', 1.4); tr2.setAttribute('stroke-width', 3.6); }
+      if (T && tier > 0 && !into && !bounced && t >= .72) { bounced = true; tone(140, .08, 'triangle', .08); }
+      if (T) q9Cam(x, false, y);
+      if (t < 1) R.raf = requestAnimationFrame(step); else q9Land(T, tier, e, why, m, x, y);
+    };
+    R.raf = requestAnimationFrame(step);
+  };
+  R.tm.push(setTimeout(go, 230));
+}
+function q9Land(T, tier, e, why, m, x, y){
+  const R = q9R; if (!R) return;
+  const el = q9El(), b = $('#q9B'), sh = $('#q9Sh'), gun = $('#q9Gun');
+  $('#q9Kmh').textContent = m; gun.classList.add('on'); gun.style.setProperty('--c', T ? T.c : '#ff6b6b');
+  ['q9Tr', 'q9Tr2'].forEach(id => $('#' + id).setAttribute('opacity', 0));
+  if (!T) {
+    b.style.opacity = 0; tone(240, .3, 'sine', .02); noise(1.3, 480, 240, .06, 'bandpass'); sweep(300, 160, 1, 'sine', .025);
+  } else if (tier === 4) {
+    /* the full 90: into the far net */
+    const wv = $('#q9Wave'); wv.setAttribute('cx', x); wv.setAttribute('cy', y); q9Re(wv, 'on'); q9Re(el.querySelector('.q9-net'), 'wob');
+    const t0 = performance.now(), f = now => { if (q9R !== R) return; const t = Math.min(1, (now - t0) / 420); b.setAttribute('transform', 'translate(' + (x + 2 * t).toFixed(2) + ' ' + (y + (Q9_G - 4.2 - y) * t * t).toFixed(2) + ') scale(.42)'); if (t < 1) R.raf = requestAnimationFrame(f); }; R.raf = requestAnimationFrame(f);
+    noise(.35, 3200, 1100, .14, 'bandpass'); noise(2.8, 480, 900, .2, 'bandpass'); noise(2.4, 1100, 1500, .1, 'bandpass'); q9Re(el, 'roar'); q9Re(el, 'gold'); q9Re(el, 'quake');
+    tone(48, 1.4, 'sine', .4); [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((fq, k) => tone(fq, .9, 'triangle', .05, .15 + k * .07));
+    q9Burst(40, ['#ffcb2e', '#fff3b0', '#fff', '#ffa31a']);
+  } else {
+    tone(150, .06, 'triangle', .06);
+    const cheer = tier * .03; if (cheer) { noise(1.4 + tier * .4, 480, 900, cheer, 'bandpass'); q9Re(el, 'roar'); }
+    if (tier >= 3) { q9Burst(18, [T.c, '#fff']); tone(784, .4, 'triangle', .04, .1); tone(1046.5, .5, 'triangle', .035, .18); }
+  }
+  q9PinsDraw();
+  R.tm.push(setTimeout(() => q9Banner(T, tier, why), 200));
+  R.tm.push(setTimeout(() => q9Result(T, tier, e, why, m), 900));
+}
+function q9Burst(n, cols){
+  const fx = $('#q9Fx'); if (!fx) return;
+  let h = ''; for (let k = 0; k < n; k++) { const a = Math.random() * Math.PI * 2, d = 80 + Math.random() * 220; h += '<i style="--x:' + (Math.cos(a) * d).toFixed(0) + 'px;--y:' + (Math.sin(a) * d * .7 - 40).toFixed(0) + 'px;--r:' + (Math.random() * 720 - 360).toFixed(0) + 'deg;background:' + cols[k % cols.length] + ';animation-delay:' + (Math.random() * .12).toFixed(2) + 's"></i>'; }
+  fx.innerHTML = h;
+}
+function q9Banner(T, tier, why){
+  const bn = $('#q9Ban'); if (!bn) return;
+  const top = tier === 4 ? 'Goal!' : !T ? (why === 'time' ? 'Time’s up' : why === 'skip' ? 'Skipped' : 'Wrong') : '';
+  bn.innerHTML = (top ? '<small>' + top + '</small>' : '') + '<b>' + (T || Q9_MISS).n + '</b><em>' + (T ? '+' : '') + (T ? q9R.res[q9R.i - 1].m : 0) + ' m</em>';
+  bn.style.setProperty('--c', T ? T.c : '#ff6b6b'); bn.className = 'q9-ban on t' + tier;
+}
+function q9Result(T, tier, e, why, m){
+  const R = q9R; if (!R) return; R.phase = 'res';
+  const p = R.p, top = [...p.ans].sort((a, b) => b.t - a.t), rare = top.filter(a => !e || a.n !== e.n).slice(0, 2), easy = p.ans.find(a => a.t === 0);
+  const pill = a => '<span class="q9-pill" style="--c:' + Q9_TIERS[a.t].c + '">' + esc(a.n) + ' <small>' + Q9_TIERS[a.t].n + '</small></span>';
+  const last = R.i >= Q9_N;
+  let h = '<div class="q9-res' + (T ? '' : ' miss') + '" style="--c:' + (T ? T.c : '#ff6b6b') + '">';
+  if (T) h += '<div class="q9-rh"><b>' + esc(e.n) + '</b><span>' + T.n + ' · +' + m + ' m</span></div><p>' + T.out + '.</p>';
+  else h += '<div class="q9-rh"><b>' + (why === 'time' ? 'Time’s up' : 'Skipped') + '</b><span>Missed Shot · 0 m</span></div><p>Nothing on the sheet this time.</p>';
+  if (R.vs) h += q9OppLine(R);
+  h += '<div class="q9-also"><small>' + (tier === 4 ? 'Other deep ones' : 'Rarest on the sheet') + '</small>' + rare.map(pill).join('') + (!T && easy && !rare.includes(easy) ? pill(easy) : '') + '</div>';
+  h += '<button type="button" class="q9-next" id="q9Nx">' + (last ? 'Full time ›' : 'Next question ›') + '</button></div>';
+  const dk = $('#q9Deck'); dk.classList.remove('wait'); dk.innerHTML = h;
+  const nx = $('#q9Nx'); nx.onclick = () => q9Ask(); setTimeout(() => { if (q9R === R && R.phase === 'res') nx.focus(); }, 50);
+}
+function q9Full(){
+  const R = q9R; if (!R) return; R.phase = 'full'; clearInterval(R.tick);
+  if (R.vs) return q9VsEnd();
+  const el = q9El(); el.className = 'q9 full'; q9Dots();
+  const tot = q9Tot(R.res), longest = Math.max(0, ...R.res.map(r => r.m || 0)), bestT = Math.max(-1, ...R.res.map(r => r.t)), nets = R.res.filter(r => r.t === 4).length, S = Q9S();
+  let cr = 0, extra = '';
+  if (R.daily) {
+    const d = q9Today(); if (!d.done) { d.done = true; d.cr = cr = Q9_CR(tot); state.bal += cr; save(); setBal(cr); } else cr = d.cr;
+    extra = '<div class="q9-cr"><span class="coin"></span>+' + fmt(cr) + ' cr<small>Next Daily Match in ' + q9Left() + '</small></div>';
+  } else {
+    const nb = tot > (S.best || 0); if (nb) { S.best = tot; save(); }
+    extra = '<div class="q9-cr k">' + (nb && tot ? 'New best kickabout!' : 'Best kickabout: ' + (S.best || 0) + ' m') + '<small>Kickabouts are practice: no credits.</small></div>';
+  }
+  const word = tot >= 400 ? 'Unplayable.' : tot >= 250 ? 'What a performance.' : tot >= 120 ? 'Solid shift.' : 'Rough night out there.';
+  $('#q9Main').scrollTop = 0; $('#q9Main').innerHTML = '<div class="q9-full"><small class="q9-ft">Full time · ' + (R.daily ? 'Daily Match' : 'Kickabout') + '</small><h1>' + tot + ' <em>m</em></h1><p class="q9-word">' + word + ' Seven shots, ' + tot + ' metres between them.</p>'
+    + '<div class="q9-stats"><div><b>' + longest + ' m</b><small>longest shot</small></div><div><b>' + nets + '</b><small>One in a 90' + (nets === 1 ? '' : 's') + '</small></div><div><b style="color:' + (bestT >= 0 ? Q9_TIERS[bestT].c : '#8a99ab') + '">' + (bestT >= 0 ? Q9_TIERS[bestT].n : '—') + '</b><small>best answer</small></div></div>'
+    + extra + '<div class="q9-rows">' + R.res.map((r, i) => { const p = q9P(r.p), T = r.t >= 0 ? Q9_TIERS[r.t] : null; return '<div class="q9-row" style="--c:' + (T ? T.c : '#7a3340') + '"><i>' + (i + 1) + '</i><span>' + esc(p.q) + '</span><b>' + esc(r.a || (r.w === 'time' ? 'Time’s up' : r.w === 'left' ? 'Left the pitch' : 'Skipped')) + '</b><em>' + (T ? T.n : Q9_MISS.n) + ' · ' + (r.m || 0) + ' m</em></div>'; }).join('') + '</div>'
+    + '<div class="q9-btns"><button type="button" class="q9-next" id="q9Again">Play a kickabout</button><button type="button" class="q9-ghost" id="q9Back">Back</button></div></div>';
+  $('#q9Again').onclick = () => q9Start({}); $('#q9Back').onclick = q9Menu;
+  if (tot >= 250) { [523.25, 659.25, 783.99, 1046.5].forEach((f, k) => tone(f, .5, 'triangle', .05, k * .1)); noise(2.4, 480, 900, .1, 'bandpass'); }
+  else { [392, 329.63, 261.63].forEach((f, k) => tone(f, .4, 'triangle', .04, k * .12)); }
+}
+/* ---------- 1v1 ----------
+   Both players get the same seven questions and play at their own pace; each answer is sent to the other
+   side as it happens, so the dots, flags and distance move live. Furthest total wins; One in a 90s break a tie.
+   Anyone: players searching at the same time are paired over a shared channel; if nobody turns up within a
+   few seconds, a computer player takes the other side, the same way Showdown fills its matches.
+   Your party: a challenge goes over the Showdown party channel; the friend accepts or says no. */
+const Q9_WIN = 250, Q9_DRAW = 80;
+let q9Mm = null, q9PtyIv = 0, q9Inv = null, q9Pend = null;
+const q9Me = () => arPid();
+function q9Send(V, d){
+  if (!V) return;
+  if (V.kind === 'party') arPartySend(V.pid, 'q9', d);
+  else if (V.kind === 'net' && q9Mm && q9Mm.ch) q9Mm.ch.send({type: 'broadcast', event: 'm', payload: {f: q9Me(), to: V.pid, d}}).catch(() => {});
+}
+function q9VsStop(R){ if (R && R.vs) (R.vs.tm || []).forEach(clearTimeout); }
+function q9MmStop(keepCh){
+  const M = q9Mm; if (!M) return; clearTimeout(M.to); clearInterval(M.iv); clearTimeout(M.hostTo);
+  if (!keepCh) { q9Mm = null; try { M.ch && sb.removeChannel(M.ch); } catch (e) {} }
+  else { M.searching = false; try { M.ch && M.ch.untrack(); } catch (e) {} }
+}
+/* a computer player's game: an answer every so often, rarer the better they are */
+function q9CpuPlay(R){
+  const V = R.vs, sk = V.sk; let t = 2500;
+  V.tm = R.ids.map((id, i) => { t += 5000 + Math.random() * 17000; const at = t; t += 3000;
+    return setTimeout(() => { if (q9R !== R || V.gone) return;
+      const p = q9Prep(q9P(id)), miss = .03 + .1 * (1 - sk), w = [.32 - .22 * sk, .3, .2 + .1 * sk, .1 + .12 * sk, .04 + .1 * sk];
+      let tier = -1; if (Math.random() >= miss) { tier = pickW(w); while (tier > 0 && !p.ans.some(a => a.t === tier)) tier--; }
+      const a = tier >= 0 ? pickOne(p.ans.filter(x => x.t === tier)) : null;
+      q9Net(V.pid, {k: 'ans', id: V.id, i, t: tier, a: a ? a.n : '', m: tier < 0 ? 0 : tier === 4 ? 90 : Math.max(3, Q9_TIERS[tier].m + Math.round((Math.random() - .5) * 4))});
+    }, at); });
+}
+function q9Net(from, d){
+  if (!d || !d.k) return;
+  const R = q9R, V = R && R.vs;
+  if (d.k === 'ans' || d.k === 'bye') {
+    if (!V || V.id !== d.id || V.pid !== from) return;
+    if (d.k === 'bye') { V.gone = true; if (R.phase !== 'over') toast(V.name + ' left the match.'); }
+    else { V.res[d.i] = {t: d.t >= 0 && d.t <= 4 ? d.t : -1, a: String(d.a || '').slice(0, 48), m: Math.max(0, Math.min(90, +d.m || 0))}; if (R.phase === 'ask' || R.phase === 'res') { tone(d.t >= 2 ? 740 : 330, .08, 'triangle', .03); q9PinsDraw(); } }
+    q9Dots(); if (R.phase === 'wait') q9VsEnd();
+    if (R.phase === 'res') { const o = $('.q9-opp'); if (o && d.i === R.i - 1) o.outerHTML = q9OppLine(R); }
+    return;
+  }
+  /* party challenges */
+  if (d.k === 'inv') { if (!arP || !arP.members.has(from)) return; q9Inv = {from, id: d.id, ids: d.ids, name: String(d.name || 'A friend').slice(0, 18)}; q9InvShow(); return; }
+  if (d.k === 'acc') { if (!q9Pend || q9Pend.id !== d.id || q9Pend.pid !== from) return; const P = q9Pend; q9Pend = null; q9VsGo({kind: 'party', pid: from, id: P.id, name: P.name, res: []}, P.ids); return; }
+  if (d.k === 'dec') { if (!q9Pend || q9Pend.id !== d.id) return; toast(q9Pend.name + ' said not now.'); q9Pend = null; if (q9PtyIv) q9PartyDraw(); return; }
+  /* matchmaking: the earlier searcher offers, the other accepts */
+  if (d.k === 'mm') { const M = q9Mm; if (!M || !M.searching) return; M.searching = false; q9MmStop(true); q9Send({kind: 'net', pid: from}, {k: 'mmok', id: d.id}); q9VsFound({kind: 'net', pid: from, id: d.id, name: String(d.name || 'Player').slice(0, 18), res: []}, d.ids); return; }
+  if (d.k === 'mmok') { const M = q9Mm; if (!M || !M.offer || M.offer.id !== d.id || M.offer.pid !== from) return; const O = M.offer; M.offer = null; q9MmStop(true); q9VsFound({kind: 'net', pid: from, id: O.id, name: O.name, res: []}, O.ids); return; }
+}
+function q9OppLine(R){
+  const o = R.vs.res[R.i - 1], OT = o && o.t >= 0 ? Q9_TIERS[o.t] : null;
+  return '<div class="q9-opp" style="--c:' + (OT ? OT.c : '#7a3340') + '"><small>' + esc(R.vs.name) + '</small>' + (o ? (o.a ? '<b>' + esc(o.a) + '</b><span>' + OT.n + ' · ' + o.m + ' m</span>' : '<b>No answer</b><span>0 m</span>') : '<b class="w">' + (R.vs.gone ? 'Left the match' : 'Still thinking…') + '</b>') + '</div>';
+}
+/* searching: the radar, then a real player if one is searching too, otherwise a computer player */
+function q9Find(){
+  q9R = null; q9MmStop(); const el = q9El(); el.className = 'q9 find';
+  $('#q9Mode').textContent = '1v1'; $('#q9Dots').innerHTML = ''; $('#q9Pts').textContent = '';
+  $('#q9Main').innerHTML = '<div class="q9-find"><div class="q9-radar"><i></i><i></i><i></i><div class="q9-rb">' + Q9_ICON + '</div></div><h2>Finding an opponent</h2><div class="q9-qt" id="q9Qt">0:00</div><p>Same seven questions for both of you. Furthest total wins.</p><button type="button" class="q9-ghost" id="q9Qx">Cancel</button></div>';
+  $('#q9Qx').onclick = q9Menu;
+  const t0 = Date.now(), wait = 6000 + Math.random() * 7000, M = q9Mm = {searching: true, t0, iv: 0, to: 0, offer: null, ch: null};
+  M.iv = setInterval(() => { const q = $('#q9Qt'); if (q) q.textContent = arMMSS((Date.now() - t0) / 1000); }, 250);
+  M.to = setTimeout(() => { if (q9Mm !== M || !M.searching) return; q9MmStop(); q9VsFound({kind: 'cpu', pid: 'cpu', id: Math.random().toString(36).slice(2, 9), name: arBotName(), res: [], sk: .25 + Math.random() * .55}, q9Pick(null)); }, wait);
+  if (typeof sb === 'undefined' || !sb) return;
+  try {
+    const me = q9Me(), ch = sb.channel('q9-mm', {config: {broadcast: {self: false}, presence: {key: me}}}); M.ch = ch;
+    ch.on('broadcast', {event: 'm'}, ({payload}) => { if (payload && payload.to === me) q9Net(payload.f, payload.d); });
+    ch.on('presence', {event: 'sync'}, () => {
+      if (q9Mm !== M || !M.searching || M.offer) return;
+      const st = ch.presenceState(), list = [];
+      Object.keys(st).forEach(k => { const m = st[k] && st[k][0]; if (m && m.pid && m.s) list.push(m); });
+      list.sort((a, b) => a.at - b.at || (a.pid < b.pid ? -1 : 1));
+      const ix = list.findIndex(m => m.pid === me); if (ix < 0 || ix % 2 || !list[ix + 1]) return;
+      const op = list[ix + 1], O = M.offer = {pid: op.pid, name: String(op.name || 'Player').slice(0, 18), id: Math.random().toString(36).slice(2, 9), ids: q9Pick(null)};
+      q9Send({kind: 'net', pid: op.pid}, {k: 'mm', id: O.id, ids: O.ids, name: arMyName()});
+      M.hostTo = setTimeout(() => { if (M.offer === O) M.offer = null; }, 4000);
+    });
+    ch.subscribe(async st => { if (st === 'SUBSCRIBED' && q9Mm === M && M.searching) { try { await ch.track({pid: me, name: arMyName(), at: t0, s: 1}); } catch (e) {} } });
+  } catch (e) {}
+}
+function q9VsFound(V, ids){
+  if (q9R) return; const el = q9El(); el.className = 'q9 find';
+  [523.25, 783.99, 1046.5].forEach((f, i) => tone(f, .3, 'triangle', .05, i * .09));
+  $('#q9Main').innerHTML = '<div class="q9-find"><small class="q9-ft">Opponent found</small><div class="q9-vs"><div><i>' + Q9_ICON + '</i><b>You</b></div><em>VS</em><div class="op"><i>' + Q9_ICON + '</i><b>' + esc(V.name) + '</b></div></div><p>Kick-off in a moment…</p></div>';
+  q9R = {pre: true}; setTimeout(() => { if (q9R && q9R.pre) { q9R = null; q9VsGo(V, ids); } }, 2600);
+}
+function q9VsGo(V, ids){ q9InvHide(); const el = q9El(); if (el.hidden) { el.hidden = false; document.body.classList.add('q9-open'); } V.res = V.res || []; q9R = null; q9Start({vs: V, ids}); }
+/* the end of a 1v1: wait for the other side, then the verdict */
+function q9VsEnd(){
+  const R = q9R; if (!R || !R.vs) return; const V = R.vs, el = q9El();
+  const oc = V.res.filter(Boolean).length;
+  if (oc < Q9_N && !V.gone) {
+    R.phase = 'wait'; el.className = 'q9 full vsm'; q9Dots();
+    $('#q9Main').innerHTML = '<div class="q9-find"><div class="q9-radar slow"><i></i><i></i><i></i><div class="q9-rb">' + Q9_ICON + '</div></div><h2>Waiting for ' + esc(V.name) + '</h2><p>They’re on question ' + Math.min(Q9_N, oc + 1) + ' of ' + Q9_N + '.</p></div>';
+    return;
+  }
+  R.phase = 'over'; q9VsStop(R); el.className = 'q9 full vsm'; q9Dots();
+  const nets = a => a.filter(r => r && r.t === 4).length, mm = q9Tot(R.res), om = q9Tot(V.res), S = Q9S();
+  const res = V.gone && oc < Q9_N ? 1 : mm !== om ? Math.sign(mm - om) : Math.sign(nets(R.res) - nets(V.res));
+  const walk = V.gone && oc < Q9_N;
+  let cr = 0; if (V.kind !== 'party') { cr = res > 0 ? Q9_WIN : res === 0 ? Q9_DRAW : 0; if (res > 0) S.vw = (S.vw || 0) + 1; else if (res < 0) S.vl = (S.vl || 0) + 1; else S.vd = (S.vd || 0) + 1; }
+  if (cr) { state.bal += cr; setBal(cr); } save();
+  const head = res > 0 ? 'You win' : res < 0 ? 'You lose' : 'Draw', why = walk ? V.name + ' left before the end.' : mm === om ? (nets(R.res) === nets(V.res) ? 'Level on distance.' : 'Level on distance, decided on One in a 90s.') : (mm > om ? 'You out-hit them by ' : 'They out-hit you by ') + Math.abs(mm - om) + ' m.';
+  const cell = r => { const T = r && r.t >= 0 ? Q9_TIERS[r.t] : null; return '<td style="--c:' + (T ? T.c : '#7a3340') + '"><b>' + (r ? esc(r.a || (r.w === 'time' ? 'Time’s up' : r.w === 'left' ? 'Left' : r.a === '' && r.w ? 'Skipped' : 'No answer')) : '—') + '</b><small>' + (T ? T.n : Q9_MISS.n) + ' · ' + (r ? r.m || 0 : 0) + ' m</small></td>'; };
+  $('#q9Main').scrollTop = 0; $('#q9Main').innerHTML = '<div class="q9-full"><small class="q9-ft">Full time · 1v1' + (V.kind === 'party' ? ' · party' : '') + '</small><h1 class="' + (res > 0 ? 'q9-w' : res < 0 ? 'q9-l' : '') + '">' + head + '</h1>'
+    + '<div class="q9-score"><div><small>You</small><b>' + mm + '</b><span>metres</span></div><em>–</em><div><small>' + esc(V.name) + '</small><b>' + om + '</b><span>metres</span></div></div>'
+    + (why ? '<p class="q9-word">' + esc(why) + '</p>' : '')
+    + (V.kind === 'party' ? '<div class="q9-cr k">Party match<small>Party 1v1s are for bragging rights: no credits.</small></div>' : '<div class="q9-cr' + (cr ? '' : ' k') + '">' + (cr ? '<span class="coin"></span>+' + fmt(cr) + ' cr' : 'No credits this time') + '<small>Record: ' + (S.vw || 0) + 'W ' + (S.vd || 0) + 'D ' + (S.vl || 0) + 'L</small></div>')
+    + '<div class="q9-tab"><table><thead><tr><th></th><th>You</th><th>' + esc(V.name) + '</th></tr></thead><tbody>' + R.ids.map((id, i) => '<tr><th title="' + esc(q9P(id).q) + '">' + (i + 1) + '<span>' + esc(q9P(id).q.replace(/^Name an? /, '')) + '</span></th>' + cell(R.res[i]) + cell(V.res[i]) + '</tr>').join('') + '</tbody></table></div>'
+    + '<div class="q9-btns"><button type="button" class="q9-next" id="q9Again">' + (V.kind === 'party' ? 'Challenge again' : 'Find another') + '</button><button type="button" class="q9-ghost" id="q9Back">Back</button></div></div>';
+  $('#q9Again').onclick = () => V.kind === 'party' ? q9Party() : q9Find(); $('#q9Back').onclick = q9Menu;
+  if (res > 0) { [523.25, 659.25, 783.99, 1046.5].forEach((f, k) => tone(f, .5, 'triangle', .05, k * .1)); noise(2.4, 480, 900, .1, 'bandpass'); }
+  else [392, 329.63, 261.63].forEach((f, k) => tone(f, .4, 'triangle', .04, k * .12));
+}
+/* the party screen: make or join a party, then challenge someone in it */
+function q9Party(){
+  q9R = null; q9MmStop(); clearInterval(q9PtyIv);
+  const el = q9El(); el.className = 'q9 find'; $('#q9Mode').textContent = '1v1 · Party'; $('#q9Dots').innerHTML = ''; $('#q9Pts').textContent = '';
+  q9PartyDraw(); q9PtyIv = setInterval(() => { if ($('#q9').hidden || !$('.q9-pty')) return clearInterval(q9PtyIv); const k = q9PtyKey(); if (k !== q9Party.k) q9PartyDraw(); }, 800);
+}
+const q9PtyKey = () => (arP ? arP.code + (arP.joined ? '+' : '-') + arPartyHumans().map(m => m.pid + (m.busy ? 'b' : '')).join(',') : 'none') + '|' + (q9Pend ? q9Pend.pid : '');
+function q9PartyDraw(){
+  q9Party.k = q9PtyKey();
+  const P = arP, on = P && P.joined, others = on ? arPartyHumans().filter(m => m.pid !== P.pid) : [];
+  let h = '<div class="q9-pty"><h2>Challenge your party</h2>';
+  if (typeof sb === 'undefined' || !sb) h += '<p>Parties need the account server, and it isn’t reachable right now. Check your connection and try again.</p>';
+  else if (!P) h += '<p>You’re not in a party. Make one and send your friend the code, or type theirs. It’s the same party as Showdown.</p><div class="q9-pj"><button type="button" class="q9-next" id="q9Mk">Make a party</button><form id="q9Jf" class="q9-ask"><input id="q9Code" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Party code"><button class="q9-go" type="submit">Join</button></form></div>';
+  else if (!on) h += '<p>Joining party ' + esc(P.code) + '…</p>';
+  else {
+    h += '<p>Party code <b class="q9-code">' + esc(P.code) + '</b> · send it to a friend so they can join.</p>';
+    h += others.length ? '<div class="q9-plist">' + others.map(m => '<div class="q9-pm"><i>' + Q9_ICON + '</i><b>' + esc(m.name) + '</b>' + (q9Pend && q9Pend.pid === m.pid ? '<span>Waiting for an answer…</span><button type="button" class="q9-ghost sm" data-cx="1">Cancel</button>' : m.busy ? '<span>In a Showdown match</span>' : '<button type="button" class="q9-go sm" data-ch="' + esc(m.pid) + '">Challenge</button>') + '</div>').join('') + '</div>'
+      : '<p class="q9-dim">Nobody else is in your party yet. When a friend joins with the code, they’ll show up here.</p>';
+    h += '<button type="button" class="q9-skip" id="q9Lv">Leave party</button>';
+  }
+  h += '<button type="button" class="q9-ghost" id="q9Back2">Back</button></div>';
+  $('#q9Main').innerHTML = h;
+  $('#q9Back2').onclick = q9Menu;
+  const mk = $('#q9Mk'); if (mk) mk.onclick = () => arPartyJoin(arPartyCode(), true).then(q9PartyDraw);
+  const jf = $('#q9Jf'); if (jf) { const ci = $('#q9Code'); ci.onkeydown = e => e.stopPropagation(); jf.onsubmit = e => { e.preventDefault(); arPartyJoin(ci.value, false).then(q9PartyDraw); }; }
+  const lv = $('#q9Lv'); if (lv) lv.onclick = () => arPartyLeave(false).then(q9PartyDraw);
+  $('#q9Main').querySelectorAll('[data-ch]').forEach(b => b.onclick = () => {
+    const m = arP && arP.members.get(b.dataset.ch); if (!m) return;
+    q9Pend = {pid: m.pid, name: String(m.name).slice(0, 18), id: Math.random().toString(36).slice(2, 9), ids: q9Pick(null)};
+    arPartySend(m.pid, 'q9', {k: 'inv', id: q9Pend.id, ids: q9Pend.ids, name: arMyName()}); tone(784, .1, 'triangle', .04); q9PartyDraw();
+    const P = q9Pend; setTimeout(() => { if (q9Pend === P) { q9Pend = null; toast(P.name + ' didn’t answer.'); if ($('.q9-pty')) q9PartyDraw(); } }, 30000);
+  });
+  $('#q9Main').querySelectorAll('[data-cx]').forEach(b => b.onclick = () => { if (q9Pend) arPartySend(q9Pend.pid, 'q9', {k: 'dec', id: q9Pend.id}); q9Pend = null; q9PartyDraw(); });
+}
+/* an incoming challenge: shown on top of whatever you're doing */
+function q9InvShow(){
+  const I = q9Inv; if (!I) return; let b = $('#q9Iv');
+  if (!b) { b = document.createElement('div'); b.id = 'q9Iv'; b.className = 'q9-iv'; document.body.append(b); }
+  b.innerHTML = '<i>' + Q9_ICON + '</i><div><small>One in a 90 · 1v1</small><b>' + esc(I.name) + ' challenges you</b></div><button type="button" class="q9-go sm" id="q9IvY">Play</button><button type="button" class="q9-ghost sm" id="q9IvN">Not now</button>';
+  b.hidden = false; tone(784, .12, 'triangle', .05); tone(1046.5, .18, 'triangle', .05, .1);
+  const busyNow = (q9R && (q9R.phase === 'ask' || q9R.phase === 'shot' || q9R.pre)) || AR;
+  $('#q9IvY').disabled = !!busyNow; if (busyNow) $('#q9IvY').title = 'Finish what you’re playing first';
+  $('#q9IvY').onclick = () => { const J = q9Inv; if (!J) return; q9Inv = null; arPartySend(J.from, 'q9', {k: 'acc', id: J.id}); if (q9R && q9R.vs && q9R.phase !== 'over') q9Send(q9R.vs, {k: 'bye', id: q9R.vs.id}); q9R = null; q9VsGo({kind: 'party', pid: J.from, id: J.id, name: J.name, res: []}, J.ids); };
+  $('#q9IvN').onclick = () => { const J = q9Inv; q9Inv = null; if (J) arPartySend(J.from, 'q9', {k: 'dec', id: J.id}); q9InvHide(); };
+  clearTimeout(q9InvShow.t); q9InvShow.t = setTimeout(() => { if (q9Inv === I) { q9Inv = null; q9InvHide(); } }, 30000);
+}
+function q9InvHide(){ const b = $('#q9Iv'); if (b) b.hidden = true; }
+document.addEventListener('keydown', e => { const el = $('#q9'); if (!el || el.hidden) return; if (e.key === 'Escape') { e.stopImmediatePropagation(); e.preventDefault(); q9Close(); } }, true);
+$('#q9Btn').onclick = () => { if (busy) return; q9Open(); };
+/* Q9-END */
 /* KING-BEGIN */
 /* ---------- The King: Pelé's film. The Prince was talent and ego. This one is greatness, and then the place past it. ----------
    A boy of nine watches his father cry over the 1950 final and promises him a World Cup; a sock stuffed with rags;
@@ -21658,6 +22513,7 @@ function arPartyMsg(m){
   const d = m.d;
   if (m.t === 'sig') return arPeerSignal(m.f, d);
   if (m.t === 'g') return arNetRecv(m.f, d.t, d.d);
+  if (m.t === 'q9') return typeof q9Net === 'function' && q9Net(m.f, d);
   if (m.f !== P.leader) return;
   if (m.t === 'cfg') { P.cfg = d; const S = arS(); S.mode = d.mode; S.map = d.map; if (!AR && !$('#arMenu').hidden) arMenu(); }
   if (m.t === 'q') { if (!AR) arQueue(d); }
