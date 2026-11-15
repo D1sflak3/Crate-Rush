@@ -5138,6 +5138,8 @@ body.ar-on{overflow:hidden}
 
 
 
+
+
 /* SHOWDOWN v2: modes, maps, teams, settings, bigger phone controls */
 .ar-mtop{flex-wrap:wrap}
 .ar-rmini{display:flex;align-items:center;gap:10px;margin-left:auto;padding:6px 14px 6px 8px;background:#fff;border:3px solid #1b2230;border-radius:16px;box-shadow:0 4px 0 #1b2230}
@@ -14937,7 +14939,37 @@ const Q9_P = [
   {id:'sa', q:'Name a South American national team', s:'The ten CONMEBOL nations',
     t:['Brazil;Argentina', 'Uruguay;Colombia;Chile', 'Ecuador;Peru;Paraguay', 'Bolivia', 'Venezuela']},
   {id:'anc', q:'Name a team Carlo Ancelotti has managed', s:'Clubs and countries, as head coach',
-    t:['Real Madrid|Madrid;AC Milan|Milan', 'Chelsea;Bayern Munich|Bayern|FC Bayern;Paris Saint-Germain|PSG|Paris;Brazil', 'Juventus|Juve;Napoli;Everton', 'Parma', 'Reggiana']}];
+    t:['Real Madrid|Madrid;AC Milan|Milan', 'Chelsea;Bayern Munich|Bayern|FC Bayern;Paris Saint-Germain|PSG|Paris;Brazil', 'Juventus|Juve;Napoli;Everton', 'Parma', 'Reggiana']},
+  /* current players: lists are for the 2025/26 season, the last full season, so they don't go stale mid-way */
+  {id:'cdm', c:1, p:1, q:'Name a current defensive midfielder (CDM)', s:'Playing in the 2025/26 season',
+    t:['Rodri;Declan Rice;Casemiro', 'Aurélien Tchouaméni|Tchouameni;Moisés Caicedo|Caicedo;Joshua Kimmich;Martín Zubimendi|Zubimendi;Bruno Guimarães|Bruno Guimaraes',
+       'Manuel Ugarte;Amadou Onana;Stanislav Lobotka;Sandro Tonali;Aleksandar Pavlović|Pavlovic;Fabinho', 'Morten Hjulmand;Granit Xhaka;Wataru Endo;João Palhinha|Palhinha;Edson Álvarez|Edson Alvarez',
+       'Carlos Baleba;Angelo Stiller;Sofyan Amrabat;André Trindade|Andre Trindade']},
+  {id:'st', c:1, p:1, q:'Name a current Premier League striker', s:'Playing in the 2025/26 season',
+    t:['Erling Haaland;Alexander Isak;Viktor Gyökeres|Gyokeres', 'Ollie Watkins;Benjamin Šeško|Sesko|Benjamin Sesko;Hugo Ekitike;João Pedro|Joao Pedro;Dominic Solanke;Richarlison;Jean-Philippe Mateta',
+       'Chris Wood;Liam Delap;Nick Woltemade;Yoane Wissa;Danny Welbeck;Evanilson;Igor Thiago;Dominic Calvert-Lewin|Calvert Lewin|DCL;Niclas Füllkrug|Fullkrug;Raúl Jiménez|Raul Jimenez',
+       'Jørgen Strand Larsen|Strand Larsen|Jorgen Strand Larsen;Beto;Thierno Barry;Brian Brobbey;Lyle Foster', 'Zian Flemming']},
+  {id:'gk', c:1, p:1, q:'Name a current goalkeeper in Europe’s top five leagues', s:'Premier League, La Liga, Serie A, Bundesliga or Ligue 1, 2025/26',
+    t:['Alisson|Alisson Becker;Thibaut Courtois;Gianluigi Donnarumma;Emiliano Martínez|Emi Martinez|Dibu;David Raya;Marc-André ter Stegen|Ter Stegen',
+       'Jordan Pickford;Mike Maignan;Jan Oblak;Manuel Neuer;Yann Sommer;Gregor Kobel;Joan García|Joan Garcia;Robert Sánchez|Robert Sanchez;Guglielmo Vicario;Nick Pope;Lucas Chevalier',
+       'Bart Verbruggen;Dean Henderson;Senne Lammens;Alex Meret;Unai Simón|Unai Simon;Mile Svilar;Bernd Leno', 'Matz Sels;Wojciech Szczęsny|Szczesny;Kepa Arrizabalaga|Kepa;James Trafford',
+       'Álex Remiro|Alex Remiro;Oliver Baumann;Brice Samba;Marco Carnesecchi']},
+  {id:'rma', c:1, p:1, q:'Name a current Real Madrid player', s:'First-team squad, 2025/26',
+    t:['Kylian Mbappé|Mbappe;Vinícius Júnior|Vinicius|Vini Jr|Vini;Jude Bellingham', 'Federico Valverde|Fede Valverde;Thibaut Courtois;Aurélien Tchouaméni|Tchouameni;Trent Alexander-Arnold|Trent|TAA;Rodrygo;Eduardo Camavinga;Antonio Rüdiger|Rudiger;Arda Güler|Guler;Éder Militão|Militao;Dani Carvajal',
+       'Dean Huijsen;Álvaro Carreras|Alvaro Carreras;Ferland Mendy;David Alaba;Brahim Díaz|Brahim;Franco Mastantuono;Endrick;Dani Ceballos', 'Andriy Lunin;Raúl Asencio|Raul Asencio;Fran García;Gonzalo García', '']},
+  {id:'fcb', c:1, p:1, q:'Name a current Barcelona player', s:'First-team squad, 2025/26',
+    t:['Lamine Yamal|Yamal;Robert Lewandowski|Lewa;Raphinha;Pedri', 'Gavi;Frenkie de Jong;Dani Olmo;Ferran Torres;Marcus Rashford;Jules Koundé|Kounde;Ronald Araújo|Araujo;Pau Cubarsí|Cubarsi;Marc-André ter Stegen|Ter Stegen',
+       'Alejandro Balde;Joan García;Fermín López|Fermin Lopez|Fermin;Eric García;Wojciech Szczęsny|Szczesny;Andreas Christensen', 'Marc Casadó|Casado;Gerard Martín|Gerard Martin;Roony Bardghji', 'Marc Bernal']},
+  {id:'wing', c:1, p:1, q:'Name a current winger', s:'Playing in Europe’s top five leagues, 2025/26',
+    t:['Vinícius Júnior|Vinicius|Vini Jr|Vini;Lamine Yamal|Yamal;Mohamed Salah|Mo Salah;Bukayo Saka;Raphinha',
+       'Ousmane Dembélé|Dembele;Khvicha Kvaratskhelia|Kvara;Rafael Leão|Leao;Nico Williams;Michael Olise;Jérémy Doku|Doku;Rodrygo;Leroy Sané|Sane;Kingsley Coman;Luis Díaz|Luis Diaz;Cody Gakpo;Marcus Rashford;Alejandro Garnacho',
+       'Bryan Mbeumo;Anthony Gordon;Gabriel Martinelli;Bradley Barcola;Désiré Doué|Doue;Mohammed Kudus;Antoine Semenyo;Jarrod Bowen;Noni Madueke;Pedro Neto;Serge Gnabry;Kaoru Mitoma',
+       'Jamie Gittens;Ernest Nuamah;Johan Bakayoko;Dango Ouattara;Crysencio Summerville;Iliman Ndiaye', 'Kamaldeen Sulemana;Yankuba Minteh']},
+  {id:'cb', c:1, p:1, q:'Name a current centre-back', s:'Playing in Europe’s top five leagues, 2025/26',
+    t:['Virgil van Dijk|VVD;William Saliba;Rúben Dias|Ruben Dias;Antonio Rüdiger|Rudiger',
+       'Gabriel Magalhães|Gabriel;Marquinhos;Éder Militão|Militao;Ronald Araújo|Araujo;Pau Cubarsí|Cubarsi;Alessandro Bastoni;Joško Gvardiol|Gvardiol;Dayot Upamecano;Ibrahima Konaté|Konate;Lisandro Martínez|Lisandro;Cristian Romero|Cuti Romero;Micky van de Ven;Dean Huijsen;Marc Guéhi|Guehi;Willian Pacho;Kim Min-jae|Kim;John Stones;Levi Colwill',
+       'Jonathan Tah;Nico Schlotterbeck;Leny Yoro;Matthijs de Ligt;Wesley Fofana;Ezri Konsa;Pau Torres;Riccardo Calafiori;Federico Gatti;Gleison Bremer|Bremer;Jarrad Branthwaite;Murillo;Nikola Milenković|Milenkovic;Maxence Lacroix;Trevoh Chalobah;Dan Burn',
+       'Jan Paul van Hecke;Nathan Collins;Jarell Quansah;Castello Lukeba;Malick Thiaw;Giorgio Scalvini;Sven Botman', 'Leonardo Balerdi;Odilon Kossounou;Jhon Lucumí|Lucumi']}];
 
 const q9Norm = s => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/ø/g, 'o').replace(/ß/g, 'ss').replace(/æ/g, 'ae')
   .replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, ' ').replace(/\b(fc|cf|afc|sc|the)\b/g, ' ').replace(/\s+/g, ' ').trim();
@@ -14961,16 +14993,16 @@ function q9Match(p, raw){
   q9Prep(p); const k = q9Norm(raw); if (k.length < 2) return null;
   const hit = p.map.get(k) || p.map.get(k.replace(/ /g, '')); if (hit) return hit.e;
   const c = k.replace(/ /g, ''); let best = null, bd = 9;
-  for (const [key, v] of p.map) { if (key.includes(' ') || key.length < 5) continue; const thr = key.length >= 9 ? 2 : 1, d = q9Lev(c, key); if (d <= thr && d < bd) { bd = d; best = v.e; } }
+  for (const [key, v] of p.map) { if (key.includes(' ') || key.length < 5) continue; if (key[0] !== c[0]) continue; const thr = key.length >= 11 ? 2 : 1, d = q9Lev(c, key); if (d <= thr && d < bd) { bd = d; best = v.e; } }
   return best;
 }
 
 const Q9S = () => state.q9 || (state.q9 = {d: null, best: 0, plays: 0});
 const q9Day = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
 function q9Pick(seed){
-  const r = seed == null ? Math.random : seeded(hash('one-in-a-90:' + seed)), a = Q9_P.map(p => p.id);
-  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
-  return a.slice(0, Q9_N);
+  const r = seed == null ? Math.random : seeded(hash('one-in-a-90:' + seed)), mix = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const nc = r() < .5 ? 3 : 4, cur = mix(Q9_P.filter(p => p.c).map(p => p.id)).slice(0, nc), old = mix(Q9_P.filter(p => !p.c).map(p => p.id)).slice(0, Q9_N - nc);
+  return mix(cur.concat(old));
 }
 const q9P = id => Q9_P.find(p => p.id === id);
 function q9Today(){ const S = Q9S(), day = q9Day(); if (!S.d || S.d.day !== day) S.d = {day, ids: q9Pick(day), i: 0, res: [], done: false, cr: 0}; return S.d; }
